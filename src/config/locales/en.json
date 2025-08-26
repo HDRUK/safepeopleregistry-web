@@ -227,16 +227,16 @@
     "CUSTODIAN_ADMIN": "Administrator",
     "CUSTODIAN_APPROVER": "Approver",
     "postCustodianUserInviteError": "There was a problem inviting this user. Please contact them directly or contact us at <contactLink></contactLink>",
-    "configurationRules": "Rules",
-    "configurationRulesTitle": "Rules Configuration",
-    "configurationValidationChecks": "Validation Checks",
+    "configurationRules": "Automated flags",
+    "configurationRulesTitle": "Automated flags",
+    "configurationValidationChecks": "Manual checks",
     "configurationWebhooks": "Webhooks",
     "webhookError": "There was a problem with the webhook configuration. Please try again or contact us at <contactLink></contactLink>",
     "configurationIntegrations": "Integrations",
-    "userRulesTitle": "User Rules",
-    "organisationRulesTitle": "Organisation Rules",
-    "updateRulesSuccess": "Rules configuration updated successfully",
-    "updateRulesError": "There was a problem updating your rules configuration. Please try again or contact us at <contactLink></contactLink>",
+    "userRulesTitle": "User: Automated flags",
+    "organisationRulesTitle": "Organisation: Automated flags",
+    "updateRulesSuccess": "Flags configuration updated successfully",
+    "updateRulesError": "There was a problem updating your flags configuration. Please try again or contact us at <contactLink></contactLink>",
     "successButton": "OK",
     "errorButton": "Try Again",
     "datasetName": "Dataset name",
@@ -254,9 +254,9 @@
     "dataUseDescription": "Data description",
     "dataUseDescriptionPlaceholder": "Data description",
     "usersListTitle": "Users",
-    "usersListDescription": "Here, you and your team members can track and manage User validation across all projects. Clicking on a User will show you more information about that User in the linked project.\n\nTo add Users or to perform User validation on a project-by-project basis, go to the Projects tab above, select a project, and then select the Safe People subtab for that project.",
+    "usersListDescription": "Here, you and your team members can track and manage User validation across all projects. Clicking on a User will show you more information about that User in the linked project.\n\nTo <strong>add Users</strong> or to perform User validation on a project-by-project basis, go to the Projects tab above, select a project, and then select the Safe People subtab for that project.\n\nWhy are we using the term 'User'? In our engagement with Data Custodians, we found that there was no single 'term' that referred to all the types of people who were accessing sensitive data - researchers, scientists, innovators, engineers, and more. Ultimately, the community landed on 'User' as the all-encompassing term.",
     "organisationsListTitle": "Organisations",
-    "organisationsListDescription": "This page enables you and your team members to track and manage Organisation validation across all projects.  Clicking on an Organisation will show you more information and any next steps. You can also drag and drop Organisations between the different status lanes.",
+    "organisationsListDescription": "This page enables you and your team members to track and manage Organisation validation across all projects.  Clicking on an Organisation will show you more information and any next steps. You can also drag and drop Organisations between the different status lanes, when in 'board view'.",
     "noResultsMessage": "No members found",
     "homeTitle": "Your outstanding actions",
     "searchProjectUsersPlaceholder": "Search for User, Project Name, Organisation"
@@ -1462,7 +1462,7 @@
     "alertCancel": "Cancel"
   },
   "ActionValidationPanel": {
-    "title": "Validation Checks",
+    "title": "Manual Checks",
     "updateStatusButton": "Update status"
   },
   "ActionValidationMakeDecision": {
@@ -1571,9 +1571,9 @@
     }
   },
   "ProjectsAddUserModal": {
-    "heading": "Add new team member",
-    "requestHeading": "Request to add new team member",
-    "description": "Add a User to start the validation process. You can add existing Safe People Registry Users by searching below. If they are affiliated with the wrong Organisation, you can request corrected Organisation affiliation during the validation process. If you cannot find your User, you can <button>invite them to create a Safe People Registry account here.</button> ",
+    "heading": "Add new User",
+    "requestHeading": "Request to add a new User",
+    "description": "Add a User to start the validation process. You can add existing Safe People Registry Users by searching below. If they are affiliated with the wrong Organisation, you will need to contact them to add the correct affiliation. If you cannot find your User, you can <button>invite them to create a Safe People Registry account here.</button> ",
     "requestDescription": "Here’s where you can request that a team member us added to this project. If you can't find them or they're listed under the wrong Organisation, invite them here. If they already have a Safe People Registry account, they’ll be able to select the correct Organisation. Otherwise, they'll be prompted to register for a Safe People Registry account."
   },
   "InviteUserModal": {
@@ -1658,11 +1658,11 @@
     },
     "validation_check": {
       "passed": {
-        "title": "Passed validation check",
+        "title": "Passed manual check",
         "description": "{check_description}"
       },
       "failed": {
-        "title": "Failed validation check",
+        "title": "Failed manual check",
         "description": "{check_description}"
       }
     },
@@ -1700,16 +1700,16 @@
     "copied": "Copied"
   },
   "ValidationChecks": {
-    "userChecksTitle": "User validation checks",
-    "organisationChecksTitle": "Organisation validation checks",
-    "updateCheckSuccess": "Successfully updated which validation checks you have enabled",
+    "userChecksTitle": "User Manual: checks",
+    "organisationChecksTitle": "Organisation: Manual checks",
+    "updateCheckSuccess": "Successfully updated which manual checks you have enabled",
     "successButton": "OK",
-    "addUserValidationCheck": "Add validation check",
-    "addOrgValidationCheck": "Add validation check",
-    "userEditTitle": "Edit User validation check",
-    "orgEditTitle": "Edit Organisation validation check",
-    "userAddTitle": "Add User validation check",
-    "orgAddTitle": "Add Organisation validation check"
+    "addUserValidationCheck": "Add manual check",
+    "addOrgValidationCheck": "Add manual check",
+    "userEditTitle": "Edit User manual check",
+    "orgEditTitle": "Edit Organisation manual check",
+    "userAddTitle": "Add User manual check",
+    "orgAddTitle": "Add Organisation manual check"
   },
   "CheckboxItem": {
     "edit": "Edit"
