@@ -34,10 +34,7 @@ export const mockedUserHomeIntro = (
 export const mockedPendingAffiliations = (
   <>
     <Typography mb={2}>
-      Safe People Registry stores records of Users who are research-active
-      working on sensitive data. As an Organisation you can confirm that a Safe
-      People Registry User profile corresponds to an employee or student at your
-      Organisation. This is called affiliating a User.
+      The Safe People Registry stores records of Users who are or have been working with sensitive data. When affiliating a User, your Organisation is responsible for their behaviour when accessing sensitive data.
     </Typography>
     <Typography mb={2}>
       When affiliating a User you are confirming that:
@@ -500,7 +497,7 @@ export const mockedOrganisationProfileGuidance: TabGuidance = {
           <Typography mt={3}>
             Users can create their own Safe People Registry accounts and request
             affiliation. Alternatively, your Organisation can invite Users to
-            create or configure their account for affiliation by selecting{" "}
+            create an account for affiliation by selecting{" "}
             <strong>'Add User'</strong> and following the steps.
           </Typography>
         </>

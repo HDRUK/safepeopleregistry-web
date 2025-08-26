@@ -72,7 +72,7 @@
     "email": "Email",
     "link": "Link",
     "addLink": "Add link",
-    "period": "Period",
+    "period": "Date",
     "cancel": "Cancel",
     "delete": "Delete",
     "edit": "Edit",
@@ -291,8 +291,8 @@
     "userAdministrationTitle": "Users and Delegates",
     "userAdminEmployeeStudents": "Users",
     "manageDelegates": "Manage Delegates",
-    "delegateAdminDescription": "### Organisation administrative Delegates \n\n As a Key Contact for your Organisation, you can invited nominated Delegates from your Organisation to create a Safe People Registry account. A Delegate could be a Human Resources (HR) representative, Information Governance (IG) representative e.g. Data Protection Officer (DPO), Contracts representative or Legal representative.",
-    "delegateAdminDescriptionDelegate": "## Organisation administrative Delegates \n\n As a delegate for your Organisation, you can view all other delegates.",
+    "delegateAdminDescription": "## Delegates \n\n The SRO can invite Delegates to administer the Organisation account. Delegates perform the day-to-day affiliation of Users, as well as invite other Delegates. \n\n A Delegate could be a Human Resources (HR) representative, Information Governance (IG) representative e.g. Data Protection Officer (DPO), Contracts representative or Legal representative. \n\n You can invite Delegate to register for a Safe People Registry account by adding them below.",
+    "delegateAdminDescriptionDelegate": "## Delegates \n\n As a Delegate for your Organisation, you can view all other Delegates.",
     "userAdmin": "Users and Delegates",
     "home": "Home",
     "homeTitle": "Welcome",
@@ -314,7 +314,7 @@
     "putUserError": "There was a problem updating your user details. Please try again or contact us at <contactLink></contactLink>",
     "updateUserButton": "Save",
     "noDelegates": "No Delegates Found",
-    "getDelegateError": "Unable to get the list of delegates",
+    "getDelegateError": "Unable to get the list of Delegates",
     "searchOrganisationUsers": "Search for users",
     "inviteNewUserButton": "Add another user",
     "invitedOn": "Invited on: {date}",
@@ -322,12 +322,12 @@
     "inviteUserDescription": "This is where you can invite a new user to register against you organisation",
     "sendInviteButton": "Send invite",
     "inviteUserError": "This user could not be invited. Please ensure you have not already invited them and try again. Alternatively contact us <contactLink></contactLink>",
-    "inviteDelegateError": "This user could not be invited as a delegate. Please ensure you have not already invited them and try again. Alternatively contact us <contactLink></contactLink>",
+    "inviteDelegateError": "This individual could not be invited as a Delegate. Please ensure you have not already invited them and try again. Alternatively contact us <contactLink></contactLink>",
     "inviteSuccessfulTitle": "User invited",
     "inviteSuccessfulDescription": "The user has been successfully invited and have been notified via email",
     "inviteUserAriaLabel": "Invite user",
     "getError": "Unable to get the list of users. Please try again or contact us at <contactLink></contactLink>",
-    "getDelegatesError": "Unable to get the list of delegates. Please try again or contact us at <contactLink></contactLink>",
+    "getDelegatesError": "Unable to get the list of Delegates. Please try again or contact us at <contactLink></contactLink>",
     "noResults": "There were no researchers found",
     "deleteOrganisationUserError": "Unable to delete this user. Please try again",
     "removeUserWarningDescription": "This is a permanent action and the user will be removed from your organisation. Proceed?",
@@ -599,7 +599,7 @@
     "emailAlreadyExists": "An account already exists with this email",
     "departmentRequiredInvalid": "Department is required",
     "postDelegatesSuccess": "Delegate invited successfully. They should have recieved an email to register",
-    "postDelegatesError": "There was a problem with inviting this delegate. Please try again",
+    "postDelegatesError": "There was a problem with inviting this Delegate. Please try again",
     "inviteUserConflict": "The email for this user has already been invited or already has an account!",
     "roleRequiredInvalid": "Role is required",
     "fromRequiredInvalid": "From date is required",
@@ -1418,8 +1418,8 @@
   },
   "EditDelegate": {
     "title": "Edit",
-    "toolTip": "Edit details for this delegate",
-    "successAlertText": "The delegate has been successfully editted",
+    "toolTip": "Edit details for this Delegate",
+    "successAlertText": "The Delegate has been successfully editted",
     "errorAlertText": "There has been a problem deleting this data. Please try again or contact us at <contactLink></contactLink>"
   },
   "UseUpdateOrganisation": {
@@ -1537,7 +1537,7 @@
     "addSroCompleted": {
       "title": "Add a Senior Responsible Officer (SRO) and Delegates from your Organisation",
       "description": "",
-      "buttonText": "Add SRO/delegates"
+      "buttonText": "Add SRO/Delegates"
     },
     "affiliateEmployeesCompleted": {
       "title": "Affiliate employees or students with your Organisation",
