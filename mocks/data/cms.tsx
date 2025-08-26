@@ -464,21 +464,16 @@ export const mockedOrganisationProfileGuidance: TabGuidance = {
         <>
           <Typography mb={3}>
             The Safe People Registry stores records of Users who are or have been
-            working with sensitive data. These Users can have different roles,
-            such as primary investigators, researchers, data analysts,
-            developers, engineers, and students.
+            working with sensitive data. Why are we using the term 'User'? In our engagement with Organisations, we found that there was no single 'term' that referred to all the types of people who were accessing sensitive data - researchers, scientists, innovators, engineers, students, and more. Ultimately, the community landed on 'User' as the all-encompassing term.
           </Typography>
 
           <Typography mb={3}>
-            As an Organisation, you can confirm that a Safe People Registry User
-            profile corresponds to an employee or student at your Organisation.
-            This is called <strong>affiliating a User</strong>. A User has one
-            Safe People Registry account that remains with them throughout their
-            career and can be affiliated with multiple Organisations.
+            A User has one Safe People Registry account that remains with them throughout their
+            career and can be affiliated with multiple Organisations.  
           </Typography>
 
           <Typography mb={3}>
-            When affiliating a User, your Organisation is responsible for their
+            When <strong>affiliating a User</strong>, your Organisation is responsible for their
             behaviour when accessing sensitive data. By affiliating, you are
             confirming:
           </Typography>
@@ -490,14 +485,14 @@ export const mockedOrganisationProfileGuidance: TabGuidance = {
               Organisation.
             </li>
             <li>
-              The Safe People Registry User profile accurately matches your
+              The Safe People Registry User profile accurately matches that of your
               employee or student.
             </li>
             <li>
               Your Organisation approves the User to access sensitive data.
             </li>
             <li>
-              The User’s organisational email matches their official email
+              The User’s Organisational email matches their official email
               address within your Organisation.
             </li>
           </ul>
