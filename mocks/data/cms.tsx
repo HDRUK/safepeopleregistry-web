@@ -20,10 +20,9 @@ export const mockedProjectsIntro =
 
 export const mockedUserHomeIntro = (
   <>
-    To complete your profile, please find a list of tasks assigned to you below.
-    Before getting started, make sure you have the following ready:
+    Different Data Custodians require different information. We recommend that you fill in your profile as much as possible to accelerate your validation to access sensitive data. To complete your profile, please find a list of tasks assigned to you below.
+    You may find it helpful to have the following ready:
     <ul>
-      <li>A form of ID (e.g. passport or driving licence)</li>
       <li>Your ORCiD</li>
       <li>An up-to-date CV</li>
       <li>Any relevant training certificates or professional member IDs</li>
