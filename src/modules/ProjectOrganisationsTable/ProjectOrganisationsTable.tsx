@@ -44,7 +44,10 @@ export default function ProjectOrganisationsTable({
           renderLinkNameCell(
             info.getValue().organisation.organisation_name,
             routes?.name?.path,
-            {}
+            {
+              projectOrganisationId:
+                info.row.original.project_has_organisation_id,
+            }
           ),
       }),
       createDefaultColumn("projectName", {
