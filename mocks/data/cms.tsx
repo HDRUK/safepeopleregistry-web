@@ -13,7 +13,7 @@ export const mockedBannerContent = () => (
 );
 
 export const mockedOrganisationHomeIntro =
-  "The Organisation account is set up by a SRO (Senior Responsible Officer), who is required to get a declaration signed on behalf of their Organisation and upload this. Safe People Registry contains information about your Users (employees and students) and their work on sensitive data projects. The SRO is responsible for verifying this information. The SRO must have a position of seniority, as they are held accountable for the data.";
+  "You'll see a list of tasks below to complete your profile.<br></br> The Organisation account is set up by a SRO (Senior Responsible Officer), who is required to get a declaration signed on behalf of their Organisation and upload this. The SRO must have a position of seniority, as they are held accountable for the data.<br></br> Please fill in your Organisation's profile, including uploading the SRO declaration. This is checked by HDR UK before full account privileges are granted.";
 
 export const mockedProjectsIntro =
   "The project list below outlines your projects pending approval, including validated Users and Organisations. Clicking on a project will show you more information and next steps.";
@@ -403,34 +403,31 @@ export type ProfileGuidance = Record<string, TabGuidance>;
 export const mockedOrganisationProfileGuidance: TabGuidance = {
   details: {
     "name-and-address": {
-      infoTitle: " Did you know?",
+      infoTitle: "Why are we asking for this information?",
       info: (
         <>
           <Typography mb={5}>
-            Providing Safe People Registry with full Organisation information
+            Providing the Safe People Registry with full Organisation information
             helps Data Custodians validate your Organisation. The more
             information you provide, the faster and easier the validation
-            process becomes for Users (an employee of an Organisation or student
-            of a higher education institution) to gain access to sensitive data.
-          </Typography>
-          <Typography mb={5}>
-            If your Organisation’s headquarters is based in the UK, your legal
-            name and address should align with the listing on Companies House.
+            process becomes for Users (an employee or student of an Organisation) to gain access to sensitive data.
           </Typography>
         </>
       ),
     },
     "digital-identifiers": {
-      infoTitle: " Did you know?",
+      infoTitle: "More information, faster validation",
       info: (
-        <Typography mb={5}>
-          Where applicable, providing Safe People Registry with information on
-          persistent digital identifiers associated with your Organisation
-          enables Data Custodians to verify your Organisation’s Companies House
-          filing, Research Organisation Registry (ROR) identifier and charity
-          registration. This accelerates Organisation validation by Data
-          Custodians.
-        </Typography>
+        <>
+          <Typography mb={5}>
+            Providing the Safe People Registry with your Organisation's
+            persistent digital identifiers enables Data Custodians to rapidly validate your Organisation.
+          </Typography>
+          <Typography mb={5}>
+            If your Organisation’s headquarters is based in the UK, your Organisation legal
+            name and address should align with your Organisation's listing on Companies House.
+          </Typography>
+        </>
       ),
     },
     "sector-size-and-website": {
