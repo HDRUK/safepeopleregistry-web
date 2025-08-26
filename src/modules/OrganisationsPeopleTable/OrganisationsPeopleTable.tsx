@@ -45,7 +45,7 @@ export default function OrganisationsPeopleTable({
       createDefaultColumn("affiliationStatus", {
         accessorKey: "registry.affiliations",
         cell: info => (
-          <ChipStatus status={info.getValue()?.[0]?.registryAffiliationState} />
+          <ChipStatus status={info.getValue()?.[0]?.model_state?.state?.slug} />
         ),
       }),
     ];
