@@ -160,38 +160,31 @@ export const mockedResearcherAffiliationsGuidance = {
   info: (
     <>
       <Typography mb={2}>
-        Through Safe People Registry individuals are affiliated with
-        Organisations (employers or higher education institutions or honorary
-        contracts).
+        In the Safe People Registry, individual Users are affiliated to their Organisation (e.g. employer, university, or honorary contract holder). To request affiliation, you must add or update a current Organisation and verify your professional email address. Your Organisation will then be asked to confirm your affiliation.
       </Typography>
       <Typography mb={2}>
-        If your Organisation is not on Safe People Registry you can ask them to
-        register for an account. Affiliated Organisations that haven’t already
-        confirmed your status will be sent an invite to do so, when you click
-        save. When you click save affiliated organisation will be invited to
-        confirm your status, if they have not already do so.
+        If your Organisation is not yet registered on Safe People Registry, you can invite them to create an account by adding them. 
       </Typography>
       <Typography mb={5}>
-        Being affiliated by an Organisation is especially important for
-        Organisations who are the host for a project you plan to work on.
+        You can monitor your affiliation status here.
       </Typography>
       <Typography variant="h4" mb={2}>
         The statuses
       </Typography>
       <ChipStatus status={Status.AFFILIATED} color="success" sx={{ mb: 2 }} />
       <Typography mb={3} sx={{ fontSize: "14px" }}>
-        You have been affiliated by this Organisation
+        You have been affiliated by this Organisation.
       </Typography>
       <ChipStatus status={Status.PENDING} sx={{ mb: 2 }} />
       <Typography mb={3} sx={{ fontSize: "14px" }}>
         The Organisation has been invited to confirm your affiliation, but has
         not yet done so. Once they have an account they will be automatically
-        asked to confirm your affiliation
+        asked to confirm your affiliation.
       </Typography>
       <ChipStatus status={Status.INVITE_SENT} sx={{ mb: 2 }} />
       <Typography sx={{ fontSize: "14px" }}>
         The Organisation has been invited to set up an account, but has not yet
-        done so
+        done so.
       </Typography>
     </>
   ),
