@@ -156,14 +156,17 @@ export const mockedRegisterGuidanceProps = {
 
 export const mockedResearcherAffiliationsGuidance = {
   infoTitle:
-    "This section relates to you as an employee or student of an Organisation",
+    "How do affiliations work?",
   info: (
     <>
       <Typography mb={2}>
-        In the Safe People Registry, individual Users are affiliated to their Organisation (e.g. employer, university, or honorary contract holder). To request affiliation, you must add or update a current Organisation and verify your professional email address. Your Organisation will then be asked to confirm your affiliation.
+        In the Safe People Registry, individual Users (researchers, innovators) are affiliated to their Organisation (e.g. employer, university, or honorary contract holder). To request affiliation, you must add or update a current Organisation and verify your professional email address. Your Organisation will then be asked to confirm your affiliation.
       </Typography>
       <Typography mb={2}>
         If your Organisation is not yet registered on Safe People Registry, you can invite them to create an account by adding them. 
+      </Typography>
+      <Typography mb={5}>
+        Why are we using the term 'User'? In our engagement with Data Custodians, we found that there was no single 'term' that referred to all the types of people who were accessing sensitive data - researchers, scientists, innovators, engineers, and more. Ultimately, the community landed on 'User' as the all-encompassing term.
       </Typography>
       <Typography mb={5}>
         You can monitor your affiliation status here.
