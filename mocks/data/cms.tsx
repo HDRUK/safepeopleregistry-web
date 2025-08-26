@@ -48,7 +48,7 @@ export const mockedPendingAffiliations = (
         student
       </li>
       <li>
-        The employee / student is an active researcher / data analyst needing to
+        The employee / student is an active researcher/innovator needing to
         work on sensitive data.
       </li>
       <li>
@@ -431,29 +431,27 @@ export const mockedOrganisationProfileGuidance: TabGuidance = {
       ),
     },
     "sector-size-and-website": {
-      infoTitle: " Did you know?",
+      infoTitle: "More facts, quicker access",
       info: (
         <Typography mb={5}>
-          Providing Safe People Registry with information on your Organisation’s
+          Providing the Safe People Registry with information on your Organisation’s
           sector, size and website accelerates Organisation validation by Data
           Custodians.
         </Typography>
       ),
     },
     "security-compliance": {
-      infoTitle: " Did you know?",
+      infoTitle: "Security matters",
       info: (
         <>
           <Typography mb={5}>
-            Providing Safe People Registry with a record of your Organisation’s
-            data security compliance certifications will provide Data Custodians
-            with confidence that an Organisation is compliant with required data
-            security certifications.
+            Data security compliance certifications are commonly (but not always!) required by Data Custodians
+            for Organisation validation.
           </Typography>
           <Typography mb={5}>
             Some Data Custodians require this information even if Users are
             accessing data within Trusted Research Environments (TREs) or Secure
-            Data Environments (SDEs). Text box 2
+            Data Environments (SDEs).
           </Typography>
         </>
       ),
@@ -468,7 +466,7 @@ export const mockedOrganisationProfileGuidance: TabGuidance = {
             The Safe People Registry stores records of Users who are or have been
             working with sensitive data. These Users can have different roles,
             such as primary investigators, researchers, data analysts,
-            developers, and students.
+            developers, engineers, and students.
           </Typography>
 
           <Typography mb={3}>
@@ -583,7 +581,7 @@ designed to facilitate responsible access to sensitive data. Our mission is to e
 researchers, Organisations and Data Custodians to collaborate efficiently while
 maintaining security and compliance.`,
   servingTitle: "## Who We Serve",
-  usersTitle: "Users (e.g. researchers & analysts)",
+  usersTitle: "Users (e.g. researchers, innovators)",
   users: "Easily verify credentials and gain approval for data access.",
   organisationsTitle: "Organisations",
   organisations:

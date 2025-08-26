@@ -32,7 +32,7 @@ export default function KeyFeatures() {
             User and Organisation Registers
           </Typography>
           <Typography variant="body1" color="textSecondary.main">
-            A platform for Users (researchers, analysts, students, others who
+            A platform for Users (researchers, analysts, innovators, students, others who
             access sensitive data) and Organisations to create profiles and
             share relevant information for Data Custodians to assess if a person
             is ‘Safe’.
