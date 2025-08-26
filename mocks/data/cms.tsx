@@ -81,13 +81,11 @@ export const mockedPersonalDetailsGuidanceProps = {
 };
 
 export const mockedUserExperienceGuidanceProps = {
-  infoTitle: "This section relates to your individual research experience",
+  infoTitle: "Why do we need this information?",
   info: (
     <>
       <Typography mb={3}>
-        Through Safe People Registry you can provide Data Custodians with an
-        up-to-date record of your employment history, education, qualifications,
-        and publication record.
+        Sharing an up-to-date record of your employment history, education, qualifications, and publications enables Data Custodians to efficiently assess whether you meet the 'safe people' principle of the [Five Safes Framework](https://ukdataservice.ac.uk/help/secure-lab/what-is-the-five-safes-framework/). 
       </Typography>
       <Typography component="aside">
         <Typography variant="subtitle1" fontWeight={700}>
@@ -95,12 +93,7 @@ export const mockedUserExperienceGuidanceProps = {
         </Typography>
         <ul>
           <li>
-            Only requiring access to NHS SDE Network you <b>do not</b> need to
-            populate this page.
-          </li>
-          <li>
-            Want access to data from any other Data Custodian please do populate
-            this page.
+            If you only need access to the NHS SDE Network, you <b>do not</b> need to complete this page.
           </li>
         </ul>
       </Typography>
