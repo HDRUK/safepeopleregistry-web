@@ -514,45 +514,40 @@ export const mockedOrganisationProfileGuidance: TabGuidance = {
           </Typography>
 
           <Typography mb={3}>
-            <strong>Senior Responsible Officers (SROs)</strong> are accountable
-            for overseeing their Organisation’s Safe People Registry presence.
-            They are responsible for:
+            <strong>Senior Responsible Officers (SROs)</strong> are responsible
+            for:
           </Typography>
 
           <ul style={{ marginBottom: "1rem", paddingLeft: "1.25rem" }}>
             <li>Creating the Organisation’s Safe People Registry account</li>
             <li>
-              Nominating administrative <strong>Delegates</strong> to manage
+              Nominating <strong>Delegates</strong> to administrate
               User affiliations
             </li>
             <li>
               Providing and maintaining accurate information in the
               Organisation’s Safe People Registry profile
             </li>
+            <li>
+              Accepting the Safe People Registry's Terms and Conditions on behalf of the Organisation
+            </li>
           </ul>
 
           <Typography mb={3}>
-            It's essential that your Organisation designates an SRO at the
-            Organisational level. Safe People Registry deals with sensitive data
-            involving your employees or students, so senior-level accountability
-            and visibility are critical.
+            It's essential for your Organisation to designate an SRO. The Safe People Registry deals with sensitive data
+            involving your Users (employees or students) and their work on sensitive data projects within the UK. Therefore, there needs to be senior-level visibility and accountability for this Safe People Registry Organisation account.
           </Typography>
 
           <Typography mb={3}>
-            <strong>Delegates</strong> are nominated administrative individuals
+            Organisation <strong>Delegates</strong> are administrative individuals
             or groups authorised to act on behalf of the Organisation. They are
             responsible for:
           </Typography>
 
           <ul style={{ marginBottom: "1rem", paddingLeft: "1.25rem" }}>
-            <li>Verifying a User’s affiliation with the Organisation</li>
+            <li>Affiliating a User, and</li>
             <li>
-              Accepting Safe People Registry's Terms of Use on behalf of the
-              Organisation
-            </li>
-            <li>
-              Ensuring information in Safe People Registry is accurate and
-              properly authorised
+              Accepting the Safe People Registry's Terms and Conditions
             </li>
           </ul>
         </>
