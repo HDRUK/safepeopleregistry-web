@@ -3,6 +3,9 @@ import { mockedJwt } from "@/mocks/data/auth";
 import { mockedUser } from "@/mocks/data/user";
 import theme from "@/theme";
 import { get } from "js-cookie";
+import getMe from "@/services/auth/getMe";
+import { ResponseJson } from "@/types/requests";
+import { User } from "@/types/application";
 import { handleLogin, handleLogout } from "../../utils/keycloak";
 import {
   defineMatchMedia,
@@ -30,9 +33,13 @@ jest.mock("@/i18n/routing", () => ({
 
 jest.mock("@/data/store");
 
-const mockUseStore = useStore as jest.MockedFunction<typeof useStore>;
+jest.mock("@/services/auth/getMe", () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
 
-(get as jest.Mock).mockReturnValue(undefined);
+const mockGetMe = getMe as jest.MockedFunction<typeof getMe>;
+const mockUseStore = useStore as jest.MockedFunction<typeof useStore>;
 
 const linksText = ["Home", "About", "Features", "Contact", "Help"];
 
@@ -48,7 +55,12 @@ const renderMobileMenuTest = () => {
 
 describe("NavBar Component", () => {
   beforeEach(() => {
-    mockUseStore.mockReturnValue(undefined);
+    mockUseStore.mockReturnValue([undefined, jest.fn()]);
+
+    mockGetMe.mockResolvedValue({
+      status: 200,
+      data: mockedUser(),
+    } as unknown as ResponseJson<User>);
 
     jest.clearAllMocks();
   });
@@ -96,15 +108,14 @@ describe("NavBar Component", () => {
   });
 
   it("calls handleLogout on 'Sign Out' click when authenticated", () => {
-    mockUseStore.mockReturnValue({
-      config: {
-        user: mockedUser({
-          first_name: "David",
-        }),
-      },
-    });
-
     (get as jest.Mock).mockReturnValue(mockedJwt);
+
+    mockUseStore.mockImplementation(selector =>
+      selector({
+        getUser: () => mockedUser(),
+        setUser: jest.fn(),
+      })
+    );
 
     render(<NavBar />);
 
@@ -114,13 +125,17 @@ describe("NavBar Component", () => {
   });
 
   it("displays 'My Account' and 'Sign Out' if the user is authenticated", () => {
-    mockUseStore.mockReturnValue({
-      config: {
-        user: mockedUser({
-          first_name: "David",
-        }),
-      },
+    mockGetMe.mockResolvedValueOnce({
+      status: 200,
+      data: { first_name: "Test", last_name: "User" },
     });
+
+    mockUseStore.mockImplementation(selector =>
+      selector({
+        getUser: () => mockedUser(),
+        setUser: jest.fn(),
+      })
+    );
 
     (get as jest.Mock).mockReturnValue(mockedJwt);
 

@@ -17,6 +17,7 @@ interface OrganisationsIdvtResponse {
 type PutOrganisationPayload = Partial<Organisation>;
 
 type PostOrganisationPayload = Partial<Organisation>;
+type PostOrganisationNewAccountPayload = Partial<Organisation>;
 type PostOrganisationResponse = Organisation;
 type PostOrganisationInviteResponse = Organisation;
 interface PostOrganisationUnclaimedPayload {
@@ -77,4 +78,5 @@ export type {
   UpdateOrganisationSubsidiary,
   PutOrganisationSubsidiaryPayload,
   PostOrganisationSubsidiaryPayload,
+  PostOrganisationNewAccountPayload,
 };

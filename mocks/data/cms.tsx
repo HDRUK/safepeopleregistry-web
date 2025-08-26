@@ -468,7 +468,7 @@ export const mockedOrganisationProfileGuidance: TabGuidance = {
       info: (
         <>
           <Typography mb={3}>
-            Safe People Registry stores records of Users who are or have been
+            The Safe People Registry stores records of Users who are or have been
             working with sensitive data. These Users can have different roles,
             such as primary investigators, researchers, data analysts,
             developers, and students.

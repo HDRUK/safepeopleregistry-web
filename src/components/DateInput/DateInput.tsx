@@ -1,4 +1,3 @@
-import React from "react";
 import {
   DateValidationError,
   LocalizationProvider,
@@ -50,7 +49,13 @@ const DateInput = ({
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={locale}>
       <DatePicker
         label={label}
-        value={typeof value === "string" ? new Date(value) : value}
+        value={
+          value && typeof value === "string"
+            ? new Date(value)
+            : value instanceof Date
+              ? value
+              : null
+        }
         onChange={handleChange}
         format={dateFormat}
         slotProps={{

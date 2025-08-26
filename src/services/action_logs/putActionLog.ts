@@ -6,7 +6,7 @@ import { handleJsonResponse } from "../requestHelpers";
 export default async (
   id: number,
   options: ResponseOptions
-): Promise<ResponseJson<ActionLog[]>> => {
+): Promise<ResponseJson<ActionLog>> => {
   const response = await putRequest(
     `${process.env.NEXT_PUBLIC_API_V1_URL}/action_log/${id}?complete`,
     {}

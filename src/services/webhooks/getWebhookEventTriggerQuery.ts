@@ -1,6 +1,6 @@
 import getWebhookEventTrigger from "./getWebhookEventTrigger";
 
-export default function getWebhookEventTriggerQuery() {
+export default function getWebhookEventTriggerQuery(options?: QueryOptions) {
   return {
     queryKey: ["getWebhookEventTrigger"],
     queryFn: () =>
@@ -9,5 +9,6 @@ export default function getWebhookEventTriggerQuery() {
           message: "getWebhookEventTriggerError",
         },
       }),
+    ...options,
   };
 }

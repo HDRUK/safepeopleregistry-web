@@ -3,7 +3,8 @@
 import ChipStatus, { Status } from "@/components/ChipStatus";
 import { PrimaryContactIcon } from "@/consts/icons";
 import WarningAmberOutlinedIcon from "@mui/icons-material/WarningAmberOutlined";
-import { Link, Typography } from "@mui/material";
+import { Link as MuiLink, Typography } from "@mui/material";
+import { Link } from "@/i18n/routing";
 import { Box } from "@mui/system";
 import { CellContext } from "@tanstack/react-table";
 import {
@@ -42,12 +43,13 @@ function renderProjectNameCell<T extends Project>(
   return (
     <Typography color="primary" variant="small">
       {route ? (
-        <Link
+        <MuiLink
+          component={Link}
           href={injectParamsIntoPath(route, {
             id,
           })}>
           {title}
-        </Link>
+        </MuiLink>
       ) : (
         title
       )}
@@ -61,9 +63,12 @@ function renderLinkNameCell(
   options: Record<string, number>
 ) {
   return (
-    <Link href={injectParamsIntoPath(route, options)} color="secondary.main">
+    <MuiLink
+      component={Link}
+      href={injectParamsIntoPath(route, options)}
+      color="secondary.main">
       {name}
-    </Link>
+    </MuiLink>
   );
 }
 

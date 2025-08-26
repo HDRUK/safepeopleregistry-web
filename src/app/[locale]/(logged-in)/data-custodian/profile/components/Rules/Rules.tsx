@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { PageSection } from "@/modules";
 import Form from "@/components/Form";
 import FormActions from "@/components/FormActions";
@@ -17,11 +17,14 @@ import { Rule } from "@/types/rules";
 import { useStore } from "@/data/store";
 import ButtonSave from "@/components/ButtonSave";
 import ErrorMessage from "@/components/ErrorMessage";
+import { DEFAULT_STALE_TIME } from "@/consts/requests";
 
 const NAMESPACE_TRANSLATION_CUSTODIAN_PROFILE = "CustodianProfile";
 
 export default function Rules() {
   const t = useTranslations(NAMESPACE_TRANSLATION_CUSTODIAN_PROFILE);
+  const queryClient = useQueryClient();
+
   const [userRules, setUserRules] = useState<boolean[]>([]);
   const [orgRules, setOrgRules] = useState<boolean[]>([]);
   const custodian = useStore(state => state.getCustodian());
@@ -29,20 +32,29 @@ export default function Rules() {
   const { data: userRulesData, isLoading: isLoadingUserRules } = useQuery(
     getCustodianEntityModelQuery(
       custodian?.id,
-      EntityModelTypes.USER_VALIDATION_RULES
+      EntityModelTypes.USER_VALIDATION_RULES,
+      {
+        staleTime: DEFAULT_STALE_TIME,
+      }
     )
   );
 
   const { data: orgRulesData, isLoading: isLoadingOrgRules } = useQuery(
     getCustodianEntityModelQuery(
       custodian?.id,
-      EntityModelTypes.ORG_VALIDATION_RULES
+      EntityModelTypes.ORG_VALIDATION_RULES,
+      { staleTime: DEFAULT_STALE_TIME }
     )
   );
 
-  const { mutateAsync, isPending } = useMutation(
-    putCustodianActiveEntityModelQuery(custodian?.id)
-  );
+  const { mutateAsync, isPending } = useMutation({
+    ...putCustodianActiveEntityModelQuery(custodian?.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["getCustodianEntityModel", custodian?.id],
+      });
+    },
+  });
 
   const formatRules = (rulesData): Rule[] => {
     return (

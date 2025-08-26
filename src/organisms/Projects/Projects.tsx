@@ -129,6 +129,22 @@ export default function Projects({ variant, entityId }: ProjectsProps) {
         <ChipStatus status={info.row.original.model_state?.state.slug} />
       ),
     },
+    ...(variant !== "user" && variant !== "custodian"
+      ? [
+          {
+            accessorKey: "organisationStatus",
+            header: t("organisationStatus"),
+            cell: info => (
+              <ChipStatus
+                status={
+                  info.row.original.custodian_has_project_organisation?.[0]
+                    ?.model_state.state.slug
+                }
+              />
+            ),
+          },
+        ]
+      : []),
   ];
 
   return (

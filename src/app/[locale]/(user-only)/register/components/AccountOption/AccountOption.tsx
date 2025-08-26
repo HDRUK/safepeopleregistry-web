@@ -1,12 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { ReactNode } from "react";
 import { Button, Typography } from "@mui/material";
 import { AccountType } from "@/types/accounts";
 
 interface AccountOptionProps {
   icon: React.ElementType;
-  label: string;
+  label: ReactNode;
   onClick: (name: AccountType) => void;
   name: AccountType;
   selected: AccountType | null;
@@ -24,23 +24,28 @@ const AccountOption: React.FC<AccountOptionProps> = ({
   const Icon = icon;
   return (
     <Button
-      variant={selected === name ? "contained" : "outlined"}
+      variant="outlined"
       onClick={() => onClick(name)}
       disabled={disabled}
       sx={{
         borderRadius: 2,
         border: 2,
         py: 2,
-        px: 4,
+        px: 2,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         gap: 1,
         aspectRatio: 1,
-        maxWidth: 200,
-        minWidth: 100,
+        width: 166,
+        borderColor: selected === name && "primary.main",
+        borderWidth: selected === name ? 3 : 2,
+        color: "textPrimary.main",
+        "&:hover": {
+          borderWidth: 3,
+        },
       }}>
-      <Icon sx={{ fontSize: 72 }} />
+      <Icon sx={{ fontSize: 48 }} />
       <Typography>{label}</Typography>
     </Button>
   );

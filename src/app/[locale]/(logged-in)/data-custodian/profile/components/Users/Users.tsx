@@ -7,7 +7,7 @@ import PageBodyContainer from "@/modules/PageBodyContainer";
 import PageSection from "@/modules/PageSection";
 import ProjectUsers from "@/organisms/ProjectUsers";
 import { EntityType } from "@/types/api";
-import { Typography } from "@mui/material";
+import Markdown from "@/components/Markdown";
 import { useTranslations } from "next-intl";
 
 const NAMESPACE_TRANSLATIONS_PROFILE = "CustodianProfile";
@@ -25,9 +25,7 @@ function Users() {
     <PageBodyContainer heading={tProfile("usersListTitle")}>
       <PageBody>
         <PageSection>
-          <Typography variant="body1">
-            {tProfile("usersListDescription")}
-          </Typography>
+          <Markdown>{tProfile("usersListDescription")}</Markdown>
         </PageSection>
         <ProjectUsers
           variant={EntityType.CUSTODIAN}

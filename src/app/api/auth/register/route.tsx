@@ -8,6 +8,7 @@ export async function GET(req: Request) {
   const cookieStore = cookies();
   const { searchParams } = new URL(req.url);
   const code = searchParams.get("code");
+  const accountType = searchParams.get("state");
 
   cookieStore.delete("redirectPath");
 
@@ -46,9 +47,12 @@ export async function GET(req: Request) {
       maxAge: refresh_expires_in,
     });
 
-    return NextResponse.redirect(
-      encodeURI(`${process.env.NEXT_PUBLIC_LOCAL_ENV}/en/register`)
-    );
+    const baseUrl = `${process.env.NEXT_PUBLIC_LOCAL_ENV}/en/register`;
+    const url = accountType
+      ? `${baseUrl}?type=${encodeURIComponent(accountType)}`
+      : baseUrl;
+
+    return NextResponse.redirect(encodeURI(url));
   } catch (e) {
     console.error(e);
 

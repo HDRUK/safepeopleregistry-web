@@ -5,6 +5,7 @@ export enum Status {
   AFFILIATED = "affiliated",
   PENDING = "pending",
   INVITED = "invited",
+  FORM_RECEIVED = "form_received",
   REGISTERED = "registered",
   INVITE_SENT = "invite_sent",
   APPROVED = "approved",
@@ -30,7 +31,30 @@ export enum Status {
   MORE_ORG_INFO_REQ_ESCALATION_MANAGER = "more_org_info_req_escalation_manager",
   MORE_ORG_INFO_REQ_ESCALATION_COMMITTEE = "more_org_info_req_escalation_committee",
   ORG_VALIDATION_DECLINED = "org_validation_declined",
+  USER_LEFT_PROJECT = "user_left_project",
+  ORG_LEFT_PROJECT = "org_left_project_short",
+  NONE = "none",
 }
+
+const STATUS_WITH_SHORT_DESCRIPTION = [
+  Status.PENDING,
+  Status.AFFILIATION_PENDING,
+  Status.AFFILIATION_REJECTED,
+  Status.AFFILIATION_LEFT,
+  Status.INVITED,
+  Status.VALIDATION_IN_PROGRESS,
+  Status.MORE_ORG_INFO_REQ,
+  Status.MORE_ORG_INFO_REQ_ESCALATION_COMMITTEE,
+  Status.MORE_ORG_INFO_REQ_ESCALATION_MANAGER,
+  Status.USER_VALIDATION_DECLINED,
+  Status.USER_LEFT_PROJECT,
+  Status.ORG_VALIDATION_DECLINED,
+  Status.ORG_LEFT_PROJECT,
+  Status.MORE_USER_INFO_REQ_ESCALATION_MANAGER,
+  Status.MORE_USER_INFO_REQ_ESCALATION_COMITTEE,
+  Status.FORM_RECEIVED,
+  Status.PROJECT_PENDING,
+];
 
 interface ChipStatusProps extends ChipProps {
   status: Status | undefined;
@@ -85,9 +109,14 @@ export default function ChipStatus({ status, ...restProps }: ChipStatusProps) {
   const color = getColorForStatus(status);
 
   const tooltipKey = `${status}_short`;
-  const shortTranslation = t(tooltipKey);
+
   const hasShortTranslation =
-    shortTranslation !== `${NAMESPACE_TRANSLATION}.${tooltipKey}`;
+    status && STATUS_WITH_SHORT_DESCRIPTION.includes(status);
+
+  let shortTranslation;
+  if (hasShortTranslation) {
+    shortTranslation = t(tooltipKey);
+  }
 
   const label = status
     ? hasShortTranslation

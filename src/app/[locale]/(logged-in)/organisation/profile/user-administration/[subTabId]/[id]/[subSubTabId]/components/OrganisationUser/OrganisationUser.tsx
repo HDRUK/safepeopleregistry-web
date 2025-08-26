@@ -18,9 +18,7 @@ import { notFound } from "next/navigation";
 import { useEffect } from "react";
 import ConfirmAffiliation from "@/organisms/ConfirmAffiliation";
 import { getOrganisationAffiliationQuery } from "@/services/affiliations";
-import ActionsPanel from "@/components/ActionsPanel";
-import ChipStatus from "@/components/ChipStatus";
-import { Typography } from "@mui/material";
+import StatusList from "@/components/StatusList";
 import { UserSubTabs } from "../../../../../../consts/tabs";
 import SubTabsSections from "../SubTabSections";
 import SubTabsContents from "../SubsTabContents";
@@ -83,17 +81,9 @@ function OrganisationUser({ userId, subSubTabId }: OrganisationUserProps) {
           </PageColumnBody>
 
           <PageColumnDetails lg={4}>
-            <ActionsPanel
-              panelSx={{ backgroundColor: "neutralGrey.main", mb: 2 }}>
-              <Typography variant="h6">
-                {t("affiliationStatus")}
-                :
-                <ChipStatus
-                  sx={{ mx: 1 }}
-                  status={affiliation?.model_state.state.slug}
-                />
-              </Typography>
-            </ActionsPanel>
+            <StatusList
+              affiliationStatus={affiliation?.model_state.state.slug}
+            />
             {affiliation && <ConfirmAffiliation affiliation={affiliation} />}
           </PageColumnDetails>
         </PageColumns>

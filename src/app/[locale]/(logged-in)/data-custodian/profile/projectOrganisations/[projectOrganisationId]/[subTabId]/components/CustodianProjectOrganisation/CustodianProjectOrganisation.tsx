@@ -4,7 +4,6 @@ import { getCustodianProjectOrganisationQuery } from "@/services/custodian_appro
 import { getOrganisationQuery } from "@/services/organisations";
 import { notFound } from "next/navigation";
 import { getCustodianOrganisationValidationLogsQuery } from "@/services/validation_logs";
-import ChipStatus from "@/components/ChipStatus";
 import ActionValidationPanel from "@/organisms/ActionValidationPanel";
 import { ActionValidationVariants } from "@/organisms/ActionValidationPanel/ActionValidationPanel";
 import {
@@ -14,6 +13,8 @@ import {
   PageColumns,
 } from "@/modules";
 import { useEffect } from "react";
+import StatusList from "@/components/StatusList";
+import { Status } from "@/components/ChipStatus";
 import { OrganisationsSubTabs } from "../../../../../consts/tabs";
 import SubTabsContents from "../SubsTabContents";
 import SubTabsSections from "../SubTabSections";
@@ -80,13 +81,7 @@ function CustodianProjectOrganisation({
 
   return (
     organisation && (
-      <PageBodyContainer
-        heading={
-          <>
-            {organisation.organisation_name}{" "}
-            <ChipStatus size="large" status={state?.state.slug} />
-          </>
-        }>
+      <PageBodyContainer heading={organisation.organisation_name}>
         <PageColumns>
           <PageColumnBody lg={8}>
             <SubTabsSections
@@ -96,6 +91,7 @@ function CustodianProjectOrganisation({
             <SubTabsContents subTabId={subTabId} />
           </PageColumnBody>
           <PageColumnDetails lg={4}>
+            <StatusList organisationStatus={state?.state.slug || Status.NONE} />
             <ActionValidationPanel
               variant={ActionValidationVariants.Organisation}
               queryState={queryState}

@@ -14,7 +14,7 @@ export default function usePaginatedCustodianUsers(
   custodianId: number,
   options?: GetCustodianOrganisationUsersQuery
 ) {
-  const queryKey = [options?.queryKeyBase || "getCustodianUsers"];
+  const queryKey = options?.queryKeyBase || "getCustodianUsers";
 
   return usePaginatedQuery({
     queryKeyBase: [queryKey, custodianId],

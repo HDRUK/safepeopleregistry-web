@@ -255,7 +255,7 @@ export default function KanbanBoard<T>({
       onDragCancel={handleDragCancel}
       cancelDrop={cancelDrop}
       modifiers={modifiers}>
-      <KanbanBoardColumns>
+      <KanbanBoardColumns sx={{ maxHeight: "90vh" }}>
         {containers.map(containerId => (
           <DndDroppableContainer key={containerId} id={containerId}>
             <SortableContext items={items[containerId]} strategy={strategy}>
@@ -279,7 +279,7 @@ export default function KanbanBoard<T>({
                   return (
                     <DndSortableItem
                       disabled={isSortingContainer}
-                      isDroppable={data.isDroppable}
+                      isDroppable={data?.isDroppable}
                       isError={data.isError}
                       key={`${containerId}${data.id}`}
                       id={data.id}

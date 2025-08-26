@@ -6,7 +6,8 @@ import KanbanBoardUsersCard, {
 import { DragUpdateEvent, DragUpdateEventArgs } from "@/types/dnd";
 import { rectSortingStrategy } from "@dnd-kit/sortable";
 import { useTranslations } from "next-intl";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
+import { STATUS_ORDER_MAP } from "@/consts/status";
 import KanbanBoard, {
   KanbanBoardEntityProps,
   KanbanBoardHelperProps,
@@ -47,12 +48,29 @@ export default function ProjectUsers({
     []
   );
 
+  function sortByStatus<T>(
+    input: Record<string | string, T[]>
+  ): Record<string, T[]> {
+    return Object.fromEntries(
+      Object.entries(input).sort(
+        ([a], [b]) =>
+          (STATUS_ORDER_MAP.get(a) ?? Number.MAX_SAFE_INTEGER) -
+          (STATUS_ORDER_MAP.get(b) ?? Number.MAX_SAFE_INTEGER)
+      )
+    );
+  }
+
+  const orderedItems = useMemo(
+    () => sortByStatus(itemsByTransitions),
+    [itemsByTransitions]
+  );
+
   return (
     <KanbanBoard<CustodianProjectUser>
       t={t}
       cardActionsComponent={cardActionsComponent}
       cardComponent={cardComponent}
-      initialData={itemsByTransitions}
+      initialData={orderedItems}
       strategy={rectSortingStrategy}
       onDragEnd={handleMove}
       onMove={handleMove}

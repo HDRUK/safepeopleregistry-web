@@ -6,11 +6,13 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import { Box } from "@mui/system";
 import type { Metadata } from "next";
-import { NextIntlClientProvider, useMessages } from "next-intl";
+import { NextIntlClientProvider } from "next-intl";
 import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { PropsWithChildren } from "react";
 import "../global.css";
+import { GoogleTagManager } from "@next/third-parties/google";
+import { getMessages } from "next-intl/server";
 import ReactQueryClientProvider from "./components/ReactQueryClientProvider";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -24,16 +26,19 @@ type RootLayoutProps = PropsWithChildren<{
   params: { locale: string };
 }>;
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params: { locale },
 }: RootLayoutProps) {
   if (!locales[locale]) notFound();
 
-  const messages = useMessages();
+  const messages = await getMessages();
+
+  const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
 
   return (
     <html lang={locale}>
+      {gtmId && <GoogleTagManager gtmId={gtmId} />}
       <head>
         <link rel="stylesheet" href="/css/sweetalert2-custom.css" />
       </head>

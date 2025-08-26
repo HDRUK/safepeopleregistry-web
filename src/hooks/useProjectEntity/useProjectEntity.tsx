@@ -1,5 +1,6 @@
 "use client";
 
+import { DEFAULT_STALE_TIME } from "@/consts/requests";
 import useProjectEntityBoard from "@/hooks/useProjectEntityBoard";
 import {
   getCustodianProjectOrganisationWorkflowTransitionsQuery,
@@ -27,8 +28,12 @@ export default function useProjectEntity({
 
   const { data: stateWorkflow } = useQuery(
     variant === EntityType.ORGANISATION
-      ? getCustodianProjectOrganisationWorkflowTransitionsQuery()
-      : getCustodianProjectUserWorkflowTransitionsQuery()
+      ? getCustodianProjectOrganisationWorkflowTransitionsQuery({
+          staleTime: DEFAULT_STALE_TIME,
+        })
+      : getCustodianProjectUserWorkflowTransitionsQuery({
+          staleTime: DEFAULT_STALE_TIME,
+        })
   );
 
   const helpers = useProjectEntityBoard({

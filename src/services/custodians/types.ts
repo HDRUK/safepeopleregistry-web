@@ -2,6 +2,7 @@ import { EMAIL_TEMPLATE } from "@/consts/application";
 import {
   Custodian,
   CustodianUser,
+  ModelState,
   Organisation,
   ResearcherProject,
   User,
@@ -34,6 +35,13 @@ interface GetCustodianEntityModelResponse {
   calls_file: boolean;
   calls_operation: boolean;
   active: number;
+}
+
+interface GetCustodianStatusResponse {
+  validation_state: ModelState;
+  project_status: ModelState;
+  organisation_status: ModelState;
+  affiliation_status: ModelState;
 }
 
 interface PutCustodianActiveEntityModelPayload {
@@ -103,4 +111,5 @@ export type {
   GetCustodianUsersResponse,
   PostCustodianProjectResponse,
   PostCustodianProjectPayload,
+  GetCustodianStatusResponse,
 };

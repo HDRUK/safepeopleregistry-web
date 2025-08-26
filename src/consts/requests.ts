@@ -3,4 +3,6 @@ enum ResponseMessageType {
   FAILURE = "failure",
 }
 
-export { ResponseMessageType };
+const DEFAULT_STALE_TIME = 1000 * 60 * 10; // 10 minutes
+
+export { ResponseMessageType, DEFAULT_STALE_TIME };

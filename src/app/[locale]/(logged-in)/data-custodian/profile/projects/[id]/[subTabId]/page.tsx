@@ -4,6 +4,7 @@ import LoadingWrapper from "@/components/LoadingWrapper";
 import getProjectQuery from "@/services/projects/getProjectQuery";
 import { useQuery } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
+import { DEFAULT_STALE_TIME } from "@/consts/requests";
 import SubPageProjects from "../../../components/SubPageProjects";
 import { ProjectsSubTabs } from "../../../consts/tabs";
 
@@ -19,7 +20,7 @@ function ProjectsSubPage({ params: { subTabId, id } }: SubPageProjectsProps) {
     data: project,
     isPending,
     isFetched,
-  } = useQuery(getProjectQuery(+id));
+  } = useQuery(getProjectQuery(+id, { staleTime: DEFAULT_STALE_TIME }));
 
   if (!project?.data && isFetched) {
     notFound();
@@ -27,7 +28,7 @@ function ProjectsSubPage({ params: { subTabId, id } }: SubPageProjectsProps) {
 
   return (
     <LoadingWrapper variant="basic" loading={isPending}>
-      {project?.data && (
+      {project?.data && project.data.id === Number(id) && (
         <SubPageProjects
           projectData={project.data}
           params={{

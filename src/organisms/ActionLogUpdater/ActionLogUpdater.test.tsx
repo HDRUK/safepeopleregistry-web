@@ -3,9 +3,13 @@ import { useMutation } from "@tanstack/react-query";
 import { mockUseSearchParams } from "jest.setup";
 import ActionLogUpdater from "./ActionLogUpdater";
 
-jest.mock("@tanstack/react-query", () => ({
-  useMutation: jest.fn(),
-}));
+jest.mock("@tanstack/react-query", () => {
+  const original = jest.requireActual("@tanstack/react-query");
+  return {
+    ...original,
+    useMutation: jest.fn(),
+  };
+});
 
 describe("<ActionLogUpdater />", () => {
   let mockMutateAsync: jest.Mock;

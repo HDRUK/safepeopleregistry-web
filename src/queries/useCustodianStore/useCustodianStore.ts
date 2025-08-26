@@ -1,6 +1,7 @@
 import { useStore } from "@/data/store";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
+import { DEFAULT_STALE_TIME } from "@/consts/requests";
 import { getCustodianQuery } from "../../services/custodians";
 
 export default function useCustodianStore() {
@@ -9,7 +10,9 @@ export default function useCustodianStore() {
     state.setCustodian,
   ]);
   const { data: custodianData } = useQuery(
-    getCustodianQuery(custodian?.id as number)
+    getCustodianQuery(custodian?.id as number, {
+      staleTime: DEFAULT_STALE_TIME,
+    })
   );
 
   useEffect(() => {

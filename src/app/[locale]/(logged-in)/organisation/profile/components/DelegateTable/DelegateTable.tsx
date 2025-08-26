@@ -14,6 +14,7 @@ import DecoupleDelegate from "@/components/DecoupleDelegate";
 import { useTranslations } from "next-intl";
 import { ActionMenu } from "@/components/ActionMenu";
 import ErrorMessage from "@/components/ErrorMessage";
+import { DEFAULT_STALE_TIME } from "@/consts/requests";
 import EditDelegate from "../EditDelegate";
 import InviteDelegateForm from "../InviteDelegateForm";
 
@@ -31,9 +32,13 @@ const DelegateTable = () => {
     isError: isErrorDelegates,
     data: delegatesData,
     refetch: refetchDelegates,
-  } = useQuery(
-    getOrganisationDelegatesQuery(organisation?.id as number, !!organisation)
-  );
+  } = useQuery({
+    ...getOrganisationDelegatesQuery(
+      organisation?.id as number,
+      !!organisation
+    ),
+    staleTime: DEFAULT_STALE_TIME,
+  });
 
   const [openInviteModal, setOpenInviteModal] = useState<boolean>(false);
 

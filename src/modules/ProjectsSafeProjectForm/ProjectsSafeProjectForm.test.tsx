@@ -33,7 +33,7 @@ function getAllInputs() {
     /Public benefit statement/,
     /Technical summary/,
     /Approved/,
-    /Pending/,
+    /Pending approval/,
     /Completed/,
   ];
 }

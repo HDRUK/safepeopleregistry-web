@@ -42,7 +42,7 @@ export default function ProjectsSafeProjectForm({
           .string()
           .required(tForm("requestCategoryTypeRequiredInvalid")),
         start_date: yup.string().required(tForm("startDateRequiredInvalid")),
-        end_date: yup.string().required(tForm("endDateRequiredInvalid")),
+        end_date: yup.string().nullable(),
         lay_summary: yup.string().required(tForm("laySummaryRequiredInvalid")),
         public_benefit: yup
           .string()

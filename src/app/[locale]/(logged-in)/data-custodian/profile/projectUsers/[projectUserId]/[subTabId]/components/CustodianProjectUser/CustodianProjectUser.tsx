@@ -17,8 +17,8 @@ import { getUserQuery } from "@/services/users";
 import ActionValidationPanel from "@/organisms/ActionValidationPanel";
 import { ActionValidationVariants } from "@/organisms/ActionValidationPanel/ActionValidationPanel";
 import { getCustodianProjectUserQuery } from "@/services/custodian_approvals";
-import ChipStatus from "@/components/ChipStatus";
 import UserDetails from "@/components/UserDetails";
+import StatusPanel from "@/organisms/StatusPanel";
 import { UserSubTabs } from "../../../../../consts/tabs";
 import SubTabsSections from "../SubTabSections";
 import SubTabsContents from "../SubsTabContents";
@@ -42,8 +42,7 @@ function CustodianProjectUser({
     isFetched: isFetchedCustodianProjectUser,
   } = useQuery(getCustodianProjectUserQuery(custodian?.id, projectUserId));
 
-  const { project_has_user: projectUser, model_state: state } =
-    custodianProjectUser?.data || {};
+  const { project_has_user: projectUser } = custodianProjectUser?.data || {};
 
   const { registry, project } = projectUser || {};
 
@@ -95,8 +94,7 @@ function CustodianProjectUser({
           <>
             {t("title", {
               projectTitle: project?.title,
-            })}{" "}
-            <ChipStatus size="large" status={state?.state.slug} />
+            })}
           </>
         }>
         <PageColumns>
@@ -109,6 +107,7 @@ function CustodianProjectUser({
             <SubTabsContents subTabId={subTabId} />
           </PageColumnBody>
           <PageColumnDetails lg={4}>
+            <StatusPanel variant={ActionValidationVariants.ProjectUser} />
             <ActionValidationPanel
               variant={ActionValidationVariants.ProjectUser}
               queryState={queryState}

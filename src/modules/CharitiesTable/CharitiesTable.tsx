@@ -1,4 +1,5 @@
-import { Link } from "@mui/material";
+import { Link as MuiLink } from "@mui/material";
+import { Link } from "@/i18n/routing";
 import { ColumnDef } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import { Charity } from "../../types/application";
@@ -30,9 +31,9 @@ export default function CharitiesTable({
       accessorKey: "website",
       header: t("website"),
       cell: info => (
-        <Link href={info.getValue()} target="_blank">
+        <MuiLink component={Link} href={info.getValue()} target="_blank">
           {info.getValue()}
-        </Link>
+        </MuiLink>
       ),
     },
   ];

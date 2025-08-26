@@ -25,7 +25,7 @@ import AddIcon from "@mui/icons-material/Add";
 import ListIcon from "@mui/icons-material/List";
 import ViewColumnIconOutlined from "@mui/icons-material/ViewColumnOutlined";
 import { Button } from "@mui/material";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { SEARCH_PAGE_MAX_PER_PAGE } from "@/consts/search";
@@ -52,6 +52,7 @@ export default function ProjectUsers({
 }: ProjectUsersListProps) {
   const t = useTranslations(NAMESPACE_TRANSLATIONS_PROJECT_USERS);
   const tStatus = useTranslations(NAMESPACE_TRANSLATIONS_STATUS);
+  const queryClient = useQueryClient();
 
   const [showListView, setShowListView] = useState(
     variant !== EntityType.CUSTODIAN
@@ -96,7 +97,9 @@ export default function ProjectUsers({
   useQueryAlerts(updateValidationMutationState, {
     onSuccess: () => {
       if (showListView) {
-        refetch();
+        queryClient.invalidateQueries({
+          queryKey: ["getPaginatedCustodianProjectUsers"],
+        });
       }
     },
     showOnlyError: !showListView,

@@ -10,6 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { Box } from "@mui/system";
 import { injectParamsIntoPath } from "@/utils/application";
+import { DEFAULT_STALE_TIME } from "@/consts/requests";
 import ActionsPanel, { ActionsPanelProps } from "../../components/ActionsPanel";
 import ActionsPanelItem from "../../components/ActionsPanelItem";
 import { PageBody } from "../../modules";
@@ -50,7 +51,7 @@ export default function ActionLogs({
     }
   });
   const { data: actionLogData } = useQuery(
-    getActionLogsQuery(entityId, variant)
+    getActionLogsQuery(entityId, variant, { staleTime: DEFAULT_STALE_TIME })
   );
 
   const allActions =

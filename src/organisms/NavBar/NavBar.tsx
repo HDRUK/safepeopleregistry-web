@@ -14,17 +14,16 @@ import {
 } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { MouseEvent, useEffect, useState } from "react";
+import getMe from "@/services/auth/getMe";
+import { useRouter } from "next/navigation";
+import { ROUTES } from "@/consts/router";
 import HorizontalDrawer from "../../components/HorizontalDrawer";
 import MaskLabel from "../../components/MaskLabel";
 import SoursdLogo from "../../components/SoursdLogo";
 import { CONTACT_MAIL_ADDRESS } from "../../config/contacts";
 import PageCenter from "../../modules/PageCenter";
 import { getInitials } from "../../utils/application";
-import {
-  handleLogin,
-  handleLogout,
-  handleRegister,
-} from "../../utils/keycloak";
+import { handleLogin, handleLogout } from "../../utils/keycloak";
 import NotificationsMenu from "../NotificationsMenu";
 import { StyledContainer, StyledHeader } from "./NavBar.styles";
 
@@ -94,11 +93,28 @@ function renderButtons(
 
 export default function NavBar() {
   const t = useTranslations(NAMESPACE_TRANSLATIONS_NAVBAR);
-  const storedUser = useStore(store => store.getUser());
+  const router = useRouter();
+  const [storedUser, setUser] = useStore(store => [
+    store.getUser(),
+    store.setUser,
+  ]);
   const theme = useTheme();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
+
+  useEffect(() => {
+    const checkUserAndReset = async () => {
+      const response = await getMe({
+        suppressThrow: true,
+      });
+
+      if (response.status === 404 && storedUser) {
+        setUser(undefined);
+      }
+    };
+    checkUserAndReset();
+  }, []);
 
   useEffect(() => {
     if (isDesktop && isDrawerOpen) {
@@ -162,8 +178,7 @@ export default function NavBar() {
             text: t("registerButton"),
             onClick: (e: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
               e.preventDefault();
-
-              handleRegister();
+              router.push(ROUTES.register.path);
             },
           },
         ]),

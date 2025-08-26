@@ -13,7 +13,7 @@ import { CustodianUser } from "@/types/application";
 import { getPermission } from "@/utils/permissions";
 import { getCombinedQueryState } from "@/utils/query";
 import { showAlert } from "@/utils/showAlert";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useCallback } from "react";
 
@@ -34,6 +34,7 @@ export default function UsersModal({
 }: CustodianEditContactModalProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION_PROFILE_FORM);
   const permissions = useStore(state => state.config.permissions);
+  const queryClient = useQueryClient();
 
   const { mutateAsync: mutatePostUser, ...updateCustodianUserState } =
     useMutation({
@@ -49,6 +50,11 @@ export default function UsersModal({
 
         return putCustodianUser(user.id, payload, {
           error: { message: "putUserError" },
+        });
+      },
+      onSuccess() {
+        queryClient.removeQueries({
+          queryKey: ["getCustodianUsers"],
         });
       },
     });

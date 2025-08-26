@@ -65,6 +65,9 @@ export default function ProjectsSafeData() {
       queryClient.refetchQueries({
         queryKey: ["getProject", project.id],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["getProjects", project.id],
+      });
     },
   });
 

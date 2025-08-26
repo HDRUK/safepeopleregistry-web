@@ -28,7 +28,13 @@ jest.mock("js-cookie", () => ({
 const mockedReplace = jest.fn();
 
 const TestComponent = () => {
-  return <AccountConfirm />;
+  return (
+    <AccountConfirm
+      showAccountPicker={false}
+      pendingAccount={false}
+      hasAccessToken={false}
+    />
+  );
 };
 
 describe("<AccountConfirm />", () => {
@@ -43,10 +49,16 @@ describe("<AccountConfirm />", () => {
   // Existing tests...
 
   it("should open terms and conditions modal when clicking on the terms link", async () => {
-    render(<AccountConfirm />);
+    render(
+      <AccountConfirm
+        showAccountPicker={false}
+        pendingAccount={false}
+        hasAccessToken={false}
+      />
+    );
 
     const termsLink = screen.getByRole("button", {
-      name: "Terms and Conditions",
+      name: "Safe People Registry Terms and Conditions",
     });
     fireEvent.click(termsLink);
 

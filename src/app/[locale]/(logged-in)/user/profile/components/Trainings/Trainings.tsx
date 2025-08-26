@@ -28,6 +28,11 @@ import ErrorMessage from "@/components/ErrorMessage";
 
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";
 
+const RESEARCHER_DECLARATION_LINK =
+  "https://uksa.statisticsauthority.gov.uk/digitaleconomyact-research-statistics/better-useofdata-for-research-information-for-researchers/list-of-accredited-researchers-and-research-projects-under-the-research-strand-of-the-digital-economy-act/";
+const USER_DECLARATION_LINK =
+  "https://www.gov.uk/government/publications/digital-economy-act-2017-part-5-codes-of-practice/research-code-of-practice-and-accreditation-criteria";
+
 export default function Trainings() {
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
   const router = useRouter();
@@ -110,7 +115,7 @@ export default function Trainings() {
                   label={tProfile("accreditedResearcherCheckboxLabel")}
                   labelCaption={
                     <Link
-                      href={tProfile("accreditedResearcherLinkHref")}
+                      href={RESEARCHER_DECLARATION_LINK}
                       color="primary"
                       target="_blank"
                       sx={{ display: "block", mt: 0.5, fontSize: "medium" }}>
@@ -126,7 +131,7 @@ export default function Trainings() {
                   label={tProfile("userDeclarationCheckboxLabel")}
                   labelCaption={
                     <Link
-                      href={tProfile("userDeclarationLinkHref")}
+                      href={USER_DECLARATION_LINK}
                       color="primary"
                       target="_blank"
                       sx={{ display: "block", mt: 0.5, fontSize: "medium" }}>

@@ -1,14 +1,22 @@
 import { putActionLogQuery } from "@/services/action_logs";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const ActionLogUpdater = () => {
   const params = useSearchParams();
   const router = useRouter();
+  const queryClient = useQueryClient();
   const markActionComplete = params?.get("markActionComplete");
 
-  const { mutateAsync } = useMutation(putActionLogQuery());
+  const { mutateAsync } = useMutation({
+    ...putActionLogQuery(),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["getActionLogs"],
+      });
+    },
+  });
 
   useEffect(() => {
     const updateLog = async () => {

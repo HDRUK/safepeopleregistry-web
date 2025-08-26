@@ -7,6 +7,7 @@ import LoadingWrapper from "@/components/LoadingWrapper";
 import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
 import yup from "@/config/yup";
 import { VALIDATION_URL } from "@/consts/form";
+import { DEFAULT_STALE_TIME } from "@/consts/requests";
 import { ROUTES } from "@/consts/router";
 import { useStore } from "@/data/store";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
@@ -50,10 +51,12 @@ export default function Webhooks() {
     data: webhooksData,
     refetch: refetchWebhookData,
     isLoading: isWebhooksLoading,
-  } = useQuery(getCustodianWebhooksQuery(custodian?.id));
+  } = useQuery(
+    getCustodianWebhooksQuery(custodian?.id, { staleTime: DEFAULT_STALE_TIME })
+  );
 
   const { data: webhookEventTriggers } = useQuery(
-    getWebhookEventTriggerQuery()
+    getWebhookEventTriggerQuery({ staleTime: DEFAULT_STALE_TIME })
   );
   const {
     mutateAsync: postWebhook,

@@ -16,6 +16,7 @@ import postOrganisationInviteQuery from "./postOrganisationInviteQuery";
 import useOrganisationsQuery from "./useOrganisationsQuery";
 import getOrganisationRegistries from "./getOrganisationRegistries";
 import getOrganisationRegistriesQuery from "./getOrganisationRegistriesQuery";
+import postOrganisationNewAccount from "./postOrganisationNewAccount";
 
 export {
   getOrganisations,
@@ -32,6 +33,7 @@ export {
   getOrganisationRegistries,
   getOrganisationRegistriesQuery,
   postOrganisationUnclaimedQuery,
+  postOrganisationNewAccount,
   postOrganisationUnclaimed,
   postOrganisationInvite,
   postOrganisationInviteQuery,

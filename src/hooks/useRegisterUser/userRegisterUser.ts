@@ -1,7 +1,8 @@
 import { useRouter } from "@/i18n/routing";
 import { AccountType } from "@/types/accounts";
 import { useMutation } from "@tanstack/react-query";
-import { User } from "@/types/application";
+import { Auth, User } from "@/types/application";
+import { getProfilePathByEntity } from "@/utils/redirects";
 import Cookies from "js-cookie";
 import {
   postClaimUser,
@@ -9,32 +10,36 @@ import {
   PostRegisterPayload,
   PostClaimUserPayload,
 } from "../../services/auth";
-import { PostOrganisationPayload } from "../../services/organisations";
-import postOrganisationUnclaimed from "../../services/organisations/postOrganisationUnclaimed";
+import {
+  postOrganisationNewAccount,
+  PostOrganisationNewAccountPayload,
+  putOrganisation,
+  PutOrganisationPayload,
+} from "../../services/organisations";
 import { getCombinedQueryState } from "../../utils/query";
-import { getProfilePathByEntity } from "../../utils/redirects";
-import useAuth from "../useAuth";
 
 interface UseRegisterUserArgs {
-  selected: AccountType | null;
+  accountType: AccountType | null;
   unclaimedOrgAdmin: Partial<User> | null;
 }
 
 export default function useRegisterUser({
-  selected,
+  accountType,
   unclaimedOrgAdmin,
 }: UseRegisterUserArgs) {
   const router = useRouter();
-  const auth = useAuth();
+  const orgId = unclaimedOrgAdmin?.organisation_id ?? null;
 
-  const { mutateAsync, ...registerMutationState } = useMutation({
-    mutationKey: ["registerError"],
-    mutationFn: (payload: PostRegisterPayload) => {
-      return postRegister(payload, {
-        error: { message: "failedToRegister" },
-      });
-    },
-  });
+  const { mutateAsync: mutateRegisterNewUser, ...registerMutationState } =
+    useMutation({
+      mutationKey: ["createUser"],
+      mutationFn: (payload: PostRegisterPayload) => {
+        return postRegister(payload, {
+          error: { message: "failedToRegister" },
+        });
+      },
+    });
+
   const { mutateAsync: mutateClaimUser } = useMutation({
     mutationKey: ["claimUser"],
     mutationFn: (payload: PostClaimUserPayload) => {
@@ -46,43 +51,60 @@ export default function useRegisterUser({
 
   const { mutateAsync: mutateAsyncOrganisation, ...organisationMutationState } =
     useMutation({
-      mutationKey: ["postOrganisationUnclaimed"],
-      mutationFn: (payload: PostOrganisationPayload) => {
-        return postOrganisationUnclaimed(payload, {
-          error: { message: "postOrganisationUnclaimedError" },
+      mutationKey: ["putOrganisation", orgId],
+      mutationFn: (payload: PutOrganisationPayload) => {
+        return putOrganisation(orgId as number, payload, {
+          error: { message: "putOrganisationError" },
         });
       },
     });
 
-  const handleRegister = async () => {
-    if (!selected) return;
+  const {
+    mutateAsync: mutateAsyncRegisterNewOrganisation,
+    ...organisationMutationStateNewAccount
+  } = useMutation({
+    mutationKey: ["postOrganisationNewAccount"],
+    mutationFn: (payload: PostOrganisationNewAccountPayload) => {
+      return postOrganisationNewAccount(payload, {
+        error: { message: "postOrganisationNewAccountError" },
+      });
+    },
+  });
 
-    let organisationId;
+  const handleRegister = async (user: Auth) => {
+    if (!accountType) return;
 
-    if (selected === AccountType.ORGANISATION && !unclaimedOrgAdmin) {
-      const { data } = await mutateAsyncOrganisation({
-        organisation_name: `${auth?.user?.given_name} ${auth?.user?.family_name} Org`,
-        lead_applicant_email: auth?.user?.email,
+    Cookies.remove("account_type");
+
+    const hasUnclaimedOrg =
+      accountType === AccountType.ORGANISATION && !!unclaimedOrgAdmin;
+
+    if (hasUnclaimedOrg) {
+      // Claim invited user
+      if (unclaimedOrgAdmin?.registry_id) {
+        await mutateClaimUser({ registry_id: unclaimedOrgAdmin.registry_id });
+        Cookies.remove("account_digi_ident");
+      }
+
+      // Set unclaimed org to claimed
+      await mutateAsyncOrganisation({ unclaimed: 0 });
+    } else if (accountType === AccountType.ORGANISATION) {
+      // No invite - Create new org
+      await mutateAsyncRegisterNewOrganisation({
+        organisation_name: `${user?.given_name} ${user?.family_name} Org`,
+        lead_applicant_email: user?.email,
+        first_name: user?.given_name,
+        last_name: user?.family_name,
         unclaimed: 0,
       });
-
-      organisationId = data;
-    }
-    if (unclaimedOrgAdmin?.registry_id) {
-      await mutateClaimUser({
-        registry_id: unclaimedOrgAdmin.registry_id,
-      }).then(() => {
-        Cookies.remove("account_digi_ident");
-        router.replace(getProfilePathByEntity(selected));
-      });
     } else {
-      await mutateAsync({
-        account_type: selected,
-        organisation_id: organisationId,
-      }).then(() => {
-        router.replace(getProfilePathByEntity(selected));
+      // No invite - Create user
+      await mutateRegisterNewUser({
+        account_type: accountType,
       });
     }
+
+    router.replace(getProfilePathByEntity(accountType));
   };
 
   return {
@@ -90,6 +112,7 @@ export default function useRegisterUser({
     ...getCombinedQueryState([
       registerMutationState,
       organisationMutationState,
+      organisationMutationStateNewAccount,
     ]),
   };
 }

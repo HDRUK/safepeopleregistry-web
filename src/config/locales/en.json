@@ -25,6 +25,7 @@
       "undefined": "None",
       "null": "None",
       "project_pending": "Pending approval",
+      "project_pending_short": "Pending",
       "project_completed": "Completed",
       "project_approved": "Approved",
       "project_in_progress": "In progress",
@@ -78,6 +79,9 @@
     "status": "Status",
     "name": "Name",
     "projectStatus": "Project status",
+    "validationStatus": "Validation status",
+    "organisationStatus": "Organisation status",
+    "affiliationStatus": "Affiliation status",
     "projectRole": "Project Role",
     "actions": "Actions",
     "sortBy": "Sort by",
@@ -250,7 +254,7 @@
     "dataUseDescription": "Data description",
     "dataUseDescriptionPlaceholder": "Data description",
     "usersListTitle": "Users",
-    "usersListDescription": "This table enables Validation Team members to track and manage application workflow from initial enquiry to project closure.  Clicking on a User will show you more information and next steps.",
+    "usersListDescription": "Here, you and your team members can track and manage User validation across all projects. Clicking on a User will show you more information about that User in the linked project.\n\nTo add Users or to perform User validation on a project-by-project basis, go to the Projects tab above, select a project, and then select the Safe People subtab for that project.",
     "organisationsListTitle": "Organisations",
     "organisationsListDescription": "This page enables you and your team members to track and manage Organisation validation across all projects.  Clicking on an Organisation will show you more information and any next steps. You can also drag and drop Organisations between the different status lanes.",
     "noResultsMessage": "No members found",
@@ -637,7 +641,6 @@
     "startDateRequiredInvalid": "Start date is required",
     "endDate": "End date",
     "endDatePlaceholder": "End date",
-    "endDateRequiredInvalid": "End date is required",
     "webhookEventAriaLabel": "Webhook Event Trigger",
     "webhookRequiredInvalid": "Webhook event trigger is required",
     "duplicateWebhookError": "Duplicate webhooks detected! Your webhook receiver URLs should be unique.",
@@ -683,7 +686,8 @@
       "technicalSummaryPlaceholder": "Technical summary",
       "technicalSummaryRequiredInvalid": "Technical summary is required",
       "otherApprovalCommittees": "Other approval committees",
-      "otherApprovalCommitteesPlaceholder": "Approval committee name"
+      "otherApprovalCommitteesPlaceholder": "Approval committee name",
+      "startDateRequiredInvalid": "Start date is required"
     },
     "SafeData": {
       "arrayRemoveButton": "Remove",
@@ -955,13 +959,11 @@
     "idvtCheckButtonStart": "Start IDVT check",
     "idvtCheckButtonRestart": "Restart IDVT check",
     "idvtCheckComplete": "Check Complete",
-    "idvtCheckDescription": "Not all Data Custodians require this check to be completed. Those Data Custodians that do, can request that this check is completed prior to project approval. To work across the breadth of UK Data Custodians, we recommend that you complete this check as it may streamline approval processes. \n\nIDVT checks are carried out by a 3rd party supplier against the following criteria: valid government issued identification (fraud), likeness check against ID (identity), liveness check (identity), sanctions check (anti money laundering). Please note neither Safe People Registry nor the 3rd party supplier store a copy of your identity documents",
+    "idvtCheckDescription": "Some Data Custodians require identity verification before validating you as a User. To streamline approvals across different UK Data Custodians, we recommend completing the identity check in advance. The check is carried out by a third-party provider (Veriff) and includes:<ul><li>Verification of a valid government-issued ID (fraud check)</li><li>A likeness check (matching your face to the ID)</li><li>A liveness check (to confirm you're a real, present person)</li><li>A sanctions check (for anti-money laundering purposes)</li></ul>The Safe People Registry doesn't have access to information uploaded to Veriff - only the results. For more information about Veriff, please consult their [privacy notice](https://www.veriff.com/privacy-notice).",
     "idvtComplete": "IDVT checks complete",
     "idvtIncomplete": "IDVT checks incomplete",
     "accreditedResearcherCheckboxLabel": "I am a registered Accredited Researcher as published on the UK Statistics Authority website.",
-    "accreditedResearcherLinkHref": "https://www.gov.uk/government/consultations/digital-economy-act-part-5-data-sharing-codes-and-regulations/research-code-of-practice-and-accreditation-criteria",
     "userDeclarationCheckboxLabel": "I have signed a User declaration for accessing Digital Economy Act accredited environments.",
-    "userDeclarationLinkHref": "https://www.gov.uk/government/consultations/digital-economy-act-part-5-data-sharing-codes-and-regulations/research-code-of-practice-and-accreditation-criteria",
     "findOutMore": "Find out more",
     "employmentEducationPublicationRecord": "Employment, education and publication record",
     "orcidDescription": "Please enter your ORCID, if you have one, as this can help Data Custodians identify you.",
@@ -1129,17 +1131,26 @@
     "signOutButton": "Sign Out"
   },
   "Register": {
-    "title": "Confirm account type",
+    "title": "What would you like to do?",
     "claimOrgAccount": "Claim your admin account",
     "postOrganisationUnclaimedError": "Unable to create the initial organisation data, please try again. Alternatively, please contact us at <contactLink></contactLink>",
     "failedToRegister": "Failed to register account. Have you already registered?",
-    "repOrgButton": "I represent an organisation",
-    "repMyselfButton": "I represent myself as an individual",
-    "termsLabel": "I confirm I have and agree to Safe People Registry <bold> Terms and Conditions </bold>",
+    "repOrgButton": "Set up my <bold>Organisation</bold> account",
+    "repMyselfButton": "Show I'm safe to access sensitive data as a <bold>User</bold>",
+    "repCustodianButton": "Set up my <br></br><bold>Data Custodian</bold> account",
+    "termsLabel": "I confirm I have read and agreed to the <bold>Safe People Registry Terms and Conditions</bold>",
     "continueButton": "Continue",
     "inviteAccepted": "This invite has already been accepted. If you are having problems accessing the platform, please contact us at <contactLink></contactLink>",
     "loadingAriaLabel": "Registering",
-    "registeringCustodianAriaLabel": "Registering custodian"
+    "registeringCustodianAriaLabel": "Registering custodian",
+    "defaultTitle": "Guidance",
+    "defaultGuidance": "Select an option to view more information about account types.\n\n**Note:** If you hold multiple roles, you'll need a separate account for each.",
+    "userTitle": "Users",
+    "userGuidance": "The Safe People Registry is for individuals who need access to sensitive data for research or development. It allows you to create a profile with your identity, training, experience, and affiliations (e.g. an employer or academic institution – referred to as an Organisation in the Safe People Registry).\n\nYour profile isn’t public, but verified UK Data Custodians can view it when assessing data access requests, helping them evaluate the Safe People part of the Five Safes Framework.\n\nTypical Safe People Registry users include researchers, data analysts, and AI developers from sectors like academia, industry, and the public sector. If you want to:\n- setup, view, or edit your profile\n- request affiliation from an Organisation\n- view your current or past projects\n\nthen please choose this option.\n\n**Note**: If you hold multiple roles, you'll need a separate account for each.",
+    "organisationTitle": "Organisations",
+    "organisationGuidance": "The Safe People Registry helps Organisations that employ or teach researchers working with sensitive data to create a profile with key information such as identity and data security compliance.\n\nYou can:\n- View and manage affiliated User profiles\n- Approve or remove Users from projects\n- Notify Data Custodians when a User leaves your Organisation\n- See which projects your Users are involved in\n\nData Custodians use this information to assess the Safe People part of the Five Safes Framework. If you're representing an Organisation and want to take any of the above actions, choose this option.\n\n**Note:** If you hold multiple roles, you’ll need a separate account for each.",
+    "custodianTitle": "Data Custodians",
+    "custodianGuidance": "The Safe People Registry enables Data Custodian access to User and Organisation profiles, supporting assessment of the Safe People component of the Five Safes Framework.\n\nIf you manage secure research data (e.g. via a Trusted Research Environment, Safe Haven, or Secure Data Environment) and need to:\n- View or edit your Organisation profile\n- Validate Users and Organisations\n- Manage projects (past and present)\n- Configure User permissions for data access\n\nthen please choose this option.\n\n**Note:** If you hold multiple roles, you’ll need a separate account for each."
   },
   "ProjectUserCard": {
     "notFound": {
@@ -1235,7 +1246,8 @@
     "organisationSize": "Organisation size",
     "projectStatus": "Status",
     "organisationsNameAddress": "Address",
-    "searchPlaceholder": "Search by Organisation name"
+    "searchPlaceholder": "Search by Organisation name",
+    "notSet": "None"
   },
   "Projects": {
     "ProjectsFilters": {
@@ -1286,6 +1298,7 @@
       "errorMessage": "Couldn't get the users for this project. Please try again or <contactLink>contact support</contactLink> if the problem persists."
     },
     "status": "Project status",
+    "organisationStatus": "Organisation status",
     "safeProject": "Safe Project",
     "safeData": "Safe Data",
     "safePeople": "Safe People",
@@ -1396,11 +1409,11 @@
     "title": "Accreditations"
   },
   "DecoupleDelegates": {
-    "title": "Decouple",
-    "toolTip": "Decouple this user from your organisation",
-    "alertTitle": "Decouple User?",
-    "alertText": "Are you sure you want to remove {first_name} {last_name} from your organisation ({organisation_name})",
-    "alertConfirm": "Delete",
+    "title": "Remove",
+    "toolTip": "Remove this Delegate from your Organisation",
+    "alertTitle": "Remove Delegate?",
+    "alertText": "Are you sure you want to remove {first_name} {last_name} from your Organisation ({organisation_name})",
+    "alertConfirm": "Remove",
     "alertCancel": "Cancel"
   },
   "EditDelegate": {

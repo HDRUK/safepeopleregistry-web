@@ -15,6 +15,7 @@ import { showAlert } from "@/utils/showAlert";
 import { ValidationCheck } from "@/services/validation_checks/types";
 import FormActions from "@/components/FormActions";
 import ButtonSave from "@/components/ButtonSave";
+import { DEFAULT_STALE_TIME } from "@/consts/requests";
 import AddNewValidationCheck from "../AddNewValidationCheck";
 
 const NAMESPACE_TRANSLATION = "ValidationChecks";
@@ -32,16 +33,28 @@ export default function ValidationChecks() {
   const [orgChecks, setOrgChecks] = useState<boolean[]>([]);
 
   const { data: userValidationChecks, ...queryStateProjectUser } = useQuery(
-    getCustodianValidationChecksQuery(custodianId as number, {
-      "applies_to[]": AppliesTo.ProjectHasUser,
-    })
+    getCustodianValidationChecksQuery(
+      custodianId as number,
+      {
+        "applies_to[]": AppliesTo.ProjectHasUser,
+      },
+      {
+        staleTime: DEFAULT_STALE_TIME,
+      }
+    )
   );
 
   const { data: organisationValidationChecks, ...queryStateOrganisation } =
     useQuery(
-      getCustodianValidationChecksQuery(custodianId as number, {
-        "applies_to[]": AppliesTo.Organisation,
-      })
+      getCustodianValidationChecksQuery(
+        custodianId as number,
+        {
+          "applies_to[]": AppliesTo.Organisation,
+        },
+        {
+          staleTime: DEFAULT_STALE_TIME,
+        }
+      )
     );
 
   const { mutateAsync: updateValidationCheck, ...mutateStateEditCheck } =

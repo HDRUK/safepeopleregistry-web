@@ -3,6 +3,7 @@
 import { Collapse, useTheme } from "@mui/material";
 import { Box, useMediaQuery } from "@mui/system";
 import { ReactNode, useState } from "react";
+import Markdown from "@/components/Markdown";
 import { Position } from "../../consts/ui";
 import { StyledGuidance, StyledInfo } from "./Guidance.styles";
 import GuidanceTitle from "./GuidanceTitle";
@@ -61,7 +62,9 @@ export default function Guidance({
               <GuidanceTitle infoTitleIcon={infoTitleIcon}>
                 {infoTitle}
               </GuidanceTitle>
-              <Box sx={{ overflowY: "auto" }}>{info}</Box>
+              <Box sx={{ overflowY: "auto" }}>
+                {typeof info === "string" ? <Markdown>{info}</Markdown> : info}
+              </Box>
             </StyledInfo>
           </Collapse>
         </Box>
