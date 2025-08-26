@@ -103,14 +103,14 @@ export const mockedUserExperienceGuidanceProps = {
 
 export const mockedUserTrainingGuidanceProps = {
   infoTitle:
-    "This section relates to your training and accreditations for accessing sensitive data",
+    "Why do we need this information?",
   info: (
     <>
       <Typography mb={1}>
-        Suggested text: Different Data Custodians may require the completions of
-        different training courses. Please add all relevant safe researcher
-        training courses completed. Potential safe researcher training courses
-        to consider include:
+        Different Data Custodians may require different training courses. Please list all relevant training courses you have completed, as well as the Dates of Issue and Expiry. You will be automatically notified if a certificate expires.
+      </Typography>
+      <Typography mb={2}>
+        Examples include:
       </Typography>
       <ul>
         <li>
@@ -121,7 +121,7 @@ export const mockedUserTrainingGuidanceProps = {
             rel="noreferrer">
             ONS safe researcher training course
           </a>{" "}
-          – delivered by ONS, SCADR, UKDS (required for researchers accessing
+          , delivered by ONS, SCADR, UKDS (required for researchers accessing
           DEA accredited environments)
         </li>
         <li>
@@ -133,7 +133,7 @@ export const mockedUserTrainingGuidanceProps = {
             Research, GDPR and confidentiality quiz
           </a>
         </li>
-        <li>Any mandatory Host Organisation specific training course</li>
+        <li>Any mandatory training from your Organisation or a Data Custodian</li>
       </ul>
     </>
   ),
