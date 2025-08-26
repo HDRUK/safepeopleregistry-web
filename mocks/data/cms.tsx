@@ -62,8 +62,8 @@ export const mockedSafeProjectGuidanceProps = {
   infoTitle: "Did you know?",
   info: (
     <Typography>
-      The project properties are following the data use register transparency
-      standard.
+      These 'Five Safes' contain properties which follow the [data use register transparency
+      standard](https://zenodo.org/records/5902743#.ZDgTHcrMKUn).
     </Typography>
   ),
 };
