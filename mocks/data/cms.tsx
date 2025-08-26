@@ -72,14 +72,9 @@ export const mockedPersonalDetailsGuidanceProps = {
   infoTitle: "This section relates to you as an individual",
   info: (
     <>
-      <Typography mb={3}>Q. Why do we require this information?</Typography>
+      <Typography mb={3}>Q. Why do we need this information?</Typography>
       <Typography>
-        A. The primary purpose of Safe People Registry is to consolidate
-        information about researchers and organisations to allow Data Custodians
-        efficiently assess if a person/organisation is ‘Safe’. You can set up a
-        profile in Safe People Registry which shares relevant information with
-        Data Custodian, providing as much information about yourself as possible
-        helps Data Custodians assess you more quickly and easily.
+        The Safe People Registry helps bring together information about Users (researchers, innovators) and their Organisations so that Data Custodians can efficiently assess whether they meet the ‘safe people’ principle of the [Five Safes Framework](https://ukdataservice.ac.uk/help/secure-lab/what-is-the-five-safes-framework/). By creating a detailed profile in the Safe People Registry, you make it easier for Data Custodians to review your data access requests and validate you as a ‘safe person’. The more relevant information you provide, the quicker and smoother the validation process will be.
       </Typography>
     </>
   ),
