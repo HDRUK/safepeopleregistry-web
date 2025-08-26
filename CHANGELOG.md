@@ -1,3 +1,25 @@
+## [1.9.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.8.0...v1.9.0) (2025-08-26)
+
+### ✨ Features
+
+* **REGISTRY-1207:** Add env for Veriff (#425) ([7a70618](https://github.com/HDRUK/safepeopleregistry-web/commit/7a706189df374f90b9cee104566153df0897c362))
+* **REGISTRY-1263:** Design changes for register page (#426) ([d4754f7](https://github.com/HDRUK/safepeopleregistry-web/commit/d4754f7566ecfbbe74985098d85241ab84a73f21))
+* **REGISTRY-1602:** Fix max height of kanban board (#417) ([7e8b9fc](https://github.com/HDRUK/safepeopleregistry-web/commit/7e8b9fcf8f793ca4055c72e55162c84bde7f3c67))
+* **REGISTRY-1602:** Ordering of status in kanban board and select lists (#416) ([28da2d0](https://github.com/HDRUK/safepeopleregistry-web/commit/28da2d00e445098f80da953bece7866939b1e88e))
+* **REGISTRY-1660:** Add base google tag manager (#418) ([a4f7d5f](https://github.com/HDRUK/safepeopleregistry-web/commit/a4f7d5f72d0c252082fd15ae927eb86f7edd9e1e))
+* **REGISTRY-1668:** Tweak to status display (#423) ([be8d08f](https://github.com/HDRUK/safepeopleregistry-web/commit/be8d08ffe900f3e45dff37159d213a180974b76b))
+* **REGISTRY-1732:** Reverse account signup flow (#429) ([7546ece](https://github.com/HDRUK/safepeopleregistry-web/commit/7546eceb8bafca15ac3a0e7657deef58f02eef59))
+* **REGISTRY-1766:** Increase home intro spacing (#431) ([f092b7a](https://github.com/HDRUK/safepeopleregistry-web/commit/f092b7a9fabfff0390272658cfece9cdae6a1c84))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-1295:** Improve cookie expiry checking (#414) ([a7bafe1](https://github.com/HDRUK/safepeopleregistry-web/commit/a7bafe1cd26cd6fc8c136094f4bf6e74a6eb8fcc))
+* **REGISTRY-1303:** Copy tweak (#415) ([b7d9e63](https://github.com/HDRUK/safepeopleregistry-web/commit/b7d9e63aefbd9190fd3d1d0354415b159f2fbb4c))
+* **REGISTRY-1303:** Update declaration links (#412) ([131a3f3](https://github.com/HDRUK/safepeopleregistry-web/commit/131a3f311a05827d4daa6975984847962c022491))
+* **REGISTRY-1580:** Add cache of 10 minutes to query calls (#419) ([f15ad2a](https://github.com/HDRUK/safepeopleregistry-web/commit/f15ad2a1335829638cdb6398a08001cb2f4c9c41))
+* **REGISTRY-1594:** Remove required end date (#407) ([f4e1e51](https://github.com/HDRUK/safepeopleregistry-web/commit/f4e1e51ad7cea1d9c169a0135ebe6d34f67946a6))
+* **REGISTRY-1605:** Pass projectHasOrg id to link (#432) ([b9571df](https://github.com/HDRUK/safepeopleregistry-web/commit/b9571df5e67d7745a65c0b24f45088486191b461))
+
 ## [1.8.0](https://github.com/HDRUK/soursd-web/compare/v1.7.0...v1.8.0) (2025-07-31)
 
 ### ✨ Features
