@@ -16,7 +16,7 @@ export const mockedOrganisationHomeIntro =
   "The Organisation account is set up by a SRO (Senior Responsible Officer), who is required to get a declaration signed on behalf of their Organisation and upload this. Safe People Registry contains information about your Users (employees and students) and their work on sensitive data projects. The SRO is responsible for verifying this information. The SRO must have a position of seniority, as they are held accountable for the data.";
 
 export const mockedProjectsIntro =
-  "The project list below outlines your projects pending approval, including validated Users and Organisations. Clicking on a project will show you more information and next steps.";
+  "This list includes all projects recorded in Safe People Registry for your Data Custodian. Clicking on a project will show you more information and next steps, such as adding Users to begin the validation process.";
 
 export const mockedUserHomeIntro = (
   <>
