@@ -33,7 +33,7 @@ export default function Home({ custodian }: HomeProps) {
       <PageColumns>
         <PageColumnBody lg={8}>
           <PageSection>
-            <Typography>{t("homeIntro")}</Typography>
+            <Typography sx={{ mb: 4 }}>{t("homeIntro")}</Typography>
             <ActionLogs
               variant="custodian"
               panelProps={{
