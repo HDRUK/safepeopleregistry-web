@@ -48,8 +48,11 @@ export default function VeriffTermsAndConditions({
         </Typography>
         <Typography>
           {t.rich("descriptionPart2", {
-            theirLink: chunks => (
-              <a target="_blank" href="#">
+            veriffprivacyLink: chunks => (
+              <a
+                target="_blank"
+                href="https://www.veriff.com/privacy-notice"
+                rel="noreferrer">
                 {chunks}
               </a>
             ),
