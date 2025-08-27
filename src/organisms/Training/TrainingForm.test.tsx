@@ -52,8 +52,8 @@ describe("<TrainingForm />", () => {
   });
 
   it.each([
-    "Training provider",
     "Training course name",
+    "Training provider",
     "Date awarded",
     "Expiry date",
   ])("does not submit when %s is not defined", async fieldName => {
