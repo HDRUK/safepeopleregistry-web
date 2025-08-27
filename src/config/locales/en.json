@@ -1700,7 +1700,7 @@
     "copied": "Copied"
   },
   "ValidationChecks": {
-    "userChecksTitle": "User Manual: checks",
+    "userChecksTitle": "User: Manual checks",
     "organisationChecksTitle": "Organisation: Manual checks",
     "updateCheckSuccess": "Successfully updated which manual checks you have enabled",
     "successButton": "OK",
