@@ -53,7 +53,8 @@ export default function OrganisationsSubsidiaries({
       <PageSection heading={t("heading")}>
         <div>
           <Typography sx={{ mb: 2 }}>
-            If your Organisation is based internationally, please add any UK-based subsidiaries below.
+            If your Organisation is based internationally, please add any 
+            UK-based subsidiaries below.
           </Typography>
           <OrganisationsSubsidiariesTable
             data={organisation?.subsidiaries || []}
