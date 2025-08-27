@@ -6,16 +6,14 @@ import {
   mockedTermsAndConditionsConsumer,
 } from "@/mocks/data/terms_and_conditions/index";
 import descriptionContent from "@/mocks/data/terms_and_conditions/description.md";
-import FormModal, { FormModalProps } from "../FormModal";
 import Markdown from "../Markdown";
 import {
   StyledListItemButton,
   StyledRadio,
   StyledListItemText,
-} from "./TermsAndConditionsModal.styles";
+} from "./TermsAndConditions.styles";
 
-export interface TermsAndConditionsModalProps
-  extends Omit<FormModalProps, "children"> {
+export interface TermsAndConditionsProps {
   accountType: string | null;
   onAccept: () => void;
   onDecline: () => void;
@@ -26,12 +24,11 @@ type TermsKey =
   | keyof typeof mockedTermsAndConditionsConsumer
   | keyof typeof mockedTermsAndConditionsBusiness;
 
-export default function TermsAndConditionsModal({
+export default function TermsAndConditions({
   accountType,
   onAccept,
   onDecline,
-  ...restProps
-}: TermsAndConditionsModalProps) {
+}: TermsAndConditionsProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION_TERMS);
   const [selectedItem, setSelectedItem] = useState<TermsKey>("understanding");
 
@@ -60,15 +57,8 @@ export default function TermsAndConditionsModal({
     mockedTermsAndConditions
   ) as TermsKey[];
 
-  if (accountType === null)
-    return (
-      <FormModal {...restProps} variant="content">
-        {t("pleaseSelect")}
-      </FormModal>
-    );
-
   return (
-    <FormModal {...restProps} variant="content">
+    <>
       <Box
         sx={{
           display: "flex",
@@ -136,6 +126,6 @@ export default function TermsAndConditionsModal({
           </Button>
         </Box>
       </Box>
-    </FormModal>
+    </>
   );
 }
