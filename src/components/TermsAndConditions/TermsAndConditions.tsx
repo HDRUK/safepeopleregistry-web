@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Typography, Button, Box, List } from "@mui/material";
+import { Typography, Button, Box, List, ListItemText } from "@mui/material";
 import { useTranslations } from "next-intl";
 import {
   mockedTermsAndConditionsBusiness,
@@ -7,11 +7,7 @@ import {
 } from "@/mocks/data/terms_and_conditions/index";
 import descriptionContent from "@/mocks/data/terms_and_conditions/description.md";
 import Markdown from "../Markdown";
-import {
-  StyledListItemButton,
-  StyledRadio,
-  StyledListItemText,
-} from "./TermsAndConditions.styles";
+import { StyledListItemButton, StyledRadio } from "./TermsAndConditions.styles";
 
 export interface TermsAndConditionsProps {
   accountType: string | null;
@@ -78,17 +74,26 @@ export default function TermsAndConditions({
             {termsItems.map((item, index) => (
               <StyledListItemButton
                 key={item}
-                selected={selectedItem === item}
-                onClick={() => handleListItemClick(item)}>
-                <StyledRadio
-                  checked={selectedItem === item}
-                  onChange={() => handleListItemClick(item)}
-                />
-                <StyledListItemText
-                  primary={`${index + 1}. ${t(item)}`}
-                  isSelected={selectedItem === item}
-                />
-              </StyledListItemButton>
+                onClick={() => handleListItemClick(item)}
+                sx={{ width: "100%", m: 0 }}
+                label={
+                  <ListItemText
+                    primary={`${index + 1}. ${t(item)}`}
+                    sx={{
+                      "& .MuiListItemText-primary": {
+                        fontSize: "0.875rem",
+                        fontWeight: selectedItem === item ? 500 : 400,
+                      },
+                    }}
+                  />
+                }
+                control={
+                  <StyledRadio
+                    checked={selectedItem === item}
+                    inputProps={{ "aria-label": `test-${index}` }}
+                  />
+                }
+              />
             ))}
           </List>
         </Box>
@@ -98,12 +103,9 @@ export default function TermsAndConditions({
             <Typography variant="h4" gutterBottom>
               {t("title")}
             </Typography>
-            <Typography
-              variant="body1"
-              paragraph
-              sx={{ borderBottom: 1, borderColor: "divider", pb: 1 }}>
+            <Box sx={{ borderBottom: 1, borderColor: "divider", pb: 1 }}>
               <Markdown>{descriptionContent}</Markdown>
-            </Typography>
+            </Box>
             {renderContent()}
           </>
         </Box>

@@ -76,7 +76,7 @@ describe("<TermsAndConditionsModal />", () => {
   */
   it("has no accessibility violations", async () => {
     await commonAccessibilityTests(
-      render(<TermsAndConditions {...defaultProps} />)
+      render(<TermsAndConditions accountType="user" {...defaultProps} />)
     );
   });
 });
