@@ -20,10 +20,9 @@ export const mockedProjectsIntro =
 
 export const mockedUserHomeIntro = (
   <>
-    To complete your profile, please find a list of tasks assigned to you below.
-    Before getting started, make sure you have the following ready:
+    Different Data Custodians require different information. We recommend that you fill in your profile as much as possible to accelerate your validation to access sensitive data. To complete your profile, please find a list of tasks assigned to you below.
+    You may find it helpful to have the following ready:
     <ul>
-      <li>A form of ID (e.g. passport or driving licence)</li>
       <li>Your ORCiD</li>
       <li>An up-to-date CV</li>
       <li>Any relevant training certificates or professional member IDs</li>
@@ -63,8 +62,8 @@ export const mockedSafeProjectGuidanceProps = {
   infoTitle: "Did you know?",
   info: (
     <Typography>
-      The project properties are following the data use register transparency
-      standard.
+      These 'Five Safes' contain properties which follow the [data use register transparency
+      standard](https://zenodo.org/records/5902743#.ZDgTHcrMKUn).
     </Typography>
   ),
 };
@@ -73,27 +72,20 @@ export const mockedPersonalDetailsGuidanceProps = {
   infoTitle: "This section relates to you as an individual",
   info: (
     <>
-      <Typography mb={3}>Q. Why do we require this information?</Typography>
+      <Typography mb={3}>Q. Why do we need this information?</Typography>
       <Typography>
-        A. The primary purpose of Safe People Registry is to consolidate
-        information about researchers and organisations to allow Data Custodians
-        efficiently assess if a person/organisation is ‘Safe’. You can set up a
-        profile in Safe People Registry which shares relevant information with
-        Data Custodian, providing as much information about yourself as possible
-        helps Data Custodians assess you more quickly and easily.
+        The Safe People Registry helps bring together information about Users (researchers, innovators) and their Organisations so that Data Custodians can efficiently assess whether they meet the ‘safe people’ principle of the [Five Safes Framework](https://ukdataservice.ac.uk/help/secure-lab/what-is-the-five-safes-framework/). By creating a detailed profile in the Safe People Registry, you make it easier for Data Custodians to review your data access requests and validate you as a ‘safe person’. The more relevant information you provide, the quicker and smoother the validation process will be.
       </Typography>
     </>
   ),
 };
 
 export const mockedUserExperienceGuidanceProps = {
-  infoTitle: "This section relates to your individual research experience",
+  infoTitle: "Why do we need this information?",
   info: (
     <>
       <Typography mb={3}>
-        Through Safe People Registry you can provide Data Custodians with an
-        up-to-date record of your employment history, education, qualifications,
-        and publication record.
+        Sharing an up-to-date record of your employment history, education, qualifications, and publications enables Data Custodians to efficiently assess whether you meet the 'safe people' principle of the [Five Safes Framework](https://ukdataservice.ac.uk/help/secure-lab/what-is-the-five-safes-framework/). 
       </Typography>
       <Typography component="aside">
         <Typography variant="subtitle1" fontWeight={700}>
@@ -101,12 +93,7 @@ export const mockedUserExperienceGuidanceProps = {
         </Typography>
         <ul>
           <li>
-            Only requiring access to NHS SDE Network you <b>do not</b> need to
-            populate this page.
-          </li>
-          <li>
-            Want access to data from any other Data Custodian please do populate
-            this page.
+            If you only need access to the NHS SDE Network, you <b>do not</b> need to complete this page.
           </li>
         </ul>
       </Typography>
@@ -116,14 +103,14 @@ export const mockedUserExperienceGuidanceProps = {
 
 export const mockedUserTrainingGuidanceProps = {
   infoTitle:
-    "This section relates to your training and accreditations for accessing sensitive data",
+    "Why do we need this information?",
   info: (
     <>
       <Typography mb={1}>
-        Suggested text: Different Data Custodians may require the completions of
-        different training courses. Please add all relevant safe researcher
-        training courses completed. Potential safe researcher training courses
-        to consider include:
+        Different Data Custodians may require different training courses. Please list all relevant training courses you have completed, as well as the Dates of Issue and Expiry. You will be automatically notified if a certificate expires.
+      </Typography>
+      <Typography mb={2}>
+        Examples include:
       </Typography>
       <ul>
         <li>
@@ -134,7 +121,7 @@ export const mockedUserTrainingGuidanceProps = {
             rel="noreferrer">
             ONS safe researcher training course
           </a>{" "}
-          – delivered by ONS, SCADR, UKDS (required for researchers accessing
+          , delivered by ONS, SCADR, UKDS (required for researchers accessing
           DEA accredited environments)
         </li>
         <li>
@@ -146,7 +133,7 @@ export const mockedUserTrainingGuidanceProps = {
             Research, GDPR and confidentiality quiz
           </a>
         </li>
-        <li>Any mandatory Host Organisation specific training course</li>
+        <li>Any mandatory training from your Organisation or a Data Custodian</li>
       </ul>
     </>
   ),
@@ -169,42 +156,38 @@ export const mockedRegisterGuidanceProps = {
 
 export const mockedResearcherAffiliationsGuidance = {
   infoTitle:
-    "This section relates to you as an employee or student of an Organisation",
+    "How do affiliations work?",
   info: (
     <>
       <Typography mb={2}>
-        Through Safe People Registry individuals are affiliated with
-        Organisations (employers or higher education institutions or honorary
-        contracts).
+        In the Safe People Registry, individual Users (researchers, innovators) are affiliated to their Organisation (e.g. employer, university, or honorary contract holder). To request affiliation, you must add or update a current Organisation and verify your professional email address. Your Organisation will then be asked to confirm your affiliation.
       </Typography>
       <Typography mb={2}>
-        If your Organisation is not on Safe People Registry you can ask them to
-        register for an account. Affiliated Organisations that haven’t already
-        confirmed your status will be sent an invite to do so, when you click
-        save. When you click save affiliated organisation will be invited to
-        confirm your status, if they have not already do so.
+        If your Organisation is not yet registered on Safe People Registry, you can invite them to create an account by adding them. 
       </Typography>
       <Typography mb={5}>
-        Being affiliated by an Organisation is especially important for
-        Organisations who are the host for a project you plan to work on.
+        Why are we using the term 'User'? In our engagement with Data Custodians, we found that there was no single 'term' that referred to all the types of people who were accessing sensitive data - researchers, scientists, innovators, engineers, and more. Ultimately, the community landed on 'User' as the all-encompassing term.
+      </Typography>
+      <Typography mb={5}>
+        You can monitor your affiliation status here.
       </Typography>
       <Typography variant="h4" mb={2}>
         The statuses
       </Typography>
       <ChipStatus status={Status.AFFILIATED} color="success" sx={{ mb: 2 }} />
       <Typography mb={3} sx={{ fontSize: "14px" }}>
-        You have been affiliated by this Organisation
+        You have been affiliated by this Organisation.
       </Typography>
       <ChipStatus status={Status.PENDING} sx={{ mb: 2 }} />
       <Typography mb={3} sx={{ fontSize: "14px" }}>
         The Organisation has been invited to confirm your affiliation, but has
         not yet done so. Once they have an account they will be automatically
-        asked to confirm your affiliation
+        asked to confirm your affiliation.
       </Typography>
       <ChipStatus status={Status.INVITE_SENT} sx={{ mb: 2 }} />
       <Typography sx={{ fontSize: "14px" }}>
         The Organisation has been invited to set up an account, but has not yet
-        done so
+        done so.
       </Typography>
     </>
   ),
