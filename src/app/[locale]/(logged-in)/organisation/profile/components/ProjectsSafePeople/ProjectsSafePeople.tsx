@@ -11,8 +11,10 @@ import { renderStatusCell } from "@/utils/cells";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 
+const NAMESPACE_TRANSLATIONS = "Projects.Users";
+
 export default function ProjectsSafePeople() {
-  const t = useTranslations("Projects.Users");
+  const t = useTranslations(NAMESPACE_TRANSLATIONS);
   const { organisationName, projectId, route } = useStore(state => ({
     organisationName: state.getOrganisation()?.organisation_name,
     projectId: state.getCurrentProject().id,
