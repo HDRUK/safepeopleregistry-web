@@ -57,7 +57,7 @@ describe("Trainings", () => {
   it("renders without crashing", () => {
     render(<Trainings />);
     expect(
-      screen.getByText("Complete your training and accreditation history")
+      screen.getByText("Complete your training and membership history")
     ).toBeInTheDocument();
   });
 
