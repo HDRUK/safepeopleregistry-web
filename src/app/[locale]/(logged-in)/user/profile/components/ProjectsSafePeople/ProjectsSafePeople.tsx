@@ -10,7 +10,7 @@ export default function ProjectsSafePeople() {
   const { registryId, projectId, route } = useStore(state => ({
     registryId: state.getUser()?.registry_id,
     projectId: state.getCurrentProject().id,
-    route: state.getApplication().routes.profileCustodianUsersProjects,
+    route: state.getApplication().routes.profileOrganisationUsersIdentity,
   }));
 
   // filter to only display the current user via registry ID, if in this project

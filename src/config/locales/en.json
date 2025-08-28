@@ -1261,14 +1261,15 @@
     },
     "UserProjects": {
       "organisations": "Organisation(s)",
-      "status": "Project status",
+      "projectStatus": "Project status",
+      "validationStatus": "Validation status",
       "title": "Project name"
     },
     "Users": {
       "cancel": "Cancel",
       "move": "Change status",
       "status": "Validation status",
-      "affilitionStatus": "Affiliation status",
+      "affiliationStatus": "Affiliation status",
       "organisationName": "Organisation name",
       "projectRole": "Project role",
       "projectName": "Project name",
