@@ -80,7 +80,7 @@ export default function Affiliations({
     },
     {
       accessorKey: "model_state.state.slug",
-      header: tApplication("status"),
+      header: tApplication("affiliationStatus"),
       cell: renderStatus,
     },
     ...(extraColumns ?? []),
