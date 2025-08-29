@@ -137,7 +137,7 @@
       "okButton": "OK",
       "saveSuccess": "Custodian profile details updated",
       "dsitLogoAlt": "Department for Science, Innovation & Technology",
-      "integrationsDescription": "Link your Gateway Team profile via a custom integration to Safe People Registry so that you can populate your project information and synch the information without needing to enter it in two places.",
+      "integrationsDescription": "Link your Gateway Team profile via a custom integration to the Safe People Registry so that you can sync your project information without needing to enter it in two places.",
       "configurationIntegrations": "Integrations",
       "gatewayAppId": "Application ID",
       "gatewayAppIdPlaceholder": "Enter your 40 character App ID",
