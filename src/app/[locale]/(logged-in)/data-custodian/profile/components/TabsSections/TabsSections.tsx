@@ -42,7 +42,7 @@ export default function TabsSections({ tabId }: TabsSectionsProps) {
         />
         <Tab
           icon={<ManageAccountsOutlinedIcon />}
-          label={t("contacts")}
+          label={t("team")}
           href={routes.profileCustodianContacts.path}
           component={Link}
           value={PageTabs.CONTACTS}

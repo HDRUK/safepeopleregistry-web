@@ -7,7 +7,7 @@ describe("<TabsSections />", () => {
   it.each([
     { name: "Home", path: `/en${ROUTES.profileCustodianHome.path}` },
     { name: "Users", path: `/en${ROUTES.profileCustodianUsers.path}` },
-    { name: "Contacts", path: `/en${ROUTES.profileCustodianContacts.path}` },
+    { name: "Team", path: `/en${ROUTES.profileCustodianContacts.path}` },
   ])("has the correct path $s", ({ name, path }) => {
     render(<TabsSections tabId={name as PageTabs} />);
 
