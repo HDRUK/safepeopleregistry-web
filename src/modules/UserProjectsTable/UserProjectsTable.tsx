@@ -12,7 +12,11 @@ import { filterColumns } from "@/utils/table";
 import { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
 
-export type UserProjectsTableColumns = "title" | "organisations" | "status";
+export type UserProjectsTableColumns =
+  | "title"
+  | "organisations"
+  | "projectStatus"
+  | "validationStatus";
 
 export interface UserProjectsTableProps
   extends ModuleTables<ResearcherProject, UserProjectsTableColumns> {
@@ -25,7 +29,12 @@ export default function UserProjectsTable({
   routes,
   t,
   extraColumns,
-  includeColumns = ["title", "organisations", "status"],
+  includeColumns = [
+    "title",
+    "organisations",
+    "projectStatus",
+    "validationStatus",
+  ],
   ...restProps
 }: UserProjectsTableProps) {
   const { createDefaultColumn } = useColumns<ResearcherProject>({ t });
@@ -38,9 +47,19 @@ export default function UserProjectsTable({
       createDefaultColumn("organisations", {
         cell: info => renderOrganisationsNameCell(info.getValue()),
       }),
-      createDefaultColumn("status", {
+      createDefaultColumn("projectStatus", {
         cell: info => (
           <ChipStatus status={info.row.original.model_state?.state.slug} />
+        ),
+      }),
+      createDefaultColumn("validationStatus", {
+        cell: info => (
+          <ChipStatus
+            status={
+              info.row.original.custodian_has_project_user?.[0]?.model_state
+                ?.state.slug
+            }
+          />
         ),
       }),
     ];

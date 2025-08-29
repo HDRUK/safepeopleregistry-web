@@ -97,6 +97,7 @@ const renderProjectUserNameCell = (data: ProjectUser, route: string) => {
     <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
       {renderUserNameCell(user, route, {
         projectUserId: id,
+        userId: user.id,
       })}
       {!!primary_contact && <PrimaryContactIcon fontSize="small" />}
     </Box>

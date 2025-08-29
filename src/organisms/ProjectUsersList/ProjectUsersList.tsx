@@ -50,7 +50,7 @@ export default function ProjectUsersList({
     <ProjectUsersTable
       data={data}
       {...restProps}
-      extraColumns={extraColumns}
+      extraColumns={[...(restProps?.extraColumns || []), ...extraColumns]}
       t={t}
     />
   );
