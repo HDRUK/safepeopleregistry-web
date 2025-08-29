@@ -22,7 +22,7 @@ function setupTest(props?: ProjectsSafeDataFormProps) {
 
 function getAllInputs() {
   return [
-    /Select data sensitivity level/,
+    /Data sensitivity level/,
     /Lawful condition for provision of data under Article 6/,
     /I confirm there is a lawful basis to hold and use this data in accordance with the common law duty of confidentiality/,
     /National data opt-out preferences have been applied to this data/,

@@ -50,7 +50,7 @@ describe("<Integrations />", () => {
     expect(screen.getByDisplayValue(gatewayClientId)).toBeInTheDocument();
     expect(
       screen.getByText(
-        "Link your Gateway Team profile via a custom integration to Safe People Registry so that you can populate your project information and synch the information without needing to enter it in two places."
+        "Link your Gateway Team profile via a custom integration to the Safe People Registry so that you can sync your project information without needing to enter it in two places."
       )
     ).toBeInTheDocument();
 
