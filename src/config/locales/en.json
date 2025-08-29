@@ -259,7 +259,25 @@
     "organisationsListDescription": "This page enables you and your team members to track and manage Organisation validation across all projects.  Clicking on an Organisation will show you more information and any next steps. You can also drag and drop Organisations between the different status lanes.",
     "noResultsMessage": "No members found",
     "homeTitle": "Your outstanding actions",
-    "searchProjectUsersPlaceholder": "Search for User, Project Name, Organisation"
+    "searchProjectUsersPlaceholder": "Search for User, Project Name, Organisation",
+    "guidance": {
+      "rules": {
+        "infoTitle": "Guidance",
+        "info": "The Safe People Registry does not make any decisions as to the final outcomes of which Users or Organisations are validated (considered \"safe\"). That decision remains with each Data Custodian.\n\nYou can still record a User or Organisation as validated to work on a particular project, even if the User/Organisation is flagged as not meeting one of the criteria.\n\n---\n\nHow does IDVT work?\n\nIDVT tests an individual against the following criteria:\n\n1. Valid government issued identification. (Fraud)\n2. Likeness check against ID. (Identity)\n3. Liveness check. (Identity)\n4. Sanctions. (Anti-Money Laundering - AML)\n\n **Note:** IDVT can currently only be performed by Users residing in the UK.\n\nThis feature is one of many supplied as part of Safe People Registry. You do not need to use them all!"
+      },
+      "validation-checks": {
+        "infoTitle": "Guidance",
+        "info": "These Manual Checks will appear alongside each User and Organisation profile during the validation process. You will be able to navigate between different tabs for the User (Affiliations, Projects, Identify, Training, Automated flags) and for the Organisation (Users, Address, Digital identifiers, Sector size, Data security compliance) to perform each of these checks manually.\n\nYou will always have the option to ultimately record a User or Organisation as validated without following these checks. These checks are a tool for recording decisions only."
+      },
+      "webhooks": {
+        "infoTitle": "Guidance",
+        "info": "To register a webhook receiver to consume specific events, provide a publicly accessible URL that can receive HTTP POST requests. Configure the webhook to handle incoming events by parsing the request body. Ensure your endpoint responds with a 2xx status code to acknowledge successful receipt."
+      },
+      "integrations": {
+        "infoTitle": "Guidance",
+        "info": "This tool currently imports project information from Gateway.\n\nThis only functions if:\n\n- This Custom Integration is enabled on Gateway.\n- The Application ID and Client ID match the IDs in the Gateway.\n\n- During each project creation in Safe People Registry, you use a valid Data Use Registry (DUR) ID from within the Gateway"
+      }
+    }
   },
   "OrganisationStats": {
     "affiliatedUsers": "Affiliated Users",
