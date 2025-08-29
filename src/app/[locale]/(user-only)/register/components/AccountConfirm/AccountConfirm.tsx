@@ -7,16 +7,9 @@ import { AccountType } from "@/types/accounts";
 import BusinessIcon from "@mui/icons-material/Business";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import { LoadingButton } from "@mui/lab";
-import {
-  Box,
-  Checkbox,
-  FormControlLabel,
-  Typography,
-  Button,
-} from "@mui/material";
+import { Box, Button, Link, Modal, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { useCallback, useEffect, useState } from "react";
-import TermsAndConditionsModal from "@/components/TermsAndConditionsModal";
+import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { showAlert } from "@/utils/showAlert";
 import Cookies from "js-cookie";
@@ -26,10 +19,14 @@ import { User } from "@/types/application";
 import { getCombinedQueryState } from "@/utils/query";
 import { ROUTES } from "@/consts/router";
 import useRegisterUser from "@/hooks/useRegisterUser";
-import { handleRegister as handleRegisterKeycloak } from "@/utils/keycloak";
 import { UserGroup } from "@/consts/user";
 import useAuth from "@/hooks/useAuth";
+import TermsAndConditions from "@/components/TermsAndConditions";
+import { handleRegister as handleRegisterKeycloak } from "@/utils/keycloak";
 import LoadingWrapper from "@/components/LoadingWrapper";
+import { AdminPanelSettingsOutlined } from "@mui/icons-material";
+import { ModalContent } from "@/organisms/Training/CertificateUploadModal.styles";
+import { CONTACT_MAIL_ADDRESS } from "@/config/contacts";
 import AccountOption from "../AccountOption";
 
 const NAMESPACE_TRANSLATIONS_PROFILE = "Register";
@@ -60,6 +57,8 @@ export default function AccountConfirm({
   const digiIdent = Cookies.get("account_digi_ident");
   const storedAccountType = Cookies.get("account_type");
 
+  const [custodianModalOpen, setCustodianModalOpen] = useState<boolean>(false);
+
   const { data: unclaimedUserData, ...unclaimedUserQueryState } = useQuery({
     ...getUserByIdQuery(digiIdent as string),
     enabled: !!digiIdent,
@@ -68,9 +67,7 @@ export default function AccountConfirm({
 
   const [selectedAccountType, setSelectedAccountType] =
     useState<AccountType | null>(null);
-  const [termsChecked, setTermsChecked] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [hasAcceptedTerms, setHasAcceptedTerms] = useState(false);
+  const [termsDisplayed, setTermsDisplayed] = useState(false);
 
   const [unclaimedOrgAdmin, setUnclaimedOrgAdmin] =
     useState<Partial<User> | null>(null);
@@ -115,17 +112,7 @@ export default function AccountConfirm({
     }
   }, [params, pendingAccount, auth.user, accountType]);
 
-  const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
-
-  const handleAcceptTerms = () => {
-    setHasAcceptedTerms(true);
-    setTermsChecked(true);
-    handleCloseModal();
-  };
-
   const handleDeclineTerms = () => {
-    handleCloseModal();
     setTimeout(() => {
       showAlert("warning", {
         text: tTerms("alertText"),
@@ -134,43 +121,12 @@ export default function AccountConfirm({
         cancelButtonText: tTerms("alertCancel"),
         closeOnConfirm: true,
         closeOnCancel: true,
-        preConfirm: () => {
-          router.push(ROUTES.homepage.path);
-        },
         preDeny: () => {
-          handleOpenModal();
+          router.push(ROUTES.homepage.path);
         },
       });
     }, 100);
   };
-
-  const renderBoldText = useCallback(
-    (chunks: React.ReactNode) => (
-      <Button
-        disabled={!!selectedAccountType}
-        onClick={handleOpenModal}
-        variant="text"
-        sx={{
-          textTransform: "none",
-          fontWeight: "bold",
-          backgroundColor: "none",
-          color: "secondary.main",
-          textAlign: "left",
-          p: 0,
-          pb: 1,
-          "&:hover": {
-            backgroundColor: "none",
-            textDecoration: "underline",
-          },
-        }}>
-        {chunks}
-      </Button>
-    ),
-    []
-  );
-
-  const isContinueDisabled =
-    selectedAccountType === null || !termsChecked || !hasAcceptedTerms;
 
   const queryState = getCombinedQueryState([
     registerUserState,
@@ -196,144 +152,162 @@ export default function AccountConfirm({
     );
   }
 
-  return (
-    <Guidance
-      infoTitle={t(`${selectedAccountType || "default"}Title`)}
-      info={t(`${selectedAccountType || "default"}Guidance`)}>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 2,
-          padding: 4,
-        }}>
-        <Box sx={{ textAlign: "center", marginBottom: 4 }}>
-          <SoursdLogo sx={{ backgroundColor: "transparent" }} />
-          <Typography variant="h3">
-            {unclaimedOrgAdmin ? t("claimOrgAccount") : t("title")}
-          </Typography>
-        </Box>
+  const termsRequired =
+    !accountType || !auth.user || !unclaimedOrgAdmin || !unclaimedUserData;
 
-        {!unclaimedUserQueryState.isLoading && showAccountPicker && (
+  const isContinueDisabled = selectedAccountType === null || isLoading;
+
+  return (
+    <>
+      {!termsDisplayed && (
+        <Guidance
+          infoTitle={t(`${selectedAccountType || "default"}Title`)}
+          info={t(`${selectedAccountType || "default"}Guidance`)}>
           <Box
             sx={{
               display: "flex",
-              justifyContent: "center",
-              gap: 4,
-              marginBottom: 4,
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 2,
+              padding: 4,
             }}>
-            {!unclaimedOrgAdmin && (
-              <AccountOption
-                icon={PeopleAltOutlinedIcon}
-                label={t.rich("repMyselfButton", {
-                  bold: chunks => <strong>{chunks}</strong>,
-                })}
-                onClick={handleSelect}
-                name={AccountType.USER}
-                selected={selectedAccountType}
-                disabled={!!unclaimedOrgAdmin}
-              />
+            <Box sx={{ textAlign: "center", marginBottom: 4 }}>
+              <SoursdLogo sx={{ backgroundColor: "transparent" }} />
+              <Typography variant="h3">
+                {unclaimedOrgAdmin ? t("claimOrgAccount") : t("title")}
+              </Typography>
+            </Box>
+
+            {!unclaimedUserQueryState.isLoading && showAccountPicker && (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: 4,
+                  marginBottom: 4,
+                }}>
+                {!unclaimedOrgAdmin && (
+                  <AccountOption
+                    icon={PeopleAltOutlinedIcon}
+                    label={t.rich("repMyselfButton", {
+                      bold: chunks => <strong>{chunks}</strong>,
+                    })}
+                    onClick={handleSelect}
+                    name={AccountType.USER}
+                    selected={selectedAccountType}
+                    disabled={!!unclaimedOrgAdmin}
+                  />
+                )}
+
+                <AccountOption
+                  icon={BusinessIcon}
+                  label={
+                    unclaimedOrgAdmin?.organisation?.organisation_name ||
+                    t.rich("repOrgButton", {
+                      bold: chunks => <strong>{chunks}</strong>,
+                    })
+                  }
+                  onClick={handleSelect}
+                  name={AccountType.ORGANISATION}
+                  selected={selectedAccountType}
+                />
+
+                {!hasAccessToken && (
+                  <AccountOption
+                    icon={AdminPanelSettingsOutlined}
+                    label={t.rich("repCustodianButton", {
+                      bold: chunks => <strong>{chunks}</strong>,
+                      br: () => <br />,
+                    })}
+                    onClick={handleSelect}
+                    name={AccountType.CUSTODIAN}
+                    selected={selectedAccountType}
+                    disabled={!!unclaimedOrgAdmin}
+                  />
+                )}
+              </Box>
             )}
 
-            <AccountOption
-              icon={BusinessIcon}
-              label={
-                unclaimedOrgAdmin?.organisation?.organisation_name ||
-                t.rich("repOrgButton", {
-                  bold: chunks => <strong>{chunks}</strong>,
-                })
-              }
-              onClick={handleSelect}
-              name={AccountType.ORGANISATION}
-              selected={selectedAccountType}
-            />
+            <Box
+              sx={{
+                textAlign: "center",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                gap: 1,
+              }}>
+              {!pendingAccount && (
+                <LoadingButton
+                  onClick={
+                    selectedAccountType !== AccountType.CUSTODIAN
+                      ? () => {
+                          Cookies.set("account_type", selectedAccountType!);
+                          setTermsDisplayed(true);
+                        }
+                      : () => setCustodianModalOpen(true)
+                  }
+                  variant="contained"
+                  disabled={isContinueDisabled}
+                  sx={{ p: 2, minWidth: 300 }}
+                  fullWidth>
+                  {t("continueButton")}
+                </LoadingButton>
+              )}
 
-            {/* <AccountOption
-              icon={AdminPanelSettingsOutlined}
-              label={t.rich("repCustodianButton", {
-                bold: chunks => <strong>{chunks}</strong>,
-                br: () => <br />,
-              })}
-              onClick={handleSelect}
-              name={AccountType.CUSTODIAN}
-              selected={selectedAccountType}
-              disabled={!!unclaimedOrgAdmin}
-            /> */}
+              {hasAccessToken && (
+                <LoadingButton
+                  onClick={() =>
+                    termsRequired && !unclaimedUserData
+                      ? setTermsDisplayed(true)
+                      : auth.user && handleRegister(auth.user)
+                  }
+                  disabled={registerUserState.isLoading}
+                  variant="contained"
+                  sx={{ p: 2, minWidth: 300 }}
+                  fullWidth>
+                  {t("continueButton")}
+                </LoadingButton>
+              )}
+
+              {isError && (
+                <Message severity="error" sx={{ mb: 3 }}>
+                  {t(error)}
+                </Message>
+              )}
+            </Box>
           </Box>
-        )}
+        </Guidance>
+      )}
 
-        <Box
-          sx={{
-            textAlign: "center",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            gap: 1,
-          }}>
-          {(!accountType ||
-            !auth.user ||
-            !unclaimedOrgAdmin ||
-            !unclaimedUserData) && (
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={termsChecked}
-                  onChange={e => setTermsChecked(e.target.checked)}
-                  disabled={!hasAcceptedTerms}
-                />
-              }
-              label={
-                <Typography fontSize={14} textAlign="left" maxWidth={300}>
-                  {t.rich("termsLabel", { bold: renderBoldText })}
-                </Typography>
-              }
-            />
-          )}
+      {termsDisplayed && (
+        <TermsAndConditions
+          accountType={selectedAccountType}
+          onAccept={() =>
+            pendingAccount
+              ? auth.user && handleRegister(auth.user)
+              : handleRegisterKeycloak(selectedAccountType)
+          }
+          onDecline={handleDeclineTerms}
+        />
+      )}
 
-          {!pendingAccount && (
-            <LoadingButton
-              onClick={() => {
-                Cookies.set("account_type", selectedAccountType!);
-                handleRegisterKeycloak(selectedAccountType);
-              }}
-              variant="contained"
-              disabled={isContinueDisabled || isLoading}
-              sx={{ p: 2 }}
-              fullWidth>
-              {t("continueButton")}
-            </LoadingButton>
-          )}
-
-          {hasAccessToken && (
-            <LoadingButton
-              onClick={() => auth.user && handleRegister(auth.user)}
-              disabled={registerUserState.isLoading}
-              variant="contained"
-              sx={{ p: 2 }}
-              fullWidth>
-              {t("continueButton")}
-            </LoadingButton>
-          )}
-
-          {isError && (
-            <Message severity="error" sx={{ mb: 3 }}>
-              {t(error)}
-            </Message>
-          )}
-        </Box>
-        {(!hasAcceptedTerms || !termsChecked) && !pendingAccount && (
-          <Message severity="info">{tTerms("termsAndConditionsInfo")}</Message>
-        )}
-      </Box>
-
-      <TermsAndConditionsModal
-        accountType={selectedAccountType}
-        open={isModalOpen}
-        onClose={handleCloseModal}
-        onAccept={handleAcceptTerms}
-        onDecline={handleDeclineTerms}
-      />
-    </Guidance>
+      <Modal
+        open={custodianModalOpen}
+        sx={{ p: 1 }}
+        onClose={() => setCustodianModalOpen(false)}>
+        <ModalContent>
+          <Typography variant="h3">{t("custodianModalTitle")}</Typography>
+          <Typography variant="body1" sx={{ my: 3 }}>
+            {t("custodianModalContent")}{" "}
+            <Link href={`mailto:${CONTACT_MAIL_ADDRESS}`}>
+              {CONTACT_MAIL_ADDRESS}
+            </Link>
+          </Typography>
+          <Button onClick={() => setCustodianModalOpen(false)}>
+            {t("custodianModalClose")}
+          </Button>
+        </ModalContent>
+      </Modal>
+    </>
   );
 }

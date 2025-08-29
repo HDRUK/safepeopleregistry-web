@@ -1,4 +1,3 @@
-import React from "react";
 import {
   commonAccessibilityTests,
   render,
@@ -7,7 +6,7 @@ import {
   // waitFor,
 } from "../../utils/testUtils";
 // import { termsItems } from "../../consts/termsAndConditions";
-import TermsAndConditionsModal from "./TermsAndConditionsModal";
+import TermsAndConditions from "./TermsAndConditions";
 
 jest.mock("next-intl", () => ({
   useTranslations: () => (key: string) => key,
@@ -77,7 +76,7 @@ describe("<TermsAndConditionsModal />", () => {
   */
   it("has no accessibility violations", async () => {
     await commonAccessibilityTests(
-      render(<TermsAndConditionsModal {...defaultProps} />)
+      render(<TermsAndConditions accountType="user" {...defaultProps} />)
     );
   });
 });

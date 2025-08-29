@@ -1,6 +1,6 @@
-import { ListItemButton, ListItemText, Radio, styled } from "@mui/material";
+import { FormControlLabel, Radio, styled } from "@mui/material";
 
-export const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
+export const StyledListItemButton = styled(FormControlLabel)(({ theme }) => ({
   padding: theme.spacing(1),
   "&.Mui-selected": {
     backgroundColor: theme.palette.common.white,
@@ -19,12 +19,3 @@ export const StyledRadio = styled(Radio)(({ theme }) => ({
     color: theme.palette.primary,
   },
 }));
-
-export const StyledListItemText = styled(ListItemText)<{ isSelected: boolean }>(
-  ({ isSelected }) => ({
-    "& .MuiListItemText-primary": {
-      fontSize: "0.875rem",
-      fontWeight: isSelected ? 500 : 400,
-    },
-  })
-);
