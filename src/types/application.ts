@@ -456,6 +456,7 @@ interface ProjectUser {
   role?: Partial<Role>;
   affiliation: Partial<ResearcherAffiliation>;
   registry: Registry;
+  custodian_has_project_user?: CustodianProjectUser;
 }
 
 type CustodianProjectUser = WithModelState<{

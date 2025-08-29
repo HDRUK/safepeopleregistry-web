@@ -7,7 +7,7 @@ import { AccountType } from "@/types/accounts";
 import BusinessIcon from "@mui/icons-material/Business";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import { LoadingButton } from "@mui/lab";
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Link, Modal, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -24,6 +24,9 @@ import useAuth from "@/hooks/useAuth";
 import TermsAndConditions from "@/components/TermsAndConditions";
 import { handleRegister as handleRegisterKeycloak } from "@/utils/keycloak";
 import LoadingWrapper from "@/components/LoadingWrapper";
+import { AdminPanelSettingsOutlined } from "@mui/icons-material";
+import { ModalContent } from "@/organisms/Training/CertificateUploadModal.styles";
+import { CONTACT_MAIL_ADDRESS } from "@/config/contacts";
 import AccountOption from "../AccountOption";
 
 const NAMESPACE_TRANSLATIONS_PROFILE = "Register";
@@ -53,6 +56,8 @@ export default function AccountConfirm({
 
   const digiIdent = Cookies.get("account_digi_ident");
   const storedAccountType = Cookies.get("account_type");
+
+  const [custodianModalOpen, setCustodianModalOpen] = useState<boolean>(false);
 
   const { data: unclaimedUserData, ...unclaimedUserQueryState } = useQuery({
     ...getUserByIdQuery(digiIdent as string),
@@ -207,17 +212,19 @@ export default function AccountConfirm({
                   selected={selectedAccountType}
                 />
 
-                {/* <AccountOption
-                  icon={AdminPanelSettingsOutlined}
-                  label={t.rich("repCustodianButton", {
-                    bold: chunks => <strong>{chunks}</strong>,
-                    br: () => <br />,
-                  })}
-                  onClick={handleSelect}
-                  name={AccountType.CUSTODIAN}
-                  selected={selectedAccountType}
-                  disabled={!!unclaimedOrgAdmin}
-                /> */}
+                {!hasAccessToken && (
+                  <AccountOption
+                    icon={AdminPanelSettingsOutlined}
+                    label={t.rich("repCustodianButton", {
+                      bold: chunks => <strong>{chunks}</strong>,
+                      br: () => <br />,
+                    })}
+                    onClick={handleSelect}
+                    name={AccountType.CUSTODIAN}
+                    selected={selectedAccountType}
+                    disabled={!!unclaimedOrgAdmin}
+                  />
+                )}
               </Box>
             )}
 
@@ -231,10 +238,14 @@ export default function AccountConfirm({
               }}>
               {!pendingAccount && (
                 <LoadingButton
-                  onClick={() => {
-                    Cookies.set("account_type", selectedAccountType!);
-                    setTermsDisplayed(true);
-                  }}
+                  onClick={
+                    selectedAccountType !== AccountType.CUSTODIAN
+                      ? () => {
+                          Cookies.set("account_type", selectedAccountType!);
+                          setTermsDisplayed(true);
+                        }
+                      : () => setCustodianModalOpen(true)
+                  }
                   variant="contained"
                   disabled={isContinueDisabled}
                   sx={{ p: 2, minWidth: 300 }}
@@ -279,6 +290,24 @@ export default function AccountConfirm({
           onDecline={handleDeclineTerms}
         />
       )}
+
+      <Modal
+        open={custodianModalOpen}
+        sx={{ p: 1 }}
+        onClose={() => setCustodianModalOpen(false)}>
+        <ModalContent>
+          <Typography variant="h3">{t("custodianModalTitle")}</Typography>
+          <Typography variant="body1" sx={{ my: 3 }}>
+            {t("custodianModalContent")}{" "}
+            <Link href={`mailto:${CONTACT_MAIL_ADDRESS}`}>
+              {CONTACT_MAIL_ADDRESS}
+            </Link>
+          </Typography>
+          <Button onClick={() => setCustodianModalOpen(false)}>
+            {t("custodianModalClose")}
+          </Button>
+        </ModalContent>
+      </Modal>
     </>
   );
 }

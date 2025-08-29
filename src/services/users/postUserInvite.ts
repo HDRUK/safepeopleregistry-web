@@ -7,8 +7,6 @@ export default async (
   payload: PostUserInvitePayload,
   options?: ResponseOptions
 ): Promise<ResponseJson<PostUserInviteResponse>> => {
-  console.log(`/users/invite`);
-  console.log(payload);
   const response = await postRequest(`/users/invite`, payload);
 
   return handleJsonResponse(response, options);

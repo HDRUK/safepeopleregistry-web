@@ -25,7 +25,7 @@ function setupTest(props?: Partial<ProjectsSafeProjectFormProps>) {
 function getAllInputs() {
   return [
     /ID/,
-    /Project name/,
+    /Name/,
     /Category/,
     "start_date",
     "end_date",

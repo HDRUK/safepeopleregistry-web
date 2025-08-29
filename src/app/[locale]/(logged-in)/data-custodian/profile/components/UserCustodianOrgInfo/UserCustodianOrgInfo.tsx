@@ -8,7 +8,7 @@ export default function UserCustodianOrgInfo() {
   return (
     <PageBodyContainer>
       <PageBody>
-        <PageSection heading="Automatic checks">
+        <PageSection heading="Automated flags">
           <RulesCheck rules={user.rules || []} />
         </PageSection>
       </PageBody>

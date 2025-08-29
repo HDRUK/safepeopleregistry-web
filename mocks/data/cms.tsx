@@ -1,7 +1,7 @@
 import ChipStatus, { Status } from "@/components/ChipStatus";
 import ContactLink from "@/components/ContactLink";
 import Ol from "@/components/Ol";
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { ReactNode } from "react";
 
 export const mockedBannerContent = () => (
@@ -16,12 +16,15 @@ export const mockedOrganisationHomeIntro =
   "You'll see a list of tasks below to complete your profile.<br></br> The Organisation account is set up by a SRO (Senior Responsible Officer), who is required to get a declaration signed on behalf of their Organisation and upload this. The SRO must have a position of seniority, as they are held accountable for the data.<br></br> Please fill in your Organisation's profile, including uploading the SRO declaration. This is checked by HDR UK before full account privileges are granted.";
 
 export const mockedProjectsIntro =
-  "The project list below outlines your projects pending approval, including validated Users and Organisations. Clicking on a project will show you more information and next steps.";
+  "This list includes all projects recorded in the Safe People Registry for your Data Custodian. Clicking on a project will show you more information and next steps, such as adding Users to begin the validation process.";
 
 export const mockedUserHomeIntro = (
   <>
-    Different Data Custodians require different information. We recommend that you fill in your profile as much as possible to accelerate your validation to access sensitive data. To complete your profile, please find a list of tasks assigned to you below.
-    You may find it helpful to have the following ready:
+    Different Data Custodians require different information. We recommend that
+    you fill in your profile as much as possible to accelerate your validation
+    to access sensitive data. To complete your profile, please find a list of
+    tasks assigned to you below. You may find it helpful to have the following
+    ready:
     <ul>
       <li>Your ORCiD</li>
       <li>An up-to-date CV</li>
@@ -59,8 +62,8 @@ export const mockedSafeProjectGuidanceProps = {
   infoTitle: "Did you know?",
   info: (
     <Typography>
-      These 'Five Safes' contain properties which follow the [data use register transparency
-      standard](https://zenodo.org/records/5902743#.ZDgTHcrMKUn).
+      These 'Five Safes' contain properties which follow the [data use register
+      transparency standard](https://zenodo.org/records/5902743#.ZDgTHcrMKUn).
     </Typography>
   ),
 };
@@ -71,7 +74,15 @@ export const mockedPersonalDetailsGuidanceProps = {
     <>
       <Typography mb={3}>Q. Why do we need this information?</Typography>
       <Typography>
-        The Safe People Registry helps bring together information about Users (researchers, innovators) and their Organisations so that Data Custodians can efficiently assess whether they meet the ‘safe people’ principle of the [Five Safes Framework](https://ukdataservice.ac.uk/help/secure-lab/what-is-the-five-safes-framework/). By creating a detailed profile in the Safe People Registry, you make it easier for Data Custodians to review your data access requests and validate you as a ‘safe person’. The more relevant information you provide, the quicker and smoother the validation process will be.
+        The Safe People Registry helps bring together information about Users
+        (researchers, innovators) and their Organisations so that Data
+        Custodians can efficiently assess whether they meet the ‘safe people’
+        principle of the [Five Safes
+        Framework](https://ukdataservice.ac.uk/help/secure-lab/what-is-the-five-safes-framework/).
+        By creating a detailed profile in the Safe People Registry, you make it
+        easier for Data Custodians to review your data access requests and
+        validate you as a ‘safe person’. The more relevant information you
+        provide, the quicker and smoother the validation process will be.
       </Typography>
     </>
   ),
@@ -82,7 +93,10 @@ export const mockedUserExperienceGuidanceProps = {
   info: (
     <>
       <Typography mb={3}>
-        Sharing an up-to-date record of your employment history, education, qualifications, and publications enables Data Custodians to efficiently assess whether you meet the 'safe people' principle of the [Five Safes Framework](https://ukdataservice.ac.uk/help/secure-lab/what-is-the-five-safes-framework/). 
+        Sharing an up-to-date record of your employment history, education,
+        qualifications, and publications enables Data Custodians to efficiently
+        assess whether you meet the 'safe people' principle of the [Five Safes
+        Framework](https://ukdataservice.ac.uk/help/secure-lab/what-is-the-five-safes-framework/).
       </Typography>
       <Typography component="aside">
         <Typography variant="subtitle1" fontWeight={700}>
@@ -90,7 +104,8 @@ export const mockedUserExperienceGuidanceProps = {
         </Typography>
         <ul>
           <li>
-            If you only need access to the NHS SDE Network, you <b>do not</b> need to complete this page.
+            If you only need access to the NHS SDE Network, you <b>do not</b>{" "}
+            need to complete this page.
           </li>
         </ul>
       </Typography>
@@ -99,16 +114,16 @@ export const mockedUserExperienceGuidanceProps = {
 };
 
 export const mockedUserTrainingGuidanceProps = {
-  infoTitle:
-    "Why do we need this information?",
+  infoTitle: "Why do we need this information?",
   info: (
     <>
       <Typography mb={1}>
-        Different Data Custodians may require different training courses. Please list all relevant training courses you have completed, as well as the Dates of Issue and Expiry. You will be automatically notified if a certificate expires.
+        Different Data Custodians may require different training courses. Please
+        list all relevant training courses you have completed, as well as the
+        Dates of Issue and Expiry. You will be automatically notified if a
+        certificate expires.
       </Typography>
-      <Typography mb={2}>
-        Examples include:
-      </Typography>
+      <Typography mb={2}>Examples include:</Typography>
       <ul>
         <li>
           The{" "}
@@ -130,7 +145,9 @@ export const mockedUserTrainingGuidanceProps = {
             Research, GDPR and confidentiality quiz
           </a>
         </li>
-        <li>Any mandatory training from your Organisation or a Data Custodian</li>
+        <li>
+          Any mandatory training from your Organisation or a Data Custodian
+        </li>
       </ul>
     </>
   ),
@@ -152,18 +169,27 @@ export const mockedRegisterGuidanceProps = {
 };
 
 export const mockedResearcherAffiliationsGuidance = {
-  infoTitle:
-    "How do affiliations work?",
+  infoTitle: "How do affiliations work?",
   info: (
     <>
       <Typography mb={2}>
-        In the Safe People Registry, individual Users (researchers, innovators) are affiliated to their Organisation (e.g. employer, university, or honorary contract holder). To request affiliation, you must add or update a current Organisation and verify your professional email address. Your Organisation will then be asked to confirm your affiliation.
+        In the Safe People Registry, individual Users (researchers, innovators)
+        are affiliated to their Organisation (e.g. employer, university, or
+        honorary contract holder). To request affiliation, you must add or
+        update a current Organisation and verify your professional email
+        address. Your Organisation will then be asked to confirm your
+        affiliation.
       </Typography>
       <Typography mb={2}>
-        If your Organisation is not yet registered on Safe People Registry, you can invite them to create an account by adding them. 
+        If your Organisation is not yet registered on Safe People Registry, you
+        can invite them to create an account by adding them.
       </Typography>
       <Typography mb={5}>
-        Why are we using the term 'User'? In our engagement with Data Custodians, we found that there was no single 'term' that referred to all the types of people who were accessing sensitive data - researchers, scientists, innovators, engineers, and more. Ultimately, the community landed on 'User' as the all-encompassing term.
+        Why are we using the term 'User'? In our engagement with Data
+        Custodians, we found that there was no single 'term' that referred to
+        all the types of people who were accessing sensitive data - researchers,
+        scientists, innovators, engineers, and more. Ultimately, the community
+        landed on 'User' as the all-encompassing term.
       </Typography>
       <Typography mb={5}>
         You can monitor your affiliation status here.
@@ -312,8 +338,8 @@ Automatically invite users to create a Safe People Registry account. Users will 
 
 export const mockedWebhookDescription = (
   <Typography>
-    Safe People Registry uses an exponential back-off mechanism to avoid missed
-    callbacks. In the event of your server not returning an{" "}
+    The Safe People Registry uses an exponential back-off mechanism to avoid
+    missed callbacks. In the event of your server not returning an{" "}
     <strong>HTTP_OK (200) response</strong>, we will continuously try to re-send
     with increasing retry times, until we receive a{" "}
     <strong>HTTP_OK (200) response</strong>, or we reach our send cap.{" "}
@@ -325,50 +351,13 @@ export const mockedWebhookDescription = (
 );
 
 export const mockedConfigurationRulesDescription = (
-  <>
-    <Typography mb={2}>
-      Safe People Registry can be configured to flag if a certain property of a
-      User or Organisation profile does not meet a set of individual Data
-      Custodian "decision models" or criteria, supporting your decision making
-      process. Safe People Registry does not make any decisions as to which
-      Users or Organisations are considered "safe" - that decision remains with
-      each Data Custodian.
-    </Typography>
-    <Typography mb={2}>
-      A User or Organisation can still be approved by a Data Custodian to work
-      on a particular project even if the User/Organisation is flagged as not
-      meeting the requirements of a decision model.
-    </Typography>
-    <Typography mb={2}>
-      Configure rules in line with your individual Trusted Research Environment
-      or NHS Research Secure Data Environment policies or procedures below.
-    </Typography>
-  </>
+  <Typography mb={2}>
+    You can configure the Safe People Registry to flag if a certain property of
+    a User or Organisation profile does not meet your criteria. If any of the
+    selected criteria are missing from a User or Organisation's profile, this
+    will be surfaced in an 'Automated flags' tab during validation.
+  </Typography>
 );
-
-export const mockedConfigurationRulesGuidanceProps = {
-  infoTitle: "Guidance",
-  info: (
-    <>
-      <Typography mb={5}>
-        IDVT tests an individual against the following criteria:
-      </Typography>
-      <Typography mb={5}>
-        <ol>
-          <li>Valid government issued identification. (Fraud)</li>
-          <li>Likeness check against ID. (Identity)</li>
-          <li>Liveness check. (Identity)</li>
-          <li>Sanctions. (AML)</li>
-        </ol>
-      </Typography>
-      <Typography mb={5}>
-        This feature is supplied as part of Safe People Registry and is entirely
-        up to you, as a Data Custodian, whether you want these additional
-        security checks carried out, above and beyond what an employer would do.
-      </Typography>
-    </>
-  ),
-};
 
 interface GuidanceProps {
   infoTitle: string;
