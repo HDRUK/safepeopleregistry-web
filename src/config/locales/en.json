@@ -186,6 +186,7 @@
     "home": "Home",
     "homeIntro": "Welcome to the Safe People Registry. You’ll see a list of tasks below to complete your profile.",
     "contacts": "Contacts",
+    "team": "Team",
     "contactsHeading": "Your Data Custodian Team",
     "uniqueIdentifierTitle": "Safe People Registry Identifier",
     "uniqueIdentifierCaption": "This ‘key’ represents you as a Data Custodian within Safe People Registry. This is unique to you! You may need this key if utilising Safe People Registry Application Programming Interfaces (APIs).",
