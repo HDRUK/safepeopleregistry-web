@@ -19,6 +19,6 @@ export const Basic: Story = {
     name: "Health Data Research",
     identifier: "kYBp5K52M5zIoTKtL785UpWgVCsjFZcbxYlKVX5C",
     description:
-      "This ‘key’ represents you as an Organisation within Safe People Registry. This is unique to you! Your Organisation will have a unique Safe People Registry identifier associated with your account once your Organisation profile has been completed. This persistent unique identifier will be used to notify Data Custodians of any key changes to your Organisation profile that may impact data access decisions.",
+      "This ‘key’ represents you as an Organisation within the Safe People Registry. This is unique to you! Custodians may ask you for this to confirm your identity.",
   },
 };
