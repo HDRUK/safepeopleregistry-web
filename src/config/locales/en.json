@@ -137,7 +137,7 @@
       "okButton": "OK",
       "saveSuccess": "Custodian profile details updated",
       "dsitLogoAlt": "Department for Science, Innovation & Technology",
-      "integrationsDescription": "Link your Gateway Team profile via a custom integration to Safe People Registry so that you can populate your project information and synch the information without needing to enter it in two places.",
+      "integrationsDescription": "Link your Gateway Team profile via a custom integration to the Safe People Registry so that you can sync your project information without needing to enter it in two places.",
       "configurationIntegrations": "Integrations",
       "gatewayAppId": "Application ID",
       "gatewayAppIdPlaceholder": "Enter your 40 character App ID",
@@ -149,7 +149,7 @@
       "roleAdministrator": "Administrator",
       "roleApprover": "Approver",
       "roleAdministratorDescription": "Can do everything on the system",
-      "roleApproverDescription": "Can only approve Organisations and/or Researchers",
+      "roleApproverDescription": "Can only approve Organisations and/or Users (researchers/innovators)",
       "cancelButton": "Cancel",
       "submitButton": "Save",
       "createUserError": "There was a problem creating this user. Please try again or contact us at <contactLink></contactLink>",
@@ -158,10 +158,10 @@
       "updateSuccessfulDescription": "The user has been successfully updated.",
       "createSuccessfulTitle": "User created",
       "createSuccessfulDescription": "The user has been successfully created.",
-      "updateUserTitle": "Edit user",
-      "createUserTitle": "Add new user",
-      "updateUserDescription": "Update the data below to change the selected users details",
-      "createUserDescription": "Complete the form below to add a new user to your Safe People Registry profile"
+      "updateUserTitle": "Edit team member",
+      "createUserTitle": "Add new team member",
+      "updateUserDescription": "Update the data below to change the selected team member's details",
+      "createUserDescription": "Complete the form below to add a new member to your Safe People Registry team"
     },
     "deleteUser": "Delete user",
     "deleteUserButton": "Delete user",
@@ -186,7 +186,8 @@
     "home": "Home",
     "homeIntro": "Welcome to the Safe People Registry. You’ll see a list of tasks below to complete your profile.",
     "contacts": "Contacts",
-    "contactsHeading": "Administrative Contacts",
+    "team": "Team",
+    "contactsHeading": "Your Data Custodian Team",
     "uniqueIdentifierTitle": "Safe People Registry Identifier",
     "uniqueIdentifierCaption": "This ‘key’ represents you as a Data Custodian within Safe People Registry. This is unique to you! You may need this key if utilising Safe People Registry Application Programming Interfaces (APIs).",
     "details": "Profile",
@@ -220,23 +221,23 @@
     "noResults": "There were no users found",
     "lastLoggedIn": "Last logged in: {date}",
     "addedOn": "Added on: {date}",
-    "addNewUser": "Add New",
+    "addNewUser": "Add new team member ",
     "searchCustodianUsers": "Search",
-    "deleteWarningTitle": "Are you sure you want to delete this user?",
-    "deleteWarningDescription": "Deleting this user is permanent and will result in them no longer being able to act on your behalf",
+    "deleteWarningTitle": "Are you sure you want to delete this team member?",
+    "deleteWarningDescription": "Deleting this team member is permanent and will result in them no longer being able to act on your behalf",
     "CUSTODIAN_ADMIN": "Administrator",
     "CUSTODIAN_APPROVER": "Approver",
-    "postCustodianUserInviteError": "There was a problem inviting this user. Please contact them directly or contact us at <contactLink></contactLink>",
-    "configurationRules": "Rules",
-    "configurationRulesTitle": "Rules Configuration",
-    "configurationValidationChecks": "Validation Checks",
+    "postCustodianUserInviteError": "There was a problem inviting this team member. Please contact them directly or contact us at <contactLink></contactLink>",
+    "configurationRules": "Automated flags",
+    "configurationRulesTitle": "Automated flags",
+    "configurationValidationChecks": "Manual checks",
     "configurationWebhooks": "Webhooks",
     "webhookError": "There was a problem with the webhook configuration. Please try again or contact us at <contactLink></contactLink>",
     "configurationIntegrations": "Integrations",
-    "userRulesTitle": "User Rules",
-    "organisationRulesTitle": "Organisation Rules",
-    "updateRulesSuccess": "Rules configuration updated successfully",
-    "updateRulesError": "There was a problem updating your rules configuration. Please try again or contact us at <contactLink></contactLink>",
+    "userRulesTitle": "User: Automated flags",
+    "organisationRulesTitle": "Organisation: Automated flags",
+    "updateRulesSuccess": "Flags configuration updated successfully",
+    "updateRulesError": "There was a problem updating your flags configuration. Please try again or contact us at <contactLink></contactLink>",
     "successButton": "OK",
     "errorButton": "Try Again",
     "datasetName": "Dataset name",
@@ -254,9 +255,9 @@
     "dataUseDescription": "Data description",
     "dataUseDescriptionPlaceholder": "Data description",
     "usersListTitle": "Users",
-    "usersListDescription": "Here, you and your team members can track and manage User validation across all projects. Clicking on a User will show you more information about that User in the linked project.\n\nTo add Users or to perform User validation on a project-by-project basis, go to the Projects tab above, select a project, and then select the Safe People subtab for that project.",
+    "usersListDescription": "Here, you and your team members can track and manage User validation across all projects. Clicking on a User will show you more information about that User in the linked project.\n\nTo <strong>add Users</strong> or to perform User validation on a project-by-project basis, go to the Projects tab above, select a project, and then select the Safe People subtab for that project.\n\nWhy are we using the term 'User'? In our engagement with Data Custodians, we found that there was no single 'term' that referred to all the types of people who were accessing sensitive data - researchers, scientists, innovators, engineers, and more. Ultimately, the community landed on 'User' as the all-encompassing term.",
     "organisationsListTitle": "Organisations",
-    "organisationsListDescription": "This page enables you and your team members to track and manage Organisation validation across all projects.  Clicking on an Organisation will show you more information and any next steps. You can also drag and drop Organisations between the different status lanes.",
+    "organisationsListDescription": "This page enables you and your team members to track and manage Organisation validation across all projects.  Clicking on an Organisation will show you more information and any next steps. You can also drag and drop Organisations between the different status lanes, when in 'board view'.",
     "noResultsMessage": "No members found",
     "homeTitle": "Your outstanding actions",
     "searchProjectUsersPlaceholder": "Search for User, Project Name, Organisation"
@@ -670,7 +671,7 @@
       "uniqueId": "ID",
       "uniqueIdPlaceholder": "ID",
       "uniqueIdRequiredInvalid": "ID is required",
-      "title": "Project name",
+      "title": "Name",
       "titlePlaceholder": "Project name",
       "titleRequiredInvalid": "Project name is required",
       "requestCategoryType": "Category",
@@ -700,7 +701,7 @@
       "oneOffRequest": "One-off request",
       "recurringDataset": "Recurring dataset",
       "releaseDate": "Release / access date",
-      "releaseDateDescription": "The date the data access was granted and active research started",
+      "releaseDateDescription": "The date the data access was granted and active data use/research started",
       "legalBasisForDataArticle6": "Lawful condition for provision of data under <link>Article 6</link>",
       "legalBasisForDataArticle6Placeholder": "Lawful condition",
       "datasets": "Linked datasets",
@@ -715,7 +716,7 @@
       "requestFrequencyPlaceholder": "Request frequency",
       "dataSensitivityLevelPlaceholder": "Data sensitivity level",
       "dataSensitivityLevelRequired": "Data sensitivity level is required",
-      "dataSensitivityLevel": "Select data sensitivity level",
+      "dataSensitivityLevel": "Data sensitivity level",
       "lawfulConditionRequired": "Lawful condition is required",
       "lawfulBasisConfirmationRequired": "You must confirm the lawful basis",
       "requestFrequency": "Request frequency",
@@ -1463,7 +1464,7 @@
     "alertCancel": "Back to homepage"
   },
   "ActionValidationPanel": {
-    "title": "Validation Checks",
+    "title": "Manual Checks",
     "updateStatusButton": "Update status"
   },
   "ActionValidationMakeDecision": {
@@ -1551,7 +1552,7 @@
       "buttonText": "Complete your configuration"
     },
     "addContactsCompleted": {
-      "title": "Add your team members",
+      "title": "Add your Team members",
       "description": "As well as yourself, it’s a good idea to set up your colleagues who will help administer the system, validate Users and Organisations, and approve projects.",
       "buttonText": "Add team members"
     },
@@ -1566,15 +1567,15 @@
       "buttonText": "Add Projects"
     },
     "approveAnOrganisationCompleted": {
-      "title": "Approve an Organisation",
-      "description": "View all the organisations associated with any of your projects to approve them",
-      "buttonText": "Approve an organisation"
+      "title": "Validate an Organisation",
+      "description": "View all the Organisations associated with any of your projects to Validate them",
+      "buttonText": "Validate an Organisation"
     }
   },
   "ProjectsAddUserModal": {
-    "heading": "Add new team member",
-    "requestHeading": "Request to add new team member",
-    "description": "Add a User to start the validation process. You can add existing Safe People Registry Users by searching below. If they are affiliated with the wrong Organisation, you can request corrected Organisation affiliation during the validation process. If you cannot find your User, you can <button>invite them to create a Safe People Registry account here.</button> ",
+    "heading": "Add new User",
+    "requestHeading": "Request to add a new User",
+    "description": "Add a User to start the validation process. You can add existing Safe People Registry Users by searching below. If they are affiliated with the wrong Organisation, you will need to contact them to add the correct affiliation. If you cannot find your User, you can <button>invite them to create a Safe People Registry account here.</button> ",
     "requestDescription": "Here’s where you can request that a team member us added to this project. If you can't find them or they're listed under the wrong Organisation, invite them here. If they already have a Safe People Registry account, they’ll be able to select the correct Organisation. Otherwise, they'll be prompted to register for a Safe People Registry account."
   },
   "InviteUserModal": {
@@ -1659,11 +1660,11 @@
     },
     "validation_check": {
       "passed": {
-        "title": "Passed validation check",
+        "title": "Passed manual check",
         "description": "{check_description}"
       },
       "failed": {
-        "title": "Failed validation check",
+        "title": "Failed manual check",
         "description": "{check_description}"
       }
     },
@@ -1701,16 +1702,16 @@
     "copied": "Copied"
   },
   "ValidationChecks": {
-    "userChecksTitle": "User validation checks",
-    "organisationChecksTitle": "Organisation validation checks",
-    "updateCheckSuccess": "Successfully updated which validation checks you have enabled",
+    "userChecksTitle": "User: Manual checks",
+    "organisationChecksTitle": "Organisation: Manual checks",
+    "updateCheckSuccess": "Successfully updated which manual checks you have enabled",
     "successButton": "OK",
-    "addUserValidationCheck": "Add validation check",
-    "addOrgValidationCheck": "Add validation check",
-    "userEditTitle": "Edit User validation check",
-    "orgEditTitle": "Edit Organisation validation check",
-    "userAddTitle": "Add User validation check",
-    "orgAddTitle": "Add Organisation validation check"
+    "addUserValidationCheck": "Add manual check",
+    "addOrgValidationCheck": "Add manual check",
+    "userEditTitle": "Edit User manual check",
+    "orgEditTitle": "Edit Organisation manual check",
+    "userAddTitle": "Add User manual check",
+    "orgAddTitle": "Add Organisation manual check"
   },
   "CheckboxItem": {
     "edit": "Edit"

@@ -16,7 +16,7 @@ export const mockedOrganisationHomeIntro =
   "The Organisation account is set up by a SRO (Senior Responsible Officer), who is required to get a declaration signed on behalf of their Organisation and upload this. Safe People Registry contains information about your Users (employees and students) and their work on sensitive data projects. The SRO is responsible for verifying this information. The SRO must have a position of seniority, as they are held accountable for the data.";
 
 export const mockedProjectsIntro =
-  "The project list below outlines your projects pending approval, including validated Users and Organisations. Clicking on a project will show you more information and next steps.";
+  "This list includes all projects recorded in the Safe People Registry for your Data Custodian. Clicking on a project will show you more information and next steps, such as adding Users to begin the validation process.";
 
 export const mockedUserHomeIntro = (
   <>
@@ -315,7 +315,7 @@ Automatically invite users to create a Safe People Registry account. Users will 
 
 export const mockedWebhookDescription = (
   <Typography>
-    Safe People Registry uses an exponential back-off mechanism to avoid missed
+    The Safe People Registry uses an exponential back-off mechanism to avoid missed
     callbacks. In the event of your server not returning an{" "}
     <strong>HTTP_OK (200) response</strong>, we will continuously try to re-send
     with increasing retry times, until we receive a{" "}
@@ -330,21 +330,7 @@ export const mockedWebhookDescription = (
 export const mockedConfigurationRulesDescription = (
   <>
     <Typography mb={2}>
-      Safe People Registry can be configured to flag if a certain property of a
-      User or Organisation profile does not meet a set of individual Data
-      Custodian "decision models" or criteria, supporting your decision making
-      process. Safe People Registry does not make any decisions as to which
-      Users or Organisations are considered "safe" - that decision remains with
-      each Data Custodian.
-    </Typography>
-    <Typography mb={2}>
-      A User or Organisation can still be approved by a Data Custodian to work
-      on a particular project even if the User/Organisation is flagged as not
-      meeting the requirements of a decision model.
-    </Typography>
-    <Typography mb={2}>
-      Configure rules in line with your individual Trusted Research Environment
-      or NHS Research Secure Data Environment policies or procedures below.
+      You can configure the Safe People Registry to flag if a certain property of a User or Organisation profile does not meet your criteria. If any of the selected criteria are missing from a User or Organisation's profile, this will be surfaced in an 'Automated flags' tab during validation. 
     </Typography>
   </>
 );
