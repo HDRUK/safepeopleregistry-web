@@ -163,7 +163,9 @@ export default function Identity() {
                         renderField={fieldProps => (
                           <TextField {...fieldProps} />
                         )}
-                        description={tProfile("emailDescription")}
+                        description={tProfile.rich("emailDescription", {
+                          bold: chunks => <strong>{chunks}</strong>,
+                        })}
                       />
                     </Grid>
                     <Grid item xs={12}>
