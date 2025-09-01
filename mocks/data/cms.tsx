@@ -13,7 +13,7 @@ export const mockedBannerContent = () => (
 );
 
 export const mockedOrganisationHomeIntro =
-  "The Organisation account is set up by a SRO (Senior Responsible Officer), who is required to get a declaration signed on behalf of their Organisation and upload this. Safe People Registry contains information about your Users (employees and students) and their work on sensitive data projects. The SRO is responsible for verifying this information. The SRO must have a position of seniority, as they are held accountable for the data.";
+  "You'll see a list of tasks below to complete your profile.<br></br> The Organisation account is set up by a SRO (Senior Responsible Officer), who is required to get a declaration signed on behalf of their Organisation and upload this. The SRO must have a position of seniority, as they are held accountable for the data.<br></br> Please fill in your Organisation's profile, including uploading the SRO declaration. This is checked by HDR UK before full account privileges are granted.";
 
 export const mockedProjectsIntro =
   "This list includes all projects recorded in the Safe People Registry for your Data Custodian. Clicking on a project will show you more information and next steps, such as adding Users to begin the validation process.";
@@ -36,10 +36,7 @@ export const mockedUserHomeIntro = (
 export const mockedPendingAffiliations = (
   <>
     <Typography mb={2}>
-      Safe People Registry stores records of Users who are research-active
-      working on sensitive data. As an Organisation you can confirm that a Safe
-      People Registry User profile corresponds to an employee or student at your
-      Organisation. This is called affiliating a User.
+      The Safe People Registry stores records of Users who are or have been working with sensitive data. When affiliating a User, your Organisation is responsible for their behaviour when accessing sensitive data.
     </Typography>
     <Typography mb={2}>
       When affiliating a User you are confirming that:
@@ -50,7 +47,7 @@ export const mockedPendingAffiliations = (
         student
       </li>
       <li>
-        The employee / student is an active researcher / data analyst needing to
+        The employee / student is an active researcher/innovator needing to
         work on sensitive data.
       </li>
       <li>
@@ -375,60 +372,55 @@ export type ProfileGuidance = Record<string, TabGuidance>;
 export const mockedOrganisationProfileGuidance: TabGuidance = {
   details: {
     "name-and-address": {
-      infoTitle: " Did you know?",
+      infoTitle: "Why are we asking for this information?",
       info: (
         <>
           <Typography mb={5}>
-            Providing Safe People Registry with full Organisation information
+            Providing the Safe People Registry with full Organisation information
             helps Data Custodians validate your Organisation. The more
             information you provide, the faster and easier the validation
-            process becomes for Users (an employee of an Organisation or student
-            of a higher education institution) to gain access to sensitive data.
-          </Typography>
-          <Typography mb={5}>
-            If your Organisation’s headquarters is based in the UK, your legal
-            name and address should align with the listing on Companies House.
+            process becomes for Users (an employee or student of an Organisation) to gain access to sensitive data.
           </Typography>
         </>
       ),
     },
     "digital-identifiers": {
-      infoTitle: " Did you know?",
+      infoTitle: "More information, faster validation",
       info: (
-        <Typography mb={5}>
-          Where applicable, providing Safe People Registry with information on
-          persistent digital identifiers associated with your Organisation
-          enables Data Custodians to verify your Organisation’s Companies House
-          filing, Research Organisation Registry (ROR) identifier and charity
-          registration. This accelerates Organisation validation by Data
-          Custodians.
-        </Typography>
+        <>
+          <Typography mb={5}>
+            Providing the Safe People Registry with your Organisation's
+            persistent digital identifiers enables Data Custodians to rapidly validate your Organisation.
+          </Typography>
+          <Typography mb={5}>
+            If your Organisation’s headquarters is based in the UK, your Organisation legal
+            name and address should align with your Organisation's listing on Companies House.
+          </Typography>
+        </>
       ),
     },
     "sector-size-and-website": {
-      infoTitle: " Did you know?",
+      infoTitle: "More facts, quicker access",
       info: (
         <Typography mb={5}>
-          Providing Safe People Registry with information on your Organisation’s
+          Providing the Safe People Registry with information on your Organisation’s
           sector, size and website accelerates Organisation validation by Data
           Custodians.
         </Typography>
       ),
     },
     "security-compliance": {
-      infoTitle: " Did you know?",
+      infoTitle: "Security matters",
       info: (
         <>
           <Typography mb={5}>
-            Providing Safe People Registry with a record of your Organisation’s
-            data security compliance certifications will provide Data Custodians
-            with confidence that an Organisation is compliant with required data
-            security certifications.
+            Data security compliance certifications are commonly (but not always!) required by Data Custodians
+            for Organisation validation.
           </Typography>
           <Typography mb={5}>
             Some Data Custodians require this information even if Users are
             accessing data within Trusted Research Environments (TREs) or Secure
-            Data Environments (SDEs). Text box 2
+            Data Environments (SDEs).
           </Typography>
         </>
       ),
@@ -440,22 +432,17 @@ export const mockedOrganisationProfileGuidance: TabGuidance = {
       info: (
         <>
           <Typography mb={3}>
-            The Safe People Registry stores records of Users who are or have
-            been working with sensitive data. These Users can have different
-            roles, such as primary investigators, researchers, data analysts,
-            developers, and students.
+            The Safe People Registry stores records of Users who are or have been
+            working with sensitive data. Why are we using the term 'User'? In our engagement with Organisations, we found that there was no single 'term' that referred to all the types of people who were accessing sensitive data - researchers, scientists, innovators, engineers, students, and more. Ultimately, the community landed on 'User' as the all-encompassing term.
           </Typography>
 
           <Typography mb={3}>
-            As an Organisation, you can confirm that a Safe People Registry User
-            profile corresponds to an employee or student at your Organisation.
-            This is called <strong>affiliating a User</strong>. A User has one
-            Safe People Registry account that remains with them throughout their
-            career and can be affiliated with multiple Organisations.
+            A User has one Safe People Registry account that remains with them throughout their
+            career and can be affiliated with multiple Organisations.  
           </Typography>
 
           <Typography mb={3}>
-            When affiliating a User, your Organisation is responsible for their
+            When <strong>affiliating a User</strong>, your Organisation is responsible for their
             behaviour when accessing sensitive data. By affiliating, you are
             confirming:
           </Typography>
@@ -467,14 +454,14 @@ export const mockedOrganisationProfileGuidance: TabGuidance = {
               Organisation.
             </li>
             <li>
-              The Safe People Registry User profile accurately matches your
+              The Safe People Registry User profile accurately matches that of your
               employee or student.
             </li>
             <li>
               Your Organisation approves the User to access sensitive data.
             </li>
             <li>
-              The User’s organisational email matches their official email
+              The User’s Organisational email matches their official email
               address within your Organisation.
             </li>
           </ul>
@@ -482,7 +469,7 @@ export const mockedOrganisationProfileGuidance: TabGuidance = {
           <Typography mt={3}>
             Users can create their own Safe People Registry accounts and request
             affiliation. Alternatively, your Organisation can invite Users to
-            create or configure their account for affiliation by selecting{" "}
+            create an account for affiliation by selecting{" "}
             <strong>'Add User'</strong> and following the steps.
           </Typography>
         </>
@@ -499,45 +486,40 @@ export const mockedOrganisationProfileGuidance: TabGuidance = {
           </Typography>
 
           <Typography mb={3}>
-            <strong>Senior Responsible Officers (SROs)</strong> are accountable
-            for overseeing their Organisation’s Safe People Registry presence.
-            They are responsible for:
+            <strong>Senior Responsible Officers (SROs)</strong> are responsible
+            for:
           </Typography>
 
           <ul style={{ marginBottom: "1rem", paddingLeft: "1.25rem" }}>
             <li>Creating the Organisation’s Safe People Registry account</li>
             <li>
-              Nominating administrative <strong>Delegates</strong> to manage
+              Nominating <strong>Delegates</strong> to administrate
               User affiliations
             </li>
             <li>
               Providing and maintaining accurate information in the
               Organisation’s Safe People Registry profile
             </li>
+            <li>
+              Accepting the Safe People Registry's Terms and Conditions on behalf of the Organisation
+            </li>
           </ul>
 
           <Typography mb={3}>
-            It's essential that your Organisation designates an SRO at the
-            Organisational level. Safe People Registry deals with sensitive data
-            involving your employees or students, so senior-level accountability
-            and visibility are critical.
+            It's essential for your Organisation to designate an SRO. The Safe People Registry deals with sensitive data
+            involving your Users (employees or students) and their work on sensitive data projects within the UK. Therefore, there needs to be senior-level visibility and accountability for this Safe People Registry Organisation account.
           </Typography>
 
           <Typography mb={3}>
-            <strong>Delegates</strong> are nominated administrative individuals
+            Organisation <strong>Delegates</strong> are administrative individuals
             or groups authorised to act on behalf of the Organisation. They are
             responsible for:
           </Typography>
 
           <ul style={{ marginBottom: "1rem", paddingLeft: "1.25rem" }}>
-            <li>Verifying a User’s affiliation with the Organisation</li>
+            <li>Affiliating a User, and</li>
             <li>
-              Accepting Safe People Registry's Terms of Use on behalf of the
-              Organisation
-            </li>
-            <li>
-              Ensuring information in Safe People Registry is accurate and
-              properly authorised
+              Accepting the Safe People Registry's Terms and Conditions
             </li>
           </ul>
         </>
@@ -558,7 +540,7 @@ designed to facilitate responsible access to sensitive data. Our mission is to e
 researchers, Organisations and Data Custodians to collaborate efficiently while
 maintaining security and compliance.`,
   servingTitle: "## Who We Serve",
-  usersTitle: "Users (e.g. researchers & analysts)",
+  usersTitle: "Users (e.g. researchers, innovators)",
   users: "Easily verify credentials and gain approval for data access.",
   organisationsTitle: "Organisations",
   organisations:

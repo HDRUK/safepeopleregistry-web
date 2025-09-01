@@ -37,7 +37,7 @@ describe("KeyFeatures Component", () => {
     ).toBeInTheDocument();
     expect(
       screen.queryAllByText(
-        /A platform for Users \(researchers, analysts, students, others who access sensitive data\) and Organisations to create profiles and share relevant information for Data Custodians to assess if a person is ‘Safe’./i
+        /A platform for Users \(researchers, analysts, innovators, students, and others who access sensitive data\) and Organisations to create profiles and share relevant information for Data Custodians to assess if a person is ‘Safe’./i
       )[0]
     ).toBeInTheDocument();
 
@@ -49,7 +49,7 @@ describe("KeyFeatures Component", () => {
     ).toBeInTheDocument();
     expect(
       screen.queryAllByText(
-        /Safe People Registry records Data Custodian approvals for previous and current projects as well as approvals for other functionality in complementary systems./i
+        /A platform for Users \(researchers, analysts, innovators, students, and others who access sensitive data\) and Organisations to create profiles and share relevant information for Data Custodians to assess if a person is ‘Safe’./i
       )[0]
     ).toBeInTheDocument();
 
@@ -61,7 +61,7 @@ describe("KeyFeatures Component", () => {
     ).toBeInTheDocument();
     expect(
       screen.queryAllByText(
-        /Safe People Registry provides Single Sign-On \(SSO\) through multiple providers, such as; Google, LinkedIn and LSRI via Keycloak. This enables users to easily associate their Safe People Registry account with existing credentials./i
+        /A platform for Users \(researchers, analysts, innovators, students, and others who access sensitive data\) and Organisations to create profiles and share relevant information for Data Custodians to assess if a person is ‘Safe’./i
       )[0]
     ).toBeInTheDocument();
   });

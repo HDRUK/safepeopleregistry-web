@@ -25,7 +25,7 @@ function setupTest() {
 }
 
 function getAllInputs() {
-  return [/Sector/, /Website/, /Size/];
+  return [/Sector/i, /Organisation website/i, /Size/i];
 }
 
 const organisation = mockedOrganisation();
