@@ -35,6 +35,11 @@ describe("KeyFeatures Component", () => {
     expect(
       screen.getByRole("heading", { name: /User and Organisation Registers/i })
     ).toBeInTheDocument();
+    expect(
+      screen.queryAllByText(
+        /A platform for Users \(researchers, analysts, innovators, students, and others who access sensitive data\) and Organisations to create profiles and share relevant information for Data Custodians to assess if a person is ‘Safe’./i
+      )[0]
+    ).toBeInTheDocument();
 
     // Check the second item
     expect(
@@ -42,12 +47,22 @@ describe("KeyFeatures Component", () => {
         name: /Visibility across Data Custodians/i,
       })
     ).toBeInTheDocument();
+    expect(
+      screen.queryAllByText(
+        /A platform for Users \(researchers, analysts, innovators, students, and others who access sensitive data\) and Organisations to create profiles and share relevant information for Data Custodians to assess if a person is ‘Safe’./i
+      )[0]
+    ).toBeInTheDocument();
 
     // Check the third item
     expect(
       screen.getByRole("heading", {
         name: /Multiple authentication routes/i,
       })
+    ).toBeInTheDocument();
+    expect(
+      screen.queryAllByText(
+        /A platform for Users \(researchers, analysts, innovators, students, and others who access sensitive data\) and Organisations to create profiles and share relevant information for Data Custodians to assess if a person is ‘Safe’./i
+      )[0]
     ).toBeInTheDocument();
   });
 });
