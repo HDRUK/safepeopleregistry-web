@@ -15,6 +15,7 @@ import { useMutation } from "@tanstack/react-query";
 import { CellContext } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import { useCallback, useState } from "react";
+import Markdown from "react-markdown";
 
 const NAMESPACE_TRANSLATION_PROFILE = "CustodianProfile";
 
@@ -122,7 +123,8 @@ export default function Contacts() {
     <PageBodyContainer heading={t("contactsHeading")}>
       <PageBody>
         <PageSection>
-          <Box sx={{ display: "flex", gap: 1, mb: 3 }}>
+          <Markdown>{t("contactsListDescription")}</Markdown>
+          <Box sx={{ display: "flex", gap: 1, mt: 5, mb: 3 }}>
             <Box
               component="form"
               role="search"
