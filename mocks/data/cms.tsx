@@ -205,13 +205,13 @@ export const mockedResearcherAffiliationsGuidance = {
         sx={{ mb: 2 }}
       />
       <Typography mb={3} sx={{ fontSize: "14px" }}>
-        You have been affiliated by this Organisation.
+        Your Safe People Registry profile is affiliated with this Organisation.
       </Typography>
       <ChipStatus status={Status.AFFILIATION_PENDING} sx={{ mb: 2 }} />
       <Typography mb={3} sx={{ fontSize: "14px" }}>
-        The Organisation has been invited to confirm your affiliation, but has
-        not yet done so. Once they have an account they will be automatically
-        asked to confirm your affiliation.
+        This Organisation has been invited to confirm your affiliation but has
+        not responded yet. Once they create an account, they’ll automatically be
+        prompted to confirm it.
       </Typography>
       <ChipStatus status={Status.AFFILIATION_REJECTED} sx={{ mb: 2 }} />
       <Typography mb={3} sx={{ fontSize: "14px" }}>
@@ -219,8 +219,8 @@ export const mockedResearcherAffiliationsGuidance = {
       </Typography>
       <ChipStatus status={Status.INVITED} sx={{ mb: 2 }} />
       <Typography sx={{ fontSize: "14px" }}>
-        The Organisation has been invited to set up an account, but has not yet
-        done so.
+        This organisation has been invited to create a Safe People Registry
+        account but hasn’t completed the setup yet.
       </Typography>
     </>
   ),
