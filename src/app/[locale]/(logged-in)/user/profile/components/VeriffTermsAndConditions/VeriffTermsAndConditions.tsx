@@ -40,7 +40,7 @@ export default function VeriffTermsAndConditions({
         <Typography>
           {t.rich("descriptionPart1", {
             ourLink: chunks => (
-              <a target="_blank" href="#">
+              <a target="_blank" href="/privacy-policy">
                 {chunks}
               </a>
             ),
