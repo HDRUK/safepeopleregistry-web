@@ -64,8 +64,14 @@ export const mockedSafeProjectGuidanceProps = {
   infoTitle: "Did you know?",
   info: (
     <Typography>
-      These 'Five Safes' contain properties which follow the [data use register
-      transparency standard](https://zenodo.org/records/5902743#.ZDgTHcrMKUn).
+      These 'Five Safes' contain properties which follow the
+      <a
+        target="_blank"
+        rel="noreferrer"
+        href="https://zenodo.org/records/5902743#.ZDgTHcrMKUn">
+        data use register transparency standard
+      </a>
+      .
     </Typography>
   ),
 };
@@ -79,10 +85,15 @@ export const mockedPersonalDetailsGuidanceProps = {
         The Safe People Registry helps bring together information about Users
         (researchers, innovators) and their Organisations so that Data
         Custodians can efficiently assess whether they meet the ‘safe people’
-        principle of the [Five Safes
-        Framework](https://ukdataservice.ac.uk/help/secure-lab/what-is-the-five-safes-framework/).
-        By creating a detailed profile in the Safe People Registry, you make it
-        easier for Data Custodians to review your data access requests and
+        principle of the{" "}
+        <a
+          rel="noreferrer"
+          target="_blank"
+          href="https://ukdataservice.ac.uk/help/secure-lab/what-is-the-five-safes-framework/">
+          Five Safes Framework
+        </a>
+        . By creating a detailed profile in the Safe People Registry, you make
+        it easier for Data Custodians to review your data access requests and
         validate you as a ‘safe person’. The more relevant information you
         provide, the quicker and smoother the validation process will be.
       </Typography>
@@ -97,8 +108,14 @@ export const mockedUserExperienceGuidanceProps = {
       <Typography mb={3}>
         Sharing an up-to-date record of your employment history, education,
         qualifications, and publications enables Data Custodians to efficiently
-        assess whether you meet the 'safe people' principle of the [Five Safes
-        Framework](https://ukdataservice.ac.uk/help/secure-lab/what-is-the-five-safes-framework/).
+        assess whether you meet the 'safe people' principle of the
+        <a
+          rel="noreferrer"
+          target="_blank"
+          href="https://ukdataservice.ac.uk/help/secure-lab/what-is-the-five-safes-framework/">
+          Five Safes Framework
+        </a>
+        .
       </Typography>
       <Typography component="aside">
         <Typography variant="subtitle1" fontWeight={700}>
