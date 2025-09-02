@@ -28,9 +28,7 @@ export default function ProfessionalRegistrationsFormModal({
     <FormModal
       open={open}
       heading={
-        isEdit
-          ? "Edit Professional Registration"
-          : "Add Professional Registration"
+        isEdit ? "Edit professional membership" : "Add professional membership"
       }>
       <ProfessionalRegistrationsForm
         onClose={onClose}

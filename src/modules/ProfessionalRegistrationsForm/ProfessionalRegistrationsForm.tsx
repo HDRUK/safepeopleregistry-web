@@ -56,7 +56,7 @@ export default function ProfessionalRegistrationsForm({
       {...formOptions}
       sx={{ mb: 3 }}
       shouldReset={!isEdit}>
-      <FormSection heading={tProfile("title")}>
+      <FormSection>
         <Grid container rowSpacing={3}>
           <Grid item xs={12}>
             <FormControlHorizontal
