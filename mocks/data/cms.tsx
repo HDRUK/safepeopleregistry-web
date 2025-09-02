@@ -36,7 +36,9 @@ export const mockedUserHomeIntro = (
 export const mockedPendingAffiliations = (
   <>
     <Typography mb={2}>
-      The Safe People Registry stores records of Users who are or have been working with sensitive data. When affiliating a User, your Organisation is responsible for their behaviour when accessing sensitive data.
+      The Safe People Registry stores records of Users who are or have been
+      working with sensitive data. When affiliating a User, your Organisation is
+      responsible for their behaviour when accessing sensitive data.
     </Typography>
     <Typography mb={2}>
       When affiliating a User you are confirming that:
@@ -47,8 +49,8 @@ export const mockedPendingAffiliations = (
         student
       </li>
       <li>
-        The employee / student is an active researcher/innovator needing to
-        work on sensitive data.
+        The employee / student is an active researcher/innovator needing to work
+        on sensitive data.
       </li>
       <li>
         The Organisational email address of the User corresponds to the correct
@@ -72,7 +74,7 @@ export const mockedPersonalDetailsGuidanceProps = {
   infoTitle: "This section relates to you as an individual",
   info: (
     <>
-      <Typography mb={3}>Q. Why do we need this information?</Typography>
+      <Typography mb={3}>Q. Why do we collect this information?</Typography>
       <Typography>
         The Safe People Registry helps bring together information about Users
         (researchers, innovators) and their Organisations so that Data
@@ -89,7 +91,7 @@ export const mockedPersonalDetailsGuidanceProps = {
 };
 
 export const mockedUserExperienceGuidanceProps = {
-  infoTitle: "Why do we need this information?",
+  infoTitle: "Why do we collect this information?",
   info: (
     <>
       <Typography mb={3}>
@@ -114,7 +116,7 @@ export const mockedUserExperienceGuidanceProps = {
 };
 
 export const mockedUserTrainingGuidanceProps = {
-  infoTitle: "Why do we need this information?",
+  infoTitle: "Why do we collect this information?",
   info: (
     <>
       <Typography mb={1}>
@@ -376,10 +378,11 @@ export const mockedOrganisationProfileGuidance: TabGuidance = {
       info: (
         <>
           <Typography mb={5}>
-            Providing the Safe People Registry with full Organisation information
-            helps Data Custodians validate your Organisation. The more
-            information you provide, the faster and easier the validation
-            process becomes for Users (an employee or student of an Organisation) to gain access to sensitive data.
+            Providing the Safe People Registry with full Organisation
+            information helps Data Custodians validate your Organisation. The
+            more information you provide, the faster and easier the validation
+            process becomes for Users (an employee or student of an
+            Organisation) to gain access to sensitive data.
           </Typography>
         </>
       ),
@@ -390,11 +393,13 @@ export const mockedOrganisationProfileGuidance: TabGuidance = {
         <>
           <Typography mb={5}>
             Providing the Safe People Registry with your Organisation's
-            persistent digital identifiers enables Data Custodians to rapidly validate your Organisation.
+            persistent digital identifiers enables Data Custodians to rapidly
+            validate your Organisation.
           </Typography>
           <Typography mb={5}>
-            If your Organisation’s headquarters is based in the UK, your Organisation legal
-            name and address should align with your Organisation's listing on Companies House.
+            If your Organisation’s headquarters is based in the UK, your
+            Organisation legal name and address should align with your
+            Organisation's listing on Companies House.
           </Typography>
         </>
       ),
@@ -403,9 +408,9 @@ export const mockedOrganisationProfileGuidance: TabGuidance = {
       infoTitle: "More facts, quicker access",
       info: (
         <Typography mb={5}>
-          Providing the Safe People Registry with information on your Organisation’s
-          sector, size and website accelerates Organisation validation by Data
-          Custodians.
+          Providing the Safe People Registry with information on your
+          Organisation’s sector, size and website accelerates Organisation
+          validation by Data Custodians.
         </Typography>
       ),
     },
@@ -414,8 +419,8 @@ export const mockedOrganisationProfileGuidance: TabGuidance = {
       info: (
         <>
           <Typography mb={5}>
-            Data security compliance certifications are commonly (but not always!) required by Data Custodians
-            for Organisation validation.
+            Data security compliance certifications are commonly (but not
+            always!) required by Data Custodians for Organisation validation.
           </Typography>
           <Typography mb={5}>
             Some Data Custodians require this information even if Users are
@@ -432,19 +437,25 @@ export const mockedOrganisationProfileGuidance: TabGuidance = {
       info: (
         <>
           <Typography mb={3}>
-            The Safe People Registry stores records of Users who are or have been
-            working with sensitive data. Why are we using the term 'User'? In our engagement with Organisations, we found that there was no single 'term' that referred to all the types of people who were accessing sensitive data - researchers, scientists, innovators, engineers, students, and more. Ultimately, the community landed on 'User' as the all-encompassing term.
+            The Safe People Registry stores records of Users who are or have
+            been working with sensitive data. Why are we using the term 'User'?
+            In our engagement with Organisations, we found that there was no
+            single 'term' that referred to all the types of people who were
+            accessing sensitive data - researchers, scientists, innovators,
+            engineers, students, and more. Ultimately, the community landed on
+            'User' as the all-encompassing term.
           </Typography>
 
           <Typography mb={3}>
-            A User has one Safe People Registry account that remains with them throughout their
-            career and can be affiliated with multiple Organisations.  
+            A User has one Safe People Registry account that remains with them
+            throughout their career and can be affiliated with multiple
+            Organisations.
           </Typography>
 
           <Typography mb={3}>
-            When <strong>affiliating a User</strong>, your Organisation is responsible for their
-            behaviour when accessing sensitive data. By affiliating, you are
-            confirming:
+            When <strong>affiliating a User</strong>, your Organisation is
+            responsible for their behaviour when accessing sensitive data. By
+            affiliating, you are confirming:
           </Typography>
 
           <ul style={{ paddingLeft: "1.25rem" }}>
@@ -454,8 +465,8 @@ export const mockedOrganisationProfileGuidance: TabGuidance = {
               Organisation.
             </li>
             <li>
-              The Safe People Registry User profile accurately matches that of your
-              employee or student.
+              The Safe People Registry User profile accurately matches that of
+              your employee or student.
             </li>
             <li>
               Your Organisation approves the User to access sensitive data.
@@ -493,34 +504,37 @@ export const mockedOrganisationProfileGuidance: TabGuidance = {
           <ul style={{ marginBottom: "1rem", paddingLeft: "1.25rem" }}>
             <li>Creating the Organisation’s Safe People Registry account</li>
             <li>
-              Nominating <strong>Delegates</strong> to administrate
-              User affiliations
+              Nominating <strong>Delegates</strong> to administrate User
+              affiliations
             </li>
             <li>
               Providing and maintaining accurate information in the
               Organisation’s Safe People Registry profile
             </li>
             <li>
-              Accepting the Safe People Registry's Terms and Conditions on behalf of the Organisation
+              Accepting the Safe People Registry's Terms and Conditions on
+              behalf of the Organisation
             </li>
           </ul>
 
           <Typography mb={3}>
-            It's essential for your Organisation to designate an SRO. The Safe People Registry deals with sensitive data
-            involving your Users (employees or students) and their work on sensitive data projects within the UK. Therefore, there needs to be senior-level visibility and accountability for this Safe People Registry Organisation account.
+            It's essential for your Organisation to designate an SRO. The Safe
+            People Registry deals with sensitive data involving your Users
+            (employees or students) and their work on sensitive data projects
+            within the UK. Therefore, there needs to be senior-level visibility
+            and accountability for this Safe People Registry Organisation
+            account.
           </Typography>
 
           <Typography mb={3}>
-            Organisation <strong>Delegates</strong> are administrative individuals
-            or groups authorised to act on behalf of the Organisation. They are
-            responsible for:
+            Organisation <strong>Delegates</strong> are administrative
+            individuals or groups authorised to act on behalf of the
+            Organisation. They are responsible for:
           </Typography>
 
           <ul style={{ marginBottom: "1rem", paddingLeft: "1.25rem" }}>
             <li>Affiliating a User, and</li>
-            <li>
-              Accepting the Safe People Registry's Terms and Conditions
-            </li>
+            <li>Accepting the Safe People Registry's Terms and Conditions</li>
           </ul>
         </>
       ),
