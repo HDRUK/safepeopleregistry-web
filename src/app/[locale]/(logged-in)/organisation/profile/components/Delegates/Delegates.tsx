@@ -111,9 +111,11 @@ export default function Delegates() {
         {user?.is_delegate === 0 ? (
           <Form schema={schema} onSubmit={handleSubmit} {...formOptions}>
             <>
-              <FormSection type="form" heading={t("keyContactFormTitle")}>
-                <Markdown>{t("keyContactFormDescription")}</Markdown>
-
+              <FormSection
+                heading={t("keyContactFormTitle")}
+                description={
+                  <Markdown>{t("keyContactFormDescription")}</Markdown>
+                }>
                 <Grid
                   container
                   rowSpacing={3}
@@ -160,8 +162,11 @@ export default function Delegates() {
                   </Grid>
                 </Grid>
               </FormSection>
-              <FormSection>
-                <Markdown>{tProfile("delegateAdminDescription")}</Markdown>
+              <FormSection
+                heading={tProfile("delegatesAdminTitle")}
+                description={
+                  <Markdown>{tProfile("delegateAdminDescription")}</Markdown>
+                }>
                 <DelegateTable />
               </FormSection>
               <FormActions>

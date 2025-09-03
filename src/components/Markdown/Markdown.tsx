@@ -1,17 +1,17 @@
-import React from "react";
-import ReactMarkdown, { Components } from "react-markdown";
-import remarkGfm from "remark-gfm";
 import {
+  Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
+  Typography,
 } from "@mui/material";
-import SectionHeading from "../SectionHeading";
+import ReactMarkdown, { Components } from "react-markdown";
+import remarkGfm from "remark-gfm";
 import FormControlDescription from "../FormControlDescription";
+import PageHeading from "../PageHeading";
 
 interface MarkdownProps {
   children: string;
@@ -81,7 +81,7 @@ const tableComponents: Components = {
 const defaultComponents: Components = {
   ...tableComponents,
   h1({ children }) {
-    return <SectionHeading variant="h2" size="large" heading={children} />;
+    return <PageHeading heading={children} />;
   },
   h3({ node: _node, children, ...rest }) {
     return (
@@ -89,6 +89,9 @@ const defaultComponents: Components = {
         {children}
       </h3>
     );
+  },
+  p({ children }) {
+    return <Typography mb={2}>{children}</Typography>;
   },
 };
 

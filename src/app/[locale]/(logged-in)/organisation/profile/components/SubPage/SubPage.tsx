@@ -25,10 +25,8 @@ function SubPage({ params }: PageProps) {
   return (
     <PageBodyContainer heading={t(toCamelCase(`${params.tabId}Title`))}>
       <PageGuidance profile="organisation" {...params}>
-        <PageBody>
-          <SubTabsSections {...params} />
-          <SubTabsContents {...params} />
-        </PageBody>
+        <SubTabsSections {...params} />
+        <SubTabsContents {...params} />
       </PageGuidance>
     </PageBodyContainer>
   );

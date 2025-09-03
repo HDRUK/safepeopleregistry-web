@@ -20,7 +20,7 @@ export default function OrganisationsPeople() {
     });
 
   return (
-    <PageBody>
+    <PageBody heading={t("heading")}>
       <PageSection>
         <OrganisationsPeopleTable
           {...restPaginationProps}

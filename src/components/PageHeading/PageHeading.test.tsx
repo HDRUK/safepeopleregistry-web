@@ -3,19 +3,28 @@ import {
   render,
   screen,
 } from "../../utils/testUtils";
-import PageSection from "./PageSection";
+import PageHeading from "./PageHeading";
 
-const renderTest = () => render(<PageSection heading="This is a heading" />);
+const renderTest = () =>
+  render(
+    <PageHeading
+      heading="This is a heading"
+      description="This is a description"
+      variant="h1"
+    />
+  );
 
-describe("<PageSection />", () => {
+describe("<PageHeading />", () => {
   it("Has the correct content", async () => {
     renderTest();
 
     expect(
       screen.getByRole("heading", {
-        level: 2,
+        level: 1,
       })
     ).toHaveTextContent("This is a heading");
+
+    expect(screen.getByText("This is a description")).toBeInTheDocument();
   });
 
   it("has no accessibility violations", async () => {
