@@ -8,7 +8,9 @@ export default function Projects() {
   const t = useTranslations(NAMESPACE_TRANSLATION);
 
   return (
-    <PageBodyContainer heading={t("projects")}>
+    <PageBodyContainer
+      heading={t("projects")}
+      description={t("projectsListDescription")}>
       <PageBody>
         <ProjectsList variant="organisation" />
       </PageBody>
