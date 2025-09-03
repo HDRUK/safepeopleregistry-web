@@ -163,6 +163,10 @@
       "updateUserDescription": "Update the data below to change the selected team member's details",
       "createUserDescription": "Complete the form below to add a new member to your Safe People Registry team"
     },
+    "SafePeople": {
+      "heading": "Safe People",
+      "description": "Add a User to start the validation process. You can add existing Safe People Registry Users, or invite new Users to create a Safe People Registry account."
+    },
     "deleteUser": "Delete user",
     "deleteUserButton": "Delete user",
     "cancelButton": "Cancel",
