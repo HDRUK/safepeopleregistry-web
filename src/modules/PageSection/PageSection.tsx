@@ -1,7 +1,7 @@
 "use client";
 
 import SectionHeading from "@/components/SectionHeading";
-import { Box, BoxProps, Typography } from "@mui/material";
+import { Box, BoxProps } from "@mui/material";
 import { ReactNode } from "react";
 
 type PageSectionProps = BoxProps & {

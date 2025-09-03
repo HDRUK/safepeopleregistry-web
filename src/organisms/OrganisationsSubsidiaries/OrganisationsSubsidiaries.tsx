@@ -12,7 +12,6 @@ import OrganisationsSubsidiariesTable from "@/modules/OrganisationsSubsidiariesT
 import useMutationWithConfirmation from "@/queries/useMutationWithConfirmation";
 import { deleteSubsidiaryQuery } from "@/services/subsidiaries";
 import { Subsidiary } from "@/types/application";
-import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import useMutationUpdateSubsidiary from "../../queries/useMutationUpdateSubsidiary";
 

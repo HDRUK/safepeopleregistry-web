@@ -1,4 +1,4 @@
-import { PageBody, PageGuidance, PageBodyContainer } from "@/modules";
+import { PageGuidance, PageBodyContainer } from "@/modules";
 import { toCamelCase } from "@/utils/string";
 import { useTranslations } from "next-intl";
 import {
