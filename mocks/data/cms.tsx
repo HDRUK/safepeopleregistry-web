@@ -1,4 +1,3 @@
-import ChipStatus, { Status } from "@/components/ChipStatus";
 import ContactLink from "@/components/ContactLink";
 import Ol from "@/components/Ol";
 import { Typography } from "@mui/material";
@@ -212,24 +211,6 @@ export const mockedResearcherAffiliationsGuidance = {
       </Typography>
       <Typography mb={5}>
         You can monitor your affiliation status here.
-      </Typography>
-      <Typography variant="h4" mb={2}>
-        The statuses
-      </Typography>
-      <ChipStatus status={Status.AFFILIATED} color="success" sx={{ mb: 2 }} />
-      <Typography mb={3} sx={{ fontSize: "14px" }}>
-        You have been affiliated by this Organisation.
-      </Typography>
-      <ChipStatus status={Status.PENDING} sx={{ mb: 2 }} />
-      <Typography mb={3} sx={{ fontSize: "14px" }}>
-        The Organisation has been invited to confirm your affiliation, but has
-        not yet done so. Once they have an account they will be automatically
-        asked to confirm your affiliation.
-      </Typography>
-      <ChipStatus status={Status.INVITE_SENT} sx={{ mb: 2 }} />
-      <Typography sx={{ fontSize: "14px" }}>
-        The Organisation has been invited to set up an account, but has not yet
-        done so.
       </Typography>
     </>
   ),
