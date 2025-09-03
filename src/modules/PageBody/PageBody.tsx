@@ -1,14 +1,17 @@
 import { Box, BoxProps, Typography } from "@mui/material";
 import { ReactNode } from "react";
+import PageSection from "../PageSection";
 
 interface PageBodyProps extends BoxProps {
   heading?: ReactNode;
+  description?: ReactNode;
   actions?: ReactNode;
 }
 
 export default function PageBody({
   children,
   heading,
+  description,
   actions,
   ...restProps
 }: PageBodyProps) {
@@ -37,6 +40,11 @@ export default function PageBody({
           },
           ...restProps.sx,
         }}>
+        {description && (
+          <PageSection>
+            <Typography variant="body1">{description}</Typography>
+          </PageSection>
+        )}
         {children}
       </Box>
     </>

@@ -24,12 +24,7 @@ export default function Organisations() {
 
   return (
     <PageBodyContainer heading={tProfile("organisationsListTitle")}>
-      <PageBody>
-        <PageSection>
-          <Typography variant="body1">
-            {tProfile("organisationsListDescription")}
-          </Typography>
-        </PageSection>
+      <PageBody description={tProfile("organisationsListDescription")}>
         <ProjectOrganisations
           variant={EntityType.CUSTODIAN}
           custodianId={custodianId}
