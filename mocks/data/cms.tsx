@@ -1,4 +1,3 @@
-import ChipStatus, { Status } from "@/components/ChipStatus";
 import ContactLink from "@/components/ContactLink";
 import Ol from "@/components/Ol";
 import { Typography } from "@mui/material";
@@ -195,32 +194,6 @@ export const mockedResearcherAffiliationsGuidance = {
       </Typography>
       <Typography mb={5}>
         You can monitor your affiliation status here.
-      </Typography>
-      <Typography variant="h4" mb={2}>
-        The statuses
-      </Typography>
-      <ChipStatus
-        status={Status.AFFILIATION_APPROVED}
-        color="success"
-        sx={{ mb: 2 }}
-      />
-      <Typography mb={3} sx={{ fontSize: "14px" }}>
-        Your Safe People Registry profile is affiliated with this Organisation.
-      </Typography>
-      <ChipStatus status={Status.AFFILIATION_PENDING} sx={{ mb: 2 }} />
-      <Typography mb={3} sx={{ fontSize: "14px" }}>
-        This Organisation has been invited to confirm your affiliation but has
-        not responded yet. Once they create an account, they’ll automatically be
-        prompted to confirm it.
-      </Typography>
-      <ChipStatus status={Status.AFFILIATION_REJECTED} sx={{ mb: 2 }} />
-      <Typography mb={3} sx={{ fontSize: "14px" }}>
-        Your affiliation has been rejected by this Organisation.
-      </Typography>
-      <ChipStatus status={Status.INVITED} sx={{ mb: 2 }} />
-      <Typography sx={{ fontSize: "14px" }}>
-        This organisation has been invited to create a Safe People Registry
-        account but hasn’t completed the setup yet.
       </Typography>
     </>
   ),
