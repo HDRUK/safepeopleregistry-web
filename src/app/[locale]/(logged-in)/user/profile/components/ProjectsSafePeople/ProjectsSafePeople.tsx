@@ -5,8 +5,13 @@ import PageBody from "@/modules/PageBody";
 import ProjectUsersList from "@/organisms/ProjectUsersList";
 import { useGetProjectUsers } from "@/services/projects";
 import { EntityType } from "@/types/api";
+import { useTranslations } from "next-intl";
+
+const NAMESPACE_TRANSLATION = "CustodianProfile";
 
 export default function ProjectsSafePeople() {
+  const t = useTranslations(NAMESPACE_TRANSLATION);
+
   const { registryId, projectId, route } = useStore(state => ({
     registryId: state.getUser()?.registry_id,
     projectId: state.getCurrentProject().id,
@@ -23,7 +28,9 @@ export default function ProjectsSafePeople() {
   );
 
   return (
-    <PageBody>
+    <PageBody
+      heading={t("safePeople")}
+      description={t("safePeopleDescription")}>
       <ProjectUsersList
         data={data}
         total={total}
