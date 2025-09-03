@@ -1008,7 +1008,11 @@
     "missingOrcIdMessage": "There’s some missing information from your ORCiD that we need you to complete",
     "affiliationOrganisationWarningMessage": "Please complete this field as we couldn’t match the information. Sometimes the identifier of an Organisation within an ORCiD profile does not exactly match the identifier of an Organisation registered within Safe People Registry therefore please select an Organisation from the dropdown box. If the Organisation is not listed, please <link> invite them here </link>",
     "affiliationsEmailWarningMessage": "Please complete this field as we couldn’t match the information.",
-    "putOrganisationForbidden": "Your account does not have permissions to perform this update"
+    "putOrganisationForbidden": "Your account does not have permissions to perform this update",
+    "Projects": {
+      "heading": "Projects",
+      "description": "Here you can find all projects that you’ve been added to by a Data Custodian. You can also see the Project status and your own Validation status, as recorded by the Data Custodian."
+    }
   },
   "Training": {
     "title": "Training",
