@@ -2,7 +2,7 @@ import { Box, BoxProps, Typography } from "@mui/material";
 import { ReactNode } from "react";
 import PageSection from "../PageSection";
 
-interface PageBodyProps extends BoxProps {
+export interface PageBodyProps extends BoxProps {
   heading?: ReactNode;
   description?: ReactNode;
   actions?: ReactNode;

@@ -1402,9 +1402,6 @@
       "otherApprovalCommittees": "Other approval committees",
       "otherApprovalCommitteesPlaceholder": "Approval committee name"
     },
-    "SafePeople": {
-      "intro": "Add a User to start the validation process. You can add existing Safe People Registry Users, or invite new Users to create a Safe People Registry account."
-    },
     "notSet": "None"
   },
   "Error": {
