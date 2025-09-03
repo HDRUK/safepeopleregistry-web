@@ -56,16 +56,18 @@ export default function Projects() {
 
   return (
     <PageBodyContainer heading={t("projects")}>
-      <PageBody>
-        <Box sx={{ display: "flex", gap: 4 }}>
-          <Typography sx={{ flexGrow: 1 }}>{mockedProjectsIntro}</Typography>
-          <Button
-            startIcon={<AddIcon />}
-            onClick={handleCreateProject}
-            sx={{ flexShrink: 0 }}>
-            {t("addNewProjectButton")}
-          </Button>
-        </Box>
+      <PageBody
+        description={
+          <Box sx={{ display: "flex", gap: 4 }}>
+            <Typography sx={{ flexGrow: 1 }}>{mockedProjectsIntro}</Typography>
+            <Button
+              startIcon={<AddIcon />}
+              onClick={handleCreateProject}
+              sx={{ flexShrink: 0 }}>
+              {t("addNewProjectButton")}
+            </Button>
+          </Box>
+        }>
         <ProjectsList variant="custodian" />
       </PageBody>
     </PageBodyContainer>
