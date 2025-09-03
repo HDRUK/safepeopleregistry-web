@@ -187,6 +187,7 @@
     "safePeople": "Safe People",
     "safeData": "Safe Data",
     "safeSettings": "Safe Settings",
+    "safePeopleDescription": "Currently, you can only see yourself on this page. The project, however, may have many other Users.",
     "home": "Home",
     "homeIntro": "Welcome to the Safe People Registry. You’ll see a list of tasks below to complete your profile.",
     "contacts": "Contacts",
@@ -710,6 +711,8 @@
       "technicalSummary": "Technical summary",
       "technicalSummaryPlaceholder": "Technical summary",
       "technicalSummaryRequiredInvalid": "Technical summary is required",
+      "publicBenefitDescription": "An outline of the impact of the project to the general public",
+      "technicalSummaryDescription": "A summary of the proposed research, in a manner that is suitable for a specialist reader",
       "otherApprovalCommittees": "Other approval committees",
       "otherApprovalCommitteesPlaceholder": "Approval committee name",
       "startDateRequiredInvalid": "Start date is required"
@@ -1408,7 +1411,8 @@
       "otherApprovalCommittees": "Other approval committees",
       "otherApprovalCommitteesPlaceholder": "Approval committee name"
     },
-    "notSet": "None"
+    "notSet": "None",
+    "projectsListDescription": "Here you will find a list of all projects that Users affiliated with your Organisation have been added to."
   },
   "Error": {
     "login": {
