@@ -1398,7 +1398,8 @@
       "otherApprovalCommittees": "Other approval committees",
       "otherApprovalCommitteesPlaceholder": "Approval committee name"
     },
-    "notSet": "None"
+    "notSet": "None",
+    "projectsListDescription": "Here you will find a list of all projects that Users affiliated with your Organisation have been added to."
   },
   "Error": {
     "login": {
