@@ -705,6 +705,8 @@
       "technicalSummary": "Technical summary",
       "technicalSummaryPlaceholder": "Technical summary",
       "technicalSummaryRequiredInvalid": "Technical summary is required",
+      "publicBenefitDescription": "An outline of the impact of the project to the general public",
+      "technicalSummaryDescription": "A summary of the proposed research, in a manner that is suitable for a specialist reader",
       "otherApprovalCommittees": "Other approval committees",
       "otherApprovalCommitteesPlaceholder": "Approval committee name",
       "startDateRequiredInvalid": "Start date is required"

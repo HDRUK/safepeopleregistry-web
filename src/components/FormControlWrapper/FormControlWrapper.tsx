@@ -81,6 +81,13 @@ export default function FormControlWrapper({
     ...sx,
   };
 
+  const tDescription = tForm(`${tKey}Description`);
+
+  const descriptionText =
+    description ||
+    (!tDescription.includes(`${tKey}Description`) &&
+      tForm(`${tKey}Description`));
+
   return (
     <Controller
       disabled={context.formState.disabled || disabled}
@@ -121,8 +128,8 @@ export default function FormControlWrapper({
             </Box>
           </Box>
           <Box sx={{ width: "100%", mt: 1 }}>
-            {!!description && (
-              <FormControlDescription>{description}</FormControlDescription>
+            {descriptionText && (
+              <FormControlDescription>{descriptionText}</FormControlDescription>
             )}
             {error && <FormHelperText>{error.message}</FormHelperText>}
           </Box>
