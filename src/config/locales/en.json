@@ -316,8 +316,9 @@
     "userAdministrationTitle": "Users and Delegates",
     "userAdminEmployeeStudents": "Users",
     "manageDelegates": "Manage Delegates",
-    "delegateAdminDescription": "## Delegates \n\n The SRO can invite Delegates to administer the Organisation account. Delegates perform the day-to-day affiliation of Users, as well as invite other Delegates. \n\n A Delegate could be a Human Resources (HR) representative, Information Governance (IG) representative e.g. Data Protection Officer (DPO), Contracts representative or Legal representative. \n\n You can invite Delegate to register for a Safe People Registry account by adding them below.",
-    "delegateAdminDescriptionDelegate": "## Delegates \n\n As a Delegate for your Organisation, you can view all other Delegates.",
+    "delegatesAdminTitle": "Delegates",
+    "delegateAdminDescription": "The SRO can invite Delegates to administer the Organisation account. Delegates perform the day-to-day affiliation of Users, as well as invite other Delegates. \n\n A Delegate could be a Human Resources (HR) representative, Information Governance (IG) representative e.g. Data Protection Officer (DPO), Contracts representative or Legal representative. \n\n You can invite Delegate to register for a Safe People Registry account by adding them below.",
+    "delegateAdminDescriptionDelegate": "As a Delegate for your Organisation, you can view all other Delegates.",
     "userAdmin": "Users and Delegates",
     "home": "Home",
     "homeTitle": "Welcome",
@@ -592,8 +593,8 @@
     "arrayRemoveButton": "Remove",
     "arrayAddButton": "Add",
     "arrayAddAnotherButton": "Add Another",
-    "keyContactFormTitle": "Delegate Administration",
-    "keyContactFormDescription": "## Senior Responsible Officer (SRO) contact information \n As a Senior Responsible Officer (SRO), it is required that you have sufficient seniority and relevant responsibility to nominate Delegates from your Organisation to affiliate your employees or students. \n\n\n\n\n\n As an SRO, please provide your individual information here: ",
+    "keyContactFormTitle": "Senior Responsible Officer (SRO) contact information",
+    "keyContactFormDescription": "As a Senior Responsible Officer (SRO), it is required that you have sufficient seniority and relevant responsibility to nominate Delegates from your Organisation to affiliate your employees or students. \n\n\n\n\n\n As an SRO, please provide your individual information here: ",
     "departmentName": "Department",
     "departmentNamePlaceholder": "Department Name",
     "departmentNameRequiredInvalid": "Department name is required",
@@ -1011,7 +1012,11 @@
     "missingOrcIdMessage": "There’s some missing information from your ORCiD that we need you to complete",
     "affiliationOrganisationWarningMessage": "Please complete this field as we couldn’t match the information. Sometimes the identifier of an Organisation within an ORCiD profile does not exactly match the identifier of an Organisation registered within Safe People Registry therefore please select an Organisation from the dropdown box. If the Organisation is not listed, please <link> invite them here </link>",
     "affiliationsEmailWarningMessage": "Please complete this field as we couldn’t match the information.",
-    "putOrganisationForbidden": "Your account does not have permissions to perform this update"
+    "putOrganisationForbidden": "Your account does not have permissions to perform this update",
+    "Projects": {
+      "heading": "Projects",
+      "description": "Here you can find all projects that you’ve been added to by a Data Custodian. You can also see the Project status and your own Validation status, as recorded by the Data Custodian."
+    }
   },
   "Training": {
     "title": "Training",
@@ -1220,6 +1225,7 @@
       "countryRequiredInvalid": "Country is required"
     },
     "People": {
+      "heading": "Users",
       "name": "Employee / Student name",
       "affiliationEmail": "Professional Email",
       "affiliationStatus": "Affiliation status"

@@ -12,7 +12,6 @@ import OrganisationsSubsidiariesTable from "@/modules/OrganisationsSubsidiariesT
 import useMutationWithConfirmation from "@/queries/useMutationWithConfirmation";
 import { deleteSubsidiaryQuery } from "@/services/subsidiaries";
 import { Subsidiary } from "@/types/application";
-import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import useMutationUpdateSubsidiary from "../../queries/useMutationUpdateSubsidiary";
 
@@ -50,12 +49,11 @@ export default function OrganisationsSubsidiaries({
 
   return (
     <>
-      <PageSection heading={t("heading")}>
+      <PageSection
+        heading={t("heading")}
+        description="If your Organisation is based internationally, please add any
+            UK-based subsidiaries below.">
         <div>
-          <Typography sx={{ mb: 2 }}>
-            If your Organisation is based internationally, please add any
-            UK-based subsidiaries below.
-          </Typography>
           <OrganisationsSubsidiariesTable
             data={organisation?.subsidiaries || []}
             t={t}

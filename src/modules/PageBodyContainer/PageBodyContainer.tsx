@@ -1,9 +1,7 @@
 import { Box, BoxProps } from "@mui/material";
-import SectionHeading, {
-  SectionHeadingProps,
-} from "../../components/SectionHeading";
+import PageHeading, { PageHeadingProps } from "../../components/PageHeading";
 
-type PageBodyContainerProps = BoxProps & SectionHeadingProps;
+type PageBodyContainerProps = BoxProps & PageHeadingProps;
 
 export default function PageBodyContainer({
   children,
@@ -14,15 +12,10 @@ export default function PageBodyContainer({
   return (
     <Box {...restProps}>
       {heading && (
-        <SectionHeading
-          type="content"
-          variant="h1"
+        <PageHeading
           heading={heading}
           description={description}
-          size="large"
-          sx={{
-            mb: 4,
-          }}
+          sx={{ mb: 3 }}
         />
       )}
       {children}

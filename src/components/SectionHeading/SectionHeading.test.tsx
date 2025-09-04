@@ -10,7 +10,6 @@ const renderTest = () =>
     <SectionHeading
       heading="This is a heading"
       description="This is a description"
-      variant="h1"
     />
   );
 
@@ -20,7 +19,7 @@ describe("<SectionHeading />", () => {
 
     expect(
       screen.getByRole("heading", {
-        level: 1,
+        level: 2,
       })
     ).toHaveTextContent("This is a heading");
 
