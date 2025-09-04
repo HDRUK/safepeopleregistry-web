@@ -1,9 +1,7 @@
 "use client";
 
 import { useStore } from "@/data/store";
-import { mockedSafeProjectGuidanceProps } from "@/mocks/data/cms";
 import { PageBody, PageSection } from "@/modules";
-import PageGuidance from "@/modules/PageGuidance";
 import ProjectsSafeDataDetails from "@/modules/ProjectsSafeDataDetails";
 import { useTranslations } from "next-intl";
 

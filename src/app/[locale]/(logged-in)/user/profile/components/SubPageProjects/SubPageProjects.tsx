@@ -8,11 +8,11 @@ import {
 import { ResearcherProject } from "@/types/application";
 import { useEffect } from "react";
 import StatusList from "@/components/StatusList";
+import { mockedSafeProjectGuidanceProps } from "@/mocks/data/cms";
+import Guidance from "@/components/Guidance";
 import { PageTabs, ProjectsSubTabs } from "../../consts/tabs";
 import SubTabsSections from "../SubTabSections";
 import SubTabsContents from "../SubsTabContents";
-import { mockedSafeProjectGuidanceProps } from "@/mocks/data/cms";
-import Guidance from "@/components/Guidance";
 
 interface PageProps {
   projectData: ResearcherProject;

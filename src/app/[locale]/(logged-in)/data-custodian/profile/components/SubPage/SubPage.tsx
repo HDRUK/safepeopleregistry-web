@@ -1,6 +1,5 @@
 import Guidance from "@/components/Guidance";
 import {
-  PageBody,
   PageBodyContainer,
   PageColumnBody,
   PageColumnDetails,
@@ -11,6 +10,7 @@ import { useTranslations } from "next-intl";
 import { ConfigurationSubTabs, PageTabs, UserSubTabs } from "../../consts/tabs";
 import SubTabsSections from "../SubTabSections";
 import SubTabsContents from "../SubsTabContents";
+
 interface PageProps {
   params: {
     tabId: PageTabs;

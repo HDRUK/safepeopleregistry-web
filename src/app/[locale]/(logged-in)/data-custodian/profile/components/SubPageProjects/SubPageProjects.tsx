@@ -3,7 +3,6 @@ import { PageBodyContainer } from "@/modules";
 import { ResearcherProject } from "@/types/application";
 import { useEffect } from "react";
 import { PageTabs, ProjectsSubTabs } from "../../consts/tabs";
-import SubTabsSections from "../SubTabSections";
 import SubTabsContents from "../SubsTabContents";
 
 interface PageProps {
