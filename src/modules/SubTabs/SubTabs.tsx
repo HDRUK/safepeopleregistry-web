@@ -9,12 +9,21 @@ interface SubTabsProps extends TabsProps {
   tabs: Option[];
 }
 
-export default function SubTabs({ tabs, current, ...restProps }: SubTabsProps) {
+export default function SubTabs({
+  tabs,
+  current,
+  sx,
+  ...restProps
+}: SubTabsProps) {
   const [firstTab] = tabs;
   const defaultValue = firstTab.value;
 
   return (
-    <Tabs value={current || defaultValue} {...restProps} variant="fullWidth">
+    <Tabs
+      value={current || defaultValue}
+      {...restProps}
+      variant="fullWidth"
+      sx={{ mb: 1, ...sx }}>
       {tabs.map(({ label, value, href }) => (
         <Tab
           label={label}
@@ -22,7 +31,7 @@ export default function SubTabs({ tabs, current, ...restProps }: SubTabsProps) {
           href={href}
           component={Link}
           iconPosition="start"
-          sx={{ fontWeight: 400, fontSize: "14px" }}
+          sx={{ fontWeight: 400, fontSize: "14px", mb: 2 }}
         />
       ))}
     </Tabs>

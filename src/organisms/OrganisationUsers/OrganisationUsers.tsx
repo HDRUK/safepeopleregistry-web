@@ -52,8 +52,8 @@ export default function OrganisationUsers() {
   );
 
   return (
-    <PageBody>
-      <PageSection heading={t("employeeStudentAdminTitle")}>
+    <PageBody heading={t("employeeStudentAdminTitle")}>
+      <PageSection>
         <OrganisationUsersFilters
           statusList={Object.keys(transitions || {})}
           updateQueryParams={updateQueryParams}

@@ -1,4 +1,4 @@
-import { PageBody, PageGuidance, PageBodyContainer } from "@/modules";
+import { PageBodyContainer, PageGuidance } from "@/modules";
 import { toCamelCase } from "@/utils/string";
 import { useTranslations } from "next-intl";
 import { ConfigurationSubTabs, PageTabs, UserSubTabs } from "../../consts/tabs";
@@ -23,10 +23,8 @@ function SubPage({ params }: PageProps) {
       <PageGuidance
         infoTitle={t(`guidance.${params.subTabId}.infoTitle`)}
         info={t(`guidance.${params.subTabId}.info`)}>
-        <PageBody>
-          <SubTabsSections {...params} />
-          <SubTabsContents {...params} />
-        </PageBody>
+        <SubTabsSections {...params} />
+        <SubTabsContents {...params} />
       </PageGuidance>
     </PageBodyContainer>
   );

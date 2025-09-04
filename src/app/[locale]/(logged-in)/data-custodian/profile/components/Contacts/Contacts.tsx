@@ -1,3 +1,4 @@
+import Markdown from "@/components/Markdown";
 import { AddIcon } from "@/consts/icons";
 import { useStore } from "@/data/store";
 import useQueryConfirmAlerts from "@/hooks/useQueryConfirmAlerts";
@@ -15,7 +16,6 @@ import { useMutation } from "@tanstack/react-query";
 import { CellContext } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import { useCallback, useState } from "react";
-import Markdown from "react-markdown";
 
 const NAMESPACE_TRANSLATION_PROFILE = "CustodianProfile";
 
@@ -122,8 +122,8 @@ export default function Contacts() {
   return (
     <PageBodyContainer heading={t("contactsHeading")}>
       <PageBody>
-        <PageSection>
-          <Markdown>{t("contactsListDescription")}</Markdown>
+        <PageSection
+          description={<Markdown>{t("contactsListDescription")}</Markdown>}>
           <Box sx={{ display: "flex", gap: 1, mt: 5, mb: 3 }}>
             <Box
               component="form"
