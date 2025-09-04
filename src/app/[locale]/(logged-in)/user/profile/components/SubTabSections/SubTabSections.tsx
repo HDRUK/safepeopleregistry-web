@@ -88,5 +88,5 @@ export default function SubTabsSections({
     return null;
   }
 
-  return <SubTabs current={subTabId} tabs={selectedTabs} sx={{ mb: 4 }} />;
+  return <SubTabs current={subTabId} tabs={selectedTabs} />;
 }

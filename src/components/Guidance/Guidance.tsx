@@ -10,13 +10,14 @@ import GuidanceTitle from "./GuidanceTitle";
 import GuidanceTrigger from "./GuidanceTrigger";
 
 export interface GuidanceProps {
-  children: ReactNode;
+  children?: ReactNode;
   info: ReactNode;
   infoTitle: ReactNode;
   infoWidth?: number | string;
   infoTitleIcon?: ReactNode;
   defaultExpanded?: boolean;
   hasGuidance?: boolean;
+  isCollapsible?: boolean;
 }
 
 export default function Guidance({
@@ -27,10 +28,26 @@ export default function Guidance({
   defaultExpanded = true,
   infoTitle,
   hasGuidance = true,
+  isCollapsible = true,
 }: GuidanceProps) {
   const theme = useTheme();
   const [expanded, setExpanded] = useState(defaultExpanded);
   const isMdDown = useMediaQuery(theme.breakpoints.down("md"));
+
+  if (!isCollapsible && !isMdDown) {
+    return (
+      <StyledGuidance positionVertical={false}>
+        <StyledInfo positionVertical={false} infoWidth={infoWidth}>
+          <GuidanceTitle infoTitleIcon={infoTitleIcon}>
+            {infoTitle}
+          </GuidanceTitle>
+          <Box>
+            {typeof info === "string" ? <Markdown>{info}</Markdown> : info}
+          </Box>
+        </StyledInfo>
+      </StyledGuidance>
+    );
+  }
 
   return (
     <StyledGuidance positionVertical={isMdDown}>

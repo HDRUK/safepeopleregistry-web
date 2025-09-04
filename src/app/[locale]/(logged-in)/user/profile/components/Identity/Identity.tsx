@@ -1,33 +1,36 @@
 "use client";
 
+import ErrorMessage from "@/components/ErrorMessage";
 import Form from "@/components/Form";
 import FormActions from "@/components/FormActions";
 import FormControlHorizontal from "@/components/FormControlHorizontal";
 import FormSection from "@/components/FormSection";
+import Guidance from "@/components/Guidance";
 import Markdown from "@/components/Markdown";
 import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
 import SelectCountry from "@/components/SelectCountry";
+import Text from "@/components/Text";
 import yup from "@/config/yup";
 import { ROUTES } from "@/consts/router";
 import { useStore } from "@/data/store";
+import useQueryAlerts from "@/hooks/useQueryAlerts";
 import { mockedPersonalDetailsGuidanceProps } from "@/mocks/data/cms";
 import {
   PageBody,
   PageBodyContainer,
-  PageGuidance,
+  PageColumnBody,
+  PageColumnDetails,
+  PageColumns,
   PageSection,
 } from "@/modules";
 import { putUserQuery } from "@/services/users";
+import { User } from "@/types/application";
+import { CheckCircle } from "@mui/icons-material";
 import { Button, Grid, TextField } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
-import useQueryAlerts from "@/hooks/useQueryAlerts";
-import { User } from "@/types/application";
-import { CheckCircle } from "@mui/icons-material";
-import Text from "@/components/Text";
-import ErrorMessage from "@/components/ErrorMessage";
 import VeriffTermsAndConditions from "../VeriffTermsAndConditions";
 
 export interface IdentityFormValues {
@@ -129,103 +132,112 @@ export default function Identity() {
 
   return (
     <PageBodyContainer heading={tProfile("identityTitle")}>
-      <PageGuidance {...mockedPersonalDetailsGuidanceProps}>
-        <PageBody>
-          <PageSection heading={tProfile("identityForm")}>
-            <Form
-              onSubmit={handleDetailsSubmit}
-              schema={schema}
-              canLeave
-              key={user?.id}
-              {...formOptions}>
-              <>
-                <FormSection>
-                  <Grid container rowSpacing={3}>
-                    <Grid item xs={12}>
-                      <FormControlHorizontal
-                        name="first_name"
-                        renderField={fieldProps => (
-                          <TextField {...fieldProps} />
-                        )}
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <FormControlHorizontal
-                        name="last_name"
-                        renderField={fieldProps => (
-                          <TextField {...fieldProps} />
-                        )}
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <FormControlHorizontal
-                        name="personal_email"
-                        renderField={fieldProps => (
-                          <TextField {...fieldProps} />
-                        )}
-                        description={tProfile.rich("emailDescription", {
-                          bold: chunks => <strong>{chunks}</strong>,
-                        })}
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <FormControlHorizontal
-                        name="location"
-                        description={tProfile("locationDescription")}
-                        renderField={({ value, onChange, ...rest }) => (
-                          <SelectCountry
-                            useCountryCode={false}
-                            value={value}
-                            onChange={onChange}
-                            {...rest}
-                          />
-                        )}
-                      />
-                    </Grid>
-                  </Grid>
-                </FormSection>
-                <FormSection heading={tProfile("idvtCheckSection")}>
-                  <Grid container spacing={3}>
-                    <Grid container item spacing={3}>
-                      <Grid item xs={8}>
-                        {idvt_success ? (
-                          <Text startIcon={<CheckCircle color="success" />}>
-                            {tProfile("idvtCheckComplete")}
-                          </Text>
-                        ) : (
-                          <>
-                            <Button
-                              variant="outlined"
-                              onClick={() => setShowModal(true)}>
-                              {idvt_started_at
-                                ? tProfile("idvtCheckButtonRestart")
-                                : tProfile("idvtCheckButtonStart")}
-                            </Button>
-                            <Markdown variant="subtitle">
-                              {tProfile("idvtCheckDescription")}
-                            </Markdown>
-                          </>
-                        )}
+      <PageColumns>
+        <PageColumnBody lg={8}>
+          <PageBody>
+            <PageSection heading={tProfile("identityForm")}>
+              <Form
+                onSubmit={handleDetailsSubmit}
+                schema={schema}
+                canLeave
+                key={user?.id}
+                {...formOptions}>
+                <>
+                  <FormSection>
+                    <Grid container rowSpacing={3}>
+                      <Grid item xs={12}>
+                        <FormControlHorizontal
+                          name="first_name"
+                          renderField={fieldProps => (
+                            <TextField {...fieldProps} />
+                          )}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <FormControlHorizontal
+                          name="last_name"
+                          renderField={fieldProps => (
+                            <TextField {...fieldProps} />
+                          )}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <FormControlHorizontal
+                          name="personal_email"
+                          renderField={fieldProps => (
+                            <TextField {...fieldProps} />
+                          )}
+                          description={tProfile.rich("emailDescription", {
+                            bold: chunks => <strong>{chunks}</strong>,
+                          })}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <FormControlHorizontal
+                          name="location"
+                          description={tProfile("locationDescription")}
+                          renderField={({ value, onChange, ...rest }) => (
+                            <SelectCountry
+                              useCountryCode={false}
+                              value={value}
+                              onChange={onChange}
+                              {...rest}
+                            />
+                          )}
+                        />
                       </Grid>
                     </Grid>
-                  </Grid>
-                </FormSection>
-                <FormActions>
-                  <ProfileNavigationFooter
-                    nextStepText={tProfile("experience")}
-                    isLoading={updateUser.isPending}
-                  />
-                </FormActions>
-              </>
-            </Form>
-            <VeriffTermsAndConditions
-              open={showModal}
-              onSuccess={handleVeriffSuccess}
-              onClose={() => setShowModal(false)}
-            />
-          </PageSection>
-        </PageBody>
-      </PageGuidance>
+                  </FormSection>
+                  <FormSection heading={tProfile("idvtCheckSection")}>
+                    <Grid container spacing={3}>
+                      <Grid container item spacing={3}>
+                        <Grid item xs={8}>
+                          {idvt_success ? (
+                            <Text startIcon={<CheckCircle color="success" />}>
+                              {tProfile("idvtCheckComplete")}
+                            </Text>
+                          ) : (
+                            <>
+                              <Button
+                                variant="outlined"
+                                onClick={() => setShowModal(true)}>
+                                {idvt_started_at
+                                  ? tProfile("idvtCheckButtonRestart")
+                                  : tProfile("idvtCheckButtonStart")}
+                              </Button>
+                              <Markdown variant="subtitle">
+                                {tProfile("idvtCheckDescription")}
+                              </Markdown>
+                            </>
+                          )}
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </FormSection>
+                  <FormActions>
+                    <ProfileNavigationFooter
+                      nextStepText={tProfile("experience")}
+                      isLoading={updateUser.isPending}
+                    />
+                  </FormActions>
+                </>
+              </Form>
+              <VeriffTermsAndConditions
+                open={showModal}
+                onSuccess={handleVeriffSuccess}
+                onClose={() => setShowModal(false)}
+              />
+            </PageSection>
+          </PageBody>
+        </PageColumnBody>
+        <PageColumnDetails lg={4}>
+          <Guidance
+            {...mockedPersonalDetailsGuidanceProps}
+            isCollapsible={false}
+            infoWidth="100%"
+          />
+        </PageColumnDetails>
+      </PageColumns>
     </PageBodyContainer>
   );
 }
