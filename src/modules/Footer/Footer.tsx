@@ -103,7 +103,7 @@ export default function Footer() {
                   src="/images/logos/hdruk.svg"
                   width={153}
                   height={54}
-                  alt={t("mrcLogoAlt")}
+                  alt={t("hdrLogoAlt")}
                 />
               </StyledBox>
             </StyledFooterImageWrapper>
