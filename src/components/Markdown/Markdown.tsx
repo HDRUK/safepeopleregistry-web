@@ -64,39 +64,19 @@ const defaultComponents: Components = {
     return <PageHeading heading={children} mb={3} />;
   },
   h2({ children }) {
-    return (
-      <Typography variant="h2" mt={3} mb={1}>
-        {children}
-      </Typography>
-    );
+    return <Typography variant="h2">{children}</Typography>;
   },
   h3({ children }) {
-    return (
-      <Typography variant="h3" mt={2} mb={1}>
-        {children}
-      </Typography>
-    );
+    return <Typography variant="h3">{children}</Typography>;
   },
   h4({ children }) {
-    return (
-      <Typography variant="h4" my={1}>
-        {children}
-      </Typography>
-    );
+    return <Typography variant="h4">{children}</Typography>;
   },
   h5({ children }) {
-    return (
-      <Typography variant="h5" my={1}>
-        {children}
-      </Typography>
-    );
+    return <Typography variant="h5">{children}</Typography>;
   },
   h6({ children }) {
-    return (
-      <Typography variant="h6" my={1}>
-        {children}
-      </Typography>
-    );
+    return <Typography variant="h6">{children}</Typography>;
   },
   ul({ children }) {
     return (
