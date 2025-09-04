@@ -63,7 +63,7 @@ export const mockedSafeProjectGuidanceProps = {
   infoTitle: "Did you know?",
   info: (
     <Typography>
-      These 'Five Safes' contain properties which follow the
+      These 'Five Safes' contain properties which follow the{" "}
       <a
         target="_blank"
         rel="noreferrer"
