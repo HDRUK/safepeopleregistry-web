@@ -15,14 +15,10 @@ export default function ProjectsSafeData() {
   const project = useStore(state => state.getCurrentProject());
 
   return (
-    <PageGuidance {...mockedSafeProjectGuidanceProps}>
-      <PageBody heading={t("safeData")}>
-        <PageSection>
-          <ProjectsSafeDataDetails
-            projectDetailsData={project.project_detail}
-          />
-        </PageSection>
-      </PageBody>
-    </PageGuidance>
+    <PageBody heading={t("safeData")}>
+      <PageSection>
+        <ProjectsSafeDataDetails projectDetailsData={project.project_detail} />
+      </PageSection>
+    </PageBody>
   );
 }

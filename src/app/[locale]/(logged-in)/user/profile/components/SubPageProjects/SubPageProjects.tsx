@@ -11,6 +11,8 @@ import StatusList from "@/components/StatusList";
 import { PageTabs, ProjectsSubTabs } from "../../consts/tabs";
 import SubTabsSections from "../SubTabSections";
 import SubTabsContents from "../SubsTabContents";
+import { mockedSafeProjectGuidanceProps } from "@/mocks/data/cms";
+import Guidance from "@/components/Guidance";
 
 interface PageProps {
   projectData: ResearcherProject;
@@ -32,6 +34,8 @@ export default function SubPageProjects({ params, projectData }: PageProps) {
     setProject(projectData);
   }, [projectData]);
 
+  const guidance = mockedSafeProjectGuidanceProps;
+
   return (
     project && (
       <PageBodyContainer
@@ -43,6 +47,7 @@ export default function SubPageProjects({ params, projectData }: PageProps) {
           </PageColumnBody>
           <PageColumnDetails lg={4}>
             <StatusList projectStatus={project?.model_state.state.slug} />
+            <Guidance {...guidance} isCollapsible={false} infoWidth="100%" />
           </PageColumnDetails>
         </PageColumns>
       </PageBodyContainer>
