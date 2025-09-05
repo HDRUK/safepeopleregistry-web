@@ -104,20 +104,13 @@ const Table = <T,>({
       <TableContainer sx={{ my: 1, ...sx }}>
         <MuiTable size={dense ? "small" : "medium"}>
           {showHeader && (
-            <TableHead
-              sx={{
-                backgroundColor: "neutralGrey.main",
-              }}>
+            <TableHead>
               {table.getHeaderGroups().map(headerGroup => (
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map(header => (
                     <TableCell
                       key={header.id}
                       sx={{
-                        color: "neutralGrey.contrastText",
-                        fontWeight: "600",
-                        py: 1,
-                        width: "auto",
                         minWidth: header.getSize() !== 150 && header.getSize(),
                       }}>
                       {header.isPlaceholder

@@ -1,7 +1,6 @@
 "use client";
 
 import { useStore } from "@/data/store";
-import { PageBody } from "@/modules";
 import OrganisationUsers from "@/organisms/OrganisationUsers";
 import { notFound } from "next/navigation";
 import {
@@ -88,5 +87,5 @@ export default function SubTabsContents({
       content = null;
   }
 
-  return <PageBody>{content}</PageBody>;
+  return content;
 }
