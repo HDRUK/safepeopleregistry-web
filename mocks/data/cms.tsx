@@ -91,6 +91,25 @@ export const mockedSafeProjectGuidanceProps = {
   ),
 };
 
+export const mockedCustodianSafeProjectGuidanceProps = {
+  infoTitle: "Did you know?",
+  info: (
+    <Typography>
+      The Five Safe properties follow the{" "}
+      <a
+        rel="noreferrer"
+        target="_blank"
+        href="https://zenodo.org/records/5902743#.ZDgTHcrMKUn">
+        data use register transparency
+      </a>{" "}
+      standard (linked). Further details on how to fill out each field can be
+      found in that standard. These details can be used to generate your own
+      data use register. The characteristics of each project can be updated
+      throughout the course of the project.
+    </Typography>
+  ),
+};
+
 export const mockedPersonalDetailsGuidanceProps = {
   infoTitle: "This section relates to you as an individual",
   info: (

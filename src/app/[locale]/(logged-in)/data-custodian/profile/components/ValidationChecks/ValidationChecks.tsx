@@ -16,8 +16,8 @@ import { ValidationCheck } from "@/services/validation_checks/types";
 import FormActions from "@/components/FormActions";
 import ButtonSave from "@/components/ButtonSave";
 import { DEFAULT_STALE_TIME } from "@/consts/requests";
-import AddNewValidationCheck from "../AddNewValidationCheck";
 import { PageBody } from "@/modules";
+import AddNewValidationCheck from "../AddNewValidationCheck";
 
 const NAMESPACE_TRANSLATION = "ValidationChecks";
 

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { PageBody, PageSection } from "@/modules";
+import { PageBody } from "@/modules";
 import Form from "@/components/Form";
 import FormActions from "@/components/FormActions";
 import CheckboxList from "@/components/CheckboxList";
