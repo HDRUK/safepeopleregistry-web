@@ -263,6 +263,29 @@ const theme = createTheme(
           root: ({ ownerState }) => createMuiTableStyles(ownerState),
         },
       },
+      MuiTableHead: {
+        styleOverrides: {
+          root: {
+            backgroundColor: paletteTheme.palette.neutralGrey.main,
+            ".MuiTableCell-root": {
+              color: paletteTheme.palette.neutralGrey.contrastText,
+              fontWeight: "600",
+              py: 1,
+              width: "auto",
+            },
+          },
+        },
+      },
+      MuiTableBody: {
+        styleOverrides: {
+          root: {
+            ".MuiTableCell-root": {
+              borderBottom: "neutralGrey.main",
+              py: 1,
+            },
+          },
+        },
+      },
       MuiModal: {
         defaultProps: {
           outline: false,
