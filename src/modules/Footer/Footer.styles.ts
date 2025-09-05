@@ -1,34 +1,31 @@
 import { Box, css, styled } from "@mui/material";
 
-const StyledFooter = styled("div")(
+const StyledFooter = styled(Box)(
   ({ theme }) => css`
-    width: 100%;
-    position: relative;
-    color: #fff;
     display: flex;
-    gap: ${theme.spacing(3)};
-    padding: ${theme.spacing(2)} ${theme.spacing(8)} ${theme.spacing(3)};
-    flex-direction: column;
-    align-items: flex-start;
-
-    ${theme.breakpoints.up("lg")} {
-      flex-direction: row;
-      gap: ${theme.spacing(7)};
-      padding: ${theme.spacing(3)} ${theme.spacing(3)} ${theme.spacing(5)};
-      align-items: flex-end;
-    }
+    gap: ${theme.spacing(6)};
+    padding: ${theme.spacing(3)};
+    width: 100%;
+    align-ttems: stretch;
+    flex-wrap: wrap;
   `
 );
 
 const StyledBox = styled(Box)(
   ({ theme }) => css`
-    align-items: flex-end;
     display: flex;
-
-    ${theme.breakpoints.down("sm")} {
-      flex-wrap: wrap;
-    }
+    gap: ${theme.spacing(3)};
+    flex-wrap: wrap;
   `
 );
 
-export { StyledFooter, StyledBox };
+const StyledFooterImageWrapper = styled(Box)(
+  ({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    gap: ${theme.spacing(3)};
+    justify-content: space-between;
+  `
+);
+
+export { StyledFooter, StyledBox, StyledFooterImageWrapper };

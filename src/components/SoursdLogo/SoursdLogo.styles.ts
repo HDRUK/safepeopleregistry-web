@@ -8,7 +8,6 @@ export const StyledLogoContainer = styled(Box)<SoursdLogoProps>(
     flex-direction: ${direction ? "row" : "column"};
     align-items: center;
     justify-content: center;
-    padding: 4px;
   `
 );
 
@@ -16,10 +15,11 @@ export const StyledLogoTitle = styled(Typography)(
   () => css`
     font-size: 90%;
     letter-spacing: 2px;
-    font-weight: 600;
+    font-weight: 400;
+    word-spacing: -2px;
     height: auto;
     width: auto;
     text-align: center;
-    line-height: 1;
+    line-height: 150%;
   `
 );
