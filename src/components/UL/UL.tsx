@@ -2,53 +2,39 @@
 
 import { Box, BoxProps } from "@mui/material";
 import { ReactNode } from "react";
-import useResponsiveProps, {
-  ResponsiveProps,
-} from "../../hooks/useResponsiveProps";
 
 export interface ULBaseProps extends BoxProps {
   children: ReactNode;
   separator?: string;
-  variant: "vertical" | "horizontal";
+  variant?: "vertical" | "horizontal";
 }
-
-export type ULProps = ULBaseProps & {
-  responsiveProps: ResponsiveProps<ULBaseProps>;
-};
 
 export default function UL({
   separator = "|",
-  variant = "vertical",
+  variant = "horizontal",
   children,
-  responsiveProps,
   ...restProps
-}: ULProps) {
-  const props = useResponsiveProps(responsiveProps);
-  const currentVariant = props.variant || variant;
-
+}: ULBaseProps) {
   return (
     <Box
       component="ul"
       {...restProps}
       sx={{
         display: "flex",
-        flexDirection: currentVariant === "vertical" ? "column" : "row",
+        flexDirection: variant === "vertical" ? "column" : "row",
+        flexWrap: "wrap",
         listStyle: "none",
         p: 0,
         m: 0,
+        mb: 1,
         gap: 1,
-        ...(currentVariant === "horizontal" && {
+        ...(variant === "horizontal" && {
           alignItems: "center",
           gap: 0,
           "> li": {
-            p: "0 12px",
-            position: "relative",
             "&:after": {
-              position: "absolute",
-              right: "-4px",
-              top: "50%",
-              transform: "translateY(-50%)",
               content: `"${separator}"`,
+              padding: "0 4px",
             },
             "&:first-child": {
               pl: 0,

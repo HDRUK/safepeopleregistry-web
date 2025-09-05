@@ -6,6 +6,8 @@ import PageBody from "@/modules/PageBody";
 import ProjectUsers from "@/organisms/ProjectUsers";
 import { EntityType } from "@/types/api";
 import { useTranslations } from "next-intl";
+import { PageTabs, ProjectsSubTabs } from "../../consts/tabs";
+import SubTabsSections from "../SubTabSections";
 
 const NAMESPACE_TRANSLATION = "CustodianProfile.SafePeople";
 
@@ -20,16 +22,23 @@ export default function ProjectsSafePeople() {
   const paginatedQueryParams = useStorePaginatedQueryParams();
 
   return (
-    <PageBody heading={t("heading")} description={t("description")}>
-      <ProjectUsers
-        variant={EntityType.CUSTODIAN}
-        custodianId={custodianId}
-        projectId={projectId}
-        routes={{
-          name: route,
-        }}
-        paginatedQueryParams={paginatedQueryParams}
+    <>
+      <SubTabsSections
+        tabId={PageTabs.PROJECTS}
+        subTabId={ProjectsSubTabs.SAFE_PEOPLE}
+        id={projectId}
       />
-    </PageBody>
+      <PageBody heading={t("heading")} description={t("description")}>
+        <ProjectUsers
+          variant={EntityType.CUSTODIAN}
+          custodianId={custodianId}
+          projectId={projectId}
+          routes={{
+            name: route,
+          }}
+          paginatedQueryParams={paginatedQueryParams}
+        />
+      </PageBody>
+    </>
   );
 }
