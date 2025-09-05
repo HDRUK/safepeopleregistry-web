@@ -31,7 +31,7 @@ const tableComponents: Components = {
     return (
       <TableContainer
         component={Paper}
-        sx={{ my: 2, width: "70%", mx: "auto" }}>
+        sx={{ my: 4, width: "70%", mx: "auto" }}>
         <Table
           sx={{
             borderCollapse: "collapse",
