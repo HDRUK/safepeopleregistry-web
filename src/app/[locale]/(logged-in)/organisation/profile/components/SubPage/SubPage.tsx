@@ -1,4 +1,10 @@
-import { PageGuidance, PageBodyContainer } from "@/modules";
+import {
+  PageGuidance,
+  PageBodyContainer,
+  PageColumns,
+  PageColumnBody,
+  PageColumnDetails,
+} from "@/modules";
 import { toCamelCase } from "@/utils/string";
 import { useTranslations } from "next-intl";
 import {
@@ -24,10 +30,20 @@ function SubPage({ params }: PageProps) {
 
   return (
     <PageBodyContainer heading={t(toCamelCase(`${params.tabId}Title`))}>
-      <PageGuidance profile="organisation" {...params}>
-        <SubTabsSections {...params} />
-        <SubTabsContents {...params} />
-      </PageGuidance>
+      <PageColumns>
+        <PageColumnBody lg={8}>
+          <SubTabsSections {...params} />
+          <SubTabsContents {...params} />
+        </PageColumnBody>
+        <PageColumnDetails lg={4}>
+          <PageGuidance
+            profile="organisation"
+            {...params}
+            isCollapsible={false}
+            infoWidth="100%"
+          />
+        </PageColumnDetails>
+      </PageColumns>
     </PageBodyContainer>
   );
 }

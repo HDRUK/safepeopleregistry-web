@@ -8,6 +8,8 @@ import {
 import { ResearcherProject } from "@/types/application";
 import { useEffect } from "react";
 import StatusList from "@/components/StatusList";
+import { mockedSafeProjectGuidanceProps } from "@/mocks/data/cms";
+import Guidance from "@/components/Guidance";
 import { PageTabs, ProjectsSubTabs } from "../../consts/tabs";
 import SubTabsSections from "../SubTabSections";
 import SubTabsContents from "../SubsTabContents";
@@ -32,6 +34,8 @@ export default function SubPageProjects({ params, projectData }: PageProps) {
     setProject(projectData);
   }, [projectData]);
 
+  const guidance = mockedSafeProjectGuidanceProps;
+
   return (
     project && (
       <PageBodyContainer
@@ -43,6 +47,7 @@ export default function SubPageProjects({ params, projectData }: PageProps) {
           </PageColumnBody>
           <PageColumnDetails lg={4}>
             <StatusList projectStatus={project?.model_state.state.slug} />
+            <Guidance {...guidance} isCollapsible={false} infoWidth="100%" />
           </PageColumnDetails>
         </PageColumns>
       </PageBodyContainer>

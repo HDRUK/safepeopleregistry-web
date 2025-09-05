@@ -1,21 +1,22 @@
 "use client";
 
-import { Link } from "@/i18n/routing";
 import { Box, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { HTMLAttributes } from "react";
-import UL from "../../components/UL";
-import SoursdLogo from "../../components/SoursdLogo";
+import SoursdLogo from "@/components/SoursdLogo";
+import UL from "@/components/UL";
+import Link from "next/link";
 import { CONTACT_MAIL_ADDRESS } from "../../config/contacts";
 import PageCenter from "../PageCenter";
-import { StyledFooter, StyledBox } from "./Footer.styles";
-
-type FooterProps = HTMLAttributes<HTMLDivElement>;
+import {
+  StyledBox,
+  StyledFooter,
+  StyledFooterImageWrapper,
+} from "./Footer.styles";
 
 const NAMESPACE_TRANSLATIONS_FOOTER = "Footer";
 
-export default function Footer(props: FooterProps) {
+export default function Footer() {
   const t = useTranslations(NAMESPACE_TRANSLATIONS_FOOTER);
 
   const footerLinkPages = [
@@ -38,44 +39,40 @@ export default function Footer(props: FooterProps) {
   ];
 
   return (
-    <Box {...props} component="footer" sx={{ backgroundColor: "midGrey.main" }}>
+    <Box
+      component="footer"
+      sx={{
+        borderTop: "24px solid",
+        borderColor: "midGrey.main",
+        minHeight: 157,
+        backgroundColor: "white",
+      }}>
       <PageCenter>
         <StyledFooter>
-          <SoursdLogo variant="titled" color="white" direction="horizontal" />
+          <SoursdLogo
+            variant="titled"
+            direction="horizontal"
+            sx={{ mb: 1, alignSelf: "flex-end" }}
+          />
           <Box
             sx={{
               display: "flex",
-              flexGrow: 1,
-              gap: 5,
-              flexDirection: {
-                xs: "column",
-                md: "row",
-              },
-              alignItems: {
-                md: "flex-end",
+              flexGrow: {
+                md: 1,
               },
             }}>
             <Box
               sx={{
-                flexGrow: 1,
-                fontSize: "medium",
+                alignSelf: "flex-end",
+                mb: 2,
               }}>
-              <UL
-                sx={{
-                  mb: 1,
-                }}
-                responsiveProps={{
-                  variant: {
-                    md: "horizontal",
-                    sm: "vertical",
-                  },
-                }}>
+              <UL>
                 {footerLinkPages.map(({ label, ...linkProps }) => (
                   <li key={label}>
                     <Box
                       component={Link}
                       sx={{
-                        color: "#fff",
+                        color: "textSecondary.main",
                         textDecoration: "none",
                         fontWeight: "bold",
                         fontSize: "medium",
@@ -86,30 +83,49 @@ export default function Footer(props: FooterProps) {
                   </li>
                 ))}
               </UL>
-              {t("copyright")}
+              <Typography color="textSecondary.main">
+                {t("copyright")}
+              </Typography>
             </Box>
-            <Box>
-              <Typography color="white" sx={{ fontWeight: "bold" }}>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 6,
+            }}>
+            <StyledFooterImageWrapper>
+              <Typography sx={{ fontWeight: 600, color: "textSecondary.main" }}>
+                {t("poweredByTitle")}
+              </Typography>
+              <StyledBox>
+                <Image
+                  src="/images/logos/hdruk.svg"
+                  width={153}
+                  height={54}
+                  alt={t("hdrLogoAlt")}
+                />
+              </StyledBox>
+            </StyledFooterImageWrapper>
+            <StyledFooterImageWrapper>
+              <Typography sx={{ fontWeight: 600, color: "textSecondary.main" }}>
                 {t("fundedByTitle")}
               </Typography>
               <StyledBox>
                 <Image
                   src="/images/logos/mrc.svg"
-                  width={207}
-                  height={64}
+                  width={180}
+                  height={61}
                   alt={t("mrcLogoAlt")}
                 />
-
-                <Box sx={{ mb: "-21px" }}>
-                  <Image
-                    src="/images/logos/dsit.svg"
-                    width={228}
-                    height={122}
-                    alt={t("dsitLogoAlt")}
-                  />
-                </Box>
+                <Image
+                  src="/images/logos/dsit.svg"
+                  width={108}
+                  height={61}
+                  alt={t("dsitLogoAlt")}
+                />
               </StyledBox>
-            </Box>
+            </StyledFooterImageWrapper>
           </Box>
         </StyledFooter>
       </PageCenter>
