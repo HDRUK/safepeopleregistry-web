@@ -11,8 +11,24 @@ export const mockedBannerContent = () => (
   </>
 );
 
-export const mockedOrganisationHomeIntro =
-  "You'll see a list of tasks below to complete your profile.<br></br> The Organisation account is set up by a SRO (Senior Responsible Officer), who is required to get a declaration signed on behalf of their Organisation and upload this. The SRO must have a position of seniority, as they are held accountable for the data.<br></br> Please fill in your Organisation's profile, including uploading the SRO declaration. This is checked by HDR UK before full account privileges are granted.";
+export const mockedOrganisationHomeIntro = (
+  <>
+    <Typography mb={2}>
+      You'll see a list of tasks below to complete your profile.
+    </Typography>
+    <Typography mb={2}>
+      The Organisation account is set up by a SRO (Senior Responsible Officer),
+      who is required to get a declaration signed on behalf of their
+      Organisation and upload this. The SRO must have a position of seniority,
+      as they are held accountable for the data.
+    </Typography>
+    <Typography mb={2}>
+      Please fill in your Organisation's profile, including uploading the SRO
+      declaration. This is checked by HDR UK before full account privileges are
+      granted.
+    </Typography>
+  </>
+);
 
 export const mockedProjectsIntro =
   "This list includes all projects recorded in the Safe People Registry for your Data Custodian. Clicking on a project will show you more information and next steps, such as adding Users to begin the validation process.";

@@ -1,3 +1,6 @@
+import SoursdCard from "@/components/SoursdCard";
+import { useStore } from "@/data/store";
+import { mockedOrganisationHomeIntro } from "@/mocks/data/cms";
 import {
   PageBody,
   PageBodyContainer,
@@ -6,11 +9,8 @@ import {
   PageColumns,
   PageSection,
 } from "@/modules";
-import { useTranslations } from "next-intl";
 import ActionLogs from "@/organisms/ActionLogs";
-import { useStore } from "@/data/store";
-import SoursdCard from "@/components/SoursdCard";
-import { mockedOrganisationHomeIntro } from "@/mocks/data/cms";
+import { useTranslations } from "next-intl";
 
 const NAMESPACE_TRANSLATION_PROFILE = "ProfileOrganisation";
 
