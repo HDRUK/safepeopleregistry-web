@@ -16,6 +16,7 @@ import { ValidationCheck } from "@/services/validation_checks/types";
 import FormActions from "@/components/FormActions";
 import ButtonSave from "@/components/ButtonSave";
 import { DEFAULT_STALE_TIME } from "@/consts/requests";
+import { PageBody } from "@/modules";
 import AddNewValidationCheck from "../AddNewValidationCheck";
 
 const NAMESPACE_TRANSLATION = "ValidationChecks";
@@ -196,40 +197,42 @@ export default function ValidationChecks() {
   const formOptions = {};
 
   return (
-    <Form onSubmit={handleSubmit} {...formOptions}>
-      <CheckboxList
-        isLoading={isLoading}
-        items={formattedUserChecks}
-        title={t("userChecksTitle")}
-        checked={userChecks}
-        setChecked={setUserChecks}
-        onEdit={onEdit}
-        onEditTitle={t("userEditTitle")}
-        rightButton={
-          <AddNewValidationCheck
-            title={t("userAddTitle")}
-            onSubmit={handleAddNewUserCheck}
-          />
-        }
-      />
-      <CheckboxList
-        isLoading={isLoading}
-        items={formattedOrganisationChecks}
-        title={t("organisationChecksTitle")}
-        checked={orgChecks}
-        setChecked={setOrgChecks}
-        onEdit={onEdit}
-        onEditTitle={t("orgEditTitle")}
-        rightButton={
-          <AddNewValidationCheck
-            title={t("userAddTitle")}
-            onSubmit={handleAddOrganisationCheck}
-          />
-        }
-      />
-      <FormActions>
-        <ButtonSave isLoading={isLoading} />
-      </FormActions>
-    </Form>
+    <PageBody heading={t("heading")} description={t("description")}>
+      <Form onSubmit={handleSubmit} {...formOptions}>
+        <CheckboxList
+          isLoading={isLoading}
+          items={formattedUserChecks}
+          title={t("userChecksTitle")}
+          checked={userChecks}
+          setChecked={setUserChecks}
+          onEdit={onEdit}
+          onEditTitle={t("userEditTitle")}
+          rightButton={
+            <AddNewValidationCheck
+              title={t("userAddTitle")}
+              onSubmit={handleAddNewUserCheck}
+            />
+          }
+        />
+        <CheckboxList
+          isLoading={isLoading}
+          items={formattedOrganisationChecks}
+          title={t("organisationChecksTitle")}
+          checked={orgChecks}
+          setChecked={setOrgChecks}
+          onEdit={onEdit}
+          onEditTitle={t("orgEditTitle")}
+          rightButton={
+            <AddNewValidationCheck
+              title={t("userAddTitle")}
+              onSubmit={handleAddOrganisationCheck}
+            />
+          }
+        />
+        <FormActions>
+          <ButtonSave isLoading={isLoading} />
+        </FormActions>
+      </Form>
+    </PageBody>
   );
 }
