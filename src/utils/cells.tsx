@@ -15,10 +15,19 @@ import {
   ProjectUser,
   ResearcherAffiliation,
   ResearcherProject,
+  Translations,
   User,
 } from "../types/application";
 import { injectParamsIntoPath } from "./application";
 import { formatShortDate } from "./date";
+
+function renderAffiliationRelationship(
+  info: CellContext<ResearcherAffiliation, unknown>,
+  t: Translations
+) {
+  const value = info.getValue() as string;
+  return value?.length > 0 ? t(info.getValue()) : null;
+}
 
 function renderAffiliationDateRangeCell<T extends ResearcherAffiliation>(
   info: CellContext<T, unknown>
@@ -167,4 +176,5 @@ export {
   renderUserNameCell,
   renderUserOrganisationsNameCell,
   renderWarningCell,
+  renderAffiliationRelationship,
 };

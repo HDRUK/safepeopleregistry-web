@@ -7,11 +7,7 @@ export default function getAffiliationsQuery(
   options?: QueryOptions
 ) {
   return {
-    queryKey: [
-      "getAffiliations",
-      registryId,
-      ...(options?.queryKeySuffix || []),
-    ],
+    queryKey: ["getAffiliations", registryId],
     queryFn: ({ queryKey }) =>
       getAffiliations(queryKey[1] as number, {
         error: { message: "getAffiliationsError" },

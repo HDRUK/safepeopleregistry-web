@@ -20,24 +20,19 @@ export default function ConfirmAffiliation({
   affiliation,
 }: ConfirmAffiliationProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION);
-  const { currentUser, organisation } = useStore(state => ({
-    currentUser: state.getCurrentUser(),
-    organisation: state.getOrganisation(),
-  }));
+  const currentUser = useStore(state => state.getCurrentUser());
   const queryClient = useQueryClient();
 
   const { mutateAsync: updateAffiliationStatus, ...mutateState } = useMutation(
     putRegistryHasAffiliationQuery()
   );
 
+  console.log("currentUser.registry_id", currentUser.registry_id);
+
   useQueryAlerts(mutateState, {
     onSuccess: () => {
       queryClient.refetchQueries({
-        queryKey: [
-          "getOrganisationAffiliation",
-          currentUser.registry_id as number,
-          organisation.id as number,
-        ],
+        queryKey: ["getAffiliations", currentUser.registry_id as number],
       });
     },
   });

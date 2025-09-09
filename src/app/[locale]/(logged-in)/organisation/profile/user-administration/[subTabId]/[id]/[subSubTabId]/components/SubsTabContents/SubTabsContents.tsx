@@ -10,10 +10,14 @@ import UserProjects from "../../../../../../components/UserProjects";
 import { UserSubTabs } from "../../../../../../consts/tabs";
 
 interface TabsContentsProps {
+  registryId: number;
   subTabId: UserSubTabs;
 }
 
-export default function SubTabsContents({ subTabId }: TabsContentsProps) {
+export default function SubTabsContents({
+  registryId,
+  subTabId,
+}: TabsContentsProps) {
   const availableSubTabs = Object.values(UserSubTabs) || [];
 
   if (!availableSubTabs.includes(subTabId)) {
@@ -38,7 +42,12 @@ export default function SubTabsContents({ subTabId }: TabsContentsProps) {
       content = <UserProjects />;
       break;
     case UserSubTabs.AFFILIATIONS:
-      content = <UserAffiliations />;
+      content = (
+        <UserAffiliations
+          registryId={registryId}
+          variant={EntityType.ORGANISATION}
+        />
+      );
       break;
     default:
       content = null;
