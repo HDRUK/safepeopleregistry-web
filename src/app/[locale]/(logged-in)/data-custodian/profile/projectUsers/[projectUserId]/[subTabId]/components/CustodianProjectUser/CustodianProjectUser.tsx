@@ -88,7 +88,8 @@ function CustodianProjectUser({
   }, [userData]);
 
   return (
-    user && (
+    user &&
+    registry && (
       <PageBodyContainer
         heading={
           <>
@@ -104,7 +105,7 @@ function CustodianProjectUser({
               projectUserId={projectUserId}
               subTabId={subTabId}
             />
-            <SubTabsContents subTabId={subTabId} />
+            <SubTabsContents registryId={registry.id} subTabId={subTabId} />
           </PageColumnBody>
           <PageColumnDetails lg={4}>
             <StatusPanel variant={ActionValidationVariants.ProjectUser} />

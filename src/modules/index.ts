@@ -11,10 +11,10 @@ import PageBodyContainer from "./PageBodyContainer";
 import ProjectsFilters from "./ProjectsFilters";
 import OrganisationsFilters from "./OrganisationsFilters";
 import OrganisationsPeopleTable from "./OrganisationsPeopleTable";
-import Affiliations from "./Affiliations";
+import AffiliationsTable from "./AffiliationsTable";
 
 export {
-  Affiliations,
+  AffiliationsTable,
   Footer,
   Header,
   PageContainer,

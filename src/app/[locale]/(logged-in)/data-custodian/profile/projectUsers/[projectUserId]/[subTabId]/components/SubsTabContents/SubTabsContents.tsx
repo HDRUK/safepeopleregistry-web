@@ -13,9 +13,13 @@ import { UserSubTabs } from "../../../../../consts/tabs";
 
 interface TabsContentsProps {
   subTabId: UserSubTabs;
+  registryId: number;
 }
 
-export default function SubTabsContents({ subTabId }: TabsContentsProps) {
+export default function SubTabsContents({
+  registryId,
+  subTabId,
+}: TabsContentsProps) {
   const custodian = useStore(state => state.getCustodian());
 
   const availableSubTabs = Object.values(UserSubTabs) || [];
@@ -43,7 +47,7 @@ export default function SubTabsContents({ subTabId }: TabsContentsProps) {
       content = <UserCustodianOrgInfo />;
       break;
     case UserSubTabs.AFFILIATIONS:
-      content = <UserAffiliations />;
+      content = <UserAffiliations registryId={registryId} />;
       break;
     default:
       content = null;
