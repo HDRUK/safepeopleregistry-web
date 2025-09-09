@@ -9,15 +9,20 @@ import { PageBody, PageSection } from "@/modules";
 import { AddressFields } from "@/types/application";
 import { Grid, TextField } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { ROUTES } from "@/consts/router";
 import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
 import ErrorMessage from "@/components/ErrorMessage";
 import OrganisationsSubsidiaries from "@/organisms/OrganisationsSubsidiaries/OrganisationsSubsidiaries";
 import useOrganisationStore from "@/queries/useOrganisationStore";
 import SroDeclaration from "@/organisms/SroDeclaration/SroDeclaration";
+import { useStore } from "@/data/store";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { getUserQuery, putUserQuery } from "@/services/users";
+import { ROUTES } from "@/consts/router";
+import { pick } from "@/utils/json";
 import useUpdateOrganisation from "../../hooks/useUpdateOrganisation";
+import SroFields from "../SroFields/SroFields";
 
 export interface NameAndAddressFormValues {
   organisation_name: string;
@@ -29,21 +34,61 @@ export interface NameAndAddressFormValues {
   postcode: string;
 }
 
+export interface KeyContactFormValues {
+  first_name: string;
+  last_name: string;
+  department: number;
+  email: string;
+  job_title: string;
+}
+
 const NAMESPACE_TRANSLATION_FORM = "Form";
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";
 const NAMESPACE_TRANSLATION_ORG_PROFILE = "ProfileOrganisation";
+
+const ORG_KEYS = [
+  "organisation_name",
+  "address_1",
+  "address_2",
+  "town",
+  "county",
+  "country",
+  "postcode",
+];
+
+const SRO_KEYS = [
+  "first_name",
+  "last_name",
+  "email",
+  "job_title",
+  "department",
+];
 
 export default function NameAndAddress() {
   const { organisation, refetch } = useOrganisationStore();
   const router = useRouter();
 
+  const { user, setUser } = useStore(state => ({
+    user: state.getUser(),
+    setUser: state.setUser,
+  }));
+
   const {
     isError,
     isPending: isLoading,
     error,
-    onSubmit,
+    onSubmit: onSubmitOrganisation,
   } = useUpdateOrganisation({
     id: organisation?.id,
+  });
+
+  const { mutateAsync: mutateUser, ...putUserQueryState } = useMutation(
+    putUserQuery(user?.id as number)
+  );
+
+  const { data: userData, refetch: refetchUserData } = useQuery({
+    ...getUserQuery(user?.id as number),
+    enabled: false,
   });
 
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
@@ -62,8 +107,16 @@ export default function NameAndAddress() {
         county: yup.string().required(tForm("countyRequiredInvalid")),
         country: yup.string().required(tForm("countryRequiredInvalid")),
         postcode: yup.string().required(tForm("postcodeRequiredInvalid")),
+        first_name: yup.string().required(),
+        last_name: yup.string().required(),
+        department: yup.number().required(),
+        email: yup
+          .string()
+          .email(tForm("emailInvalid"))
+          .required(tForm("emailRequired")),
+        job_title: yup.string().required(tForm("jobTitleInvalid")),
       }),
-    []
+    [tForm]
   );
   const formOptions = {
     defaultValues: {
@@ -74,19 +127,46 @@ export default function NameAndAddress() {
       county: organisation?.county,
       country: organisation?.country,
       postcode: organisation?.postcode,
+      first_name: user?.first_name,
+      last_name: user?.last_name,
+      department: user?.departments?.[0]?.id,
+      email: user?.email,
+      job_title: user?.role,
     },
     error: isError && <ErrorMessage t={tProfile} tKey={error} />,
   };
 
-  const handleSubmit = (fields: Partial<NameAndAddressFormValues>) => {
-    onSubmit(fields).then(() =>
-      router.push(ROUTES.profileOrganisationDetailsDigitalIdentifiers.path)
-    );
+  const handleSubmit = async (
+    formData: Partial<NameAndAddressFormValues & KeyContactFormValues>
+  ) => {
+    const organisationPayload = pick(
+      formData,
+      ORG_KEYS
+    ) as Partial<NameAndAddressFormValues>;
+
+    const sroPayload = pick(
+      formData,
+      SRO_KEYS
+    ) as Partial<KeyContactFormValues>;
+
+    await onSubmitOrganisation(organisationPayload);
+
+    await mutateUser(sroPayload);
+
+    refetchUserData();
+
+    router.push(ROUTES.profileOrganisationDetailsDigitalIdentifiers.path);
   };
 
   const handleRefetch = () => {
     refetch();
   };
+
+  useEffect(() => {
+    if (userData?.data) {
+      setUser(userData.data);
+    }
+  }, [userData, setUser]);
 
   return (
     <PageBody>
@@ -179,12 +259,12 @@ export default function NameAndAddress() {
                   </Grid>
                 </Grid>
               </PageSection>
-
               <OrganisationsSubsidiaries
                 onEditSuccess={() => handleRefetch()}
                 onDeleteSuccess={() => handleRefetch()}
               />
 
+              <SroFields />
               <SroDeclaration />
 
               <FormActions>
