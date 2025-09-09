@@ -1,7 +1,7 @@
 import Guidance from "@/components/Guidance";
 import { useStore } from "@/data/store";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
-import { mockedSafeProjectGuidanceProps } from "@/mocks/data/cms";
+import { mockedCustodianSafeProjectGuidanceProps } from "@/mocks/data/cms";
 import {
   PageBody,
   PageColumnBody,
@@ -93,7 +93,7 @@ export default function ProjectsSafeProject() {
       </PageColumnBody>
       <PageColumnDetails lg={4}>
         <Guidance
-          {...mockedSafeProjectGuidanceProps}
+          {...mockedCustodianSafeProjectGuidanceProps}
           isCollapsible={false}
           infoWidth="100%"
         />

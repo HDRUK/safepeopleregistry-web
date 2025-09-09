@@ -239,8 +239,8 @@
     "configurationWebhooks": "Webhooks",
     "webhookError": "There was a problem with the webhook configuration. Please try again or contact us at <contactLink></contactLink>",
     "configurationIntegrations": "Integrations",
-    "userRulesTitle": "User: Automated flags",
-    "organisationRulesTitle": "Organisation: Automated flags",
+    "userRulesTitle": "User",
+    "organisationRulesTitle": "Organisation",
     "updateRulesSuccess": "Flags configuration updated successfully",
     "updateRulesError": "There was a problem updating your flags configuration. Please try again or contact us at <contactLink></contactLink>",
     "successButton": "OK",
@@ -378,7 +378,8 @@
     "affiliationStatus": "Affiliation status",
     "emailAddress": "Email Address",
     "inviteSent": "Invite Sent",
-    "actions": "Actions"
+    "actions": "Actions",
+    "sroTitle": "SRO Declaration"
   },
   "Form": {
     "accessDatePlaceholder": "Access date",
@@ -1238,6 +1239,15 @@
       "countyRequiredInvalid": "County is required",
       "countryRequiredInvalid": "Country is required"
     },
+    "SroDeclaratation": {
+      "heading": "SRO Declaration",
+      "intro": "In order to verify you as research Organisation, we ask that the SRO complete the form linked below and upload with their signature.",
+      "downloadTemplate": "Download SRO Declaration Form"
+    },
+    "SroDeclaratationUpload": {
+      "buttonText": "Upload SRO Declaration Form",
+      "buttonTextAlt": "Re-upload SRO Declaration Form"
+    },
     "People": {
       "heading": "Users",
       "name": "Employee / Student name",
@@ -1750,8 +1760,10 @@
     "copied": "Copied"
   },
   "ValidationChecks": {
-    "userChecksTitle": "User: Manual checks",
-    "organisationChecksTitle": "Organisation: Manual checks",
+    "heading": "Manual checks",
+    "description": "You can configure manual checks for your Administrators and Approvers to confirm that they have checked the relevant data when validating a User or Organisation. This includes the ability to upload any relevant comments associated with that check. The list below provides examples which can be configured to meet your needs.",
+    "userChecksTitle": "User",
+    "organisationChecksTitle": "Organisation",
     "updateCheckSuccess": "Successfully updated which manual checks you have enabled",
     "successButton": "OK",
     "addUserValidationCheck": "Add manual check",
