@@ -378,7 +378,8 @@
     "affiliationStatus": "Affiliation status",
     "emailAddress": "Email Address",
     "inviteSent": "Invite Sent",
-    "actions": "Actions"
+    "actions": "Actions",
+    "sroTitle": "SRO Declaration"
   },
   "Form": {
     "accessDatePlaceholder": "Access date",
@@ -1225,6 +1226,15 @@
       "ceCertificationNumberRequiredInvalid": "Certification number is invalid",
       "countyRequiredInvalid": "County is required",
       "countryRequiredInvalid": "Country is required"
+    },
+    "SroDeclaratation": {
+      "heading": "SRO Declaration",
+      "intro": "In order to verify you as research Organisation, we ask that the SRO complete the form linked below and upload with their signature.",
+      "downloadTemplate": "Download SRO Declaration Form"
+    },
+    "SroDeclaratationUpload": {
+      "buttonText": "Upload SRO Declaration Form",
+      "buttonTextAlt": "Re-upload SRO Declaration Form"
     },
     "People": {
       "heading": "Users",
