@@ -210,19 +210,17 @@ export default function AccountConfirm({
                   selected={selectedAccountType}
                 />
 
-                {!hasAccessToken && (
-                  <AccountOption
-                    icon={AdminPanelSettingsOutlined}
-                    label={t.rich("repCustodianButton", {
-                      bold: chunks => <strong>{chunks}</strong>,
-                      br: () => <br />,
-                    })}
-                    onClick={handleSelect}
-                    name={AccountType.CUSTODIAN}
-                    selected={selectedAccountType}
-                    disabled={!!unclaimedOrgAdmin}
-                  />
-                )}
+                <AccountOption
+                  icon={AdminPanelSettingsOutlined}
+                  label={t.rich("repCustodianButton", {
+                    bold: chunks => <strong>{chunks}</strong>,
+                    br: () => <br />,
+                  })}
+                  onClick={handleSelect}
+                  name={AccountType.CUSTODIAN}
+                  selected={selectedAccountType}
+                  disabled={!!unclaimedOrgAdmin}
+                />
               </Box>
             )}
 

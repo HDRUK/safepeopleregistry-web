@@ -16,7 +16,7 @@ export default function usePaginatedAffiliations(
   const queryKey = [options?.queryKeyBase || "getAffiliations"];
 
   return usePaginatedQuery({
-    queryKeyBase: [queryKey, registryId],
+    queryKeyBase: [...queryKey, registryId],
     defaultQueryParams: {
       ...options?.defaultQueryParams,
     },
