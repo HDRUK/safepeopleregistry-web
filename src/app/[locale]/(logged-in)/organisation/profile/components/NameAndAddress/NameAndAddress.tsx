@@ -16,6 +16,7 @@ import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
 import ErrorMessage from "@/components/ErrorMessage";
 import OrganisationsSubsidiaries from "@/organisms/OrganisationsSubsidiaries/OrganisationsSubsidiaries";
 import useOrganisationStore from "@/queries/useOrganisationStore";
+import SroDeclaration from "@/organisms/SroDeclaration/SroDeclaration";
 import useUpdateOrganisation from "../../hooks/useUpdateOrganisation";
 
 export interface NameAndAddressFormValues {
@@ -183,6 +184,8 @@ export default function NameAndAddress() {
                 onEditSuccess={() => handleRefetch()}
                 onDeleteSuccess={() => handleRefetch()}
               />
+
+              <SroDeclaration />
 
               <FormActions>
                 <ProfileNavigationFooter
