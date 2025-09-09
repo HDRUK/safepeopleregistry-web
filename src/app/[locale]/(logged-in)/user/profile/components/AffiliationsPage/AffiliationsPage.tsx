@@ -11,7 +11,7 @@ import useQueryAlerts from "@/hooks/useQueryAlerts";
 import useQueryConfirmAlerts from "@/hooks/useQueryConfirmAlerts";
 import { mockedResearcherAffiliationsGuidance } from "@/mocks/data/cms";
 import {
-  Affiliations,
+  AffiliationsTable,
   PageBody,
   PageBodyContainer,
   PageColumnBody,
@@ -43,9 +43,11 @@ import { useCallback, useState } from "react";
 import AffiliationsForm from "../AffiliationsForm";
 
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";
+const NAMESPACE_TRANSLATION_AFFILIATIONS = "Affiliations";
 
 export default function AffiliationsPage() {
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
+  const t = useTranslations(NAMESPACE_TRANSLATION_AFFILIATIONS);
 
   const [open, setOpen] = useState(false);
   const [selectedAffiliation, setSelectedAffiliation] = useState<
@@ -53,11 +55,7 @@ export default function AffiliationsPage() {
   >(undefined);
   const routes = useStore(state => state.getApplication().routes);
 
-  const { user, setHistories, getHistories } = useStore(state => ({
-    user: state.config.user,
-    setHistories: state.setHistories,
-    getHistories: state.getHistories,
-  }));
+  const user = useStore(state => state.getUser());
 
   const {
     data: affiliationsData,
@@ -265,12 +263,11 @@ export default function AffiliationsPage() {
                 </Message>
               )}{" "}
               {affiliationsData && (
-                <Affiliations
-                  setHistories={setHistories}
-                  getHistories={getHistories}
+                <AffiliationsTable
+                  t={t}
                   extraColumns={extraColumns}
-                  affiliationsData={affiliationsData}
-                  getAffiliationsQueryState={getAffiliationsQueryState}
+                  data={affiliationsData}
+                  queryState={getAffiliationsQueryState}
                   last_page={last_page}
                   total={total}
                   setPage={setPage}

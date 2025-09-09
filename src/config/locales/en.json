@@ -915,8 +915,6 @@
     "postAffiliationSuccessButton": "Ok",
     "postAffiliationErrorButton": "Try again",
     "affiliationsRecords": "Affiliation records",
-    "affiliationsNoResultsMessage": "You currently have no affiliations",
-    "affiliationsErrorMessage": "There was an error getting your affiliations. Please try again or contact us at <contactLink></contactLink>",
     "addAffiliation": "Add affiliation",
     "projects": "Projects",
     "safeProject": "Safe Project",
@@ -1020,6 +1018,20 @@
       "heading": "Projects",
       "description": "Here you can find all projects that you’ve been added to by a Data Custodian. You can also see the Project status and your own Validation status, as recorded by the Data Custodian."
     }
+  },
+  "Affiliations": {
+    "honoraryContract": "Honorary contract",
+    "student": "Student",
+    "employee": "Employee",
+    "warning": "Warning",
+    "relationship": "Relationship",
+    "heading": "Affiliations",
+    "memberId": "Staff / Student Id",
+    "date": "Date",
+    "affiliationStatus": "Affiliation status",
+    "organisationName": "Organisation name",
+    "noResultsMessage": "You currently have no affiliations",
+    "errorMessage": "There was an error getting your affiliations. Please try again or contact us at <contactLink></contactLink>"
   },
   "Training": {
     "title": "Training",
