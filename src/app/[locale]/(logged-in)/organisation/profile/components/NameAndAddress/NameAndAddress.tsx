@@ -82,7 +82,7 @@ export default function NameAndAddress() {
     id: organisation?.id,
   });
 
-  const { mutateAsync: mutateUser, ...putUserQueryState } = useMutation(
+  const { mutateAsync: mutateUser } = useMutation(
     putUserQuery(user?.id as number)
   );
 
