@@ -34,7 +34,6 @@ const NAMESPACE_TRANSLATION_TERMS_AND_CONDITIONS = "TermsAndConditions";
 
 interface AccountConfirmProps {
   showAccountPicker: boolean;
-  pendingAccount: boolean;
   hasAccessToken: boolean;
 }
 
@@ -46,7 +45,6 @@ const isValidAccountType = (accountType?: string | null) => {
 
 export default function AccountConfirm({
   showAccountPicker,
-  pendingAccount,
   hasAccessToken,
 }: AccountConfirmProps) {
   const t = useTranslations(NAMESPACE_TRANSLATIONS_PROFILE);
@@ -101,7 +99,7 @@ export default function AccountConfirm({
   // Create a new account automatically if type query param exists
   useEffect(() => {
     if (
-      pendingAccount &&
+      hasAccessToken &&
       auth.user &&
       accountType &&
       isValidAccountType(accountType) &&
@@ -110,7 +108,7 @@ export default function AccountConfirm({
     ) {
       handleRegister(auth.user);
     }
-  }, [params, pendingAccount, auth.user, accountType]);
+  }, [params, hasAccessToken, auth.user, accountType]);
 
   const handleDeclineTerms = () => {
     setTimeout(() => {
@@ -136,7 +134,7 @@ export default function AccountConfirm({
   const { isLoading, isError, error } = queryState;
 
   // Show loader while creating user or org if cookie and account type are available
-  if (pendingAccount && isValidAccountType(accountType)) {
+  if (hasAccessToken && isValidAccountType(accountType)) {
     return (
       <Box
         sx={{
@@ -236,7 +234,7 @@ export default function AccountConfirm({
                 justifyContent: "center",
                 gap: 1,
               }}>
-              {!pendingAccount && (
+              {!hasAccessToken && (
                 <LoadingButton
                   onClick={
                     selectedAccountType !== AccountType.CUSTODIAN
@@ -283,7 +281,7 @@ export default function AccountConfirm({
         <TermsAndConditions
           accountType={selectedAccountType}
           onAccept={() =>
-            pendingAccount
+            hasAccessToken
               ? auth.user && handleRegister(auth.user)
               : handleRegisterKeycloak(selectedAccountType)
           }
