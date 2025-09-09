@@ -1,10 +1,17 @@
 import Cookies from "js-cookie";
+import { redirect } from "next/navigation";
 import { ROUTES } from "../consts/router";
-import { getRefreshAccessToken, postRegister } from "../services/auth";
+import { getRefreshAccessToken } from "../services/auth";
 import { User } from "../types/application";
 import { Routes } from "../types/router";
 import { getLoginUrl, getRegisterUrl } from "./keycloak";
 import { capitaliseFirstLetter } from "./string";
+
+function redirectToPath(redirectUrl: string, pathname: string) {
+  if (redirectUrl && !isInPath(redirectUrl, pathname)) {
+    redirect(redirectUrl);
+  }
+}
 
 function getProfilePathByEntity(user: User | string) {
   if (!user) return ROUTES.homepage.path;
@@ -26,14 +33,6 @@ const getProfileRedirectPath = async (user: User) => {
 };
 
 const getRegisterRedirectPath = async () => {
-  const user = await postRegister(undefined, {
-    suppressThrow: true,
-  });
-
-  if (user.data) {
-    return getProfileRedirectPath(user.data);
-  }
-
   return ROUTES.register.path;
 };
 
@@ -86,4 +85,5 @@ export {
   getSeverErrorRedirectPath,
   isInPath,
   redirectInvite,
+  redirectToPath,
 };
