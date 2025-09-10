@@ -8,7 +8,7 @@
 
 ### 12.3.1 we will provide you with reasonable notice of such transfer; and
 
-### 12.3.2 if you do not wish to be transferred, you must cancel your agreement to these Terms by cancelling your Account and/or ceasing to use Safe People Registry prior to transfer.
+### 12.3.2 if you do not wish to be transferred, you must cancel your agreement to these Terms by cancelling your Account and/or ceasing to use the Safe People Registry prior to transfer.
 
 ## 12.4 Nothing in these Terms shall create or be deemed to create a partnership between you and us.
 
