@@ -14,9 +14,29 @@ jest.mock("../../hooks/useUpdateOrganisation", () => ({
   default: () => putProps,
 }));
 
+const mutateUserMock = jest.fn().mockResolvedValue(null);
+jest.mock("@tanstack/react-query", () => {
+  const actual = jest.requireActual("@tanstack/react-query");
+  return {
+    ...actual,
+    useMutation: jest.fn(() => ({
+      mutateAsync: mutateUserMock,
+    })),
+  };
+});
+
 function setupTest() {
   return render(<NameAndAddress />);
 }
+
+const userData = {
+  id: 1,
+  first_name: "first",
+  last_name: "last",
+  email: "email@example.com",
+  role: "SRO",
+  departments: [{ id: 123, name: "Research" }],
+};
 
 function getAllInputs() {
   return [
@@ -35,8 +55,10 @@ const organisation = mockedOrganisation();
 describe("<NameAndAddress />", () => {
   beforeEach(() => {
     mockUseStore({
-      config: { organisation },
+      config: { organisation, user: userData },
     });
+    mutateUserMock.mockClear();
+    putProps.onSubmit.mockClear();
   });
 
   afterEach(() => {
@@ -79,6 +101,12 @@ describe("<NameAndAddress />", () => {
         postcode,
         organisation_name,
       });
+    });
+
+    await waitFor(() => {
+      expect(mutateUserMock).toHaveBeenCalledWith(
+        expect.objectContaining({ is_sro: true })
+      );
     });
   });
 

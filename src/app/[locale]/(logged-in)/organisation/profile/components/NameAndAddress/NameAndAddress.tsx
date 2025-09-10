@@ -151,7 +151,14 @@ export default function NameAndAddress() {
 
     await onSubmitOrganisation(organisationPayload);
 
-    await mutateUser(sroPayload);
+    await mutateUser({
+      first_name: sroPayload.first_name,
+      last_name: sroPayload.last_name,
+      email: sroPayload.email,
+      role: sroPayload.job_title,
+      department_id: sroPayload.department,
+      is_sro: true,
+    });
 
     refetchUserData();
 
