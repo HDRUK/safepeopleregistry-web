@@ -1,18 +1,29 @@
 import { PageBody } from "@/modules";
-import { SearchParams } from "@/types/query";
-import { cookies } from "next/headers";
+import { getMeUnclaimed } from "@/services/auth";
+import { getDecodedAccessToken } from "@/utils/auth";
 import AccountConfirm from "./components/AccountConfirm/AccountConfirm";
 
-async function Page({ searchParams }: { searchParams: SearchParams }) {
-  const hasAccessToken = !!cookies().get("access_token");
-  const showAccountPicker = !searchParams.type || !hasAccessToken;
+async function Page() {
+  const accessToken = await getDecodedAccessToken();
+
+  let unclaimedUser;
+  let partialUser;
+
+  if (accessToken) {
+    const { data } = await getMeUnclaimed({
+      suppressThrow: true,
+    });
+
+    unclaimedUser = data;
+
+    const { email, given_name, family_name } = accessToken;
+
+    partialUser = { email, given_name, family_name };
+  }
 
   return (
     <PageBody>
-      <AccountConfirm
-        showAccountPicker={showAccountPicker}
-        hasAccessToken={hasAccessToken}
-      />
+      <AccountConfirm unclaimedUser={unclaimedUser} tokenUser={partialUser} />
     </PageBody>
   );
 }

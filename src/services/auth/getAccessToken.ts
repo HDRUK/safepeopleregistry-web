@@ -2,7 +2,7 @@ import { isServer, postRequest } from "../requests";
 
 export default async function getAccessToken(): Promise<string | undefined> {
   const response = await postRequest(
-    `${isServer() ? process.env.NEXT_PUBLIC_API_SERVER_URL : process.env.NEXT_PUBLIC_API_URL}/api/auth/token`
+    `${isServer() ? process.env.NEXT_PUBLIC_API_SERVER_URL : process.env.NEXT_PUBLIC_API_URL}/auth/token`
   );
 
   if (!response.ok) {

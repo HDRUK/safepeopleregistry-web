@@ -27,8 +27,6 @@ export default function ConfirmAffiliation({
     putRegistryHasAffiliationQuery()
   );
 
-  console.log("currentUser.registry_id", currentUser.registry_id);
-
   useQueryAlerts(mutateState, {
     onSuccess: () => {
       queryClient.refetchQueries({

@@ -24,6 +24,8 @@
       "approved": "Approved",
       "undefined": "None",
       "null": "None",
+      "organisation_not_validated": "Not approved",
+      "organisation_validated": "Approved",
       "project_pending": "Pending approval",
       "project_pending_short": "Pending",
       "project_completed": "Completed",
@@ -1019,6 +1021,12 @@
       "description": "Here you can find all projects that you’ve been added to by a Data Custodian. You can also see the Project status and your own Validation status, as recorded by the Data Custodian."
     }
   },
+  "OrganisationsList": {
+    "systemApproved": "Approved",
+    "organisationName": "Organisation name",
+    "sroDocument": "SRO application",
+    "noResultsMessage": "No organisations found"
+  },
   "Affiliations": {
     "honoraryContract": "Honorary contract",
     "student": "Student",
@@ -1148,6 +1156,7 @@
     "inviteCustodianSuccess": "You have successfully invited the Data Custodian"
   },
   "Administration": {
+    "organisationsInviteTitle": "Organisations",
     "userInviteTitle": "User invitation",
     "organisationInviteTitle": "Organisation invitation",
     "title": "Administration",
@@ -1191,12 +1200,12 @@
     "registeringCustodianAriaLabel": "Registering custodian",
     "defaultTitle": "Guidance",
     "defaultGuidance": "Select an option to view more information about account types.\n\n**Note:** If you hold multiple roles, you'll need a separate account for each.",
-    "userTitle": "Users",
-    "userGuidance": "The Safe People Registry is for individuals who need access to sensitive data for research or development. It allows you to create a profile with your identity, training, experience, and affiliations (e.g. an employer or academic institution – referred to as an Organisation in the Safe People Registry).\n\nYour profile isn’t public, but verified UK Data Custodians can view it when assessing data access requests, helping them evaluate the Safe People part of the Five Safes Framework.\n\nTypical Safe People Registry users include researchers, data analysts, innovators, and AI developers from sectors like academia, industry, and the public sector. If you want to:\n- setup, view, or edit your profile\n- request affiliation from an Organisation\n- view your current or past projects\n\nthen please choose this option.\n\n**Note**: If you hold multiple roles, you'll need a separate account for each.",
-    "organisationTitle": "Organisations",
-    "organisationGuidance": "The Safe People Registry helps Organisations that employ or teach researchers or innovators (termed Users) working with sensitive data to create a profile with key information such as identity and data security compliance.\n\nYou can:\n- View and manage affiliated User profiles\n- Notify Data Custodians when a User leaves your Organisation\n- See which projects your Users are involved in\n\nData Custodians use this information to assess the 'safe people' part of the Five Safes Framework. If you're representing an Organisation and want to take any of the above actions, choose this option.\n\n**Note:** If you hold multiple roles, you’ll need a separate account for each.",
-    "custodianTitle": "Data Custodians",
-    "custodianGuidance": "The Safe People Registry enables Data Custodian access to User and Organisation profiles, supporting assessment of the Safe People component of the Five Safes Framework.\n\nIf you manage secure research data (e.g. via a Trusted Research Environment, Safe Haven, or Secure Data Environment) and need to:\n- View or edit your Organisation profile\n- Validate Users and Organisations\n- Manage projects (past and present)\n- Configure User permissions for data access\n\nthen please choose this option.\n\n**Note:** If you hold multiple roles, you’ll need a separate account for each.",
+    "usersTitle": "Users",
+    "usersGuidance": "The Safe People Registry is for individuals who need access to sensitive data for research or development. It allows you to create a profile with your identity, training, experience, and affiliations (e.g. an employer or academic institution – referred to as an Organisation in the Safe People Registry).\n\nYour profile isn’t public, but verified UK Data Custodians can view it when assessing data access requests, helping them evaluate the Safe People part of the Five Safes Framework.\n\nTypical Safe People Registry users include researchers, data analysts, innovators, and AI developers from sectors like academia, industry, and the public sector. If you want to:\n- setup, view, or edit your profile\n- request affiliation from an Organisation\n- view your current or past projects\n\nthen please choose this option.\n\n**Note**: If you hold multiple roles, you'll need a separate account for each.",
+    "organisationsTitle": "Organisations",
+    "organisationsGuidance": "The Safe People Registry helps Organisations that employ or teach researchers or innovators (termed Users) working with sensitive data to create a profile with key information such as identity and data security compliance.\n\nYou can:\n- View and manage affiliated User profiles\n- Notify Data Custodians when a User leaves your Organisation\n- See which projects your Users are involved in\n\nData Custodians use this information to assess the 'safe people' part of the Five Safes Framework. If you're representing an Organisation and want to take any of the above actions, choose this option.\n\n**Note:** If you hold multiple roles, you’ll need a separate account for each.",
+    "custodiansTitle": "Data Custodians",
+    "custodiansGuidance": "The Safe People Registry enables Data Custodian access to User and Organisation profiles, supporting assessment of the Safe People component of the Five Safes Framework.\n\nIf you manage secure research data (e.g. via a Trusted Research Environment, Safe Haven, or Secure Data Environment) and need to:\n- View or edit your Organisation profile\n- Validate Users and Organisations\n- Manage projects (past and present)\n- Configure User permissions for data access\n\nthen please choose this option.\n\n**Note:** If you hold multiple roles, you’ll need a separate account for each.",
     "custodianModalTitle": "Register as a Custodian",
     "custodianModalContent": "If you are a Data Custodian and would like to use the Safe People Registry, please email us at",
     "custodianModalClose": "Close"

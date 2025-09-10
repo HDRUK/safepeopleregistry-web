@@ -12,6 +12,7 @@ import ProjectsFilters from "./ProjectsFilters";
 import OrganisationsFilters from "./OrganisationsFilters";
 import OrganisationsPeopleTable from "./OrganisationsPeopleTable";
 import AffiliationsTable from "./AffiliationsTable";
+import OrganisationsTable from "./OrganisationsTable";
 
 export {
   AffiliationsTable,
@@ -28,4 +29,5 @@ export {
   PageColumnBody,
   OrganisationsFilters,
   OrganisationsPeopleTable,
+  OrganisationsTable,
 };

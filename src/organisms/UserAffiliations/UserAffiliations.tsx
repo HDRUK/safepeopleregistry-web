@@ -31,7 +31,7 @@ export default function UserAffiliations({
   } = usePaginatedAffiliations(registryId);
 
   let tableProps: Partial<AffiliationsTableProps> = {};
-  console.log("**** variant", variant);
+
   if (variant === EntityType.ORGANISATION) {
     tableProps = {
       includeColumns: [
