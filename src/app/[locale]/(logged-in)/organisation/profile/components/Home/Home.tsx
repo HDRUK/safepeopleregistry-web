@@ -14,6 +14,11 @@ import { useTranslations } from "next-intl";
 
 const NAMESPACE_TRANSLATION_PROFILE = "ProfileOrganisation";
 
+const SYSTEM_APPOVED_ONLY_ACTIONS = [
+  "add_sro_completed",
+  "affiliateEmployeesCompleted",
+];
+
 const Home = () => {
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
   const organisation = useStore(state => state.getOrganisation());
@@ -30,6 +35,11 @@ const Home = () => {
                   heading: "Welcome to Safe People Registry!",
                   description: mockedOrganisationHomeIntro,
                 }}
+                hiddenActions={
+                  !organisation?.system_approved
+                    ? SYSTEM_APPOVED_ONLY_ACTIONS
+                    : []
+                }
               />
             </PageSection>
           </PageBody>
