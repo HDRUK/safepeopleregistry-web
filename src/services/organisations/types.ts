@@ -14,6 +14,10 @@ interface OrganisationsIdvtResponse {
   data: OrganisationIdvt;
 }
 
+type PutSystemApprovedPayload = {
+  system_approved: boolean;
+};
+
 type PutOrganisationPayload = Partial<Organisation>;
 
 type PostOrganisationPayload = Partial<Organisation>;
@@ -79,4 +83,5 @@ export type {
   PutOrganisationSubsidiaryPayload,
   PostOrganisationSubsidiaryPayload,
   PostOrganisationNewAccountPayload,
+  PutSystemApprovedPayload,
 };

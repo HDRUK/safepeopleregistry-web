@@ -1022,6 +1022,8 @@
     }
   },
   "OrganisationsList": {
+    "approve": "Approve",
+    "unapprove": "Unapprove",
     "systemApproved": "Approved",
     "organisationName": "Organisation name",
     "sroDocument": "SRO application",

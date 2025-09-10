@@ -174,6 +174,7 @@ const renderOrganisationValidatedCell = (
   info: CellContext<Organisation, unknown>
 ) => {
   const systemApproved = info.getValue();
+
   return (
     <ChipStatus
       status={
