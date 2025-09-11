@@ -1,3 +1,40 @@
+## [1.10.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.9.0...v1.10.0) (2025-09-11)
+
+### ✨ Features
+
+* **REGISTRY-1668:** Update column heading (#438) ([12b2385](https://github.com/HDRUK/safepeopleregistry-web/commit/12b238568892f982a4ec512f4a764dca4f922d0e))
+* **REGISTRY-1675:** Correct display of affiliation status display (#434) ([be968a8](https://github.com/HDRUK/safepeopleregistry-web/commit/be968a8d18cc197a5c7636aa509cc86c07b1b955))
+* **REGISTRY-1741:** privacy policy (#461) ([7cddd9c](https://github.com/HDRUK/safepeopleregistry-web/commit/7cddd9c1d1ab96bd3795818f2429f86d832fc0fd))
+* **REGISTRY-1746:** validation status (#440) ([8dcda6e](https://github.com/HDRUK/safepeopleregistry-web/commit/8dcda6e1ab9eb041a2d6a8819d431e6f2738b1dd))
+* **REGISTRY-1772:** Move register terms and conditions to separate screen (#439) ([9997a7e](https://github.com/HDRUK/safepeopleregistry-web/commit/9997a7e2c932bebca57bfe059e26a45056bccd54))
+* **REGISTRY-1790:** Display custodian register modal (#441) ([eda395a](https://github.com/HDRUK/safepeopleregistry-web/commit/eda395ad5e1adabac0091a125ba61fe25ff821b2))
+* **REGISTRY-1794:** Add SRO Declaration upload (#466) ([85ed394](https://github.com/HDRUK/safepeopleregistry-web/commit/85ed394fc034e7c6d5eabf07131192e3cdf990ce))
+* **REGISTRY-1795:** approve org and reg issue (#474) ([593b4f2](https://github.com/HDRUK/safepeopleregistry-web/commit/593b4f232dd611ca0a126a84cf2c42386330fd6d))
+* **REGISTRY-1798:** Disable org tabs if not system approved (#469) ([e19b077](https://github.com/HDRUK/safepeopleregistry-web/commit/e19b077395917e3d9dec72a16ef0dcd4446399db))
+* **REGISTRY-1798:** Hide any actions directing to system approved only tabs (#472) ([692a7a7](https://github.com/HDRUK/safepeopleregistry-web/commit/692a7a77d3c3f2c049fa5ac79a87c7e9599c4cda))
+* **REGISTRY-1800:** email description bold (#448) ([40f28f0](https://github.com/HDRUK/safepeopleregistry-web/commit/40f28f0f083f9724084a7748325584cd90662c0d))
+* **REGISTRY-1801:** missing space (#460) ([e5ca998](https://github.com/HDRUK/safepeopleregistry-web/commit/e5ca998e7c64564eb7a75b1e10e5775fc909d6dc))
+* **REGISTRY-1801:** update links (#449) ([019d698](https://github.com/HDRUK/safepeopleregistry-web/commit/019d698cec6cc938d0a9afa599f30c35b02500a6))
+* **REGISTRY-1802:** content (#451) ([99d125f](https://github.com/HDRUK/safepeopleregistry-web/commit/99d125f6135e6fe8b2f2be9fb7c8054c85321664))
+* **REGISTRY-1815:** affiliations table (#467) ([be63d44](https://github.com/HDRUK/safepeopleregistry-web/commit/be63d44aad880deb2fd091afee3e65b32bac50e7))
+* **REGISTRY-1818:** field descriptions (#453) ([d3905d0](https://github.com/HDRUK/safepeopleregistry-web/commit/d3905d0b539166de2c82b906ec5525d9efc2cb70))
+* **REGISTRY-1819:** safe people text (#452) ([0ccc6bd](https://github.com/HDRUK/safepeopleregistry-web/commit/0ccc6bdf4a56c72c872fd9e5f91b113cb2135a75))
+* **REGISTRY-1821:** content (#464) ([7ffd940](https://github.com/HDRUK/safepeopleregistry-web/commit/7ffd940d3f422b2112a7cb049fed6637d7096f3a))
+* **REGISTRY-1822:** guidance re-org (#457) ([ba5ceea](https://github.com/HDRUK/safepeopleregistry-web/commit/ba5ceeac74eff081bf9c144bcf7414b5ca573349))
+* **REGISTRY-1823:** spacings (#456) ([1ebf4f2](https://github.com/HDRUK/safepeopleregistry-web/commit/1ebf4f2c8d3f7ecbcd2564d9b6e8a57918238135))
+* **REGISTRY-1833:** Update to latest footer design (#459) ([c8ffe46](https://github.com/HDRUK/safepeopleregistry-web/commit/c8ffe46f11bfbc1c698e2a893d54832e988c375a))
+* **REGISTRY-1838:** Move SRO details to profile tab (#468) ([4f3f0d3](https://github.com/HDRUK/safepeopleregistry-web/commit/4f3f0d348bd1f4381d1600ba4ef473e973f251bc))
+* **REGISTRY-1841:** cookie policy (#458) ([ab0abf4](https://github.com/HDRUK/safepeopleregistry-web/commit/ab0abf4b4ffa94357e01914bd3cacd683895ba3b))
+* **REGISTRY-792:** Update t&cs (#471) ([27d1d3a](https://github.com/HDRUK/safepeopleregistry-web/commit/27d1d3ad05f4ec52b8d825fb6e66c2d66b045141))
+* **REGISTRY-795:** Organisation register copy update (#444) ([c51f999](https://github.com/HDRUK/safepeopleregistry-web/commit/c51f99944afa5c0acbb29f2d07a91cb1646eb662))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-1665:** show affiliation email address (#475) ([ee31d80](https://github.com/HDRUK/safepeopleregistry-web/commit/ee31d80208b1d11b0263d893d3601b75783ab8bc))
+* **REGISTRY-1791:** markup for idvt description (#473) ([57b0315](https://github.com/HDRUK/safepeopleregistry-web/commit/57b03153dd522b0c00c496934a2e39542f5f7328))
+* **REGISTRY-1861:** brs in text (#462) ([a941f91](https://github.com/HDRUK/safepeopleregistry-web/commit/a941f914b7a699f275d294d30f249e31ec799f4c))
+* **REGISTRY-1865:** invite register issue (#465) ([df6ffb7](https://github.com/HDRUK/safepeopleregistry-web/commit/df6ffb7c52b9691ef1dfb348488cf24255e5646b))
+
 ## [1.9.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.8.0...v1.9.0) (2025-08-26)
 
 ### ✨ Features
