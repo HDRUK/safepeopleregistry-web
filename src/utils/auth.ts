@@ -14,4 +14,10 @@ async function getDecodedAccessToken(): Promise<Partial<User> | undefined> {
   return accessToken ? jwtDecode(accessToken) : undefined;
 }
 
-export { getAccessToken, getDecodedAccessToken };
+async function isLoggedIn() {
+  const accessToken = await getAccessToken();
+
+  return !!accessToken;
+}
+
+export { getAccessToken, getDecodedAccessToken, isLoggedIn };
