@@ -5,7 +5,7 @@ import Application from "@/organisms/Application";
 import { getMe } from "@/services/auth";
 import { getCustodianUser } from "@/services/custodian_users";
 import { User } from "@/types/application";
-import { PropsWithChildren, StrictMode } from "react";
+import { PropsWithChildren } from "react";
 
 type LayoutProps = PropsWithChildren;
 
@@ -38,13 +38,11 @@ export default async function Layout({ children }: LayoutProps) {
   }
 
   return (
-    <StrictMode>
-      <Application
-        custodianId={custodianId}
-        organisationId={organisationId}
-        me={data}>
-        <PageContainer>{children}</PageContainer>
-      </Application>
-    </StrictMode>
+    <Application
+      custodianId={custodianId}
+      organisationId={organisationId}
+      me={data}>
+      <PageContainer>{children}</PageContainer>
+    </Application>
   );
 }
