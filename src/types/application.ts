@@ -211,6 +211,7 @@ type User = WithModelState<{
   declaration_signed?: boolean;
   uksa_registered?: boolean;
   rules?: RuleState;
+  t_and_c_agreed?: boolean;
 }>;
 interface AddressFields {
   postcode?: string;
@@ -292,6 +293,7 @@ type Organisation = OrganisationIdvt &
     unclaimed: number;
     organisation_size?: number;
     project?: WithModelState<ResearcherProject>;
+    system_approved?: boolean;
   }>;
 
 interface ResearcherEducation {
@@ -456,6 +458,7 @@ interface ProjectUser {
   role?: Partial<Role>;
   affiliation: Partial<ResearcherAffiliation>;
   registry: Registry;
+  custodian_has_project_user?: CustodianProjectUser;
 }
 
 type CustodianProjectUser = WithModelState<{

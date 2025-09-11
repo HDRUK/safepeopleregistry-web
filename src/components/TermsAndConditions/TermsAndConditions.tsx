@@ -1,22 +1,17 @@
-import { useState } from "react";
-import { Typography, Button, Box, List } from "@mui/material";
-import { useTranslations } from "next-intl";
+import { UserGroup } from "@/consts/user";
+import descriptionContent from "@/mocks/data/terms_and_conditions/description.md";
 import {
   mockedTermsAndConditionsBusiness,
   mockedTermsAndConditionsConsumer,
 } from "@/mocks/data/terms_and_conditions/index";
-import descriptionContent from "@/mocks/data/terms_and_conditions/description.md";
-import FormModal, { FormModalProps } from "../FormModal";
+import { Box, Button, List, ListItemText, Typography } from "@mui/material";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
 import Markdown from "../Markdown";
-import {
-  StyledListItemButton,
-  StyledRadio,
-  StyledListItemText,
-} from "./TermsAndConditionsModal.styles";
+import { StyledListItemButton, StyledRadio } from "./TermsAndConditions.styles";
 
-export interface TermsAndConditionsModalProps
-  extends Omit<FormModalProps, "children"> {
-  accountType: string | null;
+export interface TermsAndConditionsProps {
+  userGroup: UserGroup | null;
   onAccept: () => void;
   onDecline: () => void;
 }
@@ -26,12 +21,11 @@ type TermsKey =
   | keyof typeof mockedTermsAndConditionsConsumer
   | keyof typeof mockedTermsAndConditionsBusiness;
 
-export default function TermsAndConditionsModal({
-  accountType,
+export default function TermsAndConditions({
+  userGroup,
   onAccept,
   onDecline,
-  ...restProps
-}: TermsAndConditionsModalProps) {
+}: TermsAndConditionsProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION_TERMS);
   const [selectedItem, setSelectedItem] = useState<TermsKey>("understanding");
 
@@ -40,7 +34,7 @@ export default function TermsAndConditionsModal({
   };
 
   const mockedTermsAndConditions =
-    accountType === "user"
+    userGroup === UserGroup.USERS
       ? mockedTermsAndConditionsConsumer
       : mockedTermsAndConditionsBusiness;
 
@@ -60,15 +54,8 @@ export default function TermsAndConditionsModal({
     mockedTermsAndConditions
   ) as TermsKey[];
 
-  if (accountType === null)
-    return (
-      <FormModal {...restProps} variant="content">
-        {t("pleaseSelect")}
-      </FormModal>
-    );
-
   return (
-    <FormModal {...restProps} variant="content">
+    <>
       <Box
         sx={{
           display: "flex",
@@ -88,17 +75,26 @@ export default function TermsAndConditionsModal({
             {termsItems.map((item, index) => (
               <StyledListItemButton
                 key={item}
-                selected={selectedItem === item}
-                onClick={() => handleListItemClick(item)}>
-                <StyledRadio
-                  checked={selectedItem === item}
-                  onChange={() => handleListItemClick(item)}
-                />
-                <StyledListItemText
-                  primary={`${index + 1}. ${t(item)}`}
-                  isSelected={selectedItem === item}
-                />
-              </StyledListItemButton>
+                onClick={() => handleListItemClick(item)}
+                sx={{ width: "100%", m: 0 }}
+                label={
+                  <ListItemText
+                    primary={`${index + 1}. ${t(item)}`}
+                    sx={{
+                      "& .MuiListItemText-primary": {
+                        fontSize: "0.875rem",
+                        fontWeight: selectedItem === item ? 500 : 400,
+                      },
+                    }}
+                  />
+                }
+                control={
+                  <StyledRadio
+                    checked={selectedItem === item}
+                    inputProps={{ "aria-label": `test-${index}` }}
+                  />
+                }
+              />
             ))}
           </List>
         </Box>
@@ -108,12 +104,9 @@ export default function TermsAndConditionsModal({
             <Typography variant="h4" gutterBottom>
               {t("title")}
             </Typography>
-            <Typography
-              variant="body1"
-              paragraph
-              sx={{ borderBottom: 1, borderColor: "divider", pb: 1 }}>
+            <Box sx={{ borderBottom: 1, borderColor: "divider", pb: 1 }}>
               <Markdown>{descriptionContent}</Markdown>
-            </Typography>
+            </Box>
             {renderContent()}
           </>
         </Box>
@@ -136,6 +129,6 @@ export default function TermsAndConditionsModal({
           </Button>
         </Box>
       </Box>
-    </FormModal>
+    </>
   );
 }

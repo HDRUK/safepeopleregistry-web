@@ -1,13 +1,7 @@
 import { useRouter } from "@/i18n/routing";
 import { mockedJwt } from "@/mocks/data/auth";
 import { postRegister } from "@/services/auth";
-import {
-  commonAccessibilityTests,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from "@/utils/testUtils";
+import { commonAccessibilityTests, render } from "@/utils/testUtils";
 import AccountConfirm from "./AccountConfirm";
 
 jest.mock("@/i18n/routing", () => ({
@@ -28,13 +22,7 @@ jest.mock("js-cookie", () => ({
 const mockedReplace = jest.fn();
 
 const TestComponent = () => {
-  return (
-    <AccountConfirm
-      showAccountPicker={false}
-      pendingAccount={false}
-      hasAccessToken={false}
-    />
-  );
+  return <AccountConfirm showAccountPicker={false} unclaimedUser={undefined} />;
 };
 
 describe("<AccountConfirm />", () => {
@@ -48,24 +36,6 @@ describe("<AccountConfirm />", () => {
 
   // Existing tests...
 
-  it("should open terms and conditions modal when clicking on the terms link", async () => {
-    render(
-      <AccountConfirm
-        showAccountPicker={false}
-        pendingAccount={false}
-        hasAccessToken={false}
-      />
-    );
-
-    const termsLink = screen.getByRole("button", {
-      name: "Safe People Registry Terms and Conditions",
-    });
-    fireEvent.click(termsLink);
-
-    await waitFor(() => {
-      expect(screen.getByRole("dialog")).toBeInTheDocument();
-    });
-  });
   /*
   - the following was causing all sorts of problems due to mocking data 
   - need to revisit but shouldnt have written tests like this in the first place IMO

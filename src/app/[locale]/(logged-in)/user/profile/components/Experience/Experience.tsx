@@ -1,5 +1,15 @@
+import ErrorMessage from "@/components/ErrorMessage";
+import Form from "@/components/Form";
+import FormActions from "@/components/FormActions";
+import FormControlCheckbox from "@/components/FormControlCheckbox";
+import FormControl from "@/components/FormControlWrapper";
 import FormSection from "@/components/FormSection";
+import Guidance from "@/components/Guidance";
+import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
+import Text from "@/components/Text";
+import yup from "@/config/yup";
 import { FileType } from "@/consts/files";
+import { VALIDATION_ORC_ID } from "@/consts/form";
 import { ROUTES } from "@/consts/router";
 import { useStore } from "@/data/store";
 import useFileUpload from "@/hooks/useFileUpload";
@@ -8,27 +18,20 @@ import { mockedUserExperienceGuidanceProps } from "@/mocks/data/cms";
 import {
   PageBody,
   PageBodyContainer,
-  PageGuidance,
+  PageColumnBody,
+  PageColumnDetails,
+  PageColumns,
   PageSection,
 } from "@/modules";
+import FileUploadDetails from "@/modules/FileUploadDetails/FileUploadDetails";
+import { putUserQuery } from "@/services/users";
 import { getFileHref, getLatestCV } from "@/utils/file";
+import { showAlert } from "@/utils/showAlert";
 import { Grid, TextField, Typography } from "@mui/material";
+import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import React, { useState, ChangeEvent, useCallback, useMemo } from "react";
-import FormControl from "@/components/FormControlWrapper";
-import Form from "@/components/Form";
-import { useMutation } from "@tanstack/react-query";
-import { putUserQuery } from "@/services/users";
-import { showAlert } from "@/utils/showAlert";
-import FormActions from "@/components/FormActions";
-import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
-import yup from "@/config/yup";
-import { VALIDATION_ORC_ID } from "@/consts/form";
-import Text from "@/components/Text";
-import FormControlCheckbox from "@/components/FormControlCheckbox";
-import FileUploadDetails from "@/modules/FileUploadDetails/FileUploadDetails";
-import ErrorMessage from "@/components/ErrorMessage";
+import React, { ChangeEvent, useCallback, useMemo, useState } from "react";
 
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";
 const NAMESPACE_TRANSLATION_FORM = "Form";
@@ -144,85 +147,94 @@ export default function Experience() {
 
   return (
     <PageBodyContainer heading={tProfile("experienceTitle")}>
-      <PageGuidance {...mockedUserExperienceGuidanceProps}>
-        <PageBody>
-          <PageSection
-            heading={tProfile("employmentEducationPublicationRecord")}>
-            <Form
-              onSubmit={handleDetailsSubmit}
-              {...formOptions}
-              schema={schema}
-              key={user?.id}
-              canLeave>
-              <>
-                <FormSection description={tProfile("orcidDescription")}>
-                  <Grid container spacing={3}>
-                    <Grid item xs={12}>
-                      <FormControl
-                        name="orc_id"
-                        label="ORCID"
-                        description={tProfile("orcidFormDescription")}
-                        renderField={fieldProps => (
-                          <Text sx={{ maxWidth: "100%" }}>
-                            <TextField {...fieldProps} fullWidth />
-                          </Text>
-                        )}
-                      />
+      <PageColumns>
+        <PageColumnBody lg={8}>
+          <PageBody>
+            <PageSection
+              heading={tProfile("employmentEducationPublicationRecord")}>
+              <Form
+                onSubmit={handleDetailsSubmit}
+                {...formOptions}
+                schema={schema}
+                key={user?.id}
+                canLeave>
+                <>
+                  <FormSection description={tProfile("orcidDescription")}>
+                    <Grid container spacing={3}>
+                      <Grid item xs={12}>
+                        <FormControl
+                          name="orc_id"
+                          label="ORCID"
+                          description={tProfile("orcidFormDescription")}
+                          renderField={fieldProps => (
+                            <Text sx={{ maxWidth: "100%" }}>
+                              <TextField {...fieldProps} fullWidth />
+                            </Text>
+                          )}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <FormControlCheckbox
+                          name="consent_scrape"
+                          color="primary"
+                          onChange={handleConsentScrapeChange}
+                          checked={consentScrape}
+                          label={tForm("consentScrapeDescription")}
+                        />
+                      </Grid>
                     </Grid>
-                    <Grid item xs={12}>
-                      <FormControlCheckbox
-                        name="consent_scrape"
-                        color="primary"
-                        onChange={handleConsentScrapeChange}
-                        checked={consentScrape}
-                        label={tForm("consentScrapeDescription")}
-                      />
-                    </Grid>
-                  </Grid>
-                </FormSection>
+                  </FormSection>
 
-                <FormSection>
-                  <Typography variant="subtitle1" gutterBottom>
-                    {tProfile("cvUpload")}
-                  </Typography>
-                  <Grid container spacing={3}>
-                    <Grid item xs={12}>
-                      <FileUploadDetails
-                        fileButtonText={tProfile("cvUpload")}
-                        fileHref={getFileHref(latestCV?.name)}
-                        fileType={FileType.CV}
-                        fileNameText={file?.name || tProfile("noCvUploaded")}
-                        isSizeInvalid={isSizeInvalid}
-                        isScanning={isScanning}
-                        isScanComplete={isScanComplete}
-                        isScanFailed={isScanFailed}
-                        isUploading={isUploading}
-                        onFileChange={handleFileChange}
-                        message="cvUploadFailed"
-                      />
-                    </Grid>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography
-                      variant="subtitle2"
-                      sx={{ color: "textSecondary.main", pt: 1 }}>
-                      {tProfile("cvUploadDescription")}
+                  <FormSection>
+                    <Typography variant="subtitle1" gutterBottom>
+                      {tProfile("cvUpload")}
                     </Typography>
-                  </Grid>
-                </FormSection>
+                    <Grid container spacing={3}>
+                      <Grid item xs={12}>
+                        <FileUploadDetails
+                          fileButtonText={tProfile("cvUpload")}
+                          fileHref={getFileHref(latestCV?.name)}
+                          fileType={FileType.CV}
+                          fileNameText={file?.name || tProfile("noCvUploaded")}
+                          isSizeInvalid={isSizeInvalid}
+                          isScanning={isScanning}
+                          isScanComplete={isScanComplete}
+                          isScanFailed={isScanFailed}
+                          isUploading={isUploading}
+                          onFileChange={handleFileChange}
+                          message="cvUploadFailed"
+                        />
+                      </Grid>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography
+                        variant="subtitle2"
+                        sx={{ color: "textSecondary.main", pt: 1 }}>
+                        {tProfile("cvUploadDescription")}
+                      </Typography>
+                    </Grid>
+                  </FormSection>
 
-                <FormActions>
-                  <ProfileNavigationFooter
-                    previousHref={ROUTES.profileResearcherIdentity.path}
-                    nextStepText={tProfile("affiliations")}
-                    isLoading={updateUser.isPending}
-                  />
-                </FormActions>
-              </>
-            </Form>
-          </PageSection>
-        </PageBody>
-      </PageGuidance>
+                  <FormActions>
+                    <ProfileNavigationFooter
+                      previousHref={ROUTES.profileResearcherIdentity.path}
+                      nextStepText={tProfile("affiliations")}
+                      isLoading={updateUser.isPending}
+                    />
+                  </FormActions>
+                </>
+              </Form>
+            </PageSection>
+          </PageBody>
+        </PageColumnBody>
+        <PageColumnDetails lg={4}>
+          <Guidance
+            {...mockedUserExperienceGuidanceProps}
+            isCollapsible={false}
+            infoWidth="100%"
+          />
+        </PageColumnDetails>
+      </PageColumns>
     </PageBodyContainer>
   );
 }

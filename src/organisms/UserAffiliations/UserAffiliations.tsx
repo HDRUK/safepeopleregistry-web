@@ -1,19 +1,26 @@
-import { useTranslations } from "next-intl";
+import { AffiliationsTableProps } from "@/modules/AffiliationsTable/AffiliationsTable";
+import { EntityType } from "@/types/api";
 import { Typography } from "@mui/material";
-import { useStore } from "@/data/store";
-import { Affiliations, PageBodyContainer, PageSection } from "../../modules";
+import { useTranslations } from "next-intl";
+import {
+  AffiliationsTable,
+  PageBodyContainer,
+  PageSection,
+} from "../../modules";
 import { usePaginatedAffiliations } from "../../services/affiliations";
 
-const NAMESPACE_TRANSLATION = "Application";
+const NAMESPACE_TRANSLATION = "Affiliations";
 
-export default function UserAffiliations() {
+interface UserAffiliationsProps {
+  registryId: number;
+  variant?: EntityType;
+}
+
+export default function UserAffiliations({
+  registryId,
+  variant,
+}: UserAffiliationsProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION);
-
-  const { user, setHistories, getHistories } = useStore(state => ({
-    user: state.current.user,
-    setHistories: state.setHistories,
-    getHistories: state.getHistories,
-  }));
 
   const {
     data: affiliationsData,
@@ -21,22 +28,34 @@ export default function UserAffiliations() {
     total,
     setPage,
     ...getAffiliationsQueryState
-  } = usePaginatedAffiliations(user?.registry_id, {
-    queryKeyBase: ["getAffiliations"],
-  });
+  } = usePaginatedAffiliations(registryId);
+
+  let tableProps: Partial<AffiliationsTableProps> = {};
+
+  if (variant === EntityType.ORGANISATION) {
+    tableProps = {
+      includeColumns: [
+        "warning",
+        "date",
+        "relationship",
+        "organisationName",
+        "affiliationStatus",
+      ],
+    };
+  }
 
   return (
     <PageBodyContainer>
-      <Typography variant="h2">{t("affiliations")}</Typography>
+      <Typography variant="h2">{t("heading")}</Typography>
       <PageSection sx={{ my: 3 }}>
-        <Affiliations
-          setHistories={setHistories}
-          getHistories={getHistories}
-          affiliationsData={affiliationsData}
-          getAffiliationsQueryState={getAffiliationsQueryState}
+        <AffiliationsTable
+          data={affiliationsData}
+          queryState={getAffiliationsQueryState}
           last_page={last_page}
           total={total}
           setPage={setPage}
+          t={t}
+          {...tableProps}
         />
       </PageSection>
     </PageBodyContainer>

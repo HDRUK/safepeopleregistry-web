@@ -1,3 +1,4 @@
+import Markdown from "@/components/Markdown";
 import { AddIcon } from "@/consts/icons";
 import { useStore } from "@/data/store";
 import useQueryConfirmAlerts from "@/hooks/useQueryConfirmAlerts";
@@ -121,8 +122,9 @@ export default function Contacts() {
   return (
     <PageBodyContainer heading={t("contactsHeading")}>
       <PageBody>
-        <PageSection>
-          <Box sx={{ display: "flex", gap: 1, mb: 3 }}>
+        <PageSection
+          description={<Markdown>{t("contactsListDescription")}</Markdown>}>
+          <Box sx={{ display: "flex", gap: 1, mt: 5, mb: 3 }}>
             <Box
               component="form"
               role="search"

@@ -7,6 +7,7 @@ import { Link as MuiLink, Typography } from "@mui/material";
 import { Link } from "@/i18n/routing";
 import { Box } from "@mui/system";
 import { CellContext } from "@tanstack/react-table";
+import FileDownloadLink from "@/components/FileDownloadLink";
 import {
   CustodianUser,
   Organisation,
@@ -15,10 +16,20 @@ import {
   ProjectUser,
   ResearcherAffiliation,
   ResearcherProject,
+  Translations,
   User,
+  File,
 } from "../types/application";
 import { injectParamsIntoPath } from "./application";
 import { formatShortDate } from "./date";
+
+function renderAffiliationRelationship(
+  info: CellContext<ResearcherAffiliation, unknown>,
+  t: Translations
+) {
+  const value = info.getValue() as string;
+  return value?.length > 0 ? t(info.getValue()) : null;
+}
 
 function renderAffiliationDateRangeCell<T extends ResearcherAffiliation>(
   info: CellContext<T, unknown>
@@ -97,6 +108,7 @@ const renderProjectUserNameCell = (data: ProjectUser, route: string) => {
     <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
       {renderUserNameCell(user, route, {
         projectUserId: id,
+        userId: user.id,
       })}
       {!!primary_contact && <PrimaryContactIcon fontSize="small" />}
     </Box>
@@ -150,9 +162,33 @@ function renderOrganisationsNameCell(values: Organisation | Organisation[]) {
   return names;
 }
 
-const renderStatusCell = (info: CellContext<User | ProjectUser, unknown>) => (
-  <ChipStatus status={info.getValue() as Status} />
-);
+function renderFileDownloadLink(files: File[], type: string) {
+  const file = (files || []).find(file => file.type === type);
+
+  if (!file) return null;
+
+  return <FileDownloadLink file={file} />;
+}
+
+const renderOrganisationValidatedCell = (
+  info: CellContext<Organisation, unknown>
+) => {
+  const systemApproved = info.getValue();
+
+  return (
+    <ChipStatus
+      status={
+        systemApproved
+          ? Status.ORGANISATION_VALIDATED
+          : Status.ORGANISATION_NOT_VALIDATED
+      }
+    />
+  );
+};
+
+const renderStatusCell = (
+  info: CellContext<User | ProjectUser | Organisation, unknown>
+) => <ChipStatus status={info.getValue() as Status} />;
 
 export {
   renderAffiliationDateRangeCell,
@@ -166,4 +202,7 @@ export {
   renderUserNameCell,
   renderUserOrganisationsNameCell,
   renderWarningCell,
+  renderAffiliationRelationship,
+  renderOrganisationValidatedCell,
+  renderFileDownloadLink,
 };

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { PageSection } from "@/modules";
+import { PageBody } from "@/modules";
 import Form from "@/components/Form";
 import FormActions from "@/components/FormActions";
 import CheckboxList from "@/components/CheckboxList";
@@ -127,10 +127,10 @@ export default function Rules() {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <PageSection
-        heading={t("configurationRulesTitle")}
-        description={mockedConfigurationRulesDescription}>
+    <PageBody
+      heading={t("configurationRulesTitle")}
+      description={mockedConfigurationRulesDescription}>
+      <Form onSubmit={handleSubmit}>
         <CheckboxList
           isLoading={isLoadingUserRules}
           items={formattedUserRules}
@@ -145,10 +145,10 @@ export default function Rules() {
           checked={orgRules}
           setChecked={setOrgRules}
         />
-      </PageSection>
-      <FormActions sx={{ justifyContent: "flex-end" }}>
-        <ButtonSave isLoading={isPending} />
-      </FormActions>
-    </Form>
+        <FormActions sx={{ justifyContent: "flex-end" }}>
+          <ButtonSave isLoading={isPending} />
+        </FormActions>
+      </Form>
+    </PageBody>
   );
 }

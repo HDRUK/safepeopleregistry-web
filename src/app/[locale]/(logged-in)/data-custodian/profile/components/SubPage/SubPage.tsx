@@ -1,5 +1,10 @@
-import { PageBody, PageGuidance, PageBodyContainer } from "@/modules";
-import { mockedConfigurationRulesGuidanceProps } from "@/mocks/data/cms";
+import Guidance from "@/components/Guidance";
+import {
+  PageBodyContainer,
+  PageColumnBody,
+  PageColumnDetails,
+  PageColumns,
+} from "@/modules";
 import { toCamelCase } from "@/utils/string";
 import { useTranslations } from "next-intl";
 import { ConfigurationSubTabs, PageTabs, UserSubTabs } from "../../consts/tabs";
@@ -21,12 +26,20 @@ function SubPage({ params }: PageProps) {
 
   return (
     <PageBodyContainer heading={t(toCamelCase(params.tabId))}>
-      <PageGuidance {...mockedConfigurationRulesGuidanceProps}>
-        <PageBody>
+      <PageColumns>
+        <PageColumnBody lg={8}>
           <SubTabsSections {...params} />
           <SubTabsContents {...params} />
-        </PageBody>
-      </PageGuidance>
+        </PageColumnBody>
+        <PageColumnDetails lg={4}>
+          <Guidance
+            infoTitle={t(`guidance.${params.subTabId}.infoTitle`)}
+            info={t(`guidance.${params.subTabId}.info`)}
+            isCollapsible={false}
+            infoWidth="100%"
+          />
+        </PageColumnDetails>
+      </PageColumns>
     </PageBodyContainer>
   );
 }

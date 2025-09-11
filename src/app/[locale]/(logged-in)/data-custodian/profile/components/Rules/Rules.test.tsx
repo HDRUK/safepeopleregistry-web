@@ -63,7 +63,7 @@ describe("<Rules />", () => {
     render(<Rules />);
 
     await waitFor(() => {
-      expect(screen.getByText(/rules configuration/i)).toBeInTheDocument();
+      expect(screen.getAllByText(/automated flags/i)[0]).toBeInTheDocument();
     });
   });
 

@@ -1,27 +1,28 @@
-import { Box, BoxProps, Typography } from "@mui/material";
+import { Box, BoxProps } from "@mui/material";
 import { ReactNode } from "react";
+import SectionHeading from "../../components/SectionHeading";
 
-interface PageBodyProps extends BoxProps {
+export interface PageBodyProps extends BoxProps {
   heading?: ReactNode;
+  description?: ReactNode;
   actions?: ReactNode;
 }
 
 export default function PageBody({
   children,
   heading,
+  description,
   actions,
   ...restProps
 }: PageBodyProps) {
   return (
     <>
-      {heading && (
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography variant="h2" sx={{ mb: 3 }}>
-            {heading}
-          </Typography>
-          <div>{actions}</div>
-        </Box>
-      )}
+      <SectionHeading
+        heading={heading}
+        description={description}
+        actions={actions}
+        sx={{ mb: 3 }}
+      />
       <Box
         {...restProps}
         sx={{

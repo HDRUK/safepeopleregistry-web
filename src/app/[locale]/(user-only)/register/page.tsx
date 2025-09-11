@@ -1,30 +1,29 @@
 import { PageBody } from "@/modules";
-import { cookies } from "next/headers";
-import { getMe } from "@/services/auth";
-import { getProfileRedirectPath } from "@/utils/redirects";
-import { redirect } from "next/navigation";
-import { SearchParams } from "@/types/query";
+import { getMeUnclaimed } from "@/services/auth";
+import { getDecodedAccessToken } from "@/utils/auth";
 import AccountConfirm from "./components/AccountConfirm/AccountConfirm";
 
-async function Page({ searchParams }: { searchParams: SearchParams }) {
-  const hasAccessToken = !!cookies().get("access_token");
-  const showAccountPicker = !searchParams.type || !hasAccessToken;
+async function Page() {
+  const accessToken = await getDecodedAccessToken();
 
-  const { data } = await getMe({ suppressThrow: true });
+  let unclaimedUser;
+  let partialUser;
 
-  // Redirect to profile if already logged in with user
-  if (data) {
-    const redirectUrl = await getProfileRedirectPath(data);
-    redirect(redirectUrl);
+  if (accessToken) {
+    const { data } = await getMeUnclaimed({
+      suppressThrow: true,
+    });
+
+    unclaimedUser = data;
+
+    const { email, given_name, family_name } = accessToken;
+
+    partialUser = { email, given_name, family_name };
   }
 
   return (
     <PageBody>
-      <AccountConfirm
-        showAccountPicker={showAccountPicker}
-        hasAccessToken={hasAccessToken}
-        pendingAccount={hasAccessToken && !data}
-      />
+      <AccountConfirm unclaimedUser={unclaimedUser} tokenUser={partialUser} />
     </PageBody>
   );
 }

@@ -1,17 +1,18 @@
-import React from "react";
-import ReactMarkdown, { Components } from "react-markdown";
-import remarkGfm from "remark-gfm";
 import {
+  Box,
+  Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
+  Typography,
 } from "@mui/material";
-import SectionHeading from "../SectionHeading";
+import ReactMarkdown, { Components } from "react-markdown";
+import remarkGfm from "remark-gfm";
 import FormControlDescription from "../FormControlDescription";
+import PageHeading from "../PageHeading";
 
 interface MarkdownProps {
   children: string;
@@ -30,7 +31,7 @@ const tableComponents: Components = {
     return (
       <TableContainer
         component={Paper}
-        sx={{ my: 2, width: "70%", margin: "0 auto" }}>
+        sx={{ my: 4, width: "70%", mx: "auto" }}>
         <Table
           sx={{
             borderCollapse: "collapse",
@@ -50,45 +51,49 @@ const tableComponents: Components = {
     return <TableRow>{children}</TableRow>;
   },
   th({ children }) {
-    return (
-      <TableCell
-        component="th"
-        sx={{
-          fontWeight: "bold",
-          fontSize: "1.2rem",
-          backgroundColor: "default.main",
-          color: "default.contrastText",
-          border: "1px solid #ccc",
-        }}>
-        {children}
-      </TableCell>
-    );
+    return <TableCell component="th">{children}</TableCell>;
   },
   td({ children }) {
-    return (
-      <TableCell
-        component="td"
-        sx={{
-          fontSize: "1.2rem",
-          border: "1px solid #ccc",
-        }}>
-        {children}
-      </TableCell>
-    );
+    return <TableCell component="td">{children}</TableCell>;
   },
 };
 
 const defaultComponents: Components = {
   ...tableComponents,
   h1({ children }) {
-    return <SectionHeading variant="h2" size="large" heading={children} />;
+    return <PageHeading heading={children} mb={3} />;
   },
-  h3({ node: _node, children, ...rest }) {
+  h2({ children }) {
+    return <Typography variant="h2">{children}</Typography>;
+  },
+  h3({ children }) {
+    return <Typography variant="h3">{children}</Typography>;
+  },
+  h4({ children }) {
+    return <Typography variant="h4">{children}</Typography>;
+  },
+  h5({ children }) {
+    return <Typography variant="h5">{children}</Typography>;
+  },
+  h6({ children }) {
+    return <Typography variant="h6">{children}</Typography>;
+  },
+  ul({ children }) {
     return (
-      <h3 style={{ fontWeight: "normal" }} {...rest}>
+      <Box component="ul" mb={2}>
         {children}
-      </h3>
+      </Box>
     );
+  },
+  ol({ children }) {
+    return (
+      <Box component="ul" mb={2}>
+        {children}
+      </Box>
+    );
+  },
+  p({ children }) {
+    return <Typography mb={2}>{children}</Typography>;
   },
 };
 
@@ -123,6 +128,7 @@ export default function Markdown({
   ...props
 }: MarkdownProps) {
   let selectedComponents: Components;
+
   switch (variant) {
     case "subtitle":
       selectedComponents = {

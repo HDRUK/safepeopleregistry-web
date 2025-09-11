@@ -1,7 +1,15 @@
+import Guidance from "@/components/Guidance";
 import { useStore } from "@/data/store";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
-import { mockedSafeProjectGuidanceProps } from "@/mocks/data/cms";
-import { PageBody, PageGuidance, PageSection } from "@/modules";
+import { mockedCustodianSafeProjectGuidanceProps } from "@/mocks/data/cms";
+import {
+  PageBody,
+  PageColumnBody,
+  PageColumnDetails,
+  PageColumns,
+  PageSection,
+} from "@/modules";
+import ProjectImport from "@/modules/ProjectImport";
 import ProjectsSafeOutputsForm from "@/organisms/ProjectsSafeOutputsForm";
 import useMutateProjectDetails from "@/queries/useMutateProjectDetails";
 import { PutProjectDetailsPayload } from "@/services/projects";
@@ -11,7 +19,8 @@ import { pick } from "@/utils/json";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import ProjectImport from "@/modules/ProjectImport";
+import { PageTabs, ProjectsSubTabs } from "../../consts/tabs";
+import SubTabsSections from "../SubTabSections";
 
 const NAMESPACE_TRANSLATION = "CustodianProfile";
 
@@ -54,26 +63,40 @@ export default function ProjectsSafeOutputs() {
   });
 
   return (
-    <PageGuidance {...mockedSafeProjectGuidanceProps}>
-      <PageBody
-        heading={t("safeOutputs")}
-        actions={
-          <ProjectImport
-            custodianId={custodian.id}
-            projectId={project.id}
-            onImported={handleGatewayProjectImport}
-            isImportDisabled={!project?.unique_id}
-          />
-        }>
-        <PageSection>
-          <ProjectsSafeOutputsForm
-            projectId={project.id}
-            defaultValues={defaultValues}
-            mutateState={mutateState}
-            onSubmit={handleSubmit}
-          />
-        </PageSection>
-      </PageBody>
-    </PageGuidance>
+    <PageColumns>
+      <PageColumnBody lg={8}>
+        <SubTabsSections
+          tabId={PageTabs.PROJECTS}
+          subTabId={ProjectsSubTabs.SAFE_OUTPUTS}
+          id={project.id}
+        />
+        <PageBody
+          heading={t("safeOutputs")}
+          actions={
+            <ProjectImport
+              custodianId={custodian.id}
+              projectId={project.id}
+              onImported={handleGatewayProjectImport}
+              isImportDisabled={!project?.unique_id}
+            />
+          }>
+          <PageSection>
+            <ProjectsSafeOutputsForm
+              projectId={project.id}
+              defaultValues={defaultValues}
+              mutateState={mutateState}
+              onSubmit={handleSubmit}
+            />
+          </PageSection>
+        </PageBody>
+      </PageColumnBody>
+      <PageColumnDetails lg={4}>
+        <Guidance
+          {...mockedCustodianSafeProjectGuidanceProps}
+          isCollapsible={false}
+          infoWidth="100%"
+        />
+      </PageColumnDetails>
+    </PageColumns>
   );
 }

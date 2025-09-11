@@ -1,11 +1,13 @@
 "use client";
 
+import SectionHeading from "@/components/SectionHeading";
 import { Box, BoxProps } from "@mui/material";
-import SectionHeading, {
-  SectionHeadingProps,
-} from "../../components/SectionHeading";
+import { ReactNode } from "react";
 
-type PageSectionProps = BoxProps & SectionHeadingProps;
+type PageSectionProps = BoxProps & {
+  heading?: ReactNode;
+  description?: ReactNode;
+};
 
 export default function PageSection({
   children,
@@ -16,15 +18,7 @@ export default function PageSection({
 }: PageSectionProps) {
   return (
     <Box {...restProps} sx={{ position: "relative", zIndex: 1, pr: 2, ...sx }}>
-      {(!!heading || !!description) && (
-        <SectionHeading
-          type="content"
-          heading={heading}
-          description={description}
-          variant="h3"
-          sx={{ mb: 3 }}
-        />
-      )}
+      <SectionHeading heading={heading} description={description} mb={3} />
       {children}
     </Box>
   );

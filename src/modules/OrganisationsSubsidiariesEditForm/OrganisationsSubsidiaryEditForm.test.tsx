@@ -32,13 +32,13 @@ const setupTest = (props?: Partial<OrganisationsSubsidiaryEditFormProps>) => {
 
 function getAllInputs() {
   return [
-    /Name/,
-    /Address 1/,
-    /Address 2/,
-    /Town \/ City/,
-    /County/,
-    /Postcode/,
-    /Website/,
+    /Name/i,
+    /Address 1/i,
+    /Address 2/i,
+    /Town \/ City/i,
+    /County/i,
+    /Postcode/i,
+    /Organisation website/i,
   ];
 }
 

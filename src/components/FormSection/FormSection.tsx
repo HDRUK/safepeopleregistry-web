@@ -1,7 +1,10 @@
-import { Box, BoxProps } from "@mui/material";
-import SectionHeading, { SectionHeadingProps } from "../SectionHeading";
+import { Box, BoxProps, Typography } from "@mui/material";
+import { ReactNode } from "react";
 
-export type FormSectionProps = BoxProps & SectionHeadingProps;
+export type FormSectionProps = BoxProps & {
+  heading?: ReactNode;
+  description?: ReactNode;
+};
 
 export default function FormSection({
   children,
@@ -15,14 +18,11 @@ export default function FormSection({
       {...restProps}
       sx={{ p: 0, border: "none", ...restProps.sx }}>
       {(heading || description) && (
-        <Box sx={{ mb: 2 }}>
-          <SectionHeading
-            type="form"
-            heading={heading}
-            description={description}
-            variant="h4"
-            sx={{ pl: 0 }}
-          />
+        <Box
+          {...restProps}
+          sx={{ display: "flex", flexDirection: "column", gap: 2, mb: 1 }}>
+          {heading && <Typography variant="h3">{heading}</Typography>}
+          {description && <Typography>{description}</Typography>}
         </Box>
       )}
       <Box>{children}</Box>

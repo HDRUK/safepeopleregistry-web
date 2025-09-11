@@ -1,8 +1,8 @@
-# 2. USE OF Safe People Registry BY RESEARCHERS
+# 2. USE OF THE SAFE PEOPLE REGISTRY BY RESEARCHERS
 
-## 2.1 Provided you comply with these Terms, you may access and use Safe People Registry for the following purposes:
+## 2.1 Provided you comply with these Terms, you may access and use the Safe People Registry for the following purposes:
 
-### 2.1.1 to populate data fields in your Safe People Registry profile such as data in relation to your identity, your affiliations, your experience, your training and your location;
+### 2.1.1 to populate data fields in Safe People Registry profile such as data in relation to your identity, your affiliations, your experience, your training and your location;
 
 ### 2.1.2 to view the data that you have provided in your Account;
 
@@ -14,4 +14,4 @@
 
 (collectively, the “Researcher Permitted Purpose”).
 
-## 2.2 We grant you a non-exclusive, non-transferable, right (without the right to grant sub-licences) to use and access Safe People Registry solely for the Researcher Permitted Purpose.
+## 2.2 We grant you a non-exclusive, non-transferable, right (without the right to grant sub-licences) to use and access the Safe People Registry solely for the Researcher Permitted Purpose.

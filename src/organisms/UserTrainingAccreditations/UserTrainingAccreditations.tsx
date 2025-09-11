@@ -1,7 +1,6 @@
 import { useStore } from "@/data/store";
-import { Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { PageBodyContainer, PageSection } from "../../modules";
+import { PageBody, PageBodyContainer, PageSection } from "../../modules";
 import ProfessionalRegistrations from "../../modules/ProfessionalRegistrations";
 import { EntityType } from "../../types/api";
 import Training from "../Training";
@@ -28,19 +27,20 @@ export default function UserTrainingAccreditations({
 
   return (
     <PageBodyContainer>
-      <Typography variant="h2">{t("trainingAndAccreditations")}</Typography>
-      <PageSection sx={{ my: 3 }}>
-        <Training variant={variant} user={user} />
-      </PageSection>
-      <PageSection sx={{ mb: 3 }}>
-        <ProfessionalRegistrations
-          variant={variant}
-          user={user}
-          setHistories={setHistories}
-          getHistories={getHistories}
-          professionalRegistrations={professionalRegistrations}
-        />
-      </PageSection>
+      <PageBody heading={t("trainingAndAccreditations")}>
+        <PageSection>
+          <Training variant={variant} user={user} />
+        </PageSection>
+        <PageSection sx={{ mb: 3 }}>
+          <ProfessionalRegistrations
+            variant={variant}
+            user={user}
+            setHistories={setHistories}
+            getHistories={getHistories}
+            professionalRegistrations={professionalRegistrations}
+          />
+        </PageSection>
+      </PageBody>
     </PageBodyContainer>
   );
 }

@@ -64,7 +64,10 @@ function OrganisationUser({ userId, subSubTabId }: OrganisationUserProps) {
   const { data: affiliationData } = useQuery(
     getOrganisationAffiliationQuery(
       user?.registry_id as number,
-      organisation?.id as number
+      organisation?.id as number,
+      {
+        enabled: !!user?.registry_id,
+      }
     )
   );
 
@@ -77,7 +80,10 @@ function OrganisationUser({ userId, subSubTabId }: OrganisationUserProps) {
           <PageColumnBody lg={8}>
             <UserDetails user={user} organisation={organisation} />
             <SubTabsSections userId={userId} subTabId={subSubTabId} />
-            <SubTabsContents subTabId={subSubTabId} />
+            <SubTabsContents
+              registryId={user.registry.id}
+              subTabId={subSubTabId}
+            />
           </PageColumnBody>
 
           <PageColumnDetails lg={4}>

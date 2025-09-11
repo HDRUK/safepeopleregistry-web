@@ -4,10 +4,8 @@ import { useStore } from "@/data/store";
 import useStorePaginatedQueryParams from "@/hooks/useStorePaginatedQueryParams";
 import PageBody from "@/modules/PageBody";
 import PageBodyContainer from "@/modules/PageBodyContainer";
-import PageSection from "@/modules/PageSection";
 import ProjectOrganisations from "@/organisms/ProjectOrganisations";
 import { EntityType } from "@/types/api";
-import { Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 
 const NAMESPACE_TRANSLATIONS_PROFILE = "CustodianProfile";
@@ -24,12 +22,7 @@ export default function Organisations() {
 
   return (
     <PageBodyContainer heading={tProfile("organisationsListTitle")}>
-      <PageBody>
-        <PageSection>
-          <Typography variant="body1">
-            {tProfile("organisationsListDescription")}
-          </Typography>
-        </PageSection>
+      <PageBody description={tProfile("organisationsListDescription")}>
         <ProjectOrganisations
           variant={EntityType.CUSTODIAN}
           custodianId={custodianId}

@@ -1,48 +1,53 @@
 "use client";
 
-import { useCallback, useState } from "react";
-import { useTranslations } from "next-intl";
-import { useMutation } from "@tanstack/react-query";
-import { CellContext } from "@tanstack/react-table";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
-import EmailIcon from "@mui/icons-material/Email";
-import { Button, CircularProgress, Typography } from "@mui/material";
+import { ActionMenu, ActionMenuItem } from "@/components/ActionMenu";
+import { Status } from "@/components/ChipStatus";
+import FormModal from "@/components/FormModal";
+import Guidance from "@/components/Guidance";
+import { Message } from "@/components/Message";
+import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
 import { useStore } from "@/data/store";
+import useQueryAlerts from "@/hooks/useQueryAlerts";
+import useQueryConfirmAlerts from "@/hooks/useQueryConfirmAlerts";
 import { mockedResearcherAffiliationsGuidance } from "@/mocks/data/cms";
 import {
+  AffiliationsTable,
   PageBody,
   PageBodyContainer,
-  PageGuidance,
-  Affiliations,
+  PageColumnBody,
+  PageColumnDetails,
+  PageColumns,
   PageSection,
 } from "@/modules";
-import useQueryAlerts from "@/hooks/useQueryAlerts";
-import { ResearcherAffiliation } from "@/types/application";
+import useOrganisationInvite from "@/queries/useOrganisationInvite";
 import {
   deleteAffiliationQuery,
-  putAffiliationQuery,
   postAffiliationQuery,
+  putAffiliationQuery,
   usePaginatedAffiliations,
 } from "@/services/affiliations";
 import { PostAffiliationPayload } from "@/services/affiliations/types";
-import FormModal from "@/components/FormModal";
-import { ActionMenu, ActionMenuItem } from "@/components/ActionMenu";
-import { Message } from "@/components/Message";
-import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
-import { Status } from "@/components/ChipStatus";
-import useQueryConfirmAlerts from "@/hooks/useQueryConfirmAlerts";
-import useOrganisationInvite from "@/queries/useOrganisationInvite";
+import { ResearcherAffiliation } from "@/types/application";
 import { QueryState } from "@/types/form";
 import { getCombinedQueryState } from "@/utils/query";
-import { renderErrorToString } from "@/utils/translations";
 import { showAlert } from "@/utils/showAlert";
+import { renderErrorToString } from "@/utils/translations";
+import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import EmailIcon from "@mui/icons-material/Email";
+import { Button, CircularProgress, Typography } from "@mui/material";
+import { useMutation } from "@tanstack/react-query";
+import { CellContext } from "@tanstack/react-table";
+import { useTranslations } from "next-intl";
+import { useCallback, useState } from "react";
 import AffiliationsForm from "../AffiliationsForm";
 
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";
+const NAMESPACE_TRANSLATION_AFFILIATIONS = "Affiliations";
 
 export default function AffiliationsPage() {
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
+  const t = useTranslations(NAMESPACE_TRANSLATION_AFFILIATIONS);
 
   const [open, setOpen] = useState(false);
   const [selectedAffiliation, setSelectedAffiliation] = useState<
@@ -50,11 +55,7 @@ export default function AffiliationsPage() {
   >(undefined);
   const routes = useStore(state => state.getApplication().routes);
 
-  const { user, setHistories, getHistories } = useStore(state => ({
-    user: state.config.user,
-    setHistories: state.setHistories,
-    getHistories: state.getHistories,
-  }));
+  const user = useStore(state => state.getUser());
 
   const {
     data: affiliationsData,
@@ -227,72 +228,80 @@ export default function AffiliationsPage() {
 
   return (
     <PageBodyContainer heading={tProfile("affiliationsTitle")}>
-      <PageGuidance {...mockedResearcherAffiliationsGuidance}>
-        <PageBody>
-          <PageSection>
-            <FormModal
-              open={open}
-              isDismissable
-              onClose={() => {
-                setOpen(false);
-              }}
-              heading={
-                selectedAffiliation
-                  ? tProfile("editAffiliationForm")
-                  : tProfile("addAffiliationSelectOrganisationForm")
-              }>
-              <AffiliationsForm
+      <PageColumns>
+        <PageColumnBody lg={8}>
+          <PageBody>
+            <PageSection>
+              <FormModal
+                open={open}
+                isDismissable
                 onClose={() => {
                   setOpen(false);
-                  setSelectedAffiliation(undefined);
                 }}
-                onSubmit={handleDetailsSubmit}
-                queryState={combinedQueryState}
-                initialValues={selectedAffiliation}
-              />
-            </FormModal>
-            <Typography sx={{ mb: 2 }}>
-              {tProfile("affiliationsDescription")}
-            </Typography>
-            {!!orcIdBannerToAppear && (
-              <Message severity="warning" sx={{ mb: 2 }}>
-                {/* This contains a link in the designs that should link to the first entry that needed to be edited, this can be implemented once edit affiliations is implemented */}
-                {tProfile("missingOrcIdMessage")}
-              </Message>
-            )}{" "}
-            {affiliationsData && (
-              <Affiliations
-                setHistories={setHistories}
-                getHistories={getHistories}
-                extraColumns={extraColumns}
-                affiliationsData={affiliationsData}
-                getAffiliationsQueryState={getAffiliationsQueryState}
-                last_page={last_page}
-                total={total}
-                setPage={setPage}
-              />
-            )}
-          </PageSection>
+                heading={
+                  selectedAffiliation
+                    ? tProfile("editAffiliationForm")
+                    : tProfile("addAffiliationSelectOrganisationForm")
+                }>
+                <AffiliationsForm
+                  onClose={() => {
+                    setOpen(false);
+                    setSelectedAffiliation(undefined);
+                  }}
+                  onSubmit={handleDetailsSubmit}
+                  queryState={combinedQueryState}
+                  initialValues={selectedAffiliation}
+                />
+              </FormModal>
+              <Typography sx={{ mb: 2 }}>
+                {tProfile("affiliationsDescription")}
+              </Typography>
+              {!!orcIdBannerToAppear && (
+                <Message severity="warning" sx={{ mb: 2 }}>
+                  {/* This contains a link in the designs that should link to the first entry that needed to be edited, this can be implemented once edit affiliations is implemented */}
+                  {tProfile("missingOrcIdMessage")}
+                </Message>
+              )}{" "}
+              {affiliationsData && (
+                <AffiliationsTable
+                  t={t}
+                  extraColumns={extraColumns}
+                  data={affiliationsData}
+                  queryState={getAffiliationsQueryState}
+                  last_page={last_page}
+                  total={total}
+                  setPage={setPage}
+                />
+              )}
+            </PageSection>
 
-          <div>
-            <Button
-              variant="outlined"
-              onClick={() => {
-                setSelectedAffiliation(undefined);
-                setOpen(true);
-              }}>
-              {tProfile("addAffiliation")}
-            </Button>
-          </div>
+            <div>
+              <Button
+                variant="outlined"
+                onClick={() => {
+                  setSelectedAffiliation(undefined);
+                  setOpen(true);
+                }}>
+                {tProfile("addAffiliation")}
+              </Button>
+            </div>
 
-          <ProfileNavigationFooter
-            previousHref={routes.profileResearcherExperience.path}
-            nextHref={routes.profileResearcherTraining.path}
-            nextStepText={tProfile("training")}
-            isLoading={combinedQueryState.isLoading}
+            <ProfileNavigationFooter
+              previousHref={routes.profileResearcherExperience.path}
+              nextHref={routes.profileResearcherTraining.path}
+              nextStepText={tProfile("training")}
+              isLoading={combinedQueryState.isLoading}
+            />
+          </PageBody>
+        </PageColumnBody>
+        <PageColumnDetails lg={4}>
+          <Guidance
+            {...mockedResearcherAffiliationsGuidance}
+            isCollapsible={false}
+            infoWidth="100%"
           />
-        </PageBody>
-      </PageGuidance>
+        </PageColumnDetails>
+      </PageColumns>
     </PageBodyContainer>
   );
 }

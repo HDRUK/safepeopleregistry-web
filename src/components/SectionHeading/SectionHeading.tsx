@@ -1,48 +1,32 @@
-import { Box, BoxProps, Typography, TypographyProps } from "@mui/material";
+import { Box, BoxProps, Typography } from "@mui/material";
 import { ReactNode } from "react";
 
 export interface SectionHeadingProps extends BoxProps {
   heading?: ReactNode;
   description?: ReactNode;
-  type?: "form" | "content";
-  size?: "large" | "default";
-  variant?: TypographyProps["variant"];
+  actions?: ReactNode;
 }
 
 export default function SectionHeading({
   heading,
   description,
-  variant,
+  actions,
   sx,
-  type = "content",
-  size = "default",
   ...restProps
 }: SectionHeadingProps) {
-  const titleProps: Partial<TypographyProps> = {
-    variant: variant ?? "h2",
-    ...(type === "form" && { component: "fieldset" }),
-    sx: {
-      width: "100%",
-      py: 1,
-      border: "none",
-      ...(size === "large" && {
-        borderRadius: "10px",
-        py: 2,
-        px: 2,
-        backgroundColor: "secondary.main",
-        color: "secondary.contrastText",
-      }),
-      ...(type === "form" && {
-        fontWeight: "normal",
-      }),
-      ...sx,
-    },
-  };
-
   return (
-    <Box {...restProps}>
-      {heading && <Typography {...titleProps}>{heading}</Typography>}
-      {description && <Typography sx={{ py: 2 }}> {description}</Typography>}
-    </Box>
+    (heading || description) && (
+      <Box
+        sx={{ gap: 1, display: "flex", flexDirection: "column", ...sx }}
+        {...restProps}>
+        {heading && (
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Typography variant="h2">{heading}</Typography>
+            <div>{actions}</div>
+          </Box>
+        )}
+        {description && <Typography variant="body1">{description}</Typography>}
+      </Box>
+    )
   );
 }
