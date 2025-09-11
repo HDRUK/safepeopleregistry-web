@@ -417,6 +417,36 @@ export const mockedOrganisationProfileGuidance: TabGuidance = {
             process becomes for Users (an employee or student of an
             Organisation) to gain access to sensitive data.
           </Typography>
+
+          <Typography mb={3}>
+            <strong>Senior Responsible Officers (SROs)</strong> are responsible
+            for:
+          </Typography>
+
+          <ul style={{ marginBottom: "1rem", paddingLeft: "1.25rem" }}>
+            <li>Creating the Organisation’s Safe People Registry account</li>
+            <li>
+              Nominating <strong>Delegates</strong> to administrate User
+              affiliations
+            </li>
+            <li>
+              Providing and maintaining accurate information in the
+              Organisation’s Safe People Registry profile
+            </li>
+            <li>
+              Accepting the Safe People Registry's Terms and Conditions on
+              behalf of the Organisation
+            </li>
+          </ul>
+
+          <Typography mb={3}>
+            It's essential for your Organisation to designate an SRO. The Safe
+            People Registry deals with sensitive data involving your Users
+            (employees or students) and their work on sensitive data projects
+            within the UK. Therefore, there needs to be senior-level visibility
+            and accountability for this Safe People Registry Organisation
+            account.
+          </Typography>
         </>
       ),
     },
@@ -527,36 +557,6 @@ export const mockedOrganisationProfileGuidance: TabGuidance = {
             Organisations are responsible for the behaviour of a User, who is
             either an employee, on an honorary contract, or a student of their
             institution.
-          </Typography>
-
-          <Typography mb={3}>
-            <strong>Senior Responsible Officers (SROs)</strong> are responsible
-            for:
-          </Typography>
-
-          <ul style={{ marginBottom: "1rem", paddingLeft: "1.25rem" }}>
-            <li>Creating the Organisation’s Safe People Registry account</li>
-            <li>
-              Nominating <strong>Delegates</strong> to administrate User
-              affiliations
-            </li>
-            <li>
-              Providing and maintaining accurate information in the
-              Organisation’s Safe People Registry profile
-            </li>
-            <li>
-              Accepting the Safe People Registry's Terms and Conditions on
-              behalf of the Organisation
-            </li>
-          </ul>
-
-          <Typography mb={3}>
-            It's essential for your Organisation to designate an SRO. The Safe
-            People Registry deals with sensitive data involving your Users
-            (employees or students) and their work on sensitive data projects
-            within the UK. Therefore, there needs to be senior-level visibility
-            and accountability for this Safe People Registry Organisation
-            account.
           </Typography>
 
           <Typography mb={3}>

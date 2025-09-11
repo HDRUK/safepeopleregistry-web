@@ -293,7 +293,7 @@ type Organisation = OrganisationIdvt &
     unclaimed: number;
     organisation_size?: number;
     project?: WithModelState<ResearcherProject>;
-    system_approved: boolean;
+    system_approved?: boolean;
   }>;
 
 interface ResearcherEducation {

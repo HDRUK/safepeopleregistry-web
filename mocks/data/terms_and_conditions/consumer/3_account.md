@@ -1,6 +1,6 @@
 # 3. YOUR ACCOUNT AND PASSWORD
 
-## 3.1 You will need to register an account with us on Safe People Registry in order to access the services available on Safe People Registry (“Account”).
+## 3.1 You will need to register an account with us on the Safe People Registry in order to access the services available on the Safe People Registry (“Account”).
 
 ## 3.2 In order to register an Account, you must be aged 18 or over. You will be asked to provide certain information (such as your name and e-mail address) and create a password. You must treat the password (and any unique identification code provided as part of account registration) as confidential and you must not disclose it to any third party.
 

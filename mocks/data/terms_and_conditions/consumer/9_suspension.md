@@ -1,14 +1,14 @@
 # 9. SUSPENSION AND TERMINATION
 
-## 9.1 Your use of Safe People Registry may, wholly or partly, be suspended if:
+## 9.1 Your use of the Safe People Registry may, wholly or partly, be suspended if:
 
-### 9.1.1 we have concerns about the security of Safe People Registry;
+### 9.1.1 we have concerns about the security of the Safe People Registry;
 
-### 9.1.2 we suspect your use of Safe People Registry has been fraudulent or is being conducted in an unauthorised way; or
+### 9.1.2 we suspect your use of the Safe People Registry has been fraudulent or is being conducted in an unauthorised way; or
 
 ### 9.1.3 we are required by law or regulation to do so.
 
-We will not be liable to you for the unavailability of Safe People Registry during such suspension.
+We will not be liable to you for the unavailability of the Safe People Registry during such suspension.
 
 ## 9.2 If you breach any of these Terms, we may immediately do any or all of the following:
 
@@ -24,4 +24,4 @@ We will not be liable to you for the unavailability of Safe People Registry duri
 
 ### 9.2.6 disclose such information to law enforcement authorities as we reasonably feel is necessary to do so.
 
-## 9.3 We may terminate the operation of Safe People Registry at any time on written notice.
+## 9.3 We may terminate the operation of the Safe People Registry at any time on written notice.
