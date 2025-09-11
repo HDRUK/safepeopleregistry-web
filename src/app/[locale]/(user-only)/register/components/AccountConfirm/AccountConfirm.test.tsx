@@ -22,13 +22,7 @@ jest.mock("js-cookie", () => ({
 const mockedReplace = jest.fn();
 
 const TestComponent = () => {
-  return (
-    <AccountConfirm
-      showAccountPicker={false}
-      pendingAccount={false}
-      hasAccessToken={false}
-    />
-  );
+  return <AccountConfirm showAccountPicker={false} unclaimedUser={undefined} />;
 };
 
 describe("<AccountConfirm />", () => {

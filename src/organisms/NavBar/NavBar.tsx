@@ -1,7 +1,9 @@
 "use client";
 
+import { ROUTES } from "@/consts/router";
 import { useStore } from "@/data/store";
 import { Link } from "@/i18n/routing";
+import getMe from "@/services/auth/getMe";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   Box,
@@ -13,10 +15,8 @@ import {
   useTheme,
 } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { MouseEvent, useEffect, useState } from "react";
-import getMe from "@/services/auth/getMe";
 import { useRouter } from "next/navigation";
-import { ROUTES } from "@/consts/router";
+import { MouseEvent, useEffect, useState } from "react";
 import HorizontalDrawer from "../../components/HorizontalDrawer";
 import MaskLabel from "../../components/MaskLabel";
 import SoursdLogo from "../../components/SoursdLogo";
@@ -91,13 +91,18 @@ function renderButtons(
   });
 }
 
-export default function NavBar() {
+interface NavBarProps {
+  loggedIn?: boolean;
+}
+
+export default function NavBar({ loggedIn }: NavBarProps) {
   const t = useTranslations(NAMESPACE_TRANSLATIONS_NAVBAR);
   const router = useRouter();
   const [storedUser, setUser] = useStore(store => [
     store.getUser(),
     store.setUser,
   ]);
+
   const theme = useTheme();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -158,18 +163,18 @@ export default function NavBar() {
     {
       color: ButtonColor.Primary,
       variant: ButtonVariant.Outlined,
-      text: storedUser ? t("signOutButton") : t("signInButton"),
+      text: loggedIn ? t("signOutButton") : t("signInButton"),
       onClick: (e: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
         e.preventDefault();
 
-        if (storedUser) {
+        if (loggedIn) {
           handleLogout();
         } else {
           handleLogin();
         }
       },
     },
-    ...(storedUser
+    ...(loggedIn
       ? []
       : [
           {

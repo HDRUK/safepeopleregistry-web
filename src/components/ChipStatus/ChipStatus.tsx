@@ -34,6 +34,8 @@ export enum Status {
   USER_LEFT_PROJECT = "user_left_project",
   ORG_LEFT_PROJECT = "org_left_project_short",
   NONE = "none",
+  ORGANISATION_NOT_VALIDATED = "organisation_not_validated",
+  ORGANISATION_VALIDATED = "organisation_validated",
 }
 
 const STATUS_WITH_SHORT_DESCRIPTION = [
@@ -53,7 +55,6 @@ const STATUS_WITH_SHORT_DESCRIPTION = [
   Status.MORE_USER_INFO_REQ_ESCALATION_MANAGER,
   Status.MORE_USER_INFO_REQ_ESCALATION_COMITTEE,
   Status.FORM_RECEIVED,
-  Status.PROJECT_PENDING,
 ];
 
 interface ChipStatusProps extends ChipProps {
@@ -70,6 +71,7 @@ const getColorForStatus = (status?: Status): string => {
       Status.VALIDATION_COMPLETE,
       Status.VALIDATED,
       Status.AFFILIATION_APPROVED,
+      Status.ORGANISATION_VALIDATED,
     ].includes(status!)
   )
     return "success";
@@ -80,6 +82,7 @@ const getColorForStatus = (status?: Status): string => {
       Status.USER_VALIDATION_DECLINED,
       Status.ORG_VALIDATION_DECLINED,
       Status.AFFILIATION_REJECTED,
+      Status.ORGANISATION_NOT_VALIDATED,
     ].includes(status!)
   )
     return "error";

@@ -66,7 +66,7 @@ describe("NavBar Component", () => {
   });
 
   it.each(linksText)("renders nav item %s", name => {
-    render(<NavBar />);
+    render(<NavBar loggedIn />);
 
     expect(
       screen.getByRole("link", {
@@ -117,7 +117,7 @@ describe("NavBar Component", () => {
       })
     );
 
-    render(<NavBar />);
+    render(<NavBar loggedIn />);
 
     fireEvent.click(screen.getByRole("button", { name: "Sign Out" }));
 
@@ -139,7 +139,7 @@ describe("NavBar Component", () => {
 
     (get as jest.Mock).mockReturnValue(mockedJwt);
 
-    render(<NavBar />);
+    render(<NavBar loggedIn />);
 
     expect(
       screen.getByRole("button", {

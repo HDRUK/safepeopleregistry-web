@@ -1,16 +1,17 @@
-import { useState } from "react";
-import { Typography, Button, Box, List, ListItemText } from "@mui/material";
-import { useTranslations } from "next-intl";
+import { UserGroup } from "@/consts/user";
+import descriptionContent from "@/mocks/data/terms_and_conditions/description.md";
 import {
   mockedTermsAndConditionsBusiness,
   mockedTermsAndConditionsConsumer,
 } from "@/mocks/data/terms_and_conditions/index";
-import descriptionContent from "@/mocks/data/terms_and_conditions/description.md";
+import { Box, Button, List, ListItemText, Typography } from "@mui/material";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
 import Markdown from "../Markdown";
 import { StyledListItemButton, StyledRadio } from "./TermsAndConditions.styles";
 
 export interface TermsAndConditionsProps {
-  accountType: string | null;
+  userGroup: UserGroup | null;
   onAccept: () => void;
   onDecline: () => void;
 }
@@ -21,7 +22,7 @@ type TermsKey =
   | keyof typeof mockedTermsAndConditionsBusiness;
 
 export default function TermsAndConditions({
-  accountType,
+  userGroup,
   onAccept,
   onDecline,
 }: TermsAndConditionsProps) {
@@ -33,7 +34,7 @@ export default function TermsAndConditions({
   };
 
   const mockedTermsAndConditions =
-    accountType === "user"
+    userGroup === UserGroup.USERS
       ? mockedTermsAndConditionsConsumer
       : mockedTermsAndConditionsBusiness;
 
