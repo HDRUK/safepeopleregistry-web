@@ -17,8 +17,12 @@ import useOrganisationsQuery from "./useOrganisationsQuery";
 import getOrganisationRegistries from "./getOrganisationRegistries";
 import getOrganisationRegistriesQuery from "./getOrganisationRegistriesQuery";
 import postOrganisationNewAccount from "./postOrganisationNewAccount";
+import putOrganisationApprovedQuery from "./putOrganisationApprovedQuery";
+import putOrganisationApproved from "./putOrganisationApproved";
 
 export {
+  putOrganisationApprovedQuery,
+  putOrganisationApproved,
   getOrganisations,
   getOrganisation,
   getOrganisationQuery,

@@ -7,6 +7,7 @@ import { Link as MuiLink, Typography } from "@mui/material";
 import { Link } from "@/i18n/routing";
 import { Box } from "@mui/system";
 import { CellContext } from "@tanstack/react-table";
+import FileDownloadLink from "@/components/FileDownloadLink";
 import {
   CustodianUser,
   Organisation,
@@ -17,6 +18,7 @@ import {
   ResearcherProject,
   Translations,
   User,
+  File,
 } from "../types/application";
 import { injectParamsIntoPath } from "./application";
 import { formatShortDate } from "./date";
@@ -160,9 +162,33 @@ function renderOrganisationsNameCell(values: Organisation | Organisation[]) {
   return names;
 }
 
-const renderStatusCell = (info: CellContext<User | ProjectUser, unknown>) => (
-  <ChipStatus status={info.getValue() as Status} />
-);
+function renderFileDownloadLink(files: File[], type: string) {
+  const file = (files || []).find(file => file.type === type);
+
+  if (!file) return null;
+
+  return <FileDownloadLink file={file} />;
+}
+
+const renderOrganisationValidatedCell = (
+  info: CellContext<Organisation, unknown>
+) => {
+  const systemApproved = info.getValue();
+
+  return (
+    <ChipStatus
+      status={
+        systemApproved
+          ? Status.ORGANISATION_VALIDATED
+          : Status.ORGANISATION_NOT_VALIDATED
+      }
+    />
+  );
+};
+
+const renderStatusCell = (
+  info: CellContext<User | ProjectUser | Organisation, unknown>
+) => <ChipStatus status={info.getValue() as Status} />;
 
 export {
   renderAffiliationDateRangeCell,
@@ -177,4 +203,6 @@ export {
   renderUserOrganisationsNameCell,
   renderWarningCell,
   renderAffiliationRelationship,
+  renderOrganisationValidatedCell,
+  renderFileDownloadLink,
 };
