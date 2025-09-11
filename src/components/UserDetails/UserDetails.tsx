@@ -19,6 +19,7 @@ export default function UserDetails({
   const role = projectUser?.role;
   const organisation =
     directOrganisation ?? projectUser?.affiliation?.organisation;
+  const email = projectUser?.affiliation?.email ?? user?.email;
 
   return (
     <Box
@@ -47,9 +48,9 @@ export default function UserDetails({
             {organisation.organisation_name}
           </Typography>
         )}
-        {user?.email && (
-          <Link href={`mailto:${user.email}`} sx={{ wordBreak: "break-all" }}>
-            {user.email}
+        {email && (
+          <Link href={`mailto:${email}`} sx={{ wordBreak: "break-all" }}>
+            {email}
           </Link>
         )}
       </Box>
