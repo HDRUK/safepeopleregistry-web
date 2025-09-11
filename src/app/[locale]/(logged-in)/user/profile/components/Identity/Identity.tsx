@@ -199,6 +199,7 @@ export default function Identity() {
                           ) : (
                             <>
                               <Button
+                                sx={{ mb: 1 }}
                                 variant="outlined"
                                 onClick={() => setShowModal(true)}>
                                 {idvt_started_at
