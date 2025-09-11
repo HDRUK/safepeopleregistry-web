@@ -1,4 +1,4 @@
-import { AccountType } from "@/types/accounts";
+import { UserGroup } from "@/consts/user";
 import keycloakConfig from "../config/keycloak";
 
 const getLoginUrl = () => {
@@ -31,21 +31,21 @@ const handleLogout = () => {
   window.location.href = getLogoutUrl();
 };
 
-const getRegisterUrl = (selectedAccountType?: AccountType | null) => {
+const getRegisterUrl = (selectedUserGroup?: UserGroup | null) => {
   const registerUrl = `${keycloakConfig.authServerUrl}/realms/${keycloakConfig.realm}/protocol/openid-connect/registrations`;
   const params = new URLSearchParams({
     client_id: keycloakConfig.clientId,
     scope: "openid profile email",
     redirect_uri: keycloakConfig.redirectUriRegister,
     response_type: "code",
-    ...(selectedAccountType && { state: selectedAccountType.toString() }),
+    ...(selectedUserGroup && { state: selectedUserGroup.toString() }),
   });
 
   return `${registerUrl}?${params.toString()}`;
 };
 
-const handleRegister = (selectedAccountType?: AccountType | null) => {
-  window.location.href = getRegisterUrl(selectedAccountType);
+const handleRegister = (selectedUserGroup?: UserGroup | null) => {
+  window.location.href = getRegisterUrl(selectedUserGroup);
 };
 
 export {

@@ -2,14 +2,14 @@
 
 import React, { ReactNode } from "react";
 import { Button, Typography } from "@mui/material";
-import { AccountType } from "@/types/accounts";
+import { UserGroup } from "@/consts/user";
 
 interface AccountOptionProps {
   icon: React.ElementType;
   label: ReactNode;
-  onClick: (name: AccountType) => void;
-  name: AccountType;
-  selected: AccountType | null;
+  onClick: (name: UserGroup) => void;
+  name: UserGroup;
+  selected: UserGroup | null;
   disabled?: boolean;
 }
 

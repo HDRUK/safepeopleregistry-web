@@ -1,4 +1,6 @@
 import getMe from "./getMe";
+import getMeUnclaimed from "./getMeUnclaimed";
+import getMeUnclaimedQuery from "./getMeUnclaimedQuery";
 import postRegister from "./postRegister";
 import postClaimUser from "./postClaimUser";
 import { getRefreshAccessToken } from "./getRefreshAccessToken";
@@ -10,6 +12,8 @@ export {
   getMe,
   getAccessToken,
   getRefreshAccessToken,
+  getMeUnclaimed,
+  getMeUnclaimedQuery,
 };
 
 export type * from "./types";

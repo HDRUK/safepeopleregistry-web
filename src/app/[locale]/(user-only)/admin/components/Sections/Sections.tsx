@@ -9,6 +9,7 @@ import SendInviteCustodian from "@/modules/SendInviteCustodian";
 import InviteUser from "@/modules/InviteUser";
 import { Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
+import { OrganisationsList } from "@/organisms";
 
 const NAMESPACE_TRANSLATIONS_ADMINISTRATION = "Administration";
 
@@ -23,6 +24,10 @@ export default function Sections() {
     {
       name: "user",
       component: <InviteUser />,
+    },
+    {
+      name: "organisations",
+      component: <OrganisationsList />,
     },
   ];
 

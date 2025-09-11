@@ -1,4 +1,5 @@
 import NavBar from "@/organisms/NavBar";
+import { isLoggedIn } from "@/utils/auth";
 import { DetailedHTMLProps, HTMLAttributes } from "react";
 
 type HeaderProps = DetailedHTMLProps<
@@ -6,10 +7,12 @@ type HeaderProps = DetailedHTMLProps<
   HTMLHeadElement
 >;
 
-export default function Header(props: HeaderProps) {
+export default async function Header(props: HeaderProps) {
+  const loggedIn = await isLoggedIn();
+
   return (
     <header {...props}>
-      <NavBar />
+      <NavBar loggedIn={loggedIn} />
     </header>
   );
 }

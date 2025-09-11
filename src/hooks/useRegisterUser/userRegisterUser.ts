@@ -1,14 +1,14 @@
+import { UserGroup } from "@/consts/user";
 import { useRouter } from "@/i18n/routing";
-import { AccountType } from "@/types/accounts";
-import { useMutation } from "@tanstack/react-query";
-import { Auth, User } from "@/types/application";
+import { User } from "@/types/application";
 import { getProfilePathByEntity } from "@/utils/redirects";
+import { useMutation } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 import {
   postClaimUser,
+  PostClaimUserPayload,
   postRegister,
   PostRegisterPayload,
-  PostClaimUserPayload,
 } from "../../services/auth";
 import {
   postOrganisationNewAccount,
@@ -19,16 +19,16 @@ import {
 import { getCombinedQueryState } from "../../utils/query";
 
 interface UseRegisterUserArgs {
-  accountType: AccountType | null;
-  unclaimedOrgAdmin: Partial<User> | null;
+  userGroup: UserGroup | null;
+  unclaimedUser: Partial<User> | undefined | null;
 }
 
 export default function useRegisterUser({
-  accountType,
-  unclaimedOrgAdmin,
+  userGroup,
+  unclaimedUser,
 }: UseRegisterUserArgs) {
   const router = useRouter();
-  const orgId = unclaimedOrgAdmin?.organisation_id ?? null;
+  const orgId = unclaimedUser?.organisation_id ?? null;
 
   const { mutateAsync: mutateRegisterNewUser, ...registerMutationState } =
     useMutation({
@@ -71,24 +71,24 @@ export default function useRegisterUser({
     },
   });
 
-  const handleRegister = async (user: Auth) => {
-    if (!accountType) return;
+  const handleRegister = async (user: User) => {
+    if (!userGroup) return;
 
     Cookies.remove("account_type");
 
     const hasUnclaimedOrg =
-      accountType === AccountType.ORGANISATION && !!unclaimedOrgAdmin;
+      userGroup === UserGroup.ORGANISATIONS && !!unclaimedUser;
 
     if (hasUnclaimedOrg) {
       // Claim invited user
-      if (unclaimedOrgAdmin?.registry_id) {
-        await mutateClaimUser({ registry_id: unclaimedOrgAdmin.registry_id });
+      if (unclaimedUser?.registry_id) {
+        await mutateClaimUser({ registry_id: unclaimedUser.registry_id });
         Cookies.remove("account_digi_ident");
       }
 
       // Set unclaimed org to claimed
       await mutateAsyncOrganisation({ unclaimed: 0 });
-    } else if (accountType === AccountType.ORGANISATION) {
+    } else if (userGroup === UserGroup.ORGANISATIONS) {
       // No invite - Create new org
       await mutateAsyncRegisterNewOrganisation({
         organisation_name: `${user?.given_name} ${user?.family_name} Org`,
@@ -100,19 +100,22 @@ export default function useRegisterUser({
     } else {
       // No invite - Create user
       await mutateRegisterNewUser({
-        account_type: accountType,
+        account_type: userGroup,
       });
     }
 
-    router.replace(getProfilePathByEntity(accountType));
+    router.replace(getProfilePathByEntity(userGroup));
   };
 
   return {
     handleRegister,
-    ...getCombinedQueryState([
-      registerMutationState,
-      organisationMutationState,
-      organisationMutationStateNewAccount,
-    ]),
+    ...getCombinedQueryState(
+      [
+        registerMutationState,
+        organisationMutationState,
+        organisationMutationStateNewAccount,
+      ],
+      false
+    ),
   };
 }

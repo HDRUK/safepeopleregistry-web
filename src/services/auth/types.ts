@@ -1,10 +1,10 @@
-import { AccountType } from "@/types/accounts";
+import { UserGroup } from "@/consts/user";
 import { User } from "@/types/application";
 
 type MeResponse = User;
 
 interface PostRegisterPayload {
-  account_type: AccountType;
+  account_type: UserGroup;
   organisation_id?: number;
 }
 
