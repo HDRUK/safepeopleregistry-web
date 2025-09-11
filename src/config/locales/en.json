@@ -891,6 +891,7 @@
     "toolTipMarkAsUnread": "Mark message as unread and close!"
   },
   "Organisation": {
+    "putOrganisationApprovedError": "There was an approving the Organisation. Please try again or contact us at <contactLink></contactLink>",
     "uniqueIdentifierCaption": "This ‘key’ represents you as an Organisation within Safe People Registry. This is unique to you! Your Organisation will have a unique Safe People Registry identifier associated with your account once your Organisation profile has been completed. This persistent unique identifier will be used to notify Data Custodians of any key changes to your Organisation profile that may impact data access decisions.",
     "inviteOrganisationTitle": "Request Organisation to be invited to create a Safe People Registry account",
     "inviteOrganisation": "Invite Organisation",

@@ -10,8 +10,6 @@ type HeaderProps = DetailedHTMLProps<
 export default async function Header(props: HeaderProps) {
   const loggedIn = await isLoggedIn();
 
-  console.log("**** loggedIn", loggedIn);
-
   return (
     <header {...props}>
       <NavBar loggedIn={loggedIn} />
