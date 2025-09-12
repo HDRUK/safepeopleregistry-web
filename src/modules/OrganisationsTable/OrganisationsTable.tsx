@@ -12,6 +12,7 @@ import ErrorMessage from "../../components/ErrorMessage";
 import Table from "../../components/Table";
 import { Organisation } from "../../types/application";
 import { ModuleTables } from "../../types/modules";
+import { FileType } from "@/consts/files";
 
 export type OrganisationsTableColumns =
   | "organisationName"
@@ -42,7 +43,10 @@ export default function OrganisationsTable({
       createDefaultColumn("sroDocument", {
         accessorKey: "files",
         cell: info =>
-          renderFileDownloadLink(info.getValue(), "sro_application"),
+          renderFileDownloadLink(
+            info.getValue(),
+            FileType.DECLARATION_SRO_DECLARATION
+          ),
       }),
       createDefaultColumn("systemApproved", {
         accessorKey: "system_approved",

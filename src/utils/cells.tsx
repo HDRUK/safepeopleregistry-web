@@ -22,6 +22,7 @@ import {
 } from "../types/application";
 import { injectParamsIntoPath } from "./application";
 import { formatShortDate } from "./date";
+import { FileType } from "@/consts/files";
 
 function renderAffiliationRelationship(
   info: CellContext<ResearcherAffiliation, unknown>,
@@ -162,7 +163,7 @@ function renderOrganisationsNameCell(values: Organisation | Organisation[]) {
   return names;
 }
 
-function renderFileDownloadLink(files: File[], type: string) {
+function renderFileDownloadLink(files: File[], type: FileType) {
   const file = (files || []).find(file => file.type === type);
 
   if (!file) return null;
