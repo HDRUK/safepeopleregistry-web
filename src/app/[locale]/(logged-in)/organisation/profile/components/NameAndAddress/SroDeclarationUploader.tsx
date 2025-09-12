@@ -38,7 +38,7 @@ const SroDeclarationUploader = ({
 
   const uploadFile = useOrganisationFileUpload({
     organisation: organisation!,
-    fileType: FileType.DECLARATION,
+    fileType: FileType.DECLARATION_SRO,
     upload,
   });
 
