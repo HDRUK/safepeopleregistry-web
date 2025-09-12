@@ -8,11 +8,11 @@ import {
 import { filterColumns } from "@/utils/table";
 import { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
+import { FileType } from "@/consts/files";
 import ErrorMessage from "../../components/ErrorMessage";
 import Table from "../../components/Table";
 import { Organisation } from "../../types/application";
 import { ModuleTables } from "../../types/modules";
-import { FileType } from "@/consts/files";
 
 export type OrganisationsTableColumns =
   | "organisationName"
