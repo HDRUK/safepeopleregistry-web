@@ -38,12 +38,12 @@ const SroDeclarationUploader = ({
 
   const uploadFile = useOrganisationFileUpload({
     organisation: organisation!,
-    fileType: FileType.DECLARATION,
+    fileType: FileType.DECLARATION_SRO,
     upload,
   });
 
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    const data = await uploadFile(name, e);
+    const data = await uploadFile("", e);
     if (data?.id) {
       onChange(data.id);
     }
