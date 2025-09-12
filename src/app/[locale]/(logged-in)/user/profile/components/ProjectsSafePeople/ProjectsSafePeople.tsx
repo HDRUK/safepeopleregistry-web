@@ -1,16 +1,21 @@
 "use client";
 
 import { useStore } from "@/data/store";
+import useColumns from "@/hooks/useColumns";
 import PageBody from "@/modules/PageBody";
 import ProjectUsersList from "@/organisms/ProjectUsersList";
 import { useGetProjectUsers } from "@/services/projects";
 import { EntityType } from "@/types/api";
+import { renderUserNameCell } from "@/utils/cells";
 import { useTranslations } from "next-intl";
 
 const NAMESPACE_TRANSLATION = "CustodianProfile";
 
 export default function ProjectsSafePeople() {
   const t = useTranslations(NAMESPACE_TRANSLATION);
+  const { createDefaultColumn } = useColumns({
+    t,
+  });
 
   const { registryId, projectId, route } = useStore(state => ({
     registryId: state.getUser()?.registry_id,
@@ -27,6 +32,13 @@ export default function ProjectsSafePeople() {
     }
   );
 
+  const extraColumns = [
+    createDefaultColumn("name", {
+      accessorFn: row => row.registry.user,
+      cell: info => renderUserNameCell(info.getValue()),
+    }),
+  ];
+
   return (
     <PageBody
       heading={t("safePeople")}
@@ -40,6 +52,7 @@ export default function ProjectsSafePeople() {
         isPaginated
         variant={EntityType.USER}
         includeColumns={["name", "projectRole", "organisationName"]}
+        extraColumns={extraColumns}
         routes={{
           name: route,
         }}

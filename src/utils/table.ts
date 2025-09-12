@@ -5,9 +5,36 @@ function filterColumns<T, P>(
   includeColumns: string[],
   extraColumns?: ColumnDef<T, P>[]
 ) {
-  return initialColumns
+  const replacedColumns = initialColumns.map(column => {
+    let replacedColumn;
+
+    const columnExists = (extraColumns || []).find(extraColumn => {
+      const isSameColumn = column.id === extraColumn.id;
+
+      if (isSameColumn) {
+        replacedColumn = {
+          ...column,
+          ...extraColumn,
+        };
+      }
+
+      return isSameColumn;
+    });
+
+    if (columnExists) {
+      return replacedColumn;
+    }
+
+    return column;
+  });
+
+  const filteredExtraColumns = (extraColumns || []).filter(column => {
+    return !initialColumns.find(extraColumn => column.id === extraColumn.id);
+  });
+
+  return replacedColumns
     .filter(({ id }) => (id ? includeColumns.includes(id) : true))
-    .concat(extraColumns || []);
+    .concat(filteredExtraColumns);
 }
 
 export { filterColumns };
