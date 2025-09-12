@@ -43,7 +43,7 @@ const SroDeclarationUploader = ({
   });
 
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    const data = await uploadFile(name, e);
+    const data = await uploadFile("", e);
     if (data?.id) {
       onChange(data.id);
     }
