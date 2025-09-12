@@ -1,5 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { useTranslations } from "next-intl";
+import { render } from "@/utils/testUtils";
 import KeyFeatures from "./KeyFeatures";
 
 jest.mock("next-intl", () => ({
