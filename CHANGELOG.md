@@ -1,3 +1,9 @@
+## [1.10.1](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.10.0...v1.10.1) (2025-09-12)
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-1878:** merge columns (#476) ([5eb05d7](https://github.com/HDRUK/safepeopleregistry-web/commit/5eb05d76378b065416eb5ff79d4554868821864c))
+
 ## [1.10.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.9.0...v1.10.0) (2025-09-11)
 
 ### ✨ Features
