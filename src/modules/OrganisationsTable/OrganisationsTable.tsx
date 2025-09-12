@@ -43,10 +43,7 @@ export default function OrganisationsTable({
       createDefaultColumn("sroDocument", {
         accessorKey: "files",
         cell: info =>
-          renderFileDownloadLink(
-            info.getValue(),
-            FileType.DECLARATION_SRO_DECLARATION
-          ),
+          renderFileDownloadLink(info.getValue(), FileType.DECLARATION_SRO),
       }),
       createDefaultColumn("systemApproved", {
         accessorKey: "system_approved",
