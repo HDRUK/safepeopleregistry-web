@@ -8,10 +8,10 @@ import FormControlWrapper from "@/components/FormControlWrapper";
 import SroDeclarationUploader from "@/app/[locale]/(logged-in)/organisation/profile/components/NameAndAddress/SroDeclarationUploader";
 import Link from "next/link";
 import { Grid } from "@mui/material";
+import { FileType } from "@/consts/files";
 
 const NAMESPACE_TRANSLATION = "Organisations.SroDeclaratation";
 const SRO_DELCLARATION_FILE = "/Registry_SRO_Declaration.pdf";
-const SRO_DELCLARATION_TYPE = "DECLARATION_SRO";
 
 export default function SroDeclaration() {
   const organisation = useStore(state => state.config.organisation);
@@ -19,7 +19,8 @@ export default function SroDeclaration() {
 
   const latestSroFile = organisation?.files
     ?.filter(
-      file => file.status === "processed" && file.type === SRO_DELCLARATION_TYPE
+      file =>
+        file.status === "processed" && file.type === FileType.DECLARATION_SRO
     )
     ?.sort(
       (a, b) =>

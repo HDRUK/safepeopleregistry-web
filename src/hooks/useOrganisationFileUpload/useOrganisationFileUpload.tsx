@@ -22,9 +22,13 @@ export default function useOrganisationFileUpload({
 
       if (fileFromEvent) {
         formData.append("file", fileFromEvent);
-        formData.append("file_type", `${fileType}_${name.toUpperCase()}`);
+        formData.append(
+          "file_type",
+          !name ? fileType : `${fileType}_${name.toUpperCase()}`
+        );
         formData.append("entity_type", EntityType.ORGANISATION);
         formData.append("organisation_id", `${organisation?.id}`);
+
         const fileFromApi = await upload(formData);
         resetFileFromEvent(e);
         return fileFromApi;
