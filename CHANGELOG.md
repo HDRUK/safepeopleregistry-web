@@ -1,3 +1,11 @@
+## [1.10.2](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.10.1...v1.10.2) (2025-09-15)
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-1887:** Tweak homepage register link (#477) ([c672a6d](https://github.com/HDRUK/safepeopleregistry-web/commit/c672a6d02db2609cfe32b4c3021ded9d06cddfde))
+* **REGISTRY-1888:** header fix (#480) ([d2fc5f1](https://github.com/HDRUK/safepeopleregistry-web/commit/d2fc5f1e5f8729dc0c6ad5eaaaa920fd2a67768a))
+* **REGISTRY-1890:** file type wrong (#481) ([ad6d7d4](https://github.com/HDRUK/safepeopleregistry-web/commit/ad6d7d4f873dc508f3ada459e6694ec90b86e282))
+
 ## [1.10.1](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.10.0...v1.10.1) (2025-09-12)
 
 ### 🐛 Bug Fixes
