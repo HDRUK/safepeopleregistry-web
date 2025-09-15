@@ -34,7 +34,7 @@ export default function CharitiesTable({
         header: t("website"),
         cell: info => (
           <MuiLink component={Link} href={info?.getValue()} target="_blank">
-            {info.getValue()}
+            {info?.getValue()}
           </MuiLink>
         ),
       },
@@ -46,7 +46,7 @@ export default function CharitiesTable({
     <Table
       total={charitiesData?.length}
       data={charitiesData}
-      columns={columns || []}
+      columns={columns}
       queryState={{}}
     />
   );
