@@ -89,8 +89,6 @@ export default function Form<T extends FieldValues>({
     }
   };
 
-  console.log("***** methods", methods.formState.errors);
-
   const form = (
     <FormProvider {...extendedMethods}>
       <FormCanLeave canLeave={canLeave}>
