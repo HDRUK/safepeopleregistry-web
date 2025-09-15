@@ -14,7 +14,7 @@ export interface CharitiesTableProps {
 const NAMESPACE_TRANSLATION = "Charities";
 
 export default function CharitiesTable({
-  charitiesData,
+  charitiesData = [],
   tKey = NAMESPACE_TRANSLATION,
 }: CharitiesTableProps) {
   const t = useTranslations(tKey);
@@ -45,7 +45,7 @@ export default function CharitiesTable({
   return (
     <Table
       total={charitiesData.length}
-      data={charitiesData || []}
+      data={charitiesData}
       columns={columns}
       queryState={{}}
     />
