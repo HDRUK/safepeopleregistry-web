@@ -1,6 +1,7 @@
 import { mockedOrganisation } from "@/mocks/data/organisation";
 import { fireEvent, render, screen, waitFor } from "@/utils/testUtils";
 import NameAndAddress from "./NameAndAddress";
+import { faker } from "@faker-js/faker";
 
 const putProps = {
   isError: false,
@@ -89,6 +90,7 @@ describe("<NameAndAddress />", () => {
       town,
       postcode,
       organisation_name,
+      sro_profile_uri,
     } = organisation;
 
     await waitFor(() => {
@@ -100,6 +102,7 @@ describe("<NameAndAddress />", () => {
         town,
         postcode,
         organisation_name,
+        sro_profile_uri,
       });
     });
 

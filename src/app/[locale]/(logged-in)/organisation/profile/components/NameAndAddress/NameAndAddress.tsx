@@ -54,15 +54,10 @@ const ORG_KEYS = [
   "county",
   "country",
   "postcode",
+  "sro_profile_uri",
 ];
 
-const SRO_KEYS = [
-  "first_name",
-  "last_name",
-  "email",
-  "job_title",
-  "department",
-];
+const SRO_KEYS = ["first_name", "last_name", "email", "role", "department"];
 
 export default function NameAndAddress() {
   const { organisation, refetch } = useOrganisationStore();
@@ -114,7 +109,11 @@ export default function NameAndAddress() {
           .string()
           .email(tForm("emailInvalid"))
           .required(tForm("emailRequired")),
-        job_title: yup.string().required(tForm("jobTitleInvalid")),
+        role: yup.string().required(tForm("roleInvalid")),
+        sro_profile_uri: yup
+          .string()
+          .url(tForm("sroProfileUriInvalid"))
+          .required(tForm("sroProfileUriRequiredInvalid")),
       }),
     [tForm]
   );
@@ -131,7 +130,8 @@ export default function NameAndAddress() {
       last_name: user?.last_name,
       department: user?.departments?.[0]?.id,
       email: user?.email,
-      job_title: user?.role,
+      role: user?.role,
+      sro_profile_uri: organisation?.sro_profile_uri,
     },
     error: isError && <ErrorMessage t={tProfile} tKey={error} />,
   };
@@ -144,7 +144,7 @@ export default function NameAndAddress() {
       ORG_KEYS
     ) as Partial<NameAndAddressFormValues>;
 
-    const sroPayload = pick(
+    const { department, ...restSroPayload } = pick(
       formData,
       SRO_KEYS
     ) as Partial<KeyContactFormValues>;
@@ -152,11 +152,8 @@ export default function NameAndAddress() {
     await onSubmitOrganisation(organisationPayload);
 
     await mutateUser({
-      first_name: sroPayload.first_name,
-      last_name: sroPayload.last_name,
-      email: sroPayload.email,
-      role: sroPayload.job_title,
-      department_id: sroPayload.department,
+      ...restSroPayload,
+      department_id: department,
       is_sro: true,
     });
 

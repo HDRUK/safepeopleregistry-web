@@ -115,6 +115,7 @@ const mockedOrganisation = (
       id: 1,
     }),
   ],
+  sro_profile_uri: faker.internet.url(),
   ...organisation,
 });
 
