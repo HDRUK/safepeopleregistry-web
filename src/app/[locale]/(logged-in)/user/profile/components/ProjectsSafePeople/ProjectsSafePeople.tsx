@@ -10,11 +10,14 @@ import { renderUserNameCell } from "@/utils/cells";
 import { useTranslations } from "next-intl";
 
 const NAMESPACE_TRANSLATION = "CustodianProfile";
+const NAMESPACE_TRANSLATIONS_PROJECT_USERS = "Projects.Users";
 
 export default function ProjectsSafePeople() {
   const t = useTranslations(NAMESPACE_TRANSLATION);
+  const tTable = useTranslations(NAMESPACE_TRANSLATIONS_PROJECT_USERS);
+
   const { createDefaultColumn } = useColumns({
-    t,
+    t: tTable,
   });
 
   const { registryId, projectId, route } = useStore(state => ({

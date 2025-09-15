@@ -1,15 +1,17 @@
 "use client";
 
 import ChipStatus, { Status } from "@/components/ChipStatus";
+import FileDownloadLink from "@/components/FileDownloadLink";
+import { FileType } from "@/consts/files";
 import { PrimaryContactIcon } from "@/consts/icons";
+import { Link } from "@/i18n/routing";
 import WarningAmberOutlinedIcon from "@mui/icons-material/WarningAmberOutlined";
 import { Link as MuiLink, Typography } from "@mui/material";
-import { Link } from "@/i18n/routing";
 import { Box } from "@mui/system";
 import { CellContext } from "@tanstack/react-table";
-import FileDownloadLink from "@/components/FileDownloadLink";
 import {
   CustodianUser,
+  File,
   Organisation,
   Project,
   ProjectAllUser,
@@ -18,7 +20,6 @@ import {
   ResearcherProject,
   Translations,
   User,
-  File,
 } from "../types/application";
 import { injectParamsIntoPath } from "./application";
 import { formatShortDate } from "./date";
@@ -162,7 +163,7 @@ function renderOrganisationsNameCell(values: Organisation | Organisation[]) {
   return names;
 }
 
-function renderFileDownloadLink(files: File[], type: string) {
+function renderFileDownloadLink(files: File[], type: FileType) {
   const file = (files || []).find(file => file.type === type);
 
   if (!file) return null;
@@ -192,9 +193,12 @@ const renderStatusCell = (
 
 export {
   renderAffiliationDateRangeCell,
+  renderAffiliationRelationship,
+  renderFileDownloadLink,
   renderLinkNameCell,
   renderListNameCell,
   renderOrganisationsNameCell,
+  renderOrganisationValidatedCell,
   renderProjectNameCell,
   renderProjectsNameCell,
   renderProjectUserNameCell,
@@ -202,7 +206,4 @@ export {
   renderUserNameCell,
   renderUserOrganisationsNameCell,
   renderWarningCell,
-  renderAffiliationRelationship,
-  renderOrganisationValidatedCell,
-  renderFileDownloadLink,
 };

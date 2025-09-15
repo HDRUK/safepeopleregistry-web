@@ -3,7 +3,9 @@
 import { Typography } from "@mui/material";
 
 import theme from "@/theme";
-import { getLoginUrl, getRegisterUrl } from "@/utils/keycloak";
+import { getLoginUrl } from "@/utils/keycloak";
+import { ROUTES } from "@/consts/router";
+import { Link } from "@/i18n/routing";
 import {
   StyledContent,
   StyledFlex,
@@ -65,8 +67,10 @@ export default function KeyFeatures() {
         </StyledContainer>
       </StyledFlex>
       <Typography variant="h4" color="primary">
-        <a href={getRegisterUrl()}>Register for an account to get started</a> or{" "}
-        <a href={getLoginUrl()}>sign in here</a>
+        <Link href={ROUTES.register.path}>
+          Register for an account to get started
+        </Link>{" "}
+        or <Link href={getLoginUrl()}>sign in here</Link>
       </Typography>
     </StyledContent>
   );
