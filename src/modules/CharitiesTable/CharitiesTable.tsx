@@ -33,7 +33,7 @@ export default function CharitiesTable({
         accessorKey: "website",
         header: t("website"),
         cell: info => (
-          <MuiLink component={Link} href={info.getValue()} target="_blank">
+          <MuiLink component={Link} href={info?.getValue()} target="_blank">
             {info.getValue()}
           </MuiLink>
         ),
