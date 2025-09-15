@@ -1229,6 +1229,12 @@
     "OrganisationUsersFilters": {
       "searchPlaceholder": "Search by name or email"
     },
+    "DelegatesList": {
+      "name": "Full name",
+      "department": "Department",
+      "invitedOn": "Invited On",
+      "accountCreated": "Account created"
+    },
     "Subsidiaries": {
       "heading": "UK subsidiaries",
       "addSubsidiaryButton": "Add a subsidiary",

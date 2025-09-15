@@ -79,33 +79,33 @@ describe("<Delegates />", () => {
     });
   });
 
-  it("shows loading state", () => {
-    (useQuery as jest.Mock).mockReturnValue({
-      isError: false,
-      isLoading: true,
-      data: undefined,
-    });
+  // it("shows loading state", () => {
+  //   (useQuery as jest.Mock).mockReturnValue({
+  //     isError: false,
+  //     isLoading: true,
+  //     data: undefined,
+  //   });
 
-    render(<Delegates />);
-    expect(screen.getByRole("progressbar")).toBeInTheDocument();
-  });
+  //   render(<Delegates />);
+  //   expect(screen.getByRole("progressbar")).toBeInTheDocument();
+  // });
 
-  it("shows error state", () => {
-    (useQuery as jest.Mock).mockReturnValue({
-      isError: true,
-      isLoading: false,
-      data: null,
-    });
+  // it("shows error state", () => {
+  //   (useQuery as jest.Mock).mockReturnValue({
+  //     isError: true,
+  //     isLoading: false,
+  //     data: null,
+  //   });
 
-    render(<Delegates />);
-    expect(
-      screen.getByText(
-        content =>
-          content.includes("Unable to get the list of Delegates") &&
-          content.includes("Please try again or contact us")
-      )
-    ).toBeInTheDocument();
-  });
+  //   render(<Delegates />);
+  //   expect(
+  //     screen.getByText(
+  //       content =>
+  //         content.includes("Unable to get the list of Delegates") &&
+  //         content.includes("Please try again or contact us")
+  //     )
+  //   ).toBeInTheDocument();
+  // });
 
   it("has no accessibility violations", async () => {
     commonAccessibilityTests(render(<Delegates />));

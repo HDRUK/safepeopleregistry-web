@@ -1,37 +1,35 @@
-import Table from "@/components/Table";
-import { getOrganisationDelegatesQuery } from "@/services/organisations";
-import { useQuery } from "@tanstack/react-query";
-import { formatShortDate } from "@/utils/date";
-import { User } from "@/types/application";
-import { ColumnDef, CellContext } from "@tanstack/react-table";
-import LoadingWrapper from "@/components/LoadingWrapper";
-import { useStore } from "@/data/store";
-import FormModal from "@/components/FormModal";
-import { useState } from "react";
-import { Box, Button } from "@mui/material";
-import TaskAltIcon from "@mui/icons-material/TaskAlt";
-import DecoupleDelegate from "@/components/DecoupleDelegate";
-import { useTranslations } from "next-intl";
 import { ActionMenu } from "@/components/ActionMenu";
-import ErrorMessage from "@/components/ErrorMessage";
+import DecoupleDelegate from "@/components/DecoupleDelegate";
+import FormModal from "@/components/FormModal";
 import { DEFAULT_STALE_TIME } from "@/consts/requests";
+import { useStore } from "@/data/store";
+import DelegatesTable from "@/modules/DelegatesTable";
+import { getOrganisationDelegatesQuery } from "@/services/organisations";
+import { User } from "@/types/application";
+import { Box, Button } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
+import { CellContext } from "@tanstack/react-table";
+import { useTranslations } from "next-intl";
+import { useMemo, useState } from "react";
 import EditDelegate from "../EditDelegate";
 import InviteDelegateForm from "../InviteDelegateForm";
 
 const NAMESPACE_TRANSLATION_PROFILE = "ProfileOrganisation";
+const NAMESPACE_TRANSLATION_LIST = "Organisations.DelegatesList";
 
 const DelegateTable = () => {
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
+  const tList = useTranslations(NAMESPACE_TRANSLATION_LIST);
+
   const { organisation } = useStore(state => ({
     organisation: state.config.organisation,
     user: state.getUser(),
   }));
 
   const {
-    isLoading: isLoadingDelegates,
-    isError: isErrorDelegates,
-    data: delegatesData,
     refetch: refetchDelegates,
+    data: delegatesData,
+    ...queryState
   } = useQuery({
     ...getOrganisationDelegatesQuery(
       organisation?.id as number,
@@ -41,13 +39,6 @@ const DelegateTable = () => {
   });
 
   const [openInviteModal, setOpenInviteModal] = useState<boolean>(false);
-
-  const renderAccountCreated = (info: CellContext<User, unknown>) =>
-    info.getValue() ? null : (
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <TaskAltIcon color="success" />
-      </Box>
-    );
 
   const renderActions = (info: CellContext<User, unknown>) => (
     <ActionMenu>
@@ -61,65 +52,48 @@ const DelegateTable = () => {
     </ActionMenu>
   );
 
-  const columns: ColumnDef<User>[] = [
-    {
-      accessorKey: "name",
-      header: "Full Name",
-      cell: info =>
-        `${info.row.original.first_name} ${info.row.original.last_name}`,
-    },
-    {
-      accessorKey: "department",
-      header: "Department",
-      cell: info => info?.row?.original?.departments?.[0]?.name,
-    },
-    {
-      accessorKey: "created_at",
-      header: "Invited On",
-      cell: info => formatShortDate(info.getValue() as string),
-    },
-    {
-      accessorKey: "unclaimed",
-      header: "Account created",
-      cell: renderAccountCreated,
-    },
-
-    {
-      accessorKey: "actions",
-      header: "Actions",
-      cell: renderActions,
-    },
-  ];
+  const extraColumns = useMemo(
+    () => [
+      {
+        accessorKey: "actions",
+        header: "Actions",
+        cell: renderActions,
+      },
+    ],
+    []
+  );
 
   return (
-    <LoadingWrapper variant="basic" loading={isLoadingDelegates}>
-      <Table
-        total={delegatesData?.data.length}
-        data={delegatesData?.data || []}
-        columns={columns}
-        errorMessage={<ErrorMessage t={tProfile} tKey="getDelegatesError" />}
-        queryState={{
-          isLoading: isLoadingDelegates,
-          isError: isErrorDelegates || delegatesData === undefined,
-        }}
-      />
-      <>
-        <Button variant="outlined" onClick={() => setOpenInviteModal(true)}>
-          {tProfile("inviteAnotherDelegate")}
-        </Button>
-        <FormModal
-          open={openInviteModal}
-          onClose={() => setOpenInviteModal(false)}>
-          <InviteDelegateForm
-            onCancel={() => setOpenInviteModal(false)}
-            onSuccess={() => {
-              setOpenInviteModal(false);
-              refetchDelegates();
-            }}
-          />
-        </FormModal>
-      </>
-    </LoadingWrapper>
+    <>
+      <Box sx={{ mb: 2 }}>
+        <DelegatesTable
+          data={delegatesData?.data}
+          total={delegatesData?.data.length}
+          t={tList}
+          extraColumns={extraColumns}
+          isPaginated={false}
+          {...queryState}
+        />
+      </Box>
+      {!queryState.isLoading && (
+        <>
+          <Button variant="outlined" onClick={() => setOpenInviteModal(true)}>
+            {tProfile("inviteAnotherDelegate")}
+          </Button>
+          <FormModal
+            open={openInviteModal}
+            onClose={() => setOpenInviteModal(false)}>
+            <InviteDelegateForm
+              onCancel={() => setOpenInviteModal(false)}
+              onSuccess={() => {
+                setOpenInviteModal(false);
+                refetchDelegates();
+              }}
+            />
+          </FormModal>
+        </>
+      )}
+    </>
   );
 };
 
