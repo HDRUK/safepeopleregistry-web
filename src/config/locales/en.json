@@ -1253,7 +1253,7 @@
     },
     "SroDeclaratation": {
       "heading": "SRO Declaration",
-      "intro": "In order to verify you as research Organisation, we ask that the SRO complete the form linked below and upload with their signature.",
+      "intro": "In order to grant you full Organisation account privileges (including adding Users from your Organisation and those Users being validated by Data Custodians), you will need to complete and upload the form below.",
       "downloadTemplate": "Download SRO Declaration Form"
     },
     "SroDeclaratationUpload": {
