@@ -44,9 +44,9 @@ export default function CharitiesTable({
 
   return (
     <Table
-      total={charitiesData.length}
+      total={charitiesData?.length}
       data={charitiesData}
-      columns={columns}
+      columns={columns || []}
       queryState={{}}
     />
   );
