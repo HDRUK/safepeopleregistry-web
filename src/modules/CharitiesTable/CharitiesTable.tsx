@@ -2,6 +2,7 @@ import { Link as MuiLink } from "@mui/material";
 import { Link } from "@/i18n/routing";
 import { ColumnDef } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
+import { useMemo } from "react";
 import { Charity } from "../../types/application";
 import Table from "../../components/Table";
 
@@ -18,25 +19,28 @@ export default function CharitiesTable({
 }: CharitiesTableProps) {
   const t = useTranslations(tKey);
 
-  const columns: ColumnDef<Charity>[] = [
-    {
-      accessorKey: "registration_id",
-      header: t("registrationId"),
-    },
-    {
-      accessorKey: "name",
-      header: t("name"),
-    },
-    {
-      accessorKey: "website",
-      header: t("website"),
-      cell: info => (
-        <MuiLink component={Link} href={info.getValue()} target="_blank">
-          {info.getValue()}
-        </MuiLink>
-      ),
-    },
-  ];
+  const columns: ColumnDef<Charity>[] = useMemo(
+    () => [
+      {
+        accessorKey: "registration_id",
+        header: t("registrationId"),
+      },
+      {
+        accessorKey: "name",
+        header: t("name"),
+      },
+      {
+        accessorKey: "website",
+        header: t("website"),
+        cell: info => (
+          <MuiLink component={Link} href={info.getValue()} target="_blank">
+            {info.getValue()}
+          </MuiLink>
+        ),
+      },
+    ],
+    [t]
+  );
 
   return (
     <Table
