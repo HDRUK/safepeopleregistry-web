@@ -26,7 +26,7 @@ export default function Sections() {
       component: <InviteUser />,
     },
     {
-      name: "organisations",
+      name: "sro",
       component: <OrganisationsList />,
     },
   ];

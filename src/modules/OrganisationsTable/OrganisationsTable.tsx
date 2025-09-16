@@ -1,14 +1,16 @@
 "use client";
 
+import { FileType } from "@/consts/files";
 import useColumns from "@/hooks/useColumns";
 import {
   renderFileDownloadLink,
   renderOrganisationValidatedCell,
+  renderUserNameCell,
 } from "@/utils/cells";
 import { filterColumns } from "@/utils/table";
+import { Link } from "@mui/material";
 import { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
-import { FileType } from "@/consts/files";
 import ErrorMessage from "../../components/ErrorMessage";
 import Table from "../../components/Table";
 import { Organisation } from "../../types/application";
@@ -17,6 +19,9 @@ import { ModuleTables } from "../../types/modules";
 export type OrganisationsTableColumns =
   | "organisationName"
   | "systemApproved"
+  | "sroProfileLink"
+  | "email"
+  | "role"
   | "sroDocument";
 
 export type OrganisationsTableProps = ModuleTables<
@@ -26,7 +31,14 @@ export type OrganisationsTableProps = ModuleTables<
 
 export default function OrganisationsTable({
   extraColumns,
-  includeColumns = ["organisationName", "systemApproved", "sroDocument"],
+  includeColumns = [
+    "organisationName",
+    "systemApproved",
+    "sroDocument",
+    "sroProfileLink",
+    "role",
+    "email",
+  ],
   data,
   t,
   ...restProps
@@ -39,6 +51,19 @@ export default function OrganisationsTable({
     const initialColumns: ColumnDef<Organisation>[] = [
       createDefaultColumn("organisationName", {
         accessorKey: "organisation_name",
+      }),
+      createDefaultColumn("sroProfileLink", {
+        cell: info => (
+          <Link href={info.row.original.sro_profile_uri} target="_blank">
+            {renderUserNameCell(info.row.original.sro_officer)}
+          </Link>
+        ),
+      }),
+      createDefaultColumn("email", {
+        accessorKey: "sro_officer.email",
+      }),
+      createDefaultColumn("role", {
+        accessorKey: "sro_officer.role",
       }),
       createDefaultColumn("sroDocument", {
         accessorKey: "files",

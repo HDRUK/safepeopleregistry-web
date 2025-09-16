@@ -18,6 +18,7 @@ export default function SroFields() {
   }));
 
   const t = useTranslations(NAMESPACE_TRANSLATION);
+
   return (
     <PageSection>
       {user?.is_delegate === 0 && (
@@ -58,13 +59,19 @@ export default function SroFields() {
             </Grid>
             <Grid item xs={12}>
               <FormControl
-                name="job_title"
+                name="role"
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />
             </Grid>
             <Grid item xs={12}>
               <FormControl
                 name="email"
+                renderField={fieldProps => <TextField {...fieldProps} />}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl
+                name="sro_profile_uri"
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />
             </Grid>
