@@ -32,7 +32,7 @@ export default function UserAffiliations({
 
   let tableProps: Partial<AffiliationsTableProps> = {};
 
-  if (variant === EntityType.ORGANISATION) {
+  if (variant !== EntityType.USER) {
     tableProps = {
       includeColumns: [
         "warning",
@@ -40,24 +40,20 @@ export default function UserAffiliations({
         "relationship",
         "organisationName",
         "affiliationStatus",
+        "affiliationStatusChangedDate",
       ],
     };
   }
 
   return (
-    <PageBodyContainer>
-      <Typography variant="h2">{t("heading")}</Typography>
-      <PageSection sx={{ my: 3 }}>
-        <AffiliationsTable
-          data={affiliationsData}
-          queryState={getAffiliationsQueryState}
-          last_page={last_page}
-          total={total}
-          setPage={setPage}
-          t={t}
-          {...tableProps}
-        />
-      </PageSection>
-    </PageBodyContainer>
+    <AffiliationsTable
+      data={affiliationsData}
+      queryState={getAffiliationsQueryState}
+      last_page={last_page}
+      total={total}
+      setPage={setPage}
+      t={t}
+      {...tableProps}
+    />
   );
 }

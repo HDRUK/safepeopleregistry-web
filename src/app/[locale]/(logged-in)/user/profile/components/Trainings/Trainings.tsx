@@ -94,7 +94,7 @@ export default function Trainings() {
         <PageBodyContainer heading={tProfile("trainingTitle")}>
           <PageColumns>
             <PageColumnBody lg={8}>
-              <PageBody>
+              <PageBody heading={tProfile("trainingAndAccreditations")}>
                 <PageSection>
                   <Training
                     variant={EntityType.USER}

@@ -19,29 +19,26 @@ export default function UserIdentity() {
     user?.registry?.identity?.idvt_success === 1;
 
   return (
-    <PageBodyContainer>
-      <PageBody>
-        <Typography variant="h2">{t("identity")}</Typography>
-        <Box>
-          <Typography sx={{ fontWeight: 600 }}>{t("name")}</Typography>
-          <Typography>{`${user?.first_name} ${user?.last_name}`}</Typography>
-        </Box>
-        <Box>
-          <Typography sx={{ fontWeight: 600 }}>{t("digiIdent")}</Typography>
-          <Text copyable>{`${user?.registry.digi_ident}`}</Text>
-        </Box>
-        <Box>
-          <Typography sx={{ fontWeight: 600 }}>{t("location")}</Typography>
-          <Text startIcon={user?.location ? null : <ErrorIcon color="error" />}>
-            {user?.location || t("locationMissing")}
-          </Text>
-        </Box>
-        <Text
-          sx={{ fontWeight: 600 }}
-          startIcon={idvtComplete ?? <ErrorIcon color="error" />}>
-          {idvtComplete ? t("idvtComplete") : t("idvtIncomplete")}
+    <>
+      <Box>
+        <Typography sx={{ fontWeight: 600 }}>{t("name")}</Typography>
+        <Typography>{`${user?.first_name} ${user?.last_name}`}</Typography>
+      </Box>
+      <Box>
+        <Typography sx={{ fontWeight: 600 }}>{t("digiIdent")}</Typography>
+        <Text copyable>{`${user?.registry.digi_ident}`}</Text>
+      </Box>
+      <Box>
+        <Typography sx={{ fontWeight: 600 }}>{t("location")}</Typography>
+        <Text startIcon={user?.location ? null : <ErrorIcon color="error" />}>
+          {user?.location || t("locationMissing")}
         </Text>
-      </PageBody>
-    </PageBodyContainer>
+      </Box>
+      <Text
+        sx={{ fontWeight: 600 }}
+        startIcon={idvtComplete ?? <ErrorIcon color="error" />}>
+        {idvtComplete ? t("idvtComplete") : t("idvtIncomplete")}
+      </Text>
+    </>
   );
 }
