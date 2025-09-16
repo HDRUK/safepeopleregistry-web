@@ -20,10 +20,10 @@ import { useEffect } from "react";
 import ConfirmAffiliation from "@/organisms/ConfirmAffiliation";
 import { getOrganisationAffiliationQuery } from "@/services/affiliations";
 import StatusList from "@/components/StatusList";
+import { toCamelCase } from "@/utils/string";
 import { UserSubTabs } from "../../../../../../consts/tabs";
 import SubTabsSections from "../SubTabSections";
 import SubTabsContents from "../SubsTabContents";
-import { toCamelCase } from "@/utils/string";
 
 interface OrganisationUserProps {
   userId: number;

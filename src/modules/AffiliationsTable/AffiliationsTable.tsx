@@ -14,7 +14,6 @@ import {
   renderAffiliationRelationship,
   renderOrganisationsNameCell,
   renderStatusCell,
-  renderWarningCell,
 } from "../../utils/cells";
 
 export type AffiliationsTableColumns =

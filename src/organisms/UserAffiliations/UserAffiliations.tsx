@@ -1,12 +1,7 @@
 import { AffiliationsTableProps } from "@/modules/AffiliationsTable/AffiliationsTable";
 import { EntityType } from "@/types/api";
-import { Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
-import {
-  AffiliationsTable,
-  PageBodyContainer,
-  PageSection,
-} from "../../modules";
+import { AffiliationsTable } from "../../modules";
 import { usePaginatedAffiliations } from "../../services/affiliations";
 
 const NAMESPACE_TRANSLATION = "Affiliations";
