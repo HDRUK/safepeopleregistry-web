@@ -75,6 +75,7 @@ export default function OrganisationUsersTable({
       }),
       createDefaultColumn("emailAddress", {
         accessorKey: "email",
+        cell: info => info.row.original.registry.affiliations?.[0]?.email,
       }),
       createDefaultColumn("affiliationStatus", {
         accessorKey: "registry.affiliations",
