@@ -53,11 +53,15 @@ export default function ActionValidationMakeDecision({
     const { comment } = data;
     const res = await updateLog(selectedAction);
     setCurrentLog(res.data);
-    await createComment({
-      user_id: user?.id as number,
-      validation_log_id: res.data.id,
-      comment,
-    });
+
+    if (comment) {
+      await createComment({
+        user_id: user?.id as number,
+        validation_log_id: res.data.id,
+        comment,
+      });
+    }
+
     await onAction?.();
     setSelectedAction(null);
     setShowDecisionChip(!!res.data.completed_at);
