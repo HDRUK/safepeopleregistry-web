@@ -89,6 +89,7 @@ describe("<NameAndAddress />", () => {
       town,
       postcode,
       organisation_name,
+      sro_profile_uri,
     } = organisation;
 
     await waitFor(() => {
@@ -100,6 +101,7 @@ describe("<NameAndAddress />", () => {
         town,
         postcode,
         organisation_name,
+        sro_profile_uri,
       });
     });
 

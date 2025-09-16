@@ -543,6 +543,9 @@
     "role": "Role",
     "rolePlaceholder": "Role",
     "jobTitleInvalid": "Job Title is required",
+    "sroProfileUri": "Profile link",
+    "sroProfileUriRequiredInvalid": "Profile link is required",
+    "sroProfileUriInvalid": "Profile link is not a valid url",
     "from": "From",
     "fromPlaceholder": "From",
     "to": "To",
@@ -1028,6 +1031,9 @@
     "systemApproved": "Approved",
     "organisationName": "Organisation name",
     "sroDocument": "SRO application",
+    "sroProfileLink": "Name",
+    "role": "Role",
+    "email": "Email",
     "noResultsMessage": "No organisations found"
   },
   "Affiliations": {
@@ -1159,7 +1165,7 @@
     "inviteCustodianSuccess": "You have successfully invited the Data Custodian"
   },
   "Administration": {
-    "organisationsInviteTitle": "Organisations",
+    "sroInviteTitle": "Organisations - Senior Responsible Officer",
     "userInviteTitle": "User invitation",
     "organisationInviteTitle": "Organisation invitation",
     "title": "Administration",
