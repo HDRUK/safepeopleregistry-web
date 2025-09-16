@@ -26,7 +26,11 @@ export default function UserDetails({
   const role = projectUser?.role;
   const organisation =
     directOrganisation ?? projectUser?.affiliation?.organisation;
-  const email = projectUser?.affiliation?.email ?? user?.email;
+  const orgAffiliationEmail = user?.registry?.affiliations?.find(
+    aff => aff.organisation_id === organisation?.id
+  )?.email;
+  const email =
+    projectUser?.affiliation?.email ?? orgAffiliationEmail ?? user?.email;
 
   return (
     <Box
