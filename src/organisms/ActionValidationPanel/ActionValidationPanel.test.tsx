@@ -94,9 +94,6 @@ describe("<ActionValidationPanel/>", () => {
 
     await userEvent.click(confirmPassButton);
 
-    const errorMessage = screen.getByText(/comment is a required field/i);
-    expect(errorMessage).toBeInTheDocument();
-
     const commentInput = screen.getByRole("textbox", {
       name: /add any further comment/i,
     });

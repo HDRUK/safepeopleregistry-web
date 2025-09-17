@@ -47,7 +47,12 @@ export default function SubTabsContents({
       content = <UserCustodianOrgInfo />;
       break;
     case UserSubTabs.AFFILIATIONS:
-      content = <UserAffiliations registryId={registryId} />;
+      content = (
+        <UserAffiliations
+          registryId={registryId}
+          variant={EntityType.CUSTODIAN}
+        />
+      );
       break;
     default:
       content = null;

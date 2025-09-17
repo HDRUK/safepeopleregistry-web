@@ -1,12 +1,7 @@
 import { AffiliationsTableProps } from "@/modules/AffiliationsTable/AffiliationsTable";
 import { EntityType } from "@/types/api";
-import { Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
-import {
-  AffiliationsTable,
-  PageBodyContainer,
-  PageSection,
-} from "../../modules";
+import { AffiliationsTable } from "../../modules";
 import { usePaginatedAffiliations } from "../../services/affiliations";
 
 const NAMESPACE_TRANSLATION = "Affiliations";
@@ -32,7 +27,7 @@ export default function UserAffiliations({
 
   let tableProps: Partial<AffiliationsTableProps> = {};
 
-  if (variant === EntityType.ORGANISATION) {
+  if (variant !== EntityType.USER) {
     tableProps = {
       includeColumns: [
         "warning",
@@ -40,24 +35,20 @@ export default function UserAffiliations({
         "relationship",
         "organisationName",
         "affiliationStatus",
+        "affiliationStatusChangedDate",
       ],
     };
   }
 
   return (
-    <PageBodyContainer>
-      <Typography variant="h2">{t("heading")}</Typography>
-      <PageSection sx={{ my: 3 }}>
-        <AffiliationsTable
-          data={affiliationsData}
-          queryState={getAffiliationsQueryState}
-          last_page={last_page}
-          total={total}
-          setPage={setPage}
-          t={t}
-          {...tableProps}
-        />
-      </PageSection>
-    </PageBodyContainer>
+    <AffiliationsTable
+      data={affiliationsData}
+      queryState={getAffiliationsQueryState}
+      last_page={last_page}
+      total={total}
+      setPage={setPage}
+      t={t}
+      {...tableProps}
+    />
   );
 }

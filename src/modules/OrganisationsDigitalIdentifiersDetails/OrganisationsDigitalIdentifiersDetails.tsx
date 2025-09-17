@@ -26,13 +26,8 @@ export default function OrganisationsDigitalIdentifiersDetails({
         {
           column_id: "charities",
           content: (
-            <Box
-              sx={{
-                maxWidth: {
-                  lg: "50%",
-                },
-              }}>
-              <CharitiesTable charitiesData={organisationData.charities} />
+            <Box>
+              <CharitiesTable charitiesData={organisationData?.charities} />
             </Box>
           ),
         },

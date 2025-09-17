@@ -47,7 +47,9 @@ describe("<OrganisationUsersTable />", () => {
     expect(
       screen.getByText(new RegExp(`${user.first_name} ${user.last_name}`))
     ).toBeInTheDocument();
-    expect(screen.getByText(user.email)).toBeInTheDocument();
+    expect(
+      screen.getByText(user?.registry?.affiliations?.[0].email as string)
+    ).toBeInTheDocument();
     expect(
       screen.getByText(formatShortDate(user.created_at))
     ).toBeInTheDocument();

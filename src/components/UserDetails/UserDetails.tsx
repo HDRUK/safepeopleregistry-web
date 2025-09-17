@@ -1,25 +1,36 @@
 import { Box, BoxProps, Link, Typography } from "@mui/material";
 import { getInitials } from "../../utils/application";
-import { Organisation, ProjectUser, User } from "../../types/application";
+import {
+  Organisation,
+  ProjectUser,
+  ResearcherAffiliation,
+  User,
+} from "../../types/application";
 import MaskLabel from "../MaskLabel";
 
 export interface UserDetailsProps extends BoxProps {
   projectUser?: ProjectUser;
   user?: User;
   organisation?: Organisation;
+  affiliation?: ResearcherAffiliation;
 }
 
 export default function UserDetails({
   projectUser,
   user: directUser,
   organisation: directOrganisation,
+  affiliation,
   ...restProps
 }: UserDetailsProps) {
   const user = directUser ?? projectUser?.registry?.user;
   const role = projectUser?.role;
   const organisation =
     directOrganisation ?? projectUser?.affiliation?.organisation;
-  const email = projectUser?.affiliation?.email ?? user?.email;
+  const orgAffiliationEmail = user?.registry?.affiliations?.find(
+    aff => aff.organisation_id === organisation?.id
+  )?.email;
+  const email =
+    projectUser?.affiliation?.email ?? orgAffiliationEmail ?? user?.email;
 
   return (
     <Box
@@ -52,6 +63,11 @@ export default function UserDetails({
           <Link href={`mailto:${email}`} sx={{ wordBreak: "break-all" }}>
             {email}
           </Link>
+        )}
+        {affiliation?.member_id && (
+          <Typography sx={{ flexWrap: 1 }}>
+            ID: {affiliation?.member_id}
+          </Typography>
         )}
       </Box>
     </Box>

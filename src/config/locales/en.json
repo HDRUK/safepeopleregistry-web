@@ -135,6 +135,16 @@
     "deleteAffiliation": "Delete Affiliation"
   },
   "CustodianProfile": {
+    "User": {
+      "heading": "User for {projectTitle}",
+      "getUserError": "Could not get the relevant user",
+      "history": "History",
+      "trainingAccreditations": "Training and Accreditations",
+      "identity": "Identity",
+      "projects": "Projects",
+      "affiliations": "Affiliations",
+      "custodianOrgInfo": "Automated flags"
+    },
     "Integrations": {
       "okButton": "OK",
       "saveSuccess": "Custodian profile details updated",
@@ -381,7 +391,16 @@
     "emailAddress": "Email Address",
     "inviteSent": "Invite Sent",
     "actions": "Actions",
-    "sroTitle": "SRO Declaration"
+    "sroTitle": "SRO Declaration",
+    "User": {
+      "getUserError": "Could not get the relevant user",
+      "history": "History",
+      "trainingAccreditations": "Training and Accreditations",
+      "identity": "Identity",
+      "projects": "Projects",
+      "affiliations": "Affiliations",
+      "heading": "User"
+    }
   },
   "Form": {
     "accessDatePlaceholder": "Access date",
@@ -543,6 +562,9 @@
     "role": "Role",
     "rolePlaceholder": "Role",
     "jobTitleInvalid": "Job Title is required",
+    "sroProfileUri": "Profile link",
+    "sroProfileUriRequiredInvalid": "Profile link is required",
+    "sroProfileUriInvalid": "Profile link is not a valid url",
     "from": "From",
     "fromPlaceholder": "From",
     "to": "To",
@@ -1028,9 +1050,13 @@
     "systemApproved": "Approved",
     "organisationName": "Organisation name",
     "sroDocument": "SRO application",
+    "sroProfileLink": "Name",
+    "role": "Role",
+    "email": "Email",
     "noResultsMessage": "No organisations found"
   },
   "Affiliations": {
+    "affiliationStatusChangedDate": "Status changed",
     "honoraryContract": "Honorary contract",
     "student": "Student",
     "employee": "Employee",
@@ -1159,7 +1185,7 @@
     "inviteCustodianSuccess": "You have successfully invited the Data Custodian"
   },
   "Administration": {
-    "organisationsInviteTitle": "Organisations",
+    "sroInviteTitle": "Organisations - Senior Responsible Officer",
     "userInviteTitle": "User invitation",
     "organisationInviteTitle": "Organisation invitation",
     "title": "Administration",
@@ -1253,7 +1279,7 @@
     },
     "SroDeclaratation": {
       "heading": "SRO Declaration",
-      "intro": "In order to verify you as research Organisation, we ask that the SRO complete the form linked below and upload with their signature.",
+      "intro": "In order to grant you full Organisation account privileges (including adding Users from your Organisation and those Users being validated by Data Custodians), you will need to complete and upload the form below.",
       "downloadTemplate": "Download SRO Declaration Form"
     },
     "SroDeclaratationUpload": {
@@ -1551,9 +1577,6 @@
     "changeDecision": "Change Decision",
     "passed": "Passed",
     "failed": "Failed"
-  },
-  "CustodianProjectUser": {
-    "title": "User for {projectTitle}"
   },
   "ActionValidationLogComment": {
     "daysSince": "{days} days ago"
