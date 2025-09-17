@@ -318,7 +318,7 @@
     "userAdminEmployeeStudents": "Users",
     "teamAdminTitle": "Your administrative team",
     "manageDelegates": "Manage Delegates",
-    "delegateAdminDescription": "As a Senior Responsible Officer (SRO) for your Organisation, you can invite nominated Delegates from your Organisation to create a Safe People Registry account. Delegates perform the day-to-day affiliation of Users, as well as inviting other Delegates.\n\n A Delegate could be a Human Resources (HR) representative, Information Governance representative e.g. Data Protection Officer (DPO), Contracts representative or Legal representative.\n\n You can invite nominated Delegates to register for a Safe People Registry account here.",
+    "delegateAdminDescription": "The SRO can invite Delegates to administer the Organisation account. Delegates perform the day-to-day affiliation of Users, as well as invite other Delegates. \n\n A Delegate could be a Human Resources (HR) representative, Information Governance (IG) representative e.g. Data Protection Officer (DPO), Contracts representative or Legal representative. \n\n You can invite Delegate to register for a Safe People Registry account by adding them below.",
     "delegateAdminDescriptionDelegate": "As a Delegate for your Organisation, you can view all other Delegates.",
     "userAdmin": "Users",
     "teamAdmin": "Team",
