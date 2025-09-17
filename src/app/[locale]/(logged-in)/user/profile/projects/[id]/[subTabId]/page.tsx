@@ -6,6 +6,8 @@ import { useQuery } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
 import SubPageProjects from "../../../components/SubPageProjects";
 import { ProjectsSubTabs } from "../../../consts/tabs";
+import { getProjectForUserQuery } from "@/services/projects";
+import { useStore } from "@/data/store";
 
 interface SubPageProjectsProps {
   params: {
@@ -15,7 +17,13 @@ interface SubPageProjectsProps {
 }
 
 function ProjectsSubPage({ params: { subTabId, id } }: SubPageProjectsProps) {
-  const { data: project, isPending, isFetched } = useQuery(getProjectQuery(id));
+  const user = useStore(state => state.getUser());
+
+  const {
+    data: project,
+    isPending,
+    isFetched,
+  } = useQuery(getProjectForUserQuery(id, user.id));
 
   if (!project?.data && isFetched) {
     notFound();

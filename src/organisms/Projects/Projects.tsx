@@ -5,10 +5,11 @@ import { ColumnDef } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import ChipStatus from "../../components/ChipStatus";
 import Table from "../../components/Table";
+import useColumns from "../../hooks/useColumns";
 import PageSection from "../../modules/PageSection";
 import ProjectsFilters from "../../modules/ProjectsFilters";
-import { ProjectEntities } from "../../services/projects/getEntityProjects";
 import useEntityProjectsQuery from "../../services/projects/useEntityProjectsQuery";
+import { EntityType } from "../../types/api";
 import { ResearcherProject } from "../../types/application";
 import {
   renderOrganisationsNameCell,
@@ -22,20 +23,20 @@ type VariantConfig = {
   getId: (store: StoreState) => string | number | undefined;
 };
 
-const variantConfig: Record<ProjectEntities, VariantConfig> = {
-  organisation: {
+const variantConfig: Record<EntityType, VariantConfig> = {
+  [EntityType.ORGANISATION]: {
     getId: store => {
       const organisation = store.getOrganisation();
       return organisation?.id;
     },
   },
-  custodian: {
+  [EntityType.CUSTODIAN]: {
     getId: store => {
       const custodian = store.getCustodian();
       return custodian?.id;
     },
   },
-  user: {
+  [EntityType.USER]: {
     getId: store => {
       const user = store.getUser();
       return user?.id;
@@ -44,13 +45,16 @@ const variantConfig: Record<ProjectEntities, VariantConfig> = {
 };
 
 interface ProjectsProps {
-  variant: ProjectEntities;
+  variant: EntityType;
   entityId?: number;
 }
 
 export default function Projects({ variant, entityId }: ProjectsProps) {
   const t = useTranslations(NAMESPACE_TRANSLATIONS_PROJECTS);
   const routes = useStore(state => state.getApplication().routes);
+  const { createDefaultColumn } = useColumns<ResearcherProject>({
+    t,
+  });
 
   const store = useStore();
   const { getId } = variantConfig[variant];
@@ -74,18 +78,18 @@ export default function Projects({ variant, entityId }: ProjectsProps) {
   });
 
   const columns: ColumnDef<ResearcherProject>[] = [
-    {
+    createDefaultColumn("title", {
       cell: info => {
         let route = null;
 
         switch (variant) {
-          case "organisation":
+          case EntityType.ORGANISATION:
             route = routes.profileOrganisationProjectsSafeProject;
             break;
-          case "custodian":
+          case EntityType.CUSTODIAN:
             route = routes.profileCustodianProjectsSafeProject;
             break;
-          case "user":
+          case EntityType.USER:
             route = routes.profileResearcherProjectsSafeProject;
             break;
           default:
@@ -93,55 +97,66 @@ export default function Projects({ variant, entityId }: ProjectsProps) {
         }
         return renderProjectNameCell(info, route.path);
       },
-      accessorKey: "title",
-      header: t("title"),
-    },
-    {
+    }),
+    createDefaultColumn("laySummary", {
       accessorKey: "lay_summary",
-      header: t("laySummary"),
-    },
-    {
+    }),
+    createDefaultColumn("startDate", {
       accessorKey: "start_date",
-      header: t("startDate"),
       cell: info => formatDisplayLongDate(info.getValue() as string),
       minSize: 160,
-    },
-    {
+    }),
+    createDefaultColumn("endDate", {
       accessorKey: "end_date",
-      header: t("endDate"),
       cell: info => formatDisplayLongDate(info.getValue() as string),
       minSize: 160,
-    },
-    {
-      accessorKey: "project_users_count",
-      header: t("users"),
-      minSize: 50,
-    },
-    {
-      accessorKey: "organisations",
-      header: t("organisations"),
+    }),
+    ...(variant === EntityType.CUSTODIAN
+      ? [
+          createDefaultColumn("users", {
+            accessorKey: "project_users_count",
+            minSize: 50,
+          }),
+        ]
+      : []),
+    createDefaultColumn("organisations", {
       cell: info => renderOrganisationsNameCell(info.getValue()),
-    },
-    {
-      accessorKey: "status",
-      header: t("status"),
+    }),
+    createDefaultColumn("status", {
       cell: info => (
         <ChipStatus status={info.row.original.model_state?.state.slug} />
       ),
-    },
-    ...(variant !== "user" && variant !== "custodian"
+    }),
+    ...(variant === EntityType.ORGANISATION
+      ? [
+          createDefaultColumn("organisationStatus", {
+            accessorKey: "custodian_has_project_organisation",
+            cell: info => {
+              const validationState = info.getValue();
+
+              return (
+                <ChipStatus
+                  status={validationState?.[0]?.model_state.state.slug}
+                />
+              );
+            },
+          }),
+        ]
+      : []),
+    ...(variant === EntityType.USER
       ? [
           {
-            accessorKey: "organisationStatus",
-            header: t("organisationStatus"),
-            cell: info => (
-              <ChipStatus
-                status={
-                  info.row.original.custodian_has_project_organisation?.[0]
-                    ?.model_state.state.slug
-                }
-              />
-            ),
+            accessorKey: "custodian_has_project_user",
+            header: t("validationStatus"),
+            cell: info => {
+              const validationState = info.getValue();
+
+              return (
+                <ChipStatus
+                  status={validationState?.[0].model_state.state.slug}
+                />
+              );
+            },
           },
         ]
       : []),

@@ -398,6 +398,7 @@ type ResearcherProject = WithModelState<{
   custodians?: Custodian[];
   project_detail: ProjectDetails;
   status: Status;
+  custodian_has_project_user?: CustodianProjectUser;
 }>;
 
 interface ProjectDetails {

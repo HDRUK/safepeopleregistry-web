@@ -7,6 +7,7 @@ import { mockedProjectsIntro } from "@/mocks/data/cms";
 import { PageBody, PageBodyContainer } from "@/modules";
 import ProjectsList from "@/organisms/Projects";
 import { postCustodianProjectQuery } from "@/services/custodians";
+import { EntityType } from "@/types/api";
 import { injectParamsIntoPath } from "@/utils/application";
 import { createProjectDefaultValues } from "@/utils/form";
 import { Box, Button, Typography } from "@mui/material";
@@ -68,7 +69,7 @@ export default function Projects() {
             </Button>
           </Box>
         }>
-        <ProjectsList variant="custodian" />
+        <ProjectsList variant={EntityType.CUSTODIAN} />
       </PageBody>
     </PageBodyContainer>
   );

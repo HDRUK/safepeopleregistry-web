@@ -5,14 +5,15 @@ import {
   waitFor,
 } from "../../utils/testUtils";
 import Projects from ".";
+import { EntityType } from "@/types/api";
 
-const renderProjects = ({ variant }: { variant: ProjectEntities }) =>
+const renderProjects = ({ variant }: { variant: EntityType }) =>
   render(<Projects variant={variant} />);
 
 describe("Organisation Projects", () => {
   it("display 10 projects", async () => {
     const { getAllByRole, getByText } = renderProjects({
-      variant: "organisation",
+      variant: EntityType.ORGANISATION,
     });
 
     await waitFor(() => {
@@ -23,14 +24,16 @@ describe("Organisation Projects", () => {
   });
 
   it("has no accessibility violations", async () => {
-    commonAccessibilityTests(renderProjects({ variant: "organisation" }));
+    commonAccessibilityTests(
+      renderProjects({ variant: EntityType.ORGANISATION })
+    );
   });
 });
 
 describe("Custodian Projects", () => {
   it("display 5 projects", async () => {
     const { getAllByRole, getByText } = renderProjects({
-      variant: "custodian",
+      variant: EntityType.CUSTODIAN,
     });
 
     await waitFor(() => {
@@ -41,14 +44,14 @@ describe("Custodian Projects", () => {
   });
 
   it("has no accessibility violations", async () => {
-    commonAccessibilityTests(renderProjects({ variant: "custodian" }));
+    commonAccessibilityTests(renderProjects({ variant: EntityType.CUSTODIAN }));
   });
 });
 
 describe("User Projects", () => {
   it("display 7 projects", async () => {
     const { getAllByRole, getByText } = renderProjects({
-      variant: "user",
+      variant: EntityType.USER,
     });
 
     await waitFor(() => {
@@ -59,6 +62,6 @@ describe("User Projects", () => {
   });
 
   it("has no accessibility violations", async () => {
-    commonAccessibilityTests(renderProjects({ variant: "user" }));
+    commonAccessibilityTests(renderProjects({ variant: EntityType.USER }));
   });
 });

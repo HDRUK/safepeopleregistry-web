@@ -46,7 +46,12 @@ export default function SubPageProjects({ params, projectData }: PageProps) {
             <SubTabsContents tabId={tabId} {...params} />
           </PageColumnBody>
           <PageColumnDetails lg={4}>
-            <StatusList projectStatus={project?.model_state.state.slug} />
+            <StatusList
+              projectStatus={project?.model_state.state.slug}
+              validationStatus={
+                project?.custodian_has_project_user?.[0].model_state.state.slug
+              }
+            />
             <Guidance {...guidance} isCollapsible={false} infoWidth="100%" />
           </PageColumnDetails>
         </PageColumns>
