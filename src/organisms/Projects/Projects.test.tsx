@@ -1,11 +1,10 @@
-import { ProjectEntities } from "../../services/projects/getEntityProjects";
+import { EntityType } from "@/types/api";
 import {
   commonAccessibilityTests,
   render,
   waitFor,
 } from "../../utils/testUtils";
 import Projects from ".";
-import { EntityType } from "@/types/api";
 
 const renderProjects = ({ variant }: { variant: EntityType }) =>
   render(<Projects variant={variant} />);
