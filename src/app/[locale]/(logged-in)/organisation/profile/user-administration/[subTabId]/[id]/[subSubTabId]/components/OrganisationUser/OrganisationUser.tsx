@@ -5,6 +5,7 @@ import {
   PageBodyContainer,
   PageColumnBody,
   PageColumns,
+  PageBody,
 } from "@/modules";
 import { UserGroup } from "@/consts/user";
 import { useStore } from "@/data/store";
@@ -19,6 +20,7 @@ import { useEffect } from "react";
 import ConfirmAffiliation from "@/organisms/ConfirmAffiliation";
 import { getOrganisationAffiliationQuery } from "@/services/affiliations";
 import StatusList from "@/components/StatusList";
+import { toCamelCase } from "@/utils/string";
 import { UserSubTabs } from "../../../../../../consts/tabs";
 import SubTabsSections from "../SubTabSections";
 import SubTabsContents from "../SubsTabContents";
@@ -28,10 +30,10 @@ interface OrganisationUserProps {
   subSubTabId: UserSubTabs;
 }
 
-const NAMESPACE_TRANSLATION_ORGANISATION_PROFILE = "ProfileOrganisation";
+const NAMESPACE_TRANSLATION_PROFILE = "ProfileOrganisation.User";
 
 function OrganisationUser({ userId, subSubTabId }: OrganisationUserProps) {
-  const t = useTranslations(NAMESPACE_TRANSLATION_ORGANISATION_PROFILE);
+  const t = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
 
   const { data: userData, isFetched } = useQuery(getUserQuery(+userId));
 
@@ -75,17 +77,22 @@ function OrganisationUser({ userId, subSubTabId }: OrganisationUserProps) {
 
   return (
     user && (
-      <PageBodyContainer heading={t("user")}>
+      <PageBodyContainer heading={t("heading")}>
         <PageColumns>
           <PageColumnBody lg={8}>
-            <UserDetails user={user} organisation={organisation} />
-            <SubTabsSections userId={userId} subTabId={subSubTabId} />
-            <SubTabsContents
-              registryId={user.registry.id}
-              subTabId={subSubTabId}
+            <UserDetails
+              user={user}
+              organisation={organisation}
+              affiliation={affiliation}
             />
+            <SubTabsSections userId={userId} subTabId={subSubTabId} />
+            <PageBody heading={t(toCamelCase(subSubTabId))}>
+              <SubTabsContents
+                registryId={user.registry.id}
+                subTabId={subSubTabId}
+              />
+            </PageBody>
           </PageColumnBody>
-
           <PageColumnDetails lg={4}>
             <StatusList
               affiliationStatus={affiliation?.model_state.state.slug}

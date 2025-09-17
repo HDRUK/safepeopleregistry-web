@@ -1,24 +1,26 @@
 "use client";
 
+import UserDetails from "@/components/UserDetails";
+import { UserGroup } from "@/consts/user";
+import { useStore } from "@/data/store";
+import {
+  PageBody,
+  PageBodyContainer,
+  PageColumnBody,
+  PageColumnDetails,
+  PageColumns,
+} from "@/modules";
+import ActionValidationPanel from "@/organisms/ActionValidationPanel";
+import { ActionValidationVariants } from "@/organisms/ActionValidationPanel/ActionValidationPanel";
+import StatusPanel from "@/organisms/StatusPanel";
+import { getCustodianProjectUserQuery } from "@/services/custodian_approvals";
+import { getUserQuery } from "@/services/users";
+import { getCustodianProjectUserValidationLogsQuery } from "@/services/validation_logs";
+import { toCamelCase } from "@/utils/string";
+import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { notFound } from "next/navigation";
 import { useEffect } from "react";
-import {
-  PageColumnDetails,
-  PageBodyContainer,
-  PageColumnBody,
-  PageColumns,
-} from "@/modules";
-import { UserGroup } from "@/consts/user";
-import { useStore } from "@/data/store";
-import { useQuery } from "@tanstack/react-query";
-import { getCustodianProjectUserValidationLogsQuery } from "@/services/validation_logs";
-import { getUserQuery } from "@/services/users";
-import ActionValidationPanel from "@/organisms/ActionValidationPanel";
-import { ActionValidationVariants } from "@/organisms/ActionValidationPanel/ActionValidationPanel";
-import { getCustodianProjectUserQuery } from "@/services/custodian_approvals";
-import UserDetails from "@/components/UserDetails";
-import StatusPanel from "@/organisms/StatusPanel";
 import { UserSubTabs } from "../../../../../consts/tabs";
 import SubTabsSections from "../SubTabSections";
 import SubTabsContents from "../SubsTabContents";
@@ -28,7 +30,7 @@ interface CustodianProjectUserProps {
   subTabId: UserSubTabs;
 }
 
-const NAMESPACE_TRANSLATION_CUSTODIAN_PROJECT_USER = "CustodianProjectUser";
+const NAMESPACE_TRANSLATION_CUSTODIAN_PROJECT_USER = "CustodianProfile.User";
 
 function CustodianProjectUser({
   projectUserId,
@@ -93,7 +95,7 @@ function CustodianProjectUser({
       <PageBodyContainer
         heading={
           <>
-            {t("title", {
+            {t("heading", {
               projectTitle: project?.title,
             })}
           </>
@@ -101,11 +103,14 @@ function CustodianProjectUser({
         <PageColumns>
           <PageColumnBody lg={8}>
             <UserDetails projectUser={projectUser} />
+
             <SubTabsSections
               projectUserId={projectUserId}
               subTabId={subTabId}
             />
-            <SubTabsContents registryId={registry.id} subTabId={subTabId} />
+            <PageBody heading={t(toCamelCase(subTabId))}>
+              <SubTabsContents registryId={registry.id} subTabId={subTabId} />
+            </PageBody>
           </PageColumnBody>
           <PageColumnDetails lg={4}>
             <StatusPanel variant={ActionValidationVariants.ProjectUser} />

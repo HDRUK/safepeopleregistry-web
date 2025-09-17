@@ -7,7 +7,7 @@ import { injectParamsIntoPath } from "@/utils/application";
 import { useTranslations } from "next-intl";
 import { UserSubTabs } from "../../../../../consts/tabs";
 
-const NAMESPACE_TRANSLATION_PROFILE = "CustodianProfile";
+const NAMESPACE_TRANSLATION_PROFILE = "CustodianProfile.User";
 
 export interface SubTabsMap {
   [key: string]: Option[];
@@ -79,5 +79,5 @@ export default function SubTabsSections({
     },
   ];
 
-  return <SubTabs current={subTabId} tabs={subTabs} sx={{ mb: 4 }} />;
+  return <SubTabs current={subTabId} tabs={subTabs} />;
 }
