@@ -75,28 +75,6 @@ export default function SubTabsSections({
         ),
       },
     ],
-    [PageTabs.USER_ADMINISTRATION]: [
-      {
-        label: t("userAdminEmployeeStudents"),
-        value: UserAdminPageSubTabs.EMPLOYEE_STUDENT_ADMINISTRATION,
-        href: injectParamsIntoPath(
-          routes.profileOrganisationUserAdministrationEmployeeStudent.path,
-          {
-            id,
-          }
-        ),
-      },
-      {
-        label: t("userAdminDelegates"),
-        value: UserAdminPageSubTabs.DELEGATE_ADMINISTRATION,
-        href: injectParamsIntoPath(
-          routes.profileOrganisationUserAdministrationDelegates.path,
-          {
-            id,
-          }
-        ),
-      },
-    ],
     [PageTabs.PROJECTS]: [
       {
         label: t("safeProject"),
