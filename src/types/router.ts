@@ -73,6 +73,7 @@ interface Routes {
   profileOrganisationDetailsSectorSizeAndWebsite: RouteConfig;
   profileOrganisationDetailsSecurityCompliance: RouteConfig;
   profileOrganisationUserAdministration: RouteConfig;
+  profileOrganisationTeamAdministration: RouteConfig;
   profileOrganisationUserAdministrationDelegates: RouteConfig;
   profileOrganisationUserAdministrationEmployeeStudent: RouteConfig;
   profileOrganisationUsersHistory: RouteConfig;

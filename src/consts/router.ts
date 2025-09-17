@@ -230,8 +230,8 @@ const ROUTES: Routes = {
     path: "/organisation/profile/user-administration",
     permissions: [UserGroup.ORGANISATIONS],
   },
-  profileOrganisationUserAdministrationDelegates: {
-    path: "/organisation/profile/user-administration/delegates",
+  profileOrganisationTeamAdministration: {
+    path: "/organisation/profile/team-administration",
     permissions: [UserGroup.ORGANISATIONS],
   },
   profileOrganisationUserAdministrationEmployeeStudent: {

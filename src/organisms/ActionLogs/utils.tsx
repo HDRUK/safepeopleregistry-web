@@ -59,7 +59,7 @@ const generateActions = (routes: Route) => {
     },
     add_sro_completed: {
       icon: <ManageAccountsIcon />,
-      path: routes.profileOrganisationUserAdministrationDelegates.path,
+      path: routes.profileOrganisationTeamAdministration.path,
     },
     affiliateEmployeesCompleted: {
       icon: <ManageAccountsIcon />,
