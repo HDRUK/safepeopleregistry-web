@@ -1,6 +1,7 @@
 "use client";
 
 import useColumns from "@/hooks/useColumns";
+import { formatShortDate } from "@/utils/date";
 import { filterColumns } from "@/utils/table";
 import { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
@@ -13,7 +14,6 @@ import {
   renderAffiliationRelationship,
   renderOrganisationsNameCell,
   renderStatusCell,
-  renderWarningCell,
 } from "../../utils/cells";
 
 export type AffiliationsTableColumns =
@@ -22,7 +22,8 @@ export type AffiliationsTableColumns =
   | "relationship"
   | "organisationName"
   | "memberId"
-  | "affiliationStatus";
+  | "affiliationStatus"
+  | "affiliationStatusChangedDate";
 
 export type AffiliationsTableProps = ModuleTables<
   ResearcherAffiliation,
@@ -38,6 +39,7 @@ export default function AffiliationsTable({
     "organisationName",
     "memberId",
     "affiliationStatus",
+    "affiliationStatusChangedDate",
   ],
   data,
   t,
@@ -49,19 +51,15 @@ export default function AffiliationsTable({
 
   const columns = useMemo(() => {
     const initialColumns: ColumnDef<ResearcherAffiliation>[] = [
-      createDefaultColumn("warning", {
-        header: "",
-        cell: renderWarningCell,
-      }),
       createDefaultColumn("date", {
         cell: renderAffiliationDateRangeCell,
-      }),
-      createDefaultColumn("relationship", {
-        cell: info => renderAffiliationRelationship(info, t),
       }),
       createDefaultColumn("organisationName", {
         accessorKey: "organisation",
         cell: info => renderOrganisationsNameCell(info.getValue()),
+      }),
+      createDefaultColumn("relationship", {
+        cell: info => renderAffiliationRelationship(info, t),
       }),
       createDefaultColumn("memberId", {
         accessorKey: "member_id",
@@ -69,6 +67,10 @@ export default function AffiliationsTable({
       createDefaultColumn("affiliationStatus", {
         accessorKey: "model_state.state.slug",
         cell: renderStatusCell,
+      }),
+      createDefaultColumn("affiliationStatusChangedDate", {
+        accessorKey: "model_state.state.updated_at",
+        cell: info => formatShortDate(info.getValue()),
       }),
     ];
 

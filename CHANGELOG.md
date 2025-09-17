@@ -1,3 +1,16 @@
+## [1.11.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.10.2...v1.11.0) (2025-09-17)
+
+### ✨ Features
+
+* **REGISTRY-1357:** Validation comment required only if fail (#486) ([12be5c9](https://github.com/HDRUK/safepeopleregistry-web/commit/12be5c9f05d5306c2289016470a7947734aab837))
+* **REGISTRY-1655:** Display affiliation email (#488) ([451408c](https://github.com/HDRUK/safepeopleregistry-web/commit/451408c08ffa9c4960a19bc21fb954674d523516))
+* **REGISTRY-1815:** page titles and affiliations columns (#487) ([97f6f1d](https://github.com/HDRUK/safepeopleregistry-web/commit/97f6f1df64367710b7d602b8282dd96f5e8f6db6))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-1881:** Fix Digital Identifiers (#483) ([4b776b1](https://github.com/HDRUK/safepeopleregistry-web/commit/4b776b1aa7ba9ccc558c0c88291d63ec1d12e253))
+* **REGISTRY-1904:** update tests (#484) ([e5aa16a](https://github.com/HDRUK/safepeopleregistry-web/commit/e5aa16af77ebb07942d554853f89c71e6a40f073))
+
 ## [1.10.2](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.10.1...v1.10.2) (2025-09-15)
 
 ### 🐛 Bug Fixes

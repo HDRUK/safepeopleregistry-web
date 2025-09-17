@@ -55,6 +55,7 @@ describe("<UserAffiliations />", () => {
 
   it("displays the affiliations table", async () => {
     render(<UserAffiliations />);
+
     await waitFor(() => {
       expect(screen.getByRole("table")).toBeInTheDocument();
     });
@@ -62,6 +63,7 @@ describe("<UserAffiliations />", () => {
 
   it("displays organisation name in the table", async () => {
     render(<UserAffiliations />);
+
     await waitFor(() => {
       expect(
         screen.getByText(testAffiliations[0].organisation.organisation_name)
@@ -71,8 +73,9 @@ describe("<UserAffiliations />", () => {
 
   it("displays 6 columns", async () => {
     render(<UserAffiliations />);
+
     await waitFor(() => {
-      expect(screen.getAllByRole("columnheader")).toHaveLength(6);
+      expect(screen.getAllByRole("columnheader")).toHaveLength(5);
     });
   });
 

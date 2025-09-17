@@ -17,7 +17,7 @@ describe("Date utils", () => {
 
   describe("formatShortDate", () => {
     it("date has the correct format", async () => {
-      expect(formatShortDate("2021-01-01")).toEqual("01/01/2021");
+      expect(formatShortDate("2021-01-01")).toEqual("1 Jan 2021");
     });
   });
 

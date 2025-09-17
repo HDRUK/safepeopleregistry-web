@@ -73,9 +73,9 @@ describe("<Delegates />", () => {
 
     await waitFor(() => {
       expect(screen.getByText("John Doe")).toBeInTheDocument();
-      expect(screen.getByText("01/01/2023")).toBeInTheDocument();
+      expect(screen.getByText("1 Jan 2023")).toBeInTheDocument();
       expect(screen.getByText("Jane Smith")).toBeInTheDocument();
-      expect(screen.getByText("01/02/2023")).toBeInTheDocument();
+      expect(screen.getByText("1 Feb 2023")).toBeInTheDocument();
     });
   });
 
