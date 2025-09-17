@@ -565,6 +565,7 @@
     "sroProfileUri": "Profile link",
     "sroProfileUriRequiredInvalid": "Profile link is required",
     "sroProfileUriInvalid": "Profile link is not a valid url",
+    "sroProfileUriDescription": "Link to website containing profile of SRO Declaration signatory, who must be either a legal representative of the Organisation or a registered data protection officer.",
     "from": "From",
     "fromPlaceholder": "From",
     "to": "To",
