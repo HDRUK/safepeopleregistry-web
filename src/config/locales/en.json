@@ -135,6 +135,16 @@
     "deleteAffiliation": "Delete Affiliation"
   },
   "CustodianProfile": {
+    "User": {
+      "heading": "User for {projectTitle}",
+      "getUserError": "Could not get the relevant user",
+      "history": "History",
+      "trainingAccreditations": "Training and Accreditations",
+      "identity": "Identity",
+      "projects": "Projects",
+      "affiliations": "Affiliations",
+      "custodianOrgInfo": "Automated flags"
+    },
     "Integrations": {
       "okButton": "OK",
       "saveSuccess": "Custodian profile details updated",
@@ -381,7 +391,16 @@
     "emailAddress": "Email Address",
     "inviteSent": "Invite Sent",
     "actions": "Actions",
-    "sroTitle": "SRO Declaration"
+    "sroTitle": "SRO Declaration",
+    "User": {
+      "getUserError": "Could not get the relevant user",
+      "history": "History",
+      "trainingAccreditations": "Training and Accreditations",
+      "identity": "Identity",
+      "projects": "Projects",
+      "affiliations": "Affiliations",
+      "heading": "User"
+    }
   },
   "Form": {
     "accessDatePlaceholder": "Access date",
@@ -546,6 +565,7 @@
     "sroProfileUri": "Profile link",
     "sroProfileUriRequiredInvalid": "Profile link is required",
     "sroProfileUriInvalid": "Profile link is not a valid url",
+    "sroProfileUriDescription": "Link to website containing profile of SRO Declaration signatory, who must be either a legal representative of the Organisation or a registered data protection officer.",
     "from": "From",
     "fromPlaceholder": "From",
     "to": "To",
@@ -1037,6 +1057,7 @@
     "noResultsMessage": "No organisations found"
   },
   "Affiliations": {
+    "affiliationStatusChangedDate": "Status changed",
     "honoraryContract": "Honorary contract",
     "student": "Student",
     "employee": "Employee",
@@ -1557,9 +1578,6 @@
     "changeDecision": "Change Decision",
     "passed": "Passed",
     "failed": "Failed"
-  },
-  "CustodianProjectUser": {
-    "title": "User for {projectTitle}"
   },
   "ActionValidationLogComment": {
     "daysSince": "{days} days ago"

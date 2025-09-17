@@ -30,7 +30,10 @@ export default function ActionValidationCommentForm({
   const t = useTranslations(NAMESPACE_TRANSLATION_FORM);
 
   const schema = yup.object().shape({
-    comment: yup.string().required(),
+    comment:
+      selectedAction === ValidationLogAction.PASS
+        ? yup.string()
+        : yup.string().required(),
   });
 
   const formOptions = {
