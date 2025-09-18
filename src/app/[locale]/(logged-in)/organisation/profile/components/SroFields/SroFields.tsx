@@ -73,6 +73,7 @@ export default function SroFields() {
               <FormControl
                 name="sro_profile_uri"
                 renderField={fieldProps => <TextField {...fieldProps} />}
+                description={t("sroProfileUriDescription")}
               />
             </Grid>
           </Grid>
