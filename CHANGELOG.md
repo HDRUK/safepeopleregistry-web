@@ -1,3 +1,13 @@
+## [1.12.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.11.0...v1.12.0) (2025-09-18)
+
+### ✨ Features
+
+* **REGISTRY-1894:** add sro link description (#491) ([3081460](https://github.com/HDRUK/safepeopleregistry-web/commit/3081460962a31d7b4a67672d9172be58964a4e6a))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-1665:** Reorganise main org tabs (#492) ([b204324](https://github.com/HDRUK/safepeopleregistry-web/commit/b20432499f6121d36176c5a2bb8d61635df3a119))
+
 ## [1.11.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.10.2...v1.11.0) (2025-09-17)
 
 ### ✨ Features
