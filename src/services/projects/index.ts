@@ -2,6 +2,8 @@ import getProjects from "./getProjects";
 import getEntityProjects from "./getEntityProjects";
 import getProjectUsers from "./getProjectUsers";
 import getProject from "./getProject";
+import getProjectForUser from "./getProjectForUser";
+import getProjectForUserQuery from "./getProjectForUserQuery";
 import getAllProjects from "./getAllProjects";
 import getUserValidatedProjects from "./getUserValidatedProjects";
 import getUserValidatedProjectsQuery from "./getUserValidatedProjectsQuery";
@@ -28,6 +30,8 @@ export {
   putProjectUsersQuery,
   useGetProjectUsers,
   useGetProjectAllUsers,
+  getProjectForUser,
+  getProjectForUserQuery,
 };
 
 export type * from "./types";
