@@ -20,9 +20,9 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { getUserQuery, putUserQuery } from "@/services/users";
 import { ROUTES } from "@/consts/router";
 import { pick } from "@/utils/json";
+import SroDeclaration from "@/organisms/SroDeclaration";
 import useUpdateOrganisation from "../../hooks/useUpdateOrganisation";
 import SroFields from "../SroFields";
-import SroDeclaration from "@/organisms/SroDeclaration";
 
 export interface NameAndAddressFormValues {
   organisation_name: string;
