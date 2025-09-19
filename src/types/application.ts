@@ -499,6 +499,7 @@ type ProjectAllUser = WithModelState<{
   first_name: string;
   last_name: string;
   email: string;
+  professional_email: string;
   affiliation_id: number;
   organisation_name: string;
   role: Partial<Role>;
