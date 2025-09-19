@@ -15,14 +15,14 @@ import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
 import ErrorMessage from "@/components/ErrorMessage";
 import OrganisationsSubsidiaries from "@/organisms/OrganisationsSubsidiaries/OrganisationsSubsidiaries";
 import useOrganisationStore from "@/queries/useOrganisationStore";
-import SroDeclaration from "@/organisms/SroDeclaration/SroDeclaration";
 import { useStore } from "@/data/store";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getUserQuery, putUserQuery } from "@/services/users";
 import { ROUTES } from "@/consts/router";
 import { pick } from "@/utils/json";
 import useUpdateOrganisation from "../../hooks/useUpdateOrganisation";
-import SroFields from "../SroFields/SroFields";
+import SroFields from "../SroFields";
+import SroDeclaration from "@/organisms/SroDeclaration";
 
 export interface NameAndAddressFormValues {
   organisation_name: string;
@@ -270,6 +270,16 @@ export default function NameAndAddress() {
 
               <SroFields />
               <SroDeclaration />
+
+              <Grid container rowSpacing={3}>
+                <Grid item xs={12}>
+                  <FormControlHorizontal
+                    name="sro_profile_uri"
+                    renderField={fieldProps => <TextField {...fieldProps} />}
+                    description={tForm("sroProfileUriDescription")}
+                  />
+                </Grid>
+              </Grid>
 
               <FormActions>
                 <ProfileNavigationFooter
