@@ -11,7 +11,6 @@ import {
   ProjectsSubTabs,
   UserAdminPageSubTabs,
 } from "../../consts/tabs";
-import Delegates from "../Delegates";
 import DigitalIdentifiers from "../DigitalIdentifiers";
 import NameAndAddress from "../NameAndAddress";
 import ProjectsSafeData from "../ProjectsSafeData";
@@ -61,9 +60,6 @@ export default function SubTabsContents({
       break;
     case DetailsPageSubTabs.SECURITY_COMPLIANCE:
       content = <SecurityCompliance />;
-      break;
-    case UserAdminPageSubTabs.DELEGATE_ADMINISTRATION:
-      content = <Delegates />;
       break;
     case UserAdminPageSubTabs.EMPLOYEE_STUDENT_ADMINISTRATION:
       content = <OrganisationUsers />;

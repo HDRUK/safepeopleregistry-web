@@ -87,25 +87,43 @@ export default function AffiliationsPage() {
     false
   ) as QueryState;
 
-  useQueryAlerts(
-    selectedAffiliation ? putAffiliationQueryState : postAffiliationQueryState,
-    {
-      onSuccess: () => {
-        setOpen(false);
-        setSelectedAffiliation(undefined);
-      },
-      successAlertProps: {
-        confirmButtonText: tProfile("affiliationActionSuccessButton"),
-        text: selectedAffiliation
-          ? tProfile("putAffiliationSuccess")
+  const isEdit = !!selectedAffiliation;
+  const mutationState = isEdit
+    ? putAffiliationQueryState
+    : postAffiliationQueryState;
+  const vars = mutationState.variables as
+    | { current_employer?: boolean; email?: string }
+    | undefined;
+  const isVerification = !isEdit && !!vars?.current_employer;
+
+  useQueryAlerts(mutationState, {
+    onSuccess: () => {
+      setOpen(false);
+      setSelectedAffiliation(undefined);
+    },
+    successAlertProps: {
+      ...(isVerification && {
+        title: tProfile("affiliationActionVerificationTitle"),
+      }),
+      confirmButtonText: tProfile(
+        isVerification
+          ? "affiliationActionVerificationButton"
+          : "affiliationActionSuccessButton"
+      ),
+      text: isEdit
+        ? tProfile("putAffiliationSuccess")
+        : isVerification
+          ? tProfile("postAffiliationVerification", {
+              email: vars?.email ?? "",
+            })
           : tProfile("postAffiliationSuccess"),
-      },
-      errorAlertProps: {
-        text: renderErrorToString(tProfile, "affiliationActionError"),
-        confirmButtonText: tProfile("affiliationActionErrorButton"),
-      },
-    }
-  );
+    },
+    ...(isVerification && { successAlertType: "info" }),
+    errorAlertProps: {
+      text: renderErrorToString(tProfile, "affiliationActionError"),
+      confirmButtonText: tProfile("affiliationActionErrorButton"),
+    },
+  });
 
   const showConfirmDelete = useQueryConfirmAlerts(restDeleteState, {
     onSuccess: () => refetch(),

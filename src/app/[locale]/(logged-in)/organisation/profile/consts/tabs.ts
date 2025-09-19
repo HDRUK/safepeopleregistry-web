@@ -1,6 +1,7 @@
 enum PageTabs {
   HOME = "home",
   DETAILS = "details",
+  TEAM_ADMINISTRATION = "team-administration",
   USER_ADMINISTRATION = "user-administration",
   PROJECTS = "projects",
 }
@@ -13,8 +14,11 @@ enum DetailsPageSubTabs {
 }
 
 enum UserAdminPageSubTabs {
-  DELEGATE_ADMINISTRATION = "delegates",
   EMPLOYEE_STUDENT_ADMINISTRATION = "employees-and-students",
+}
+
+enum TeamAdminPageSubTabs {
+  DELEGATE_ADMINISTRATION = "delegates",
 }
 
 enum ProjectsSubTabs {
@@ -37,6 +41,7 @@ enum UserSubTabs {
 export type PageSubTabs =
   | DetailsPageSubTabs
   | UserAdminPageSubTabs
+  | TeamAdminPageSubTabs
   | ProjectsSubTabs;
 
 type TabStructure = {
@@ -46,6 +51,7 @@ type TabStructure = {
 const tabHierarchy: TabStructure = {
   [PageTabs.DETAILS]: Object.values(DetailsPageSubTabs),
   [PageTabs.USER_ADMINISTRATION]: Object.values(UserAdminPageSubTabs),
+  [PageTabs.TEAM_ADMINISTRATION]: Object.values(TeamAdminPageSubTabs),
   [PageTabs.PROJECTS]: Object.values(ProjectsSubTabs),
 };
 
@@ -58,6 +64,7 @@ export {
   DetailsPageSubTabs,
   ProjectsSubTabs,
   UserAdminPageSubTabs,
+  TeamAdminPageSubTabs,
   UserSubTabs,
   getSubTabs,
 };

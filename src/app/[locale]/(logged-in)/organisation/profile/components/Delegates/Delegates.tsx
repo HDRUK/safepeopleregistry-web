@@ -21,14 +21,13 @@ export default function Delegates() {
       <PageSection>
         {user?.is_delegate === 0 ? (
           <FormSection
-            heading={tProfile("delegatesAdminTitle")}
             description={
               <Markdown>{tProfile("delegateAdminDescription")}</Markdown>
             }>
             <DelegateTable />
           </FormSection>
         ) : (
-          <FormSection>
+          <FormSection heading={tProfile("delegatesAdminTitle")}>
             <Markdown>{tProfile("delegateAdminDescriptionDelegate")}</Markdown>
             <DelegateTable />
           </FormSection>

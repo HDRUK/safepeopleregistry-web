@@ -86,11 +86,11 @@ export default function AffiliationsForm({
         role: yup.string().required(tForm("roleRequiredInvalid")),
         email: yup
           .string()
+          .required(tForm("professionalEmailRequired"))
           .email(tForm("professionalEmailFormatInvalid"))
           .when("current_employer", {
             is: (value: boolean) => !!value,
             otherwise: schema => schema.notRequired(),
-            then: schema => schema.required(tForm("professionalEmailRequired")),
           }),
       }),
     [tForm, selectOrganisation]

@@ -38,6 +38,7 @@ export const showAlert = (
   if (!untilDuration || !Cookies.get(cookieName)) {
     return withReactContent(Swal).fire({
       icon: type,
+      ...(type === "info" && { iconColor: theme.palette.info.dark }),
       title:
         title ??
         notificationValues
