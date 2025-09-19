@@ -112,6 +112,7 @@ export default function ProjectsAddUserForm({
     {
       accessorKey: "email",
       header: tApplication("email"),
+      cell: info => info.row.original?.professional_email,
     },
     {
       accessorKey: "organisation_name",
