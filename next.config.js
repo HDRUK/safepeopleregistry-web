@@ -3,7 +3,7 @@ const withNextIntl = require("next-intl/plugin")();
 /** @type {import('next').NextConfig} */
 
 const nextConfig = withNextIntl({
-  reactStrictMode: true,
+  reactStrictMode: false,
   swcMinify: true,
   env: {
     API_V1_URL: process.env.NEXT_PUBLIC_API_V1_URL,

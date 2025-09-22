@@ -67,11 +67,13 @@ async function handleJsonResponse(
     return Promise.resolve({
       ...data,
       status: response.status,
+      ok: response.ok,
     });
   } catch (_) {
     return Promise.resolve({
       ...createEmptyErrorJson(),
       status: response.status,
+      ok: response.ok,
     });
   }
 }

@@ -1,3 +1,14 @@
+import {
+  MutateWithArgs,
+  QueryOptions,
+  ResponseOptions,
+} from "@/types/requests";
+import {
+  QueryKey,
+  QueryMeta,
+  UseMutationOptions,
+  UseQueryOptions,
+} from "@tanstack/react-query";
 import { MutationState, QueryState } from "../types/form";
 import { SearchParams } from "../types/query";
 
@@ -93,15 +104,86 @@ function getCombinedQueryState<T extends MutationState & QueryState>(
   };
 }
 
+export default function createQuery<R>(
+  query: {
+    queryKey: string | string[];
+    queryFn: (
+      context: {
+        queryKey: QueryKey;
+        signal: AbortSignal;
+        meta: QueryMeta | undefined;
+        pageParam?: unknown;
+        direction?: unknown;
+      },
+      options?: ResponseOptions
+    ) => Promise<R>;
+  },
+  options?: QueryOptions
+) {
+  const { queryKey, queryFn } = query;
+  const formattedQueryKey = [
+    ...(typeof queryKey === "string" ? [queryKey] : queryKey),
+    ...(options?.queryKeySuffix || []),
+  ];
+
+  return {
+    queryKey: formattedQueryKey,
+    queryFn: data =>
+      queryFn(data, {
+        error: {
+          message: `${formattedQueryKey[0]}Error`,
+        },
+        ...options?.responseOptions,
+      }),
+    ...options,
+  } as UseQueryOptions<Awaited<ReturnType<typeof queryFn>>>;
+}
+
+function createMutation<R, T, P>(
+  mutation: {
+    mutationKey: string | string[];
+    mutationFn: (
+      mutationArgs: MutateWithArgs<T, P>,
+      options: ResponseOptions
+    ) => Promise<R>;
+  },
+  options?: QueryOptions
+) {
+  const { mutationKey, mutationFn } = mutation;
+  const formattedMutationKey = [
+    ...(typeof mutationKey === "string" ? [mutationKey] : mutationKey),
+    ...(options?.queryKeySuffix || []),
+  ];
+
+  return {
+    mutationKey: formattedMutationKey,
+    mutationFn: (mutationArgs: MutateWithArgs<T, P>) => {
+      return mutationFn(mutationArgs, {
+        error: {
+          message: `${mutationKey}Error`,
+        },
+        ...options?.responseOptions,
+      });
+    },
+    ...options,
+  } as UseMutationOptions<
+    Awaited<ReturnType<typeof mutationFn>>,
+    Error,
+    MutateWithArgs<T, P>
+  >;
+}
+
 export {
   getCombinedQueryState,
   getQueriesError,
-  isQueriesError,
-  isQueriesFetched,
-  isQueriesLoading,
-  isAnyQuerySuccess,
-  isAllQueriesSuccess,
   getSearchQuerystring,
   getSearchSortOrder,
   getSearchSortParam,
+  isAllQueriesSuccess,
+  isAnyQuerySuccess,
+  isQueriesError,
+  isQueriesFetched,
+  isQueriesLoading,
+  createQuery,
+  createMutation,
 };

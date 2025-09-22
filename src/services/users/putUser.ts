@@ -6,7 +6,7 @@ import { PutUserPayload, PutUserResponse } from "./types";
 export default async (
   id: number,
   payload: PutUserPayload,
-  options: ResponseOptions
+  options?: ResponseOptions
 ): Promise<ResponseJson<PutUserResponse>> => {
   const response = await putRequest(`/users/${id}`, payload);
 

@@ -1,8 +1,13 @@
-import { UserProvider, UserHistoryLog } from "@/consts/user";
-import { ResearcherProject, User } from "@/types/application";
+import { UserProvider, UserHistoryLog } from "../../consts/user";
+import {
+  PendingInvite,
+  ResearcherProject,
+  User,
+} from "../../types/application";
 
 type PutUserPayload = Partial<User>;
 
+type PendingInviteResponse = PendingInvite;
 interface UpdatePermissonsPayload {
   user_id: number;
   custodian_id: number;
@@ -56,6 +61,14 @@ interface UserHistory {
   causer: Partial<User>;
 }
 
+interface PutEmailByInvitePayload {
+  email: string;
+}
+
+interface PutEmailByInviteParams {
+  inviteCode: string;
+}
+
 export type {
   PostUserPayload,
   PostUserResponse,
@@ -69,4 +82,7 @@ export type {
   UserProjectsResponse,
   UserHistory,
   GetUserProjectsResponse,
+  PendingInviteResponse,
+  PutEmailByInvitePayload,
+  PutEmailByInviteParams,
 };

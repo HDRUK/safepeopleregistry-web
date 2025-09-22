@@ -9,4 +9,9 @@ enum EMAIL_TEMPLATE {
   DELEGATE_INVITE = "delegate_invite",
 }
 
-export { VALIDATION_SCHEMA_KEY, EMAIL_TEMPLATE };
+enum PendingInvite {
+  COMPLETE = "COMPLETE",
+  PENDING = "PENDING",
+}
+
+export { VALIDATION_SCHEMA_KEY, EMAIL_TEMPLATE, PendingInvite };
