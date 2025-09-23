@@ -53,9 +53,6 @@ export default function AccountConfirm({
   );
   const [termsDisplayed, setTermsDisplayed] = useState(false);
 
-  console.log("  unclaimedUser, tokenUser", unclaimedUser, tokenUser);
-  console.log("  userGroup", userGroup);
-
   const unclaimedOrgAdmin =
     unclaimedUser && unclaimedUser?.user_group === UserGroup.ORGANISATIONS
       ? unclaimedUser

@@ -8,7 +8,6 @@ export default async (
   payload: PutEmailByInvitePayload,
   options?: ResponseOptions
 ): Promise<ResponseJson<null>> => {
-  // Requires cookie rather than param
   const response = await putRequest(
     `/users/pending_invites/claim_email/${inviteCode}`,
     payload
