@@ -104,7 +104,7 @@ function getCombinedQueryState<T extends MutationState & QueryState>(
   };
 }
 
-export default function createQuery<R>(
+function createQuery<R>(
   query: {
     queryKey: string | string[];
     queryFn: (
