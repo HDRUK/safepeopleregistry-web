@@ -119,6 +119,8 @@ export default function AccountConfirm({
   const isContinueDisabled = userGroup === null || isLoading;
   const guidanceKey = userGroup?.toLowerCase();
 
+  console.log("unclaimedUser", unclaimedUser);
+
   return (
     <>
       {!termsDisplayed && (

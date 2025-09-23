@@ -8,7 +8,7 @@ export default async (
   options?: ResponseOptions
 ): Promise<ResponseJson<MeResponse>> => {
   const response = await getRequest(
-    `${isServer() ? process.env.NEXT_PUBLIC_API_SERVER_URL : process.env.NEXT_PUBLIC_API_URL}/auth/me_unclaimed?invite_code=${inviteCode}`
+    `${isServer() ? process.env.NEXT_PUBLIC_API_SERVER_URL : process.env.NEXT_PUBLIC_API_URL}/auth/me_unclaimed${inviteCode ? `?invite_code=${inviteCode}` : ""}`
   );
 
   return handleJsonResponse(response, options);
