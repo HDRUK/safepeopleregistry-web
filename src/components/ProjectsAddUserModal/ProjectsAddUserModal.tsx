@@ -1,14 +1,15 @@
+import Link from "@mui/material/Link";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import Link from "@mui/material/Link";
 import { useState } from "react";
-import FormModal, { FormModalProps } from "../FormModal";
-import { putProjectUsersQuery } from "../../services/projects";
 import useQueryAlerts from "../../hooks/useQueryAlerts";
+import { putProjectUsersQuery } from "../../services/projects";
 import { ProjectAllUser } from "../../types/application";
 import { showAlert } from "../../utils/showAlert";
+import FormModal, { FormModalProps } from "../FormModal";
 import ProjectsAddUserForm from "../ProjectsAddUserForm";
 
+import { useStore } from "@/data/store";
 import InviteUserModal from "../InviteUserModal";
 
 interface ProjectsAddUserModalProps extends Omit<FormModalProps, "children"> {
@@ -32,6 +33,8 @@ export default function ProjectsAddUserModal({
   const { mutateAsync, ...putProjectUsersMutationState } = useMutation(
     putProjectUsersQuery()
   );
+
+  const projectUsers = useStore(state => state.getCurrentProjectUsers());
 
   const handleSave = async (projectUsers: ProjectAllUser[]) => {
     if (request) {
@@ -100,7 +103,9 @@ export default function ProjectsAddUserModal({
       </FormModal>
 
       <InviteUserModal
-        onSuccess={() => {
+        onSuccess={(user: ProjectAllUser) => {
+          handleSave([user, ...projectUsers]);
+
           handleRefreshUsers();
           setOpenInviteUser(false);
         }}

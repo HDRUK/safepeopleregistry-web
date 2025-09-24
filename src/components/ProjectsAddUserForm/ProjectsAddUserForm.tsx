@@ -53,7 +53,10 @@ export default function ProjectsAddUserForm({
     defaultQueryParams: { "user_group__and[]": "USERS" },
   });
 
-  const [projectUsers, setProjectUsers] = useState<ProjectAllUser[]>([]);
+  const { projectUsers, setProjectUsers } = useStore(state => ({
+    projectUsers: state.getCurrentProjectUsers(),
+    setProjectUsers: state.setCurrentProjectUsers,
+  }));
 
   useEffect(() => {
     if (usersData) setProjectUsers(usersData);
