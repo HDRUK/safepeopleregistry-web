@@ -52,9 +52,7 @@ export default function InviteUser({
     postOrganisationInviteUserQuery()
   );
 
-  useQueryAlerts(queryState, {
-    onSuccess: () => onSuccess?.(),
-  });
+  useQueryAlerts(queryState);
 
   const {
     handleSubmit: handleCreateAndInviteOrganisation,
@@ -86,6 +84,7 @@ export default function InviteUser({
       yup.object().shape({
         first_name: yup.string().required(tForm("firstNameRequiredInvalid")),
         last_name: yup.string().required(tForm("lastNameRequiredInvalid")),
+        role: yup.string().required(tForm("RequiredInvalid")),
         email: yup
           .string()
           .email(tForm("emailFormatInvalid"))
@@ -128,6 +127,7 @@ export default function InviteUser({
       first_name: "",
       last_name: "",
       email: "",
+      role: "",
       organisation_id: initialOrganisationId || "",
       organisation_name: "",
       organisation_email: "",
@@ -152,7 +152,12 @@ export default function InviteUser({
       organisationId = await handleCreateAndInviteOrganisation(invitePayload);
     }
 
-    mutateUserInvite({ organisationId: organisationId as number, payload });
+    await mutateUserInvite({
+      organisationId: organisationId as number,
+      payload,
+    });
+
+    onSuccess?.(payload);
   };
 
   return (
@@ -185,28 +190,36 @@ export default function InviteUser({
               </Grid>
 
               {selectOrganisation ? (
-                <Grid item xs={12}>
-                  <FormControlHorizontal
-                    name="organisation_id"
-                    renderField={({ ...fieldProps }) => (
-                      <SelectOrganisation {...fieldProps} />
-                    )}
-                    description={tProfile.rich("organisationNotListed", {
-                      link: chunks => (
-                        <Link
-                          component="button"
-                          onClick={e => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            setSelectOrganisation(false);
-                          }}
-                          sx={{ pb: 0.25 }}>
-                          {chunks}
-                        </Link>
-                      ),
-                    })}
-                  />
-                </Grid>
+                <>
+                  <Grid item xs={12}>
+                    <FormControlHorizontal
+                      name="role"
+                      renderField={fieldProps => <TextField {...fieldProps} />}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <FormControlHorizontal
+                      name="organisation_id"
+                      renderField={({ ...fieldProps }) => (
+                        <SelectOrganisation {...fieldProps} />
+                      )}
+                      description={tProfile.rich("organisationNotListed", {
+                        link: chunks => (
+                          <Link
+                            component="button"
+                            onClick={e => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setSelectOrganisation(false);
+                            }}
+                            sx={{ pb: 0.25 }}>
+                            {chunks}
+                          </Link>
+                        ),
+                      })}
+                    />
+                  </Grid>
+                </>
               ) : (
                 <>
                   <Grid item xs={12}>

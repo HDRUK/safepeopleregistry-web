@@ -13,6 +13,7 @@ export default function InviteUserModal({
   ...restProps
 }: InviteUserProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION);
+
   return (
     <FormModal variant="content" description={t("description")} {...restProps}>
       <InviteUser onSuccess={onSuccess} />
