@@ -16,6 +16,8 @@ import FormSection from "../../components/FormSection";
 import yup from "../../config/yup";
 import { MAX_FORM_WIDTH } from "../../consts/form";
 import { getUsers } from "../../services/users";
+import SelectRole from "../../components/SelectRole";
+import { Role } from "../../types/application";
 
 const NAMESPACE_TRANSLATION_FORM = "Form";
 const NAMESPACE_TRANSLATION_ORGANISATION = "User";
@@ -25,21 +27,25 @@ interface InviteUserFormValues {
   first_name: string;
   last_name: string;
   email: string;
+  role?: number;
   organisation_id?: number;
   organisation_name?: string;
   organisation_email?: string;
 }
 
 export interface InviteUserFormProps {
-  onSuccess?: () => void;
+  onSuccess?: (id: number, roleId: number) => void;
   organisationId?: number;
   enableEmailCheck?: boolean;
+  isProjectUser?: boolean;
+  projectRoles?: Partial<Role>[];
 }
 
 export default function InviteUser({
   onSuccess,
   organisationId: initialOrganisationId,
   enableEmailCheck = true,
+  projectRoles,
 }: InviteUserFormProps) {
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
   const tUser = useTranslations(NAMESPACE_TRANSLATION_ORGANISATION);
@@ -84,7 +90,9 @@ export default function InviteUser({
       yup.object().shape({
         first_name: yup.string().required(tForm("firstNameRequiredInvalid")),
         last_name: yup.string().required(tForm("lastNameRequiredInvalid")),
-        role: yup.string().required(tForm("RequiredInvalid")),
+        role: projectRoles
+          ? yup.string().required(tForm("roleRequiredInvalid"))
+          : yup.string().notRequired(),
         email: yup
           .string()
           .email(tForm("emailFormatInvalid"))
@@ -139,6 +147,7 @@ export default function InviteUser({
       organisation_name,
       organisation_email,
       organisation_id,
+      role,
       ...payload
     } = formData;
 
@@ -149,15 +158,16 @@ export default function InviteUser({
         organisation_name,
         lead_applicant_email: organisation_email,
       };
+
       organisationId = await handleCreateAndInviteOrganisation(invitePayload);
     }
 
-    await mutateUserInvite({
+    const { data: id } = await mutateUserInvite({
       organisationId: organisationId as number,
       payload,
     });
 
-    onSuccess?.(payload);
+    onSuccess?.(id, role);
   };
 
   return (
@@ -189,37 +199,40 @@ export default function InviteUser({
                 />
               </Grid>
 
+              {projectRoles && (
+                <Grid item xs={12}>
+                  <FormControlHorizontal
+                    name="role"
+                    renderField={fieldProps => (
+                      <SelectRole roles={projectRoles} {...fieldProps} />
+                    )}
+                  />
+                </Grid>
+              )}
+
               {selectOrganisation ? (
-                <>
-                  <Grid item xs={12}>
-                    <FormControlHorizontal
-                      name="role"
-                      renderField={fieldProps => <TextField {...fieldProps} />}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <FormControlHorizontal
-                      name="organisation_id"
-                      renderField={({ ...fieldProps }) => (
-                        <SelectOrganisation {...fieldProps} />
-                      )}
-                      description={tProfile.rich("organisationNotListed", {
-                        link: chunks => (
-                          <Link
-                            component="button"
-                            onClick={e => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setSelectOrganisation(false);
-                            }}
-                            sx={{ pb: 0.25 }}>
-                            {chunks}
-                          </Link>
-                        ),
-                      })}
-                    />
-                  </Grid>
-                </>
+                <Grid item xs={12}>
+                  <FormControlHorizontal
+                    name="organisation_id"
+                    renderField={({ ...fieldProps }) => (
+                      <SelectOrganisation {...fieldProps} />
+                    )}
+                    description={tProfile.rich("organisationNotListed", {
+                      link: chunks => (
+                        <Link
+                          component="button"
+                          onClick={e => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setSelectOrganisation(false);
+                          }}
+                          sx={{ pb: 0.25 }}>
+                          {chunks}
+                        </Link>
+                      ),
+                    })}
+                  />
+                </Grid>
               ) : (
                 <>
                   <Grid item xs={12}>
