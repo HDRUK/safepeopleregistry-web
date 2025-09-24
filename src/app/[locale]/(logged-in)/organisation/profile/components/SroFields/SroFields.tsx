@@ -1,13 +1,13 @@
 "use client";
 
 import { PageSection } from "@/modules";
-import FormControl from "@/components/FormControlWrapper";
 import FormSection from "@/components/FormSection";
 import { Grid, TextField } from "@mui/material";
 import SelectDepartments from "@/components/SelectDepartments";
 import Markdown from "@/components/Markdown";
 import { useStore } from "@/data/store";
 import { useTranslations } from "next-intl";
+import FormControlHorizontal from "@/components/FormControlHorizontal";
 
 const NAMESPACE_TRANSLATION = "Form";
 
@@ -25,26 +25,23 @@ export default function SroFields() {
         <FormSection
           heading={t("keyContactFormTitle")}
           description={<Markdown>{t("keyContactFormDescription")}</Markdown>}>
-          <Grid
-            container
-            rowSpacing={3}
-            sx={{ width: "70%", justifyContent: "flex-start" }}>
+          <Grid container rowSpacing={3}>
             <Grid item xs={12}>
-              <FormControl
+              <FormControlHorizontal
                 name="first_name"
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />
             </Grid>
 
             <Grid item xs={12}>
-              <FormControl
+              <FormControlHorizontal
                 name="last_name"
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />
             </Grid>
 
             <Grid item xs={12}>
-              <FormControl
+              <FormControlHorizontal
                 name="department"
                 renderField={fieldProps => (
                   <SelectDepartments
@@ -58,20 +55,14 @@ export default function SroFields() {
               />
             </Grid>
             <Grid item xs={12}>
-              <FormControl
+              <FormControlHorizontal
                 name="role"
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />
             </Grid>
             <Grid item xs={12}>
-              <FormControl
+              <FormControlHorizontal
                 name="email"
-                renderField={fieldProps => <TextField {...fieldProps} />}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControl
-                name="sro_profile_uri"
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />
             </Grid>

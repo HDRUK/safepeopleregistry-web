@@ -398,6 +398,9 @@ type ResearcherProject = WithModelState<{
   custodians?: Custodian[];
   project_detail: ProjectDetails;
   status: Status;
+  custodian_has_project_user?: CustodianProjectUser[];
+  custodian_has_project_organisation?: CustodianProjectOrganisation[];
+  project_users_count?: number;
 }>;
 
 interface PendingInvite {
@@ -506,6 +509,7 @@ type ProjectAllUser = WithModelState<{
   first_name: string;
   last_name: string;
   email: string;
+  professional_email: string;
   affiliation_id: number;
   organisation_name: string;
   role: Partial<Role>;

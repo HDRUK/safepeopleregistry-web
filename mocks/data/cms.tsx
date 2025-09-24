@@ -549,6 +549,8 @@ export const mockedOrganisationProfileGuidance: TabGuidance = {
         </>
       ),
     },
+  },
+  "team-administration": {
     delegates: {
       infoTitle: "Organisation responsibilities",
       info: (
