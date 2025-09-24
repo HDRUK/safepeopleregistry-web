@@ -1,15 +1,18 @@
 import Link from "@mui/material/Link";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useStore } from "@/data/store";
 import useQueryAlerts from "../../hooks/useQueryAlerts";
-import { putProjectUsersQuery } from "../../services/projects";
-import { ProjectAllUser } from "../../types/application";
+import {
+  putProjectUsersQuery,
+  useGetProjectAllUsers,
+} from "../../services/projects";
+import { ProjectAllUser, Role } from "../../types/application";
 import { showAlert } from "../../utils/showAlert";
 import FormModal, { FormModalProps } from "../FormModal";
 import ProjectsAddUserForm from "../ProjectsAddUserForm";
 
-import { useStore } from "@/data/store";
 import InviteUserModal from "../InviteUserModal";
 
 interface ProjectsAddUserModalProps extends Omit<FormModalProps, "children"> {
@@ -34,7 +37,24 @@ export default function ProjectsAddUserModal({
     putProjectUsersQuery()
   );
 
-  const projectUsers = useStore(state => state.getCurrentProjectUsers());
+  const { projectUsers, projectRoles, setProjectUsers } = useStore(state => ({
+    projectUsers: state.getCurrentProjectUsers(),
+    projectRoles: state.getProjectRoles(),
+    setProjectUsers: state.setCurrentProjectUsers,
+  }));
+
+  const {
+    data: usersData,
+    refetch,
+    ...getUserQueryState
+  } = useGetProjectAllUsers(projectId, {
+    queryKeyBase: ["getAllProjectUsers", projectId],
+    defaultQueryParams: { "user_group__and[]": "USERS" },
+  });
+
+  useEffect(() => {
+    if (usersData) setProjectUsers(usersData);
+  }, [usersData]);
 
   const handleSave = async (projectUsers: ProjectAllUser[]) => {
     if (request) {
@@ -68,10 +88,38 @@ export default function ProjectsAddUserModal({
     },
   });
 
-  const handleRefreshUsers = () => {
-    queryClient.refetchQueries({
-      queryKey: ["getAllProjectUsers", projectId],
-    });
+  const handleSelectRole = (row: ProjectAllUser, roleId: number | null) => {
+    console.log("****** selecting");
+    const updatedRole = roleId
+      ? (projectRoles.find(role => role?.id === +roleId) as Partial<Role>)
+      : null;
+
+    const exists = projectUsers.some(user => user.id === row.id);
+    let updatedUsers: ProjectAllUser[] = [...projectUsers];
+
+    if (exists) {
+      updatedUsers = updatedUsers.map(user =>
+        user.id === row.id ? { ...user, role: updatedRole } : user
+      );
+    }
+
+    updatedUsers = [...updatedUsers, { ...row, role: updatedRole }];
+
+    console.log("****** updatedUsers", updatedUsers);
+
+    return updatedUsers;
+  };
+
+  const handleInviteSuccess = async (id: number, roleId: number) => {
+    const { data } = await getAllProjectUserById(id);
+
+    const updatedUsers = handleSelectRole(data, roleId);
+
+    handleSave([...data, ...updatedUsers]);
+
+    refetch();
+
+    setOpenInviteUser(false);
   };
 
   const [openInviteUser, setOpenInviteUser] = useState(false);
@@ -96,19 +144,20 @@ export default function ProjectsAddUserModal({
         }}
         {...restProps}>
         <ProjectsAddUserForm
-          projectId={projectId}
+          projectUsers={projectUsers}
+          projectRoles={projectRoles}
           mutationState={putProjectUsersMutationState}
           onSave={handleSave}
+          onRoleSelect={(row: ProjectAllUser, roleId: number | null) => {
+            setProjectUsers(handleSelectRole(row, roleId));
+          }}
+          queryState={getUserQueryState}
         />
       </FormModal>
 
       <InviteUserModal
-        onSuccess={(user: ProjectAllUser) => {
-          handleSave([user, ...projectUsers]);
-
-          handleRefreshUsers();
-          setOpenInviteUser(false);
-        }}
+        projectRoles={projectRoles}
+        onSuccess={handleInviteSuccess}
         open={openInviteUser}
         onClose={() => setOpenInviteUser(false)}
       />
