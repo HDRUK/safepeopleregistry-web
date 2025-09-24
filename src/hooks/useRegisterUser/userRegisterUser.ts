@@ -1,7 +1,5 @@
 import { UserGroup } from "@/consts/user";
-import { useRouter } from "@/i18n/routing";
 import { User } from "@/types/application";
-import { getProfilePathByEntity } from "@/utils/redirects";
 import { useMutation } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 import {
@@ -27,7 +25,6 @@ export default function useRegisterUser({
   userGroup,
   unclaimedUser,
 }: UseRegisterUserArgs) {
-  const router = useRouter();
   const orgId = unclaimedUser?.organisation_id ?? null;
 
   const { mutateAsync: mutateRegisterNewUser, ...registerMutationState } =
@@ -71,10 +68,19 @@ export default function useRegisterUser({
     },
   });
 
-  const handleRegister = async (user: User) => {
-    if (!userGroup) return;
+  const queryState = getCombinedQueryState(
+    [
+      registerMutationState,
+      organisationMutationState,
+      organisationMutationStateNewAccount,
+    ],
+    false
+  );
 
+  const handleRegister = async (user: User) => {
+    if (!userGroup || queryState.isLoading) return;
     Cookies.remove("account_type");
+    Cookies.remove("invite_code");
 
     const hasUnclaimedOrg =
       userGroup === UserGroup.ORGANISATIONS && !!unclaimedUser;
@@ -103,19 +109,10 @@ export default function useRegisterUser({
         account_type: userGroup,
       });
     }
-
-    router.replace(getProfilePathByEntity(userGroup));
   };
 
   return {
     handleRegister,
-    ...getCombinedQueryState(
-      [
-        registerMutationState,
-        organisationMutationState,
-        organisationMutationStateNewAccount,
-      ],
-      false
-    ),
+    ...queryState,
   };
 }

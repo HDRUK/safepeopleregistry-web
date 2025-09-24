@@ -403,6 +403,16 @@ type ResearcherProject = WithModelState<{
   project_users_count?: number;
 }>;
 
+interface PendingInvite {
+  user_id: number;
+  invite_code: string | null;
+  invite_accepted_at: string | null;
+  invite_sent_at: string;
+  status: string;
+  organisation_id: number | null;
+  id: number;
+}
+
 interface ProjectDetails {
   access_type: string;
   id: number;
@@ -571,4 +581,5 @@ export type {
   WithRoutes,
   WithPaginatedQueryParms,
   UserPermission,
+  PendingInvite,
 };

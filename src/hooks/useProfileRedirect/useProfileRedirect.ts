@@ -16,7 +16,7 @@ export default async function useProfileRedirect() {
     });
 
     if (response.status === 200) {
-      redirectToPath(await getProfileRedirectPath(response.data), pathname);
+      redirectToPath(getProfileRedirectPath(response.data), pathname);
     }
   }
 }

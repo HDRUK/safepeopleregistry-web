@@ -11,9 +11,14 @@ export default function Invite() {
 
   useEffect(() => {
     const digiIdent = params?.get("digi_ident");
+    const inviteCode = params?.get("invite_code");
 
     if (digiIdent) {
       Cookies.set("account_digi_ident", digiIdent);
+    }
+
+    if (inviteCode) {
+      Cookies.set("invite_code", inviteCode);
     }
 
     router.push(getRegisterUrl());
