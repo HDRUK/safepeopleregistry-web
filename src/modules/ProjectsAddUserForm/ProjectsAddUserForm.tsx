@@ -1,18 +1,18 @@
 "use client";
 
-import { PaginatedQueryReturn } from "@/hooks/usePaginatedQuery";
 import { LoadingButton } from "@mui/lab";
 import { CellContext, ColumnDef } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
-import SearchBar from "../../modules/SearchBar";
+import ErrorMessage from "../../components/ErrorMessage";
+import FormActions from "../../components/FormActions";
+import FormModalBody from "../../components/FormModalBody";
+import Table from "../../components/Table";
+import { PaginatedQueryReturn } from "../../hooks/usePaginatedQuery";
 import { ProjectAllUsersResponse } from "../../services/projects";
 import { ProjectAllUser, Role } from "../../types/application";
 import { MutationState } from "../../types/form";
 import { renderSelectRoleCell, renderUserNameCell } from "../../utils/cells";
-import ErrorMessage from "../ErrorMessage";
-import FormActions from "../FormActions";
-import FormModalBody from "../FormModalBody";
-import Table from "../Table";
+import SearchBar from "../SearchBar";
 
 const NAMESPACE_TRANSLATION = "CustodianProfile";
 const NAMESPACE_TRANSLATION_APPLICATION = "Application";

@@ -1,18 +1,20 @@
+import InviteUserModal from "@/organisms/InviteUserModal";
 import { Box, Button } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import UserBulkInvite from "../../components/UserBulkInvite";
-import UserModal from "../../components/UserModal";
 import { Organisation } from "../../types/application";
 
 const NAMESPACE_TRANSLATION_PROFILE = "ProfileOrganisation";
 
 interface OrganisationUsersBulkInviteProps {
   organisation: Organisation;
+  onSuccess?: () => void;
 }
 
 export default function OrganisationUsersBulkInvite({
   organisation,
+  onSuccess,
 }: OrganisationUsersBulkInviteProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
   const [open, setOpen] = useState(false);
@@ -28,10 +30,15 @@ export default function OrganisationUsersBulkInvite({
         </Button>
       </div>
       <UserBulkInvite organisation_id={organisation.id} />
-      <UserModal
-        organisation={organisation}
+
+      <InviteUserModal
+        organisationId={organisation.id}
         open={open}
         onClose={() => setOpen(false)}
+        onSuccess={() => {
+          setOpen(false);
+          onSuccess?.();
+        }}
       />
     </Box>
   );

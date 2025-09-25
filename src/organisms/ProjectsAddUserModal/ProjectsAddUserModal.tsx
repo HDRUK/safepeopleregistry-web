@@ -1,9 +1,11 @@
+import { useStore } from "@/data/store";
 import Link from "@mui/material/Link";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { useStore } from "@/data/store";
+import FormModal, { FormModalProps } from "../../components/FormModal";
 import useQueryAlerts from "../../hooks/useQueryAlerts";
+import ProjectsAddUserForm from "../../modules/ProjectsAddUserForm";
 import {
   getProjectAllUserByUserId,
   putProjectUsersQuery,
@@ -11,8 +13,6 @@ import {
 } from "../../services/projects";
 import { ProjectAllUser, Role } from "../../types/application";
 import { showAlert } from "../../utils/showAlert";
-import FormModal, { FormModalProps } from "../FormModal";
-import ProjectsAddUserForm from "../ProjectsAddUserForm";
 
 import InviteUserModal from "../InviteUserModal";
 
@@ -97,11 +97,11 @@ export default function ProjectsAddUserModal({
       ? (projectRoles.find(role => role?.id === +roleId) as Partial<Role>)
       : null;
 
-    const exists = projectUsers.some(user => user.id === row.id);
+    const exists = projectUsers.some(user => user.id === row.user_id);
 
     if (exists) {
       return projectUsers.map(user =>
-        user.id === row.id ? { ...user, role: updatedRole } : user
+        user.id === row.user_id ? { ...user, role: updatedRole } : user
       );
     }
 

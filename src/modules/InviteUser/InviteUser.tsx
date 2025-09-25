@@ -1,37 +1,28 @@
+import { postOrganisationInviteUserQuery } from "@/services/organisations";
 import SaveIcon from "@mui/icons-material/Save";
 import { LoadingButton } from "@mui/lab";
-import { Grid, TextField, Link } from "@mui/material";
+import { Grid, Link, TextField } from "@mui/material";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
-import SelectOrganisation from "@/components/SelectOrganisation";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { postOrganisationInviteUserQuery } from "@/services/organisations";
-import useOrganisationInvite from "@/queries/useOrganisationInvite";
-import { getCombinedQueryState } from "@/utils/query";
-import useQueryAlerts from "@/hooks/useQueryAlerts";
 import Form from "../../components/Form";
 import FormActions from "../../components/FormActions";
 import FormControlHorizontal from "../../components/FormControlHorizontal";
 import FormSection from "../../components/FormSection";
+import SelectOrganisation from "../../components/SelectOrganisation";
+import SelectRole from "../../components/SelectRole";
 import yup from "../../config/yup";
 import { MAX_FORM_WIDTH } from "../../consts/form";
+import useQueryAlerts from "../../hooks/useQueryAlerts";
+import useOrganisationInvite from "../../queries/useOrganisationInvite";
 import { getUsers } from "../../services/users";
-import SelectRole from "../../components/SelectRole";
 import { Role } from "../../types/application";
+import { InviteUserFormValues } from "../../types/form";
+import { getCombinedQueryState } from "../../utils/query";
 
 const NAMESPACE_TRANSLATION_FORM = "Form";
 const NAMESPACE_TRANSLATION_ORGANISATION = "User";
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";
-
-interface InviteUserFormValues {
-  first_name: string;
-  last_name: string;
-  email: string;
-  role?: number;
-  organisation_id?: number;
-  organisation_name?: string;
-  organisation_email?: string;
-}
 
 export interface InviteUserFormProps {
   onSuccess?: (id: number, roleId: number) => void;
@@ -39,9 +30,11 @@ export interface InviteUserFormProps {
   enableEmailCheck?: boolean;
   isProjectUser?: boolean;
   projectRoles?: Partial<Role>[];
+  actions?: React.ReactNode;
 }
 
 export default function InviteUser({
+  actions,
   onSuccess,
   organisationId: initialOrganisationId,
   enableEmailCheck = true,
@@ -266,6 +259,7 @@ export default function InviteUser({
             </Grid>
           </FormSection>
           <FormActions>
+            {actions}
             <LoadingButton
               type="submit"
               endIcon={<SaveIcon />}
