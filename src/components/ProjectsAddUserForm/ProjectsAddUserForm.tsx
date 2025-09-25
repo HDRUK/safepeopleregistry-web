@@ -5,7 +5,7 @@ import { LoadingButton } from "@mui/lab";
 import { CellContext, ColumnDef } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import SearchBar from "../../modules/SearchBar";
-import { ProjectAllUserResponse } from "../../services/projects";
+import { ProjectAllUsersResponse } from "../../services/projects";
 import { ProjectAllUser, Role } from "../../types/application";
 import { MutationState } from "../../types/form";
 import { renderSelectRoleCell, renderUserNameCell } from "../../utils/cells";
@@ -30,7 +30,7 @@ interface ProjectsAddUserFormProps {
   onSave: (projectUsers: ProjectAllUser[]) => void;
   onRoleSelect: (row: ProjectAllUser, roleId: number | null) => void;
   queryState: Omit<
-    PaginatedQueryReturn<ProjectAllUserResponse>,
+    PaginatedQueryReturn<ProjectAllUsersResponse>,
     "data" | "refetch"
   >;
 }
@@ -45,8 +45,6 @@ export default function ProjectsAddUserForm({
 }: ProjectsAddUserFormProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION);
   const tApplication = useTranslations(NAMESPACE_TRANSLATION_APPLICATION);
-
-  console.log("***** projectUsers", projectUsers);
 
   const {
     page,

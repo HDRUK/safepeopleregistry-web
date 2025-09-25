@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useStore } from "@/data/store";
 import useQueryAlerts from "../../hooks/useQueryAlerts";
 import {
+  getProjectAllUserByUserId,
   putProjectUsersQuery,
   useGetProjectAllUsers,
 } from "../../services/projects";
@@ -32,6 +33,9 @@ export default function ProjectsAddUserModal({
   ...restProps
 }: ProjectsAddUserModalProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION);
+
+  const [openInviteUser, setOpenInviteUser] = useState(false);
+
   const queryClient = useQueryClient();
   const { mutateAsync, ...putProjectUsersMutationState } = useMutation(
     putProjectUsersQuery()
@@ -84,45 +88,36 @@ export default function ProjectsAddUserModal({
         queryKey: ["getAllProjectUsers", projectId],
       });
 
-      onClose?.();
+      if (!openInviteUser) onClose?.();
     },
   });
 
   const handleSelectRole = (row: ProjectAllUser, roleId: number | null) => {
-    console.log("****** selecting");
     const updatedRole = roleId
       ? (projectRoles.find(role => role?.id === +roleId) as Partial<Role>)
       : null;
 
     const exists = projectUsers.some(user => user.id === row.id);
-    let updatedUsers: ProjectAllUser[] = [...projectUsers];
 
     if (exists) {
-      updatedUsers = updatedUsers.map(user =>
+      return projectUsers.map(user =>
         user.id === row.id ? { ...user, role: updatedRole } : user
       );
     }
 
-    updatedUsers = [...updatedUsers, { ...row, role: updatedRole }];
-
-    console.log("****** updatedUsers", updatedUsers);
-
-    return updatedUsers;
+    return [...projectUsers, { ...row, role: updatedRole }];
   };
 
   const handleInviteSuccess = async (id: number, roleId: number) => {
-    const { data } = await getAllProjectUserById(id);
+    const { data } = await getProjectAllUserByUserId(projectId, id);
 
-    const updatedUsers = handleSelectRole(data, roleId);
+    const updatedUsers = handleSelectRole(data[0], roleId);
 
-    handleSave([...data, ...updatedUsers]);
-
-    refetch();
+    await handleSave([data[0], ...updatedUsers]);
+    await refetch();
 
     setOpenInviteUser(false);
   };
-
-  const [openInviteUser, setOpenInviteUser] = useState(false);
 
   return (
     <>
