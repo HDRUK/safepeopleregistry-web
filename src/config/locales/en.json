@@ -191,6 +191,7 @@
     "organisationsSectorWebsite": "Sector size & website",
     "organisationsSubsidiaries": "UK subsidiaries",
     "organisationsDataSecurity": "Data security compliance",
+    "organisationsAutomatedFlags": "Automated Flags",
     "searchPlaceholder": "Search by name or email",
     "safeProject": "Safe Project",
     "safeProjectWorkflowStatusError": "The workflow process for setting status must be Pending -> Approved -> Completed. Please select a different status",
