@@ -203,43 +203,22 @@ export default function InviteUser({
                 </Grid>
               )}
 
-              {selectOrganisation ? (
-                <Grid item xs={12}>
-                  <FormControlHorizontal
-                    name="organisation_id"
-                    renderField={({ ...fieldProps }) => (
-                      <SelectOrganisation {...fieldProps} />
-                    )}
-                    description={tProfile.rich("organisationNotListed", {
-                      link: chunks => (
-                        <Link
-                          component="button"
-                          onClick={e => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            setSelectOrganisation(false);
-                          }}
-                          sx={{ pb: 0.25 }}>
-                          {chunks}
-                        </Link>
-                      ),
-                    })}
-                  />
-                </Grid>
-              ) : (
-                <>
+              {!initialOrganisationId &&
+                (selectOrganisation ? (
                   <Grid item xs={12}>
                     <FormControlHorizontal
-                      name="organisation_name"
-                      renderField={fieldProps => <TextField {...fieldProps} />}
-                      description={tProfile.rich("organisationListed", {
+                      name="organisation_id"
+                      renderField={({ ...fieldProps }) => (
+                        <SelectOrganisation {...fieldProps} />
+                      )}
+                      description={tProfile.rich("organisationNotListed", {
                         link: chunks => (
                           <Link
                             component="button"
                             onClick={e => {
                               e.preventDefault();
                               e.stopPropagation();
-                              setSelectOrganisation(true);
+                              setSelectOrganisation(false);
                             }}
                             sx={{ pb: 0.25 }}>
                             {chunks}
@@ -248,14 +227,40 @@ export default function InviteUser({
                       })}
                     />
                   </Grid>
-                  <Grid item xs={12}>
-                    <FormControlHorizontal
-                      name="organisation_email"
-                      renderField={fieldProps => <TextField {...fieldProps} />}
-                    />
-                  </Grid>
-                </>
-              )}
+                ) : (
+                  <>
+                    <Grid item xs={12}>
+                      <FormControlHorizontal
+                        name="organisation_name"
+                        renderField={fieldProps => (
+                          <TextField {...fieldProps} />
+                        )}
+                        description={tProfile.rich("organisationListed", {
+                          link: chunks => (
+                            <Link
+                              component="button"
+                              onClick={e => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                setSelectOrganisation(true);
+                              }}
+                              sx={{ pb: 0.25 }}>
+                              {chunks}
+                            </Link>
+                          ),
+                        })}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <FormControlHorizontal
+                        name="organisation_email"
+                        renderField={fieldProps => (
+                          <TextField {...fieldProps} />
+                        )}
+                      />
+                    </Grid>
+                  </>
+                ))}
             </Grid>
           </FormSection>
           <FormActions>

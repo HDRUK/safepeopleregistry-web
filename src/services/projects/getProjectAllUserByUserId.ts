@@ -8,8 +8,6 @@ export default async (
   userId: number,
   options?: ResponseOptions
 ): Promise<ResponseJson<ProjectAllUserResponse>> => {
-  console.log("****** calling with", projectId, userId);
-
   const response = await getRequest(
     `/projects/${projectId}/all_users/${userId}`
   );
