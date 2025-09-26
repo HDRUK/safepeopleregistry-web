@@ -18,6 +18,7 @@ import {
   ProjectRole,
   ProjectUser,
   ProjectOrganisation,
+  ProjectAllUser,
 } from "@/types/application";
 import { Routes } from "@/types/router";
 import { produce } from "immer";
@@ -74,6 +75,7 @@ interface StoreState {
     user?: User;
     projectUser?: ProjectUser;
     projectOrganisation?: ProjectOrganisation;
+    projectUsers?: ProjectAllUser[];
   };
   application: StoreApplication;
   setRoutes: (routes: Routes) => void;
@@ -83,6 +85,8 @@ interface StoreState {
   setCurrentUser: (user: User) => void;
   getCurrentProjectUser: () => ProjectUser;
   setCurrentProjectUser: (projectUser: ProjectUser) => void;
+  getCurrentProjectUsers: () => ProjectAllUser[];
+  setCurrentProjectUsers: (projectUsers: ProjectAllUser[]) => void;
   getCurrentProjectOrganisation: () => ProjectOrganisation;
   setCurrentProjectOrganisation: (
     projectOrganisation: ProjectOrganisation
@@ -153,6 +157,15 @@ const storeMethods = (set: StoreSet, get: StoreGet) => ({
     ),
   getCurrentProjectUser: () => {
     return get().current.projectUser;
+  },
+  setCurrentProjectUsers: (projectUsers: ProjectAllUser[]) =>
+    set(
+      produce(state => {
+        state.current.projectUsers = projectUsers;
+      })
+    ),
+  getCurrentProjectUsers: () => {
+    return get().current.projectUsers || [];
   },
   setCurrentOrganisation: (organisation: Organisation) =>
     set(

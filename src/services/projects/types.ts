@@ -34,6 +34,7 @@ interface PutProjectUsersPayload {
   users: ProjectAllUser[];
 }
 
+type ProjectAllUsersResponse = ProjectAllUser[];
 type ProjectAllUserResponse = ProjectAllUser[];
 type PutProjectDetailsPayload = ProjectDetails;
 type PutProjectDetailsResponse = number;
@@ -42,7 +43,7 @@ type ProjectDetailsResponse = ProjectDetails;
 
 export type {
   ProjectsResponse,
-  ProjectAllUserResponse,
+  ProjectAllUsersResponse,
   ProjectUsersResponse,
   ProjectResponse,
   PutPrimaryContactPayload,
@@ -54,4 +55,5 @@ export type {
   PutProjectDetailsPayload,
   PutProjectDetailsResponse,
   ProjectDetailsResponse,
+  ProjectAllUserResponse,
 };

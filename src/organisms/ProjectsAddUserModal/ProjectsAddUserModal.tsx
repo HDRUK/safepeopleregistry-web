@@ -1,13 +1,18 @@
+import { useStore } from "@/data/store";
+import Link from "@mui/material/Link";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import Link from "@mui/material/Link";
-import { useState } from "react";
-import FormModal, { FormModalProps } from "../FormModal";
-import { putProjectUsersQuery } from "../../services/projects";
+import { useEffect, useState } from "react";
+import FormModal, { FormModalProps } from "../../components/FormModal";
 import useQueryAlerts from "../../hooks/useQueryAlerts";
-import { ProjectAllUser } from "../../types/application";
+import ProjectsAddUserForm from "../../modules/ProjectsAddUserForm";
+import {
+  getProjectAllUserByUserId,
+  putProjectUsersQuery,
+  useGetProjectAllUsers,
+} from "../../services/projects";
+import { ProjectAllUser, Role } from "../../types/application";
 import { showAlert } from "../../utils/showAlert";
-import ProjectsAddUserForm from "../ProjectsAddUserForm";
 
 import InviteUserModal from "../InviteUserModal";
 
@@ -28,10 +33,32 @@ export default function ProjectsAddUserModal({
   ...restProps
 }: ProjectsAddUserModalProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION);
+
+  const [openInviteUser, setOpenInviteUser] = useState(false);
+
   const queryClient = useQueryClient();
   const { mutateAsync, ...putProjectUsersMutationState } = useMutation(
     putProjectUsersQuery()
   );
+
+  const { projectUsers, projectRoles, setProjectUsers } = useStore(state => ({
+    projectUsers: state.getCurrentProjectUsers(),
+    projectRoles: state.getProjectRoles(),
+    setProjectUsers: state.setCurrentProjectUsers,
+  }));
+
+  const {
+    data: usersData,
+    refetch,
+    ...getUserQueryState
+  } = useGetProjectAllUsers(projectId, {
+    queryKeyBase: ["getAllProjectUsers", projectId],
+    defaultQueryParams: { "user_group__and[]": "USERS" },
+  });
+
+  useEffect(() => {
+    if (usersData) setProjectUsers(usersData);
+  }, [usersData]);
 
   const handleSave = async (projectUsers: ProjectAllUser[]) => {
     if (request) {
@@ -61,17 +88,36 @@ export default function ProjectsAddUserModal({
         queryKey: ["getAllProjectUsers", projectId],
       });
 
-      onClose?.();
+      if (!openInviteUser) onClose?.();
     },
   });
 
-  const handleRefreshUsers = () => {
-    queryClient.refetchQueries({
-      queryKey: ["getAllProjectUsers", projectId],
-    });
+  const handleSelectRole = (row: ProjectAllUser, roleId: number | null) => {
+    const updatedRole = roleId
+      ? (projectRoles.find(role => role?.id === +roleId) as Partial<Role>)
+      : null;
+
+    const exists = projectUsers.some(user => user.user_id === row.user_id);
+
+    if (exists) {
+      return projectUsers.map(user =>
+        user.user_id === row.user_id ? { ...user, role: updatedRole } : user
+      );
+    }
+
+    return [...projectUsers, { ...row, role: updatedRole }];
   };
 
-  const [openInviteUser, setOpenInviteUser] = useState(false);
+  const handleInviteSuccess = async (id: number, roleId: number) => {
+    const { data } = await getProjectAllUserByUserId(projectId, id);
+
+    const updatedUsers = handleSelectRole(data[0], roleId);
+
+    await handleSave([data[0], ...updatedUsers]);
+    await refetch();
+
+    setOpenInviteUser(false);
+  };
 
   return (
     <>
@@ -93,17 +139,20 @@ export default function ProjectsAddUserModal({
         }}
         {...restProps}>
         <ProjectsAddUserForm
-          projectId={projectId}
+          projectUsers={projectUsers}
+          projectRoles={projectRoles}
           mutationState={putProjectUsersMutationState}
           onSave={handleSave}
+          onRoleSelect={(row: ProjectAllUser, roleId: number | null) => {
+            setProjectUsers(handleSelectRole(row, roleId));
+          }}
+          queryState={getUserQueryState}
         />
       </FormModal>
 
       <InviteUserModal
-        onSuccess={() => {
-          handleRefreshUsers();
-          setOpenInviteUser(false);
-        }}
+        projectRoles={projectRoles}
+        onSuccess={handleInviteSuccess}
         open={openInviteUser}
         onClose={() => setOpenInviteUser(false)}
       />

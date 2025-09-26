@@ -1,26 +1,6 @@
 "use client";
 
-import ButtonToggle from "@/components/ButtonToggle";
-import ProjectsAddUserModal from "@/components/ProjectsAddUserModal";
-import Results from "@/components/Results";
-import useProjectEntity from "@/hooks/useProjectEntity";
-import useQueryAlerts from "@/hooks/useQueryAlerts";
-import { KanbanBoardHelperProps } from "@/modules/KanbanBoard";
-import PageSection from "@/modules/PageSection";
-import ProjectUsersFilters, {
-  ProjectUsersFilterKeys,
-} from "@/modules/ProjectUsersFilters";
-import ProjectUsersBoard from "@/organisms/ProjectUsersBoard";
-import {
-  putCustodianProjectUserQuery,
-  usePaginatedCustodianProjectUsers,
-} from "@/services/custodian_approvals";
-import { EntityType } from "@/types/api";
-import {
-  CustodianProjectUser,
-  WithPaginatedQueryParms,
-  WithRoutes,
-} from "@/types/application";
+import { SEARCH_PAGE_MAX_PER_PAGE } from "@/consts/search";
 import AddIcon from "@mui/icons-material/Add";
 import ListIcon from "@mui/icons-material/List";
 import ViewColumnIconOutlined from "@mui/icons-material/ViewColumnOutlined";
@@ -28,7 +8,27 @@ import { Button } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { SEARCH_PAGE_MAX_PER_PAGE } from "@/consts/search";
+import ButtonToggle from "../../components/ButtonToggle";
+import Results from "../../components/Results";
+import useProjectEntity from "../../hooks/useProjectEntity";
+import useQueryAlerts from "../../hooks/useQueryAlerts";
+import { KanbanBoardHelperProps } from "../../modules/KanbanBoard";
+import PageSection from "../../modules/PageSection";
+import ProjectUsersFilters, {
+  ProjectUsersFilterKeys,
+} from "../../modules/ProjectUsersFilters";
+import {
+  putCustodianProjectUserQuery,
+  usePaginatedCustodianProjectUsers,
+} from "../../services/custodian_approvals";
+import { EntityType } from "../../types/api";
+import {
+  CustodianProjectUser,
+  WithPaginatedQueryParms,
+  WithRoutes,
+} from "../../types/application";
+import ProjectsAddUserModal from "../ProjectsAddUserModal";
+import ProjectUsersBoard from "../ProjectUsersBoard";
 import ProjectUsersList from "../ProjectUsersList";
 import ProjectUsersActions from "./ProjectUsersActions";
 

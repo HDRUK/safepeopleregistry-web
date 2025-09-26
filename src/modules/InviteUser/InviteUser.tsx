@@ -1,45 +1,44 @@
+import { postOrganisationInviteUserQuery } from "@/services/organisations";
 import SaveIcon from "@mui/icons-material/Save";
 import { LoadingButton } from "@mui/lab";
-import { Grid, TextField, Link } from "@mui/material";
+import { Grid, Link, TextField } from "@mui/material";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
-import SelectOrganisation from "@/components/SelectOrganisation";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { postOrganisationInviteUserQuery } from "@/services/organisations";
-import useOrganisationInvite from "@/queries/useOrganisationInvite";
-import { getCombinedQueryState } from "@/utils/query";
-import useQueryAlerts from "@/hooks/useQueryAlerts";
 import Form from "../../components/Form";
 import FormActions from "../../components/FormActions";
 import FormControlHorizontal from "../../components/FormControlHorizontal";
 import FormSection from "../../components/FormSection";
+import SelectOrganisation from "../../components/SelectOrganisation";
+import SelectRole from "../../components/SelectRole";
 import yup from "../../config/yup";
 import { MAX_FORM_WIDTH } from "../../consts/form";
+import useQueryAlerts from "../../hooks/useQueryAlerts";
+import useOrganisationInvite from "../../queries/useOrganisationInvite";
 import { getUsers } from "../../services/users";
+import { Role } from "../../types/application";
+import { InviteUserFormValues } from "../../types/form";
+import { getCombinedQueryState } from "../../utils/query";
 
 const NAMESPACE_TRANSLATION_FORM = "Form";
 const NAMESPACE_TRANSLATION_ORGANISATION = "User";
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";
 
-interface InviteUserFormValues {
-  first_name: string;
-  last_name: string;
-  email: string;
-  organisation_id?: number;
-  organisation_name?: string;
-  organisation_email?: string;
-}
-
 export interface InviteUserFormProps {
-  onSuccess?: () => void;
+  onSuccess?: (id: number, roleId: number) => void;
   organisationId?: number;
   enableEmailCheck?: boolean;
+  isProjectUser?: boolean;
+  projectRoles?: Partial<Role>[];
+  actions?: React.ReactNode;
 }
 
 export default function InviteUser({
+  actions,
   onSuccess,
   organisationId: initialOrganisationId,
   enableEmailCheck = true,
+  projectRoles,
 }: InviteUserFormProps) {
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
   const tUser = useTranslations(NAMESPACE_TRANSLATION_ORGANISATION);
@@ -52,9 +51,7 @@ export default function InviteUser({
     postOrganisationInviteUserQuery()
   );
 
-  useQueryAlerts(queryState, {
-    onSuccess: () => onSuccess?.(),
-  });
+  useQueryAlerts(queryState);
 
   const {
     handleSubmit: handleCreateAndInviteOrganisation,
@@ -86,6 +83,9 @@ export default function InviteUser({
       yup.object().shape({
         first_name: yup.string().required(tForm("firstNameRequiredInvalid")),
         last_name: yup.string().required(tForm("lastNameRequiredInvalid")),
+        role: projectRoles
+          ? yup.string().required(tForm("roleRequiredInvalid"))
+          : yup.string().notRequired(),
         email: yup
           .string()
           .email(tForm("emailFormatInvalid"))
@@ -128,6 +128,7 @@ export default function InviteUser({
       first_name: "",
       last_name: "",
       email: "",
+      role: "",
       organisation_id: initialOrganisationId || "",
       organisation_name: "",
       organisation_email: "",
@@ -139,6 +140,7 @@ export default function InviteUser({
       organisation_name,
       organisation_email,
       organisation_id,
+      role,
       ...payload
     } = formData;
 
@@ -149,10 +151,16 @@ export default function InviteUser({
         organisation_name,
         lead_applicant_email: organisation_email,
       };
+
       organisationId = await handleCreateAndInviteOrganisation(invitePayload);
     }
 
-    mutateUserInvite({ organisationId: organisationId as number, payload });
+    const { data: id } = await mutateUserInvite({
+      organisationId: organisationId as number,
+      payload,
+    });
+
+    onSuccess?.(id, role);
   };
 
   return (
@@ -184,43 +192,33 @@ export default function InviteUser({
                 />
               </Grid>
 
-              {selectOrganisation ? (
+              {projectRoles && (
                 <Grid item xs={12}>
                   <FormControlHorizontal
-                    name="organisation_id"
-                    renderField={({ ...fieldProps }) => (
-                      <SelectOrganisation {...fieldProps} />
+                    name="role"
+                    renderField={fieldProps => (
+                      <SelectRole roles={projectRoles} {...fieldProps} />
                     )}
-                    description={tProfile.rich("organisationNotListed", {
-                      link: chunks => (
-                        <Link
-                          component="button"
-                          onClick={e => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            setSelectOrganisation(false);
-                          }}
-                          sx={{ pb: 0.25 }}>
-                          {chunks}
-                        </Link>
-                      ),
-                    })}
                   />
                 </Grid>
-              ) : (
-                <>
+              )}
+
+              {!initialOrganisationId &&
+                (selectOrganisation ? (
                   <Grid item xs={12}>
                     <FormControlHorizontal
-                      name="organisation_name"
-                      renderField={fieldProps => <TextField {...fieldProps} />}
-                      description={tProfile.rich("organisationListed", {
+                      name="organisation_id"
+                      renderField={({ ...fieldProps }) => (
+                        <SelectOrganisation {...fieldProps} />
+                      )}
+                      description={tProfile.rich("organisationNotListed", {
                         link: chunks => (
                           <Link
                             component="button"
                             onClick={e => {
                               e.preventDefault();
                               e.stopPropagation();
-                              setSelectOrganisation(true);
+                              setSelectOrganisation(false);
                             }}
                             sx={{ pb: 0.25 }}>
                             {chunks}
@@ -229,17 +227,44 @@ export default function InviteUser({
                       })}
                     />
                   </Grid>
-                  <Grid item xs={12}>
-                    <FormControlHorizontal
-                      name="organisation_email"
-                      renderField={fieldProps => <TextField {...fieldProps} />}
-                    />
-                  </Grid>
-                </>
-              )}
+                ) : (
+                  <>
+                    <Grid item xs={12}>
+                      <FormControlHorizontal
+                        name="organisation_name"
+                        renderField={fieldProps => (
+                          <TextField {...fieldProps} />
+                        )}
+                        description={tProfile.rich("organisationListed", {
+                          link: chunks => (
+                            <Link
+                              component="button"
+                              onClick={e => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                setSelectOrganisation(true);
+                              }}
+                              sx={{ pb: 0.25 }}>
+                              {chunks}
+                            </Link>
+                          ),
+                        })}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <FormControlHorizontal
+                        name="organisation_email"
+                        renderField={fieldProps => (
+                          <TextField {...fieldProps} />
+                        )}
+                      />
+                    </Grid>
+                  </>
+                ))}
             </Grid>
           </FormSection>
           <FormActions>
+            {actions}
             <LoadingButton
               type="submit"
               endIcon={<SaveIcon />}
