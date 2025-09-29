@@ -492,6 +492,16 @@ interface ProjectOrganisation {
   project: Project;
 }
 
+interface Rule {
+  rule: string;
+  conditions: {
+    path: string;
+    expects: number;
+  };
+  actual: boolean;
+  status: boolean;
+}
+
 type CustodianProjectOrganisation = WithModelState<{
   id: number;
   project_has_organisation_id: number;
@@ -582,4 +592,5 @@ export type {
   WithPaginatedQueryParms,
   UserPermission,
   PendingInvite,
+  Rule,
 };
