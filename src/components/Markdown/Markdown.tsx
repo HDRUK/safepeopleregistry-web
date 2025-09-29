@@ -1,5 +1,6 @@
 import {
   Box,
+  Link,
   Paper,
   Table,
   TableBody,
@@ -19,6 +20,16 @@ interface MarkdownProps {
   components?: Components;
   variant?: "plain" | "subtitle" | "legal";
 }
+
+const getLinkAction = (href: string) => {
+  if (href === "#button-cookie-edit-preferences") {
+    return () => {
+      document.getElementById("ot-sdk-btn-floating")?.click();
+    };
+  }
+
+  return undefined;
+};
 
 const subtitleComponents: Components = {
   p({ children }) {
@@ -94,6 +105,21 @@ const defaultComponents: Components = {
   },
   p({ children }) {
     return <Typography mb={2}>{children}</Typography>;
+  },
+  a({ children, href, ...props }) {
+    if (href?.startsWith("#button-")) {
+      return (
+        <Link component="button" onClick={getLinkAction(href)} {...props}>
+          {children}
+        </Link>
+      );
+    }
+
+    return (
+      <Link href={href} {...props}>
+        {children}
+      </Link>
+    );
   },
 };
 
