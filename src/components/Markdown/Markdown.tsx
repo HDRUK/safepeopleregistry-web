@@ -14,6 +14,7 @@ import ReactMarkdown, { Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import FormControlDescription from "../FormControlDescription";
 import PageHeading from "../PageHeading";
+import { getLinkAction } from "../../utils/markdown";
 
 interface MarkdownProps {
   children: string;
