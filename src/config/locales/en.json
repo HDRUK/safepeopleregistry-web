@@ -145,7 +145,7 @@
       "identity": "Identity",
       "projects": "Projects",
       "affiliations": "Affiliations",
-      "custodianOrgInfo": "Automated flags"
+      "custodianOrgInfo": "Automated Flags"
     },
     "Integrations": {
       "okButton": "OK",
@@ -216,7 +216,7 @@
     "keycards": "Keycards",
     "projects": "Projects",
     "affiliations": "Affiliations",
-    "custodianOrgInfo": "Automated flags",
+    "custodianOrgInfo": "Automated Flags",
     "history": "History",
     "identity": "Identity",
     "trainingAccreditations": "Training and Accreditations",
@@ -248,8 +248,8 @@
     "CUSTODIAN_ADMIN": "Administrator",
     "CUSTODIAN_APPROVER": "Approver",
     "postCustodianUserInviteError": "There was a problem inviting this team member. Please contact them directly or contact us at <contactLink></contactLink>",
-    "configurationRules": "Automated flags",
-    "configurationRulesTitle": "Automated flags",
+    "configurationRules": "Automated Flags",
+    "configurationRulesTitle": "Automated Flags",
     "configurationValidationChecks": "Manual checks",
     "configurationWebhooks": "Webhooks",
     "webhookError": "There was a problem with the webhook configuration. Please try again or contact us at <contactLink></contactLink>",
@@ -289,7 +289,7 @@
       },
       "validation-checks": {
         "infoTitle": "Guidance",
-        "info": "These Manual Checks will appear alongside each User and Organisation profile during the validation process. You will be able to navigate between different tabs for the User (Affiliations, Projects, Identify, Training, Automated flags) and for the Organisation (Users, Address, Digital identifiers, Sector size, Data security compliance) to perform each of these checks manually.\n\nYou will always have the option to ultimately record a User or Organisation as validated without following these checks. These checks are a tool for recording decisions only."
+        "info": "These Manual Checks will appear alongside each User and Organisation profile during the validation process. You will be able to navigate between different tabs for the User (Affiliations, Projects, Identify, Training, Automated Flags) and for the Organisation (Users, Address, Digital identifiers, Sector size, Data security compliance) to perform each of these checks manually.\n\nYou will always have the option to ultimately record a User or Organisation as validated without following these checks. These checks are a tool for recording decisions only."
       },
       "webhooks": {
         "infoTitle": "Guidance",
