@@ -29,7 +29,7 @@ import {
 } from "@/services/affiliations";
 import { PostAffiliationPayload } from "@/services/affiliations/types";
 import { ResearcherAffiliation } from "@/types/application";
-import { QueryState, WithQueryState } from "@/types/form";
+import { QueryState } from "@/types/form";
 import { getCombinedQueryState } from "@/utils/query";
 import { showAlert } from "@/utils/showAlert";
 import { renderErrorToString } from "@/utils/translations";
