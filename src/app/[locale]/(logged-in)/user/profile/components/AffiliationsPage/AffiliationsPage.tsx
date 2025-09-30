@@ -7,6 +7,7 @@ import Guidance from "@/components/Guidance";
 import { Message } from "@/components/Message";
 import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
 import { useStore } from "@/data/store";
+import useQueryAlertFromServer from "@/hooks/useQueryAlertFromServer";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
 import useQueryConfirmAlerts from "@/hooks/useQueryConfirmAlerts";
 import { mockedResearcherAffiliationsGuidance } from "@/mocks/data/cms";
@@ -28,7 +29,7 @@ import {
 } from "@/services/affiliations";
 import { PostAffiliationPayload } from "@/services/affiliations/types";
 import { ResearcherAffiliation } from "@/types/application";
-import { QueryState } from "@/types/form";
+import { QueryState, WithQueryState } from "@/types/form";
 import { getCombinedQueryState } from "@/utils/query";
 import { showAlert } from "@/utils/showAlert";
 import { renderErrorToString } from "@/utils/translations";
@@ -39,15 +40,21 @@ import { Button, CircularProgress, Typography } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { CellContext } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import AffiliationsForm from "../AffiliationsForm";
 
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";
 const NAMESPACE_TRANSLATION_AFFILIATIONS = "Affiliations";
 
-export default function AffiliationsPage() {
+type AffiliationsPageProps = WithQueryState<{}>;
+
+export default function AffiliationsPage({
+  queryState,
+}: AffiliationsPageProps) {
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
   const t = useTranslations(NAMESPACE_TRANSLATION_AFFILIATIONS);
+  const router = useRouter();
 
   const [open, setOpen] = useState(false);
   const [selectedAffiliation, setSelectedAffiliation] = useState<
@@ -122,6 +129,31 @@ export default function AffiliationsPage() {
     errorAlertProps: {
       text: renderErrorToString(tProfile, "affiliationActionError"),
       confirmButtonText: tProfile("affiliationActionErrorButton"),
+    },
+  });
+
+  const verifiedOrganisation = queryState.data
+    ? affiliationsData?.find(affiliation => affiliation.id === queryState.data)
+    : undefined;
+
+  useQueryAlertFromServer(queryState, {
+    successAlertProps: {
+      title: tProfile("affiliationRequestSentTitle"),
+      confirmButtonText: tProfile("affiliationRequestSentButton"),
+      text: tProfile("affiliationRequestSentDescription", {
+        organisationName: verifiedOrganisation?.organisation.organisation_name,
+      }),
+      willClose: () => {
+        router.replace(routes.profileResearcherAffiliations.path);
+      },
+    },
+    successAlertType: "info",
+    errorAlertProps: {
+      text: renderErrorToString(
+        tProfile,
+        "affiliationRequestSentErrorDescription"
+      ),
+      confirmButtonText: tProfile("affiliationRequestSentErrorButton"),
     },
   });
 
