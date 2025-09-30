@@ -1,14 +1,15 @@
 "use client";
 
-import ChipStatus, { Status } from "@/components/ChipStatus";
-import FileDownloadLink from "@/components/FileDownloadLink";
-import { FileType } from "@/consts/files";
-import { PrimaryContactIcon } from "@/consts/icons";
 import { Link } from "@/i18n/routing";
 import WarningAmberOutlinedIcon from "@mui/icons-material/WarningAmberOutlined";
 import { Link as MuiLink, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { CellContext } from "@tanstack/react-table";
+import ChipStatus, { Status } from "../components/ChipStatus";
+import FileDownloadLink from "../components/FileDownloadLink";
+import SelectRole from "../components/SelectRole";
+import { FileType } from "../consts/files";
+import { PrimaryContactIcon } from "../consts/icons";
 import {
   CustodianUser,
   File,
@@ -18,6 +19,7 @@ import {
   ProjectUser,
   ResearcherAffiliation,
   ResearcherProject,
+  Role,
   Translations,
   User,
 } from "../types/application";
@@ -187,6 +189,31 @@ const renderOrganisationValidatedCell = (
   );
 };
 
+const renderSelectRoleCell = (
+  info: CellContext<ProjectAllUser, unknown>,
+  props: {
+    roles: Role[];
+    onRoleSelect: (row: ProjectAllUser, roleId: number | null) => void;
+  }
+) => {
+  const roleId = info.row.original.role?.id ?? "";
+  const { onRoleSelect, roles } = props;
+
+  return (
+    <SelectRole
+      variant="standard"
+      size="small"
+      value={roleId}
+      roles={roles}
+      onChange={({ target: { value } }) => {
+        const parsedValue = value === "" ? null : Number(value);
+
+        onRoleSelect(info.row.original, parsedValue);
+      }}
+    />
+  );
+};
+
 const renderStatusCell = (
   info: CellContext<User | ProjectUser | Organisation, unknown>
 ) => <ChipStatus status={info.getValue() as Status} />;
@@ -202,6 +229,7 @@ export {
   renderProjectNameCell,
   renderProjectsNameCell,
   renderProjectUserNameCell,
+  renderSelectRoleCell,
   renderStatusCell,
   renderUserNameCell,
   renderUserOrganisationsNameCell,

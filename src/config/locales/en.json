@@ -1683,6 +1683,7 @@
     "requestDescription": "Here’s where you can request that a team member us added to this project. If you can't find them or they're listed under the wrong Organisation, invite them here. If they already have a Safe People Registry account, they’ll be able to select the correct Organisation. Otherwise, they'll be prompted to register for a Safe People Registry account."
   },
   "InviteUserModal": {
+    "heading": "Invite user",
     "description": "Complete the fields below to invite a User to create a Safe People Registry account."
   },
   "VeriffTermsAndConditions": {

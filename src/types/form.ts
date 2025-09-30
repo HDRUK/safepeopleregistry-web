@@ -27,4 +27,20 @@ type WithQueryState<T> = T & {
   queryState: QueryState;
 };
 
-export type { QueryState, MutationState, WithQueryState, WithMutationState };
+interface InviteUserFormValues {
+  first_name: string;
+  last_name: string;
+  email: string;
+  role?: number;
+  organisation_id?: number;
+  organisation_name?: string;
+  organisation_email?: string;
+}
+
+export type {
+  QueryState,
+  MutationState,
+  WithQueryState,
+  WithMutationState,
+  InviteUserFormValues,
+};

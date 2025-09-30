@@ -77,7 +77,10 @@ export default function OrganisationUsers() {
           }}
           t={t}
         />
-        <OrganisationUsersBulkInvite organisation={organisation} />
+        <OrganisationUsersBulkInvite
+          organisation={organisation}
+          onSuccess={refetchOrganisationUsers}
+        />
       </PageSection>
     </PageBody>
   );
