@@ -50,7 +50,7 @@ describe("responseToQueryState", () => {
     });
   });
 
-  it("returns the correct query state on error", () => {
+  it("returns the correct query state on success", () => {
     const results = responseToQueryState({
       ok: true,
       data: "data",
