@@ -54,7 +54,6 @@ type AffiliationsPageProps = {
 export default function AffiliationsPage({
   queryState,
 }: AffiliationsPageProps) {
-  console.log("****** queryState", queryState);
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
   const t = useTranslations(NAMESPACE_TRANSLATION_AFFILIATIONS);
   const router = useRouter();
