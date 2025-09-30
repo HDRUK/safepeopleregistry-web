@@ -37,6 +37,7 @@ enum OrganisationsSubTabs {
   DIGITAL_IDENTIFIERS = "digital_identifiers",
   SECTOR_WEBSITE = "sector_website",
   DATA_SECURITY_COMPLIANCE = "data_security_compliance",
+  AUTOMATED_FLAGS = "automated_flags",
 }
 
 type TabStructure = {

@@ -1,5 +1,6 @@
 import {
   Box,
+  Link,
   Paper,
   Table,
   TableBody,
@@ -13,6 +14,7 @@ import ReactMarkdown, { Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 import FormControlDescription from "../FormControlDescription";
 import PageHeading from "../PageHeading";
+import { getLinkAction } from "../../utils/markdown";
 
 interface MarkdownProps {
   children: string;
@@ -94,6 +96,21 @@ const defaultComponents: Components = {
   },
   p({ children }) {
     return <Typography mb={2}>{children}</Typography>;
+  },
+  a({ children, href, ...props }) {
+    if (href?.startsWith("#button-")) {
+      return (
+        <Link component="button" onClick={getLinkAction(href)} {...props}>
+          {children}
+        </Link>
+      );
+    }
+
+    return (
+      <Link href={href} {...props}>
+        {children}
+      </Link>
+    );
   },
 };
 

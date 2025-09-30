@@ -390,7 +390,7 @@ export const mockedConfigurationRulesDescription = (
     You can configure the Safe People Registry to flag if a certain property of
     a User or Organisation profile does not meet your criteria. If any of the
     selected criteria are missing from a User or Organisation's profile, this
-    will be surfaced in an 'Automated flags' tab during validation.
+    will be surfaced in an 'Automated Flags' tab during validation.
   </Typography>
 );
 

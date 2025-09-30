@@ -1,5 +1,5 @@
 import { Organisation } from "@/services/organisations";
-import { Charity, Sector, Subsidiary } from "@/types/application";
+import { Charity, Rule, Sector, Subsidiary } from "@/types/application";
 import { faker } from "@faker-js/faker";
 import { mockedApproval } from "./approvals";
 import { mockedDepartment } from "./departments";
@@ -34,6 +34,17 @@ const mockedSubsidiary = (subsidiary?: Partial<Subsidiary>) => ({
   },
   website: faker.internet.url(),
   ...subsidiary,
+});
+
+const mockedRule = (rule?: Partial<Rule>) => ({
+  rule: "DataSecurityCompliance",
+  conditions: {
+    path: "ce_certified",
+    expects: 1,
+  },
+  actual: true,
+  status: true,
+  ...rule,
 });
 
 const mockedOrganisation = (
@@ -119,4 +130,10 @@ const mockedOrganisation = (
   ...organisation,
 });
 
-export { mockedCharity, mockedOrganisation, mockedSubsidiary };
+export {
+  mockedCharity,
+  mockedOrganisation,
+  mockedSubsidiary,
+  mockedRule,
+  mockedSector,
+};
