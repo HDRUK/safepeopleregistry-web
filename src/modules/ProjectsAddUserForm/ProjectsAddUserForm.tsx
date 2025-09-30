@@ -1,20 +1,18 @@
 "use client";
 
-import { useStore } from "@/data/store";
 import { LoadingButton } from "@mui/lab";
 import { CellContext, ColumnDef } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
-import FormActions from "../FormActions";
-import FormModalBody from "../FormModalBody";
-import SelectInput from "../SelectInput";
-import Table from "../Table";
-import SearchBar from "../../modules/SearchBar";
-import { useGetProjectAllUsers } from "../../services/projects";
+import ErrorMessage from "../../components/ErrorMessage";
+import FormActions from "../../components/FormActions";
+import FormModalBody from "../../components/FormModalBody";
+import Table from "../../components/Table";
+import { PaginatedQueryReturn } from "../../hooks/usePaginatedQuery";
+import { ProjectAllUsersResponse } from "../../services/projects";
 import { ProjectAllUser, Role } from "../../types/application";
 import { MutationState } from "../../types/form";
-import { renderUserNameCell } from "../../utils/cells";
-import ErrorMessage from "../ErrorMessage";
+import { renderSelectRoleCell, renderUserNameCell } from "../../utils/cells";
+import SearchBar from "../SearchBar";
 
 const NAMESPACE_TRANSLATION = "CustodianProfile";
 const NAMESPACE_TRANSLATION_APPLICATION = "Application";
@@ -26,81 +24,37 @@ export type RowUserState = {
 }[];
 
 interface ProjectsAddUserFormProps {
-  projectId: number;
+  projectUsers: ProjectAllUser[];
+  projectRoles: Partial<Role>[];
   mutationState: MutationState;
   onSave: (projectUsers: ProjectAllUser[]) => void;
+  onRoleSelect: (row: ProjectAllUser, roleId: number | null) => void;
+  queryState: Omit<
+    PaginatedQueryReturn<ProjectAllUsersResponse>,
+    "data" | "refetch"
+  >;
 }
 
 export default function ProjectsAddUserForm({
-  projectId,
+  projectUsers,
+  projectRoles,
   onSave,
+  onRoleSelect,
   mutationState,
+  ...restProps
 }: ProjectsAddUserFormProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION);
   const tApplication = useTranslations(NAMESPACE_TRANSLATION_APPLICATION);
 
   const {
-    data: usersData,
-    total,
-    last_page,
     page,
     setPage,
+    total,
+    last_page,
     updateQueryParams,
     resetQueryParams,
-    ...getUserQueryState
-  } = useGetProjectAllUsers(projectId, {
-    queryKeyBase: ["getAllProjectUsers", projectId],
-    defaultQueryParams: { "user_group__and[]": "USERS" },
-  });
-
-  const [projectUsers, setProjectUsers] = useState<ProjectAllUser[]>([]);
-
-  useEffect(() => {
-    if (usersData) setProjectUsers(usersData);
-  }, [usersData]);
-
-  const projectRoles = useStore(state => state.getProjectRoles());
-
-  const handleSelectRole = (row: ProjectAllUser, roleId: number | null) => {
-    const updatedRole = roleId
-      ? (projectRoles.find(role => role?.id === roleId) as Partial<Role>)
-      : null;
-
-    setProjectUsers(prevUsers => {
-      const exists = prevUsers.some(user => user.id === row.id);
-      if (exists) {
-        return prevUsers.map(user =>
-          user.id === row.id ? { ...user, role: updatedRole } : user
-        );
-      }
-      return [...prevUsers, { ...row, role: updatedRole }];
-    });
-  };
-
-  const renderRoleSelectorCell = (
-    info: CellContext<ProjectAllUser, unknown>
-  ) => {
-    const roleId = info.row.original.role?.id ?? "";
-
-    return (
-      <SelectInput
-        variant="standard"
-        value={roleId}
-        size="small"
-        options={[
-          { label: "-", value: "" },
-          ...projectRoles.map(({ id, name }) => ({
-            label: name,
-            value: id,
-          })),
-        ]}
-        onChange={({ target: { value } }) => {
-          const parsedValue = value === "" ? null : Number(value);
-          handleSelectRole(info.row.original, parsedValue);
-        }}
-      />
-    );
-  };
+    ...restQueryParams
+  } = restProps.queryState;
 
   const columns: ColumnDef<ProjectAllUser>[] = [
     {
@@ -121,7 +75,8 @@ export default function ProjectsAddUserForm({
     {
       accessorKey: "role.id",
       header: tApplication("role"),
-      cell: renderRoleSelectorCell,
+      cell: info =>
+        renderSelectRoleCell(info, { roles: projectRoles, onRoleSelect }),
       minSize: 250,
     },
   ];
@@ -142,7 +97,7 @@ export default function ProjectsAddUserForm({
           isPaginated
           columns={columns}
           data={projectUsers}
-          queryState={getUserQueryState}
+          queryState={restQueryParams}
           noResultsMessage={t("noResultsMessage")}
           errorMessage={
             <ErrorMessage t={t} tKey="professionalRegsitrationsErrorMessage" />
