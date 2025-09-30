@@ -1,5 +1,5 @@
 interface QueryState<T = unknown> {
-  isError: boolean;
+  isError?: boolean;
   error?: unknown | string | null;
   isSuccess?: boolean;
   isFetched?: boolean;
@@ -11,7 +11,7 @@ interface QueryState<T = unknown> {
 }
 interface MutationState<T = unknown> {
   fetchStatus?: string;
-  isError: boolean;
+  isError?: boolean;
   error?: unknown | string | null;
   isSuccess?: boolean;
   isPending?: boolean;
