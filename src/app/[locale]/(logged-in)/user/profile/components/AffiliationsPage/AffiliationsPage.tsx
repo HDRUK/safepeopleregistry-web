@@ -47,11 +47,14 @@ import AffiliationsForm from "../AffiliationsForm";
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";
 const NAMESPACE_TRANSLATION_AFFILIATIONS = "Affiliations";
 
-type AffiliationsPageProps = WithQueryState<{}>;
+type AffiliationsPageProps = {
+  queryState: QueryState<ResearcherAffiliation>;
+};
 
 export default function AffiliationsPage({
   queryState,
 }: AffiliationsPageProps) {
+  console.log("****** queryState", queryState);
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
   const t = useTranslations(NAMESPACE_TRANSLATION_AFFILIATIONS);
   const router = useRouter();
@@ -132,16 +135,15 @@ export default function AffiliationsPage({
     },
   });
 
-  const verifiedOrganisation = queryState.data
-    ? affiliationsData?.find(affiliation => affiliation.id === queryState.data)
-    : undefined;
+  const verifiedOrganisationName =
+    queryState.data?.organisation.organisation_name;
 
   useQueryAlertFromServer(queryState, {
     successAlertProps: {
       title: tProfile("affiliationRequestSentTitle"),
       confirmButtonText: tProfile("affiliationRequestSentButton"),
       text: tProfile("affiliationRequestSentDescription", {
-        organisationName: verifiedOrganisation?.organisation.organisation_name,
+        organisationName: verifiedOrganisationName,
       }),
       willClose: () => {
         router.replace(routes.profileResearcherAffiliations.path);
@@ -155,6 +157,7 @@ export default function AffiliationsPage({
       ),
       confirmButtonText: tProfile("affiliationRequestSentErrorButton"),
     },
+    enabled: !!verifiedOrganisationName,
   });
 
   const showConfirmDelete = useQueryConfirmAlerts(restDeleteState, {
