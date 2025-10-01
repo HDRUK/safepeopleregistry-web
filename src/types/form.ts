@@ -1,5 +1,5 @@
-interface QueryState {
-  isError: boolean;
+interface QueryState<T = unknown> {
+  isError?: boolean;
   error?: unknown | string | null;
   isSuccess?: boolean;
   isFetched?: boolean;
@@ -7,14 +7,16 @@ interface QueryState {
   isLoading?: boolean;
   reset?: () => void;
   status?: string;
+  data?: T;
 }
-interface MutationState {
+interface MutationState<T = unknown> {
   fetchStatus?: string;
-  isError: boolean;
+  isError?: boolean;
   error?: unknown | string | null;
   isSuccess?: boolean;
   isPending?: boolean;
   reset?: () => void;
+  data?: T;
 }
 
 type WithMutationState<T> = T & {
@@ -25,4 +27,20 @@ type WithQueryState<T> = T & {
   queryState: QueryState;
 };
 
-export type { QueryState, MutationState, WithQueryState, WithMutationState };
+interface InviteUserFormValues {
+  first_name: string;
+  last_name: string;
+  email: string;
+  role?: number;
+  organisation_id?: number;
+  organisation_name?: string;
+  organisation_email?: string;
+}
+
+export type {
+  QueryState,
+  MutationState,
+  WithQueryState,
+  WithMutationState,
+  InviteUserFormValues,
+};

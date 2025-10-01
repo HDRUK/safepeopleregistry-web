@@ -36,7 +36,7 @@ const ActionValidationStatus = <TParams,>({
 
   const schema = yup.object().shape({
     status: yup.string().required(),
-    comment: yup.string().required(),
+    comment: yup.string(),
   });
 
   const statusSlug = data?.model_state?.state?.slug;

@@ -37,8 +37,8 @@ type ResponseJson<T> = Response & {
 };
 
 type MutateWithArgs<T, P> = {
-  params: T;
-  payload: P;
+  params?: T;
+  payload?: P;
 };
 
 interface Paged<T> {

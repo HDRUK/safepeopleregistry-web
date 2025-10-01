@@ -19,7 +19,7 @@ Most internet browsers allow you to manage cookie settings or to delete them. Me
 
 ### Cookies we use
 
-You may access and change your cookie preferences at any time by clicking \[here\].
+You may access and change your cookie preferences at any time by clicking on the button in the bottom left hand corner of the screen.
 
 We use the following cookies a variety of cookies on our website including:
 

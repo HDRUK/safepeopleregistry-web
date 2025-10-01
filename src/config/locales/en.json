@@ -34,6 +34,7 @@
       "project_declined_approval": "Declined approval",
       "affiliation_pending": "Pending Affiliation",
       "affiliation_pending_short": "Pending",
+      "affiliation_email_verify": "Email verification needed",
       "affiliation_invited": "Invited",
       "affiliation_approved": "Affiliated",
       "affiliation_rejected": "Declined Affiliation",
@@ -113,6 +114,8 @@
     "trainingAndAccreditations": "Training and Accreditations",
     "professionalRegistrations": "Professional Registrations",
     "staffStudentId": "Staff / Student Id",
+    "getProjectError": "There was a problem loading the project. Please try again or contact us at <contactLink></contactLink>",
+    "getProjectForUserError": "There was a problem loading the project. Please try again or contact us at <contactLink></contactLink>",
     "getDependenciesError": "There was a problem was a problem trying to preload dependencies for Safe People Registry. Please try again or contact us at <contactLink></contactLink>",
     "getSystemConfigError": "There was a problem loading the application. Please try again or contact us at <contactLink></contactLink>",
     "getUserError": "Unable to load your user details. Please try again or contact us at <contactLink></contactLink>",
@@ -143,7 +146,7 @@
       "identity": "Identity",
       "projects": "Projects",
       "affiliations": "Affiliations",
-      "custodianOrgInfo": "Automated flags"
+      "custodianOrgInfo": "Automated Flags"
     },
     "Integrations": {
       "okButton": "OK",
@@ -189,6 +192,7 @@
     "organisationsSectorWebsite": "Sector size & website",
     "organisationsSubsidiaries": "UK subsidiaries",
     "organisationsDataSecurity": "Data security compliance",
+    "organisationsAutomatedFlags": "Automated Flags",
     "searchPlaceholder": "Search by name or email",
     "safeProject": "Safe Project",
     "safeProjectWorkflowStatusError": "The workflow process for setting status must be Pending -> Approved -> Completed. Please select a different status",
@@ -213,7 +217,7 @@
     "keycards": "Keycards",
     "projects": "Projects",
     "affiliations": "Affiliations",
-    "custodianOrgInfo": "Automated flags",
+    "custodianOrgInfo": "Automated Flags",
     "history": "History",
     "identity": "Identity",
     "trainingAccreditations": "Training and Accreditations",
@@ -245,8 +249,8 @@
     "CUSTODIAN_ADMIN": "Administrator",
     "CUSTODIAN_APPROVER": "Approver",
     "postCustodianUserInviteError": "There was a problem inviting this team member. Please contact them directly or contact us at <contactLink></contactLink>",
-    "configurationRules": "Automated flags",
-    "configurationRulesTitle": "Automated flags",
+    "configurationRules": "Automated Flags",
+    "configurationRulesTitle": "Automated Flags",
     "configurationValidationChecks": "Manual checks",
     "configurationWebhooks": "Webhooks",
     "webhookError": "There was a problem with the webhook configuration. Please try again or contact us at <contactLink></contactLink>",
@@ -286,7 +290,7 @@
       },
       "validation-checks": {
         "infoTitle": "Guidance",
-        "info": "These Manual Checks will appear alongside each User and Organisation profile during the validation process. You will be able to navigate between different tabs for the User (Affiliations, Projects, Identify, Training, Automated flags) and for the Organisation (Users, Address, Digital identifiers, Sector size, Data security compliance) to perform each of these checks manually.\n\nYou will always have the option to ultimately record a User or Organisation as validated without following these checks. These checks are a tool for recording decisions only."
+        "info": "These Manual Checks will appear alongside each User and Organisation profile during the validation process. You will be able to navigate between different tabs for the User (Affiliations, Projects, Identify, Training, Automated Flags) and for the Organisation (Users, Address, Digital identifiers, Sector size, Data security compliance) to perform each of these checks manually.\n\nYou will always have the option to ultimately record a User or Organisation as validated without following these checks. These checks are a tool for recording decisions only."
       },
       "webhooks": {
         "infoTitle": "Guidance",
@@ -937,6 +941,7 @@
     "organisationListed": "Organisation already exists? <link> Select them here </link>",
     "affiliationsDescription": "Please list all Organisations (employers or institutes) with whom you are currently employed, on an honorary contract, or enrolled with as a student. Your Organisations will use this to confirm your affiliation. If you input an ORCiD under the Experience tab, some of this information may be automatically populated but require further information.",
     "postAffiliationSuccess": "You have successfully created an affiliation",
+    "postAffiliationVerification": "We have sent a verification email to {email}. Please click the link in the email.",
     "postAffiliationError": "There was an error creating your affiliation. Please try again or contact us at <contactLink></contactLink>",
     "postAffiliationSuccessButton": "Ok",
     "postAffiliationErrorButton": "Try again",
@@ -1026,6 +1031,11 @@
     "cvUpload": "CV Upload",
     "cvUploadDescription": "Some Data Custodians require a CV. The CV should include your employment history, education and qualifications, and publication record.",
     "affiliationActionSuccessButton": "OK",
+    "affiliationActionVerificationTitle": "Verification needed",
+    "affiliationActionVerificationButton": "Close",
+    "affiliationRequestSentTitle": "Affiliation request sent",
+    "affiliationRequestSentDescription": "Thank you for verifying your affiliation email address. We have now sent an affiliation request to {organisationName}",
+    "affiliationRequestSentButton": "Close",
     "putAffiliationSuccess": "Affiliation updated successfully",
     "affiliationActionError": "An error occurred. Please try again or <contactLink>contact us</contactLink> if the problem persists.",
     "affiliationActionErrorButton": "Close",
@@ -1673,6 +1683,7 @@
     "requestDescription": "Here’s where you can request that a team member us added to this project. If you can't find them or they're listed under the wrong Organisation, invite them here. If they already have a Safe People Registry account, they’ll be able to select the correct Organisation. Otherwise, they'll be prompted to register for a Safe People Registry account."
   },
   "InviteUserModal": {
+    "heading": "Invite user",
     "description": "Complete the fields below to invite a User to create a Safe People Registry account."
   },
   "VeriffTermsAndConditions": {

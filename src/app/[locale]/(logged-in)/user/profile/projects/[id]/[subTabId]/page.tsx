@@ -1,9 +1,10 @@
 "use client";
 
 import LoadingWrapper from "@/components/LoadingWrapper";
-import getProjectQuery from "@/services/projects/getProjectQuery";
 import { useQuery } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
+import { getProjectForUserQuery } from "@/services/projects";
+import { useStore } from "@/data/store";
 import SubPageProjects from "../../../components/SubPageProjects";
 import { ProjectsSubTabs } from "../../../consts/tabs";
 
@@ -15,7 +16,13 @@ interface SubPageProjectsProps {
 }
 
 function ProjectsSubPage({ params: { subTabId, id } }: SubPageProjectsProps) {
-  const { data: project, isPending, isFetched } = useQuery(getProjectQuery(id));
+  const user = useStore(state => state.getUser());
+
+  const {
+    data: project,
+    isPending,
+    isFetched,
+  } = useQuery(getProjectForUserQuery(id, user.id));
 
   if (!project?.data && isFetched) {
     notFound();

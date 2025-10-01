@@ -2,9 +2,9 @@ import usePaginatedQuery, {
   PaginatedQueryProps,
 } from "@/hooks/usePaginatedQuery";
 import getProjectAllUsers from "./getProjectAllUsers";
-import { ProjectAllUserResponse } from "./types";
+import { ProjectAllUsersResponse } from "./types";
 
-interface GetPaginatedUsersQuery<T = ProjectAllUserResponse>
+interface GetPaginatedUsersQuery<T = ProjectAllUsersResponse>
   extends Partial<PaginatedQueryProps<T>> {}
 
 export default function useGetProjectAllUsers(

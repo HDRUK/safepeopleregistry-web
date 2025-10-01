@@ -9,6 +9,7 @@ import OrganisationsSectorWebsite from "../../../../../components/OrganisationsS
 import OrganisationsDataSecurityCompliance from "../../../../../components/OrganisationsDataSecurityCompliance";
 
 import { OrganisationsSubTabs } from "../../../../../consts/tabs";
+import OrganisationsAutomatedFlags from "../../../../../components/OrganisationsAutomatedFlags";
 
 interface TabsContentsProps {
   subTabId: OrganisationsSubTabs;
@@ -40,6 +41,9 @@ export default function SubTabsContents({ subTabId }: TabsContentsProps) {
       break;
     case OrganisationsSubTabs.DATA_SECURITY_COMPLIANCE:
       content = <OrganisationsDataSecurityCompliance />;
+      break;
+    case OrganisationsSubTabs.AUTOMATED_FLAGS:
+      content = <OrganisationsAutomatedFlags />;
       break;
     default:
       content = null;

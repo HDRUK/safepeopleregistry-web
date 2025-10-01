@@ -89,5 +89,18 @@ describe("Cells utils", () => {
         )
       ).toBeInTheDocument();
     });
+
+    it("handles undefined orgs", async () => {
+      const orgs = [
+        null,
+        mockedOrganisation({
+          organisation_name: "Organisation 1",
+        }),
+      ];
+
+      render(<CellOrganisationsTest orgs={orgs} />);
+
+      expect(screen.getByText(orgs[1].organisation_name)).toBeInTheDocument();
+    });
   });
 });

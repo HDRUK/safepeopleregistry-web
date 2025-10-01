@@ -19,8 +19,9 @@ import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import { LoadingButton } from "@mui/lab";
 import { Box, Button, Link, Modal, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { useRouter, useSearchParams } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { getProfilePathByEntity } from "@/utils/redirects";
 import AccountOption from "../AccountOption";
 
 const NAMESPACE_TRANSLATIONS_PROFILE = "Register";
@@ -95,14 +96,18 @@ export default function AccountConfirm({
 
   const { isLoading, isError, error, isSuccess } = registerUserState;
 
-  if (isError || isLoading || isSuccess) {
+  if (isSuccess && userGroup) {
+    redirect(getProfilePathByEntity(userGroup));
+  }
+
+  if (isError || isLoading) {
     return (
       <Box
         sx={{
           height: "70vh",
           position: "relative",
         }}>
-        <LoadingWrapper variant="basic" loading={isSuccess || isLoading}>
+        <LoadingWrapper variant="basic" loading={isLoading}>
           <Message severity="error" sx={{ mb: 3 }}>
             {t(error)}
           </Message>

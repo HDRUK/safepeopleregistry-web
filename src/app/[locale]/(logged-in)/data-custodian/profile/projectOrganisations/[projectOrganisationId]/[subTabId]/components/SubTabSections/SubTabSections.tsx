@@ -76,6 +76,16 @@ export default function SubTabsSections({
         }
       ),
     },
+    {
+      label: t("organisationsAutomatedFlags"),
+      value: OrganisationsSubTabs.AUTOMATED_FLAGS,
+      href: injectParamsIntoPath(
+        routes.profileCustodianOrganisationsAutomatedFlags.path,
+        {
+          projectOrganisationId,
+        }
+      ),
+    },
   ];
 
   return <SubTabs current={subTabId} tabs={subTabs} />;

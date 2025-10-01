@@ -26,7 +26,7 @@ function getProfilePathByEntity(user: User | string) {
   return ROUTES[`profile${profileEntity}` as keyof Routes].path;
 }
 
-const getProfileRedirectPath = async (user: User) => {
+const getProfileRedirectPath = (user: User) => {
   const redirectPath = getProfilePathByEntity(user);
 
   return redirectPath;

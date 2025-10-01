@@ -398,7 +398,20 @@ type ResearcherProject = WithModelState<{
   custodians?: Custodian[];
   project_detail: ProjectDetails;
   status: Status;
+  custodian_has_project_user?: CustodianProjectUser[];
+  custodian_has_project_organisation?: CustodianProjectOrganisation[];
+  project_users_count?: number;
 }>;
+
+interface PendingInvite {
+  user_id: number;
+  invite_code: string | null;
+  invite_accepted_at: string | null;
+  invite_sent_at: string;
+  status: string;
+  organisation_id: number | null;
+  id: number;
+}
 
 interface ProjectDetails {
   access_type: string;
@@ -479,6 +492,16 @@ interface ProjectOrganisation {
   project: Project;
 }
 
+interface Rule {
+  rule: string;
+  conditions: {
+    path: string;
+    expects: number;
+  };
+  actual: boolean;
+  status: boolean;
+}
+
 type CustodianProjectOrganisation = WithModelState<{
   id: number;
   project_has_organisation_id: number;
@@ -496,6 +519,7 @@ type ProjectAllUser = WithModelState<{
   first_name: string;
   last_name: string;
   email: string;
+  professional_email: string;
   affiliation_id: number;
   organisation_name: string;
   role: Partial<Role>;
@@ -567,4 +591,6 @@ export type {
   WithRoutes,
   WithPaginatedQueryParms,
   UserPermission,
+  PendingInvite,
+  Rule,
 };

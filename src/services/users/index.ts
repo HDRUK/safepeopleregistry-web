@@ -12,8 +12,14 @@ import postUserInviteQuery from "./postUserInviteQuery";
 import putUser from "./putUser";
 import putUserQuery from "./putUserQuery";
 import usePaginatedUserProjects from "./usePaginatedUserProjects";
+import getPendingInvite from "./getPendingInvite";
+import getPendingInviteQuery from "./getPendingInviteQuery";
+import putEmailByInvite from "./putEmailByInvite";
+import putEmailByInviteQuery from "./putEmailByInviteQuery";
 
 export {
+  getPendingInvite,
+  getPendingInviteQuery,
   getUser,
   getUserQuery,
   getByIdUser,
@@ -28,6 +34,8 @@ export {
   putUserQuery,
   getUsersQuery,
   usePaginatedUserProjects,
+  putEmailByInvite,
+  putEmailByInviteQuery,
 };
 
 export type * from "./types";

@@ -31,7 +31,7 @@ export default async function useApplicationRedirects() {
       me = response.data;
 
       if (response.status === 200) {
-        redirectUrl = await getProfileRedirectPath(me);
+        redirectUrl = getProfileRedirectPath(me);
       } else if (response.status === 401) {
         redirectUrl = await getRefreshTokenRedirectPath();
       } else if (response.status === 404) {

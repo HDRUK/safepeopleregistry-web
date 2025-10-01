@@ -15,6 +15,7 @@ export enum Status {
   PROJECT_PENDING = "project_pending",
   PROJECT_IN_PROGRESS = "project_in_progress",
   PROJECT_DECLINED_APPROVAL = "project_declined_approval",
+  AFFILIATION_EMAIL_VERIFY = "affiliation_email_verify",
   AFFILIATION_INVITED = "affiliation_invited",
   AFFILIATION_PENDING = "affiliation_pending",
   AFFILIATION_APPROVED = "affiliation_approved",
