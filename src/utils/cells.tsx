@@ -156,7 +156,9 @@ function renderOrganisationsNameCell(values: Organisation | Organisation[]) {
 
   if (Array.isArray(values)) {
     names = renderListNameCell(
-      (values || []).map(({ organisation_name }) => organisation_name)
+      (values || [])
+        .map(organisation => organisation?.organisation_name)
+        .filter(organisationName => !!organisationName)
     );
   } else {
     names = values?.organisation_name;
