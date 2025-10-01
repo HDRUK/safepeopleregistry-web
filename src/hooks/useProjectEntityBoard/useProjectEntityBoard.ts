@@ -43,8 +43,10 @@ export default function useProjectEntityBoard<
       });
 
       data.forEach(item => {
-        if (item.model_state?.state?.slug) {
-          items[item.model_state.state.slug].push(item);
+        const slug = item.model_state?.state?.slug;
+
+        if (slug && items[slug]) {
+          items[slug].push(item);
         }
       });
 
