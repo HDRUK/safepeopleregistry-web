@@ -1,3 +1,26 @@
+## [1.13.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.12.0...v1.13.0) (2025-10-01)
+
+### ✨ Features
+
+* **REGISTRY-1294:** change email when invite code (#498) ([04636a0](https://github.com/HDRUK/safepeopleregistry-web/commit/04636a0d79c99d8938ba37d888a8f59d4405a063))
+* **REGISTRY-1662:** add role to invite (#499) ([8fe1ac6](https://github.com/HDRUK/safepeopleregistry-web/commit/8fe1ac6f9101a62a033a644f4c1da17835023a04))
+* **REGISTRY-1837:** organisations automated flags (#500) ([1c108ea](https://github.com/HDRUK/safepeopleregistry-web/commit/1c108ea8366f54e79e48d2d7a8b97718fd622461))
+* **REGISTRY-1841:** trigger analytics (#501) ([fad2b02](https://github.com/HDRUK/safepeopleregistry-web/commit/fad2b02fad91d1c94dbc978d7522000fe8e25779))
+* **REGISTRY-1841:** update content (#503) ([94db205](https://github.com/HDRUK/safepeopleregistry-web/commit/94db20559e3faa8e78b707f91f340b6429245dc5))
+* **REGISTRY-1910:** Add affiliation modal (#494) ([ce8ad11](https://github.com/HDRUK/safepeopleregistry-web/commit/ce8ad11599c1bf65c817b4a68ce58944f2563ff3))
+* **REGISTRY-1933:** Move SRO profile link (#495) ([8cec7ca](https://github.com/HDRUK/safepeopleregistry-web/commit/8cec7ca1ce94ac494dc582e26bf05a15298fc144))
+* **REGISTRY-1939:** affiliation email verification (#502) ([3d3703a](https://github.com/HDRUK/safepeopleregistry-web/commit/3d3703a9290bf66ede9982d64fc2dc6ba7b4ce30))
+* **REGISTRY-1985:** chromatic publication fail (#504) ([5121e97](https://github.com/HDRUK/safepeopleregistry-web/commit/5121e97b120f2cfb22a77e42e8090f6f24d782ac))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-1357:** Remove required flag from manual check comment (#496) ([bd1e1a2](https://github.com/HDRUK/safepeopleregistry-web/commit/bd1e1a2b7beae5c29cc4555d615792643ea1085d))
+* **REGISTRY-1459:** validation status (#490) ([8ca42e8](https://github.com/HDRUK/safepeopleregistry-web/commit/8ca42e8672017154929d74219603f29ee425d088))
+* **REGISTRY-1665:** Display professional email in table (#497) ([2de079c](https://github.com/HDRUK/safepeopleregistry-web/commit/2de079c698beb5e09bb596565b54ad8c93488ba5))
+* **REGISTRY-1986:** handle missing states (#507) ([553c1f7](https://github.com/HDRUK/safepeopleregistry-web/commit/553c1f7de7ea01bf01d5bd71198daa6826dcc9fd))
+* **REGISTRY-1986:** handle null org (#506) ([007b11f](https://github.com/HDRUK/safepeopleregistry-web/commit/007b11f05629ec0274e68a2cbfbd8425259ac2f9))
+* **REGISTRY-1987:** check slug (#508) ([0b7cee8](https://github.com/HDRUK/safepeopleregistry-web/commit/0b7cee802f8c01d659333a7591a1678ab5821776))
+
 ## [1.12.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.11.0...v1.12.0) (2025-09-18)
 
 ### ✨ Features
