@@ -21,6 +21,10 @@ jest.mock("@/data/store", () => ({
 const mockUseQuery = useQuery as jest.MockedFunction<typeof useQuery>;
 const mockUseMutation = useMutation as jest.MockedFunction<typeof useMutation>;
 
+const renderTest = () => {
+  return render(<AffiliationsPage queryState={{}} />);
+};
+
 describe("<AffiliationsPage />", () => {
   const testAffiliations = [
     mockedAffiliation(),
@@ -56,21 +60,24 @@ describe("<AffiliationsPage />", () => {
   });
 
   it("renders without crashing", () => {
-    render(<AffiliationsPage />);
+    renderTest();
+
     expect(
       screen.getByText("Complete your employer or institute information")
     ).toBeInTheDocument();
   });
 
   it("displays the affiliations table", async () => {
-    render(<AffiliationsPage />);
+    renderTest();
+
     await waitFor(() => {
       expect(screen.getByRole("table")).toBeInTheDocument();
     });
   });
 
   it("displays organisation name in the table", async () => {
-    render(<AffiliationsPage />);
+    renderTest();
+
     await waitFor(() => {
       expect(
         screen.getByText(testAffiliations[0].organisation.organisation_name)
@@ -79,13 +86,14 @@ describe("<AffiliationsPage />", () => {
   });
 
   it("displays 7 columns", async () => {
-    render(<AffiliationsPage />);
+    renderTest();
+
     await waitFor(() => {
       expect(screen.getAllByRole("columnheader")).toHaveLength(7);
     });
   });
 
   it("has no accessibility violations", async () => {
-    commonAccessibilityTests(render(<AffiliationsPage />));
+    commonAccessibilityTests(renderTest());
   });
 });

@@ -1,9 +1,28 @@
-import Page from "../components/Page";
+import putVerifyEmail from "@/services/affiliations/putVerifyEmail";
+import { responseToQueryState } from "@/utils/query";
+import AffiliationsPage from "../components/AffiliationsPage";
 import { PageTabs } from "../consts/tabs";
 
-function AffiliationsPage() {
+interface PageProps {
+  searchParams?: {
+    verify?: string;
+  };
+}
+
+async function Page({ searchParams }: PageProps) {
+  const verify = searchParams?.verify;
+
+  const queryState = verify
+    ? responseToQueryState(
+        await putVerifyEmail(verify, {
+          suppressThrow: true,
+        })
+      )
+    : {};
+
   return (
-    <Page
+    <AffiliationsPage
+      queryState={queryState}
       params={{
         tabId: PageTabs.AFFILIATIONS,
       }}
@@ -11,4 +30,4 @@ function AffiliationsPage() {
   );
 }
 
-export default AffiliationsPage;
+export default Page;
