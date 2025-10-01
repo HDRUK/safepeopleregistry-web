@@ -43,7 +43,9 @@ export default function useProjectEntityBoard<
       });
 
       data.forEach(item => {
-        items[item.model_state.state.slug].push(item);
+        if (item.model_state?.state?.slug) {
+          items[item.model_state.state.slug].push(item);
+        }
       });
 
       return items;
