@@ -1,6 +1,7 @@
 import {
   MutateWithArgs,
   QueryOptions,
+  ResponseJson,
   ResponseOptions,
 } from "@/types/requests";
 import {
@@ -173,6 +174,22 @@ function createMutation<R, T, P>(
   >;
 }
 
+function responseToQueryState<T = unknown>(
+  response: ResponseJson<T>
+): {
+  isError: boolean;
+  isSuccess: boolean;
+  data: T;
+} {
+  const { data, ok } = response;
+
+  return {
+    isError: !ok,
+    isSuccess: ok,
+    data,
+  };
+}
+
 export {
   getCombinedQueryState,
   getQueriesError,
@@ -186,4 +203,5 @@ export {
   isQueriesLoading,
   createQuery,
   createMutation,
+  responseToQueryState,
 };

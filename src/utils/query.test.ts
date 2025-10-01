@@ -4,6 +4,7 @@ import {
   isQueriesError,
   isQueriesFetched,
   isQueriesLoading,
+  responseToQueryState,
 } from "./query";
 import { waitFor } from "./testUtils";
 
@@ -32,6 +33,34 @@ describe("isQueriesFetched", () => {
     ]);
 
     expect(results).toEqual(false);
+  });
+});
+
+describe("responseToQueryState", () => {
+  it("returns the correct query state on error", () => {
+    const results = responseToQueryState({
+      ok: false,
+      data: "data",
+    });
+
+    expect(results).toEqual({
+      isSuccess: false,
+      isError: true,
+      data: "data",
+    });
+  });
+
+  it("returns the correct query state on success", () => {
+    const results = responseToQueryState({
+      ok: true,
+      data: "data",
+    });
+
+    expect(results).toEqual({
+      isSuccess: true,
+      isError: false,
+      data: "data",
+    });
   });
 });
 

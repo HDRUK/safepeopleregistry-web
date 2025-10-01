@@ -6,6 +6,10 @@ type PostAffiliationPayload = ResearcherAffiliation;
 type PutAffiliationsResponse = ResearcherAffiliation;
 type PutAffiliationsPayload = Partial<ResearcherAffiliation>;
 
+interface PutVerifyEmailParams {
+  verificationCode: string;
+}
+
 export enum AffiliationStatus {
   Approved = "approved",
   Rejected = "rejected",
@@ -17,4 +21,5 @@ export type {
   PostAffiliationsResponse,
   PutAffiliationsPayload,
   PutAffiliationsResponse,
+  PutVerifyEmailParams,
 };

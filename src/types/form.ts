@@ -1,5 +1,5 @@
-interface QueryState {
-  isError: boolean;
+interface QueryState<T = unknown> {
+  isError?: boolean;
   error?: unknown | string | null;
   isSuccess?: boolean;
   isFetched?: boolean;
@@ -7,14 +7,16 @@ interface QueryState {
   isLoading?: boolean;
   reset?: () => void;
   status?: string;
+  data?: T;
 }
-interface MutationState {
+interface MutationState<T = unknown> {
   fetchStatus?: string;
-  isError: boolean;
+  isError?: boolean;
   error?: unknown | string | null;
   isSuccess?: boolean;
   isPending?: boolean;
   reset?: () => void;
+  data?: T;
 }
 
 type WithMutationState<T> = T & {

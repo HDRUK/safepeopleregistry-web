@@ -1,18 +1,17 @@
 import { Status } from "@/components/ChipStatus";
-import { GetCustodianProjectUserResponse } from "@/services/custodians";
 import {
-  CustodianUser,
   Custodian,
-  ProjectAllUser,
-  CustodianProjectUser,
-  ProjectUser,
   CustodianProjectOrganisation,
+  CustodianProjectUser,
+  CustodianUser,
+  ProjectAllUser,
   ProjectOrganisation,
+  ProjectUser,
 } from "@/types/application";
 import { faker } from "@faker-js/faker";
+import { mockedOrganisation } from "./organisation";
 import { mockedProject } from "./project";
 import { mockedAffiliation, mockedUser } from "./user";
-import { mockedOrganisation } from "./organisation";
 
 const mockedCustodian = (custodian?: Partial<Custodian>): Custodian => ({
   id: 1,
@@ -131,10 +130,10 @@ const mockedCustodianHasProjectOrganisation = (
 
 export {
   mockedCustodian,
-  mockedCustodianUser,
-  mockedProjectUser,
-  mockedProjectHasUser,
-  mockedCustodianHasProjectUser,
   mockedCustodianHasProjectOrganisation,
+  mockedCustodianHasProjectUser,
+  mockedCustodianUser,
   mockedProjectHasOrganisation,
+  mockedProjectHasUser,
+  mockedProjectUser,
 };
