@@ -2,7 +2,6 @@
 
 import Guidance from "@/components/Guidance";
 import LoadingWrapper from "@/components/LoadingWrapper";
-import { Message } from "@/components/Message";
 import SoursdLogo from "@/components/SoursdLogo";
 import TermsAndConditions from "@/components/TermsAndConditions";
 import { CONTACT_MAIL_ADDRESS } from "@/config/contacts";
@@ -22,6 +21,8 @@ import { useTranslations } from "next-intl";
 import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getProfilePathByEntity } from "@/utils/redirects";
+import ErrorMessage from "@/components/ErrorMessage";
+import OverlayCenterAlert from "@/components/OverlayCenterAlert";
 import AccountOption from "../AccountOption";
 
 const NAMESPACE_TRANSLATIONS_PROFILE = "Register";
@@ -108,9 +109,9 @@ export default function AccountConfirm({
           position: "relative",
         }}>
         <LoadingWrapper variant="basic" loading={isLoading}>
-          <Message severity="error" sx={{ mb: 3 }}>
-            {t(error)}
-          </Message>
+          <OverlayCenterAlert messageProps={{ severity: "error" }}>
+            <ErrorMessage tKey={error[0]} t={t} />
+          </OverlayCenterAlert>
         </LoadingWrapper>
       </Box>
     );
