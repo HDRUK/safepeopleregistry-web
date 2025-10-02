@@ -97,11 +97,15 @@ export default function ProjectsAddUserModal({
       ? (projectRoles.find(role => role?.id === +roleId) as Partial<Role>)
       : null;
 
-    const exists = projectUsers.some(user => user.user_id === row.user_id);
+    const exists = projectUsers.some(
+      user => user.affiliation_id === row.affiliation_id
+    );
 
     if (exists) {
       return projectUsers.map(user =>
-        user.user_id === row.user_id ? { ...user, role: updatedRole } : user
+        user.affiliation_id === row.affiliation_id
+          ? { ...user, role: updatedRole }
+          : user
       );
     }
 
