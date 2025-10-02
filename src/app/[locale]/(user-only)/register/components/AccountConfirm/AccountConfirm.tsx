@@ -23,6 +23,8 @@ import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getProfilePathByEntity } from "@/utils/redirects";
 import AccountOption from "../AccountOption";
+import ErrorMessage from "@/components/ErrorMessage";
+import OverlayCenterAlert from "@/components/OverlayCenterAlert";
 
 const NAMESPACE_TRANSLATIONS_PROFILE = "Register";
 const NAMESPACE_TRANSLATION_TERMS_AND_CONDITIONS = "TermsAndConditions";
@@ -108,9 +110,9 @@ export default function AccountConfirm({
           position: "relative",
         }}>
         <LoadingWrapper variant="basic" loading={isLoading}>
-          <Message severity="error" sx={{ mb: 3 }}>
-            {t(error)}
-          </Message>
+          <OverlayCenterAlert messageProps={{ severity: "error" }}>
+            <ErrorMessage tKey={error[0]} t={t} />
+          </OverlayCenterAlert>
         </LoadingWrapper>
       </Box>
     );
