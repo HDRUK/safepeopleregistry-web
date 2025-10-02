@@ -104,17 +104,12 @@ export default function useRegisterUser({
         unclaimed: 0,
       });
     } else {
-      console.log("***** registering", unclaimedUser, {
-        account_type: userGroup,
-      });
       // No invite - Create user
       await mutateRegisterNewUser({
         account_type: userGroup,
       });
     }
   };
-
-  console.log("**** queryState", queryState);
 
   return {
     handleRegister,

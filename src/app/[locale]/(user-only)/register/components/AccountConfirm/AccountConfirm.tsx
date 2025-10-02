@@ -2,7 +2,6 @@
 
 import Guidance from "@/components/Guidance";
 import LoadingWrapper from "@/components/LoadingWrapper";
-import { Message } from "@/components/Message";
 import SoursdLogo from "@/components/SoursdLogo";
 import TermsAndConditions from "@/components/TermsAndConditions";
 import { CONTACT_MAIL_ADDRESS } from "@/config/contacts";
@@ -22,9 +21,9 @@ import { useTranslations } from "next-intl";
 import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { getProfilePathByEntity } from "@/utils/redirects";
-import AccountOption from "../AccountOption";
 import ErrorMessage from "@/components/ErrorMessage";
 import OverlayCenterAlert from "@/components/OverlayCenterAlert";
+import AccountOption from "../AccountOption";
 
 const NAMESPACE_TRANSLATIONS_PROFILE = "Register";
 const NAMESPACE_TRANSLATION_TERMS_AND_CONDITIONS = "TermsAndConditions";
