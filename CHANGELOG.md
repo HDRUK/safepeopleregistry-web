@@ -1,3 +1,13 @@
+## [1.14.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.13.0...v1.14.0) (2025-10-03)
+
+### ✨ Features
+
+* **REGISTRY-1920:** fix role select (#511) ([1c4ee0c](https://github.com/HDRUK/safepeopleregistry-web/commit/1c4ee0c07769b810e4dd660336218b420ecee734))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-1990:** change error message (#510) ([8e6b891](https://github.com/HDRUK/safepeopleregistry-web/commit/8e6b891a4897acd83d5f67259bdf09c8fd0a84cd))
+
 ## [1.13.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.12.0...v1.13.0) (2025-10-01)
 
 ### ✨ Features
