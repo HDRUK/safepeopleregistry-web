@@ -1,6 +1,5 @@
 "use client";
 
-import { SEARCH_PAGE_MAX_PER_PAGE } from "@/consts/search";
 import AddIcon from "@mui/icons-material/Add";
 import ListIcon from "@mui/icons-material/List";
 import ViewColumnIconOutlined from "@mui/icons-material/ViewColumnOutlined";
@@ -9,7 +8,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import ButtonToggle from "../../components/ButtonToggle";
+import ErrorMessage from "../../components/ErrorMessage";
 import Results from "../../components/Results";
+import { SEARCH_PAGE_MAX_PER_PAGE } from "../../consts/search";
 import useProjectEntity from "../../hooks/useProjectEntity";
 import useQueryAlerts from "../../hooks/useQueryAlerts";
 import { KanbanBoardHelperProps } from "../../modules/KanbanBoard";
@@ -248,7 +249,7 @@ export default function ProjectUsers({
           noResultsMessage={
             projectId ? t("noResultsMessageProject") : t("noResultsMessage")
           }
-          errorMessage={t("errorMessage")}
+          errorMessage={<ErrorMessage t={t} tKey="errorMessage" />}
           queryState={queryState}>
           {/* note this is using paginated data */}
           {itemsByTransitions && listComponent}
