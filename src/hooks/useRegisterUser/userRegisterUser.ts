@@ -93,7 +93,9 @@ export default function useRegisterUser({
       }
 
       // Set unclaimed org to claimed
-      await mutateAsyncOrganisation({ unclaimed: 0 });
+      if (!unclaimedUser.is_delegate) {
+        await mutateAsyncOrganisation({ unclaimed: 0 });
+      }
     } else if (userGroup === UserGroup.ORGANISATIONS) {
       // No invite - Create new org
       await mutateAsyncRegisterNewOrganisation({
