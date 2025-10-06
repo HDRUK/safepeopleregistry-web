@@ -1231,7 +1231,7 @@
     "claimOrgAccount": "Claim your admin account",
     "postOrganisationUnclaimedError": "Unable to create the initial organisation data, please try again. Alternatively, please contact us at <contactLink></contactLink>",
     "failedToRegister": "Failed to register account. Please try again by refreshing or <contactLink>contact support</contactLink> if the problem persists.",
-    "putOrganisationError": "There was a problem registering your organisation. Please <contactLink>contact support</contactLink>.",
+    "putOrganisationError": "There was a problem registering your organisation. Please try again by refreshing or <contactLink>contact support</contactLink>.",
     "postOrganisationNewAccountError": "Failed to register organisation. Please try again by refreshing or <contactLink>contact support</contactLink> if the problem persists.",
     "repOrgButton": "Set up my <bold>Organisation</bold> account",
     "repMyselfButton": "Show I'm safe to access sensitive data as a <bold>User</bold>",
