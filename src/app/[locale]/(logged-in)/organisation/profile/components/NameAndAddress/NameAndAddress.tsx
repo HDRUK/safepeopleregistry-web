@@ -109,7 +109,7 @@ export default function NameAndAddress() {
           .string()
           .email(tForm("emailInvalid"))
           .required(tForm("emailRequired")),
-        role: yup.string().required(tForm("roleInvalid")),
+        role: yup.string().required(tForm("roleRequiredInvalid")),
         sro_profile_uri: yup
           .string()
           .url(tForm("sroProfileUriInvalid"))
