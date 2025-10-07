@@ -1,5 +1,5 @@
-import { DndItems } from "@/types/dnd";
 import { Collision, UniqueIdentifier } from "@dnd-kit/core";
+import { DndData, DndItems } from "../types/dnd";
 
 function findContainer<T>(id: UniqueIdentifier, items: DndItems<T>) {
   if (id in items) {
@@ -62,12 +62,29 @@ function findFirstDroppable(collisions: Collision[] | null) {
   return collisions?.find(({ data }) => !!data?.droppableContainer);
 }
 
+function filterDuplicates<T>(state: DndItems<T>) {
+  const filteredItems: DndItems<T> = {};
+
+  Object.keys(state).forEach((key: keyof DndItems<T>) => {
+    filteredItems[key] = [];
+
+    state[key].forEach((item: DndData<T>) => {
+      if (!filteredItems[key].find(({ id }) => item.id === id)) {
+        filteredItems[key].push(item);
+      }
+    });
+  });
+
+  return filteredItems;
+}
+
 export {
-  findItemInContainer,
+  filterDuplicates,
   findContainer,
-  findItem,
-  findItemIndex,
-  findFirstDroppable,
-  pruneItem,
   findDroppables,
+  findFirstDroppable,
+  findItem,
+  findItemInContainer,
+  findItemIndex,
+  pruneItem,
 };
