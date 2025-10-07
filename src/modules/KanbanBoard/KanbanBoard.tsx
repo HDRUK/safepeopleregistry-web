@@ -153,7 +153,6 @@ export default function KanbanBoard<T>({
 
   const handleDragCancel = () => {
     if (clonedItems) {
-      console.log("prevState", clonedItems);
       setItems(clonedItems);
     }
 
@@ -213,7 +212,6 @@ export default function KanbanBoard<T>({
       isError,
       setState: (state: DndItems<T>) => {
         setItems(prevState => {
-          console.log("prevState", prevState);
           return {
             ...prevState,
             ...state,
