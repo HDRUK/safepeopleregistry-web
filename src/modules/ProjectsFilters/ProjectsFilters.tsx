@@ -94,6 +94,16 @@ export default function ProjectsFilters({
         key: "filter",
         value: Status.PROJECT_COMPLETED,
       },
+      {
+        label: t("filterByStatus_declined_approval"),
+        key: "filter",
+        value: Status.PROJECT_DECLINED_APPROVAL,
+      },
+      {
+        label: t("filterByStatus_in_progress"),
+        key: "filter",
+        value: Status.PROJECT_IN_PROGRESS,
+      },
     ],
     onFilter: (key: string, value: string) =>
       handleFieldToggle(key, [value, undefined], true),
