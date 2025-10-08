@@ -203,7 +203,6 @@
     "safePeople": "Safe People",
     "safeData": "Safe Data",
     "safeSettings": "Safe Settings",
-    "safePeopleDescription": "Currently, you can only see yourself on this page. The project, however, may have many other Users.",
     "home": "Home",
     "homeIntro": "Welcome to the Safe People Registry. You’ll see a list of tasks below to complete your profile.",
     "contacts": "Contacts",
@@ -1230,7 +1229,9 @@
     "title": "What would you like to do?",
     "claimOrgAccount": "Claim your admin account",
     "postOrganisationUnclaimedError": "Unable to create the initial organisation data, please try again. Alternatively, please contact us at <contactLink></contactLink>",
-    "failedToRegister": "Failed to register account. Have you already registered? Please try again or <contactLink>contact support</contactLink> if the problem persists.",
+    "failedToRegister": "Failed to register account. Please try again by refreshing or <contactLink>contact support</contactLink> if the problem persists.",
+    "putOrganisationError": "There was a problem registering your organisation. Please try again by refreshing or <contactLink>contact support</contactLink> if the problem persists.",
+    "postOrganisationNewAccountError": "Failed to register organisation. Please try again by refreshing or <contactLink>contact support</contactLink> if the problem persists.",
     "repOrgButton": "Set up my <bold>Organisation</bold> account",
     "repMyselfButton": "Show I'm safe to access sensitive data as a <bold>User</bold>",
     "repCustodianButton": "Set up my <br></br><bold>Data Custodian</bold> account",
@@ -1361,8 +1362,10 @@
     "ProjectsFilters": {
       "sortByProjectTitle": "Project name",
       "filterByStatus_approved": "Approved",
-      "filterByStatus_pending": "Pending",
+      "filterByStatus_pending": "Pending approval",
       "filterByStatus_completed": "Completed",
+      "filterByStatus_declined_approval": "Declined approval",
+      "filterByStatus_in_progress": "In progress",
       "filterByActive": "Active projects",
       "filterByPast": "Past projects",
       "searchPlaceholder": "Search by Project name"
@@ -1374,6 +1377,7 @@
       "title": "Project name"
     },
     "Users": {
+      "safePeopleDescription": "Currently, you can only see yourself on this page. The project, however, may have many other Users.",
       "cancel": "Cancel",
       "move": "Change status",
       "status": "Validation status",

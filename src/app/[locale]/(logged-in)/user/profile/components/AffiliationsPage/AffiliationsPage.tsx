@@ -135,7 +135,7 @@ export default function AffiliationsPage({
   });
 
   const verifiedOrganisationName =
-    queryState.data?.organisation.organisation_name;
+    queryState.data?.organisation?.organisation_name;
 
   useQueryAlertFromServer(queryState, {
     successAlertProps: {

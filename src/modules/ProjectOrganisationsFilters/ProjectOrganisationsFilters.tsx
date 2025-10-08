@@ -85,7 +85,7 @@ export default function ProjectOrganisationsFilters({
       onClear={resetQueryParams}
       onSearch={(text: string) => {
         updateQueryParams({
-          "organisation_name[]": text,
+          name: text,
         });
       }}
       placeholder={tOrganisation("searchPlaceholder")}>

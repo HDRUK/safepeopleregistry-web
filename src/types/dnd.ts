@@ -1,13 +1,12 @@
 import { DragEndEvent, DragOverEvent, UniqueIdentifier } from "@dnd-kit/core";
 
-export type DndItems<T> = Record<
-  UniqueIdentifier,
-  (T & {
-    id: UniqueIdentifier;
-    isDroppable?: boolean;
-    isError?: boolean;
-  })[]
->;
+export type DndData<T> = T & {
+  id: UniqueIdentifier;
+  isDroppable?: boolean;
+  isError?: boolean;
+};
+
+export type DndItems<T> = Record<UniqueIdentifier, DndData<T>[]>;
 
 export type DragUpdateEvent = DragEndEvent | DragOverEvent;
 
