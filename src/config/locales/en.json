@@ -203,7 +203,6 @@
     "safePeople": "Safe People",
     "safeData": "Safe Data",
     "safeSettings": "Safe Settings",
-    "safePeopleDescription": "Currently, you can only see yourself on this page. The project, however, may have many other Users.",
     "home": "Home",
     "homeIntro": "Welcome to the Safe People Registry. You’ll see a list of tasks below to complete your profile.",
     "contacts": "Contacts",
@@ -1376,6 +1375,7 @@
       "title": "Project name"
     },
     "Users": {
+      "safePeopleDescription": "Currently, you can only see yourself on this page. The project, however, may have many other Users.",
       "cancel": "Cancel",
       "move": "Change status",
       "status": "Validation status",

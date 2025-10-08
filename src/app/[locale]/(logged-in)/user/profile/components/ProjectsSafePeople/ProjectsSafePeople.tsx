@@ -9,15 +9,15 @@ import { EntityType } from "@/types/api";
 import { renderUserNameCell } from "@/utils/cells";
 import { useTranslations } from "next-intl";
 
-const NAMESPACE_TRANSLATION = "CustodianProfile";
-const NAMESPACE_TRANSLATIONS_PROJECT_USERS = "Projects.Users";
+const NAMESPACE_TRANSLATION_PROJECTS = "Projects";
+const NAMESPACE_TRANSLATIONS = "Projects.Users";
 
 export default function ProjectsSafePeople() {
-  const t = useTranslations(NAMESPACE_TRANSLATION);
-  const tTable = useTranslations(NAMESPACE_TRANSLATIONS_PROJECT_USERS);
+  const tProjects = useTranslations(NAMESPACE_TRANSLATION_PROJECTS);
+  const t = useTranslations(NAMESPACE_TRANSLATIONS);
 
   const { createDefaultColumn } = useColumns({
-    t: tTable,
+    t,
   });
 
   const { registryId, projectId, route } = useStore(state => ({
@@ -44,7 +44,7 @@ export default function ProjectsSafePeople() {
 
   return (
     <PageBody
-      heading={t("safePeople")}
+      heading={tProjects("safePeople")}
       description={t("safePeopleDescription")}>
       <ProjectUsersList
         data={data}
