@@ -1362,8 +1362,10 @@
     "ProjectsFilters": {
       "sortByProjectTitle": "Project name",
       "filterByStatus_approved": "Approved",
-      "filterByStatus_pending": "Pending",
+      "filterByStatus_pending": "Pending approval",
       "filterByStatus_completed": "Completed",
+      "filterByStatus_declined_approval": "Declined approval",
+      "filterByStatus_in_progress": "In progress",
       "filterByActive": "Active projects",
       "filterByPast": "Past projects",
       "searchPlaceholder": "Search by Project name"
