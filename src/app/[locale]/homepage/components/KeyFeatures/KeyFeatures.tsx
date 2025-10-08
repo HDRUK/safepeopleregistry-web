@@ -81,10 +81,9 @@ export default function KeyFeatures() {
           height="100%"
           src="https://www.youtube.com/embed/kYLO_7gtBRo?si=sfXW1gOBlgS-5Str"
           title="Safe People Registry"
-          frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
         />
       </Box>
       <Typography variant="h4" color="primary">
