@@ -1,6 +1,6 @@
 "use client";
 
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 import theme from "@/theme";
 import { getLoginUrl } from "@/utils/keycloak";
@@ -66,6 +66,27 @@ export default function KeyFeatures() {
           </Typography>
         </StyledContainer>
       </StyledFlex>
+      <Box
+        sx={{ mt: 2, mb: 3 }}
+        width={{
+          md: "854px",
+          xs: "427px",
+        }}
+        height={{
+          md: "480px",
+          xs: "240px",
+        }}>
+        <iframe
+          width="100%"
+          height="100%"
+          src="https://www.youtube.com/embed/kYLO_7gtBRo?si=sfXW1gOBlgS-5Str"
+          title="Safe People Registry"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        />
+      </Box>
       <Typography variant="h4" color="primary">
         <Link href={ROUTES.register.path}>
           Register for an account to get started
