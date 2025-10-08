@@ -1,3 +1,15 @@
+## [1.14.1](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.14.0...v1.14.1) (2025-10-08)
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-1995:** handle null org (#513) ([8eb9723](https://github.com/HDRUK/safepeopleregistry-web/commit/8eb972327fcdf59e6d6eb41f6972866679610475))
+* **REGISTRY-1996:** add some translations (#515) ([347188e](https://github.com/HDRUK/safepeopleregistry-web/commit/347188e6d4a5a937a5937d020de29aa4bc9cba76))
+* **REGISTRY-1998:** check registering user is delegate (#514) ([eb10ceb](https://github.com/HDRUK/safepeopleregistry-web/commit/eb10cebc4b61dc07029ba9cee050e263d3df4dc9))
+* **REGISTRY-2007:** filter duplicates, prevent state change for unapproved org (#516) ([878cf05](https://github.com/HDRUK/safepeopleregistry-web/commit/878cf052d39ea0b939fcd511b471236f98ac50e2))
+* **REGISTRY-2011:** include safe people titles (#517) ([4b7ff71](https://github.com/HDRUK/safepeopleregistry-web/commit/4b7ff71aa8b322369a4102c43e6d3009041b5685))
+* **REGISTRY-2017:** project filters status list (#518) ([f3cfecb](https://github.com/HDRUK/safepeopleregistry-web/commit/f3cfecb83043e842231f5925febce6ddba57cc82))
+* **REGISTRY-2019:** change search param (#519) ([e23db44](https://github.com/HDRUK/safepeopleregistry-web/commit/e23db444d407526cab1a63833b76788cbc91fde7))
+
 ## [1.14.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.13.0...v1.14.0) (2025-10-03)
 
 ### ✨ Features
