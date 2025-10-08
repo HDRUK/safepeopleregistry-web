@@ -39,8 +39,13 @@ import DndDroppableContainer from "../../components/DndDroppableContainer";
 import DndSortableItem from "../../components/DndSortableItem";
 import { dndDragRotate } from "../../consts/styles";
 import { DndItems, DragUpdateEventArgsInitial } from "../../types/dnd";
-import { WithQueryState, QueryState } from "../../types/form";
-import { findDroppables, findItem, findItemIndex } from "../../utils/dnd";
+import { QueryState, WithQueryState } from "../../types/form";
+import {
+  filterDuplicates,
+  findDroppables,
+  findItem,
+  findItemIndex,
+} from "../../utils/dnd";
 import KanbanBoardColumn from "./KanbanBoardColumn";
 import KanbanBoardColumns from "./KanbanBoardColumns";
 
@@ -75,6 +80,8 @@ export interface KanbanBoardProps<T>
   cardComponent: ComponentType<T>;
   cardActionsComponent?: ComponentType<KanbanBoardHelperProps<T>>;
   options: Partial<UseDroppableSortItemsFnOptions<T>> | undefined;
+  isDisabledItem?: (data: T) => boolean;
+  isDroppableItem?: (data: T) => boolean;
 }
 
 export interface KanbanBoardHelperProps<T> {
@@ -96,6 +103,8 @@ export default function KanbanBoard<T>({
   onMove,
   t,
   options,
+  isDisabledItem,
+  isDroppableItem,
   ...restProps
 }: KanbanBoardProps<T>) {
   const { handleDragSort, handleDragSortEnd, handleDragSortStart, handleMove } =
@@ -126,7 +135,9 @@ export default function KanbanBoard<T>({
 
     return (
       data && (
-        <DndItem dragOverlay isDroppable={data.isDroppable}>
+        <DndItem
+          dragOverlay
+          isDroppable={data.isDroppable || isDroppableItem?.(data)}>
           <restProps.cardComponent
             data={data}
             sx={{
@@ -161,10 +172,10 @@ export default function KanbanBoard<T>({
         ...options,
         setState: (state: DndItems<T>) => {
           setItems(items => {
-            return {
+            return filterDuplicates({
               ...items,
               ...state,
-            };
+            });
           });
         },
       });
@@ -177,10 +188,12 @@ export default function KanbanBoard<T>({
     handleDragSort(e, items, {
       ...options,
       setState: (state: DndItems<T>) => {
-        setItems(prevState => ({
-          ...prevState,
-          ...state,
-        }));
+        setItems(prevState => {
+          return filterDuplicates({
+            ...prevState,
+            ...state,
+          });
+        });
 
         recentlyMovedToNewContainer.current = true;
       },
@@ -198,10 +211,12 @@ export default function KanbanBoard<T>({
       items,
       isError,
       setState: (state: DndItems<T>) => {
-        setItems(prevState => ({
-          ...prevState,
-          ...state,
-        }));
+        setItems(prevState => {
+          return {
+            ...prevState,
+            ...state,
+          };
+        });
       },
     });
   };
@@ -278,8 +293,8 @@ export default function KanbanBoard<T>({
                 {items[containerId].map(data => {
                   return (
                     <DndSortableItem
-                      disabled={isSortingContainer}
-                      isDroppable={data?.isDroppable}
+                      disabled={isSortingContainer || isDisabledItem?.(data)}
+                      isDroppable={data?.isDroppable || isDroppableItem?.(data)}
                       isError={data.isError}
                       key={`${containerId}${data.id}`}
                       id={data.id}

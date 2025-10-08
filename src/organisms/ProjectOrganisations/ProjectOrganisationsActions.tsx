@@ -22,7 +22,8 @@ export default function ProjectOrganisationsActions({
   ...restProps
 }: ProjectOrganisationsActionsProps) {
   return (
-    <ActionMenu>
+    <ActionMenu
+      disabled={data.project_organisation.organisation.system_approved}>
       {({ handleClose }) => (
         <KanbanBoardActionsMenuItems
           onMoveClick={(id: number, status: string) => {
