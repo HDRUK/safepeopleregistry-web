@@ -15,6 +15,7 @@ export interface ActionMenuProps extends BoxProps {
   onClose?(): void;
   trigger?: ReactNode;
   icon?: ReactNode;
+  disabled?: boolean;
 }
 
 export default function ActionMenu({
@@ -22,6 +23,7 @@ export default function ActionMenu({
   onOpen,
   onClose,
   trigger,
+  disabled,
   icon = <MoreVertIcon />,
   sx,
   ...restProps
@@ -48,7 +50,8 @@ export default function ActionMenu({
           ref={triggerRef}
           size="small"
           onClick={handleOpen}
-          aria-label={ariaLabel}>
+          aria-label={ariaLabel}
+          disabled={disabled}>
           {icon}
         </IconButton>
       )}

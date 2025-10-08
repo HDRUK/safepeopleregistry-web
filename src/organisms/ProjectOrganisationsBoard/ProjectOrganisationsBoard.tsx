@@ -72,6 +72,14 @@ export default function ProjectOrganisationsBoard({
     [itemsByTransitions]
   );
 
+  const isDisabledItem = useCallback((data: CustodianProjectOrganisation) => {
+    return !!data.project_organisation.organisation.system_approved;
+  }, []);
+
+  const isDroppableItem = useCallback((data: CustodianProjectOrganisation) => {
+    return !!data.project_organisation.organisation.system_approved;
+  }, []);
+
   return (
     <KanbanBoard<CustodianProjectOrganisation>
       t={t}
@@ -83,6 +91,8 @@ export default function ProjectOrganisationsBoard({
       onMove={handleMove}
       options={options}
       queryState={updateQueryState}
+      isDisabledItem={isDisabledItem}
+      isDroppableItem={isDroppableItem}
     />
   );
 }
