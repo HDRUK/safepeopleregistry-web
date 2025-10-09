@@ -98,7 +98,6 @@ export default function ProjectUsers({
   useQueryAlerts(updateValidationMutationState, {
     successAlertProps: {
       willClose: () => {
-        console.log("CLOSING");
         queryClient.invalidateQueries({
           queryKey: ["getPaginatedCustodianProjectUsers", custodianId],
         });
@@ -223,9 +222,7 @@ export default function ProjectUsers({
           {variant !== EntityType.USER && projectId && (
             <Button
               startIcon={<AddIcon />}
-              onClick={() => {
-                setShowAddModal(true);
-              }}>
+              onClick={() => setShowAddModal(true)}>
               {variant === EntityType.ORGANISATION
                 ? t("requestAddNewMemberButton")
                 : t("addNewMemberButton")}
