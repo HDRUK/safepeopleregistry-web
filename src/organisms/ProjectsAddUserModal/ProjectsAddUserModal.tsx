@@ -57,7 +57,9 @@ export default function ProjectsAddUserModal({
   });
 
   useEffect(() => {
-    if (usersData) setProjectUsers(usersData);
+    if (usersData) {
+      setProjectUsers(usersData);
+    }
   }, [usersData]);
 
   const handleSave = async (projectUsers: ProjectAllUser[]) => {

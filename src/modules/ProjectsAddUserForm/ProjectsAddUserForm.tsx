@@ -76,7 +76,10 @@ export default function ProjectsAddUserForm({
       accessorKey: "role.id",
       header: tApplication("role"),
       cell: info =>
-        renderSelectRoleCell(info, { roles: projectRoles, onRoleSelect }),
+        renderSelectRoleCell(info, {
+          roles: [{ id: -1, name: "Select a role" }, ...projectRoles],
+          onRoleSelect,
+        }),
       minSize: 250,
     },
   ];
