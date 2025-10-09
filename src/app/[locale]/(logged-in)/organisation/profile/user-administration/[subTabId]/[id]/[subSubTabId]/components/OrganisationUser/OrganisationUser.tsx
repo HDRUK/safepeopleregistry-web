@@ -63,7 +63,7 @@ function OrganisationUser({ userId, subSubTabId }: OrganisationUserProps) {
     if (userData?.data) setUser(userData?.data);
   }, [userData]);
 
-  const { data: affiliationData } = useQuery(
+  const { data: affiliationData, refetch } = useQuery(
     getOrganisationAffiliationQuery(
       user?.registry_id as number,
       organisation?.id as number,
@@ -97,7 +97,12 @@ function OrganisationUser({ userId, subSubTabId }: OrganisationUserProps) {
             <StatusList
               affiliationStatus={affiliation?.model_state.state.slug}
             />
-            {affiliation && <ConfirmAffiliation affiliation={affiliation} />}
+            {affiliation && (
+              <ConfirmAffiliation
+                affiliation={affiliation}
+                onSuccess={refetch}
+              />
+            )}
           </PageColumnDetails>
         </PageColumns>
       </PageBodyContainer>

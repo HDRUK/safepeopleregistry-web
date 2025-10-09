@@ -73,7 +73,7 @@ export default function ProjectOrganisationsBoard({
   );
 
   const isDisabledItem = useCallback((data: CustodianProjectOrganisation) => {
-    return !!data.project_organisation.organisation.system_approved;
+    return !data.project_organisation.organisation.system_approved;
   }, []);
 
   const isDroppableItem = useCallback((data: CustodianProjectOrganisation) => {
