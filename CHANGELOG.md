@@ -1,3 +1,9 @@
+## [1.15.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.14.1...v1.15.0) (2025-10-09)
+
+### ✨ Features
+
+* **REGISTRY-1994:** youtube video on homepage (#521) ([a665766](https://github.com/HDRUK/safepeopleregistry-web/commit/a66576659b6cdb9b988a58292d62b978d71678f2))
+
 ## [1.14.1](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.14.0...v1.14.1) (2025-10-08)
 
 ### 🐛 Bug Fixes
