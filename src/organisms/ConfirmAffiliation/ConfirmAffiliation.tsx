@@ -1,9 +1,10 @@
 import { useStore } from "@/data/store";
 import { mockedPendingAffiliations } from "@/mocks/data/cms";
-import { Box, Button } from "@mui/material";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useTranslations } from "next-intl";
 import { ResearcherAffiliation } from "@/types/application";
+import { WithQueryFns } from "@/types/query";
+import { Box, Button } from "@mui/material";
+import { useMutation } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import ActionsPanel from "../../components/ActionsPanel";
 import { RejectIcon, VerifyIcon } from "../../consts/icons";
 import useQueryAlerts from "../../hooks/useQueryAlerts";
@@ -12,16 +13,16 @@ import { AffiliationStatus } from "../../services/affiliations/types";
 
 const NAMESPACE_TRANSLATION = "ConfirmAffiliation";
 
-interface ConfirmAffiliationProps {
+type ConfirmAffiliationProps = WithQueryFns<{
   affiliation: ResearcherAffiliation;
-}
+}>;
 
 export default function ConfirmAffiliation({
   affiliation,
+  onSuccess,
 }: ConfirmAffiliationProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION);
   const currentUser = useStore(state => state.getCurrentUser());
-  const queryClient = useQueryClient();
 
   const { mutateAsync: updateAffiliationStatus, ...mutateState } = useMutation(
     putRegistryHasAffiliationQuery()
@@ -29,9 +30,7 @@ export default function ConfirmAffiliation({
 
   useQueryAlerts(mutateState, {
     onSuccess: () => {
-      queryClient.refetchQueries({
-        queryKey: ["getAffiliations", currentUser.registry_id as number],
-      });
+      onSuccess?.();
     },
   });
 
