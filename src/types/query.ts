@@ -5,6 +5,13 @@ export type SearchParams = Record<
 
 export type QueryParams = SearchParams;
 
+export interface QueryFns {
+  onSuccess?: () => void;
+  onError?: () => void;
+}
+
+export type WithQueryFns<T> = T & QueryFns;
+
 export interface ResponseEmptyError {
   ok: boolean;
   status: number;

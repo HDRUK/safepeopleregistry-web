@@ -198,7 +198,7 @@ const renderSelectRoleCell = (
     onRoleSelect: (row: ProjectAllUser, roleId: number | null) => void;
   }
 ) => {
-  const roleId = info.row.original.role?.id ?? "";
+  const roleId = info.row.original.role?.id ?? -1;
   const { onRoleSelect, roles } = props;
 
   return (
