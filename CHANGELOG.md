@@ -1,3 +1,13 @@
+## [1.16.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.15.0...v1.16.0) (2025-10-09)
+
+### ✨ Features
+
+* **REGISTRY-2011:** org board disabled state check wrong (#523) ([6894fa9](https://github.com/HDRUK/safepeopleregistry-web/commit/6894fa93e41421539abe006d875deea0f14c375d))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-2023:** roel handling (#524) ([2982cdb](https://github.com/HDRUK/safepeopleregistry-web/commit/2982cdb7ccfdee1275b78bd93d4c8b18bafc3acc))
+
 ## [1.15.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.14.1...v1.15.0) (2025-10-09)
 
 ### ✨ Features
