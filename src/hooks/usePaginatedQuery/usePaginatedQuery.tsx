@@ -125,6 +125,8 @@ const usePaginatedQuery = <T,>({
     placeholderData: keepPreviousData,
     enabled,
     refetchInterval,
+    staleTime: 0,
+    gcTime: 0,
   });
 
   const { data: queryData, ...restQueryResult } = queryResult;

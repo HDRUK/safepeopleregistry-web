@@ -57,7 +57,10 @@ export default function ProjectsAddUserModal({
   });
 
   useEffect(() => {
-    if (usersData) setProjectUsers(usersData);
+    if (usersData) {
+      console.log("usersData", usersData);
+      setProjectUsers(usersData);
+    }
   }, [usersData]);
 
   const handleSave = async (projectUsers: ProjectAllUser[]) => {
@@ -108,6 +111,8 @@ export default function ProjectsAddUserModal({
           : user
       );
     }
+
+    console.log("DATA is", [...projectUsers, { ...row, role: updatedRole }]);
 
     return [...projectUsers, { ...row, role: updatedRole }];
   };

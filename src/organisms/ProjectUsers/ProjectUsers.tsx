@@ -96,12 +96,15 @@ export default function ProjectUsers({
   const { isError, isSuccess, reset } = updateValidationMutationState;
 
   useQueryAlerts(updateValidationMutationState, {
-    onSuccess: () => {
-      if (showListView) {
+    successAlertProps: {
+      willClose: () => {
+        console.log("CLOSING");
         queryClient.invalidateQueries({
-          queryKey: ["getPaginatedCustodianProjectUsers"],
+          queryKey: ["getPaginatedCustodianProjectUsers", custodianId],
         });
-      }
+
+        refetch();
+      },
     },
     showOnlyError: !showListView,
   });
@@ -128,9 +131,7 @@ export default function ProjectUsers({
         : paginatedQueryParams.perPage,
     });
 
-    if (showListView) {
-      refetch();
-    }
+    refetch();
   }, [showListView, paginatedQueryParams]);
 
   const filterProps = {
@@ -237,9 +238,10 @@ export default function ProjectUsers({
         <ProjectsAddUserModal
           request={variant === EntityType.ORGANISATION}
           projectId={projectId}
-          custodianId={custodianId}
           open={showAddModal}
-          onClose={() => setShowAddModal(false)}
+          onClose={() => {
+            setShowAddModal(false);
+          }}
         />
       )}
 
