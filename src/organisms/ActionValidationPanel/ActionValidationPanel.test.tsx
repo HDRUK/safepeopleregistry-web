@@ -12,6 +12,7 @@ import {
   userEvent,
 } from "../../utils/testUtils";
 import ActionValidationPanel from "./ActionValidationPanel";
+import { mockedOrganisation } from "@/mocks/data/organisation";
 
 jest.mock("@tanstack/react-query", () => ({
   ...jest.requireActual("@tanstack/react-query"),
@@ -39,6 +40,13 @@ describe("<ActionValidationPanel/>", () => {
   let mockCreateComment: jest.Mock;
 
   beforeEach(() => {
+    mockUseStore({
+      getCurrentOrganisation: () =>
+        mockedOrganisation({
+          system_approved: true,
+        }),
+    });
+
     mockUpdateLog = jest.fn().mockImplementation(query => {
       return Promise.resolve({
         data: {
