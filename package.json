@@ -43,7 +43,7 @@
     "@tanstack/react-query": "^5.51.23",
     "@tanstack/react-table": "^8.20.6",
     "@veriff/incontext-sdk": "^2.4.0",
-    "axios": "^1.7.7",
+    "axios": "^1.12.0",
     "babel-jest": "^30.0.2",
     "conventional-changelog-conventionalcommits": "^9.0.0",
     "countries-list": "^3.1.1",
