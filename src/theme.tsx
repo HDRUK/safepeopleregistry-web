@@ -144,13 +144,25 @@ const createIconButtonStyles = <
         backgroundColor: darken(color.main, 0.125),
       },
       "&:disabled > .MuiSvgIcon-root": {
-        color: disabledColor.dark,
+        color: disabledColor.light,
       },
     };
   }
   return {
     "&:disabled > .MuiSvgIcon-root": {
       color: disabledColor.main,
+    },
+  };
+};
+
+const createButtonStyles = () => {
+  const disabledColor = getAugmentedColor(paletteTheme, "inactive");
+
+  return {
+    boxShadow: "none",
+    textTransform: "none",
+    "&:disabled .MuiSvgIcon-root": {
+      color: disabledColor.light,
     },
   };
 };
@@ -310,10 +322,7 @@ const theme = createTheme(
           variant: "contained",
         },
         styleOverrides: {
-          root: {
-            boxShadow: "none",
-            textTransform: "none",
-          },
+          root: createButtonStyles,
         },
       },
       MuiTypography: {
