@@ -22,6 +22,7 @@ export interface FormControlProps
   extends Omit<FormControlLabelProps, "control" | "label"> {
   renderField: (fieldProps: FieldValues & { error?: boolean }) => ReactNode;
   name: string;
+  subtitle?: ReactNode;
   description?: ReactNode;
   label?: string | ReactNode;
   control?: Control;
@@ -45,6 +46,7 @@ export default function FormControlWrapper({
   renderField,
   fullWidth = true,
   description,
+  subtitle,
   t,
   disabled,
   labelPosition = "top",
@@ -82,11 +84,16 @@ export default function FormControlWrapper({
   };
 
   const tDescription = tForm(`${tKey}Description`);
+  const tSubtitle = tForm(`${tKey}Subtitle`);
 
   const descriptionText =
     description ||
     (!tDescription.includes(`${tKey}Description`) &&
       tForm(`${tKey}Description`));
+
+  const subtitleText =
+    subtitle ||
+    (!tSubtitle.includes(`${tKey}Subtitle`) && tForm(`${tKey}Subtitle`));
 
   return (
     <Controller
@@ -107,6 +114,11 @@ export default function FormControlWrapper({
                   {label || tForm(tKey)}
                   {isRequired && <span style={{ color: "red" }}>*</span>}
                 </FormLabel>
+              )}
+              {subtitleText && (
+                <FormControlDescription sx={{ pt: 0, pb: 1 }}>
+                  {subtitleText}
+                </FormControlDescription>
               )}
             </Box>
             <Box sx={{ flex: 1, width: fullWidth ? "100%" : "auto" }}>

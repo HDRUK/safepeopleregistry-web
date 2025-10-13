@@ -15,8 +15,10 @@ export interface EditDelegateProps {
   onSuccess: () => void;
 }
 
+const NAMESPACE_TRANSLATION = "Organisations.EditDelegate";
+
 const EditDelegate = ({ user, onSuccess }: EditDelegateProps) => {
-  const t = useTranslations("EditDelegate");
+  const t = useTranslations(NAMESPACE_TRANSLATION);
 
   const [openModal, setOpenModal] = useState<boolean>(false);
 
@@ -50,9 +52,10 @@ const EditDelegate = ({ user, onSuccess }: EditDelegateProps) => {
         sx={{ color: "secondary.main" }}
         onClick={() => setOpenModal(true)}
         icon={<EditIcon />}>
-        {t("title")}
+        {t("edit")}
       </ActionMenuItem>
       <FormModal
+        heading={t("heading")}
         variant="form"
         open={openModal}
         onClose={(e: React.SyntheticEvent) => {

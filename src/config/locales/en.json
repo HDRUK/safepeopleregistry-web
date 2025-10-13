@@ -403,6 +403,9 @@
       "projects": "Projects",
       "affiliations": "Affiliations",
       "heading": "User"
+    },
+    "InviteDelegate": {
+      "heading": "Invite a delegate"
     }
   },
   "Form": {
@@ -641,6 +644,7 @@
     "delegateEmailInvalid": "Delegate email is not in the correct format",
     "delegateEmailRequiredInvalid": "Delegate email is required",
     "delegateFormTitle": "Organisation Administrative Delegate",
+    "delegateEmailSubtitle": "This email should be their Organisation email address, not personal email address.",
     "fullName": "Full Name",
     "fullNamePlaceholder": "Full Name",
     "fullNameRequiredInvalid": "Full name is required",
@@ -1264,6 +1268,12 @@
     "website": "Website"
   },
   "Organisations": {
+    "EditDelegate": {
+      "heading": "Edit delegate",
+      "edit": "Edit",
+      "successAlertText": "The Delegate has been successfully editted",
+      "errorAlertText": "There has been a problem deleting this data. Please try again or contact us at <contactLink></contactLink>"
+    },
     "OrganisationUsersFilters": {
       "searchPlaceholder": "Search by name or email"
     },
@@ -1529,12 +1539,6 @@
     "alertText": "Are you sure you want to remove {first_name} {last_name} from your Organisation ({organisation_name})",
     "alertConfirm": "Remove",
     "alertCancel": "Cancel"
-  },
-  "EditDelegate": {
-    "title": "Edit",
-    "toolTip": "Edit details for this Delegate",
-    "successAlertText": "The Delegate has been successfully editted",
-    "errorAlertText": "There has been a problem deleting this data. Please try again or contact us at <contactLink></contactLink>"
   },
   "UseUpdateOrganisation": {
     "text": "Organisation Updated!",
