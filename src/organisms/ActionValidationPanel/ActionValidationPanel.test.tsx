@@ -4,6 +4,7 @@ import {
 } from "@/mocks/data/validation_log";
 import { faker } from "@faker-js/faker";
 import { useMutation } from "@tanstack/react-query";
+import { mockedOrganisation } from "@/mocks/data/organisation";
 import { ValidationLog } from "../../types/logs";
 import {
   commonAccessibilityTests,
@@ -12,7 +13,6 @@ import {
   userEvent,
 } from "../../utils/testUtils";
 import ActionValidationPanel from "./ActionValidationPanel";
-import { mockedOrganisation } from "@/mocks/data/organisation";
 
 jest.mock("@tanstack/react-query", () => ({
   ...jest.requireActual("@tanstack/react-query"),
