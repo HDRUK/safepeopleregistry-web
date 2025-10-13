@@ -20,6 +20,7 @@ import { ValidationLog } from "../../types/logs";
 interface ActionValidationMakeDecisionProps {
   log: ValidationLog;
   onAction?: () => Promise<void>;
+  disabled?: boolean;
 }
 
 const NAMESPACE_TRANSLATION_ACTION_VALIDATION_DECISION =
@@ -28,6 +29,7 @@ const NAMESPACE_TRANSLATION_ACTION_VALIDATION_DECISION =
 export default function ActionValidationMakeDecision({
   log,
   onAction,
+  disabled,
 }: ActionValidationMakeDecisionProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION_ACTION_VALIDATION_DECISION);
 
@@ -90,6 +92,7 @@ export default function ActionValidationMakeDecision({
   return (
     <Box sx={{ display: "flex", gap: 1, mt: 4 }}>
       <Button
+        disabled={disabled}
         data-testid="validation-log-initial-pass"
         onClick={() => setSelectedAction(ValidationLogAction.PASS)}
         variant="outlined"
@@ -97,6 +100,7 @@ export default function ActionValidationMakeDecision({
         {t("pass")}
       </Button>
       <Button
+        disabled={disabled}
         data-testid="validation-log-initial-fail"
         onClick={() => setSelectedAction(ValidationLogAction.FAIL)}
         variant="outlined"
@@ -106,6 +110,7 @@ export default function ActionValidationMakeDecision({
       <ActionMenu
         trigger={
           <Button
+            disabled={disabled}
             data-testid="validation-log-initial-comment"
             variant="outlined">
             &#8230;
