@@ -100,6 +100,7 @@ function ActionValidationPanel({
         <ActionValidationStatus<OrganisationParams>
           useApprovalHook={useCustodianProjectOrganisation}
           hookParams={organisationHookParams}
+          disabled={!projectOrganisation?.organisation.system_approved}
         />
       );
 
@@ -129,6 +130,10 @@ function ActionValidationPanel({
               key={log.id}
               log={log}
               onAction={onAction}
+              disabled={
+                ActionValidationVariants.Organisation === variant &&
+                !projectOrganisation?.organisation.system_approved
+              }
             />
           ))}
         {actionValidationStatus}

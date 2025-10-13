@@ -24,11 +24,13 @@ export type UseApprovalHook<TParams> = (
 interface ActionValidationStatusProps<TParams> {
   useApprovalHook: UseApprovalHook<TParams>;
   hookParams: TParams;
+  disabled?: boolean;
 }
 
 const ActionValidationStatus = <TParams,>({
   useApprovalHook,
   hookParams,
+  disabled,
 }: ActionValidationStatusProps<TParams>) => {
   const t = useTranslations(NAMESPACE_TRANSLATION_ACTION_VALIDATION);
   const { data, statusOptions, changeValidationStatus, isLoading } =
@@ -65,6 +67,7 @@ const ActionValidationStatus = <TParams,>({
         {...formOptions}>
         <Grid item xs={12}>
           <FormControl
+            disabled={disabled}
             name="status"
             renderField={fieldProps => (
               <SelectValidationActionStatus
@@ -80,6 +83,7 @@ const ActionValidationStatus = <TParams,>({
             name="comment"
             renderField={fieldProps => (
               <TextareaAutosize
+                disabled={disabled}
                 id="comment"
                 value={fieldProps.value}
                 onChange={fieldProps.onChange}
@@ -104,6 +108,7 @@ const ActionValidationStatus = <TParams,>({
         */}
         <Grid item xs={12}>
           <LoadingButton
+            disabled={disabled}
             loading={isLoading}
             type="submit"
             sx={{ display: "flex", justifySelf: "end" }}>
