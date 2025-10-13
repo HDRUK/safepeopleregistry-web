@@ -9,11 +9,13 @@ import ActionValidationMakeDecision from "../ActionValidationMakeDecision";
 interface ActionsPanelValidationCheckProps {
   log: ValidationLog;
   onAction?: () => void;
+  disabled?: boolean;
 }
 
 export default function ActionsPanelValidationCheck({
   log,
   onAction,
+  disabled,
 }: ActionsPanelValidationCheckProps) {
   const { data: comments, refetch: refetchComments } = useQuery({
     ...getValidationLogCommentsQuery(log.id),
@@ -52,6 +54,7 @@ export default function ActionsPanelValidationCheck({
           ))}
       </ViewMore>
       <ActionValidationMakeDecision
+        disabled={disabled}
         log={log}
         onAction={async () => {
           await refetchComments();

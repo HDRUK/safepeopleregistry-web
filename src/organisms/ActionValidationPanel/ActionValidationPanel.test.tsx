@@ -4,6 +4,7 @@ import {
 } from "@/mocks/data/validation_log";
 import { faker } from "@faker-js/faker";
 import { useMutation } from "@tanstack/react-query";
+import { mockedOrganisation } from "@/mocks/data/organisation";
 import { ValidationLog } from "../../types/logs";
 import {
   commonAccessibilityTests,
@@ -39,6 +40,13 @@ describe("<ActionValidationPanel/>", () => {
   let mockCreateComment: jest.Mock;
 
   beforeEach(() => {
+    mockUseStore({
+      getCurrentOrganisation: () =>
+        mockedOrganisation({
+          system_approved: true,
+        }),
+    });
+
     mockUpdateLog = jest.fn().mockImplementation(query => {
       return Promise.resolve({
         data: {

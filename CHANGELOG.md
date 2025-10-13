@@ -1,3 +1,9 @@
+## [1.17.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.16.0...v1.17.0) (2025-10-10)
+
+### ✨ Features
+
+* **REGISTRY-2034:** update banner for prod (#526) ([aa16bb2](https://github.com/HDRUK/safepeopleregistry-web/commit/aa16bb2030ad9987c7d690edf29772b7972bee2d))
+
 ## [1.16.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.15.0...v1.16.0) (2025-10-09)
 
 ### ✨ Features
