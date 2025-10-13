@@ -3,7 +3,7 @@
 import ErrorMessage from "@/components/ErrorMessage";
 import Form from "@/components/Form";
 import FormActions from "@/components/FormActions";
-import FormControlHorizontal from "@/components/FormControlHorizontal";
+import FormControlWrapper from "@/components/FormControlWrapper";
 import FormSection from "@/components/FormSection";
 import Guidance from "@/components/Guidance";
 import Markdown from "@/components/Markdown";
@@ -146,7 +146,7 @@ export default function Identity() {
                   <FormSection>
                     <Grid container rowSpacing={3}>
                       <Grid item xs={12}>
-                        <FormControlHorizontal
+                        <FormControlWrapper
                           name="first_name"
                           renderField={fieldProps => (
                             <TextField {...fieldProps} />
@@ -154,7 +154,7 @@ export default function Identity() {
                         />
                       </Grid>
                       <Grid item xs={12}>
-                        <FormControlHorizontal
+                        <FormControlWrapper
                           name="last_name"
                           renderField={fieldProps => (
                             <TextField {...fieldProps} />
@@ -162,7 +162,7 @@ export default function Identity() {
                         />
                       </Grid>
                       <Grid item xs={12}>
-                        <FormControlHorizontal
+                        <FormControlWrapper
                           name="personal_email"
                           renderField={fieldProps => (
                             <TextField {...fieldProps} />
@@ -173,7 +173,7 @@ export default function Identity() {
                         />
                       </Grid>
                       <Grid item xs={12}>
-                        <FormControlHorizontal
+                        <FormControlWrapper
                           name="location"
                           description={tProfile("locationDescription")}
                           renderField={({ value, onChange, ...rest }) => (

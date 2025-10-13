@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import Form from "../../components/Form";
 import FormActions from "../../components/FormActions";
-import FormControlHorizontal from "../../components/FormControlHorizontal";
+import FormControlWrapper from "../../components/FormControlWrapper";
 import FormSection from "../../components/FormSection";
 import SelectOrganisation from "../../components/SelectOrganisation";
 import SelectRole from "../../components/SelectRole";
@@ -174,19 +174,19 @@ export default function InviteUser({
           <FormSection subtitle={tUser("inviteUserTitle")}>
             <Grid container rowSpacing={3}>
               <Grid item xs={12}>
-                <FormControlHorizontal
+                <FormControlWrapper
                   name="first_name"
                   renderField={fieldProps => <TextField {...fieldProps} />}
                 />
               </Grid>
               <Grid item xs={12}>
-                <FormControlHorizontal
+                <FormControlWrapper
                   name="last_name"
                   renderField={fieldProps => <TextField {...fieldProps} />}
                 />
               </Grid>
               <Grid item xs={12}>
-                <FormControlHorizontal
+                <FormControlWrapper
                   name="email"
                   renderField={fieldProps => <TextField {...fieldProps} />}
                 />
@@ -194,7 +194,7 @@ export default function InviteUser({
 
               {projectRoles && (
                 <Grid item xs={12}>
-                  <FormControlHorizontal
+                  <FormControlWrapper
                     name="role"
                     renderField={fieldProps => (
                       <SelectRole roles={projectRoles} {...fieldProps} />
@@ -206,7 +206,7 @@ export default function InviteUser({
               {!initialOrganisationId &&
                 (selectOrganisation ? (
                   <Grid item xs={12}>
-                    <FormControlHorizontal
+                    <FormControlWrapper
                       name="organisation_id"
                       renderField={({ ...fieldProps }) => (
                         <SelectOrganisation {...fieldProps} />
@@ -230,7 +230,7 @@ export default function InviteUser({
                 ) : (
                   <>
                     <Grid item xs={12}>
-                      <FormControlHorizontal
+                      <FormControlWrapper
                         name="organisation_name"
                         renderField={fieldProps => (
                           <TextField {...fieldProps} />
@@ -252,7 +252,7 @@ export default function InviteUser({
                       />
                     </Grid>
                     <Grid item xs={12}>
-                      <FormControlHorizontal
+                      <FormControlWrapper
                         name="organisation_email"
                         renderField={fieldProps => (
                           <TextField {...fieldProps} />

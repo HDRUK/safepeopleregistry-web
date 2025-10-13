@@ -1,22 +1,22 @@
 "use client";
 
+import ErrorMessage from "@/components/ErrorMessage";
 import Form from "@/components/Form/Form";
 import FormActions from "@/components/FormActions";
-import FormControlHorizontal from "@/components/FormControlHorizontal";
+import FormControlWrapper from "@/components/FormControlWrapper";
+import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
 import yup from "@/config/yup";
 import {
   VALIDATION_URL,
   ORGANISATION_SIZE_OPTIONS as sizeOptions,
 } from "@/consts/form";
+import { ROUTES } from "@/consts/router";
 import { useStore } from "@/data/store";
 import { PageBody, PageSection } from "@/modules";
 import { Grid, MenuItem, Select, TextField } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { useMemo } from "react";
-import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
-import { ROUTES } from "@/consts/router";
 import { useRouter } from "next/navigation";
-import ErrorMessage from "@/components/ErrorMessage";
+import { useMemo } from "react";
 import useUpdateOrganisation from "../../hooks/useUpdateOrganisation";
 
 export interface SectorFormValues {
@@ -94,7 +94,7 @@ export default function SectorSizeAndWebsite() {
           key={organisation?.id}>
           <Grid container rowSpacing={3}>
             <Grid item xs={12}>
-              <FormControlHorizontal
+              <FormControlWrapper
                 name="sector_id"
                 description={tOrgProfile(
                   "detailsOrganisationSectorDescription"
@@ -115,7 +115,7 @@ export default function SectorSizeAndWebsite() {
               />
             </Grid>
             <Grid item xs={12}>
-              <FormControlHorizontal
+              <FormControlWrapper
                 name="organisation_size"
                 displayPlaceholder={false}
                 renderField={fieldProps => (
@@ -134,7 +134,7 @@ export default function SectorSizeAndWebsite() {
               />
             </Grid>
             <Grid item xs={12}>
-              <FormControlHorizontal
+              <FormControlWrapper
                 name="website"
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />

@@ -108,15 +108,21 @@ export default function FormControlWrapper({
           error={invalid}
           sx={{ width: "100%", display: "flex", flexDirection: "column" }}>
           <Box sx={controlSx}>
-            <Box sx={{ width: fullWidth ? "100%" : "auto" }}>
+            <Box
+              sx={{
+                width: fullWidth ? "100%" : "auto",
+                display: "flex",
+                flexDirection: "column",
+                gap: 0.5,
+              }}>
               {displayLabel && (
-                <FormLabel htmlFor={field.name} sx={{ pb: 1 }}>
-                  {label || tForm(tKey)}
+                <FormLabel htmlFor={field.name} sx={{ pb: 0.5 }}>
+                  {label || tForm(tKey)}{" "}
                   {isRequired && <span style={{ color: "red" }}>*</span>}
                 </FormLabel>
               )}
               {subtitleText && (
-                <FormControlDescription sx={{ pt: 0, pb: 1 }}>
+                <FormControlDescription sx={{ pt: 0, pb: 0.5 }}>
                   {subtitleText}
                 </FormControlDescription>
               )}
@@ -139,12 +145,18 @@ export default function FormControlWrapper({
               })}
             </Box>
           </Box>
-          <Box sx={{ width: "100%", mt: 1 }}>
-            {descriptionText && (
-              <FormControlDescription>{descriptionText}</FormControlDescription>
-            )}
-            {error && <FormHelperText>{error.message}</FormHelperText>}
-          </Box>
+          {(descriptionText || error?.message) && (
+            <Box sx={{ width: "100%", mt: 0.25 }}>
+              {descriptionText && (
+                <FormControlDescription>
+                  {descriptionText}
+                </FormControlDescription>
+              )}
+              {error?.message && (
+                <FormHelperText>{error.message}</FormHelperText>
+              )}
+            </Box>
+          )}
         </FormControl>
       )}
     />

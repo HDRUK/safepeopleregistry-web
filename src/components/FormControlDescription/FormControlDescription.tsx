@@ -10,8 +10,9 @@ export default function FormControlDescription({
 }: PropsWithChildren) {
   return (
     <Typography
-      variant="subtitle2"
-      sx={{ color: "textSecondary.main", pt: 1, ...sx }}
+      variant="tiny"
+      component="p"
+      sx={{ color: "textSecondary.main", pt: 0.5, ...sx }}
       {...restProps}>
       {children}
     </Typography>

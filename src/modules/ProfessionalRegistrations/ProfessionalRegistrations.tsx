@@ -229,7 +229,7 @@ export default function ProfessionalRegistrations({
         initialValues={editRecord}
         isEdit={isEditMode}
       />
-      <Typography variant="h6" sx={{ mb: 1 }}>
+      <Typography variant="h3" sx={{ mb: 1 }}>
         {tProfile("resultsTitle")}
       </Typography>
       <Table
