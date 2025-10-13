@@ -5,9 +5,9 @@ import { ReactNode } from "react";
 
 export const mockedBannerContent = () => (
   <>
-    BETA Preview: Please contact HDR UK if you'd like to help drive
-    functionality during our initial preview phase: <ContactLink /> - Please be
-    aware that some pages/features aren't fully available.
+    Live system launched for public testing! Please note, any accounts made
+    previously on our Beta preview have been removed. Please do get in touch if
+    you notice any issues or would like to try out our system: <ContactLink />.
   </>
 );
 
