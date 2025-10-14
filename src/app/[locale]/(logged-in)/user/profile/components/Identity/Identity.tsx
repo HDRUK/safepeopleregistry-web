@@ -43,6 +43,7 @@ export interface IdentityFormValues {
 
 const NAMESPACE_TRANSLATION_FORM = "Form";
 const NAMESPACE_TRANSLATION = "Users.Identity";
+const NAMESPACE_TRANSLATION_PROFILE = "Profile";
 
 export default function Identity() {
   const queryClient = useQueryClient();
@@ -57,6 +58,7 @@ export default function Identity() {
 
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
   const t = useTranslations(NAMESPACE_TRANSLATION);
+  const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
 
   const updateUser = useMutation(putUserQuery(user?.id));
 
@@ -220,7 +222,7 @@ export default function Identity() {
                   )}
                   <FormActions>
                     <ProfileNavigationFooter
-                      nextStepText={t("experience")}
+                      nextStepText={tProfile("experience")}
                       isLoading={updateUser.isPending}
                     />
                   </FormActions>
