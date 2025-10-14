@@ -2,6 +2,12 @@ import { GetSystemConfigResponse } from "@/services/system_config/types";
 import { escapeAndParse } from "./json";
 import { VALIDATION_SCHEMA_KEY } from "../consts/application";
 
+function canUseIdvt(country: string | undefined) {
+  return Boolean(
+    country && ["United Kingdom", "UK"].find(item => item === country)
+  );
+}
+
 function parseSystemConfig(data: GetSystemConfigResponse | undefined) {
   return data
     ? data.reduce(
@@ -53,4 +59,10 @@ function getInitials(name: string): string {
     .join("");
 }
 
-export { getInitials, injectParamsIntoPath, isProduction, parseSystemConfig };
+export {
+  getInitials,
+  injectParamsIntoPath,
+  isProduction,
+  parseSystemConfig,
+  canUseIdvt,
+};

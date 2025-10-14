@@ -32,7 +32,7 @@ describe("<UserIdentity />", () => {
               idvt_success: 1,
             },
           },
-          location: "London, UK",
+          location: "United Kingdom",
         },
       },
     });
@@ -47,7 +47,7 @@ describe("<UserIdentity />", () => {
     mockUseStore({
       current: {
         user: {
-          location: "London, UK",
+          location: "United Kingdom",
           registry: {
             digi_ident: "$1234",
           },
@@ -56,7 +56,7 @@ describe("<UserIdentity />", () => {
     });
     render(<UserIdentity />);
     await waitFor(() => {
-      expect(screen.getByText("London, UK")).toBeInTheDocument();
+      expect(screen.getByText("United Kingdom")).toBeInTheDocument();
     });
   });
 
@@ -76,7 +76,7 @@ describe("<UserIdentity />", () => {
     });
     render(<UserIdentity />);
     await waitFor(() => {
-      expect(screen.queryByText("London, UK")).not.toBeInTheDocument();
+      expect(screen.queryByText("United Kingdom")).not.toBeInTheDocument();
       expect(screen.getByText("Location not provided")).toBeInTheDocument();
     });
   });
@@ -124,6 +124,7 @@ describe("<UserIdentity />", () => {
           registry: {
             identity,
           },
+          location: "United Kingdom",
         },
       },
     });
