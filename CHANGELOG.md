@@ -1,3 +1,13 @@
+## [1.18.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.17.0...v1.18.0) (2025-10-13)
+
+### ✨ Features
+
+* **REGISTRY-2034:** content change for banner (#529) ([1913961](https://github.com/HDRUK/safepeopleregistry-web/commit/1913961a6355e52606a4e83bcd0a6cb7538f98e5))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-2007:** disable approval ability (#528) ([072cc10](https://github.com/HDRUK/safepeopleregistry-web/commit/072cc106a8d9d08a425e6fa880978c905311c504))
+
 ## [1.17.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.16.0...v1.17.0) (2025-10-10)
 
 ### ✨ Features
