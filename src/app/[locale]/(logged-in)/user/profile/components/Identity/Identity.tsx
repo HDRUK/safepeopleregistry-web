@@ -31,9 +31,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
-import VeriffTermsAndConditions from "../VeriffTermsAndConditions";
 import { canUseIdvt } from "@/utils/application";
-import { Message } from "@/components/Message";
+import VeriffTermsAndConditions from "../VeriffTermsAndConditions";
 
 export interface IdentityFormValues {
   first_name: string;
