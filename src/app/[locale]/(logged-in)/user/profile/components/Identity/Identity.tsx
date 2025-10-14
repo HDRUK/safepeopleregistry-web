@@ -25,13 +25,13 @@ import {
 } from "@/modules";
 import { putUserQuery } from "@/services/users";
 import { User } from "@/types/application";
+import { canUseIdvt } from "@/utils/application";
 import { CheckCircle } from "@mui/icons-material";
 import { Button, Grid, TextField } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
-import { canUseIdvt } from "@/utils/application";
 import VeriffTermsAndConditions from "../VeriffTermsAndConditions";
 
 export interface IdentityFormValues {
