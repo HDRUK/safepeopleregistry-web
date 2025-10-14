@@ -259,7 +259,7 @@ export default function Training({
   ];
   return (
     <>
-      <Typography variant="h6" sx={{ mb: 1 }}>
+      <Typography variant="h3" sx={{ mb: 1 }}>
         {t("trainingHistoryTitle")}
       </Typography>
       <Table

@@ -14,7 +14,7 @@ export default function GuidanceTitle({
 }: GuidanceTitleProps) {
   return (
     <Text
-      variant="h2"
+      variant="h3"
       startIcon={infoTitleIcon}
       sx={{
         mb: 4,
