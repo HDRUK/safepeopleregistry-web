@@ -1,7 +1,7 @@
 import ErrorMessage from "@/components/ErrorMessage";
 import Form from "@/components/Form";
 import FormActions from "@/components/FormActions";
-import FormControlHorizontal from "@/components/FormControlHorizontal";
+import FormControlWrapper from "@/components/FormControlWrapper";
 import FormFieldArray from "@/components/FormFieldArray";
 import LoadingWrapper from "@/components/LoadingWrapper";
 import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
@@ -193,7 +193,7 @@ export default function Webhooks() {
                         renderField={(field, index, removeButton) => (
                           <Grid container spacing={2} key={field.receiver_url}>
                             <Grid item xs={5}>
-                              <FormControlHorizontal
+                              <FormControlWrapper
                                 label="Receiver URL"
                                 required
                                 labelMd={0}
@@ -206,7 +206,8 @@ export default function Webhooks() {
                               />
                             </Grid>
                             <Grid item xs={5.5}>
-                              <FormControlHorizontal
+                              <FormControlWrapper
+                                labelPosition="left"
                                 label="Event Trigger"
                                 required
                                 labelMd={0}

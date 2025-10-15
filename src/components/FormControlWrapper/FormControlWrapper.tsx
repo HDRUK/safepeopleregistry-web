@@ -22,6 +22,7 @@ export interface FormControlProps
   extends Omit<FormControlLabelProps, "control" | "label"> {
   renderField: (fieldProps: FieldValues & { error?: boolean }) => ReactNode;
   name: string;
+  subtitle?: ReactNode;
   description?: ReactNode;
   label?: string | ReactNode;
   control?: Control;
@@ -45,6 +46,7 @@ export default function FormControlWrapper({
   renderField,
   fullWidth = true,
   description,
+  subtitle,
   t,
   disabled,
   labelPosition = "top",
@@ -82,11 +84,16 @@ export default function FormControlWrapper({
   };
 
   const tDescription = tForm(`${tKey}Description`);
+  const tSubtitle = tForm(`${tKey}Subtitle`);
 
   const descriptionText =
     description ||
     (!tDescription.includes(`${tKey}Description`) &&
       tForm(`${tKey}Description`));
+
+  const subtitleText =
+    subtitle ||
+    (!tSubtitle.includes(`${tKey}Subtitle`) && tForm(`${tKey}Subtitle`));
 
   return (
     <Controller
@@ -101,12 +108,23 @@ export default function FormControlWrapper({
           error={invalid}
           sx={{ width: "100%", display: "flex", flexDirection: "column" }}>
           <Box sx={controlSx}>
-            <Box sx={{ width: fullWidth ? "100%" : "auto" }}>
+            <Box
+              sx={{
+                width: fullWidth ? "100%" : "auto",
+                display: "flex",
+                flexDirection: "column",
+                gap: 0.5,
+              }}>
               {displayLabel && (
-                <FormLabel htmlFor={field.name} sx={{ pb: 1 }}>
-                  {label || tForm(tKey)}
+                <FormLabel htmlFor={field.name} sx={{ pb: 0.5 }}>
+                  {label || tForm(tKey)}{" "}
                   {isRequired && <span style={{ color: "red" }}>*</span>}
                 </FormLabel>
+              )}
+              {subtitleText && (
+                <FormControlDescription sx={{ pt: 0, pb: 0.5 }}>
+                  {subtitleText}
+                </FormControlDescription>
               )}
             </Box>
             <Box sx={{ flex: 1, width: fullWidth ? "100%" : "auto" }}>
@@ -127,12 +145,18 @@ export default function FormControlWrapper({
               })}
             </Box>
           </Box>
-          <Box sx={{ width: "100%", mt: 1 }}>
-            {descriptionText && (
-              <FormControlDescription>{descriptionText}</FormControlDescription>
-            )}
-            {error && <FormHelperText>{error.message}</FormHelperText>}
-          </Box>
+          {(descriptionText || error?.message) && (
+            <Box sx={{ width: "100%", mt: 0.25 }}>
+              {descriptionText && (
+                <FormControlDescription>
+                  {descriptionText}
+                </FormControlDescription>
+              )}
+              {error?.message && (
+                <FormHelperText>{error.message}</FormHelperText>
+              )}
+            </Box>
+          )}
         </FormControl>
       )}
     />

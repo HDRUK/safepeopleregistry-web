@@ -1,5 +1,5 @@
 import Form from "@/components/Form";
-import FormControlHorizontal from "@/components/FormControlHorizontal";
+import FormControlWrapper from "@/components/FormControlWrapper";
 import FormModalActions from "@/components/FormModalActions";
 import FormModalBody from "@/components/FormModalBody";
 import FormModalHeader from "@/components/FormModalHeader";
@@ -23,9 +23,8 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useMemo } from "react";
-import FormControlWrapper from "@/components/FormControlWrapper";
 import { useTranslations } from "next-intl";
+import { useMemo } from "react";
 
 export interface CustodianEditContactFormFields {
   first_name: string;
@@ -101,19 +100,19 @@ export default function CustodianEditContactForm({
         <FormModalBody>
           <Grid container rowSpacing={3}>
             <Grid item xs={12}>
-              <FormControlHorizontal
+              <FormControlWrapper
                 name="first_name"
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />
             </Grid>
             <Grid item xs={12}>
-              <FormControlHorizontal
+              <FormControlWrapper
                 name="last_name"
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />
             </Grid>
             <Grid item xs={12}>
-              <FormControlHorizontal
+              <FormControlWrapper
                 name="email"
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />

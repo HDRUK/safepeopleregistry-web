@@ -108,6 +108,7 @@ const DelegateTable = () => {
           {tProfile("inviteAnotherDelegate")}
         </Button>
         <FormModal
+          heading={tProfile("InviteDelegate.heading")}
           open={openInviteModal}
           onClose={() => setOpenInviteModal(false)}>
           <InviteDelegateForm

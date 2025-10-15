@@ -7,7 +7,7 @@ import ButtonSave from "../../components/ButtonSave";
 import Form from "../../components/Form";
 import FormActions from "../../components/FormActions";
 
-import FormControlHorizontal from "../../components/FormControlHorizontal";
+import FormControlWrapper from "../../components/FormControlWrapper";
 import FormSection from "../../components/FormSection";
 import yup from "../../config/yup";
 import { ResearcherProfessionalRegistration } from "../../types/application";
@@ -59,14 +59,14 @@ export default function ProfessionalRegistrationsForm({
       <FormSection>
         <Grid container rowSpacing={3}>
           <Grid item xs={12}>
-            <FormControlHorizontal
+            <FormControlWrapper
               name="name"
               tNamespace={NAMESPACE_TRANSLATION_PROFILE}
               renderField={fieldProps => <TextField {...fieldProps} />}
             />
           </Grid>
           <Grid item xs={12}>
-            <FormControlHorizontal
+            <FormControlWrapper
               name="member_id"
               tNamespace={NAMESPACE_TRANSLATION_PROFILE}
               renderField={fieldProps => <TextField {...fieldProps} />}

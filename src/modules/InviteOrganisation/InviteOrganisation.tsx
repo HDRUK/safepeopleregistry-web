@@ -1,13 +1,14 @@
+import FormControlWrapper from "@/components/FormControlWrapper";
 import SaveIcon from "@mui/icons-material/Save";
 import { LoadingButton } from "@mui/lab";
 import { Grid, TextField } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
 import Form from "../../components/Form";
 import FormActions from "../../components/FormActions";
-import FormControlHorizontal from "../../components/FormControlHorizontal";
 import FormSection from "../../components/FormSection";
+import LoadingWrapper from "../../components/LoadingWrapper";
 import yup from "../../config/yup";
 import { MAX_FORM_WIDTH } from "../../consts/form";
 import {
@@ -15,7 +16,6 @@ import {
   PostOrganisationUnclaimedPayload,
 } from "../../services/organisations";
 import { MutationState } from "../../types/form";
-import LoadingWrapper from "../../components/LoadingWrapper";
 
 export interface InviteOrganisationFormProps {
   organisationId?: number;
@@ -80,7 +80,7 @@ export default function InviteOrganisationForm({
               <Grid container rowSpacing={3}>
                 {formFields.map((name: string) => (
                   <Grid item xs={12} key={name}>
-                    <FormControlHorizontal
+                    <FormControlWrapper
                       name={name}
                       renderField={fieldProps => <TextField {...fieldProps} />}
                     />
