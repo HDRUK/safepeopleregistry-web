@@ -25,6 +25,7 @@ import {
 } from "@/modules";
 import { putUserQuery } from "@/services/users";
 import { User } from "@/types/application";
+import { canUseIdvt } from "@/utils/application";
 import { CheckCircle } from "@mui/icons-material";
 import { Button, Grid, TextField } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -41,6 +42,7 @@ export interface IdentityFormValues {
 }
 
 const NAMESPACE_TRANSLATION_FORM = "Form";
+const NAMESPACE_TRANSLATION = "Users.Identity";
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";
 
 export default function Identity() {
@@ -55,6 +57,7 @@ export default function Identity() {
   };
 
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
+  const t = useTranslations(NAMESPACE_TRANSLATION);
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
 
   const updateUser = useMutation(putUserQuery(user?.id));
@@ -90,12 +93,12 @@ export default function Identity() {
 
   useQueryAlerts(updateUser, {
     errorAlertProps: {
-      text: <ErrorMessage t={tProfile} tKey="postUserError" />,
-      confirmButtonText: tProfile("postUserErrorButton"),
+      text: <ErrorMessage t={t} tKey="postUserError" />,
+      confirmButtonText: t("postUserErrorButton"),
     },
     successAlertProps: {
-      text: tProfile("postUserSuccess"),
-      confirmButtonText: tProfile("postUserSuccessButton"),
+      text: t("postUserSuccess"),
+      confirmButtonText: t("postUserSuccessButton"),
       preConfirm: () => {
         router.push(ROUTES.profileResearcherExperience.path);
       },
@@ -117,7 +120,7 @@ export default function Identity() {
   );
 
   const error = updateUser.isError && (
-    <ErrorMessage t={tProfile} tKey={updateUser.error} />
+    <ErrorMessage t={t} tKey={updateUser.error} />
   );
 
   const formOptions = {
@@ -131,11 +134,11 @@ export default function Identity() {
   };
 
   return (
-    <PageBodyContainer heading={tProfile("identityTitle")}>
+    <PageBodyContainer heading={t("identityTitle")}>
       <PageColumns>
         <PageColumnBody lg={8}>
           <PageBody>
-            <PageSection heading={tProfile("identityForm")}>
+            <PageSection heading={t("identityForm")}>
               <Form
                 onSubmit={handleDetailsSubmit}
                 schema={schema}
@@ -167,7 +170,7 @@ export default function Identity() {
                           renderField={fieldProps => (
                             <TextField {...fieldProps} />
                           )}
-                          description={tProfile.rich("emailDescription", {
+                          description={t.rich("emailDescription", {
                             bold: chunks => <strong>{chunks}</strong>,
                           })}
                         />
@@ -175,7 +178,7 @@ export default function Identity() {
                       <Grid item xs={12}>
                         <FormControlWrapper
                           name="location"
-                          description={tProfile("locationDescription")}
+                          description={t("locationDescription")}
                           renderField={({ value, onChange, ...rest }) => (
                             <SelectCountry
                               useCountryCode={false}
@@ -188,33 +191,35 @@ export default function Identity() {
                       </Grid>
                     </Grid>
                   </FormSection>
-                  <FormSection heading={tProfile("idvtCheckSection")}>
-                    <Grid container spacing={3}>
-                      <Grid container item spacing={3}>
-                        <Grid item xs={8}>
-                          {idvt_success ? (
-                            <Text startIcon={<CheckCircle color="success" />}>
-                              {tProfile("idvtCheckComplete")}
-                            </Text>
-                          ) : (
-                            <>
-                              <Button
-                                sx={{ mb: 1 }}
-                                variant="outlined"
-                                onClick={() => setShowModal(true)}>
-                                {idvt_started_at
-                                  ? tProfile("idvtCheckButtonRestart")
-                                  : tProfile("idvtCheckButtonStart")}
-                              </Button>
-                              <Markdown variant="subtitle">
-                                {tProfile("idvtCheckDescription")}
-                              </Markdown>
-                            </>
-                          )}
+                  {canUseIdvt(formOptions.defaultValues.location) && (
+                    <FormSection heading={t("idvtCheckSection")}>
+                      <Grid container spacing={3}>
+                        <Grid container item spacing={3}>
+                          <Grid item xs={8}>
+                            {idvt_success ? (
+                              <Text startIcon={<CheckCircle color="success" />}>
+                                {t("idvtCheckComplete")}
+                              </Text>
+                            ) : (
+                              <>
+                                <Button
+                                  sx={{ mb: 1 }}
+                                  variant="outlined"
+                                  onClick={() => setShowModal(true)}>
+                                  {idvt_started_at
+                                    ? t("idvtCheckButtonRestart")
+                                    : t("idvtCheckButtonStart")}
+                                </Button>
+                                <Markdown variant="subtitle">
+                                  {t("idvtCheckDescription")}
+                                </Markdown>
+                              </>
+                            )}
+                          </Grid>
                         </Grid>
                       </Grid>
-                    </Grid>
-                  </FormSection>
+                    </FormSection>
+                  )}
                   <FormActions>
                     <ProfileNavigationFooter
                       nextStepText={tProfile("experience")}

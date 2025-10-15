@@ -4,7 +4,7 @@ import ErrorIcon from "@mui/icons-material/Error";
 import { useStore } from "@/data/store";
 import Text from "../../components/Text";
 
-const NAMESPACE_TRANSLATION = "Profile";
+const NAMESPACE_TRANSLATION = "Users.Identity";
 
 export default function UserIdentity() {
   const t = useTranslations(NAMESPACE_TRANSLATION);
