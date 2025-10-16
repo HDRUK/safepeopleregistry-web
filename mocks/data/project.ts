@@ -1,10 +1,9 @@
-import { ResearcherProject } from "@/types/application";
-import { faker } from "@faker-js/faker";
-import { mockedOrganisation } from "./organisation";
 import { RequestFrequency } from "@/consts/projects";
-import { type ProjectDetails } from "@/types/application";
-import { mockedProjectUser, mockedCustodianHasProjectUser } from "./custodian";
-import { Status } from "@/components/ChipStatus";
+import { ResearcherProject, type ProjectDetails } from "@/types/application";
+import { faker } from "@faker-js/faker";
+import { mockedCustodianHasProjectUser } from "./custodian";
+import { mockedOrganisation } from "./organisation";
+import { Status } from "@/consts/application";
 
 const mockedProject = (
   project?: Partial<ResearcherProject>
@@ -117,9 +116,9 @@ const mockedKanbanCustodianProjectUsers = () => {
 };
 
 export {
-  mockedProjects,
+  mockedKanbanCustodianProjectUsers,
   mockedProject,
   mockedProjectDetails,
-  mockedKanbanCustodianProjectUsers,
+  mockedProjects,
   mockedProjectStateWorkflow,
 };

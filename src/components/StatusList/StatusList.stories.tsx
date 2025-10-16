@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
+import { Status } from "@/consts/application";
 import StatusList from "./StatusList";
-import { Status } from "../ChipStatus";
 
 const meta = {
   title: "components/StatusList",

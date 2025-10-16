@@ -1,7 +1,6 @@
 "use client";
 
 import { ActionMenu, ActionMenuItem } from "@/components/ActionMenu";
-import { Status } from "@/components/ChipStatus";
 import FormModal from "@/components/FormModal";
 import Guidance from "@/components/Guidance";
 import { Message } from "@/components/Message";
@@ -42,6 +41,7 @@ import { CellContext } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
+import { Status } from "@/consts/application";
 import AffiliationsForm from "../AffiliationsForm";
 
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";

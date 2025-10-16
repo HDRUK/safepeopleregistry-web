@@ -1,3 +1,4 @@
+import { Status } from "@/consts/application";
 import {
   Box,
   FormControlLabel,
@@ -9,7 +10,7 @@ import {
 } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
-import ChipStatus, { Status } from "../../components/ChipStatus";
+import ChipStatus from "../../components/ChipStatus";
 import DateInput from "../../components/DateInput";
 import Form, { FormProps } from "../../components/Form";
 import FormActions from "../../components/FormActions";

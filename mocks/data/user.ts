@@ -10,10 +10,10 @@ import {
 } from "@/types/application";
 import { faker } from "@faker-js/faker";
 import { mockedApproval } from "./approvals";
+import { mockedDepartment } from "./departments";
 import { mockedFile } from "./file";
 import { mockedPermission } from "./permission";
-import { mockedDepartment } from "./departments";
-import { Status } from "@/components/ChipStatus";
+import { Status } from "@/consts/application";
 
 const mockedUser = (user?: Partial<User>): User => ({
   profile_completed_at: null,
@@ -107,6 +107,7 @@ const mockedAffiliation = (
   current_employer: true,
   organisation: {
     organisation_name: faker.company.name(),
+    ...affiliation?.organisation,
   },
   from: faker.date.past().toUTCString(),
   to: "",
@@ -123,10 +124,10 @@ const mockedAffiliation = (
 
 export {
   mockedAccreditation,
-  mockedUser,
-  mockedTraining,
-  mockedEmployment,
-  mockedEducation,
   mockedAffiliation,
+  mockedEducation,
+  mockedEmployment,
   mockedProfessionalRegistration,
+  mockedTraining,
+  mockedUser,
 };

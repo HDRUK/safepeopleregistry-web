@@ -25,5 +25,6 @@ export default defineConfig({
     },
     baseUrl: process.env.CYPRESS_BASE_URL,
     experimentalOriginDependencies: true,
+    // supportFile: "cypress/support/index.ts",
   },
 });
