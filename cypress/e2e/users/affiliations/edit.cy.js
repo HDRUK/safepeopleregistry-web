@@ -11,17 +11,14 @@ describe("edit affilation", () => {
   it("Edits and affiliation and reloads the page", () => {
     cy.getResultsRow(0).find(dataCy("action-menu")).click();
 
-    cy.get(".MuiPopover-root")
-      .should("be.visible")
-      .contains("View or edit")
-      .click();
+    cy.actionMenuClick("View or edit");
 
     const formModal = cy.get(dataCy("form-modal")).should("be.visible");
 
     formModal.get("#member_id").clear().type("1234");
-    formModal.get("button").contains("Save").click();
 
-    cy.swalClick("OK");
+    cy.saveFormClick();
+    cy.swalClick();
 
     cy.get("tbody tr").eq(0).get("td").contains("1234");
   });

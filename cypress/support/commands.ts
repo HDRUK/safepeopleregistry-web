@@ -1,3 +1,5 @@
+import { dataCy } from "./utils/common";
+
 Cypress.Commands.add("login", (email: string, password: string) => {
   const args = { email, password };
 
@@ -31,10 +33,23 @@ Cypress.Commands.add("getResultsRow", (index: number) => {
   cy.get("tbody tr", { timeout: 10000 }).should("be.visible").eq(index);
 });
 
-Cypress.Commands.add("swalClick", (text: string, title: string = "Success") => {
-  const swalContainer = cy.get(".swal2-container").should("be.visible");
+Cypress.Commands.add(
+  "swalClick",
+  (text: string = "OK", title: string = "Success") => {
+    const swalContainer = cy.get(".swal2-container").should("be.visible");
 
-  swalContainer.get(".swal2-title").contains(title);
+    swalContainer.get(".swal2-title").contains(title);
 
-  swalContainer.get("Button").contains(text).click();
+    swalContainer.get("Button").contains(text).click();
+  }
+);
+
+Cypress.Commands.add("actionMenuClick", (text: string) => {
+  cy.get(".MuiPopover-root").should("be.visible").contains(text).click();
+});
+
+Cypress.Commands.add("saveFormClick", (text: string = "Save") => {
+  const formModal = cy.get(dataCy("form-modal")).should("be.visible");
+
+  formModal.get("button").contains(text).click();
 });
