@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { dataCy } from "./utils/common";
 
 Cypress.Commands.add("login", (email: string, password: string) => {
@@ -19,7 +20,7 @@ Cypress.Commands.add("login", (email: string, password: string) => {
       }
     );
   });
-});‚
+});
 
 Cypress.Commands.add("dataCy", (value: string) => {
   return `[data-cy="${value}"]`;
