@@ -18,7 +18,7 @@ describe("edit affilation", () => {
     formModal.get("#member_id").clear().type("1234");
 
     cy.saveFormClick();
-    cy.swalClick();
+    cy.swalClick("OK");
 
     cy.get("tbody tr").eq(0).get("td").contains("1234");
   });

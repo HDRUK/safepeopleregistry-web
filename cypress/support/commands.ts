@@ -8,7 +8,9 @@ Cypress.Commands.add("login", (email: string, password: string) => {
       Cypress.env("keycloakBaseUrl"),
       { args },
       ({ email, password }) => {
-        cy.visit(Cypress.env("keycloakBaseLoginPath"));
+        const { getLoginPath } = Cypress.require("./utils/common");
+
+        cy.visit(getLoginPath());
 
         cy.get("[id=username]").type(email);
         cy.get("[id=password]").type(password);

@@ -14,10 +14,7 @@ import {
   mockedCustodianUser,
 } from "./mocks/data/custodian";
 import { mockedNotification } from "./mocks/data/notification";
-import {
-  mockedOrganisation,
-  mockedSubsidiary,
-} from "./mocks/data/organisation";
+import { mockedOrganisation } from "./mocks/data/organisation";
 import {
   mockedPermission,
   mockedUserPermission,
