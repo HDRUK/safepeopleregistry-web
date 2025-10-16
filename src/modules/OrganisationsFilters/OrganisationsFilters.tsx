@@ -4,7 +4,7 @@ import useSort from "@/hooks/useSort";
 import SortIcon from "@mui/icons-material/Sort";
 import { useTranslations } from "next-intl";
 import useFilter from "@/hooks/useFilter";
-import { Status } from "../../components/ChipStatus";
+import { Status } from "@/consts/application";
 import { FilterIcon } from "../../consts/icons";
 import { PaginatedQueryReturn } from "../../hooks/usePaginatedQuery";
 import { Organisation } from "../../types/application";

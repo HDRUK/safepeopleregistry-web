@@ -1,4 +1,4 @@
-import { Status } from "../components/ChipStatus";
+import { Status } from "@/consts/application";
 import { TEXT_LIST_SEPARATOR } from "../config/db";
 import yup from "../config/yup";
 import { DefaultFormValuesMode } from "../consts/form";

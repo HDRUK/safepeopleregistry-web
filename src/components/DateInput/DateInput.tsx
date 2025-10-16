@@ -48,6 +48,7 @@ const DateInput = ({
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={locale}>
       <DatePicker
+        aria-label="asdasdads"
         label={label}
         value={
           value && typeof value === "string"
@@ -59,6 +60,12 @@ const DateInput = ({
         onChange={handleChange}
         format={dateFormat}
         slotProps={{
+          popper: {
+            "data-cy": `${id}-popover`,
+          },
+          inputAdornment: {
+            "data-cy": `${id}-button`,
+          },
           textField: {
             id,
             fullWidth: true,

@@ -22,9 +22,9 @@
     "baseUrl": ".",
     "paths": {
       "@/mocks/*": ["./mocks/*"],
-      "@/*": ["./src/*"],
+      "@/*": ["./src/*"]
     },
-    "types": ["node", "jest", "@testing-library/jest-dom"]
+    "types": ["cypress", "node", "jest", "@testing-library/jest-dom"]
   },
   "files": ["node_modules/gsap/types/index.d.ts"],
   "include": [
@@ -32,7 +32,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".storybook/*.tsx"
+    ".storybook/*.tsx",
+    "cypress/e2e/users/affiliations/add.cy.ts"
   ],
   "exclude": ["node_modules"]
 }
