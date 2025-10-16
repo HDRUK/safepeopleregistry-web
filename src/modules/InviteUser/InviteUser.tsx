@@ -21,7 +21,7 @@ import { InviteUserFormValues } from "../../types/form";
 import { getCombinedQueryState } from "../../utils/query";
 
 const NAMESPACE_TRANSLATION_FORM = "Form";
-const NAMESPACE_TRANSLATION_ORGANISATION = "User";
+const NAMESPACE_TRANSLATION_ORGANISATION = "Users.InviteUser";
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";
 
 export interface InviteUserFormProps {
