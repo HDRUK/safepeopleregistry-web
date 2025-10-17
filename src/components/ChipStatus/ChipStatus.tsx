@@ -21,7 +21,7 @@ const STATUS_WITH_SHORT_DESCRIPTION = [
   Status.FORM_RECEIVED,
 ];
 
-interface ChipStatusProps extends ChipProps {
+export interface ChipStatusProps extends ChipProps {
   status: Status | undefined;
 }
 
