@@ -41,11 +41,7 @@ Cypress.Commands.add("getResultsRow", (index?: number | string | undefined) => {
       return tableRows.last();
     }
 
-    if (index === "first") {
-      return tableRows.first();
-    }
-
-    return tableRows;
+    return tableRows.first();
   }
 
   return tableRows.eq(index);
@@ -135,7 +131,6 @@ declare global {
       checkboxUncheck: (id: string) => void;
       selectValue: (id: string, value: string) => void;
       dateSelectValue: (id: string, value: string) => void;
-      saveFormClick: (text?: string) => void;
       saveFormClick: (text?: string) => void;
       getResultsActionMenu: (
         value: string
