@@ -1,12 +1,13 @@
 import { faker } from "@faker-js/faker";
 import { ROUTES } from "../../../src/consts/router";
 import { injectParamsIntoPath } from "../../../src/utils/application";
+import { DEFAULT_USER_ID } from "../../support/consts";
 import { dataCy } from "../../support/utils/common";
 
 const userAffiliationPath = injectParamsIntoPath(
   ROUTES.profileOrganisationUsersAffiliations.path,
   {
-    userId: 10,
+    userId: DEFAULT_USER_ID,
   }
 );
 
