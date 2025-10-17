@@ -79,12 +79,7 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.28.4",
-    "@babel/preset-env": "^7.28.3",
     "@chromatic-com/storybook": "^3.2.2",
-    "@cypress/react": "^9.0.1",
-    "@cypress/webpack-dev-server": "^5.1.3",
-    "@cypress/webpack-preprocessor": "^7.0.1",
     "@next/bundle-analyzer": "^15.0.3",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^13.0.0",
@@ -112,7 +107,6 @@
     "@types/react-syntax-highlighter": "^15.5.13",
     "@types/testing-library__cypress": "^7.0.0",
     "@typescript-eslint/eslint-plugin": "^8.16.0",
-    "babel-loader": "^10.0.0",
     "chromatic": "^11.18.0",
     "css-mediaquery": "^0.1.2",
     "cypress": "^15.4.0",
@@ -134,9 +128,7 @@
     "react-syntax-highlighter": "^15.5.0",
     "semantic-release": "^24.2.1",
     "storybook": "^8.0.5",
-    "ts-loader": "^9.5.4",
-    "typescript": "^5.9.3",
-    "webpack": "^5.102.1"
+    "typescript": "^5.9.3"
   },
   "resolutions": {
     "@typescript-eslint/typescript-estree": "^8.16.0"
