@@ -41,10 +41,22 @@ Cypress.Commands.add("getResultsRow", (index?: number | string | undefined) => {
       return tableRows.last();
     }
 
-    return tableRows.first();
+    if (index === "first") {
+      return tableRows.first();
+    }
+
+    return tableRows;
   }
 
   return tableRows.eq(index);
+});
+
+Cypress.Commands.add("getResultsActionMenu", (value: string) => {
+  return cy
+    .getResultsRow()
+    .contains("td", value)
+    .siblings()
+    .find(dataCy("action-menu"));
 });
 
 Cypress.Commands.add(
@@ -110,7 +122,7 @@ declare global {
   namespace Cypress {
     interface Chainable {
       login: (email: string, password: string) => void;
-      dataCy: (value: string) => void;
+      dataCy: (value: string) => string;
       visitFirst: (path: string) => void;
       getResultsRow: (
         id?: number | "last" | "first" | undefined
@@ -124,6 +136,10 @@ declare global {
       selectValue: (id: string, value: string) => void;
       dateSelectValue: (id: string, value: string) => void;
       saveFormClick: (text?: string) => void;
+      saveFormClick: (text?: string) => void;
+      getResultsActionMenu: (
+        value: string
+      ) => Cypress.Chainable<JQuery<HTMLElement>>;
     }
   }
 }

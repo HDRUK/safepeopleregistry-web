@@ -9,7 +9,7 @@ import {
 } from "@/modules";
 import { UserGroup } from "@/consts/user";
 import { useStore } from "@/data/store";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 // import { getCustodianProjectUserValidationLogsQuery } from "@/services/validation_logs";
 import UserDetails from "@/components/UserDetails";
 import { getUserQuery } from "@/services/users";
@@ -34,6 +34,7 @@ const NAMESPACE_TRANSLATION_PROFILE = "ProfileOrganisation.User";
 
 function OrganisationUser({ userId, subSubTabId }: OrganisationUserProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
+  const queryClient = useQueryClient();
 
   const { data: userData, isFetched } = useQuery(getUserQuery(+userId));
 
@@ -73,6 +74,14 @@ function OrganisationUser({ userId, subSubTabId }: OrganisationUserProps) {
     )
   );
 
+  const handleRefetch = () => {
+    queryClient.refetchQueries({
+      queryKey: ["getAffiliations", user?.registry_id],
+    });
+
+    refetch();
+  };
+
   const affiliation = affiliationData?.data;
 
   return (
@@ -100,7 +109,7 @@ function OrganisationUser({ userId, subSubTabId }: OrganisationUserProps) {
             {affiliation && (
               <ConfirmAffiliation
                 affiliation={affiliation}
-                onSuccess={refetch}
+                onSuccess={handleRefetch}
               />
             )}
           </PageColumnDetails>

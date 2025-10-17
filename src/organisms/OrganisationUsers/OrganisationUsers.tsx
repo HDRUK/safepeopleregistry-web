@@ -43,10 +43,8 @@ export default function OrganisationUsers() {
   const { showConfirm } = useMutationWithConfirmation(
     deleteAffiliationQuery(),
     {
-      successAlertProps: {
-        willClose: () => {
-          refetchOrganisationUsers();
-        },
+      onSuccess: () => {
+        refetchOrganisationUsers();
       },
     }
   );
