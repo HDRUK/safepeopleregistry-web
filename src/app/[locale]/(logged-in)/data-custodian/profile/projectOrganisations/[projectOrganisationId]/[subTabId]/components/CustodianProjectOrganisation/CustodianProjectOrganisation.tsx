@@ -14,10 +14,10 @@ import { getCustodianOrganisationValidationLogsQuery } from "@/services/validati
 import { useQuery } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
 import { useEffect } from "react";
+import { Status } from "@/consts/application";
 import { OrganisationsSubTabs } from "../../../../../consts/tabs";
 import SubTabsContents from "../SubsTabContents";
 import SubTabsSections from "../SubTabSections";
-import { Status } from "@/consts/application";
 
 interface CustodianProjectUserProps {
   projectOrganisationId: number;
