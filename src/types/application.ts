@@ -1,4 +1,3 @@
-import { Status } from "@/components/ChipStatus";
 import { FileStatus, FileType } from "@/consts/files";
 import { RequestFrequency } from "@/consts/projects";
 import {
@@ -9,6 +8,7 @@ import {
 import { RouteConfig } from "./router";
 import { RuleState } from "./rules";
 import { QueryParams } from "./query";
+import { Status } from "@/consts/application";
 
 interface StateWorkflow {
   transitions: Record<string, string[]>;
