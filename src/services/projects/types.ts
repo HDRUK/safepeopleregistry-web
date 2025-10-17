@@ -1,4 +1,4 @@
-import { Status } from "@/components/ChipStatus";
+import { Status } from "@/consts/application";
 import {
   ResearcherProject,
   ProjectUser,

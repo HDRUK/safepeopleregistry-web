@@ -1,4 +1,4 @@
-import { Status } from "@/components/ChipStatus";
+import { Status } from "@/consts/application";
 import { mockedAffiliation } from "@/mocks/data/user";
 import { commonAccessibilityTests, render, screen } from "@/utils/testUtils";
 import { useTranslations } from "next-intl";

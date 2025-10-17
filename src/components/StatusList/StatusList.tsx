@@ -1,9 +1,10 @@
 "use client";
 
+import { Status } from "@/consts/application";
 import { Box, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
-import ChipStatus, { Status } from "../ChipStatus";
 import ActionsPanel from "../ActionsPanel";
+import ChipStatus from "../ChipStatus";
 
 export interface StatusListProps {
   projectStatus?: Status;

@@ -1,11 +1,11 @@
-import { useStore } from "@/data/store";
-import { useTranslations } from "next-intl";
-import { useQuery } from "@tanstack/react-query";
 import LoadingWrapper from "@/components/LoadingWrapper";
-import StatusList from "@/components/StatusList";
 import { Message } from "@/components/Message";
-import { Status } from "@/components/ChipStatus";
+import StatusList from "@/components/StatusList";
+import { Status } from "@/consts/application";
+import { useStore } from "@/data/store";
 import { getCustodianStatusQuery } from "@/services/custodians";
+import { useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 
 const NAMESPACE_TRANSLATION_ACTION_VALIDATION = "ActionValidationPanel";
 

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
+import { Status } from "@/consts/application";
 import SoursdCard from ".";
-import { Status } from "../ChipStatus";
 
 const meta = {
   title: "components/SoursdCard",

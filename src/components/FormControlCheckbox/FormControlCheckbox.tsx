@@ -35,6 +35,7 @@ export default function FormControlCheckbox({
       sx={{ alignItems: "flex-start", display: "flex" }}
       control={
         <Checkbox
+          id={name}
           sx={{ mt: "-10px" }}
           {...field}
           checked={checked}

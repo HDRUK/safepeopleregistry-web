@@ -1,20 +1,20 @@
+import StatusList from "@/components/StatusList";
+import { Status } from "@/consts/application";
 import { useStore } from "@/data/store";
-import { useQuery } from "@tanstack/react-query";
-import { getCustodianProjectOrganisationQuery } from "@/services/custodian_approvals";
-import { getOrganisationQuery } from "@/services/organisations";
-import { notFound } from "next/navigation";
-import { getCustodianOrganisationValidationLogsQuery } from "@/services/validation_logs";
-import ActionValidationPanel from "@/organisms/ActionValidationPanel";
-import { ActionValidationVariants } from "@/organisms/ActionValidationPanel/ActionValidationPanel";
 import {
   PageBodyContainer,
   PageColumnBody,
   PageColumnDetails,
   PageColumns,
 } from "@/modules";
+import ActionValidationPanel from "@/organisms/ActionValidationPanel";
+import { ActionValidationVariants } from "@/organisms/ActionValidationPanel/ActionValidationPanel";
+import { getCustodianProjectOrganisationQuery } from "@/services/custodian_approvals";
+import { getOrganisationQuery } from "@/services/organisations";
+import { getCustodianOrganisationValidationLogsQuery } from "@/services/validation_logs";
+import { useQuery } from "@tanstack/react-query";
+import { notFound } from "next/navigation";
 import { useEffect } from "react";
-import StatusList from "@/components/StatusList";
-import { Status } from "@/components/ChipStatus";
 import { OrganisationsSubTabs } from "../../../../../consts/tabs";
 import SubTabsContents from "../SubsTabContents";
 import SubTabsSections from "../SubTabSections";
