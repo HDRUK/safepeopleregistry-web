@@ -1,3 +1,4 @@
+import { Status } from "@/consts/application";
 import { FileStatus, FileType } from "@/consts/files";
 import { RequestFrequency } from "@/consts/projects";
 import {
@@ -5,10 +6,9 @@ import {
   UserGroup,
   UserProfileCompletionCategories,
 } from "@/consts/user";
+import { QueryParams } from "./query";
 import { RouteConfig } from "./router";
 import { RuleState } from "./rules";
-import { QueryParams } from "./query";
-import { Status } from "@/consts/application";
 
 interface StateWorkflow {
   transitions: Record<string, string[]>;
@@ -549,21 +549,25 @@ export type {
   AddressFields,
   Approval,
   Auth,
-  Custodian,
-  CustodianUser,
-  CustodianProjectUser,
-  CustodianProjectOrganisation,
   Charity,
+  Custodian,
+  CustodianProjectOrganisation,
+  CustodianProjectUser,
+  CustodianUser,
   Department,
   File,
   Identity,
+  ModelState,
   Organisation,
   OrganisationIdvt,
+  PendingInvite,
   Permission,
   Project,
-  ProjectUser,
-  ProjectOrganisation,
   ProjectAllUser,
+  ProjectDetails,
+  ProjectOrganisation,
+  ProjectRole,
+  ProjectUser,
   ResearcherAccreditation,
   ResearcherAffiliation,
   ResearcherEducation,
@@ -573,24 +577,20 @@ export type {
   ResearcherProject,
   ResearcherTraining,
   Role,
+  Rule,
   Sector,
+  StateWorkflow,
   Subsidiary,
   SystemConfig,
+  Translations,
   User,
+  UserPermission,
   UserProfileCompletionFields,
   UserProfileCompletionJson,
   UserProfileCompletionSchema,
-  ProjectRole,
-  ProjectDetails,
-  WithStateWorkflow,
-  StateWorkflow,
-  Translations,
-  WithTranslations,
-  ModelState,
   WithModelState,
-  WithRoutes,
   WithPaginatedQueryParms,
-  UserPermission,
-  PendingInvite,
-  Rule,
+  WithRoutes,
+  WithStateWorkflow,
+  WithTranslations,
 };
