@@ -49,6 +49,7 @@ interface ButtonProps {
   isSign?: boolean;
   onClick?: (e: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
   href?: string;
+  "data-cy"?: string;
 }
 
 function renderButtons(
@@ -164,6 +165,7 @@ export default function NavBar({ loggedIn }: NavBarProps) {
       color: ButtonColor.Primary,
       variant: ButtonVariant.Outlined,
       text: loggedIn ? t("signOutButton") : t("signInButton"),
+      "data-cy": loggedIn ? "sign-out" : "sign-in",
       onClick: (e: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
         e.preventDefault();
 

@@ -44,7 +44,7 @@ export default function ActionMenu({
   };
 
   return (
-    <Box component="span" {...additionalProps}>
+    <Box component="span" {...additionalProps} data-cy="action-menu">
       {!trigger && (
         <IconButton
           ref={triggerRef}

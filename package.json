@@ -14,7 +14,8 @@
     "test:coverage": "jest --coverage --transformIgnorePatterns \"node_modules/(?!pretty-bytes)/\"  --env=jsdom",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "chromatic": "npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN"
+    "chromatic": "npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN",
+    "cypress": "npx cypress open"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -50,6 +51,7 @@
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.11",
     "deep-equal": "^2.2.3",
+    "dotenv": "^17.2.3",
     "eslint-config-next": "14.1.4",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
@@ -106,6 +108,7 @@
     "@typescript-eslint/eslint-plugin": "^8.16.0",
     "chromatic": "^11.18.0",
     "css-mediaquery": "^0.1.2",
+    "cypress": "^15.4.0",
     "eslint": "^8",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^9.1.0",
