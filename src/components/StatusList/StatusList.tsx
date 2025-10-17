@@ -2,8 +2,9 @@
 
 import { Box, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
-import ChipStatus, { Status } from "../ChipStatus";
+import ChipStatus from "../ChipStatus";
 import ActionsPanel from "../ActionsPanel";
+import { Status } from "@/consts/application";
 
 export interface StatusListProps {
   projectStatus?: Status;
