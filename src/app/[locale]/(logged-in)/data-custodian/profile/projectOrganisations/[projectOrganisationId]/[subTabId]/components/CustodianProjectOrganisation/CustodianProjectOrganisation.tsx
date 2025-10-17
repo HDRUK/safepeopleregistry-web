@@ -1,4 +1,5 @@
 import StatusList from "@/components/StatusList";
+import { Status } from "@/consts/application";
 import { useStore } from "@/data/store";
 import {
   PageBodyContainer,
@@ -14,7 +15,6 @@ import { getCustodianOrganisationValidationLogsQuery } from "@/services/validati
 import { useQuery } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
 import { useEffect } from "react";
-import { Status } from "@/consts/application";
 import { OrganisationsSubTabs } from "../../../../../consts/tabs";
 import SubTabsContents from "../SubsTabContents";
 import SubTabsSections from "../SubTabSections";

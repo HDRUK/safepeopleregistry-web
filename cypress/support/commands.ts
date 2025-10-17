@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import { dataCy } from "./utils/common";
 
 Cypress.Commands.add("login", (email: string, password: string) => {

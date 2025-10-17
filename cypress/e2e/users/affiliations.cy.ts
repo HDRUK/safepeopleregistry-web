@@ -3,7 +3,7 @@ import { ROUTES } from "../../../src/consts/router";
 import { formatShortDate } from "../../../src/utils/date";
 import { dataCy } from "../../support/utils/common";
 
-const memberId = Cypress._.random(0, 1e6);
+const memberId = Cypress._.random(0, 1e6).toString();
 
 describe("User affiliations", () => {
   beforeEach(() => {
