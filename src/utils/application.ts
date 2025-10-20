@@ -1,6 +1,7 @@
 import { GetSystemConfigResponse } from "@/services/system_config/types";
 import { escapeAndParse } from "./json";
 import { Status, VALIDATION_SCHEMA_KEY } from "../consts/application";
+import { User } from "@/types/application";
 
 function canUseIdvt(country: string | undefined) {
   return Boolean(
@@ -48,6 +49,13 @@ const getShortStatus = (slug: string) => {
     default:
       return slug;
   }
+};
+
+const getName = <T extends { first_name: string; last_name: string }>({
+  first_name,
+  last_name,
+}: T) => {
+  return `${first_name} ${last_name}`;
 };
 
 function parseSystemConfig(data: GetSystemConfigResponse | undefined) {
@@ -109,4 +117,5 @@ export {
   canUseIdvt,
   getStatus,
   getShortStatus,
+  getName,
 };

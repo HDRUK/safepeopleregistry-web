@@ -45,7 +45,11 @@ const OrganisationIcon = (props: SvgIconProps) => <BusinessIcon {...props} />;
 const FilterIcon = (props: SvgIconProps) => <FilterAltIcon {...props} />;
 
 const PrimaryContactIcon = (props: SvgIconProps) => (
-  <StarIcon sx={{ color: yellow["700"] }} {...props} />
+  <StarIcon
+    sx={{ color: yellow["700"] }}
+    {...props}
+    data-cy="icon-primary-contact"
+  />
 );
 
 export {

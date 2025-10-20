@@ -4,7 +4,7 @@ import {
   CustodianProjectUser,
 } from "@/types/application";
 import { InviteUserFormValues } from "@/types/form";
-import { getShortStatus, getStatus } from "@/utils/application";
+import { getName, getShortStatus, getStatus } from "@/utils/application";
 import { dataCy } from "../common";
 import { DEFAULT_ROLE_NAME } from "../data";
 
@@ -40,14 +40,53 @@ const changeStatusProjectUsers = (
   project: CustodianProjectUser,
   status: Status
 ) => {
-  const { first_name, last_name } = project.project_has_user.registry.user;
-  const name = `${first_name} ${last_name}`;
-
-  const row = cy.getResultsActionMenu(name);
+  const row = cy.getResultsActionMenu(
+    getName(project.project_has_user.registry.user)
+  );
 
   row.click();
 
   changeStatusProjectEntities(status);
+};
+
+const removeFromProjectUsers = (project: CustodianProjectUser) => {
+  const row = cy.getResultsActionMenu(
+    getName(project.project_has_user.registry.user)
+  );
+
+  row.click();
+
+  cy.actionMenuClick("Remove from project");
+
+  cy.swalClick("Delete", "Warning");
+  cy.swalClick("Close");
+};
+
+const changePrimaryContactProjectUsers = (project: CustodianProjectUser) => {
+  const row = cy.getResultsActionMenu(
+    getName(project.project_has_user.registry.user)
+  );
+
+  row.click();
+
+  cy.actionMenuClick("Make primary contact");
+
+  cy.swalClick("Close");
+};
+
+const hasPrimaryContact = (
+  project: CustodianProjectUser,
+  state: boolean = true
+) => {
+  const row = cy.getResultsRowByValue(
+    getName(project.project_has_user.registry.user)
+  );
+
+  row.within(() => {
+    cy.get(dataCy("icon-primary-contact")).should(
+      state ? "exist" : "not.exist"
+    );
+  });
 };
 
 const hasProjectOrganisations = (project: CustodianProjectOrganisation) => {
@@ -69,14 +108,11 @@ const hasProjectOrganisations = (project: CustodianProjectOrganisation) => {
 };
 
 const hasNewProjectUsers = (project: CustodianProjectUser) => {
-  const { first_name, last_name } = project.project_has_user.registry.user;
-  const name = `${first_name} ${last_name}`;
-
   const row = cy
     .get(dataCy("form-modal"))
     .find("tbody tr")
     .should("be.visible")
-    .contains("td", name)
+    .contains("td", getName(project.project_has_user.registry.user))
     .parent();
 
   row.within(() => {
@@ -95,10 +131,9 @@ const hasNewProjectUsers = (project: CustodianProjectUser) => {
 const hasProjectUsers = (project: CustodianProjectUser) => {
   const projectTitle = project.project_has_user.project.title;
 
-  const { first_name, last_name } = project.project_has_user.registry.user;
-  const name = `${first_name} ${last_name}`;
-
-  const row = cy.getResultsRowByValue(name);
+  const row = cy.getResultsRowByValue(
+    getName(project.project_has_user.registry.user)
+  );
 
   row.within(() => {
     cy.contains("td", DEFAULT_ROLE_NAME);
@@ -146,4 +181,7 @@ export {
   hasProjectOrganisations,
   hasProjectUsers,
   inviteNewProjectUser,
+  changePrimaryContactProjectUsers,
+  hasPrimaryContact,
+  removeFromProjectUsers,
 };
