@@ -93,4 +93,7 @@ describe("Projects safe people journey", () => {
       },
     });
   });
+
+  // Primary contact
+  // Remove from project
 });
