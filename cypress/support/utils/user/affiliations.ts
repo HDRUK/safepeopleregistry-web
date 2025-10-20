@@ -37,9 +37,7 @@ const hasCurrentAffiliationUsers = (affiliation: ResearcherAffiliation) => {
   });
 
   row.within(() => {
-    return cy.contains("td", getStatus(Status.AFFILIATION_EMAIL_VERIFY), {
-      timeout: 2000,
-    });
+    return cy.contains("td", getStatus(Status.AFFILIATION_EMAIL_VERIFY));
   });
 
   row.within(() => {
@@ -70,15 +68,11 @@ const hasEditAffiliationUsers = (affiliation: ResearcherAffiliation) => {
   const row = cy.getResultsRowByValue(affiliation.member_id);
 
   row.within(() => {
-    return cy.contains("td", affiliation.relationship, {
-      timeout: 2000,
-    });
+    return cy.contains("td", affiliation.relationship);
   });
 
   row.within(() => {
-    return cy.contains("td", affiliation.member_id, {
-      timeout: 2000,
-    });
+    return cy.contains("td", affiliation.member_id);
   });
 
   row.within(() => {
@@ -86,9 +80,7 @@ const hasEditAffiliationUsers = (affiliation: ResearcherAffiliation) => {
   });
 
   row.within(() => {
-    return cy.contains("td", `${formatShortDate(affiliation.from)} - Present`, {
-      timeout: 2000,
-    });
+    return cy.contains("td", `${formatShortDate(affiliation.from)} - Present`);
   });
 };
 

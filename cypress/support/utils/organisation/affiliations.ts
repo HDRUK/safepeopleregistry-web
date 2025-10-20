@@ -76,15 +76,11 @@ const hasAffiliationOrganisations = (affiliation: ResearcherAffiliation) => {
   const row = cy.getResultsRowByValue(affiliation.email);
 
   row.within(() => {
-    return cy.contains("td", affiliation.email, {
-      timeout: 2000,
-    });
+    return cy.contains("td", affiliation.email);
   });
 
   row.within(() => {
-    return cy.contains("td", getStatus(affiliation.model_state.state.slug), {
-      timeout: 2000,
-    });
+    return cy.contains("td", getStatus(affiliation.model_state.state.slug));
   });
 
   cy.getResultsActionMenu(affiliation.email).should("exist");
