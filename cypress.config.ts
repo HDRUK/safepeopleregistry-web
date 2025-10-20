@@ -25,10 +25,14 @@ export default defineConfig({
       config.env.organisationPassword =
         process.env.CYPRESS_ORGANISATION_PASSWORD;
 
+      config.env.custodianEmail = process.env.CYPRESS_CUSTODIAN_EMAIL;
+      config.env.custodianPassword = process.env.CYPRESS_CUSTODIAN_PASSWORD;
+
       return config;
     },
     baseUrl: process.env.CYPRESS_BASE_URL,
     experimentalOriginDependencies: true,
+    chromeWebSecurity: false,
     // supportFile: "cypress/support/index.ts",
   },
 });

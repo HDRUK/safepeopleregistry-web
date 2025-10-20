@@ -112,7 +112,7 @@ const mockedCustodianHasProjectUser = (
 });
 
 const mockedCustodianHasProjectOrganisation = (
-  props: Partial<CustodianProjectOrganisation>
+  props?: Partial<CustodianProjectOrganisation>
 ): CustodianProjectOrganisation => ({
   id: 1,
   project_has_organisation_id: 1,

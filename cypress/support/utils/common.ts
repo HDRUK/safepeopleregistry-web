@@ -14,4 +14,21 @@ const getLoginPath = () => {
   return `${authUrl}?${params.toString()}`;
 };
 
-export { dataCy, getLoginPath };
+const logout = (fnError?: () => void) => {
+  cy.get("header")
+    .contains("button", "Sign Out", {
+      timeout: 2000,
+    })
+    .click()
+    .then(() => {
+      cy.origin(Cypress.env("keycloakBaseUrl"), { args: null }, () => {
+        cy.get("#kc-logout", {
+          timeout: 2000,
+        }).click();
+      }).catch(() => {
+        fnError?.();
+      });
+    });
+};
+
+export { dataCy, getLoginPath, logout };

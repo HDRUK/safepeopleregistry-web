@@ -1,12 +1,46 @@
 import { GetSystemConfigResponse } from "@/services/system_config/types";
 import { escapeAndParse } from "./json";
-import { VALIDATION_SCHEMA_KEY } from "../consts/application";
+import { Status, VALIDATION_SCHEMA_KEY } from "../consts/application";
 
 function canUseIdvt(country: string | undefined) {
   return Boolean(
     country && ["United Kingdom", "UK"].find(item => item === country)
   );
 }
+
+function getStatus(slug: string) {
+  switch (slug) {
+    case Status.AFFILIATION_APPROVED:
+      return "Approved";
+    case Status.AFFILIATION_EMAIL_VERIFY:
+      return "Email verification needed";
+    case Status.AFFILIATION_PENDING:
+      return "Pending";
+    case Status.AFFILIATION_REJECTED:
+      return "Declined";
+    case Status.AFFILIATED:
+      return "Affiliated";
+    case Status.AFFILIATION_LEFT:
+      return "Left organisation";
+    case Status.AFFILIATION_INVITED:
+      return "Invited";
+    case Status.ORGANISATION_NOT_VALIDATED:
+      return "Declined Validation";
+    case Status.MORE_ORG_INFO_REQ_ESCALATION_MANAGER:
+      return "Escalation to Validation Manager";
+    default:
+      return slug;
+  }
+}
+
+const getShortStatus = (slug: string) => {
+  switch (slug) {
+    case Status.MORE_ORG_INFO_REQ_ESCALATION_MANAGER:
+      return "Escalation";
+    default:
+      return slug;
+  }
+};
 
 function parseSystemConfig(data: GetSystemConfigResponse | undefined) {
   return data
@@ -65,4 +99,6 @@ export {
   isProduction,
   parseSystemConfig,
   canUseIdvt,
+  getStatus,
+  getShortStatus,
 };
