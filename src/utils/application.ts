@@ -28,6 +28,8 @@ function getStatus(slug: string) {
       return "Declined Validation";
     case Status.MORE_ORG_INFO_REQ_ESCALATION_MANAGER:
       return "Escalation to Validation Manager";
+    case Status.PENDING:
+      return "Pending";
     default:
       return slug;
   }
@@ -35,8 +37,14 @@ function getStatus(slug: string) {
 
 const getShortStatus = (slug: string) => {
   switch (slug) {
+    case Status.PENDING:
+      return "Pending";
     case Status.MORE_ORG_INFO_REQ_ESCALATION_MANAGER:
       return "Escalation";
+    case Status.MORE_USER_INFO_REQ_ESCALATION_MANAGER:
+      return "Escalation";
+    case Status.AFFILIATION_EMAIL_VERIFY:
+      return "Email verification needed";
     default:
       return slug;
   }

@@ -3,9 +3,7 @@ import { ResearcherAffiliation, User } from "@/types/application";
 import { getStatus } from "@/utils/application";
 import { dataCy } from "../common";
 
-const approveAffiliationOrganisations = (path: string) => {
-  cy.visitFirst(path);
-
+const approveAffiliationOrganisations = () => {
   cy.buttonClick("Confirm affiliation");
 
   cy.swalClick("Close");
@@ -24,9 +22,7 @@ const hasAffiliationApprovedOrganisations = (
   });
 };
 
-const declineAffiliationOrganisations = (path: string) => {
-  cy.visitFirst(path);
-
+const declineAffiliationOrganisations = () => {
   cy.buttonClick("Decline affiliation");
 
   cy.swalClick("Close");
@@ -43,6 +39,10 @@ const hasAffiliationDeclinedOrganisations = (
       },
     },
   });
+};
+
+const hasStatus = (status: Status) => {
+  cy.get(dataCy("status-list")).contains(getStatus(status));
 };
 
 const addAffiliationOrganisations = (invite: User) => {
@@ -99,4 +99,5 @@ export {
   hasAffiliationOrganisations,
   hasRemoveAffiliationOrganisations,
   removeAffiliationOrganisations,
+  hasStatus,
 };

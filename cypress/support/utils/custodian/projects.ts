@@ -2,19 +2,18 @@ import { Status } from "@/consts/application";
 import {
   CustodianProjectOrganisation,
   CustodianProjectUser,
-  User,
 } from "@/types/application";
+import { InviteUserFormValues } from "@/types/form";
 import { getShortStatus, getStatus } from "@/utils/application";
 import { dataCy } from "../common";
-import { DEFAULT_ORGANISATION_NAME, DEFAULT_ROLE_NAME } from "../data";
-import { InviteUserFormValues } from "@/types/form";
+import { DEFAULT_ROLE_NAME } from "../data";
 
 const changeStatusProjectEntities = (status: Status) => {
   cy.actionMenuClick("Change status");
 
   cy.get(dataCy("kanban-change-status")).click();
 
-  cy.get(".MuiPopover-root").find("li").contains(getStatus(status)).click({
+  cy.get(".MuiPopover-root").find("li").contains(getShortStatus(status)).click({
     force: true,
   });
   cy.get(".MuiPopover-root")
@@ -41,7 +40,10 @@ const changeStatusProjectUsers = (
   project: CustodianProjectUser,
   status: Status
 ) => {
-  const row = cy.getResultsActionMenu(project.project_has_user.project.title);
+  const { first_name, last_name } = project.project_has_user.registry.user;
+  const name = `${first_name} ${last_name}`;
+
+  const row = cy.getResultsActionMenu(name);
 
   row.click();
 
@@ -64,6 +66,30 @@ const hasProjectOrganisations = (project: CustodianProjectOrganisation) => {
   });
 
   cy.getResultsActionMenu(projectTitle).should("exist");
+};
+
+const hasNewProjectUsers = (project: CustodianProjectUser) => {
+  const { first_name, last_name } = project.project_has_user.registry.user;
+  const name = `${first_name} ${last_name}`;
+
+  const row = cy
+    .get(dataCy("form-modal"))
+    .find("tbody tr")
+    .should("be.visible")
+    .contains("td", name)
+    .parent();
+
+  row.within(() => {
+    cy.contains("td", DEFAULT_ROLE_NAME);
+  });
+
+  row.within(() => {
+    cy.contains("td", getStatus(Status.PENDING));
+  });
+
+  row.within(() => {
+    cy.contains("td", getShortStatus(project.model_state.state.slug));
+  });
 };
 
 const hasProjectUsers = (project: CustodianProjectUser) => {
@@ -99,8 +125,9 @@ const inviteNewProjectUser = (invite: InviteUserFormValues) => {
   cy.saveFormClick("Invite");
   cy.swalClick("Close");
 
-  cy.saveFormClick();
-  cy.swalClick("Close");
+  // Observers haven't complete when refresh is called
+  // cy.saveFormClick();
+  // cy.swalClick("Close");
 };
 
 const addNewProjectUser = () => {
@@ -112,10 +139,11 @@ const addNewProjectUser = () => {
 };
 
 export {
-  changeStatusProjectOrganisations,
-  hasProjectOrganisations,
-  changeStatusProjectUsers,
-  hasProjectUsers,
   addNewProjectUser,
+  changeStatusProjectOrganisations,
+  changeStatusProjectUsers,
+  hasNewProjectUsers,
+  hasProjectOrganisations,
+  hasProjectUsers,
   inviteNewProjectUser,
 };

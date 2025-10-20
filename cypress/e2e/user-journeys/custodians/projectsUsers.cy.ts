@@ -3,7 +3,6 @@ import { ROUTES } from "@/consts/router";
 import { loginCustodian } from "cypress/support/utils/custodian/auth";
 import {
   changeStatusProjectUsers,
-  hasProjectOrganisations,
   hasProjectUsers,
 } from "cypress/support/utils/custodian/projects";
 import { DEFAULT_PROJECT_USERS_CUSTODIANS } from "cypress/support/utils/data";

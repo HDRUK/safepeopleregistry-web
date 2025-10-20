@@ -31,7 +31,9 @@ export default function StatusList({
   ];
 
   return (
-    <ActionsPanel panelSx={{ backgroundColor: "neutralGrey.main", mb: 2 }}>
+    <ActionsPanel
+      data-cy="status-list"
+      panelSx={{ backgroundColor: "neutralGrey.main", mb: 2 }}>
       <Box
         sx={{
           display: "flex",

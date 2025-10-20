@@ -6,11 +6,14 @@ import {
   DEFAULT_INVITE_USERS,
 } from "cypress/support/utils/data";
 import {
+  hasStatus,
   addAffiliationOrganisations,
+  approveAffiliationOrganisations,
+  declineAffiliationOrganisations,
   hasAffiliationOrganisations,
   hasRemoveAffiliationOrganisations,
   removeAffiliationOrganisations,
-} from "cypress/support/utils/organisation/affiliations.cy";
+} from "cypress/support/utils/organisation/affiliations";
 import { loginOrganisation } from "cypress/support/utils/organisation/auth";
 
 const dataUser = mockedUser(DEFAULT_INVITE_USERS);
@@ -20,7 +23,7 @@ const dataAffiliation = mockedAffiliation({
   email: dataUser.email,
   model_state: {
     state: {
-      slug: Status.AFFILIATION_EMAIL_VERIFY,
+      slug: Status.PENDING,
     },
   },
 });
@@ -45,15 +48,17 @@ describe("Affiliations journey", () => {
   it("Approves an affiliation", () => {
     cy.contains("a", `${dataUser.first_name} ${dataUser.last_name}`).click();
 
-    // approveAffiliationOrganisations(dataUser);
+    approveAffiliationOrganisations();
 
-    hasAffiliationOrganisations(dataAffiliation);
+    hasStatus(Status.AFFILIATED);
   });
 
   it("Declines an affiliation", () => {
-    addAffiliationOrganisations(dataUser);
+    cy.contains("a", `${dataUser.first_name} ${dataUser.last_name}`).click();
 
-    hasAffiliationOrganisations(dataAffiliation);
+    declineAffiliationOrganisations();
+
+    hasStatus(Status.AFFILIATION_REJECTED);
   });
 
   it("Removes an affiliation and reloads the page", () => {

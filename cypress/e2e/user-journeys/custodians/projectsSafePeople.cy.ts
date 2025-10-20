@@ -1,10 +1,8 @@
 import { Status } from "@/consts/application";
 import { ROUTES } from "@/consts/router";
 import { mockedCustodianHasProjectUser } from "@/mocks/data/custodian";
-import { faker } from "@faker-js/faker";
 import { loginCustodian } from "cypress/support/utils/custodian/auth";
 import {
-  addNewProjectUser,
   changeStatusProjectUsers,
   hasProjectUsers,
   inviteNewProjectUser,
@@ -39,6 +37,8 @@ describe("Projects safe people journey", () => {
     cy.contains("a", DEFAULT_PROJECT_NAME).click();
 
     cy.contains("a", "Safe People").click();
+
+    cy.contains("button", "Switch to list view").click();
   });
 
   after(() => {
@@ -55,6 +55,35 @@ describe("Projects safe people journey", () => {
 
     inviteNewProjectUser(dataProjectInviteUser);
 
+    /** This currently isn't working */
+    // hasNewProjectUsers({
+    //   ...dataProjectUser,
+    //   model_state: {
+    //     state: {
+    //       slug: Status.PENDING,
+    //     },
+    //   },
+    // });
+  });
+
+  it("Has added a user to the project", () => {
+    // This has been created from a previous test so the observers have had time to complete
+    hasProjectUsers({
+      ...dataProjectUser,
+      model_state: {
+        state: {
+          slug: Status.PENDING,
+        },
+      },
+    });
+  });
+
+  it("Changes status of an user", () => {
+    changeStatusProjectUsers(
+      dataProjectUser,
+      Status.MORE_USER_INFO_REQ_ESCALATION_MANAGER
+    );
+
     hasProjectUsers({
       ...dataProjectUser,
       model_state: {
@@ -63,36 +92,5 @@ describe("Projects safe people journey", () => {
         },
       },
     });
-  });
-
-  it("Adds a user to the project", () => {
-    // addNewProjectUser();
-    // changeStatusProjectUsers(
-    //   dataProjectUser,
-    //   Status.MORE_USER_INFO_REQ_ESCALATION_MANAGER
-    // );
-    // hasProjectUsers({
-    //   ...dataProjectUser,
-    //   model_state: {
-    //     state: {
-    //       slug: Status.MORE_USER_INFO_REQ_ESCALATION_MANAGER,
-    //     },
-    //   },
-    // });
-  });
-
-  it("Changes status of an user", () => {
-    // changeStatusProjectUsers(
-    //   dataProjectUser,
-    //   Status.MORE_USER_INFO_REQ_ESCALATION_MANAGER
-    // );
-    // hasProjectUsers({
-    //   ...dataProjectUser,
-    //   model_state: {
-    //     state: {
-    //       slug: Status.MORE_USER_INFO_REQ_ESCALATION_MANAGER,
-    //     },
-    //   },
-    // });
   });
 });

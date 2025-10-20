@@ -52,9 +52,12 @@ const editAffiliationUsers = (affiliation: ResearcherAffiliation) => {
 
   cy.actionMenuClick("View or edit");
 
-  cy.checkboxUncheck("current_employer");
   cy.dateSelectValue("from", affiliation.from);
-  cy.dateSelectValue("to", affiliation.to);
+
+  if (!affiliation.current_employer) {
+    cy.dateSelectValue("to", affiliation.to);
+  }
+
   cy.selectValue("relationship", affiliation.relationship);
   cy.get("#role").clear().type(affiliation.role);
   cy.get("#member_id").clear().type(affiliation.member_id);
@@ -83,13 +86,9 @@ const hasEditAffiliationUsers = (affiliation: ResearcherAffiliation) => {
   });
 
   row.within(() => {
-    return cy.contains(
-      "td",
-      `${formatShortDate(affiliation.from)} - ${formatShortDate(affiliation.to)}`,
-      {
-        timeout: 2000,
-      }
-    );
+    return cy.contains("td", `${formatShortDate(affiliation.from)} - Present`, {
+      timeout: 2000,
+    });
   });
 };
 

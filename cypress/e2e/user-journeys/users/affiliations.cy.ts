@@ -7,7 +7,7 @@ import {
   hasEditAffiliationUsers,
   hasRemoveAffiliationUsers,
   removeAffiliationUsers,
-} from "cypress/support/utils/user/affiliations.cy";
+} from "cypress/support/utils/user/affiliations";
 import { loginUser } from "cypress/support/utils/user/auth";
 import { ROUTES } from "@/consts/router";
 

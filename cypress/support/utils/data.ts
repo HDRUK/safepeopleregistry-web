@@ -1,3 +1,4 @@
+import { Status } from "@/consts/application";
 import {
   mockedCustodianHasProjectOrganisation,
   mockedCustodianHasProjectUser,
@@ -20,7 +21,8 @@ const DEFAULT_AFFILIATION_USERS = mockedAffiliation({
   role: "Manager",
   member_id: memberId,
   from: DEFAULT_FROM_DATE,
-  to: DEFAULT_TO_DATE,
+  to: null,
+  current_employer: true,
 });
 
 const DEFAULT_INVITE_USERS = mockedUser({
@@ -30,11 +32,11 @@ const DEFAULT_INVITE_USERS = mockedUser({
 });
 
 const DEFAULT_PROJECT_NAME =
-  "Exploring the Impact of Digital Health Interventions on Mental Health Outcomes in Young Adults";
+  "Assessing Air Quality Impact on Respiratory Health in Urban Populations";
 
 const DEFAULT_ORGANISATION_NAME = "Health Pathways (UK) Limited";
 
-const DEFAULT_ROLE_NAME = "Student";
+const DEFAULT_ROLE_NAME = "Researcher";
 
 const DEFAULT_PROJECT_ORGANISATIONS_CUSTODIANS =
   mockedCustodianHasProjectOrganisation({
@@ -49,6 +51,12 @@ const DEFAULT_PROJECT_USERS_CUSTODIANS = mockedCustodianHasProjectUser({
   project_has_user: mockedProjectHasUser({
     project: {
       title: DEFAULT_PROJECT_NAME,
+    },
+    registry: {
+      user: {
+        first_name: "Annie",
+        last_name: "Potts",
+      },
     },
   }),
 });
