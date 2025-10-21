@@ -85,9 +85,9 @@ export default function FormControlWrapper({
 
   let labelWidth = fullWidth ? "100%" : "auto";
 
-  if (isHorizontal) {
-    labelWidth = "180px";
-  }
+  // if (isHorizontal) {
+  //   labelWidth = "180px";
+  // }
 
   const tDescription = tForm(`${tKey}Description`);
   const tSubtitle = tForm(`${tKey}Subtitle`);

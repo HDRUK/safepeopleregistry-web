@@ -6,6 +6,7 @@ import {
 } from "@mui/material";
 import { Control, useFormContext, useController } from "react-hook-form";
 import { ReactNode } from "react";
+import FormControlDescription from "../FormControlDescription";
 
 interface FormControlCheckboxProps extends CheckboxProps {
   name: string;
@@ -46,9 +47,7 @@ export default function FormControlCheckbox({
         <>
           <Typography variant="small">{label}</Typography>
           {labelCaption && (
-            <Typography variant="small" color="textSecondary.main">
-              {labelCaption}
-            </Typography>
+            <FormControlDescription>{labelCaption}</FormControlDescription>
           )}
         </>
       }

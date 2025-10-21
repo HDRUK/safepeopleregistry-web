@@ -62,7 +62,6 @@ export default function InviteCustodianForm({
               {formFields.map((name: string) => (
                 <Grid item xs={12} key={name}>
                   <FormControlWrapper
-                    labelPosition="left"
                     name={name}
                     renderField={fieldProps => <TextField {...fieldProps} />}
                   />

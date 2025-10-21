@@ -207,7 +207,6 @@ export default function Webhooks() {
                             </Grid>
                             <Grid item xs={5.5}>
                               <FormControlWrapper
-                                labelPosition="left"
                                 label="Event Trigger"
                                 required
                                 labelMd={0}
