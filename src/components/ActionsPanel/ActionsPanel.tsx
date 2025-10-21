@@ -3,7 +3,7 @@
 import { Box, BoxProps, Typography, useTheme } from "@mui/material";
 import { ReactNode } from "react";
 
-export interface ActionsPanelProps {
+export interface ActionsPanelProps extends BoxProps {
   children: ReactNode;
   description?: ReactNode;
   heading?: ReactNode;
@@ -17,6 +17,7 @@ export default function ActionsPanel({
   heading,
   variant = "decorated",
   panelSx,
+  ...restProps
 }: ActionsPanelProps) {
   const theme = useTheme();
 
@@ -42,12 +43,14 @@ export default function ActionsPanel({
 
   return (
     <Box
+      {...restProps}
       sx={{
         display: "flex",
         flexDirection: "column",
         borderRadius: 3,
         ...defaultPanelSx,
         ...panelSx,
+        ...restProps.sx,
       }}>
       {heading && (
         <Typography variant="h4" sx={{ mb: 2 }}>

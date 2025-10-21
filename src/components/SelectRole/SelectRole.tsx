@@ -11,6 +11,7 @@ export default function TableSelectRole({
 }: SelectRoleProps) {
   return (
     <SelectInput
+      id="project-role"
       options={[
         ...roles.map(({ id, name }) => ({
           label: name,

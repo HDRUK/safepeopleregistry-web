@@ -51,8 +51,6 @@ export default function InviteUser({
     postOrganisationInviteUserQuery()
   );
 
-  useQueryAlerts(queryState);
-
   const {
     handleSubmit: handleCreateAndInviteOrganisation,
     queryState: inviteOrganisationQueryState,
@@ -62,6 +60,8 @@ export default function InviteUser({
     queryState,
     inviteOrganisationQueryState,
   ]);
+
+  useQueryAlerts(combinedQueryState);
 
   const checkEmailExists = async (email: string, useCache = false) => {
     const queryKey = ["getUsersByEmail", email];

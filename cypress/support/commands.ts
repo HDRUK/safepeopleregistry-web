@@ -47,14 +47,30 @@ Cypress.Commands.add("getResultsRow", (index?: number | string | undefined) => {
   return tableRows.eq(index);
 });
 
+Cypress.Commands.add("getResultsRowByValue", (value: string) => {
+  return cy.getResultsRow().contains("td", value).parent();
+});
+
+Cypress.Commands.add("getResultsActionMenu", (value: string) => {
+  return cy
+    .getResultsRowByValue(value)
+    .find("td")
+    .siblings()
+    .find(dataCy("action-menu"));
+});
+
 Cypress.Commands.add(
   "swalClick",
   (text: string = "OK", title: string = "Success") => {
-    const swalContainer = cy.get(".swal2-container").should("be.visible");
+    const swalContainer = cy
+      .get(".swal2-container", {
+        timeout: 4000,
+      })
+      .should("be.visible");
 
     swalContainer.get(".swal2-title").contains(title);
 
-    swalContainer.get("Button").contains(text).click();
+    swalContainer.get("button").contains(text).click();
   }
 );
 
@@ -83,22 +99,27 @@ Cypress.Commands.add("selectValue", (id: string, value: string) => {
   cy.get(`#menu-${id}`).get("li").contains(value).click();
 });
 
-Cypress.Commands.add("dateSelectValue", (id: string, value: string) => {
-  const dateParts = value.split("-");
+Cypress.Commands.add(
+  "dateSelectValue",
+  (id: string, value: string | null | undefined) => {
+    if (!value) return;
 
-  cy.get(dataCy(`${id}-button`)).click();
-  cy.get(dataCy(`${id}-popover`))
-    .get(`.MuiPickersCalendarHeader-switchViewIcon`)
-    .click()
-    .get("button")
-    .contains(dateParts[0])
-    .click();
+    const dateParts = value.split("-");
 
-  cy.get(dataCy(`${id}-button`)).click();
+    cy.get(dataCy(`${id}-button`)).click();
+    cy.get(dataCy(`${id}-popover`))
+      .get(`.MuiPickersCalendarHeader-switchViewIcon`)
+      .click()
+      .get("button")
+      .contains(dateParts[0])
+      .click();
 
-  cy.get(`#${id}`).click();
-  cy.get(`#${id}`).clear().type(`${dateParts[2]}/${dateParts[1]}`);
-});
+    cy.get(dataCy(`${id}-button`)).click();
+
+    cy.get(`#${id}`).click();
+    cy.get(`#${id}`).clear().type(`${dateParts[2]}/${dateParts[1]}`);
+  }
+);
 
 Cypress.Commands.add("saveFormClick", (text: string = "Save") => {
   const formModal = cy.get(dataCy("form-modal")).should("be.visible");
@@ -110,7 +131,7 @@ declare global {
   namespace Cypress {
     interface Chainable {
       login: (email: string, password: string) => void;
-      dataCy: (value: string) => void;
+      dataCy: (value: string) => string;
       visitFirst: (path: string) => void;
       getResultsRow: (
         id?: number | "last" | "first" | undefined
@@ -124,6 +145,12 @@ declare global {
       selectValue: (id: string, value: string) => void;
       dateSelectValue: (id: string, value: string) => void;
       saveFormClick: (text?: string) => void;
+      getResultsActionMenu: (
+        value: string
+      ) => Cypress.Chainable<JQuery<HTMLElement>>;
+      getResultsRowByValue: (
+        value: string
+      ) => Cypress.Chainable<JQuery<HTMLElement>>;
     }
   }
 }
