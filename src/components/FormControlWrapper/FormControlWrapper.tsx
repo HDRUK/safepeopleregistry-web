@@ -83,7 +83,7 @@ export default function FormControlWrapper({
     ...sx,
   };
 
-  let labelWidth = fullWidth ? "100%" : "auto";
+  const labelWidth = fullWidth ? "100%" : "auto";
 
   // if (isHorizontal) {
   //   labelWidth = "180px";
