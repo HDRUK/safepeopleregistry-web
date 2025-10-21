@@ -50,6 +50,13 @@ const getShortStatus = (slug: string) => {
   }
 };
 
+const getName = <T extends { first_name: string; last_name: string }>({
+  first_name,
+  last_name,
+}: T) => {
+  return `${first_name} ${last_name}`;
+};
+
 function parseSystemConfig(data: GetSystemConfigResponse | undefined) {
   return data
     ? data.reduce(
@@ -109,4 +116,5 @@ export {
   canUseIdvt,
   getStatus,
   getShortStatus,
+  getName,
 };

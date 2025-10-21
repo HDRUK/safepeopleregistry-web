@@ -2,7 +2,7 @@
 
 import Form from "@/components/Form/Form";
 import FormActions from "@/components/FormActions";
-import Checkbox from "@mui/material/Checkbox";
+import FormControlCheckbox from "@/components/FormControlCheckbox";
 import FormFieldArray from "@/components/FormFieldArray";
 import SelectCountry from "@/components/SelectCountry";
 import yup from "@/config/yup";
@@ -156,14 +156,10 @@ export default function DigitalIdentifiers() {
                   </Grid>
 
                   <Grid item xs={7}>
-                    <FormControlWrapper
-                      labelPosition="right"
-                      name="isCharity"
+                    <FormControlCheckbox
                       label={tForm("isCharity")}
-                      description={tOrgProfile("isCharityDescription")}
-                      renderField={fieldProps => (
-                        <Checkbox {...fieldProps} checked={fieldProps.value} />
-                      )}
+                      name="isCharity"
+                      labelCaption={tOrgProfile("isCharityDescription")}
                     />
                   </Grid>
 

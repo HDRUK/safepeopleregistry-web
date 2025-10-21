@@ -3,7 +3,7 @@ import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { TranslationValues, useTranslations } from "next-intl";
 import { getDaysSince } from "../../utils/date";
-import { getInitials } from "../../utils/application";
+import { getInitials, getName } from "../../utils/application";
 import MaskLabel from "../../components/MaskLabel";
 import { getUserHistoryQuery } from "../../services/users";
 
@@ -47,9 +47,9 @@ export default function UserHistory() {
           history;
 
         const logUser = causer || subject;
-        const userName = `${logUser?.first_name} ${logUser?.last_name}`;
+        const userName = getName(logUser);
 
-        const subjectName = `${subject?.first_name} ${subject?.last_name}`;
+        const subjectName = getName(subject);
 
         const changedAttributeString = Object.entries(
           properties?.attributes || {}

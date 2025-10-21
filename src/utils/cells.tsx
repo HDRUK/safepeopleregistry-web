@@ -1,11 +1,12 @@
 "use client";
 
+import { Status } from "@/consts/application";
 import { Link } from "@/i18n/routing";
+import { getName, injectParamsIntoPath } from "@/utils/application";
 import WarningAmberOutlinedIcon from "@mui/icons-material/WarningAmberOutlined";
 import { Link as MuiLink, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { CellContext } from "@tanstack/react-table";
-import { Status } from "@/consts/application";
 import ChipStatus from "../components/ChipStatus";
 import FileDownloadLink from "../components/FileDownloadLink";
 import SelectRole from "../components/SelectRole";
@@ -24,7 +25,6 @@ import {
   Translations,
   User,
 } from "../types/application";
-import { injectParamsIntoPath } from "./application";
 import { formatShortDate } from "./date";
 
 function renderAffiliationRelationship(
@@ -94,11 +94,9 @@ function renderUserNameCell(
 ) {
   if (!user) return "";
 
-  const { first_name, last_name } = user;
+  const name = getName(user);
 
-  return route
-    ? renderLinkNameCell(`${first_name} ${last_name}`, route, options)
-    : `${first_name} ${last_name}`;
+  return route ? renderLinkNameCell(name, route, options) : name;
 }
 
 const renderProjectUserNameCell = (data: ProjectUser, route: string) => {

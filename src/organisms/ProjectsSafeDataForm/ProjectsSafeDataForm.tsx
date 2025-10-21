@@ -88,7 +88,6 @@ export default function ProjectsSafeDataForm({
               <Grid container spacing={2}>
                 <Grid item xs={5}>
                   <FormControlWrapper
-                    labelPosition="left"
                     displayLabel={false}
                     labelMd={0}
                     contentMd={12}

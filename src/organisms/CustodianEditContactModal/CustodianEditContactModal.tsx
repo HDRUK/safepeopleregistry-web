@@ -10,6 +10,7 @@ import {
   putCustodianUser,
 } from "@/services/custodian_users";
 import { CustodianUser } from "@/types/application";
+import { getName } from "@/utils/application";
 import { getPermission } from "@/utils/permissions";
 import { getCombinedQueryState } from "@/utils/query";
 import { showAlert } from "@/utils/showAlert";
@@ -118,7 +119,7 @@ export default function UsersModal({
 
   return (
     <FormModal
-      aria-label={`${user.first_name} ${user.last_name} details`}
+      aria-label={`${getName(user)} details`}
       variant="content"
       onClose={onClose}
       {...restProps}>

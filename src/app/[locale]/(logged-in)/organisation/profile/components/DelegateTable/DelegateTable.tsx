@@ -1,20 +1,21 @@
-import Table from "@/components/Table";
-import { getOrganisationDelegatesQuery } from "@/services/organisations";
-import { useQuery } from "@tanstack/react-query";
-import { formatShortDate } from "@/utils/date";
-import { User } from "@/types/application";
-import { ColumnDef, CellContext } from "@tanstack/react-table";
-import LoadingWrapper from "@/components/LoadingWrapper";
-import { useStore } from "@/data/store";
-import FormModal from "@/components/FormModal";
-import { useState } from "react";
-import { Box, Button } from "@mui/material";
-import TaskAltIcon from "@mui/icons-material/TaskAlt";
-import DecoupleDelegate from "@/components/DecoupleDelegate";
-import { useTranslations } from "next-intl";
 import { ActionMenu } from "@/components/ActionMenu";
+import DecoupleDelegate from "@/components/DecoupleDelegate";
 import ErrorMessage from "@/components/ErrorMessage";
+import FormModal from "@/components/FormModal";
+import LoadingWrapper from "@/components/LoadingWrapper";
+import Table from "@/components/Table";
 import { DEFAULT_STALE_TIME } from "@/consts/requests";
+import { useStore } from "@/data/store";
+import { getOrganisationDelegatesQuery } from "@/services/organisations";
+import { User } from "@/types/application";
+import { getName } from "@/utils/application";
+import { formatShortDate } from "@/utils/date";
+import TaskAltIcon from "@mui/icons-material/TaskAlt";
+import { Box, Button } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
+import { CellContext, ColumnDef } from "@tanstack/react-table";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
 import EditDelegate from "../EditDelegate";
 import InviteDelegateForm from "../InviteDelegateForm";
 
@@ -65,8 +66,7 @@ const DelegateTable = () => {
     {
       accessorKey: "name",
       header: "Full Name",
-      cell: info =>
-        `${info.row.original.first_name} ${info.row.original.last_name}`,
+      cell: info => getName(info.row.original),
     },
     {
       accessorKey: "department",

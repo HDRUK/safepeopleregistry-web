@@ -83,6 +83,8 @@ export default function FormControlWrapper({
     ...sx,
   };
 
+  const labelWidth = fullWidth ? "100%" : "auto";
+
   const tDescription = tForm(`${tKey}Description`);
   const tSubtitle = tForm(`${tKey}Subtitle`);
 
@@ -110,7 +112,7 @@ export default function FormControlWrapper({
           <Box sx={controlSx}>
             <Box
               sx={{
-                width: fullWidth ? "100%" : "auto",
+                width: labelWidth,
                 display: "flex",
                 flexDirection: "column",
                 gap: 0.5,

@@ -1,11 +1,15 @@
 import { Status } from "@/consts/application";
 import { ROUTES } from "@/consts/router";
 import { mockedCustodianHasProjectUser } from "@/mocks/data/custodian";
+import { getName } from "@/utils/application";
 import { loginCustodian } from "cypress/support/utils/custodian/auth";
 import {
+  changePrimaryContactProjectUsers,
   changeStatusProjectUsers,
+  hasPrimaryContact,
   hasProjectUsers,
   inviteNewProjectUser,
+  removeFromProjectUsers,
 } from "cypress/support/utils/custodian/projects";
 import {
   DEFAULT_PROJECT_INVITE_USERS,
@@ -55,7 +59,7 @@ describe("Projects safe people journey", () => {
 
     inviteNewProjectUser(dataProjectInviteUser);
 
-    /** This currently isn't working */
+    /** This currently isn't working due to observers not finishing */
     // hasNewProjectUsers({
     //   ...dataProjectUser,
     //   model_state: {
@@ -94,6 +98,18 @@ describe("Projects safe people journey", () => {
     });
   });
 
-  // Primary contact
-  // Remove from project
+  it("Makes a user a primary contact", () => {
+    changePrimaryContactProjectUsers(dataProjectUser);
+
+    hasPrimaryContact(dataProjectUser);
+  });
+
+  it("Removes a user from the project", () => {
+    removeFromProjectUsers(dataProjectUser);
+
+    cy.getResultsRow()
+      .find("td")
+      .contains(getName(dataProjectUser.project_has_user.registry.user))
+      .should("not.exist");
+  });
 });

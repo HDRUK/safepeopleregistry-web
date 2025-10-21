@@ -1,7 +1,8 @@
-import { useTranslations } from "next-intl";
-import { Box, Typography } from "@mui/material";
-import ErrorIcon from "@mui/icons-material/Error";
 import { useStore } from "@/data/store";
+import { getName } from "@/utils/application";
+import ErrorIcon from "@mui/icons-material/Error";
+import { Box, Typography } from "@mui/material";
+import { useTranslations } from "next-intl";
 import Text from "../../components/Text";
 
 const NAMESPACE_TRANSLATION = "Users.Identity";
@@ -21,7 +22,7 @@ export default function UserIdentity() {
     <>
       <Box>
         <Typography sx={{ fontWeight: 600 }}>{t("name")}</Typography>
-        <Typography>{`${user?.first_name} ${user?.last_name}`}</Typography>
+        <Typography>{getName(user)}</Typography>
       </Box>
       <Box>
         <Typography sx={{ fontWeight: 600 }}>{t("digiIdent")}</Typography>

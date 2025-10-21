@@ -3,6 +3,7 @@ import { useTranslations } from "next-intl";
 import { ROUTES } from "@/consts/router";
 import { mockedUser } from "@/mocks/data/user";
 import { formatShortDate } from "@/utils/date";
+import { getName } from "@/utils/application";
 import OrganisationUsersTable, {
   OrganisationUsersTableProps,
 } from "./OrganisationUsersTable";
@@ -44,9 +45,7 @@ describe("<OrganisationUsersTable />", () => {
       data: [user],
     });
 
-    expect(
-      screen.getByText(new RegExp(`${user.first_name} ${user.last_name}`))
-    ).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(getName(user)))).toBeInTheDocument();
     expect(
       screen.getByText(user?.registry?.affiliations?.[0].email as string)
     ).toBeInTheDocument();
