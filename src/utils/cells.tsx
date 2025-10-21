@@ -2,7 +2,7 @@
 
 import { Status } from "@/consts/application";
 import { Link } from "@/i18n/routing";
-import { getName } from "@/utils/application";
+import { getName, injectParamsIntoPath } from "@/utils/application";
 import WarningAmberOutlinedIcon from "@mui/icons-material/WarningAmberOutlined";
 import { Link as MuiLink, Typography } from "@mui/material";
 import { Box } from "@mui/system";
@@ -25,7 +25,6 @@ import {
   Translations,
   User,
 } from "../types/application";
-import { injectParamsIntoPath } from "./application";
 import { formatShortDate } from "./date";
 
 function renderAffiliationRelationship(

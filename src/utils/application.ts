@@ -1,7 +1,6 @@
 import { GetSystemConfigResponse } from "@/services/system_config/types";
 import { escapeAndParse } from "./json";
 import { Status, VALIDATION_SCHEMA_KEY } from "../consts/application";
-import { User } from "@/types/application";
 
 function canUseIdvt(country: string | undefined) {
   return Boolean(

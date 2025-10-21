@@ -59,7 +59,7 @@ describe("Projects safe people journey", () => {
 
     inviteNewProjectUser(dataProjectInviteUser);
 
-    /** This currently isn't working */
+    /** This currently isn't working due to observers not finishing */
     // hasNewProjectUsers({
     //   ...dataProjectUser,
     //   model_state: {
