@@ -1,6 +1,7 @@
 import { Status } from "@/consts/application";
 import { ROUTES } from "@/consts/router";
 import { mockedAffiliation, mockedUser } from "@/mocks/data/user";
+import { getName } from "@/utils/application";
 import {
   DEFAULT_AFFILIATION_USERS,
   DEFAULT_INVITE_USERS,
@@ -46,7 +47,7 @@ describe("Affiliations journey", () => {
   });
 
   it("Approves an affiliation", () => {
-    cy.contains("a", `${dataUser.first_name} ${dataUser.last_name}`).click();
+    cy.contains("a", getName(dataUser)).click();
 
     approveAffiliationOrganisations();
 
@@ -54,7 +55,7 @@ describe("Affiliations journey", () => {
   });
 
   it("Declines an affiliation", () => {
-    cy.contains("a", `${dataUser.first_name} ${dataUser.last_name}`).click();
+    cy.contains("a", getName(dataUser)).click();
 
     declineAffiliationOrganisations();
 

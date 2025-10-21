@@ -6,6 +6,7 @@ import { formatShortDate } from "@/utils/date";
 import OrganisationUsersTable, {
   OrganisationUsersTableProps,
 } from "./OrganisationUsersTable";
+import { getName } from "@/utils/application";
 
 const user = mockedUser();
 
@@ -44,9 +45,7 @@ describe("<OrganisationUsersTable />", () => {
       data: [user],
     });
 
-    expect(
-      screen.getByText(new RegExp(`${user.first_name} ${user.last_name}`))
-    ).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(getName(user)))).toBeInTheDocument();
     expect(
       screen.getByText(user?.registry?.affiliations?.[0].email as string)
     ).toBeInTheDocument();

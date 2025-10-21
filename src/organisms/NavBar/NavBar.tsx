@@ -22,7 +22,7 @@ import MaskLabel from "../../components/MaskLabel";
 import SoursdLogo from "../../components/SoursdLogo";
 import { CONTACT_MAIL_ADDRESS } from "../../config/contacts";
 import PageCenter from "../../modules/PageCenter";
-import { getInitials } from "../../utils/application";
+import { getInitials, getName } from "../../utils/application";
 import { handleLogin, handleLogout } from "../../utils/keycloak";
 import NotificationsMenu from "../NotificationsMenu";
 import { StyledContainer, StyledHeader } from "./NavBar.styles";
@@ -222,7 +222,7 @@ export default function NavBar({ loggedIn }: NavBarProps) {
               {storedUser?.unclaimed === 0 && <NotificationsMenu />}
               {storedUser?.unclaimed === 0 && (
                 <MaskLabel
-                  initials={`${getInitials(`${storedUser?.first_name} ${storedUser?.last_name}`)}`}
+                  initials={`${getInitials(getName(storedUser))}`}
                   label=""
                   size="small"
                 />

@@ -17,6 +17,7 @@ import ErrorMessage from "@/components/ErrorMessage";
 import { DEFAULT_STALE_TIME } from "@/consts/requests";
 import EditDelegate from "../EditDelegate";
 import InviteDelegateForm from "../InviteDelegateForm";
+import { getName } from "@/utils/application";
 
 const NAMESPACE_TRANSLATION_PROFILE = "ProfileOrganisation";
 
@@ -65,8 +66,7 @@ const DelegateTable = () => {
     {
       accessorKey: "name",
       header: "Full Name",
-      cell: info =>
-        `${info.row.original.first_name} ${info.row.original.last_name}`,
+      cell: info => getName(info.row.original),
     },
     {
       accessorKey: "department",

@@ -2,7 +2,8 @@ import {
   mockedFormattedSystemConfig,
   mockedSystemConfig,
 } from "@/mocks/data/systemConfig";
-import { parseSystemConfig } from "./application";
+import { getName, parseSystemConfig } from "./application";
+import { mockedUser } from "@/mocks/data/user";
 
 describe("Application utils", () => {
   describe("parseSystemConfig", () => {
@@ -14,6 +15,14 @@ describe("Application utils", () => {
 
     it("returns an empty object", async () => {
       expect(parseSystemConfig(undefined)).toEqual({});
+    });
+  });
+
+  describe("getName", () => {
+    it("returns the correct name", async () => {
+      const user = mockedUser();
+
+      expect(getName(user)).toEqual(`${user.first_name} ${user.last_name}`);
     });
   });
 });

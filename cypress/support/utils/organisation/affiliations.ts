@@ -50,7 +50,7 @@ const addAffiliationOrganisations = (invite: User) => {
 
   cy.get(dataCy("form-modal")).should("be.visible");
 
-  cy.get("#first_name").clear().type(invite.first_name);
+  cy.get("#first_name").clear().type(invite);
   cy.get("#last_name").clear().type(invite.last_name);
   cy.get("#email").clear().type(invite.email);
 

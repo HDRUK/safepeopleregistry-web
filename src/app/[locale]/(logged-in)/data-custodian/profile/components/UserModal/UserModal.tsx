@@ -111,7 +111,7 @@ export default function UsersModal({
 
   return (
     <FormModal
-      aria-label={`${user.first_name} ${user.last_name} details`}
+      aria-label={`${user} ${user.last_name} details`}
       variant="content"
       onClose={onClose}
       {...restProps}>
