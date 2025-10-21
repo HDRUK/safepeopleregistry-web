@@ -1,9 +1,9 @@
-import { useTranslations } from "next-intl";
-import { Box, Typography } from "@mui/material";
-import ErrorIcon from "@mui/icons-material/Error";
 import { useStore } from "@/data/store";
-import Text from "../../components/Text";
 import { getName } from "@/utils/application";
+import ErrorIcon from "@mui/icons-material/Error";
+import { Box, Typography } from "@mui/material";
+import { useTranslations } from "next-intl";
+import Text from "../../components/Text";
 
 const NAMESPACE_TRANSLATION = "Users.Identity";
 

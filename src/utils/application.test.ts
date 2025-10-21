@@ -2,8 +2,8 @@ import {
   mockedFormattedSystemConfig,
   mockedSystemConfig,
 } from "@/mocks/data/systemConfig";
-import { getName, parseSystemConfig } from "./application";
 import { mockedUser } from "@/mocks/data/user";
+import { getName, parseSystemConfig } from "./application";
 
 describe("Application utils", () => {
   describe("parseSystemConfig", () => {

@@ -3,10 +3,10 @@ import { useTranslations } from "next-intl";
 import { ROUTES } from "@/consts/router";
 import { mockedUser } from "@/mocks/data/user";
 import { formatShortDate } from "@/utils/date";
+import { getName } from "@/utils/application";
 import OrganisationUsersTable, {
   OrganisationUsersTableProps,
 } from "./OrganisationUsersTable";
-import { getName } from "@/utils/application";
 
 const user = mockedUser();
 
