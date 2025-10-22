@@ -14,19 +14,27 @@ const getLoginPath = () => {
   return `${authUrl}?${params.toString()}`;
 };
 
-const logout = (fnError?: () => void) => {
-  cy.get("header")
-    .contains("button", "Sign Out", {
-      timeout: 2000,
-    })
+const getLogoutPath = () => {
+  const logoutUrl = `$/realms/${Cypress.env("keycloakRealm")}/protocol/openid-connect/logout`;
+  const params = new URLSearchParams({
+    client_id: Cypress.env("keycloakClientId"),
+    post_logout_redirect_uri: Cypress.env("keycloakLogoutRedirectUrl"),
+  });
+
+  return `${logoutUrl}?${params.toString()}`;
+};
+
+const logout = () => {
+  cy.get("button")
+    .contains("Sign Out")
     .click()
     .then(() => {
       cy.origin(Cypress.env("keycloakBaseUrl"), { args: null }, () => {
-        cy.get("#kc-logout", {
-          timeout: 2000,
-        }).click();
-      }).catch(() => {
-        fnError?.();
+        const { getLogoutPath } = Cypress.require("./utils/common");
+
+        cy.visit(getLogoutPath());
+
+        cy.get("#kc-logout").click();
       });
     });
 };

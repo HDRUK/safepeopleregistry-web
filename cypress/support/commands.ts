@@ -127,6 +127,13 @@ Cypress.Commands.add("saveFormClick", (text: string = "Save") => {
   formModal.get("button").contains(text).click();
 });
 
+Cypress.Commands.add(
+  "saveContinueClick",
+  (text: string = "Save & Continue") => {
+    cy.contains("button", text).click();
+  }
+);
+
 declare global {
   namespace Cypress {
     interface Chainable {
@@ -145,6 +152,7 @@ declare global {
       selectValue: (id: string, value: string) => void;
       dateSelectValue: (id: string, value: string) => void;
       saveFormClick: (text?: string) => void;
+      saveContinueClick: (text?: string) => void;
       getResultsActionMenu: (
         value: string
       ) => Cypress.Chainable<JQuery<HTMLElement>>;
