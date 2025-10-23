@@ -108,6 +108,8 @@ Cypress.Commands.add(
 
     const dateParts = value.split("-");
 
+    cy.get(dataCy(`${id}-button`)).scrollIntoView();
+
     cy.get(dataCy(`${id}-button`)).click();
     cy.get(dataCy(`${id}-popover`))
       .get(`.MuiPickersCalendarHeader-switchViewIcon`)

@@ -6,6 +6,7 @@ import {
   mockedProjectHasUser,
 } from "@/mocks/data/custodian";
 import { mockedOrganisation } from "@/mocks/data/organisation";
+import { mockedProject, mockedProjectDetails } from "@/mocks/data/project";
 import { mockedAffiliation, mockedUser } from "@/mocks/data/user";
 import { faker } from "@faker-js/faker";
 
@@ -70,6 +71,25 @@ const DEFAULT_PROJECT_USERS_CUSTODIANS = mockedCustodianHasProjectUser({
   }),
 });
 
+const DEFAULT_PROJECT = mockedProject({
+  title: faker.lorem.words(6),
+  unique_id: faker.string.alphanumeric(10).toUpperCase(),
+  lay_summary: faker.lorem.paragraphs(2),
+  technical_summary: faker.lorem.paragraphs(2),
+  public_benefit: faker.lorem.paragraphs(2),
+  request_category_type: "Health Data Research",
+  start_date: "2024-07-01",
+  end_date: "2025-07-01",
+  other_approval_committees: ["NHS Research Ethics Committee"],
+  model_state: {
+    state: {
+      slug: Status.PROJECT_PENDING,
+    },
+  },
+});
+
+const DEFAULT_PROJECT_DETAILS = mockedProjectDetails();
+
 const DEFAULT_PROJECT_INVITE_USERS = {
   first_name: faker.person.firstName(),
   last_name: faker.person.lastName(),
@@ -110,4 +130,6 @@ export {
   DEFAULT_SRO_FIELDS_ORGANISATIONS,
   DEFAULT_PDF_FILE,
   DEFAULT_UNAPPROVED_ORGANISATION,
+  DEFAULT_PROJECT,
+  DEFAULT_PROJECT_DETAILS,
 };

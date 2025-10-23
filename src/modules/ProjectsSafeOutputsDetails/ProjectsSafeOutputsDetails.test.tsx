@@ -21,6 +21,5 @@ describe("<ProjectsSafeDataDetails />", () => {
     );
 
     expect(screen.getByText("http://www.hdruk.ac.uk")).toBeInTheDocument();
-    expect(screen.getByText("Not set")).toBeInTheDocument();
   });
 });

@@ -46,6 +46,8 @@ const mockedProjectDetails = (
   data_minimisation: "Data Minimisation",
   data_use_description: "Data Use Description",
   access_date: "2023-01-01",
+  data_privacy: "Data Privacy Information",
+  data_assets: "Data Assets Information",
   ...projectDetails,
 });
 
