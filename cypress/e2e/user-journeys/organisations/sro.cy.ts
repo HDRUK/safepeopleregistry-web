@@ -10,6 +10,7 @@ import { loginUnapprovedOrganisation } from "cypress/support/utils/organisation/
 import {
   addSROOrganisations,
   hasSRODisabledTabsOrganisations,
+  hasSROEnabledTabsOrganisations,
   hasSROOrganisation,
 } from "cypress/support/utils/organisation/sro";
 
@@ -58,5 +59,21 @@ describe("SRO journey", () => {
 
     //   //   hasSROOrganisation(dataOrganisation, "Not approved");
     //   // });
+  });
+
+  describe("Organisation approved", () => {
+    beforeEach(() => {
+      loginUnapprovedOrganisation();
+
+      cy.visitFirst(ROUTES.profileOrganisationDetailsNameAndAddress.path);
+    });
+
+    after(() => {
+      // logout();
+    });
+
+    it("Has the correct tabs disabled", () => {
+      hasSROEnabledTabsOrganisations();
+    });
   });
 });

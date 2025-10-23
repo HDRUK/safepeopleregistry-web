@@ -1,0 +1,10 @@
+{
+  "suites": 3,
+  "tests": 3,
+  "passes": 2,
+  "pending": 0,
+  "failures": 1,
+  "start": "2025-10-23T11:28:57.388Z",
+  "duration": 136143,
+  "file": "cypress/e2e/user-journeys/organisations/sro.cy.ts"
+}

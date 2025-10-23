@@ -1,0 +1,10 @@
+{
+  "suites": 1,
+  "tests": 3,
+  "passes": 3,
+  "pending": 0,
+  "failures": 0,
+  "start": "2025-10-23T11:28:59.588Z",
+  "duration": 79675,
+  "file": "cypress/e2e/user-journeys/users/affiliations.cy.ts"
+}

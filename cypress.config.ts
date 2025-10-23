@@ -60,7 +60,8 @@ export default defineConfig({
     experimentalMemoryManagement: true,
     experimentalInteractiveRunEvents: true,
     chromeWebSecurity: false,
-    defaultCommandTimeout: 10000,
+    defaultCommandTimeout: 40000,
+    projectId: "vnpz3g",
     // supportFile: "cypress/support/index.ts",
   },
 });

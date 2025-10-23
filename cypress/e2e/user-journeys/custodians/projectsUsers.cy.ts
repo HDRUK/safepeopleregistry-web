@@ -28,8 +28,6 @@ describe("Projects users journey", () => {
       Status.MORE_USER_INFO_REQ_ESCALATION_MANAGER
     );
 
-    cy.wait(5000);
-
     hasProjectUsers({
       ...dataProjectUser,
       model_state: {

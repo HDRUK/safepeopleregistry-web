@@ -18,9 +18,13 @@
     "cy:open": "npx cypress open",
     "precy:open": "scripts/cypress.backup.sh",
     "postcy:open": "scripts/cypress.restore.sh",
-    "cy:run": "npx cypress run --browser chrome --spec 'cypress/e2e/user-journeys/organisations/affiliations.cy.ts'",
+    "cy:run": "npx cypress run -b electron",
+    "cy:run-without-backup": "npx cypress run",
+    "cy:parallel": "npx cypress-parallel -s cy:run-without-backup -t 2 -d 'cypress/e2e/user-journeys/**/*.cy.ts' -a '\"-b electron\"'",
     "precy:run": "scripts/cypress.backup.sh",
-    "postcy:run": "scripts/cypress.restore.sh"
+    "postcy:run": "scripts/cypress.restore.sh",
+    "precy:parallel": "scripts/cypress.backup.sh",
+    "postcy:parallel": "scripts/cypress.restore.sh"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -53,6 +57,7 @@
     "babel-jest": "^30.0.2",
     "conventional-changelog-conventionalcommits": "^9.0.0",
     "countries-list": "^3.1.1",
+    "cypress-parallel": "^0.15.0",
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.11",
     "deep-equal": "^2.2.3",

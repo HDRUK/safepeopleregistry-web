@@ -37,11 +37,8 @@ describe("Projects safe people journey", () => {
     loginCustodian();
 
     cy.visitFirst(ROUTES.profileCustodianProjects.path);
-    cy.wait(4000);
     cy.contains("a", DEFAULT_PROJECT_NAME).click();
-    cy.wait(10000);
     cy.contains("a", "Safe People").click();
-    cy.wait(4000);
     cy.contains("button", "Switch to list view").click();
   });
 

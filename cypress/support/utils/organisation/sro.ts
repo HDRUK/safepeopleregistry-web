@@ -39,8 +39,17 @@ const hasSRODisabledTabsOrganisations = () => {
   });
 };
 
+const hasSROEnabledTabsOrganisations = () => {
+  cy.get(dataCy("tabs-navigation")).within(() => {
+    cy.contains("a.Mui-disabled", "Team").should("not.exist");
+    cy.contains("a.Mui-disabled", "Users").should("not.exist");
+    cy.contains("a.Mui-disabled", "Projects").should("not.exist");
+  });
+};
+
 export {
   addSROOrganisations,
   hasSRODisabledTabsOrganisations,
   hasSROOrganisation,
+  hasSROEnabledTabsOrganisations,
 };

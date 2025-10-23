@@ -29,8 +29,6 @@ Cypress.Commands.add("visitFirst", (path: string) => {
   cy.visit(path);
 
   cy.get("body").click();
-
-  cy.wait(5000);
 });
 
 Cypress.Commands.add("getResultsRow", (index?: number | string | undefined) => {
@@ -83,7 +81,7 @@ Cypress.Commands.add("actionMenuClick", (text: string) => {
 });
 
 Cypress.Commands.add("buttonClick", (text: string) => {
-  cy.wait(5000).get("button").contains(text).click();
+  cy.get("button").contains(text).click();
 });
 
 Cypress.Commands.add("checkboxClick", (id: string) => {
