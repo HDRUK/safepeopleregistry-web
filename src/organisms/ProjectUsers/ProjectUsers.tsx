@@ -235,6 +235,7 @@ export default function ProjectUsers({
         <ProjectsAddUserModal
           request={variant === EntityType.ORGANISATION}
           projectId={projectId}
+          custodianId={custodianId}
           open={showAddModal}
           onClose={() => {
             setShowAddModal(false);

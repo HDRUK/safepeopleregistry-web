@@ -15,7 +15,16 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "chromatic": "npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN",
-    "cypress": "npx cypress open"
+    "cy:open": "npx cypress open",
+    "precy:open": "scripts/cypress.backup.sh",
+    "postcy:open": "scripts/cypress.restore.sh",
+    "cy:run": "npx cypress run -b electron",
+    "cy:run-without-backup": "npx cypress run",
+    "cy:parallel": "npx cypress-parallel -s cy:run-without-backup -t 2 -d 'cypress/e2e/user-journeys/**/*.cy.ts' -a '\"-b electron\"'",
+    "precy:run": "scripts/cypress.backup.sh",
+    "postcy:run": "scripts/cypress.restore.sh",
+    "precy:parallel": "scripts/cypress.backup.sh",
+    "postcy:parallel": "scripts/cypress.restore.sh"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -109,7 +118,6 @@
     "@typescript-eslint/eslint-plugin": "^8.16.0",
     "chromatic": "^11.18.0",
     "css-mediaquery": "^0.1.2",
-    "cypress": "^15.4.0",
     "eslint": "^8",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^9.1.0",

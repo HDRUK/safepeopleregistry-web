@@ -45,7 +45,11 @@ export default function Results({
           <LoadingWrapper
             variant="basic"
             loading={queryState?.isLoading && !queryState?.isError}>
-            {!!total && <div role="list">{children}</div>}
+            {!!total && (
+              <div role="list" data-cy="results">
+                {children}
+              </div>
+            )}
           </LoadingWrapper>
         </Box>
       )}

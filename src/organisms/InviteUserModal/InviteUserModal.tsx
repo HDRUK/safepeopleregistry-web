@@ -8,6 +8,7 @@ interface InviteUserProps extends Omit<FormModalProps, "children"> {
   onSuccess?: (id: number, roleId: number) => void;
   projectRoles?: Partial<Role>[];
   organisationId?: number;
+  custodianId?: number;
 }
 
 const NAMESPACE_TRANSLATION = "InviteUserModal";
@@ -16,6 +17,7 @@ export default function InviteUserModal({
   onSuccess,
   onClose,
   organisationId,
+  custodianId,
   projectRoles,
   ...restProps
 }: InviteUserProps) {
@@ -33,6 +35,7 @@ export default function InviteUserModal({
         onSuccess={onSuccess}
         projectRoles={projectRoles}
         organisationId={organisationId}
+        custodianId={custodianId}
       />
     </FormModal>
   );

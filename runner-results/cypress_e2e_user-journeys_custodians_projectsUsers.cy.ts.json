@@ -1,0 +1,10 @@
+{
+  "suites": 1,
+  "tests": 1,
+  "passes": 1,
+  "pending": 0,
+  "failures": 0,
+  "start": "2025-10-23T11:30:21.623Z",
+  "duration": 49141,
+  "file": "cypress/e2e/user-journeys/custodians/projectsUsers.cy.ts"
+}

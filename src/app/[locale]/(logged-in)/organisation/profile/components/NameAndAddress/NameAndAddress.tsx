@@ -15,6 +15,7 @@ import SroDeclaration from "@/organisms/SroDeclaration";
 import useOrganisationStore from "@/queries/useOrganisationStore";
 import { getUserQuery, putUserQuery } from "@/services/users";
 import { AddressFields } from "@/types/application";
+import { KeyContactFormValues } from "@/types/form";
 import { pick } from "@/utils/json";
 import { Grid, TextField } from "@mui/material";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -32,14 +33,6 @@ export interface NameAndAddressFormValues {
   county: string;
   country: string;
   postcode: string;
-}
-
-export interface KeyContactFormValues {
-  first_name: string;
-  last_name: string;
-  department: number;
-  email: string;
-  job_title: string;
 }
 
 const NAMESPACE_TRANSLATION_FORM = "Form";

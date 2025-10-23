@@ -37,10 +37,19 @@ interface InviteUserFormValues {
   organisation_email?: string;
 }
 
+interface KeyContactFormValues {
+  first_name: string;
+  last_name: string;
+  department: number;
+  email: string;
+  job_title: string;
+}
+
 export type {
   QueryState,
   MutationState,
   WithQueryState,
   WithMutationState,
   InviteUserFormValues,
+  KeyContactFormValues,
 };

@@ -5,4 +5,11 @@ const loginOrganisation = () => {
   );
 };
 
-export { loginOrganisation };
+const loginUnapprovedOrganisation = () => {
+  cy.login(
+    Cypress.env("unapprovedOrganisationEmail"),
+    Cypress.env("unapprovedOrganisationPassword")
+  );
+};
+
+export { loginOrganisation, loginUnapprovedOrganisation };

@@ -137,13 +137,7 @@ const hasProjectUsers = (project: CustodianProjectUser) => {
 
   row.within(() => {
     cy.contains("td", DEFAULT_ROLE_NAME);
-  });
-
-  row.within(() => {
     cy.contains("td", projectTitle);
-  });
-
-  row.within(() => {
     cy.contains("td", getShortStatus(project.model_state.state.slug));
   });
 
