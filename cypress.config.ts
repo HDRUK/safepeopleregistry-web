@@ -15,14 +15,6 @@ export default defineConfig({
         },
       });
 
-      // on("before:run", () => {
-      //   exec("./scripts/cypress.backup.sh");
-      // });
-
-      // on("after:run", () => {
-      //   exec("./scripts/cypress.restore.sh");
-      // });
-
       config.env.keycloakBaseUrl = process.env.NEXT_PUBLIC_KEYCLOAK_BASE_URL;
 
       config.env.keycloakClientId = process.env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID;
