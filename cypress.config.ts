@@ -1,11 +1,28 @@
 import { defineConfig } from "cypress";
 import dotenv from "dotenv";
+import { exec } from "child_process";
 
 dotenv.config();
 
 export default defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
+      on("task", {
+        log(message) {
+          console.log(message + "\n\n");
+
+          return null;
+        },
+      });
+
+      // on("before:run", () => {
+      //   exec("./scripts/cypress.backup.sh");
+      // });
+
+      // on("after:run", () => {
+      //   exec("./scripts/cypress.restore.sh");
+      // });
+
       config.env.keycloakBaseUrl = process.env.NEXT_PUBLIC_KEYCLOAK_BASE_URL;
 
       config.env.keycloakClientId = process.env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID;
@@ -41,7 +58,9 @@ export default defineConfig({
     baseUrl: process.env.CYPRESS_BASE_URL,
     experimentalOriginDependencies: true,
     experimentalMemoryManagement: true,
+    experimentalInteractiveRunEvents: true,
     chromeWebSecurity: false,
+    defaultCommandTimeout: 10000,
     // supportFile: "cypress/support/index.ts",
   },
 });

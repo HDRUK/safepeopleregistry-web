@@ -1,4 +1,7 @@
-import { postOrganisationInviteUserQuery } from "@/services/organisations";
+import {
+  postCustodianInviteUserQuery,
+  postOrganisationInviteUserQuery,
+} from "@/services/organisations";
 import SaveIcon from "@mui/icons-material/Save";
 import { LoadingButton } from "@mui/lab";
 import { Grid, Link, TextField } from "@mui/material";
@@ -27,6 +30,7 @@ const NAMESPACE_TRANSLATION_PROFILE = "Profile";
 export interface InviteUserFormProps {
   onSuccess?: (id: number, roleId: number) => void;
   organisationId?: number;
+  custodianId?: number;
   enableEmailCheck?: boolean;
   isProjectUser?: boolean;
   projectRoles?: Partial<Role>[];
@@ -37,6 +41,7 @@ export default function InviteUser({
   actions,
   onSuccess,
   organisationId: initialOrganisationId,
+  custodianId,
   enableEmailCheck = true,
   projectRoles,
 }: InviteUserFormProps) {
@@ -47,9 +52,13 @@ export default function InviteUser({
   const queryClient = useQueryClient();
   const [selectOrganisation, setSelectOrganisation] = useState<boolean>(true);
 
-  const { mutateAsync: mutateUserInvite, ...queryState } = useMutation(
-    postOrganisationInviteUserQuery()
-  );
+  const {
+    mutateAsync: mutateOrganisationUserInvite,
+    ...organisationQueryState
+  } = useMutation(postOrganisationInviteUserQuery());
+
+  const { mutateAsync: mutateCustodianUserInvite, ...custodianQueryState } =
+    useMutation(postCustodianInviteUserQuery());
 
   const {
     handleSubmit: handleCreateAndInviteOrganisation,
@@ -57,7 +66,8 @@ export default function InviteUser({
   } = useOrganisationInvite();
 
   const combinedQueryState = getCombinedQueryState([
-    queryState,
+    organisationQueryState,
+    custodianQueryState,
     inviteOrganisationQueryState,
   ]);
 
@@ -155,12 +165,23 @@ export default function InviteUser({
       organisationId = await handleCreateAndInviteOrganisation(invitePayload);
     }
 
-    const { data: id } = await mutateUserInvite({
-      organisationId: organisationId as number,
-      payload,
-    });
+    let results;
 
-    onSuccess?.(id, role);
+    console.log("*********** custodianId", custodianId);
+
+    if (!custodianId) {
+      results = await mutateOrganisationUserInvite({
+        organisationId: organisationId as number,
+        payload,
+      });
+    } else {
+      results = await mutateCustodianUserInvite({
+        organisationId: organisationId as number,
+        payload,
+      });
+    }
+
+    if (results.data) onSuccess?.(results.data, role);
   };
 
   return (

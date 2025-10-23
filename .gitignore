@@ -13,6 +13,7 @@ storybook-static
 
 # testing
 /coverage
+/cypress/downloads
 
 # next.js
 /.next/

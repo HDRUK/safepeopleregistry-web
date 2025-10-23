@@ -17,7 +17,7 @@ const addAffiliationUsers = (
   cy.checkboxCheck("current_employer");
   cy.selectValue("organisation_id", affiliation.organisation.organisation_name);
   cy.selectValue("relationship", affiliation.relationship);
-  cy.get("#role").type("affiliation.role");
+  cy.get("#role").type(affiliation.role);
   cy.get("#member_id").type(affiliation.member_id);
   cy.get("#email").type(affiliation.email);
 
@@ -29,19 +29,10 @@ const hasCurrentAffiliationUsers = (affiliation: ResearcherAffiliation) => {
   const row = cy.getResultsRowByValue(affiliation.member_id);
 
   row.within(() => {
-    return cy.contains("td", capitaliseFirstLetter(affiliation.relationship));
-  });
-
-  row.within(() => {
-    return cy.contains("td", affiliation.member_id);
-  });
-
-  row.within(() => {
-    return cy.contains("td", getStatus(Status.AFFILIATION_EMAIL_VERIFY));
-  });
-
-  row.within(() => {
-    return cy.contains("td", `${formatShortDate(affiliation.from)} - Present`);
+    cy.contains("td", capitaliseFirstLetter(affiliation.relationship));
+    cy.contains("td", affiliation.member_id);
+    cy.contains("td", getStatus(Status.AFFILIATION_EMAIL_VERIFY));
+    cy.contains("td", `${formatShortDate(affiliation.from)} - Present`);
   });
 };
 
@@ -68,19 +59,10 @@ const hasEditAffiliationUsers = (affiliation: ResearcherAffiliation) => {
   const row = cy.getResultsRowByValue(affiliation.member_id);
 
   row.within(() => {
-    return cy.contains("td", affiliation.relationship);
-  });
-
-  row.within(() => {
-    return cy.contains("td", affiliation.member_id);
-  });
-
-  row.within(() => {
-    return cy.contains("td", getStatus(Status.AFFILIATION_EMAIL_VERIFY));
-  });
-
-  row.within(() => {
-    return cy.contains("td", `${formatShortDate(affiliation.from)} - Present`);
+    cy.contains("td", affiliation.relationship);
+    cy.contains("td", affiliation.member_id);
+    cy.contains("td", getStatus(Status.AFFILIATION_EMAIL_VERIFY));
+    cy.contains("td", `${formatShortDate(affiliation.from)} - Present`);
   });
 };
 

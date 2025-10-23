@@ -15,7 +15,12 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "chromatic": "npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN",
-    "cypress": "npx cypress open"
+    "cy:open": "npx cypress open",
+    "precy:open": "scripts/cypress.backup.sh",
+    "postcy:open": "scripts/cypress.restore.sh",
+    "cy:run": "npx cypress run --browser chrome --spec 'cypress/e2e/user-journeys/organisations/affiliations.cy.ts'",
+    "precy:run": "scripts/cypress.backup.sh",
+    "postcy:run": "scripts/cypress.restore.sh"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

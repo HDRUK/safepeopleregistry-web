@@ -29,10 +29,12 @@ Cypress.Commands.add("visitFirst", (path: string) => {
   cy.visit(path);
 
   cy.get("body").click();
+
+  cy.wait(5000);
 });
 
 Cypress.Commands.add("getResultsRow", (index?: number | string | undefined) => {
-  const tableRows = cy.get("tbody tr", { timeout: 10000 }).should("be.visible");
+  const tableRows = cy.get(dataCy("results")).find("tbody tr");
 
   if (!index) return tableRows;
 
@@ -48,7 +50,13 @@ Cypress.Commands.add("getResultsRow", (index?: number | string | undefined) => {
 });
 
 Cypress.Commands.add("getResultsRowByValue", (value: string) => {
-  return cy.getResultsRow().contains("td", value).parent();
+  return cy
+    .get(dataCy("results"))
+    .should("exist")
+    .get("tbody tr")
+    .contains("td", value)
+    .should("exist")
+    .parent();
 });
 
 Cypress.Commands.add("getResultsActionMenu", (value: string) => {
@@ -62,11 +70,7 @@ Cypress.Commands.add("getResultsActionMenu", (value: string) => {
 Cypress.Commands.add(
   "swalClick",
   (text: string = "OK", title: string = "Success") => {
-    const swalContainer = cy
-      .get(".swal2-container", {
-        timeout: 4000,
-      })
-      .should("be.visible");
+    const swalContainer = cy.get(".swal2-container").should("be.visible");
 
     swalContainer.get(".swal2-title").contains(title);
 
@@ -79,7 +83,7 @@ Cypress.Commands.add("actionMenuClick", (text: string) => {
 });
 
 Cypress.Commands.add("buttonClick", (text: string) => {
-  cy.get("button").contains(text).click();
+  cy.wait(5000).get("button").contains(text).click();
 });
 
 Cypress.Commands.add("checkboxClick", (id: string) => {

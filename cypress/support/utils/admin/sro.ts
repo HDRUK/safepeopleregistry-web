@@ -9,6 +9,8 @@ const validateSROOrganisatons = (
   cy.getResultsActionMenu(data.organisation_name).click();
 
   cy.actionMenuClick(action);
+
+  cy.wait(5000);
 };
 
 export { validateSROOrganisatons };

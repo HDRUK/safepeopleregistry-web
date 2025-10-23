@@ -32,6 +32,7 @@ export default function ProjectsAddUserModal({
   onClose,
   ...restProps
 }: ProjectsAddUserModalProps) {
+  console.log("MODAL", custodianId);
   const t = useTranslations(NAMESPACE_TRANSLATION);
 
   const [openInviteUser, setOpenInviteUser] = useState(false);
@@ -157,6 +158,7 @@ export default function ProjectsAddUserModal({
       </FormModal>
 
       <InviteUserModal
+        custodianId={custodianId}
         projectRoles={projectRoles}
         onSuccess={handleInviteSuccess}
         open={openInviteUser}
