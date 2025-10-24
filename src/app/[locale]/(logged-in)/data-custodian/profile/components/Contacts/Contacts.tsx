@@ -71,6 +71,7 @@ export default function Contacts() {
           size="small"
           aria-label="Edit user"
           color="inherit"
+          data-cy="edit-user"
           onClick={() =>
             setModalProps({
               open: true,
@@ -85,6 +86,7 @@ export default function Contacts() {
               size="small"
               aria-label={t("deleteUser")}
               disabled={isDisabled}
+              data-cy="delete-user"
               onClick={() => showModal(info.row.original.id)}>
               <DeleteForeverOutlinedIcon sx={{ color: "error.main" }} />
             </IconButton>
