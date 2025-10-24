@@ -1,3 +1,18 @@
+## [1.19.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.18.0...v1.19.0) (2025-10-24)
+
+### ✨ Features
+
+* **REGISTRY-1839:** Turn off idvt for users outside UK (#533) ([170ca96](https://github.com/HDRUK/safepeopleregistry-web/commit/170ca96e44812c504bdea8267a597225726c9f64))
+* **REGISTRY-2065:** custodians project tests (#537) ([1f3c035](https://github.com/HDRUK/safepeopleregistry-web/commit/1f3c035f83b8cb2e0c12f13352523906907491c1))
+* **REGISTRY-2072:** sro tests (#540) ([3604b18](https://github.com/HDRUK/safepeopleregistry-web/commit/3604b1830a512e6edb8d307ead12b4c2a272f294))
+* **REGISTRY-2097:** edit affiliation test (#534) ([75ea2f4](https://github.com/HDRUK/safepeopleregistry-web/commit/75ea2f48ad6a3c07a5c4433662f5941b1986302d))
+* **REGISTRY-2098:** remove, add affiliation (#535) ([ecbe810](https://github.com/HDRUK/safepeopleregistry-web/commit/ecbe810b6b97e466519ead0c56759af417f6a791))
+* **REGISTRY-2168:** primary contact and remove user (#538) ([238a7b5](https://github.com/HDRUK/safepeopleregistry-web/commit/238a7b5dc3bce93cc20c9b3c321a82d97cdf59f8))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-1999:** delegates field titles (#531) ([cb6861a](https://github.com/HDRUK/safepeopleregistry-web/commit/cb6861a38fb423d02222469910982e188433f4f4))
+
 ## [1.18.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.17.0...v1.18.0) (2025-10-13)
 
 ### ✨ Features
