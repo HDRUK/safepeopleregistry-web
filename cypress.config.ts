@@ -55,7 +55,7 @@ export default defineConfig({
     defaultCommandTimeout: 40000,
     projectId: "vnpz3g",
     viewportWidth: 1920,
-    viewportHeight: 4000,
+    viewportHeight: 1080,
     // supportFile: "cypress/support/index.ts",
   },
 });

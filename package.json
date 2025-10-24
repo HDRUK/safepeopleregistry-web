@@ -18,7 +18,7 @@
     "cy:open": "npx cypress open",
     "precy:open": "scripts/cypress.backup.sh",
     "postcy:open": "scripts/cypress.restore.sh",
-    "cy:run": "npx cypress run -b electron --spec 'cypress/e2e/user-journeys/custodians/projects.cy.ts'",
+    "cy:run": "npx cypress run -b electron",
     "cy:run-without-backup": "npx cypress run",
     "cy:parallel": "npx cypress-parallel -s cy:run-without-backup -t 2 -d 'cypress/e2e/user-journeys/**/*.cy.ts' -a '\"-b electron\"'",
     "precy:run": "scripts/cypress.backup.sh",
