@@ -47,25 +47,12 @@ Cypress.Commands.add("getResultsRow", (index?: number | string | undefined) => {
   return tableRows.eq(index);
 });
 
-Cypress.Commands.add("getResultsRowByValue", (values: string | string[]) => {
-  if (Array.isArray(values)) {
-    return cy
-      .get(dataCy("results"))
-      .should("exist")
-      .get("tbody tr")
-      .each(row => {
-        values.forEach(v => {
-          expect(row.text()).to.match(new RegExp(v));
-        });
-      })
-      .should("exist");
-  }
-
+Cypress.Commands.add("getResultsRowByValue", (value: string) => {
   return cy
     .get(dataCy("results"))
     .should("exist")
     .get("tbody tr")
-    .contains("td", values)
+    .contains("td", value)
     .should("exist")
     .parent();
 });
@@ -182,11 +169,11 @@ declare global {
         value: string
       ) => Cypress.Chainable<JQuery<HTMLElement>>;
       getResultsRowByValue: (
-        value: string | string[]
+        value: string
       ) => Cypress.Chainable<JQuery<HTMLElement>>;
       getResultsCellByValue: (
         value: string
-      ) => Cypress.Chainable<JQuery<HTMLElement>>;
+      ) => Cypress.Chainable<JQuery<HTMLTableCellElement>>;
     }
   }
 }
