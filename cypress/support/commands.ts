@@ -47,12 +47,25 @@ Cypress.Commands.add("getResultsRow", (index?: number | string | undefined) => {
   return tableRows.eq(index);
 });
 
-Cypress.Commands.add("getResultsRowByValue", (value: string) => {
+Cypress.Commands.add("getResultsRowByValue", (values: string | string[]) => {
+  if (Array.isArray(values)) {
+    return cy
+      .get(dataCy("results"))
+      .should("exist")
+      .get("tbody tr")
+      .each(row => {
+        values.forEach(v => {
+          expect(row.text()).to.match(new RegExp(v));
+        });
+      })
+      .should("exist");
+  }
+
   return cy
     .get(dataCy("results"))
     .should("exist")
     .get("tbody tr")
-    .contains("td", value)
+    .contains("td", values)
     .should("exist")
     .parent();
 });
@@ -108,6 +121,8 @@ Cypress.Commands.add(
 
     const dateParts = value.split("-");
 
+    cy.get(dataCy(`${id}-button`)).scrollIntoView();
+
     cy.get(dataCy(`${id}-button`)).click();
     cy.get(dataCy(`${id}-popover`))
       .get(`.MuiPickersCalendarHeader-switchViewIcon`)
@@ -159,7 +174,7 @@ declare global {
         value: string
       ) => Cypress.Chainable<JQuery<HTMLElement>>;
       getResultsRowByValue: (
-        value: string
+        value: string | string[]
       ) => Cypress.Chainable<JQuery<HTMLElement>>;
     }
   }

@@ -54,6 +54,8 @@ export default defineConfig({
     chromeWebSecurity: false,
     defaultCommandTimeout: 40000,
     projectId: "vnpz3g",
+    viewportWidth: 1920,
+    viewportHeight: 1080,
     // supportFile: "cypress/support/index.ts",
   },
 });
