@@ -70,6 +70,14 @@ Cypress.Commands.add("getResultsRowByValue", (values: string | string[]) => {
     .parent();
 });
 
+Cypress.Commands.add("getResultsCellByValue", (value: string) => {
+  return cy
+    .get(dataCy("results"))
+    .should("exist")
+    .get("tbody tr")
+    .contains("td", value);
+});
+
 Cypress.Commands.add("getResultsActionMenu", (value: string) => {
   return cy
     .getResultsRowByValue(value)
@@ -175,6 +183,9 @@ declare global {
       ) => Cypress.Chainable<JQuery<HTMLElement>>;
       getResultsRowByValue: (
         value: string | string[]
+      ) => Cypress.Chainable<JQuery<HTMLElement>>;
+      getResultsCellByValue: (
+        value: string
       ) => Cypress.Chainable<JQuery<HTMLElement>>;
     }
   }

@@ -1,4 +1,5 @@
 import { Status } from "@/consts/application";
+import { CustodianUserRoles } from "@/consts/custodian";
 import {
   mockedCustodianHasProjectOrganisation,
   mockedCustodianHasProjectUser,
@@ -15,6 +16,13 @@ const memberId = Cypress._.random(0, 1e6).toString();
 const DEFAULT_FROM_DATE = "2025-01-01";
 const DEFAULT_TO_DATE = "2025-02-01";
 const DEFAULT_DEPARTMENT = "Clinical Research";
+
+const DEFAULT_CUSTODIAN_USER_FIELDS = {
+  first_name: faker.person.firstName(),
+  last_name: faker.person.lastName(),
+  email: faker.internet.email(),
+  permissions: CustodianUserRoles.ADMINISTRATOR,
+};
 
 const DEFAULT_AFFILIATION_USERS = mockedAffiliation({
   relationship: "Employee",
@@ -132,4 +140,5 @@ export {
   DEFAULT_UNAPPROVED_ORGANISATION,
   DEFAULT_PROJECT,
   DEFAULT_PROJECT_DETAILS,
+  DEFAULT_CUSTODIAN_USER_FIELDS,
 };
