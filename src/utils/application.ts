@@ -1,6 +1,61 @@
 import { GetSystemConfigResponse } from "@/services/system_config/types";
 import { escapeAndParse } from "./json";
-import { VALIDATION_SCHEMA_KEY } from "../consts/application";
+import { Status, VALIDATION_SCHEMA_KEY } from "../consts/application";
+
+function canUseIdvt(country: string | undefined) {
+  return Boolean(
+    country && ["United Kingdom", "UK"].find(item => item === country)
+  );
+}
+
+function getStatus(slug: string) {
+  switch (slug) {
+    case Status.AFFILIATION_APPROVED:
+      return "Approved";
+    case Status.AFFILIATION_EMAIL_VERIFY:
+      return "Email verification needed";
+    case Status.AFFILIATION_PENDING:
+      return "Pending";
+    case Status.AFFILIATION_REJECTED:
+      return "Declined";
+    case Status.AFFILIATED:
+      return "Affiliated";
+    case Status.AFFILIATION_LEFT:
+      return "Left organisation";
+    case Status.AFFILIATION_INVITED:
+      return "Invited";
+    case Status.ORGANISATION_NOT_VALIDATED:
+      return "Declined Validation";
+    case Status.MORE_ORG_INFO_REQ_ESCALATION_MANAGER:
+      return "Escalation to Validation Manager";
+    case Status.PENDING:
+      return "Pending";
+    default:
+      return slug;
+  }
+}
+
+const getShortStatus = (slug: string) => {
+  switch (slug) {
+    case Status.PENDING:
+      return "Pending";
+    case Status.MORE_ORG_INFO_REQ_ESCALATION_MANAGER:
+      return "Escalation";
+    case Status.MORE_USER_INFO_REQ_ESCALATION_MANAGER:
+      return "Escalation";
+    case Status.AFFILIATION_EMAIL_VERIFY:
+      return "Email verification needed";
+    default:
+      return slug;
+  }
+};
+
+const getName = <T extends { first_name: string; last_name: string }>({
+  first_name,
+  last_name,
+}: T) => {
+  return `${first_name} ${last_name}`;
+};
 
 function parseSystemConfig(data: GetSystemConfigResponse | undefined) {
   return data
@@ -53,4 +108,13 @@ function getInitials(name: string): string {
     .join("");
 }
 
-export { getInitials, injectParamsIntoPath, isProduction, parseSystemConfig };
+export {
+  getInitials,
+  injectParamsIntoPath,
+  isProduction,
+  parseSystemConfig,
+  canUseIdvt,
+  getStatus,
+  getShortStatus,
+  getName,
+};

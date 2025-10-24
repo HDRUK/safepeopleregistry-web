@@ -33,6 +33,7 @@ const CheckboxItem = ({
   return (
     <StyledListItem>
       <FormControlCheckbox
+        id={item.id.toString()}
         name={`checkbox-${item.id}`}
         checked={checked}
         onChange={onChange}

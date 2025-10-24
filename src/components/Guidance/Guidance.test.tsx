@@ -32,7 +32,7 @@ describe("<Guidance />", () => {
     renderGuidance();
 
     const title = screen.getByRole("heading", {
-      level: 2,
+      level: 3,
     });
 
     expect(title.textContent).toEqual("Guidance");

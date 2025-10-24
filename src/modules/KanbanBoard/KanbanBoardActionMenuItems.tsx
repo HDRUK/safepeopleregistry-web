@@ -54,7 +54,8 @@ export default function KanbanBoardActionsMenuItems<
           <Select
             sx={{ minWidth: 200, maxWidth: 200 }}
             value={status}
-            onChange={handleStatusChange}>
+            onChange={handleStatusChange}
+            data-cy="kanban-change-status">
             {allowedTransitions.map(key => (
               <MenuItem value={key}>{tStatus(key)}</MenuItem>
             ))}

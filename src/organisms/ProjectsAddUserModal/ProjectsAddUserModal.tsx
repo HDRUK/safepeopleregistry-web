@@ -157,6 +157,7 @@ export default function ProjectsAddUserModal({
       </FormModal>
 
       <InviteUserModal
+        custodianId={custodianId}
         projectRoles={projectRoles}
         onSuccess={handleInviteSuccess}
         open={openInviteUser}

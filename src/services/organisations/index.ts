@@ -6,6 +6,8 @@ import postPermissions from "./postPermissions";
 import putOrganisation from "./putOrganisation";
 import postOrganisationInviteUser from "./postOrganisationInviteUser";
 import postOrganisationInviteUserQuery from "./postOrganisationInviteUserQuery";
+import postCustodianInviteUser from "./postCustodianInviteUser";
+import postCustodianInviteUserQuery from "./postCustodianInviteUserQuery";
 import getOrganisationUsers from "./getOrganisationUsers";
 import getOrganisationDelegates from "./getOrganisationDelegates";
 import getOrganisationDelegatesQuery from "./getOrganisationDelegatesQuery";
@@ -42,6 +44,8 @@ export {
   postOrganisationInvite,
   postOrganisationInviteQuery,
   useOrganisationsQuery,
+  postCustodianInviteUser,
+  postCustodianInviteUserQuery,
 };
 
 export type * from "./types";

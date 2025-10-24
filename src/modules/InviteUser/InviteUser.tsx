@@ -1,4 +1,7 @@
-import { postOrganisationInviteUserQuery } from "@/services/organisations";
+import {
+  postCustodianInviteUserQuery,
+  postOrganisationInviteUserQuery,
+} from "@/services/organisations";
 import SaveIcon from "@mui/icons-material/Save";
 import { LoadingButton } from "@mui/lab";
 import { Grid, Link, TextField } from "@mui/material";
@@ -7,7 +10,7 @@ import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import Form from "../../components/Form";
 import FormActions from "../../components/FormActions";
-import FormControlHorizontal from "../../components/FormControlHorizontal";
+import FormControlWrapper from "../../components/FormControlWrapper";
 import FormSection from "../../components/FormSection";
 import SelectOrganisation from "../../components/SelectOrganisation";
 import SelectRole from "../../components/SelectRole";
@@ -21,12 +24,13 @@ import { InviteUserFormValues } from "../../types/form";
 import { getCombinedQueryState } from "../../utils/query";
 
 const NAMESPACE_TRANSLATION_FORM = "Form";
-const NAMESPACE_TRANSLATION_ORGANISATION = "User";
+const NAMESPACE_TRANSLATION_ORGANISATION = "Users.InviteUser";
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";
 
 export interface InviteUserFormProps {
   onSuccess?: (id: number, roleId: number) => void;
   organisationId?: number;
+  custodianId?: number;
   enableEmailCheck?: boolean;
   isProjectUser?: boolean;
   projectRoles?: Partial<Role>[];
@@ -37,6 +41,7 @@ export default function InviteUser({
   actions,
   onSuccess,
   organisationId: initialOrganisationId,
+  custodianId,
   enableEmailCheck = true,
   projectRoles,
 }: InviteUserFormProps) {
@@ -47,11 +52,13 @@ export default function InviteUser({
   const queryClient = useQueryClient();
   const [selectOrganisation, setSelectOrganisation] = useState<boolean>(true);
 
-  const { mutateAsync: mutateUserInvite, ...queryState } = useMutation(
-    postOrganisationInviteUserQuery()
-  );
+  const {
+    mutateAsync: mutateOrganisationUserInvite,
+    ...organisationQueryState
+  } = useMutation(postOrganisationInviteUserQuery());
 
-  useQueryAlerts(queryState);
+  const { mutateAsync: mutateCustodianUserInvite, ...custodianQueryState } =
+    useMutation(postCustodianInviteUserQuery());
 
   const {
     handleSubmit: handleCreateAndInviteOrganisation,
@@ -59,9 +66,12 @@ export default function InviteUser({
   } = useOrganisationInvite();
 
   const combinedQueryState = getCombinedQueryState([
-    queryState,
+    organisationQueryState,
+    custodianQueryState,
     inviteOrganisationQueryState,
   ]);
+
+  useQueryAlerts(combinedQueryState);
 
   const checkEmailExists = async (email: string, useCache = false) => {
     const queryKey = ["getUsersByEmail", email];
@@ -155,12 +165,23 @@ export default function InviteUser({
       organisationId = await handleCreateAndInviteOrganisation(invitePayload);
     }
 
-    const { data: id } = await mutateUserInvite({
-      organisationId: organisationId as number,
-      payload,
-    });
+    let results;
 
-    onSuccess?.(id, role);
+    console.log("*********** custodianId", custodianId);
+
+    if (!custodianId) {
+      results = await mutateOrganisationUserInvite({
+        organisationId: organisationId as number,
+        payload,
+      });
+    } else {
+      results = await mutateCustodianUserInvite({
+        organisationId: organisationId as number,
+        payload,
+      });
+    }
+
+    if (results.data) onSuccess?.(results.data, role);
   };
 
   return (
@@ -174,19 +195,19 @@ export default function InviteUser({
           <FormSection subtitle={tUser("inviteUserTitle")}>
             <Grid container rowSpacing={3}>
               <Grid item xs={12}>
-                <FormControlHorizontal
+                <FormControlWrapper
                   name="first_name"
                   renderField={fieldProps => <TextField {...fieldProps} />}
                 />
               </Grid>
               <Grid item xs={12}>
-                <FormControlHorizontal
+                <FormControlWrapper
                   name="last_name"
                   renderField={fieldProps => <TextField {...fieldProps} />}
                 />
               </Grid>
               <Grid item xs={12}>
-                <FormControlHorizontal
+                <FormControlWrapper
                   name="email"
                   renderField={fieldProps => <TextField {...fieldProps} />}
                 />
@@ -194,7 +215,7 @@ export default function InviteUser({
 
               {projectRoles && (
                 <Grid item xs={12}>
-                  <FormControlHorizontal
+                  <FormControlWrapper
                     name="role"
                     renderField={fieldProps => (
                       <SelectRole roles={projectRoles} {...fieldProps} />
@@ -206,7 +227,7 @@ export default function InviteUser({
               {!initialOrganisationId &&
                 (selectOrganisation ? (
                   <Grid item xs={12}>
-                    <FormControlHorizontal
+                    <FormControlWrapper
                       name="organisation_id"
                       renderField={({ ...fieldProps }) => (
                         <SelectOrganisation {...fieldProps} />
@@ -230,7 +251,7 @@ export default function InviteUser({
                 ) : (
                   <>
                     <Grid item xs={12}>
-                      <FormControlHorizontal
+                      <FormControlWrapper
                         name="organisation_name"
                         renderField={fieldProps => (
                           <TextField {...fieldProps} />
@@ -252,7 +273,7 @@ export default function InviteUser({
                       />
                     </Grid>
                     <Grid item xs={12}>
-                      <FormControlHorizontal
+                      <FormControlWrapper
                         name="organisation_email"
                         renderField={fieldProps => (
                           <TextField {...fieldProps} />

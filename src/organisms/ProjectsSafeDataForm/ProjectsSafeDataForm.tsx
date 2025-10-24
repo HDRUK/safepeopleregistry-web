@@ -16,7 +16,6 @@ import DateInput from "../../components/DateInput";
 import Form, { FormProps } from "../../components/Form";
 import FormActions from "../../components/FormActions";
 import FormControlCheckbox from "../../components/FormControlCheckbox";
-import FormControlHorizontal from "../../components/FormControlHorizontal";
 import FormControlWrapper from "../../components/FormControlWrapper";
 import FormFieldArray from "../../components/FormFieldArray";
 import ProfileNavigationFooter from "../../components/ProfileNavigationFooter";
@@ -88,7 +87,7 @@ export default function ProjectsSafeDataForm({
             renderField={(_, index, removeButton) => (
               <Grid container spacing={2}>
                 <Grid item xs={5}>
-                  <FormControlHorizontal
+                  <FormControlWrapper
                     displayLabel={false}
                     labelMd={0}
                     contentMd={12}

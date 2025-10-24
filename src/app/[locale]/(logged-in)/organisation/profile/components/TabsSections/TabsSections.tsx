@@ -29,6 +29,7 @@ export default function TabsSections({ tabId }: TabsSectionsProps) {
   return (
     <Box sx={{ width: "100%", mb: 4 }}>
       <Tabs
+        data-cy="tabs-navigation"
         variant="scrollable"
         value={tabId || PageTabs.HOME}
         aria-label={t("navigationAriaLabel")}
@@ -66,6 +67,7 @@ export default function TabsSections({ tabId }: TabsSectionsProps) {
           component={Link}
           value={PageTabs.TEAM_ADMINISTRATION}
           iconPosition="start"
+          disabled={!organisationApproved}
         />
         <Tab
           icon={

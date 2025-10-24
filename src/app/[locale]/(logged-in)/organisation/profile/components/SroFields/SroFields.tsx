@@ -1,13 +1,13 @@
 "use client";
 
-import { PageSection } from "@/modules";
+import FormControlWrapper from "@/components/FormControlWrapper";
 import FormSection from "@/components/FormSection";
-import { Grid, TextField } from "@mui/material";
-import SelectDepartments from "@/components/SelectDepartments";
 import Markdown from "@/components/Markdown";
+import SelectDepartments from "@/components/SelectDepartments";
 import { useStore } from "@/data/store";
+import { PageSection } from "@/modules";
+import { Grid, TextField } from "@mui/material";
 import { useTranslations } from "next-intl";
-import FormControlHorizontal from "@/components/FormControlHorizontal";
 
 const NAMESPACE_TRANSLATION = "Form";
 
@@ -27,21 +27,21 @@ export default function SroFields() {
           description={<Markdown>{t("keyContactFormDescription")}</Markdown>}>
           <Grid container rowSpacing={3}>
             <Grid item xs={12}>
-              <FormControlHorizontal
+              <FormControlWrapper
                 name="first_name"
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />
             </Grid>
 
             <Grid item xs={12}>
-              <FormControlHorizontal
+              <FormControlWrapper
                 name="last_name"
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />
             </Grid>
 
             <Grid item xs={12}>
-              <FormControlHorizontal
+              <FormControlWrapper
                 name="department"
                 renderField={fieldProps => (
                   <SelectDepartments
@@ -55,13 +55,13 @@ export default function SroFields() {
               />
             </Grid>
             <Grid item xs={12}>
-              <FormControlHorizontal
+              <FormControlWrapper
                 name="role"
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />
             </Grid>
             <Grid item xs={12}>
-              <FormControlHorizontal
+              <FormControlWrapper
                 name="email"
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />

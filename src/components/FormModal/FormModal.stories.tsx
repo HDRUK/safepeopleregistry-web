@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import FormModal, { FormModalProps } from ".";
-import FormControlHorizontal from "../FormControlHorizontal";
+import FormControlWrapper from "../FormControlWrapper";
 import FormModalBody from "../FormModalBody";
 import FormModalHeader from "../FormModalHeader";
 import FormModalActions from "../FormModalActions";
@@ -35,19 +35,19 @@ const BasicFormModal = ({ open }: FormModalProps) => {
       <FormModalBody>
         <Grid container rowSpacing={2}>
           <Grid item xs={12}>
-            <FormControlHorizontal label="First name">
+            <FormControlWrapper label="First name">
               <TextField id="firstName" />
-            </FormControlHorizontal>
+            </FormControlWrapper>
           </Grid>
           <Grid item xs={12}>
-            <FormControlHorizontal label="Last name">
+            <FormControlWrapper label="Last name">
               <TextField id="lastName" />
-            </FormControlHorizontal>
+            </FormControlWrapper>
           </Grid>
           <Grid item xs={12}>
-            <FormControlHorizontal label="Email">
+            <FormControlWrapper label="Email">
               <TextField id="Email" />
-            </FormControlHorizontal>
+            </FormControlWrapper>
           </Grid>
         </Grid>
       </FormModalBody>

@@ -403,6 +403,9 @@
       "projects": "Projects",
       "affiliations": "Affiliations",
       "heading": "User"
+    },
+    "InviteDelegate": {
+      "heading": "Invite a delegate"
     }
   },
   "Form": {
@@ -641,6 +644,7 @@
     "delegateEmailInvalid": "Delegate email is not in the correct format",
     "delegateEmailRequiredInvalid": "Delegate email is required",
     "delegateFormTitle": "Organisation Administrative Delegate",
+    "delegateEmailSubtitle": "This email should be their Organisation email address, not personal email address.",
     "fullName": "Full Name",
     "fullNamePlaceholder": "Full Name",
     "fullNameRequiredInvalid": "Full name is required",
@@ -958,8 +962,6 @@
     "title": "Profile",
     "details": "Profile",
     "identity": "Identity",
-    "identityForm": "Personal Identity",
-    "identityTitle": "Complete your personal details",
     "name": "Name",
     "affiliations": "Affiliations",
     "affiliationsTitle": "Complete your employer or institute information",
@@ -1009,18 +1011,7 @@
     "postUserError": "There was a problem updating your user information. Please try again or contact us at <contactLink></contactLink>",
     "postUserErrorButton": "Try Again",
     "previousButton": "Previous",
-    "emailDescription": "<bold>Please use your personal email to set up your Safe People Registry account.</bold> This ensures that your account stays with you, even if you change jobs or leave a university. You'll also need it to recover your Safe People Registry account if you ever lose access.",
-    "locationDescription": "Data custodians may need to know which country that you will be accessing data from, as different countries adhere to different laws regarding data sharing and data confidentiality. Also, IDVT below is only available to individuals residing in the UK.",
     "location": "Location",
-    "locationMissing": "Location not provided",
-    "digiIdent": "Digital identifier",
-    "idvtCheckSection": "Identification Verification Technology (IDVT)",
-    "idvtCheckButtonStart": "Start IDVT check",
-    "idvtCheckButtonRestart": "Restart IDVT check",
-    "idvtCheckComplete": "Check Complete",
-    "idvtCheckDescription": "Some Data Custodians require identity verification before validating you as a User. To streamline approvals across different UK Data Custodians, we recommend completing the identity check in advance. The check is carried out by a third-party provider (Veriff) and includes:\n\n- Verification of a valid government-issued ID (fraud check)\n\n- A likeness check (matching your face to the ID)\n\n- A liveness check (to confirm you're a real, present person)\n\n- A sanctions check (for anti-money laundering purposes)\n\nThe Safe People Registry doesn't have access to information uploaded to Veriff - only the results. For more information about Veriff, please consult their [privacy notice](https://www.veriff.com/privacy-notice).",
-    "idvtComplete": "IDVT checks complete",
-    "idvtIncomplete": "IDVT checks incomplete",
     "accreditedResearcherCheckboxLabel": "I am a registered Accredited Researcher as published on the UK Statistics Authority website.",
     "userDeclarationCheckboxLabel": "I have signed a User declaration for accessing Digital Economy Act accredited environments.",
     "findOutMore": "Find out more",
@@ -1125,7 +1116,35 @@
     "loading": "Loading page"
   },
   "Users": {
-    "getUserError": "Could not get the relevant user"
+    "getUserError": "Could not get the relevant user",
+    "Identity": {
+      "identityForm": "Personal Identity",
+      "identityTitle": "Complete your personal details",
+      "idvtCheckSection": "Identification Verification Technology (IDVT)",
+      "idvtCheckButtonStart": "Start IDVT check",
+      "idvtCheckButtonRestart": "Restart IDVT check",
+      "idvtCheckComplete": "Check Complete",
+      "idvtCheckDescription": "Some Data Custodians require identity verification before validating you as a User. To streamline approvals across different UK Data Custodians, we recommend completing the identity check in advance. The check is carried out by a third-party provider (Veriff) and includes:\n\n- Verification of a valid government-issued ID (fraud check)\n\n- A likeness check (matching your face to the ID)\n\n- A liveness check (to confirm you're a real, present person)\n\n- A sanctions check (for anti-money laundering purposes)\n\nThe Safe People Registry doesn't have access to information uploaded to Veriff - only the results. For more information about Veriff, please consult their [privacy notice](https://www.veriff.com/privacy-notice).",
+      "idvtComplete": "IDVT checks complete",
+      "idvtIncomplete": "IDVT checks incomplete",
+      "idvtInvalidCountry": "Only users within the UK are permitted to complete the IDVT process.",
+      "emailDescription": "<bold>Please use your personal email to set up your Safe People Registry account.</bold> This ensures that your account stays with you, even if you change jobs or leave a university. You'll also need it to recover your Safe People Registry account if you ever lose access.",
+      "locationDescription": "Data custodians may need to know which country that you will be accessing data from, as different countries adhere to different laws regarding data sharing and data confidentiality. Also, IDVT below is only available to individuals residing in the UK.",
+      "locationMissing": "Location not provided",
+      "location": "Location",
+      "digiIdent": "Digital identifier",
+      "name": "Name"
+    },
+    "InviteUser": {
+      "inviteUserTitle": "Request User to be invited to create a Safe People Registry account",
+      "inviteUser": "Invite User",
+      "postUserError": "Unable to invite the User",
+      "postUserInviteError": "Unable to invite the User",
+      "inviteUserErrorButton": "Try again",
+      "inviteUserError": "There was an error inviting the User. Please try again or contact us at <contactLink></contactLink>",
+      "inviteUserSuccessButton": "Ok",
+      "inviteUserSuccess": "You have successfully invited the User"
+    }
   },
   "UsersList": {
     "title": "Users",
@@ -1173,16 +1192,6 @@
     "notAllowed": "You are not allowed to access this page. If you think this is incorrect please contacts us at <contactLink></contactLink>",
     "authError": "There was an error logging in. Please try again or contact us at <contactLink></contactLink>",
     "authErrorButton": "Try again"
-  },
-  "User": {
-    "inviteUserTitle": "Request User to be invited to create a Safe People Registry account",
-    "inviteUser": "Invite User",
-    "postUserError": "Unable to invite the User",
-    "postUserInviteError": "Unable to invite the User",
-    "inviteUserErrorButton": "Try again",
-    "inviteUserError": "There was an error inviting the User. Please try again or contact us at <contactLink></contactLink>",
-    "inviteUserSuccessButton": "Ok",
-    "inviteUserSuccess": "You have successfully invited the User"
   },
   "Custodian": {
     "inviteCustodianTitle": "Request Data Custodian to be invited to create a Safe People Registry account",
@@ -1264,6 +1273,12 @@
     "website": "Website"
   },
   "Organisations": {
+    "EditDelegate": {
+      "heading": "Edit delegate",
+      "edit": "Edit",
+      "successAlertText": "The Delegate has been successfully editted",
+      "errorAlertText": "There has been a problem deleting this data. Please try again or contact us at <contactLink></contactLink>"
+    },
     "OrganisationUsersFilters": {
       "searchPlaceholder": "Search by name or email"
     },
@@ -1529,12 +1544,6 @@
     "alertText": "Are you sure you want to remove {first_name} {last_name} from your Organisation ({organisation_name})",
     "alertConfirm": "Remove",
     "alertCancel": "Cancel"
-  },
-  "EditDelegate": {
-    "title": "Edit",
-    "toolTip": "Edit details for this Delegate",
-    "successAlertText": "The Delegate has been successfully editted",
-    "errorAlertText": "There has been a problem deleting this data. Please try again or contact us at <contactLink></contactLink>"
   },
   "UseUpdateOrganisation": {
     "text": "Organisation Updated!",
@@ -1833,5 +1842,6 @@
     "label": "Description",
     "text": "Text",
     "textRequired": "Text is required"
-  }
+  },
+  "Services": {}
 }

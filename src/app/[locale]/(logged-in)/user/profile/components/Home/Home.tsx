@@ -9,6 +9,7 @@ import { useTranslations } from "next-intl";
 import ActionLogs from "@/organisms/ActionLogs";
 import SoursdCard from "@/components/SoursdCard";
 import { mockedUserHomeIntro } from "@/mocks/data/cms";
+import { getName } from "@/utils/application";
 
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";
 
@@ -33,7 +34,7 @@ export default function Home() {
         </PageColumnBody>
         <PageColumnDetails lg={4}>
           <SoursdCard
-            name={`${user?.first_name} ${user?.last_name}`}
+            name={getName(user)}
             status={user?.model_state?.state.slug}
             identifier={user?.registry.digi_ident}
             description={tProfile("uniqueIdentifierCaption")}

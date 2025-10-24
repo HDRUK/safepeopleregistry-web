@@ -1,26 +1,27 @@
 "use client";
 
+import ErrorMessage from "@/components/ErrorMessage";
 import Form from "@/components/Form/Form";
 import FormActions from "@/components/FormActions";
-import FormControlHorizontal from "@/components/FormControlHorizontal";
+import FormControlWrapper from "@/components/FormControlWrapper";
 import GoogleAutocomplete from "@/components/GoogleAutocomplete";
-import yup from "@/config/yup";
-import { PageBody, PageSection } from "@/modules";
-import { AddressFields } from "@/types/application";
-import { Grid, TextField } from "@mui/material";
-import { useTranslations } from "next-intl";
-import { useEffect, useMemo } from "react";
-import { useRouter } from "next/navigation";
 import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
-import ErrorMessage from "@/components/ErrorMessage";
-import OrganisationsSubsidiaries from "@/organisms/OrganisationsSubsidiaries/OrganisationsSubsidiaries";
-import useOrganisationStore from "@/queries/useOrganisationStore";
-import { useStore } from "@/data/store";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { getUserQuery, putUserQuery } from "@/services/users";
+import yup from "@/config/yup";
 import { ROUTES } from "@/consts/router";
-import { pick } from "@/utils/json";
+import { useStore } from "@/data/store";
+import { PageBody, PageSection } from "@/modules";
+import OrganisationsSubsidiaries from "@/organisms/OrganisationsSubsidiaries/OrganisationsSubsidiaries";
 import SroDeclaration from "@/organisms/SroDeclaration";
+import useOrganisationStore from "@/queries/useOrganisationStore";
+import { getUserQuery, putUserQuery } from "@/services/users";
+import { AddressFields } from "@/types/application";
+import { KeyContactFormValues } from "@/types/form";
+import { pick } from "@/utils/json";
+import { Grid, TextField } from "@mui/material";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
+import { useEffect, useMemo } from "react";
 import useUpdateOrganisation from "../../hooks/useUpdateOrganisation";
 import SroFields from "../SroFields";
 
@@ -32,14 +33,6 @@ export interface NameAndAddressFormValues {
   county: string;
   country: string;
   postcode: string;
-}
-
-export interface KeyContactFormValues {
-  first_name: string;
-  last_name: string;
-  department: number;
-  email: string;
-  job_title: string;
 }
 
 const NAMESPACE_TRANSLATION_FORM = "Form";
@@ -197,13 +190,13 @@ export default function NameAndAddress() {
                 })}>
                 <Grid container rowSpacing={3}>
                   <Grid item xs={12}>
-                    <FormControlHorizontal
+                    <FormControlWrapper
                       name="organisation_name"
                       renderField={fieldProps => <TextField {...fieldProps} />}
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <FormControlHorizontal
+                    <FormControlWrapper
                       name="address"
                       displayPlaceholder={false}
                       description={tOrgProfile(
@@ -224,37 +217,37 @@ export default function NameAndAddress() {
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <FormControlHorizontal
+                    <FormControlWrapper
                       name="address_1"
                       renderField={fieldProps => <TextField {...fieldProps} />}
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <FormControlHorizontal
+                    <FormControlWrapper
                       name="address_2"
                       renderField={fieldProps => <TextField {...fieldProps} />}
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <FormControlHorizontal
+                    <FormControlWrapper
                       name="town"
                       renderField={fieldProps => <TextField {...fieldProps} />}
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <FormControlHorizontal
+                    <FormControlWrapper
                       name="county"
                       renderField={fieldProps => <TextField {...fieldProps} />}
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <FormControlHorizontal
+                    <FormControlWrapper
                       name="country"
                       renderField={fieldProps => <TextField {...fieldProps} />}
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <FormControlHorizontal
+                    <FormControlWrapper
                       name="postcode"
                       renderField={fieldProps => (
                         <TextField {...fieldProps} sx={{ maxWidth: "200px" }} />
@@ -273,7 +266,7 @@ export default function NameAndAddress() {
 
               <Grid container rowSpacing={3}>
                 <Grid item xs={12}>
-                  <FormControlHorizontal
+                  <FormControlWrapper
                     name="sro_profile_uri"
                     renderField={fieldProps => <TextField {...fieldProps} />}
                     description={tForm("sroProfileUriDescription")}

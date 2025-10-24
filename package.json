@@ -14,7 +14,17 @@
     "test:coverage": "jest --coverage --transformIgnorePatterns \"node_modules/(?!pretty-bytes)/\"  --env=jsdom",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "chromatic": "npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN"
+    "chromatic": "npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN",
+    "cy:open": "npx cypress open",
+    "precy:open": "scripts/cypress.backup.sh",
+    "postcy:open": "scripts/cypress.restore.sh",
+    "cy:run": "npx cypress run -b electron",
+    "cy:run-without-backup": "npx cypress run",
+    "cy:parallel": "npx cypress-parallel -s cy:run-without-backup -t 2 -d 'cypress/e2e/user-journeys/**/*.cy.ts' -a '\"-b electron\"'",
+    "precy:run": "scripts/cypress.backup.sh",
+    "postcy:run": "scripts/cypress.restore.sh",
+    "precy:parallel": "scripts/cypress.backup.sh",
+    "postcy:parallel": "scripts/cypress.restore.sh"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -50,6 +60,7 @@
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.11",
     "deep-equal": "^2.2.3",
+    "dotenv": "^17.2.3",
     "eslint-config-next": "14.1.4",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
@@ -103,6 +114,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/react-syntax-highlighter": "^15.5.13",
+    "@types/testing-library__cypress": "^7.0.0",
     "@typescript-eslint/eslint-plugin": "^8.16.0",
     "chromatic": "^11.18.0",
     "css-mediaquery": "^0.1.2",
@@ -124,7 +136,7 @@
     "react-syntax-highlighter": "^15.5.0",
     "semantic-release": "^24.2.1",
     "storybook": "^8.0.5",
-    "typescript": "^5"
+    "typescript": "^5.9.3"
   },
   "resolutions": {
     "@typescript-eslint/typescript-estree": "^8.16.0"

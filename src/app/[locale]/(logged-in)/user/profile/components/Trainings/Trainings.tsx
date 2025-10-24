@@ -122,7 +122,7 @@ export default function Trainings() {
                         href={RESEARCHER_DECLARATION_LINK}
                         color="primary"
                         target="_blank"
-                        sx={{ display: "block", mt: 0.5, fontSize: "medium" }}>
+                        sx={{ display: "block", mt: 0.5 }}>
                         {tProfile("findOutMore")}
                       </Link>
                     }
@@ -138,7 +138,7 @@ export default function Trainings() {
                         href={USER_DECLARATION_LINK}
                         color="primary"
                         target="_blank"
-                        sx={{ display: "block", mt: 0.5, fontSize: "medium" }}>
+                        sx={{ display: "block", mt: 0.5 }}>
                         {tProfile("findOutMore")}
                       </Link>
                     }

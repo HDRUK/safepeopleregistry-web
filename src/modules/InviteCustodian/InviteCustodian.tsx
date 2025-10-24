@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 import Form from "../../components/Form";
 import FormActions from "../../components/FormActions";
-import FormControlHorizontal from "../../components/FormControlHorizontal";
+import FormControlWrapper from "../../components/FormControlWrapper";
 import FormSection from "../../components/FormSection";
 import yup from "../../config/yup";
 import { MAX_FORM_WIDTH } from "../../consts/form";
@@ -61,7 +61,7 @@ export default function InviteCustodianForm({
             <Grid container rowSpacing={3}>
               {formFields.map((name: string) => (
                 <Grid item xs={12} key={name}>
-                  <FormControlHorizontal
+                  <FormControlWrapper
                     name={name}
                     renderField={fieldProps => <TextField {...fieldProps} />}
                   />

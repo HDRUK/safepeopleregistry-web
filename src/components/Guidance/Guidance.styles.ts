@@ -35,11 +35,5 @@ export const StyledInfo = styled("div")<{
     * {
       color: ${theme.palette.neutralPink.contrastText};
     }
-
-    h3,
-    h4 {
-      font-weight: bold;
-      font-size: 1rem;
-    }
   `
 );

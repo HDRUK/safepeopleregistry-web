@@ -45,7 +45,7 @@ const createTabStyles = (theme: Theme) => {
   return {
     textTransform: "none",
     fontWeight: "bold",
-    fontSize: "1rem",
+    fontSize: theme.typography.small.fontSize,
     padding: "4px 8px",
     minHeight: "36px",
     flexGrow: 1,
@@ -329,6 +329,7 @@ const theme = createTheme(
         styleOverrides: {
           root: {
             lineHeight: "140%",
+            fontFamily: `"Inter", "Roboto", "Helvetica", "Arial", sans-serif`,
           },
         },
       },
@@ -355,9 +356,21 @@ const theme = createTheme(
           },
         },
       },
+      MuiMenuItem: {
+        styleOverrides: {
+          root: {
+            ...paletteTheme.typography.small,
+          },
+        },
+      },
       MuiInputBase: {
         defaultProps: {
           size: "small",
+        },
+        styleOverrides: {
+          root: {
+            ...paletteTheme.typography.small,
+          },
         },
       },
       MuiInputLabel: {
@@ -463,6 +476,7 @@ const theme = createTheme(
           root: {
             fontWeight: "500",
             color: paletteTheme.palette.textPrimary.main,
+            fontSize: paletteTheme.typography.small.fontSize,
           },
         },
       },

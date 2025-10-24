@@ -1,4 +1,4 @@
-import { Status } from "@/components/ChipStatus";
+import { Status } from "./application";
 
 const STATUS_ORDER = [
   Status.AFFILIATION_INVITED,

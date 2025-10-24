@@ -142,7 +142,7 @@ export const mockedUserExperienceGuidanceProps = {
       <Typography mb={3}>
         Sharing an up-to-date record of your employment history, education,
         qualifications, and publications enables Data Custodians to efficiently
-        assess whether you meet the 'safe people' principle of the
+        assess whether you meet the 'safe people' principle of the{" "}
         <a
           rel="noreferrer"
           target="_blank"

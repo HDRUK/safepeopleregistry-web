@@ -1,5 +1,5 @@
 import { Box, BoxProps, Link, Typography } from "@mui/material";
-import { getInitials } from "../../utils/application";
+import { getInitials, getName } from "../../utils/application";
 import {
   Organisation,
   ProjectUser,
@@ -39,7 +39,7 @@ export default function UserDetails({
       sx={{ pb: 2, gap: 3 }}
       {...restProps}>
       <MaskLabel
-        initials={getInitials(`${user?.first_name} ${user?.last_name}`)}
+        initials={getInitials(getName(user))}
         size="large"
         sx={{
           justifyContent: "flex-start",
@@ -49,7 +49,7 @@ export default function UserDetails({
       />
       <Box display="flex" flexDirection="column">
         <Typography variant="h2" sx={{ flexWrap: 1 }}>
-          {user?.first_name} {user?.last_name}
+          {getName(user)}
         </Typography>
         {role?.name && (
           <Typography sx={{ flexWrap: 1 }}>{role.name}</Typography>

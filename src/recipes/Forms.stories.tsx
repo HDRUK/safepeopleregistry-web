@@ -58,7 +58,7 @@ export const Example: Story = {
           <FormSection>
             <Grid container rowSpacing={3}>
               <Grid item xs={12}>
-                <FormControlHorizontal
+                <FormControlWrapper
                   name="name"
                   renderField={fieldProps => (
                     <TextField {...fieldProps} />
@@ -129,7 +129,7 @@ export const MoreControlExample: Story = {
                 <FormSection>
                   <Grid container rowSpacing={3}>
                     <Grid item xs={12}>
-                      <FormControlHorizontal
+                      <FormControlWrapper
                         name="name"
                         renderField={(fieldProps) => <TextField {...fieldProps} />}
                       />
