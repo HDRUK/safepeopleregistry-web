@@ -45,8 +45,6 @@ const editDelegateOrganisations = (
   data: Partial<DelegatesFormValues>,
   originalData: DelegatesFormValues
 ) => {
-  cy.task("log", JSON.stringify(data));
-  cy.task("log", JSON.stringify(originalData));
   cy.getResultsActionMenu(getDelegateName(originalData)).click();
 
   cy.actionMenuClick("Edit");
