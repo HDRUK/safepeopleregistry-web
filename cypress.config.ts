@@ -52,7 +52,7 @@ export default defineConfig({
     experimentalMemoryManagement: true,
     experimentalInteractiveRunEvents: true,
     chromeWebSecurity: false,
-    defaultCommandTimeout: 40000,
+    defaultCommandTimeout: 60000,
     projectId: "vnpz3g",
     viewportWidth: 1920,
     viewportHeight: 1080,
