@@ -1,0 +1,102 @@
+name: Cypress Tests
+
+on:
+  pull_request:
+    branches: ["feat/REGISTRY-2183"]
+
+env:
+  CYPRESS_BASE_URL: http://localhost:3000
+  CYPRESS_USER_EMAIL: ${{ secrets.CYPRESS_USER_EMAIL }}
+  CYPRESS_USER_PASSWORD: ${{ secrets.CYPRESS_USER_PASSWORD }}
+  CYPRESS_ORGANISATION_EMAIL: ${{ secrets.CYPRESS_ORGANISATION_EMAIL }}
+  CYPRESS_ORGANISATION_PASSWORD: ${{ secrets.CYPRESS_ORGANISATION_PASSWORD }}
+  CYPRESS_UNAPPROVED_ORGANISATION_EMAIL: ${{ secrets.CYPRESS_UNAPPROVED_ORGANISATION_EMAIL }}
+  CYPRESS_UNAPPROVED_ORGANISATION_PASSWORD: ${{ secrets.CYPRESS_UNAPPROVED_ORGANISATION_PASSWORD }}
+  CYPRESS_CUSTODIAN_EMAIL: ${{ secrets.CYPRESS_CUSTODIAN_EMAIL }}
+  CYPRESS_CUSTODIAN_PASSWORD: ${{ secrets.CYPRESS_CUSTODIAN_PASSWORD }}
+  CYPRESS_ADMIN_EMAIL: ${{ secrets.CYPRESS_ADMIN_EMAIL }}
+  CYPRESS_ADMIN_PASSWORD: ${{ secrets.CYPRESS_ADMIN_PASSWORD }}
+
+  NEXT_PUBLIC_API_V1_URL: https://api.registry.dev.hdruk.cloud/api/v1
+  NEXT_PUBLIC_API_URL: https://api.registry.dev.hdruk.cloud/api
+  NEXT_PUBLIC_API_V1_SERVER_URL: https://api.registry.dev.hdruk.cloud/api/v1
+  NEXT_PUBLIC_API_SERVER_URL: https://api.registry.dev.hdruk.cloud/api
+
+  NEXT_PUBLIC_KEYCLOAK_CLIENT_ID: "speedi-registry-app"
+  NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET: "e2uLxcKfNMl6NE30gL0jlvdKATzZzdfy"
+  KEYCLOAK_REALM_PUBLIC_KEY: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAt8wNz+5tgGSMsD7PeaAUrAo27Z+WloZHyNAPSikPNRQdcmtuP4nwsE92nVQNqlNRDqJzmWqiPB+UZVek2EZKb/ECd69NzAAMSesksNse8LoV+ZmPdQDiNZKyhDughyK5TGXdYEnndTfA2JF09ub6Y7g5Dp3OqfslwGgwDX9GJQknM1OOy5prEu6Fog1XWg+WjGTJK7mpsTq+negOQyiMXmVyCAJvbxvGllVIHYvoQVpYYzvluhM7iFdf+o80SpLm6GU5yEFYtrxm0aTBX3EN1RF+p9KgUx/IDzSbG1AhGTOyeyJ1biFSEPVgm07WIFRDzKJq/806CvB19/gkkb5JUwIDAQAB"
+  NEXT_PUBLIC_KEYCLOAK_REDIRECT_URL_LOGIN: "http://localhost:3000/api/auth/login"
+  NEXT_PUBLIC_KEYCLOAK_REDIRECT_URL_LOGOUT: "http://localhost:3000/api/auth/logout"
+
+  NEXT_PUBLIC_KEYCLOAK_REDIRECT_URL_REGISTER: "http://localhost:3000/api/auth/register"
+  NEXT_PUBLIC_KEYCLOAK_URL_ME: "http://localhost:3000/api/auth/me"
+  NEXT_PUBLIC_KEYCLOAK_BASE_URL: "https://keycloak.dev.hdruk.cloud"
+  NEXT_PUBLIC_KEYCLOAK_REALM: "SOURSD"
+  NEXT_PUBLIC_LOCAL_ENV: "http://localhost:3000/"
+
+jobs:
+  build:
+    permissions:
+      contents: write
+      id-token: write
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+    environment: "feat/REGISTRY-2183"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: "feat/REGISTRY-2183"
+
+      - name: Read VERSION file
+        id: getversion
+        run: |
+          sed -n 's/^appVersion:\(.*\)/\1/p' < chart/soursd-web/Chart.yaml > version
+          echo "version=$(sed '/.*\"\(.*\)\".*/ s//\1/g' version)" >> $GITHUB_OUTPUT
+
+      - name: Google Auth
+        id: auth
+        uses: "google-github-actions/auth@v2"
+        with:
+          token_format: "access_token"
+          workload_identity_provider: "${{ secrets.WIF_PROVIDER }}"
+          service_account: "${{ secrets.WIF_SERVICE_ACCOUNT }}"
+
+      - name: Backup db to GAR temporarily
+        id: garbackupdb
+        run: bash gcloud sql backups create --instance=hdr-registry-mysql  --description="cypress-backup"
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          build: npm run build
+          start: npm start
+
+      - name: Get latest backup
+        id: gargetbackupid
+        run: |
+          BACKUP_ID=$(gcloud sql backups list --instance=hdr-registry-dev \
+            --sort-by="~start_time" \
+            --limit=1 \
+            --filter="status=SUCCESSFUL" \
+            --format="json" | jq -r '.[0].id')
+
+          # Check if an ID was found before setting the output
+          if [ -z "$BACKUP_ID" ]; then
+            echo "Error: No successful backup found."
+            exit 1
+          fi
+
+          echo "BACKUP_ID=$BACKUP_ID" >> "$GITHUB_OUTPUT"
+
+      - name: Restore the database
+        run: |
+          echo "Restoring database backup with ID ${{ steps.gargetbackupid.outputs.BACKUP_ID }}"
+          gcloud sql backups restore "${{ steps.gargetbackupid.outputs.BACKUP_ID }}" \
+            --restore-instance=hdr-registry-dev \
+            --backup-instance=hdr-registry-dev
+
+      - name: Delete the temporary backup
+        run: |
+          echo "Deleting database backup with ID ${{ steps.gargetbackupid.outputs.BACKUP_ID }}"
+          gcloud sql backups delete "${{ steps.gargetbackupid.outputs.BACKUP_ID }}"
