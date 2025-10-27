@@ -1,5 +1,4 @@
 import { ROUTES } from "@/consts/router";
-import { injectParamsIntoPath } from "@/utils/application";
 import { loginCustodian } from "cypress/support/utils/custodian/auth";
 import {
   addNewProject,
@@ -16,7 +15,7 @@ import {
 const dataProject = DEFAULT_PROJECT;
 const dataProjectDetails = DEFAULT_PROJECT_DETAILS;
 
-describe("Projects user journey", () => {
+describe("Projects custodians journey", () => {
   beforeEach(() => {
     loginCustodian();
 
