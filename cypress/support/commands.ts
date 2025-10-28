@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { dataCy } from "./utils/common";
 
 Cypress.Commands.add("login", (email: string, password: string) => {
@@ -114,22 +115,8 @@ Cypress.Commands.add(
   (id: string, value: string | null | undefined) => {
     if (!value) return;
 
-    const dateParts = value.split("-");
-
-    cy.get(dataCy(`${id}-button`)).scrollIntoView();
-
-    cy.get(dataCy(`${id}-button`)).click();
-    cy.get(dataCy(`${id}-popover`))
-      .get(`.MuiPickersCalendarHeader-switchViewIcon`)
-      .click()
-      .get("button")
-      .contains(dateParts[0])
-      .click();
-
-    cy.get(dataCy(`${id}-button`)).click();
-
     cy.get(`#${id}`).click();
-    cy.get(`#${id}`).clear().type(`${dateParts[2]}/${dateParts[1]}`);
+    cy.get(`#${id}`).clear().type(dayjs(value).format("DD/MM/YYYY"));
   }
 );
 

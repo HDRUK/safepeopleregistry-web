@@ -2,7 +2,7 @@ name: Cypress Tests
 
 on:
   pull_request:
-    branches: feat/REGISTRY-2183
+    branches: develop
 
 env:
   CYPRESS_BASE_URL: http://localhost:3000

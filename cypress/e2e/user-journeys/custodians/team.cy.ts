@@ -8,7 +8,6 @@ import {
   removeTeamMemberCustodians,
 } from "cypress/support/utils/custodian/team";
 import { DEFAULT_CUSTODIAN_USER_FIELDS } from "cypress/support/utils/data";
-import { data } from "cypress/types/jquery";
 
 const dataUser = DEFAULT_CUSTODIAN_USER_FIELDS;
 let updatedEmail = dataUser.email;

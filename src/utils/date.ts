@@ -45,7 +45,7 @@ function formatNowDBDate() {
   return dayjs().format(FORMAT_DATE_DB);
 }
 
-function formatDBDate(date?: string) {
+function formatDBDate(date?: string | null | undefined) {
   return dayjs(date).format(FORMAT_DATE_DB);
 }
 
