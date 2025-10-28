@@ -7,9 +7,6 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import { DatePicker, DatePickerProps } from "@mui/x-date-pickers/DatePicker";
 import { useLocale } from "next-intl";
 import { enGB } from "date-fns/locale/en-GB";
-import dayjs from "dayjs";
-import { FORMAT_DATE_DB } from "../../consts/date";
-import { useEffect, useState } from "react";
 
 export interface DateInputProps
   extends Omit<DatePickerProps<Date>, "onChange"> {

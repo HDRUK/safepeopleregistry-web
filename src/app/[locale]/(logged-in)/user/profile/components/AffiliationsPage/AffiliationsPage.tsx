@@ -42,8 +42,8 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { Status } from "@/consts/application";
-import AffiliationsForm from "../AffiliationsForm";
 import { formatDBDate } from "@/utils/date";
+import AffiliationsForm from "../AffiliationsForm";
 
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";
 const NAMESPACE_TRANSLATION_AFFILIATIONS = "Affiliations";
