@@ -1,5 +1,5 @@
 const loginUser = () => {
-  cy.login("dan.ackroyd@ghostbusters.com", "Walk26Task!");
+  cy.login(Cypress.env("userEmail"), Cypress.env("userPassword"));
 };
 
 export { loginUser };
