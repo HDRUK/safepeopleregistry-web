@@ -66,10 +66,13 @@ jobs:
         id: garbackupdb
         run: bash gcloud sql backups create --instance=hdr-registry-mysql  --description="cypress-backup"
 
+      - name: Install dependencies
+        run: npm install @faker-js/faker dayjs
+
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          build: npm i @faker-js/faker dayjs && npm run build
+          build: npm run build
           start: npm start
 
       - name: Get latest backup
