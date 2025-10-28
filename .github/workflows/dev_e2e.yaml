@@ -41,7 +41,7 @@ jobs:
       id-token: write
     timeout-minutes: 20
     runs-on: ubuntu-latest
-    environment: "feat/REGISTRY-2183"
+    environment: develop
     steps:
       - name: Checkout
         uses: actions/checkout@v4
