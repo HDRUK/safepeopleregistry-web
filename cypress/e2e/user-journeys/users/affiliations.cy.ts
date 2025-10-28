@@ -1,8 +1,5 @@
 import { mockedAffiliation } from "@/mocks/data/user";
-import {
-  DEFAULT_AFFILIATION_USERS,
-  DEFAULT_FROM_DATE,
-} from "cypress/support/utils/data";
+import { DEFAULT_AFFILIATION_USERS } from "cypress/support/utils/data";
 import {
   addAffiliationUsers,
   editAffiliationUsers,
@@ -14,17 +11,7 @@ import {
 import { loginUser } from "cypress/support/utils/user/auth";
 import { ROUTES } from "@/consts/router";
 
-const dataAffiliation = {
-  relationship: "Employee",
-  organisation: {
-    organisation_name: "Health Data Research UK",
-  },
-  role: "Manager",
-  member_id: "123456789",
-  from: "2020-01-01",
-  to: null,
-  current_employer: true,
-};
+const dataAffiliation = mockedAffiliation(DEFAULT_AFFILIATION_USERS);
 
 describe("Affiliations journey", () => {
   beforeEach(() => {

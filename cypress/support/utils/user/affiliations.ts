@@ -9,29 +9,17 @@ import { DEFAULT_AFFILIATION_USERS } from "../data";
 const addAffiliationUsers = (
   affiliation: ResearcherAffiliation = DEFAULT_AFFILIATION_USERS
 ) => {
-  const x = {
-    relationship: "Employee",
-    organisation: {
-      organisation_name: "Health Data Research UK",
-    },
-    role: "Manager",
-    member_id: "123456789",
-    from: "2020-01-01",
-    to: null,
-    current_employer: true,
-    email: "abc@asd.com",
-  };
   cy.buttonClick("Add affiliation");
 
   cy.get(dataCy("form-modal")).should("be.visible");
 
-  // cy.dateSelectValue("from", x.from);
-  // cy.checkboxCheck("current_employer");
-  // cy.selectValue("organisation_id", x.organisation.organisation_name);
-  // cy.selectValue("relationship", x.relationship);
-  cy.get("#role").type(x.role);
-  cy.get("#member_id").type(x.member_id);
-  cy.get("#email").type(x.email);
+  cy.dateSelectValue("from", affiliation.from);
+  cy.checkboxCheck("current_employer");
+  cy.selectValue("organisation_id", affiliation.organisation.organisation_name);
+  cy.selectValue("relationship", affiliation.relationship);
+  cy.get("#role").type(affiliation.role);
+  cy.get("#member_id").type(affiliation.member_id);
+  cy.get("#email").type(affiliation.email);
 
   cy.saveFormClick();
   cy.swalClick("Close", "Verification needed");
