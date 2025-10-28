@@ -75,6 +75,14 @@ jobs:
           build: npm run build
           start: npm start
 
+      - name: Google Auth
+        id: auth-backup
+        uses: "google-github-actions/auth@v2"
+        with:
+          token_format: "access_token"
+          workload_identity_provider: "${{ secrets.WIF_PROVIDER }}"
+          service_account: "${{ secrets.WIF_SERVICE_ACCOUNT }}"
+
       - name: Get latest backup
         if: always()
         id: gargetbackupid
