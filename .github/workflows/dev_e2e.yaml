@@ -76,6 +76,7 @@ jobs:
           start: npm start
 
       - name: Get latest backup
+        if: always()
         id: gargetbackupid
         run: |
           BACKUP_ID=$(gcloud sql backups list --instance=hdr-registry-dev \
