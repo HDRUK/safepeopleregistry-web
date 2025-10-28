@@ -21,7 +21,7 @@ const dataAffiliation = {
   },
   role: "Manager",
   member_id: "123456789",
-  from: DEFAULT_FROM_DATE,
+  from: "2020-01-01",
   to: null,
   current_employer: true,
 };
