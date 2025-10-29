@@ -5,6 +5,7 @@ on:
     branches: develop
 
 env:
+  CYPRESS_RECORD_KEY: 37722b13-e215-4d2b-95e9-96de1cc70df8
   CYPRESS_BASE_URL: http://localhost:3000
   CYPRESS_USER_EMAIL: ${{ secrets.CYPRESS_USER_EMAIL }}
   CYPRESS_USER_PASSWORD: ${{ secrets.CYPRESS_USER_PASSWORD }}
@@ -72,6 +73,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
+          record: true
           wait-on: http://localhost:3000
           wait-on-timeout: 120
           build: npm run build
