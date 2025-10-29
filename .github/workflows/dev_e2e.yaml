@@ -63,6 +63,9 @@ jobs:
           workload_identity_provider: "${{ secrets.WIF_PROVIDER }}"
           service_account: "${{ secrets.WIF_SERVICE_ACCOUNT }}"
 
+      - name: Set up gcloud CLI
+        uses: google-github-actions/setup-gcloud@v2
+
       - name: Backup db to GAR temporarily
         id: garbackupdb
         run: bash gcloud sql backups create --instance=hdr-registry-mysql  --description="cypress-backup"
@@ -76,8 +79,7 @@ jobs:
           record: true
           wait-on: http://localhost:3000
           wait-on-timeout: 120
-          build: npm run build
-          start: npm start
+          start: npm run dev
           browser: chrome
 
       - name: Get latest backup
