@@ -76,8 +76,7 @@ jobs:
           record: true
           wait-on: http://localhost:3000
           wait-on-timeout: 120
-          build: npm run build
-          start: npm start
+          start: npm run dev
 
       - name: Get latest backup
         if: always()
