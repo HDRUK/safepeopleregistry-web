@@ -2,12 +2,14 @@ import SubPage from "../../components/SubPage";
 import { DetailsPageSubTabs, PageTabs } from "../../consts/tabs";
 
 interface DetailsPageProps {
-  params: {
+  params: Promise<{
     subTabId: DetailsPageSubTabs;
-  };
+  }>;
 }
 
-function DetailsPage({ params: { subTabId } }: DetailsPageProps) {
+async function DetailsPage({ params }: DetailsPageProps) {
+  const { subTabId } = await params;
+
   return (
     <SubPage
       params={{

@@ -33,7 +33,9 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".storybook/*.tsx",
-    "cypress/e2e/users/affiliations/add.cy.ts"
+    "cypress/e2e/users/affiliations/add.cy.ts",
+    "cypress/e2e/user-journeys/affiliations",
+    "cypress/plugins/index.js"
   ],
   "exclude": ["node_modules"]
 }

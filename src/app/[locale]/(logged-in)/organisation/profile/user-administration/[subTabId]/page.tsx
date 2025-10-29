@@ -2,12 +2,14 @@ import SubPage from "../../components/SubPage";
 import { UserAdminPageSubTabs, PageTabs } from "../../consts/tabs";
 
 interface UserAdminPageProps {
-  params: {
+  params: Promise<{
     subTabId: UserAdminPageSubTabs;
-  };
+  }>;
 }
 
-function UserAdminPage({ params: { subTabId } }: UserAdminPageProps) {
+async function UserAdminPage({ params }: UserAdminPageProps) {
+  const { subTabId } = await params;
+
   return (
     <SubPage
       params={{

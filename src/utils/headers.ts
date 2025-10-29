@@ -1,8 +1,7 @@
-"use server";
-
-import { EXCLUDE_REDIRECT_URLS } from "../../consts/router";
-import getMe from "../../services/auth/getMe";
-import { getAccessToken } from "../../utils/auth";
+import { headers } from "next/headers";
+import { EXCLUDE_REDIRECT_URLS } from "../consts/router";
+import getMe from "../services/auth/getMe";
+import { getAccessToken } from "./auth";
 import {
   getHomepageRedirectPath,
   getProfileRedirectPath,
@@ -11,11 +10,15 @@ import {
   getSeverErrorRedirectPath,
   isInPath,
   redirectToPath,
-} from "../../utils/redirects";
-import usePathServerSide from "../usePathServerSide";
+} from "./redirects";
 
-export default async function useApplicationRedirects() {
-  const pathname = usePathServerSide();
+async function getServerSidePath(): Promise<string | null> {
+  const head = await headers();
+  return head.get("x-current-path");
+}
+
+export default async function redirectApplication() {
+  const pathname = await getServerSidePath();
 
   if (pathname && !isInPath(pathname, EXCLUDE_REDIRECT_URLS)) {
     let redirectUrl;
@@ -48,3 +51,20 @@ export default async function useApplicationRedirects() {
 
   return null;
 }
+
+async function redirectProfile() {
+  const pathname = await getServerSidePath();
+  const accessToken = await getAccessToken();
+
+  if (accessToken && pathname) {
+    const response = await getMe({
+      suppressThrow: true,
+    });
+
+    if (response.status === 200) {
+      redirectToPath(getProfileRedirectPath(response.data), pathname);
+    }
+  }
+}
+
+export { getServerSidePath, redirectApplication, redirectProfile };

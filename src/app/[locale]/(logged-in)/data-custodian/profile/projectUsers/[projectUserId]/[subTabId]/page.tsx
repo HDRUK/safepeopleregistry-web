@@ -1,16 +1,16 @@
 import CustodianProjectUser from "./components/CustodianProjectUser";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     id: number;
     projectUserId: number;
     subTabId: string;
-  };
+  }>;
 }
 
-function CustodianProjectUserPage({
-  params: { projectUserId, subTabId },
-}: PageProps) {
+async function CustodianProjectUserPage({ params }: PageProps) {
+  const { projectUserId, subTabId } = await params;
+
   return (
     <CustodianProjectUser projectUserId={projectUserId} subTabId={subTabId} />
   );

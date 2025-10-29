@@ -1,3 +1,5 @@
+"use client";
+
 import { useStore } from "@/data/store";
 import { PageBodyContainer } from "@/modules";
 import { ResearcherProject } from "@/types/application";

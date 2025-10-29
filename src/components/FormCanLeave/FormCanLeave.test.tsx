@@ -1,11 +1,12 @@
 import { useFormState } from "react-hook-form";
+import Link from "next/link";
 import { fireEvent, render, screen, waitFor } from "../../utils/testUtils";
 import FormCanLeave from ".";
 
 const renderFormCanLeave = () => {
   render(
     <FormCanLeave>
-      <a href="/">Link</a>
+      <Link href="/">Link</Link>
     </FormCanLeave>
   );
 };

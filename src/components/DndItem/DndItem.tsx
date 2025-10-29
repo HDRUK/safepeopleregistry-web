@@ -74,9 +74,9 @@ const DndItem = React.forwardRef<HTMLLIElement, DndItemProps>(
         ref={ref}>
         <motion.div {...getAnimationProps({ isError })}>
           <StyledItem
-            dragging={dragging}
-            dragOverlay={dragOverlay}
-            disabled={disabled}
+            dragging={!!dragging}
+            dragOverlay={!!dragOverlay}
+            disabled={!!disabled}
             tabIndex={0}
             {...listeners}
             {...restProps}>

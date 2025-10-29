@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 import { COOKIE_OPTIONS } from "@/consts/cookies";
 
 export async function GET(req: Request) {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const { searchParams } = new URL(req.url);
   const code = searchParams.get("code");
   const redirectPath = cookieStore.get("redirectPath") ?? { value: "/" };

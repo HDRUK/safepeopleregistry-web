@@ -3,16 +3,16 @@
 import CustodianProjectOrganisation from "./components/CustodianProjectOrganisation";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     id: number;
     projectOrganisationId: number;
     subTabId: string;
-  };
+  }>;
 }
 
-function CustodianProjectOrganisationsPage({
-  params: { projectOrganisationId, subTabId },
-}: PageProps) {
+async function CustodianProjectOrganisationsPage({ params }: PageProps) {
+  const { projectOrganisationId, subTabId } = await params;
+
   return (
     <CustodianProjectOrganisation
       projectOrganisationId={projectOrganisationId}

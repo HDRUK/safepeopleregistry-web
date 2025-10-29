@@ -60,7 +60,9 @@ export default function Projects() {
       <PageBody
         description={
           <Box sx={{ display: "flex", gap: 4 }}>
-            <Typography sx={{ flexGrow: 1 }}>{mockedProjectsIntro}</Typography>
+            <Typography component="div" sx={{ flexGrow: 1 }}>
+              {mockedProjectsIntro}
+            </Typography>
             <Button
               startIcon={<AddIcon />}
               onClick={handleCreateProject}

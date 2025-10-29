@@ -2,12 +2,14 @@ import SubPage from "../../components/SubPage";
 import { ConfigurationSubTabs, PageTabs } from "../../consts/tabs";
 
 interface ConfigurationPageProps {
-  params: {
+  params: Promise<{
     subTabId: ConfigurationSubTabs;
-  };
+  }>;
 }
 
-function ConfigurationPage({ params: { subTabId } }: ConfigurationPageProps) {
+async function ConfigurationPage({ params }: ConfigurationPageProps) {
+  const { subTabId } = await params;
+
   return (
     <SubPage
       params={{

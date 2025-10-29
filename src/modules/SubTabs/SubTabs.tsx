@@ -26,6 +26,7 @@ export default function SubTabs({
       sx={{ mb: 1, ...sx }}>
       {tabs.map(({ label, value, href }) => (
         <Tab
+          key={label}
           label={label}
           value={value}
           href={href}

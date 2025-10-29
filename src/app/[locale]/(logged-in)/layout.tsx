@@ -1,10 +1,10 @@
 import { UserGroup } from "@/consts/user";
-import useApplicationRedirects from "@/hooks/useApplicationRedirects";
 import { PageContainer } from "@/modules";
 import Application from "@/organisms/Application";
 import { getMe } from "@/services/auth";
 import { getCustodianUser } from "@/services/custodian_users";
 import { User } from "@/types/application";
+import { redirectApplication } from "@/utils/headers";
 import { PropsWithChildren } from "react";
 
 type LayoutProps = PropsWithChildren;
@@ -25,7 +25,7 @@ export default async function Layout({ children }: LayoutProps) {
   let custodianId;
   let organisationId;
 
-  await useApplicationRedirects();
+  await redirectApplication();
 
   const { data } = await getMe();
 

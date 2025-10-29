@@ -13,8 +13,8 @@ import { getMessages } from "next-intl/server";
 import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { PropsWithChildren } from "react";
-import "../../sweetalert2-custom.css";
 import "../global.css";
+import "../../sweetalert2-custom.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,10 +28,12 @@ type RootLayoutProps = PropsWithChildren<{
 }>;
 
 export default async function RootLayout({
+  params,
   children,
-  params: { locale },
 }: RootLayoutProps) {
-  if (!locales[locale]) notFound();
+  const { locale } = await params;
+
+  if (locale && !locales[locale]) notFound();
 
   const messages = await getMessages();
 

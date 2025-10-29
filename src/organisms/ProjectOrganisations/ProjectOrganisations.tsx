@@ -1,6 +1,9 @@
 "use client";
 
 import ButtonToggle from "@/components/ButtonToggle";
+import ErrorMessage from "@/components/ErrorMessage";
+import Results from "@/components/Results";
+import { SEARCH_PAGE_MAX_PER_PAGE } from "@/consts/search";
 import useProjectEntity from "@/hooks/useProjectEntity";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
 import { KanbanBoardHelperProps } from "@/modules/KanbanBoard";
@@ -20,8 +23,6 @@ import ViewColumnIconOutlined from "@mui/icons-material/ViewColumnOutlined";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import Results from "@/components/Results";
-import { SEARCH_PAGE_MAX_PER_PAGE } from "@/consts/search";
 import ProjectOrganisationsList from "../ProjectOrganisationsList";
 import ProjectOrganisationsActions from "./ProjectOrganisationsActions";
 
@@ -213,7 +214,7 @@ export default function ProjectOrganisations({
         <Results
           total={total}
           noResultsMessage={t("noResultsMessage")}
-          errorMessage={t("errorMessage")}
+          errorMessage={<ErrorMessage t={t} tKey="errorMessage" />}
           queryState={queryState}>
           {itemsByTransitions && listComponent}
         </Results>

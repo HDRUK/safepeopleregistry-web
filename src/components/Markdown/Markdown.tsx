@@ -95,7 +95,11 @@ const defaultComponents: Components = {
     );
   },
   p({ children }) {
-    return <Typography mb={2}>{children}</Typography>;
+    return (
+      <Typography component="span" mb={2} sx={{ display: "block" }}>
+        {children}
+      </Typography>
+    );
   },
   a({ children, href, ...props }) {
     if (href?.startsWith("#button-")) {

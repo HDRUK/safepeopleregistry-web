@@ -3,13 +3,13 @@
 import Text from "@/components/Text";
 import { useStore } from "@/data/store";
 import { Link } from "@/i18n/routing";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import BusinessOutlinedIcon from "@mui/icons-material/BusinessOutlined";
-import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
 import { Box, Tab, Tabs } from "@mui/material";
 import { useTranslations } from "next-intl";
-import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import { PageTabs } from "../../consts/tabs";
 
 const NAMESPACE_TRANSLATION_PROFILE = "ProfileOrganisation";
