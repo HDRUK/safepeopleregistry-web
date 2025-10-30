@@ -19,14 +19,7 @@ import { EMAIL_TEMPLATE } from "@/consts/application";
 import SelectDepartments from "@/components/SelectDepartments";
 import { UserGroup } from "@/consts/user";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
-
-export interface DelegatesFormValues {
-  department_name?: string | null;
-  delegate_first_name: string;
-  delegate_last_name: string;
-  delegate_job_title: string;
-  delegate_email: string;
-}
+import { DelegatesFormValues } from "@/types/form";
 
 export interface InvitedDelegatesFormProps {
   onSuccess: () => void;

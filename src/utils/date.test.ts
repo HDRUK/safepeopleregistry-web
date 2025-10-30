@@ -1,4 +1,9 @@
-import { formatDisplayShortDate, formatShortDate, isExpired } from "./date";
+import {
+  formatDisplayShortDate,
+  formatDisplayTimeDate,
+  formatShortDate,
+  isExpired,
+} from "./date";
 
 describe("Date utils", () => {
   describe("isExpired", () => {
@@ -24,6 +29,14 @@ describe("Date utils", () => {
   describe("formatDisplayShortDate", () => {
     it("date has the correct format", async () => {
       expect(formatDisplayShortDate("2021-01-01")).toEqual("Jan 2021");
+    });
+  });
+
+  describe("formatDisplayTimeDate", () => {
+    it("date has the correct format", async () => {
+      expect(formatDisplayTimeDate("2021-01-01 13:00:12")).toEqual(
+        "01 Jan 13:00"
+      );
     });
   });
 });

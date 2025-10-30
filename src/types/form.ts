@@ -54,6 +54,14 @@ interface CustodianEditContactFormFields {
   permissions: CustodianUserRoles;
 }
 
+interface DelegatesFormValues {
+  department_name?: string | null;
+  delegate_first_name: string;
+  delegate_last_name: string;
+  delegate_job_title: string;
+  delegate_email: string;
+}
+
 export type {
   QueryState,
   MutationState,
@@ -62,4 +70,5 @@ export type {
   InviteUserFormValues,
   KeyContactFormValues,
   CustodianEditContactFormFields,
+  DelegatesFormValues,
 };
