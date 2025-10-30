@@ -2,11 +2,11 @@ import { useStore } from "@/data/store";
 import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { TranslationValues, useTranslations } from "next-intl";
-import { formatDisplayTimeDate, getDaysSince } from "../../utils/date";
-import { getInitials, getName } from "../../utils/application";
 import MaskLabel from "../../components/MaskLabel";
 import { getUserHistoryQuery } from "../../services/users";
-import { toSentenceCase } from "@/utils/string";
+import { getInitials, getName } from "../../utils/application";
+import { formatDisplayTimeDate } from "../../utils/date";
+import { toSentenceCase } from "../../utils/string";
 
 const NAMESPACE_TRANSLATION = "UserHistory";
 const NAMESPACE_TRANSLATION_APPLICATION = "Application.Status";
