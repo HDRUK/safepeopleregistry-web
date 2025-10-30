@@ -22,6 +22,12 @@ function toTitleCase(str: string): string {
     .join(" ");
 }
 
+function toSentenceCase(str: string): string {
+  return str.toLowerCase().replace(/(^\s*\w|[.!?] s*\w)/g, function replace(c) {
+    return c.toUpperCase();
+  });
+}
+
 function getRandomString(length: number = 40) {
   const chars =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -40,4 +46,5 @@ export {
   toCamelCase,
   anyIncludes,
   getRandomString,
+  toSentenceCase,
 };

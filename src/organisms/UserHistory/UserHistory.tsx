@@ -2,13 +2,14 @@ import { useStore } from "@/data/store";
 import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { TranslationValues, useTranslations } from "next-intl";
-import { getDaysSince } from "../../utils/date";
-import { getInitials, getName } from "../../utils/application";
 import MaskLabel from "../../components/MaskLabel";
 import { getUserHistoryQuery } from "../../services/users";
+import { getInitials, getName } from "../../utils/application";
+import { formatDisplayTimeDate } from "../../utils/date";
+import { toSentenceCase } from "../../utils/string";
 
 const NAMESPACE_TRANSLATION = "UserHistory";
-const NAMESPACE_TRANSLATION_APPLICATION = "Application";
+const NAMESPACE_TRANSLATION_APPLICATION = "Application.Status";
 
 function flattenObject(
   obj: Record<string, unknown>,
@@ -43,12 +44,19 @@ export default function UserHistory() {
   return (
     <Box sx={{ gap: 2, display: "flex", flexDirection: "column" }}>
       {userHistory?.data?.map(history => {
-        const { id, event, log_name, subject, causer, created_at, properties } =
-          history;
+        const {
+          id,
+          event,
+          log_name,
+          subject,
+          causer,
+          created_at,
+          properties,
+          description,
+        } = history;
 
         const logUser = causer || subject;
         const userName = getName(logUser);
-
         const subjectName = getName(subject);
 
         const changedAttributeString = Object.entries(
@@ -62,10 +70,10 @@ export default function UserHistory() {
         const hydratedProperties = {
           ...baseProperties,
           ...(properties.old_status && {
-            old_status: tApplication(`status_${properties.old_status}`),
+            old_status: tApplication(properties.old_status),
           }),
           ...(properties.new_status && {
-            new_status: tApplication(`status_${properties.new_status}`),
+            new_status: tApplication(properties.new_status),
           }),
         };
 
@@ -85,21 +93,27 @@ export default function UserHistory() {
                     sx={{ justifyContent: "flex-start", mx: 1 }}
                   />
                 </Grid>
-                <Grid item xs={11}>
-                  <Typography variant="h6">{userName}</Typography>
-                  <Typography variant="body2">
+                <Grid item xs={11} sx={{ color: "text.secondary" }}>
+                  <Typography variant="small">
+                    {formatDisplayTimeDate(created_at)}
+                  </Typography>
+                  <Typography fontWeight="bold">
+                    {userName} -{" "}
                     {t(`${log_name}.${event}.title`, { name: subjectName })}
                   </Typography>
 
-                  <Typography variant="body2" sx={{ fontStyle: "italic" }}>
+                  <Typography variant="body2">
+                    <b>Description:</b>{" "}
                     {t(`${log_name}.${event}.description`, {
                       attributeKeys: changedAttributeString,
                       ...(hydratedProperties ?? {}),
                     } as unknown as TranslationValues)}
                   </Typography>
-                  <Typography variant="caption" color="text.secondary">
-                    {t("daysSince", { days: getDaysSince(created_at) })}
-                  </Typography>
+                  {description && (
+                    <Typography variant="body2">
+                      <b>Comment:</b> {toSentenceCase(description)}
+                    </Typography>
+                  )}
                 </Grid>
               </Grid>
             </CardContent>
