@@ -14,6 +14,14 @@ export default defineConfig({
         },
       });
 
+      on("before:browser:launch", (browser, launchOptions) => {
+        console.log("Cypress browser:", browser);
+        if (browser.family === "chromium") {
+          launchOptions.args.push("--blink-settings=primaryPointerType=4");
+        }
+        return launchOptions;
+      });
+
       config.env.keycloakBaseUrl = process.env.NEXT_PUBLIC_KEYCLOAK_BASE_URL;
 
       config.env.keycloakClientId = process.env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID;
