@@ -114,6 +114,14 @@ const DEFAULT_SRO_FIELDS_ORGANISATIONS = {
   sro_profile_uri: faker.internet.url(),
 };
 
+const DEFAULT_DELEGATE_FIELDS_ORGANISATIONS = {
+  delegate_first_name: faker.person.firstName(),
+  delegate_last_name: faker.person.lastName(),
+  delegate_job_title: DEFAULT_ROLE_NAME,
+  delegate_email: faker.internet.email(),
+  department_name: DEFAULT_DEPARTMENT,
+};
+
 const DEFAULT_ORGANISATION = mockedOrganisation({
   organisation_name: DEFAULT_ORGANISATION_NAME,
 });
@@ -141,4 +149,5 @@ export {
   DEFAULT_PROJECT,
   DEFAULT_PROJECT_DETAILS,
   DEFAULT_CUSTODIAN_USER_FIELDS,
+  DEFAULT_DELEGATE_FIELDS_ORGANISATIONS,
 };
