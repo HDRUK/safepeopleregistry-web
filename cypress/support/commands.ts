@@ -115,7 +115,6 @@ Cypress.Commands.add(
   (id: string, value: string | null | undefined) => {
     if (!value) return;
 
-    cy.get(`#${id}`).click();
     cy.get(`#${id}`).clear().type(dayjs(value).format("DD/MM/YYYY"));
   }
 );
