@@ -41,6 +41,12 @@ function formatDisplayLongDate(date?: string) {
   return djsDate.isValid() ? djsDate.format(FORMAT_DISPLAY_LONG_DATE) : date;
 }
 
+function formatDisplayTimeDate(date?: string) {
+  const djsDate = dayjs(date);
+
+  return djsDate.isValid() ? djsDate.format("DD MMM HH:mm") : date;
+}
+
 function formatNowDBDate() {
   return dayjs().format(FORMAT_DATE_DB);
 }
@@ -77,4 +83,5 @@ export {
   getDaysSince,
   isExpired,
   isExpiredInvite,
+  formatDisplayTimeDate,
 };
