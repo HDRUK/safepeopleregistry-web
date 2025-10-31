@@ -33,15 +33,21 @@ const DateInput = ({
 
   const parseDate = (data: string | null) => {
     console.log(
-      "****** id",
+      "****** id befire date check",
       id,
       data,
-      dayjs(data, dateFormat).isValid(),
-      new Date(data)
+      dayjs(data, dateFormat).isValid()
     );
     if (!data) return data;
 
+    console.log(
+      "****** id after date check",
+      id,
+      dayjs(data, dateFormat).isValid()
+    );
+
     if (dayjs(data, dateFormat).isValid()) {
+      console.log("****** id is valid", id, new Date(data));
       return new Date(data);
     }
 
