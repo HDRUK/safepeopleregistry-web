@@ -44,7 +44,7 @@ function renderAffiliationDateRangeCell<T extends ResearcherAffiliation>(
 
   return (
     <Typography>
-      {formatShortDate(from)} - {to ? formatShortDate(to) : "Present"}
+      {formatShortDate(from)} - {to || "Present"}
     </Typography>
   );
 }
