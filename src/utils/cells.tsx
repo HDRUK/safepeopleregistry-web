@@ -42,6 +42,8 @@ function renderAffiliationDateRangeCell<T extends ResearcherAffiliation>(
 
   if (!from) return null;
 
+  console.log("From date:", from, "To date:", to);
+
   return (
     <Typography>
       {formatShortDate(from)} - {to ? formatShortDate(to) : "Present"}
