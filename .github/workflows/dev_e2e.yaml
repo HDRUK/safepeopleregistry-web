@@ -87,7 +87,7 @@ jobs:
         if: always()
         id: gargetbackupid
         run: |
-          BACKUP_ID=$(gcloud sql backups list --instance=hdr-registry-dev \
+          BACKUP_ID=$(gcloud sql backups list --instance=hdr-registry-mysql \
             --sort-by="~start_time" \
             --limit=1 \
             --filter="status=SUCCESSFUL" \
