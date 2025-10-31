@@ -1,5 +1,5 @@
 const loginAdmin = () => {
-  cy.login(Cypress.env("adminEmail"), Cypress.env("adminPassword"));
+  cy.login("peter.hammans+admin@hdruk.ac.uk", Cypress.env("adminPassword"));
 };
 
 export { loginAdmin };
