@@ -12,7 +12,7 @@ const addSROOrganisations = (
   cy.get("#role").clear().type(data.job_title);
   cy.get("#sro_profile_uri").clear().type(data.sro_profile_uri);
 
-  cy.contains("button", "Upload SRO Declaration Form").click();
+  cy.contains("button", /Upload SRO Declaration Form/i).click();
   cy.get("input[type=file]").selectFile(DEFAULT_PDF_FILE, {
     force: true,
   });
