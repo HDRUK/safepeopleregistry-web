@@ -66,11 +66,12 @@ describe("Projects safe people journey", () => {
     //     },
     //   },
     // });
-
-    cy.wait(2000);
   });
 
   it("Has added a user to the project", () => {
+    // Delay for observers to finish
+    cy.wait(3000);
+
     hasProjectUsers({
       ...dataProjectUser,
       model_state: {

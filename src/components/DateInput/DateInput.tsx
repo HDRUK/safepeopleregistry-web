@@ -32,19 +32,7 @@ const DateInput = ({
   const locale = localeString === "en" ? enGB : enGB; // Add more locales as needed
 
   const parseDate = (data: string | null) => {
-    console.log(
-      "****** id befire date check",
-      id,
-      data,
-      dayjs(data, dateFormat).isValid()
-    );
     if (!data) return data;
-
-    console.log(
-      "****** id after date check",
-      id,
-      dayjs(data, dateFormat).isValid()
-    );
 
     if (dayjs(data, dateFormat).isValid() && data !== "Invalid Date") {
       console.log("****** id is valid", id, new Date(data));

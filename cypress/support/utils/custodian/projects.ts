@@ -44,9 +44,7 @@ const changeStatusProjectUsers = (
   project: CustodianProjectUser,
   status: Status
 ) => {
-  const row = cy.getResultsActionMenu(
-    getName(project.project_has_user.registry.user)
-  );
+  const row = cy.getResultsActionMenu("first");
 
   row.click();
 

@@ -42,16 +42,9 @@ function renderAffiliationDateRangeCell<T extends ResearcherAffiliation>(
 
   if (!from) return null;
 
-  let endDate = null;
-
-  if (to) {
-    endDate = formatShortDate(to);
-  }
-
   return (
     <Typography>
-      {formatShortDate(from)} -{" "}
-      {!endDate?.includes("Invalid Date") ? endDate : "Present"}
+      {formatShortDate(from)} - {to ? formatShortDate(to) : "Present"}
     </Typography>
   );
 }

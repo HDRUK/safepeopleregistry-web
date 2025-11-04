@@ -22,7 +22,13 @@ function formatStringToISO(date?: string) {
 }
 
 function getDate(date?: string | null) {
-  return date ? new Date(date) : undefined;
+  const djsDate = dayjs(date);
+
+  if (djsDate.isValid()) {
+    return date ? new Date(date) : undefined;
+  }
+
+  return undefined;
 }
 
 function formatShortDate(date?: string) {
