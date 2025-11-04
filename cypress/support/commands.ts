@@ -49,12 +49,13 @@ Cypress.Commands.add("getResultsRow", (index?: number | string | undefined) => {
 });
 
 Cypress.Commands.add("getResultsRowByValue", (value: string) => {
-  const row =
-    value === "first" || value === "last"
-      ? cy.getResultsRow(value)
-      : cy.get(dataCy("results")).should("exist").get("tbody tr");
-
-  return row.contains("td", value).should("exist").parent();
+  return cy
+    .get(dataCy("results"))
+    .should("exist")
+    .get("tbody tr")
+    .contains("td", value)
+    .should("exist")
+    .parent();
 });
 
 Cypress.Commands.add("getResultsCellByValue", (value: string) => {

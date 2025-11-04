@@ -56,17 +56,6 @@ export default defineConfig({
     projectId: "vnpz3g",
     viewportWidth: 1920,
     viewportHeight: 1080,
-    specPattern: [
-      // "cypress/e2e/user-journeys/organisations/sro.cy.ts",
-      // "cypress/e2e/user-journeys/users/affiliations.cy.ts",
-      // "cypress/e2e/user-journeys/organisations/delegates.cy.ts",
-      // "cypress/e2e/user-journeys/organisations/affiliations.cy.ts",
-      "cypress/e2e/user-journeys/custodians/projects.cy.ts",
-      // "cypress/e2e/user-journeys/custodians/projectsSafePeople.cy.ts",
-      // "cypress/e2e/user-journeys/custodians/projectsOrganisations.cy.ts",
-      // "cypress/e2e/user-journeys/custodians/projectsUsers.cy.ts",
-      // "cypress/e2e/user-journeys/custodians/team.cy.ts",
-    ],
     // supportFile: "cypress/support/index.ts",
   },
 });

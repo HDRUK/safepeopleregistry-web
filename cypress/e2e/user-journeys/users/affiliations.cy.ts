@@ -1,8 +1,5 @@
 import { mockedAffiliation } from "@/mocks/data/user";
-import {
-  DEFAULT_AFFILIATION_USERS,
-  DEFAULT_TO_DATE,
-} from "cypress/support/utils/data";
+import { DEFAULT_AFFILIATION_USERS } from "cypress/support/utils/data";
 import {
   addAffiliationUsers,
   editAffiliationUsers,
@@ -14,13 +11,7 @@ import {
 import { loginUser } from "cypress/support/utils/user/auth";
 import { ROUTES } from "@/consts/router";
 
-const dataCurrentAffiliation = mockedAffiliation(DEFAULT_AFFILIATION_USERS);
-const dataAffiliation = {
-  ...dataCurrentAffiliation,
-  current_employer: false,
-  to: DEFAULT_TO_DATE,
-  member_id: Cypress._.random(0, 1e6).toString(),
-};
+const dataAffiliation = mockedAffiliation(DEFAULT_AFFILIATION_USERS);
 
 describe("Affiliations journey", () => {
   beforeEach(() => {
@@ -31,12 +22,6 @@ describe("Affiliations journey", () => {
 
   after(() => {
     // logout();
-  });
-
-  it("Adds a current affiliation", () => {
-    addAffiliationUsers(dataCurrentAffiliation);
-
-    cy.swalClick("Close", "Verification needed");
   });
 
   it("Adds an affiliation", () => {

@@ -24,13 +24,10 @@ const DEFAULT_CUSTODIAN_USER_FIELDS = {
   permissions: CustodianUserRoles.ADMINISTRATOR,
 };
 
-const DEFAULT_ORGANISATION_NAME = "Test Organisation, LTD";
-const DEFAULT_UNAPPROVED_ORGANISATION_NAME = "Test Organisation, LTD";
-
 const DEFAULT_AFFILIATION_USERS = mockedAffiliation({
   relationship: "Employee",
   organisation: {
-    organisation_name: DEFAULT_ORGANISATION_NAME,
+    organisation_name: "Health Data Research UK",
   },
   role: "Manager",
   member_id: memberId,
@@ -45,7 +42,11 @@ const DEFAULT_INVITE_USERS = mockedUser({
   email: faker.internet.email(),
 });
 
-const DEFAULT_PROJECT_NAME = "Test project name";
+const DEFAULT_PROJECT_NAME =
+  "Assessing Air Quality Impact on Respiratory Health in Urban Populations";
+
+const DEFAULT_ORGANISATION_NAME = "Health Pathways (UK) Limited";
+const DEFAULT_UNAPPROVED_ORGANISATION_NAME = "TANDY ENERGY LIMITED";
 
 const DEFAULT_ROLE_NAME = "Researcher";
 
@@ -71,8 +72,8 @@ const DEFAULT_PROJECT_USERS_CUSTODIANS = mockedCustodianHasProjectUser({
     },
     registry: {
       user: {
-        first_name: "Test",
-        last_name: "User",
+        first_name: "Annie",
+        last_name: "Potts",
       },
     },
   }),
