@@ -22,6 +22,7 @@ const addAffiliationUsers = (
   cy.get("#email").type(affiliation.email);
 
   cy.saveFormClick();
+  cy.swalClick("Close", "Verification needed");
 };
 
 const hasCurrentAffiliationUsers = (affiliation: ResearcherAffiliation) => {
