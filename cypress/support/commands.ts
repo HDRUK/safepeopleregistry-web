@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { dataCy } from "./utils/common";
 
 Cypress.Commands.add("login", (email: string, password: string) => {
@@ -48,13 +49,12 @@ Cypress.Commands.add("getResultsRow", (index?: number | string | undefined) => {
 });
 
 Cypress.Commands.add("getResultsRowByValue", (value: string) => {
-  return cy
-    .get(dataCy("results"))
-    .should("exist")
-    .get("tbody tr")
-    .contains("td", value)
-    .should("exist")
-    .parent();
+  const row =
+    value === "first" || value === "last"
+      ? cy.getResultsRow(value)
+      : cy.get(dataCy("results")).should("exist").get("tbody tr");
+
+  return row.contains("td", value).should("exist").parent();
 });
 
 Cypress.Commands.add("getResultsCellByValue", (value: string) => {
@@ -114,22 +114,9 @@ Cypress.Commands.add(
   (id: string, value: string | null | undefined) => {
     if (!value) return;
 
-    const dateParts = value.split("-");
-
-    cy.get(dataCy(`${id}-button`)).scrollIntoView();
-
-    cy.get(dataCy(`${id}-button`)).click();
-    cy.get(dataCy(`${id}-popover`))
-      .get(`.MuiPickersCalendarHeader-switchViewIcon`)
-      .click()
-      .get("button")
-      .contains(dateParts[0])
-      .click();
-
-    cy.get(dataCy(`${id}-button`)).click();
-
-    cy.get(`#${id}`).click();
-    cy.get(`#${id}`).clear().type(`${dateParts[2]}/${dateParts[1]}`);
+    // Bug in pipeline where readonly is true in mui datepicker
+    cy.get(`#${id}`).invoke("removeAttr", "readonly");
+    cy.get(`#${id}`).clear().type(dayjs(value).format("DD/MM/YYYY"));
   }
 );
 

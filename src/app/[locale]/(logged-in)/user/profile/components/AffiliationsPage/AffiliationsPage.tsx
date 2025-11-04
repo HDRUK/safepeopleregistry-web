@@ -259,6 +259,8 @@ export default function AffiliationsPage({
         organisation_id,
       };
 
+      console.log("payload", payload);
+
       if (selectedAffiliation) {
         // Update existing affiliation
         await putAffiliation({

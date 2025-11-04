@@ -20,6 +20,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { PageTabs, ProjectsSubTabs } from "../../consts/tabs";
 import SubTabsSections from "../SubTabSections";
+import { formatDBDate } from "@/utils/date";
 
 const NAMESPACE_TRANSLATION = "CustodianProfile";
 
@@ -60,7 +61,11 @@ export default function ProjectsSafeProject() {
       params: {
         id: project.id,
       },
-      payload,
+      payload: {
+        ...payload,
+        start_date: formatDBDate(payload.start_date),
+        end_date: formatDBDate(payload.end_date),
+      },
     });
   };
 

@@ -21,8 +21,20 @@ function formatStringToISO(date?: string) {
   return date ? format(date, "yyyy-MM-dd") : undefined;
 }
 
+function formatDisplayTimeDate(date?: string) {
+  const djsDate = dayjs(date);
+
+  return djsDate.isValid() ? djsDate.format("DD MMM HH:mm") : date;
+}
+
 function getDate(date?: string | null) {
-  return date ? new Date(date) : undefined;
+  const djsDate = dayjs(date);
+
+  if (djsDate.isValid()) {
+    return date ? new Date(date) : undefined;
+  }
+
+  return undefined;
 }
 
 function formatShortDate(date?: string) {
@@ -39,12 +51,6 @@ function formatDisplayLongDate(date?: string) {
   const djsDate = dayjs(date);
 
   return djsDate.isValid() ? djsDate.format(FORMAT_DISPLAY_LONG_DATE) : date;
-}
-
-function formatDisplayTimeDate(date?: string) {
-  const djsDate = dayjs(date);
-
-  return djsDate.isValid() ? djsDate.format("DD MMM HH:mm") : date;
 }
 
 function formatNowDBDate() {

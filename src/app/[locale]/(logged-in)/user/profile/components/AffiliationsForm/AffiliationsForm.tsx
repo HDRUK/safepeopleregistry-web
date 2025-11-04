@@ -117,6 +117,8 @@ export default function AffiliationsForm({
     [initialValues]
   );
 
+  console.log("formOptions", formOptions);
+
   useEffect(() => {
     if (initialValues?.organisation_id) {
       setSelectOrganisation(true);
