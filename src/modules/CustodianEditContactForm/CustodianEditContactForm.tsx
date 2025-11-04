@@ -7,7 +7,7 @@ import yup from "@/config/yup";
 import { CustodianUserRoles } from "@/consts/custodian";
 import { useStore } from "@/data/store";
 import { CustodianUser, WithTranslations } from "@/types/application";
-import { QueryState } from "@/types/form";
+import { CustodianEditContactFormFields, QueryState } from "@/types/form";
 import {
   isCustodianAdministrator,
   isCustodianApprover,
@@ -25,13 +25,6 @@ import {
 } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
-
-export interface CustodianEditContactFormFields {
-  first_name: string;
-  last_name: string;
-  email: string;
-  permissions: CustodianUserRoles;
-}
 
 export type CustodianEditContactFormProps = WithTranslations<{
   user: Partial<CustodianUser>;

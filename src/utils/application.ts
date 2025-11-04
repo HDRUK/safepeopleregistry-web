@@ -10,6 +10,10 @@ function canUseIdvt(country: string | undefined) {
 
 function getStatus(slug: string) {
   switch (slug) {
+    case Status.PROJECT_APPROVED:
+      return "Approved";
+    case Status.PROJECT_PENDING:
+      return "Pending approval";
     case Status.AFFILIATION_APPROVED:
       return "Approved";
     case Status.AFFILIATION_EMAIL_VERIFY:

@@ -57,6 +57,14 @@ Cypress.Commands.add("getResultsRowByValue", (value: string) => {
     .parent();
 });
 
+Cypress.Commands.add("getResultsCellByValue", (value: string) => {
+  return cy
+    .get(dataCy("results"))
+    .should("exist")
+    .get("tbody tr")
+    .contains("td", value);
+});
+
 Cypress.Commands.add("getResultsActionMenu", (value: string) => {
   return cy
     .getResultsRowByValue(value)
@@ -107,6 +115,8 @@ Cypress.Commands.add(
     if (!value) return;
 
     const dateParts = value.split("-");
+
+    cy.get(dataCy(`${id}-button`)).scrollIntoView();
 
     cy.get(dataCy(`${id}-button`)).click();
     cy.get(dataCy(`${id}-popover`))
@@ -161,6 +171,9 @@ declare global {
       getResultsRowByValue: (
         value: string
       ) => Cypress.Chainable<JQuery<HTMLElement>>;
+      getResultsCellByValue: (
+        value: string
+      ) => Cypress.Chainable<JQuery<HTMLTableCellElement>>;
     }
   }
 }

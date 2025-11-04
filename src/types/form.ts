@@ -1,3 +1,5 @@
+import { CustodianUserRoles } from "@/consts/custodian";
+
 interface QueryState<T = unknown> {
   isError?: boolean;
   error?: unknown | string | null;
@@ -45,6 +47,21 @@ interface KeyContactFormValues {
   job_title: string;
 }
 
+interface CustodianEditContactFormFields {
+  first_name: string;
+  last_name: string;
+  email: string;
+  permissions: CustodianUserRoles;
+}
+
+interface DelegatesFormValues {
+  department_name?: string | null;
+  delegate_first_name: string;
+  delegate_last_name: string;
+  delegate_job_title: string;
+  delegate_email: string;
+}
+
 export type {
   QueryState,
   MutationState,
@@ -52,4 +69,6 @@ export type {
   WithMutationState,
   InviteUserFormValues,
   KeyContactFormValues,
+  CustodianEditContactFormFields,
+  DelegatesFormValues,
 };

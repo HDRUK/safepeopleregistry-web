@@ -2,11 +2,15 @@ import { Status } from "@/consts/application";
 import {
   CustodianProjectOrganisation,
   CustodianProjectUser,
+  Project,
+  ProjectDetails,
+  ResearcherProject,
 } from "@/types/application";
 import { InviteUserFormValues } from "@/types/form";
 import { getName, getShortStatus, getStatus } from "@/utils/application";
 import { dataCy } from "../common";
 import { DEFAULT_ROLE_NAME } from "../data";
+import { formatDisplayLongDate } from "@/utils/date";
 
 const changeStatusProjectEntities = (status: Status) => {
   cy.actionMenuClick("Change status");
@@ -167,6 +171,68 @@ const addNewProjectUser = () => {
   });
 };
 
+const addNewProject = (project: ResearcherProject) => {
+  cy.contains("button", "Add new project").click();
+
+  cy.get("#unique_id").clear().type(project.unique_id);
+  cy.get("#title").clear().type(project.title);
+  cy.get("#request_category_type").clear().type(project.request_category_type);
+  cy.dateSelectValue("start_date", project.start_date);
+  cy.dateSelectValue("end_date", project.end_date);
+  cy.get("#lay_summary").clear().type(project.lay_summary);
+  cy.get("#public_benefit").clear().type(project.public_benefit);
+  cy.get("#technical_summary").clear().type(project.technical_summary);
+
+  cy.saveContinueClick("Save");
+  cy.swalClick("Close");
+};
+
+const hasProject = (project: ResearcherProject) => {
+  const row = cy.getResultsRowByValue(project.title);
+
+  row.within(() => {
+    cy.contains("td", project.title);
+    cy.contains("td", formatDisplayLongDate(project.start_date));
+    cy.contains("td", formatDisplayLongDate(project.end_date));
+    cy.contains("td", getStatus(project.model_state.state.slug));
+  });
+};
+
+const updateSafeDataProject = (projectDetails: ProjectDetails) => {
+  cy.selectValue("data_sensitivity_level", "Anonymous");
+  cy.checkboxCheck("duty_of_confidentiality");
+  cy.checkboxCheck("national_data_optout");
+
+  cy.get("#legal_basis_for_data_article6")
+    .clear()
+    .type(projectDetails.legal_basis_for_data_article6);
+  cy.get("#dataset_linkage_description")
+    .clear()
+    .type(projectDetails.dataset_linkage_description);
+  cy.get("#data_minimisation").clear().type(projectDetails.data_minimisation);
+  cy.get("#data_use_description")
+    .clear()
+    .type(projectDetails.data_use_description);
+  cy.dateSelectValue("access_date", projectDetails.access_date);
+
+  cy.saveContinueClick("Save");
+  cy.swalClick("Close");
+};
+
+const updateSafeSettingsProject = (projectDetails: ProjectDetails) => {
+  cy.get("#data_privacy").clear().type(projectDetails.data_privacy);
+
+  cy.saveContinueClick("Save");
+  cy.swalClick("Close");
+};
+
+const updateSafeOutputsProject = (projectDetails: ProjectDetails) => {
+  cy.get("#data_assets").clear().type(projectDetails.data_assets);
+
+  cy.saveContinueClick("Save");
+  cy.swalClick("Close");
+};
+
 export {
   addNewProjectUser,
   changeStatusProjectOrganisations,
@@ -178,4 +244,9 @@ export {
   changePrimaryContactProjectUsers,
   hasPrimaryContact,
   removeFromProjectUsers,
+  addNewProject,
+  hasProject,
+  updateSafeDataProject,
+  updateSafeSettingsProject,
+  updateSafeOutputsProject,
 };

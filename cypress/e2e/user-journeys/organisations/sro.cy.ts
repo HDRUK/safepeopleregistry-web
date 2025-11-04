@@ -72,7 +72,7 @@ describe("SRO journey", () => {
       // logout();
     });
 
-    it("Has the correct tabs disabled", () => {
+    it("Has the correct tabs enabled", () => {
       hasSROEnabledTabsOrganisations();
     });
   });

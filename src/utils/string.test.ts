@@ -1,4 +1,4 @@
-import { anyIncludes, capitaliseFirstLetter } from "./string";
+import { anyIncludes, capitaliseFirstLetter, toSentenceCase } from "./string";
 
 describe("capitaliseFirstLetter", () => {
   test("should capitalise the first letter of a single word", () => {
@@ -23,6 +23,13 @@ describe("capitaliseFirstLetter", () => {
     const input = "javaScript";
     const output = "JavaScript";
     expect(capitaliseFirstLetter(input)).toBe(output);
+  });
+});
+
+describe("toSentenceCase", () => {
+  it("should convert a lowercase string to sentence case", () => {
+    const result = toSentenceCase("hello world. this is a test! goodbye");
+    expect(result).toEqual("Hello world. This is a test! Goodbye");
   });
 });
 

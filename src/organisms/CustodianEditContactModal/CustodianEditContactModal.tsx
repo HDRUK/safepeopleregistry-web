@@ -1,15 +1,14 @@
 import FormModal, { FormModalProps } from "@/components/FormModal";
 import { Message } from "@/components/Message";
 import { useStore } from "@/data/store";
-import CustodianEditContactForm, {
-  CustodianEditContactFormFields,
-} from "@/modules/CustodianEditContactForm";
+import CustodianEditContactForm from "@/modules/CustodianEditContactForm";
 import {
   postCustodianUser,
   postCustodianUserInvite,
   putCustodianUser,
 } from "@/services/custodian_users";
 import { CustodianUser } from "@/types/application";
+import { CustodianEditContactFormFields } from "@/types/form";
 import { getName } from "@/utils/application";
 import { getPermission } from "@/utils/permissions";
 import { getCombinedQueryState } from "@/utils/query";

@@ -1,4 +1,5 @@
 import { Status } from "@/consts/application";
+import { CustodianUserRoles } from "@/consts/custodian";
 import {
   mockedCustodianHasProjectOrganisation,
   mockedCustodianHasProjectUser,
@@ -6,6 +7,7 @@ import {
   mockedProjectHasUser,
 } from "@/mocks/data/custodian";
 import { mockedOrganisation } from "@/mocks/data/organisation";
+import { mockedProject, mockedProjectDetails } from "@/mocks/data/project";
 import { mockedAffiliation, mockedUser } from "@/mocks/data/user";
 import { faker } from "@faker-js/faker";
 
@@ -14,6 +16,13 @@ const memberId = Cypress._.random(0, 1e6).toString();
 const DEFAULT_FROM_DATE = "2025-01-01";
 const DEFAULT_TO_DATE = "2025-02-01";
 const DEFAULT_DEPARTMENT = "Clinical Research";
+
+const DEFAULT_CUSTODIAN_USER_FIELDS = {
+  first_name: faker.person.firstName(),
+  last_name: faker.person.lastName(),
+  email: faker.internet.email(),
+  permissions: CustodianUserRoles.ADMINISTRATOR,
+};
 
 const DEFAULT_AFFILIATION_USERS = mockedAffiliation({
   relationship: "Employee",
@@ -70,6 +79,25 @@ const DEFAULT_PROJECT_USERS_CUSTODIANS = mockedCustodianHasProjectUser({
   }),
 });
 
+const DEFAULT_PROJECT = mockedProject({
+  title: faker.lorem.words(6),
+  unique_id: faker.string.alphanumeric(10).toUpperCase(),
+  lay_summary: faker.lorem.paragraphs(2),
+  technical_summary: faker.lorem.paragraphs(2),
+  public_benefit: faker.lorem.paragraphs(2),
+  request_category_type: "Health Data Research",
+  start_date: "2024-07-01",
+  end_date: "2025-07-01",
+  other_approval_committees: ["NHS Research Ethics Committee"],
+  model_state: {
+    state: {
+      slug: Status.PROJECT_PENDING,
+    },
+  },
+});
+
+const DEFAULT_PROJECT_DETAILS = mockedProjectDetails();
+
 const DEFAULT_PROJECT_INVITE_USERS = {
   first_name: faker.person.firstName(),
   last_name: faker.person.lastName(),
@@ -84,6 +112,14 @@ const DEFAULT_SRO_FIELDS_ORGANISATIONS = {
   job_title: DEFAULT_ROLE_NAME,
   department: DEFAULT_DEPARTMENT,
   sro_profile_uri: faker.internet.url(),
+};
+
+const DEFAULT_DELEGATE_FIELDS_ORGANISATIONS = {
+  delegate_first_name: faker.person.firstName(),
+  delegate_last_name: faker.person.lastName(),
+  delegate_job_title: DEFAULT_ROLE_NAME,
+  delegate_email: faker.internet.email(),
+  department_name: DEFAULT_DEPARTMENT,
 };
 
 const DEFAULT_ORGANISATION = mockedOrganisation({
@@ -110,4 +146,8 @@ export {
   DEFAULT_SRO_FIELDS_ORGANISATIONS,
   DEFAULT_PDF_FILE,
   DEFAULT_UNAPPROVED_ORGANISATION,
+  DEFAULT_PROJECT,
+  DEFAULT_PROJECT_DETAILS,
+  DEFAULT_CUSTODIAN_USER_FIELDS,
+  DEFAULT_DELEGATE_FIELDS_ORGANISATIONS,
 };
