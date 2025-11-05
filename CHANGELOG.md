@@ -1,3 +1,15 @@
+## [1.20.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.19.0...v1.20.0) (2025-11-04)
+
+### ✨ Features
+
+* **REGISTRY-2093:** add / edit / remove team members (#543) ([e7d783a](https://github.com/HDRUK/safepeopleregistry-web/commit/e7d783a874186981cc37afc6f706bd2d98889e30))
+* **REGISTRY-2107:** add, remove, edit delegate (#544) ([74f28b1](https://github.com/HDRUK/safepeopleregistry-web/commit/74f28b171b8dae0d168bd04856f49573c30e56ea))
+* **REGISTRY-2182:** add / edit projects (#541) ([27bf9ac](https://github.com/HDRUK/safepeopleregistry-web/commit/27bf9ac65ce5ca6a0a03e3edefb7aead95651315))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-2185:** add comments to history (#546) ([9cf4c44](https://github.com/HDRUK/safepeopleregistry-web/commit/9cf4c44ca3f2656152d924473882f92c7f2133c3))
+
 ## [1.19.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.18.0...v1.19.0) (2025-10-24)
 
 ### ✨ Features
