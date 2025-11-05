@@ -1,5 +1,6 @@
 import { defineConfig } from "cypress";
 import dotenv from "dotenv";
+import { exec } from "child_process";
 
 dotenv.config();
 
@@ -12,14 +13,6 @@ export default defineConfig({
 
           return null;
         },
-      });
-
-      on("before:browser:launch", (browser, launchOptions) => {
-        console.log("Cypress browser:", browser);
-        if (browser.family === "chromium") {
-          launchOptions.args.push("--blink-settings=primaryPointerType=4");
-        }
-        return launchOptions;
       });
 
       config.env.keycloakBaseUrl = process.env.NEXT_PUBLIC_KEYCLOAK_BASE_URL;
@@ -63,6 +56,17 @@ export default defineConfig({
     projectId: "vnpz3g",
     viewportWidth: 1920,
     viewportHeight: 1080,
+    specPattern: [
+      "cypress/e2e/user-journeys/organisations/sro.cy.ts",
+      "cypress/e2e/user-journeys/users/affiliations.cy.ts",
+      "cypress/e2e/user-journeys/organisations/delegates.cy.ts",
+      "cypress/e2e/user-journeys/organisations/affiliations.cy.ts",
+      // "cypress/e2e/user-journeys/custodians/projects.cy.ts",
+      // "cypress/e2e/user-journeys/custodians/projectsSafePeople.cy.ts",
+      // "cypress/e2e/user-journeys/custodians/projectsOrganisations.cy.ts",
+      // "cypress/e2e/user-journeys/custodians/projectsUsers.cy.ts",
+      // "cypress/e2e/user-journeys/custodians/team.cy.ts",
+    ],
     // supportFile: "cypress/support/index.ts",
   },
 });

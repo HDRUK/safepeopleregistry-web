@@ -42,11 +42,10 @@ const DEFAULT_INVITE_USERS = mockedUser({
   email: faker.internet.email(),
 });
 
-const DEFAULT_PROJECT_NAME =
-  "Assessing Air Quality Impact on Respiratory Health in Urban Populations";
+const DEFAULT_PROJECT_NAME = "Test project";
 
-const DEFAULT_ORGANISATION_NAME = "Health Pathways (UK) Limited";
-const DEFAULT_UNAPPROVED_ORGANISATION_NAME = "TANDY ENERGY LIMITED";
+const DEFAULT_ORGANISATION_NAME = "Test Organisation, LTD";
+const DEFAULT_UNAPPROVED_ORGANISATION_NAME = "Test Organisation, LTD";
 
 const DEFAULT_ROLE_NAME = "Researcher";
 
@@ -72,8 +71,8 @@ const DEFAULT_PROJECT_USERS_CUSTODIANS = mockedCustodianHasProjectUser({
     },
     registry: {
       user: {
-        first_name: "Annie",
-        last_name: "Potts",
+        first_name: "Test",
+        last_name: "User",
       },
     },
   }),

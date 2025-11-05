@@ -13,7 +13,7 @@ import { getMessages } from "next-intl/server";
 import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { PropsWithChildren } from "react";
-import "../../sweetalert2-custom.css";
+import "../sweetalert2-custom.css";
 import "../global.css";
 
 const inter = Inter({ subsets: ["latin"] });
