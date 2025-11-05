@@ -1,3 +1,9 @@
+## [1.20.1](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.20.0...v1.20.1) (2025-11-05)
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-2209:** fix date format issue (#548) ([71e99e7](https://github.com/HDRUK/safepeopleregistry-web/commit/71e99e75716bf3201d5984030039fd70dd6d5341))
+
 ## [1.20.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.19.0...v1.20.0) (2025-11-04)
 
 ### ✨ Features
