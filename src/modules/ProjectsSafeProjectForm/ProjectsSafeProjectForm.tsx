@@ -61,8 +61,6 @@ export default function ProjectsSafeProjectForm({
     shouldResetKeep: true,
   };
 
-  console.log("*** restProps", restProps.defaultValues);
-
   return (
     <Form
       aria-label="Safe project"

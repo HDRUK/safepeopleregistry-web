@@ -133,7 +133,9 @@ Cypress.Commands.add(
     // Bug in pipeline where readonly is true in mui datepicker
     cy.get(`#${id}`).invoke("removeAttr", "readonly");
     cy.get(`#${id}`).clear();
-    cy.get(`#${id}`).type(dayjs(value).format("DD/MM/YYYY"));
+    cy.get(`#${id}`).type(dayjs(value).format("DD/MM/YYYY"), {
+      force: true,
+    });
   }
 );
 

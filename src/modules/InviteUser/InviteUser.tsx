@@ -167,8 +167,6 @@ export default function InviteUser({
 
     let results;
 
-    console.log("*********** custodianId", custodianId);
-
     if (!custodianId) {
       results = await mutateOrganisationUserInvite({
         organisationId: organisationId as number,
