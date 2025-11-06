@@ -6,13 +6,14 @@ import {
 import {
   addAffiliationUsers,
   editAffiliationUsers,
-  hasCurrentAffiliationUsers,
-  hasEditAffiliationUsers,
+  hasAffiliationUsers,
   hasRemoveAffiliationUsers,
   removeAffiliationUsers,
 } from "cypress/support/utils/user/affiliations";
 import { loginUser } from "cypress/support/utils/user/auth";
 import { ROUTES } from "@/consts/router";
+import { Status } from "@/consts/application";
+import { logout } from "cypress/support/utils/common";
 
 const dataCurrentAffiliation = mockedAffiliation(DEFAULT_AFFILIATION_USERS);
 const dataAffiliation = {
@@ -20,6 +21,13 @@ const dataAffiliation = {
   current_employer: false,
   to: DEFAULT_TO_DATE,
   member_id: Cypress._.random(0, 1e6).toString(),
+  email: undefined,
+};
+
+const dataEdittedAffiliation = {
+  ...dataAffiliation,
+  member_id: Cypress._.random(0, 1e6).toString(),
+  role: "Administrator",
 };
 
 describe("Affiliations journey", () => {
@@ -30,7 +38,7 @@ describe("Affiliations journey", () => {
   });
 
   after(() => {
-    // logout();
+    logout();
   });
 
   it("Adds a current affiliation", () => {
@@ -42,18 +50,20 @@ describe("Affiliations journey", () => {
   it("Adds an affiliation with an end date", () => {
     addAffiliationUsers(dataAffiliation);
 
-    hasCurrentAffiliationUsers(dataAffiliation);
+    cy.swalClick();
+
+    hasAffiliationUsers(dataAffiliation);
   });
 
   it("Edits an affiliation and reloads the page", () => {
-    editAffiliationUsers(dataAffiliation);
+    editAffiliationUsers(dataAffiliation, dataEdittedAffiliation);
 
-    hasEditAffiliationUsers(dataAffiliation);
+    hasAffiliationUsers(dataEdittedAffiliation, Status.AFFILIATION_PENDING);
   });
 
   it("Removes an affiliation and reloads the page", () => {
-    removeAffiliationUsers(dataAffiliation);
+    removeAffiliationUsers(dataEdittedAffiliation);
 
-    hasRemoveAffiliationUsers(dataAffiliation);
+    hasRemoveAffiliationUsers(dataEdittedAffiliation);
   });
 });

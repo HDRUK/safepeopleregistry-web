@@ -1,16 +1,25 @@
 import { Status } from "@/consts/application";
+import { ROUTES } from "@/consts/router";
 import {
   CustodianProjectOrganisation,
   CustodianProjectUser,
-  Project,
   ProjectDetails,
   ResearcherProject,
+  User,
 } from "@/types/application";
 import { InviteUserFormValues } from "@/types/form";
 import { getName, getShortStatus, getStatus } from "@/utils/application";
-import { dataCy } from "../common";
-import { DEFAULT_ROLE_NAME } from "../data";
 import { formatDisplayLongDate } from "@/utils/date";
+import { dataCy } from "../common";
+import { DEFAULT_PROJECT_NAME, DEFAULT_ROLE_NAME } from "../data";
+
+const goToProjectUsersList = (projectTitle: string = DEFAULT_PROJECT_NAME) => {
+  cy.visitFirst(ROUTES.profileCustodianProjects.path);
+
+  cy.contains("a", projectTitle).click();
+  cy.contains("a", "Safe People").click();
+  cy.contains("button", "Switch to list view").click();
+};
 
 const changeStatusProjectEntities = (status: Status) => {
   cy.actionMenuClick("Change status");
@@ -40,21 +49,16 @@ const changeStatusProjectOrganisations = (
   changeStatusProjectEntities(status);
 };
 
-const changeStatusProjectUsers = (
-  project: CustodianProjectUser,
-  status: Status
-) => {
-  const row = cy.getResultsActionMenu("first");
+const changeStatusProjectUsers = (user: User, status: Status) => {
+  const row = cy.getResultsActionMenu(getName(user));
 
   row.click();
 
   changeStatusProjectEntities(status);
 };
 
-const removeFromProjectUsers = (project: CustodianProjectUser) => {
-  const row = cy.getResultsActionMenu(
-    getName(project.project_has_user.registry.user)
-  );
+const removeFromProjectUsers = (user: User) => {
+  const row = cy.getResultsActionMenu(getName(user));
 
   row.click();
 
@@ -147,6 +151,13 @@ const hasProjectUsers = (project: CustodianProjectUser) => {
 };
 
 const inviteNewProjectUser = (invite: InviteUserFormValues) => {
+  cy.contains("button", "Add a new member").click();
+
+  cy.contains(
+    "a",
+    /invite them to create a Safe People Registry account here/i
+  ).click();
+
   cy.get("#first_name").clear().type(invite.first_name);
   cy.get("#last_name").clear().type(invite.last_name);
   cy.get("#email").clear().type(invite.email);
@@ -154,6 +165,11 @@ const inviteNewProjectUser = (invite: InviteUserFormValues) => {
   cy.selectValue("organisation_id", invite.organisation_id);
 
   cy.saveFormClick("Invite");
+  cy.swalClick("Close");
+
+  cy.wait(2000);
+
+  cy.saveContinueClick("Save");
   cy.swalClick("Close");
 
   // Observers haven't complete when refresh is called
@@ -197,6 +213,9 @@ const hasProject = (project: ResearcherProject) => {
 };
 
 const updateSafeDataProject = (projectDetails: ProjectDetails) => {
+  cy.get("#datasets\\.0\\.value")
+    .clear()
+    .type(JSON.parse(projectDetails.datasets)[0]);
   cy.selectValue("data_sensitivity_level", "Anonymous");
   cy.checkboxCheck("duty_of_confidentiality");
   cy.checkboxCheck("national_data_optout");
@@ -232,19 +251,20 @@ const updateSafeOutputsProject = (projectDetails: ProjectDetails) => {
 };
 
 export {
+  addNewProject,
   addNewProjectUser,
+  changePrimaryContactProjectUsers,
   changeStatusProjectOrganisations,
   changeStatusProjectUsers,
+  goToProjectUsersList,
   hasNewProjectUsers,
+  hasPrimaryContact,
+  hasProject,
   hasProjectOrganisations,
   hasProjectUsers,
   inviteNewProjectUser,
-  changePrimaryContactProjectUsers,
-  hasPrimaryContact,
   removeFromProjectUsers,
-  addNewProject,
-  hasProject,
   updateSafeDataProject,
-  updateSafeSettingsProject,
   updateSafeOutputsProject,
+  updateSafeSettingsProject,
 };

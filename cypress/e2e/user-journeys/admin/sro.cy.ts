@@ -25,7 +25,7 @@ describe("SRO journey", () => {
     });
 
     after(() => {
-      // logout();
+      logout();
     });
 
     it("Has the correct tabs disabled", () => {
@@ -69,7 +69,7 @@ describe("SRO journey", () => {
     });
 
     after(() => {
-      // logout();
+      logout();
     });
 
     it("Has the correct tabs enabled", () => {

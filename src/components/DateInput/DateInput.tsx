@@ -35,7 +35,6 @@ const DateInput = ({
     if (!data) return data;
 
     if (dayjs(data, dateFormat).isValid() && data !== "Invalid Date") {
-      console.log("****** id is valid", id, new Date(data));
       return new Date(data);
     }
 

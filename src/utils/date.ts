@@ -21,6 +21,12 @@ function formatStringToISO(date?: string) {
   return date ? format(date, "yyyy-MM-dd") : undefined;
 }
 
+function formatDisplayTimeDate(date?: string) {
+  const djsDate = dayjs(date);
+
+  return djsDate.isValid() ? djsDate.format("DD MMM HH:mm") : date;
+}
+
 function getDate(date?: string | null) {
   const djsDate = dayjs(date);
 
@@ -49,18 +55,14 @@ function formatDisplayLongDate(date?: string) {
   return djsDate.isValid() ? djsDate.format(FORMAT_DISPLAY_LONG_DATE) : date;
 }
 
-function formatDisplayTimeDate(date?: string) {
-  const djsDate = dayjs(date);
-
-  return djsDate.isValid() ? djsDate.format("DD MMM HH:mm") : date;
-}
-
 function formatNowDBDate() {
   return dayjs().format(FORMAT_DATE_DB);
 }
 
 function formatDBDate(date?: string | null | undefined) {
-  return dayjs(date).format(FORMAT_DATE_DB);
+  const djsDate = dayjs(date);
+
+  return djsDate.isValid() ? djsDate.format(FORMAT_DATE_DB) : date;
 }
 
 function isExpiredInvite(invite_sent_at?: string) {

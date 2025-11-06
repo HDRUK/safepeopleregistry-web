@@ -9,9 +9,9 @@ Cypress.Commands.add("login", (email: string, password: string) => {
       Cypress.env("keycloakBaseUrl"),
       { args },
       ({ email, password }) => {
-        const { getLoginPath } = Cypress.require("./utils/common");
+        const { getKeycloakLoginPath } = Cypress.require("./utils/auth");
 
-        cy.visit(getLoginPath());
+        cy.visit(getKeycloakLoginPath());
 
         cy.get("[id=username]").type(email);
         cy.get("[id=password]").type(password);
@@ -30,6 +30,22 @@ Cypress.Commands.add("visitFirst", (path: string) => {
   cy.visit(path);
 
   cy.get("body").click();
+});
+
+Cypress.Commands.add("getResultsRow", (index?: number | string | undefined) => {
+  const tableRows = cy.get(dataCy("results")).find("tbody tr");
+
+  if (!index) return tableRows;
+
+  if (typeof index === "string") {
+    if (index === "last") {
+      return tableRows.last();
+    }
+
+    return tableRows.first();
+  }
+
+  return tableRows.eq(index);
 });
 
 Cypress.Commands.add("getResultsRow", (index?: number | string | undefined) => {
@@ -116,7 +132,8 @@ Cypress.Commands.add(
 
     // Bug in pipeline where readonly is true in mui datepicker
     cy.get(`#${id}`).invoke("removeAttr", "readonly");
-    cy.get(`#${id}`).clear().type(dayjs(value).format("DD/MM/YYYY"));
+    cy.get(`#${id}`).clear();
+    cy.get(`#${id}`).type(dayjs(value).format("DD/MM/YYYY"));
   }
 );
 

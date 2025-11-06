@@ -255,6 +255,8 @@ export default function AffiliationsPage({
         ...restFields
       } = fields;
 
+      console.log("restFields", restFields);
+
       const payload = {
         ...restFields,
         organisation_id,

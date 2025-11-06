@@ -1,5 +1,6 @@
 import { ROUTES } from "@/consts/router";
 import { faker } from "@faker-js/faker";
+import { logout } from "cypress/support/utils/common";
 import { loginCustodian } from "cypress/support/utils/custodian/auth";
 import {
   addNewTeamMemberCustodians,
@@ -20,7 +21,7 @@ describe("Custodians team user journey", () => {
   });
 
   after(() => {
-    // logout();
+    logout();
   });
 
   it("Adds a new team member", () => {

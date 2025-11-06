@@ -24,6 +24,7 @@ export default function Results({
   return (
     <Box
       {...restProps}
+      data-cy="results"
       sx={{
         display: "flex",
         flexDirection: "column",
@@ -45,11 +46,7 @@ export default function Results({
           <LoadingWrapper
             variant="basic"
             loading={queryState?.isLoading && !queryState?.isError}>
-            {!!total && (
-              <div role="list" data-cy="results">
-                {children}
-              </div>
-            )}
+            {!!total && <div role="list">{children}</div>}
           </LoadingWrapper>
         </Box>
       )}
