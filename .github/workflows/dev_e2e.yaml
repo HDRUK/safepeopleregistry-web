@@ -66,9 +66,14 @@ jobs:
       - name: Set up gcloud CLI
         uses: google-github-actions/setup-gcloud@v2
 
-      - name: Backup db to GAR temporarily
-        id: garbackupdb
-        run: bash gcloud sql backups create --instance=hdr-registry-mysql  --description="cypress-backup"
+      - name: Export database to GCS
+        id: exportdb
+        run: |
+          EXPORT_URI="gs://hdrregistrymysqlbackup/hdr-registry-dev-$(date +%Y%m%d%H%M%S).sql.gz"
+          echo "EXPORT_URI=$EXPORT_URI" >> "$GITHUB_OUTPUT"
+          gcloud sql export sql hdr-registry-mysql "$EXPORT_URI" \
+            --database=hdr-registry-dev \
+            --offload
 
       - name: Install dependencies
         run: npm install @faker-js/faker dayjs
@@ -83,32 +88,15 @@ jobs:
           start: npm start
           browser: chrome
 
-      - name: Get latest backup
+      - name: Restore hdr-registry-dev database from export
         if: always()
-        id: gargetbackupid
         run: |
-          BACKUP_ID=$(gcloud sql backups list --instance=hdr-registry-mysql \
-            --sort-by="~start_time" \
-            --limit=1 \
-            --filter="status=SUCCESSFUL" \
-            --format="json" | jq -r '.[0].id')
+          echo "Restoring database from ${{ steps.exportdb.outputs.EXPORT_URI }}"
+          gcloud sql import sql hdr-registry-mysql "${{ steps.exportdb.outputs.EXPORT_URI }}" \
+            --database=hdr-registry-dev --quiet
 
-          # Check if an ID was found before setting the output
-          if [ -z "$BACKUP_ID" ]; then
-            echo "Error: No successful backup found."
-            exit 1
-          fi
-
-          echo "BACKUP_ID=$BACKUP_ID" >> "$GITHUB_OUTPUT"
-
-      - name: Restore the database
+      - name: Delete exported SQL file from GCS
+        if: always()
         run: |
-          echo "Restoring database backup with ID ${{ steps.gargetbackupid.outputs.BACKUP_ID }}"
-          gcloud sql backups restore "${{ steps.gargetbackupid.outputs.BACKUP_ID }}" \
-            --restore-instance=hdr-registry-dev \
-            --backup-instance=hdr-registry-dev
-
-      - name: Delete the temporary backup
-        run: |
-          echo "Deleting database backup with ID ${{ steps.gargetbackupid.outputs.BACKUP_ID }}"
-          gcloud sql backups delete "${{ steps.gargetbackupid.outputs.BACKUP_ID }}"
+          echo "Deleting export file: ${{ steps.exportdb.outputs.EXPORT_URI }}"
+          gsutil rm "${{ steps.exportdb.outputs.EXPORT_URI }}"
