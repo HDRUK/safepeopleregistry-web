@@ -88,7 +88,7 @@ jobs:
           start: npm start
           browser: chrome
 
-      - name: Restore hdr-registry-dev database from export
+      - name: Restore database from export
         if: always()
         run: |
           echo "Restoring database from ${{ steps.exportdb.outputs.EXPORT_URI }}"
