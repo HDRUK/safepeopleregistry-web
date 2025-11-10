@@ -4,6 +4,7 @@ import OrganisationsProjectsTable from "./OrganisationsProjectsTable";
 import Training from "./Training";
 import Application from "./Application";
 import OrganisationsList from "./OrganisationsList";
+import UsersList from "./UsersList";
 
 export {
   Application,
@@ -12,4 +13,5 @@ export {
   OrganisationsProjectsTable,
   Training,
   OrganisationsList,
+  UsersList,
 };

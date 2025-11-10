@@ -5,11 +5,11 @@ import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 
-import SendInviteCustodian from "@/modules/SendInviteCustodian";
 import InviteUser from "@/modules/InviteUser";
+import SendInviteCustodian from "@/modules/SendInviteCustodian";
+import { OrganisationsList, UsersList } from "@/organisms";
 import { Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { OrganisationsList } from "@/organisms";
 
 const NAMESPACE_TRANSLATIONS_ADMINISTRATION = "Administration";
 
@@ -28,6 +28,10 @@ export default function Sections() {
     {
       name: "sro",
       component: <OrganisationsList />,
+    },
+    {
+      name: "users",
+      component: <UsersList />,
     },
   ];
 

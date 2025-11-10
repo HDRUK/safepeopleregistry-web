@@ -34,6 +34,8 @@ function getStatus(slug: string) {
       return "Escalation to Validation Manager";
     case Status.PENDING:
       return "Pending";
+    case Status.INVITED:
+      return "Invited";
     default:
       return slug;
   }

@@ -16,6 +16,7 @@ import getPendingInvite from "./getPendingInvite";
 import getPendingInviteQuery from "./getPendingInviteQuery";
 import putEmailByInvite from "./putEmailByInvite";
 import putEmailByInviteQuery from "./putEmailByInviteQuery";
+import usePaginatedUsersQuery from "./usePaginatedUsersQuery";
 
 export {
   getPendingInvite,
@@ -36,6 +37,7 @@ export {
   usePaginatedUserProjects,
   putEmailByInvite,
   putEmailByInviteQuery,
+  usePaginatedUsersQuery,
 };
 
 export type * from "./types";

@@ -1147,6 +1147,10 @@
     }
   },
   "UsersList": {
+    "noResultsMessage": "No users found",
+    "name": "Name",
+    "email": "Email",
+    "status": "Status",
     "title": "Users",
     "loadingAriaLabel": "Loading page",
     "approve": "Approve",
@@ -1204,6 +1208,7 @@
     "inviteCustodianSuccess": "You have successfully invited the Data Custodian"
   },
   "Administration": {
+    "usersInviteTitle": "Users",
     "sroInviteTitle": "Organisations - Senior Responsible Officer",
     "userInviteTitle": "User invitation",
     "organisationInviteTitle": "Organisation invitation",
