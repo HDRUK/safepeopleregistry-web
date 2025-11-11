@@ -9,7 +9,7 @@ cleanup () {
 
 trap cleanup SIGINT
 
-npx cypress run -b chrome --record --key 37722b13-e215-4d2b-95e9-96de1cc70df8
+npx cypress run -b chrome
 
 scripts/cypress.restore.sh
 
