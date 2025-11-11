@@ -17,6 +17,7 @@ import useQueryAlerts from "../useQueryAlerts";
 type CustodianParams = {
   custodianId: number;
   projectOrganisationId: number;
+  onStatusChange?: () => {};
 };
 
 export interface UseCustodianProjectOrganisationResult {
@@ -33,6 +34,7 @@ const NAMESPACE_TRANSLATION = "Application.Status";
 export const useCustodianProjectOrganisation = ({
   custodianId,
   projectOrganisationId,
+  onStatusChange,
 }: CustodianParams): UseCustodianProjectOrganisationResult => {
   const tStatus = useTranslations(NAMESPACE_TRANSLATION);
   const queryClient = useQueryClient();
@@ -94,6 +96,11 @@ export const useCustodianProjectOrganisation = ({
   useQueryAlerts(updateCustodianOrganisationMutationState, {
     onSuccess: () => {
       refetch();
+    },
+    successAlertProps: {
+      willClose: () => {
+        onStatusChange?.();
+      },
     },
   });
 

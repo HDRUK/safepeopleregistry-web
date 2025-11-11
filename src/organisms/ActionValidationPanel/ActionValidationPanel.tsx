@@ -23,6 +23,7 @@ interface ActionValidationPanelProps {
   variant: keyof typeof ActionValidationVariants;
   logs: ValidationLog[];
   queryState: QueryState;
+  onStatusChange?: () => void;
 }
 
 interface CustodianParams {
@@ -36,6 +37,7 @@ interface OrganisationParams {
 }
 
 function ActionValidationPanel({
+  onStatusChange = () => {},
   variant,
   logs,
   queryState = { isLoading: false, isError: false },
@@ -60,13 +62,13 @@ function ActionValidationPanel({
   const queryClient = useQueryClient();
 
   const projectUserHookParams = useMemo(
-    () => ({ custodianId, projectUserId }),
-    [custodianId, projectUserId]
+    () => ({ custodianId, projectUserId, onStatusChange }),
+    [custodianId, projectUserId, onStatusChange]
   );
 
   const organisationHookParams = useMemo(
-    () => ({ custodianId, projectOrganisationId }),
-    [custodianId, projectOrganisationId]
+    () => ({ custodianId, projectOrganisationId, onStatusChange }),
+    [custodianId, projectOrganisationId, onStatusChange]
   );
 
   let actionValidationStatus;

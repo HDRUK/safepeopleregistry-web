@@ -27,6 +27,8 @@ function StatusPanel() {
     enabled: !!registryId,
   });
 
+  console.log("****** Has refetched", status);
+
   const projectStatus =
     status?.data?.project_status?.state?.slug || Status.NONE;
   const validationStatus =
