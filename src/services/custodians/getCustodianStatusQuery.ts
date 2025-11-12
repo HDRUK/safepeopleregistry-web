@@ -7,12 +7,6 @@ export default function getCustodianStatusQuery(
   projectUserId: number | undefined,
   options?: QueryOptions
 ) {
-  console.log("*********** Querykey", [
-    "getCustodianStatus",
-    custodianId,
-    projectUserId,
-    ...(options?.queryKeySuffix || []),
-  ]);
   return {
     queryKey: [
       "getCustodianStatus",

@@ -96,8 +96,6 @@ function CustodianProjectUser({
     if (userData?.data) setUser(userData.data);
   }, [userData]);
 
-  console.log("************** custodianProjectUser", custodianProjectUser);
-
   return (
     user &&
     registry && (
