@@ -33,6 +33,7 @@ function CustodianProjectOrganisation({
   const {
     data: custodianProjectOrganisation,
     isFetched: isFetchedCustodianProjectOrganisation,
+    refetch,
   } = useQuery(
     getCustodianProjectOrganisationQuery(
       custodian?.id as number,
@@ -96,6 +97,7 @@ function CustodianProjectOrganisation({
               variant={ActionValidationVariants.Organisation}
               queryState={queryState}
               logs={validationLogs?.data || []}
+              onStatusChange={refetch}
             />
           </PageColumnDetails>
         </PageColumns>

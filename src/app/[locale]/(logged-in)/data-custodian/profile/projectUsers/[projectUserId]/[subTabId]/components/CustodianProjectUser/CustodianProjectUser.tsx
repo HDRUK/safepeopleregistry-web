@@ -17,7 +17,7 @@ import { getCustodianProjectUserQuery } from "@/services/custodian_approvals";
 import { getUserQuery } from "@/services/users";
 import { getCustodianProjectUserValidationLogsQuery } from "@/services/validation_logs";
 import { toCamelCase } from "@/utils/string";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { notFound } from "next/navigation";
 import { useEffect } from "react";
@@ -38,6 +38,7 @@ function CustodianProjectUser({
 }: CustodianProjectUserProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION_CUSTODIAN_PROJECT_USER);
   const custodian = useStore(state => state.getCustodian());
+  const queryClient = useQueryClient();
 
   const {
     data: custodianProjectUser,
@@ -76,6 +77,12 @@ function CustodianProjectUser({
     setProject: state.setCurrentProject,
     setProjectUser: state.setCurrentProjectUser,
   }));
+
+  const handleStatusUpdate = () => {
+    queryClient.refetchQueries({
+      queryKey: ["getCustodianStatus", custodian?.id, +projectUserId],
+    });
+  };
 
   useEffect(() => {
     if (projectUser) setProjectUser(projectUser);
@@ -118,6 +125,7 @@ function CustodianProjectUser({
               variant={ActionValidationVariants.ProjectUser}
               queryState={queryState}
               logs={validationLogs?.data || []}
+              onStatusChange={handleStatusUpdate}
             />
           </PageColumnDetails>
         </PageColumns>
