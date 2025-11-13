@@ -49,6 +49,18 @@ function renderAffiliationDateRangeCell<T extends ResearcherAffiliation>(
   );
 }
 
+const renderRegistered = (unclaimed: boolean) => {
+  return (
+    <Typography>
+      {unclaimed ? (
+        <ChipStatus status={Status.INVITED} />
+      ) : (
+        <ChipStatus status={Status.REGISTERED} />
+      )}
+    </Typography>
+  );
+};
+
 function renderProjectNameCell<T extends Project>(
   info: CellContext<T, unknown>,
   route?: string
@@ -235,4 +247,5 @@ export {
   renderUserNameCell,
   renderUserOrganisationsNameCell,
   renderWarningCell,
+  renderRegistered,
 };

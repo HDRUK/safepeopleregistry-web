@@ -58,6 +58,7 @@ export default defineConfig({
     numTestsKeptInMemory: 20,
     video: true,
     specPattern: [
+      "cypress/e2e/user-journeys/admin/users.cy.ts",
       "cypress/e2e/user-journeys/admin/sro.cy.ts",
       "cypress/e2e/user-journeys/users/affiliations.cy.ts",
       "cypress/e2e/user-journeys/organisations/delegates.cy.ts",

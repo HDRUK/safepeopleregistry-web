@@ -5,16 +5,24 @@ import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 
-import SendInviteCustodian from "@/modules/SendInviteCustodian";
 import InviteUser from "@/modules/InviteUser";
+import SendInviteCustodian from "@/modules/SendInviteCustodian";
+import { OrganisationsList, UsersList } from "@/organisms";
 import { Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { OrganisationsList } from "@/organisms";
+import { useQueryClient } from "@tanstack/react-query";
 
 const NAMESPACE_TRANSLATIONS_ADMINISTRATION = "Administration";
 
 export default function Sections() {
   const t = useTranslations(NAMESPACE_TRANSLATIONS_ADMINISTRATION);
+  const queryClient = useQueryClient();
+
+  const handleInviteSuccess = () => {
+    queryClient.refetchQueries({
+      queryKey: ["getPendingInvites"],
+    });
+  };
 
   const sections = [
     {
@@ -23,11 +31,15 @@ export default function Sections() {
     },
     {
       name: "user",
-      component: <InviteUser />,
+      component: <InviteUser onSuccess={handleInviteSuccess} />,
     },
     {
       name: "sro",
       component: <OrganisationsList />,
+    },
+    {
+      name: "invites",
+      component: <UsersList />,
     },
   ];
 
