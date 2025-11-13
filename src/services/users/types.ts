@@ -69,6 +69,8 @@ interface PutEmailByInviteParams {
   inviteCode: string;
 }
 
+type PendingInvitesResponse = PendingInviteResponse[];
+
 export type {
   PostUserPayload,
   PostUserResponse,
@@ -85,4 +87,5 @@ export type {
   PendingInviteResponse,
   PutEmailByInvitePayload,
   PutEmailByInviteParams,
+  PendingInvitesResponse,
 };

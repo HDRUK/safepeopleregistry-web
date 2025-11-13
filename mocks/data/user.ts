@@ -1,5 +1,7 @@
+import { Status } from "@/consts/application";
 import { UserGroup } from "@/consts/user";
 import {
+  PendingInvite,
   ResearcherAccreditation,
   ResearcherAffiliation,
   ResearcherEducation,
@@ -13,7 +15,17 @@ import { mockedApproval } from "./approvals";
 import { mockedDepartment } from "./departments";
 import { mockedFile } from "./file";
 import { mockedPermission } from "./permission";
-import { Status } from "@/consts/application";
+
+const mockedPendingInvite = (pendingInvite?: Partial<PendingInvite>) => ({
+  id: faker.number.int(),
+  user: {
+    name: faker.person.fullName(),
+    email: faker.internet.email(),
+    unclaimed: 1,
+    ...pendingInvite?.user,
+  },
+  ...pendingInvite,
+});
 
 const mockedUser = (user?: Partial<User>): User => ({
   profile_completed_at: null,
@@ -130,4 +142,5 @@ export {
   mockedProfessionalRegistration,
   mockedTraining,
   mockedUser,
+  mockedPendingInvite,
 };
