@@ -16,6 +16,7 @@ import useQueryAlerts from "../useQueryAlerts";
 type CustodianParams = {
   custodianId: number;
   projectUserId: number;
+  onStatusChange?: () => void;
 };
 
 export interface UseCustodianProjectUserResult {
@@ -32,6 +33,7 @@ const NAMESPACE_TRANSLATION = "Application";
 export const useCustodianProjectUser = ({
   custodianId,
   projectUserId,
+  onStatusChange,
 }: CustodianParams): UseCustodianProjectUserResult => {
   const tApplication = useTranslations(NAMESPACE_TRANSLATION);
   const queryClient = useQueryClient();
@@ -88,6 +90,11 @@ export const useCustodianProjectUser = ({
   useQueryAlerts(updateCustodianProjectUserMutationState, {
     onSuccess: () => {
       refetch();
+    },
+    successAlertProps: {
+      willClose: () => {
+        onStatusChange?.();
+      },
     },
   });
 
