@@ -5,9 +5,9 @@ import { useMemo } from "react";
 import ErrorMessage from "../../components/ErrorMessage";
 import Table from "../../components/Table";
 import useColumns from "../../hooks/useColumns";
-import { PendingInvite, User } from "../../types/application";
+import { PendingInvite } from "../../types/application";
 import { ModuleTables } from "../../types/modules";
-import { renderUserNameCell, renderRegistered } from "../../utils/cells";
+import { renderRegistered } from "../../utils/cells";
 import { filterColumns } from "../../utils/table";
 
 export type UsersTableColumns = "name" | "email" | "status";

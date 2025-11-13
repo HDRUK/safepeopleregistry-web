@@ -1,5 +1,4 @@
 import { mockedPendingInvite } from "@/mocks/data/user";
-import { getName } from "@/utils/application";
 import { commonAccessibilityTests, render, screen } from "@/utils/testUtils";
 import { useTranslations } from "next-intl";
 import UsersTable, { UsersTableProps } from "./UsersTable";
