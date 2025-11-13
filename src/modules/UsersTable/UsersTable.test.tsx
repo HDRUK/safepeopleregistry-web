@@ -1,12 +1,10 @@
-import { mockedUser } from "@/mocks/data/user";
+import { mockedPendingInvite } from "@/mocks/data/user";
 import { getName } from "@/utils/application";
 import { commonAccessibilityTests, render, screen } from "@/utils/testUtils";
 import { useTranslations } from "next-intl";
 import UsersTable, { UsersTableProps } from "./UsersTable";
 
-const user = mockedUser({
-  unclaimed: 1,
-});
+const pendingInvite = mockedPendingInvite();
 
 const TestComponent = (props?: Partial<UsersTableProps>) => {
   const t = useTranslations("UsersList");
@@ -29,10 +27,10 @@ describe("<UsersTable />", () => {
 
   it("renders the correct values data", () => {
     setupTest({
-      data: [user],
+      data: [pendingInvite],
     });
 
-    expect(screen.getByText(getName(user))).toBeInTheDocument();
+    expect(screen.getByText(pendingInvite.user.name)).toBeInTheDocument();
     expect(screen.getByText("Invited")).toBeInTheDocument();
   });
 

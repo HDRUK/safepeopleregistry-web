@@ -10,11 +10,19 @@ import SendInviteCustodian from "@/modules/SendInviteCustodian";
 import { OrganisationsList, UsersList } from "@/organisms";
 import { Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
+import { useQueryClient } from "@tanstack/react-query";
 
 const NAMESPACE_TRANSLATIONS_ADMINISTRATION = "Administration";
 
 export default function Sections() {
   const t = useTranslations(NAMESPACE_TRANSLATIONS_ADMINISTRATION);
+  const queryClient = useQueryClient();
+
+  const handleInviteSuccess = () => {
+    queryClient.refetchQueries({
+      queryKey: ["getPendingInvites"],
+    });
+  };
 
   const sections = [
     {
@@ -23,14 +31,14 @@ export default function Sections() {
     },
     {
       name: "user",
-      component: <InviteUser />,
+      component: <InviteUser onSuccess={handleInviteSuccess} />,
     },
     {
       name: "sro",
       component: <OrganisationsList />,
     },
     {
-      name: "users",
+      name: "invites",
       component: <UsersList />,
     },
   ];

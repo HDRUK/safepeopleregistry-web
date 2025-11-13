@@ -411,6 +411,7 @@ interface PendingInvite {
   status: string;
   organisation_id: number | null;
   id: number;
+  user?: User;
 }
 
 interface ProjectDetails {

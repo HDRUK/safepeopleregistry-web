@@ -4,9 +4,11 @@ import { ActionMenu, ActionMenuItem } from "@/components/ActionMenu";
 import useColumns from "@/hooks/useColumns";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
 import { UsersTable } from "@/modules";
-import { usePaginatedUsersQuery } from "@/services/users";
-import postResendInviteQuery from "@/services/users/postResendInviteQuery";
-import { User } from "@/types/application";
+import {
+  postResendInviteQuery,
+  usePaginatedPendingInvitesQuery,
+} from "@/services/users";
+import { PendingInvite } from "@/types/application";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 
@@ -14,9 +16,9 @@ const NAMESPACE_TRANSLATIONS = "UsersList";
 
 export default function UsersList() {
   const t = useTranslations(NAMESPACE_TRANSLATIONS);
-  const { createDefaultColumn } = useColumns<User>({ t });
+  const { createDefaultColumn } = useColumns<PendingInvite>({ t });
 
-  const { refetch, ...queryState } = usePaginatedUsersQuery();
+  const { refetch, ...queryState } = usePaginatedPendingInvitesQuery();
 
   const { mutateAsync, ...mutationState } = useMutation(
     postResendInviteQuery()
@@ -36,11 +38,16 @@ export default function UsersList() {
     createDefaultColumn("actions", {
       header: "",
       cell: info => {
-        const { unclaimed } = info.row.original;
+        const {
+          id,
+          user: { unclaimed },
+        } = info.row.original;
 
         return (
           <ActionMenu>
-            <ActionMenuItem disabled={!unclaimed} onClick={handleResendInvite}>
+            <ActionMenuItem
+              disabled={!unclaimed}
+              onClick={() => handleResendInvite(id)}>
               Resend invite
             </ActionMenuItem>
           </ActionMenu>

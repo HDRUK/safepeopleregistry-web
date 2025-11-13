@@ -1208,7 +1208,7 @@
     "inviteCustodianSuccess": "You have successfully invited the Data Custodian"
   },
   "Administration": {
-    "usersInviteTitle": "Users",
+    "invitesInviteTitle": "Invites",
     "sroInviteTitle": "Organisations - Senior Responsible Officer",
     "userInviteTitle": "User invitation",
     "organisationInviteTitle": "Organisation invitation",

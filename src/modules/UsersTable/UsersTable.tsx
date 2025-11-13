@@ -5,14 +5,14 @@ import { useMemo } from "react";
 import ErrorMessage from "../../components/ErrorMessage";
 import Table from "../../components/Table";
 import useColumns from "../../hooks/useColumns";
-import { User } from "../../types/application";
+import { PendingInvite, User } from "../../types/application";
 import { ModuleTables } from "../../types/modules";
 import { renderUserNameCell, renderRegistered } from "../../utils/cells";
 import { filterColumns } from "../../utils/table";
 
 export type UsersTableColumns = "name" | "email" | "status";
 
-export type UsersTableProps = ModuleTables<User, UsersTableColumns>;
+export type UsersTableProps = ModuleTables<PendingInvite, UsersTableColumns>;
 
 export default function UsersTable({
   extraColumns,
@@ -21,21 +21,21 @@ export default function UsersTable({
   t,
   ...restProps
 }: UsersTableProps) {
-  const { createDefaultColumn } = useColumns<User>({
+  const { createDefaultColumn } = useColumns<PendingInvite>({
     t,
   });
 
   const columns = useMemo(() => {
-    const initialColumns: ColumnDef<User>[] = [
+    const initialColumns: ColumnDef<PendingInvite>[] = [
       createDefaultColumn("name", {
-        cell: info => renderUserNameCell(info.row.original),
+        accessorKey: "user.name",
       }),
       createDefaultColumn("email", {
-        accessorKey: "email",
+        accessorKey: "user.email",
       }),
       createDefaultColumn("status", {
-        accessorKey: "unclaimed",
-        cell: info => renderRegistered(info),
+        accessorKey: "user.unclaimed",
+        cell: info => renderRegistered(info.getValue()),
       }),
     ];
 

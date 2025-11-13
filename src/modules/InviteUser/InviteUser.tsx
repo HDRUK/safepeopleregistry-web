@@ -184,6 +184,7 @@ export default function InviteUser({
 
   return (
     <Form
+      data-cy="invite-user"
       onSubmit={handleSubmit}
       schema={schema}
       {...formOptions}

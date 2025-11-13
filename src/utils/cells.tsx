@@ -49,10 +49,10 @@ function renderAffiliationDateRangeCell<T extends ResearcherAffiliation>(
   );
 }
 
-const renderRegistered = (info: CellContext<User, unknown>) => {
+const renderRegistered = (unclaimed: boolean) => {
   return (
     <Typography>
-      {info.row.original.unclaimed ? (
+      {unclaimed ? (
         <ChipStatus status={Status.INVITED} />
       ) : (
         <ChipStatus status={Status.REGISTERED} />
