@@ -1,17 +1,21 @@
 import { Status } from "@/consts/application";
-import { User } from "@/types/application";
+import { PendingInvite } from "@/types/application";
 import { InviteUserFormValues } from "@/types/form";
-import { getName, getStatus } from "@/utils/application";
+import { getStatus } from "@/utils/application";
 import { dataCy } from "../common";
 
-const hasUser = (user: User, status: Status) => {
+const hasUser = (pendingInvite: PendingInvite, status: Status) => {
   cy.contains("Invites").click();
 
-  const row = cy.getResultsRowByValue(user.email);
+  const {
+    user: { name, email },
+  } = pendingInvite;
+
+  const row = cy.getResultsRowByValue(email);
 
   row.within(() => {
-    cy.contains("td", getName(user));
-    cy.contains("td", user.email);
+    cy.contains("td", name);
+    cy.contains("td", email);
     cy.contains("td", getStatus(status));
   });
 };
