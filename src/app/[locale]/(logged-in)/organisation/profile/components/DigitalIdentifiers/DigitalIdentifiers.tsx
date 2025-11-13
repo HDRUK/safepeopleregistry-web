@@ -146,11 +146,11 @@ export default function DigitalIdentifiers() {
                       name="ror_id"
                       renderField={fieldProps => <TextField {...fieldProps} />}
                       description={tForm.rich("rorIdDescription", {
-                        rorLink: chunks => (
+                        rorLink: () => (
                           <Link
                             href="https://ror.org/01abcde11"
                             target="_blank">
-                            {chunks}
+                            01abcde11
                           </Link>
                         ),
                         link: chunks => (
