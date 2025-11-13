@@ -42,6 +42,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { Status } from "@/consts/application";
+import { formatDBDate } from "@/utils/date";
 import AffiliationsForm from "../AffiliationsForm";
 
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";
@@ -254,9 +255,13 @@ export default function AffiliationsPage({
         ...restFields
       } = fields;
 
+      console.log("restFields", restFields);
+
       const payload = {
         ...restFields,
         organisation_id,
+        to: formatDBDate(fields.to),
+        from: formatDBDate(fields.from),
       };
 
       if (selectedAffiliation) {

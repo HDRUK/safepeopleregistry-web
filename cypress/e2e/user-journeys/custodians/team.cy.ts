@@ -1,5 +1,6 @@
 import { ROUTES } from "@/consts/router";
 import { faker } from "@faker-js/faker";
+import { logout } from "cypress/support/utils/common";
 import { loginCustodian } from "cypress/support/utils/custodian/auth";
 import {
   addNewTeamMemberCustodians,
@@ -8,7 +9,6 @@ import {
   removeTeamMemberCustodians,
 } from "cypress/support/utils/custodian/team";
 import { DEFAULT_CUSTODIAN_USER_FIELDS } from "cypress/support/utils/data";
-import { data } from "cypress/types/jquery";
 
 const dataUser = DEFAULT_CUSTODIAN_USER_FIELDS;
 let updatedEmail = dataUser.email;
@@ -21,7 +21,7 @@ describe("Custodians team user journey", () => {
   });
 
   after(() => {
-    // logout();
+    logout();
   });
 
   it("Adds a new team member", () => {

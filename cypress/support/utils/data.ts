@@ -17,6 +17,10 @@ const DEFAULT_FROM_DATE = "2025-01-01";
 const DEFAULT_TO_DATE = "2025-02-01";
 const DEFAULT_DEPARTMENT = "Clinical Research";
 
+const DEFAULT_USER_FIRST_NAME = "Test";
+const DEFAULT_USER_LAST_NAME = "User";
+const DEFAULT_USER_EMAIL = process.env.CYPRESS_USER_EMAIL;
+
 const DEFAULT_CUSTODIAN_USER_FIELDS = {
   first_name: faker.person.firstName(),
   last_name: faker.person.lastName(),
@@ -42,11 +46,10 @@ const DEFAULT_INVITE_USERS = mockedUser({
   email: faker.internet.email(),
 });
 
-const DEFAULT_PROJECT_NAME =
-  "Assessing Air Quality Impact on Respiratory Health in Urban Populations";
+const DEFAULT_PROJECT_NAME = "Test project";
 
-const DEFAULT_ORGANISATION_NAME = "Health Pathways (UK) Limited";
-const DEFAULT_UNAPPROVED_ORGANISATION_NAME = "TANDY ENERGY LIMITED";
+const DEFAULT_ORGANISATION_NAME = "Test Organisation, LTD";
+const DEFAULT_UNAPPROVED_ORGANISATION_NAME = "Test Organisation, LTD";
 
 const DEFAULT_ROLE_NAME = "Researcher";
 
@@ -62,6 +65,11 @@ const DEFAULT_PROJECT_ORGANISATIONS_CUSTODIANS =
       project: {
         title: DEFAULT_PROJECT_NAME,
       },
+      model_state: {
+        state: {
+          slug: Status.PROJECT_PENDING,
+        },
+      },
     }),
   });
 
@@ -72,15 +80,15 @@ const DEFAULT_PROJECT_USERS_CUSTODIANS = mockedCustodianHasProjectUser({
     },
     registry: {
       user: {
-        first_name: "Annie",
-        last_name: "Potts",
+        first_name: DEFAULT_USER_FIRST_NAME,
+        last_name: DEFAULT_USER_LAST_NAME,
       },
     },
   }),
 });
 
 const DEFAULT_PROJECT = mockedProject({
-  title: faker.lorem.words(6),
+  title: DEFAULT_PROJECT_NAME,
   unique_id: faker.string.alphanumeric(10).toUpperCase(),
   lay_summary: faker.lorem.paragraphs(2),
   technical_summary: faker.lorem.paragraphs(2),

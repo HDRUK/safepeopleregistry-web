@@ -1,4 +1,5 @@
 import { ROUTES } from "@/consts/router";
+import { logout } from "cypress/support/utils/common";
 import { loginCustodian } from "cypress/support/utils/custodian/auth";
 import {
   addNewProject,
@@ -23,7 +24,7 @@ describe("Projects custodians journey", () => {
   });
 
   after(() => {
-    // logout();
+    logout();
   });
 
   it("Adds a new project", () => {

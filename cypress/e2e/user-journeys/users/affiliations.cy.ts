@@ -1,17 +1,34 @@
 import { mockedAffiliation } from "@/mocks/data/user";
-import { DEFAULT_AFFILIATION_USERS } from "cypress/support/utils/data";
+import {
+  DEFAULT_AFFILIATION_USERS,
+  DEFAULT_TO_DATE,
+} from "cypress/support/utils/data";
 import {
   addAffiliationUsers,
   editAffiliationUsers,
-  hasCurrentAffiliationUsers,
-  hasEditAffiliationUsers,
+  hasAffiliationUsers,
   hasRemoveAffiliationUsers,
   removeAffiliationUsers,
 } from "cypress/support/utils/user/affiliations";
 import { loginUser } from "cypress/support/utils/user/auth";
 import { ROUTES } from "@/consts/router";
+import { Status } from "@/consts/application";
+import { logout } from "cypress/support/utils/common";
 
-const dataAffiliation = mockedAffiliation(DEFAULT_AFFILIATION_USERS);
+const dataCurrentAffiliation = mockedAffiliation(DEFAULT_AFFILIATION_USERS);
+const dataAffiliation = {
+  ...dataCurrentAffiliation,
+  current_employer: false,
+  to: DEFAULT_TO_DATE,
+  member_id: Cypress._.random(0, 1e6).toString(),
+  email: undefined,
+};
+
+const dataEdittedAffiliation = {
+  ...dataAffiliation,
+  member_id: Cypress._.random(0, 1e6).toString(),
+  role: "Administrator",
+};
 
 describe("Affiliations journey", () => {
   beforeEach(() => {
@@ -21,24 +38,32 @@ describe("Affiliations journey", () => {
   });
 
   after(() => {
-    // logout();
+    logout();
   });
 
-  it("Adds an affiliation", () => {
+  it("Adds a current affiliation", () => {
+    addAffiliationUsers(dataCurrentAffiliation);
+
+    cy.swalClick("Close", "Verification needed");
+  });
+
+  it("Adds an affiliation with an end date", () => {
     addAffiliationUsers(dataAffiliation);
 
-    hasCurrentAffiliationUsers(dataAffiliation);
+    cy.swalClick();
+
+    hasAffiliationUsers(dataAffiliation);
   });
 
   it("Edits an affiliation and reloads the page", () => {
-    editAffiliationUsers(dataAffiliation);
+    editAffiliationUsers(dataAffiliation, dataEdittedAffiliation);
 
-    hasEditAffiliationUsers(dataAffiliation);
+    hasAffiliationUsers(dataEdittedAffiliation, Status.AFFILIATION_PENDING);
   });
 
   it("Removes an affiliation and reloads the page", () => {
-    removeAffiliationUsers(dataAffiliation);
+    removeAffiliationUsers(dataEdittedAffiliation);
 
-    hasRemoveAffiliationUsers(dataAffiliation);
+    hasRemoveAffiliationUsers(dataEdittedAffiliation);
   });
 });

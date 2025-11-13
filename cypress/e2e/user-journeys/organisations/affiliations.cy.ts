@@ -2,17 +2,18 @@ import { Status } from "@/consts/application";
 import { ROUTES } from "@/consts/router";
 import { mockedAffiliation, mockedUser } from "@/mocks/data/user";
 import { getName } from "@/utils/application";
+import { logout } from "cypress/support/utils/common";
 import {
   DEFAULT_AFFILIATION_USERS,
   DEFAULT_INVITE_USERS,
 } from "cypress/support/utils/data";
 import {
-  hasStatus,
   addAffiliationOrganisations,
   approveAffiliationOrganisations,
   declineAffiliationOrganisations,
   hasAffiliationOrganisations,
   hasRemoveAffiliationOrganisations,
+  hasStatus,
   removeAffiliationOrganisations,
 } from "cypress/support/utils/organisation/affiliations";
 import { loginOrganisation } from "cypress/support/utils/organisation/auth";
@@ -37,7 +38,7 @@ describe("Affiliations journey", () => {
   });
 
   after(() => {
-    // logout();
+    logout();
   });
 
   it("Adds an affiliation", () => {
