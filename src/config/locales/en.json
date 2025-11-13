@@ -498,7 +498,7 @@
     "rorIdFormatInvalid": "ROR ID is not in the correct format",
     "rorId": "ROR ID",
     "rorIdPlaceholder": "ROR ID",
-    "rorIdDescription": "Research Organisation ID e.g. https://ror.org/01abcde11. To search for your ID <link>go here</link>",
+    "rorIdDescription": "Research Organisation ID e.g. <rorLink></rorLink>. To search for your ID <link>go here</link>",
     "websiteRequiredInvalid": "Website is required",
     "websiteFormatInvalid": "The website must be a valid url. e.g. https://www.example.com",
     "urlFormatInvalid": "The url must be a valid url. e.g. https://www.example.com",
