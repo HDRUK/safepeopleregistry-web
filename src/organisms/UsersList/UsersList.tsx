@@ -38,15 +38,12 @@ export default function UsersList() {
     createDefaultColumn("actions", {
       header: "",
       cell: info => {
-        const {
-          id,
-          user: { unclaimed },
-        } = info.row.original;
+        const { id, user } = info.row.original;
 
         return (
           <ActionMenu>
             <ActionMenuItem
-              disabled={!unclaimed}
+              disabled={!user?.unclaimed}
               onClick={() => handleResendInvite(id)}>
               Resend invite
             </ActionMenuItem>
