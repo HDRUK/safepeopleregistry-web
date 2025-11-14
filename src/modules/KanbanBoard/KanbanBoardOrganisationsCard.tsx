@@ -1,28 +1,23 @@
-import WarningIcon from "@mui/icons-material/Warning";
-import { Box, Card, CardProps, Tooltip, Typography } from "@mui/material";
+import { Box, Card, CardProps, Typography } from "@mui/material";
 import { ReactNode } from "react";
 import Text from "../../components/Text";
 import {
   CustodianProjectOrganisation,
   WithRoutes,
-  WithTranslations,
 } from "../../types/application";
 import { renderLinkNameCell } from "../../utils/cells";
 
 export type KanbanBoardOrganisationsCardProps = CardProps &
-  WithTranslations<
-    WithRoutes<{
-      data: CustodianProjectOrganisation;
-      actions?: ReactNode;
-    }>
-  >;
+  WithRoutes<{
+    data: CustodianProjectOrganisation;
+    actions?: ReactNode;
+  }>;
 
 export default function KanbanBoardOrganisationsCard({
   data,
   actions,
   sx,
   routes,
-  t,
   ...restProps
 }: KanbanBoardOrganisationsCardProps) {
   const {
@@ -41,13 +36,6 @@ export default function KanbanBoardOrganisationsCard({
       }}
       {...restProps}>
       <Text
-        startIcon={
-          !data.project_organisation.organisation.system_approved && (
-            <Tooltip title={t("organisationUnapprovedTooltip")}>
-              <WarningIcon color="warning" />
-            </Tooltip>
-          )
-        }
         onMouseDown={e => e.stopPropagation()}
         endIcon={actions}
         variant="h6"
@@ -66,9 +54,7 @@ export default function KanbanBoardOrganisationsCard({
           )}
         </Box>
       </Text>
-      <Typography color="success.main">
-        Number affiliated users: {organisation.affiliations_count || 0}
-      </Typography>
+      <Typography color="success.main">Number affiliated users</Typography>
       <Typography>
         {project.title} (id: {project.id})
       </Typography>
