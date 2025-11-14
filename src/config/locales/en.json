@@ -1118,6 +1118,10 @@
   "Users": {
     "getUserError": "Could not get the relevant user",
     "Identity": {
+      "postUserSuccess": "User updated successfully",
+      "postUserSuccessButton": "Ok",
+      "postUserError": "There was a problem updating your user information. Please try again or contact us at <contactLink></contactLink>",
+      "postUserErrorButton": "Try Again",
       "identityForm": "Personal Identity",
       "identityTitle": "Complete your personal details",
       "idvtCheckSection": "Identification Verification Technology (IDVT)",
