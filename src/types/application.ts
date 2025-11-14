@@ -489,7 +489,9 @@ interface ProjectOrganisation {
   id: number;
   project_id: number;
   organisation_id: number;
-  organisation: Organisation;
+  organisation: Organisation & {
+    affiliations_count: number;
+  };
   project: Project;
 }
 
