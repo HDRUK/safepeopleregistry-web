@@ -26,6 +26,7 @@ import {
   User,
 } from "../types/application";
 import { formatShortDate } from "./date";
+import { ReactElement, ReactNode } from "react";
 
 function renderAffiliationRelationship(
   info: CellContext<ResearcherAffiliation, unknown>,
@@ -205,15 +206,17 @@ const renderOrganisationValidatedCell = (
 const renderSelectRoleCell = (
   info: CellContext<ProjectAllUser, unknown>,
   props: {
+    disabled;
     roles: Role[];
     onRoleSelect: (row: ProjectAllUser, roleId: number | null) => void;
   }
 ) => {
   const roleId = info.row.original.role?.id ?? -1;
-  const { onRoleSelect, roles } = props;
+  const { onRoleSelect, roles, disabled } = props;
 
   return (
     <SelectRole
+      disabled={disabled}
       variant="standard"
       size="small"
       value={roleId}

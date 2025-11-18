@@ -13,4 +13,22 @@ const renderErrorToString = (
   );
 };
 
-export { renderErrorToString };
+function getTranslationWithFallback(
+  t: ReturnType<typeof useTranslations>,
+  key: string,
+  fallback?: string
+) {
+  try {
+    const value = t(key);
+
+    if (value.includes(key)) {
+      return fallback || null;
+    }
+
+    return value;
+  } catch (_) {
+    return fallback || null;
+  }
+}
+
+export { renderErrorToString, getTranslationWithFallback };

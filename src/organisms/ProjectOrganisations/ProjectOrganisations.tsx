@@ -24,6 +24,7 @@ import Results from "@/components/Results";
 import { SEARCH_PAGE_MAX_PER_PAGE } from "@/consts/search";
 import ProjectOrganisationsList from "../ProjectOrganisationsList";
 import ProjectOrganisationsActions from "./ProjectOrganisationsActions";
+import ErrorMessage from "@/components/ErrorMessage";
 
 const NAMESPACE_TRANSLATIONS_PROJECT_USERS = "Projects.Organisations";
 const NAMESPACE_TRANSLATIONS_STATUS = "Application.Status";
@@ -213,7 +214,7 @@ export default function ProjectOrganisations({
         <Results
           total={total}
           noResultsMessage={t("noResultsMessage")}
-          errorMessage={t("errorMessage")}
+          errorMessage={<ErrorMessage t={t} tKey="errorMessage" />}
           queryState={queryState}>
           {itemsByTransitions && listComponent}
         </Results>

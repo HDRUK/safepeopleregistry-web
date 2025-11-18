@@ -1,8 +1,10 @@
 "use client";
 
 import { LoadingButton } from "@mui/lab";
+import { Checkbox, FormLabel } from "@mui/material";
 import { CellContext, ColumnDef } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import ErrorMessage from "../../components/ErrorMessage";
 import FormActions from "../../components/FormActions";
 import FormModalBody from "../../components/FormModalBody";
@@ -24,6 +26,7 @@ export type RowUserState = {
 }[];
 
 interface ProjectsAddUserFormProps {
+  invitedUsers: ProjectAllUser[];
   projectUsers: ProjectAllUser[];
   projectRoles: Partial<Role>[];
   mutationState: MutationState;
@@ -41,10 +44,14 @@ export default function ProjectsAddUserForm({
   onSave,
   onRoleSelect,
   mutationState,
+  invitedUsers,
   ...restProps
 }: ProjectsAddUserFormProps) {
+  const [showInvitedUsers, setShowInvitedUsers] = useState(false);
   const t = useTranslations(NAMESPACE_TRANSLATION);
   const tApplication = useTranslations(NAMESPACE_TRANSLATION_APPLICATION);
+
+  console.log("**** projectUsers", projectUsers);
 
   const {
     page,
@@ -73,33 +80,48 @@ export default function ProjectsAddUserForm({
       header: tApplication("organisation"),
     },
     {
-      accessorKey: "role.id",
+      accessorKey: "role",
       header: tApplication("role"),
       cell: info =>
-        renderSelectRoleCell(info, {
-          roles: [{ id: -1, name: "Select a role" }, ...projectRoles],
-          onRoleSelect,
-        }),
+        !showInvitedUsers
+          ? renderSelectRoleCell(info, {
+              roles: [{ id: -1, name: "Select a role" }, ...projectRoles],
+              onRoleSelect,
+            })
+          : info.getValue()?.name,
       minSize: 250,
     },
   ];
+
+  const handleShowInvitedUsers = (e: React.MouseEvent<HTMLInputElement>) => {
+    setShowInvitedUsers(e.target.checked);
+  };
+
+  const tableData = showInvitedUsers ? invitedUsers : projectUsers;
 
   return (
     <>
       <FormModalBody>
         <SearchBar
+          disabled={!!invitedUsers.length}
           onClear={resetQueryParams}
           onSearch={(text: string) => {
             updateQueryParams({
               "name[]": text,
             });
           }}
-          placeholder={t("searchPlaceholder")}
-        />
+          placeholder={t("searchPlaceholder")}>
+          {!!invitedUsers.length && (
+            <FormLabel>
+              <Checkbox onClick={handleShowInvitedUsers} />
+              Show only invited users
+            </FormLabel>
+          )}
+        </SearchBar>
         <Table
           isPaginated
           columns={columns}
-          data={projectUsers}
+          data={tableData}
           queryState={restQueryParams}
           noResultsMessage={t("noResultsMessage")}
           errorMessage={

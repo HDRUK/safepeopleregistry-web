@@ -63,6 +63,15 @@ const getName = <T extends { first_name: string; last_name: string }>({
   return `${first_name} ${last_name}`;
 };
 
+const getAbbreviatedListWithCount = <T>(data: T[], n: number = 4) => {
+  const items = data.slice(0, n);
+
+  return {
+    items,
+    count: data.length > n ? data.length - n : 0,
+  };
+};
+
 function parseSystemConfig(data: GetSystemConfigResponse | undefined) {
   return data
     ? data.reduce(
@@ -123,4 +132,5 @@ export {
   getStatus,
   getShortStatus,
   getName,
+  getAbbreviatedListWithCount,
 };

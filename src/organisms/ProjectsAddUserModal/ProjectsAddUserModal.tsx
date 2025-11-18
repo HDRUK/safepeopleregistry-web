@@ -1,9 +1,12 @@
 import { useStore } from "@/data/store";
+import { getAbbreviatedListWithCount, getName } from "@/utils/application";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import Link from "@mui/material/Link";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import FormModal, { FormModalProps } from "../../components/FormModal";
+import Text from "../../components/Text";
 import useQueryAlerts from "../../hooks/useQueryAlerts";
 import ProjectsAddUserForm from "../../modules/ProjectsAddUserForm";
 import {
@@ -13,14 +16,15 @@ import {
 } from "../../services/projects";
 import { ProjectAllUser, Role } from "../../types/application";
 import { showAlert } from "../../utils/showAlert";
-
 import InviteUserModal from "../InviteUserModal";
 
 interface ProjectsAddUserModalProps extends Omit<FormModalProps, "children"> {
   request: boolean;
   projectId: number;
   custodianId: number;
+  invitedUsers: ProjectAllUser[];
   onClose: () => void;
+  onInvite?: (user: ProjectAllUser) => void;
 }
 
 const NAMESPACE_TRANSLATION = "ProjectsAddUserModal";
@@ -30,10 +34,11 @@ export default function ProjectsAddUserModal({
   projectId,
   custodianId,
   onClose,
+  onInvite,
+  invitedUsers,
   ...restProps
 }: ProjectsAddUserModalProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION);
-
   const [openInviteUser, setOpenInviteUser] = useState(false);
 
   const queryClient = useQueryClient();
@@ -121,9 +126,16 @@ export default function ProjectsAddUserModal({
 
     await handleSave([data[0], ...updatedUsers]);
     await refetch();
-
+    console.log("**** USERS", updatedUsers);
+    onInvite?.({
+      ...data[0],
+      role: projectRoles.find(role => role?.id === +roleId) as Partial<Role>,
+    });
     setOpenInviteUser(false);
   };
+
+  const { items: firstInvitedUsers, count: restUsersCount } =
+    getAbbreviatedListWithCount(invitedUsers, 1);
 
   return (
     <>
@@ -144,7 +156,20 @@ export default function ProjectsAddUserModal({
           minWidth: "60%",
         }}
         {...restProps}>
+        {!!firstInvitedUsers.length && (
+          <Text
+            startIcon={<MailOutlineIcon />}
+            color="success.main"
+            sx={{ mb: 1 }}>
+            {t("invitedUsersMessage", {
+              count: restUsersCount,
+              users: firstInvitedUsers.map(user => getName(user)).join(","),
+            })}
+          </Text>
+        )}
+
         <ProjectsAddUserForm
+          invitedUsers={invitedUsers}
           projectUsers={projectUsers}
           projectRoles={projectRoles}
           mutationState={putProjectUsersMutationState}
