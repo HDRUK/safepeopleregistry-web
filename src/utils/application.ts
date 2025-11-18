@@ -63,7 +63,7 @@ const getName = <T extends { first_name: string; last_name: string }>({
   return `${first_name} ${last_name}`;
 };
 
-const getAbbreviatedListWithCount = <T>(data: T[], n: number = 4) => {
+const getAbbreviatedListWithCount = <T>(data: T[], n: number = 1) => {
   const items = data.slice(0, n);
 
   return {

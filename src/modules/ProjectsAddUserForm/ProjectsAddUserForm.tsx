@@ -1,10 +1,11 @@
 "use client";
 
 import { LoadingButton } from "@mui/lab";
-import { Checkbox, FormLabel } from "@mui/material";
+import { Badge, Checkbox, FormLabel } from "@mui/material";
 import { CellContext, ColumnDef } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import Text from "../../components/Text";
 import ErrorMessage from "../../components/ErrorMessage";
 import FormActions from "../../components/FormActions";
 import FormModalBody from "../../components/FormModalBody";
@@ -50,8 +51,6 @@ export default function ProjectsAddUserForm({
   const [showInvitedUsers, setShowInvitedUsers] = useState(false);
   const t = useTranslations(NAMESPACE_TRANSLATION);
   const tApplication = useTranslations(NAMESPACE_TRANSLATION_APPLICATION);
-
-  console.log("**** projectUsers", projectUsers);
 
   const {
     page,
@@ -112,9 +111,20 @@ export default function ProjectsAddUserForm({
           }}
           placeholder={t("searchPlaceholder")}>
           {!!invitedUsers.length && (
-            <FormLabel>
+            <FormLabel sx={{ display: "flex" }}>
               <Checkbox onClick={handleShowInvitedUsers} />
-              Show only invited users
+              <Text
+                endIcon={
+                  <Badge
+                    badgeContent={invitedUsers.length}
+                    color="primary"
+                    sx={{
+                      ml: 1,
+                    }}
+                  />
+                }>
+                Show only invited users
+              </Text>
             </FormLabel>
           )}
         </SearchBar>

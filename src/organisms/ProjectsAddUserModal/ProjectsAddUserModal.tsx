@@ -126,7 +126,7 @@ export default function ProjectsAddUserModal({
 
     await handleSave([data[0], ...updatedUsers]);
     await refetch();
-    console.log("**** USERS", updatedUsers);
+
     onInvite?.({
       ...data[0],
       role: projectRoles.find(role => role?.id === +roleId) as Partial<Role>,
