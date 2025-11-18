@@ -76,6 +76,8 @@ export default function DigitalIdentifiers() {
         }),
         ror_id: yup
           .string()
+          .transform((curr, orig) => (orig === "" ? null : curr))
+          .nullable()
           .matches(VALIDATION_ROR_ID, tForm("rorIdFormatInvalid")),
       }),
     []
