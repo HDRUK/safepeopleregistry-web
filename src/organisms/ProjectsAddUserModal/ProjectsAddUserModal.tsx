@@ -135,7 +135,7 @@ export default function ProjectsAddUserModal({
   };
 
   const { items: firstInvitedUsers, count: restUsersCount } =
-    getAbbreviatedListWithCount(invitedUsers, 1);
+    getAbbreviatedListWithCount(invitedUsers);
 
   return (
     <>

@@ -26,7 +26,6 @@ import {
   User,
 } from "../types/application";
 import { formatShortDate } from "./date";
-import { ReactElement, ReactNode } from "react";
 
 function renderAffiliationRelationship(
   info: CellContext<ResearcherAffiliation, unknown>,

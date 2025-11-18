@@ -1,6 +1,11 @@
 "use client";
 
-import { ProjectAllUser } from "@/types/application";
+import {
+  ProjectAllUser,
+  CustodianProjectUser,
+  WithPaginatedQueryParms,
+  WithRoutes,
+} from "@/types/application";
 import AddIcon from "@mui/icons-material/Add";
 import ListIcon from "@mui/icons-material/List";
 import ViewColumnIconOutlined from "@mui/icons-material/ViewColumnOutlined";
@@ -24,11 +29,6 @@ import {
   usePaginatedCustodianProjectUsers,
 } from "../../services/custodian_approvals";
 import { EntityType } from "../../types/api";
-import {
-  CustodianProjectUser,
-  WithPaginatedQueryParms,
-  WithRoutes,
-} from "../../types/application";
 import ProjectsAddUserModal from "../ProjectsAddUserModal";
 import ProjectUsersBoard from "../ProjectUsersBoard";
 import ProjectUsersList from "../ProjectUsersList";

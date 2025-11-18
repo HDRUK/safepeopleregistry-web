@@ -8,7 +8,6 @@ import GlobalStyles from "@mui/material/GlobalStyles";
 import { Box } from "@mui/system";
 import { GoogleTagManager } from "@next/third-parties/google";
 import type { Metadata } from "next";
-import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
