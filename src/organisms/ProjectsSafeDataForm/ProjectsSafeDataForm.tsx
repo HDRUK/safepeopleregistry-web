@@ -65,7 +65,7 @@ export default function ProjectsSafeDataForm({
         dataset_linkage_description: yup.string(),
         data_minimisation: yup.string(),
         data_use_description: yup.string(),
-        access_date: yup.date(),
+        access_date: yup.date().nullable(),
       }),
     [t]
   );

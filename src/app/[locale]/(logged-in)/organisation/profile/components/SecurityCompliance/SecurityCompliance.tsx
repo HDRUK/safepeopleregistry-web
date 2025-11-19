@@ -13,7 +13,7 @@ import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
 import { ROUTES } from "@/consts/router";
 import FormSection from "@/components/FormSection";
 import { PutOrganisationPayload } from "@/services/organisations";
-import { dateToString } from "@/utils/date";
+import { dateToString, formatDBDate } from "@/utils/date";
 import useUpdateOrganisation from "../../hooks/useUpdateOrganisation";
 import {
   certificationRows,
@@ -44,10 +44,10 @@ export default function SecurityCompliance() {
   const handleSubmit = (data: SecurityCompilanceFormData) => {
     const payload = {
       ...data,
-      ce_expiry_date: dateToString(data.ce_expiry_date),
-      ce_plus_expiry_date: dateToString(data.ce_plus_expiry_date),
-      iso_expiry_date: dateToString(data.iso_expiry_date),
-      dsptk_expiry_date: dateToString(data.dsptk_expiry_date),
+      ce_expiry_date: formatDBDate(data.ce_expiry_date),
+      ce_plus_expiry_date: formatDBDate(data.ce_plus_expiry_date),
+      iso_expiry_date: formatDBDate(data.iso_expiry_date),
+      dsptk_expiry_date: formatDBDate(data.dsptk_expiry_date),
     } as PutOrganisationPayload;
 
     onSubmit(payload);

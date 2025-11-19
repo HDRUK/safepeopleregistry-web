@@ -19,7 +19,7 @@ import { pick } from "@/utils/json";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { formatDBDate } from "@/utils/date";
+import { formatDBDateTime } from "@/utils/date";
 import { PageTabs, ProjectsSubTabs } from "../../consts/tabs";
 import SubTabsSections from "../SubTabSections";
 
@@ -66,7 +66,7 @@ export default function ProjectsSafeData() {
       ...project.project_detail,
       ...payload,
       datasets: payload?.datasets?.map(d => d.value),
-      access_date: formatDBDate(payload.access_date),
+      access_date: formatDBDateTime(payload.access_date),
     });
   };
 
