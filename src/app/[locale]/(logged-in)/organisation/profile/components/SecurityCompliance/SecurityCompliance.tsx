@@ -1,27 +1,27 @@
 "use client";
 
+import DateInput from "@/components/DateInput";
 import Form from "@/components/Form";
 import FormActions from "@/components/FormActions";
-import { useStore } from "@/data/store";
-import { PageBody, PageSection } from "@/modules";
-import { TextField, Grid } from "@mui/material";
-import DateInput from "@/components/DateInput";
 import FormControlWrapper from "@/components/FormControlWrapper";
-import { useTranslations } from "next-intl";
-import React, { useMemo } from "react";
+import FormSection from "@/components/FormSection";
 import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
 import { ROUTES } from "@/consts/router";
-import FormSection from "@/components/FormSection";
+import { useStore } from "@/data/store";
+import { PageBody, PageSection } from "@/modules";
 import { PutOrganisationPayload } from "@/services/organisations";
-import { dateToString } from "@/utils/date";
+import { formatDBDate } from "@/utils/date";
+import { Grid, TextField } from "@mui/material";
+import { useTranslations } from "next-intl";
+import { useMemo } from "react";
 import useUpdateOrganisation from "../../hooks/useUpdateOrganisation";
+import CertificationUploader from "./CertificationUploader";
 import {
   certificationRows,
   getDefaultValues,
   getValidation,
   SecurityCompilanceFormData,
 } from "./config/form";
-import CertificationUploader from "./CertificationUploader";
 
 const NAMESPACE_TRANSLATION_FORM = "Form";
 const NAMESPACE_TRANSLATION_PROFILE = "ProfileOrganisation";
@@ -44,10 +44,10 @@ export default function SecurityCompliance() {
   const handleSubmit = (data: SecurityCompilanceFormData) => {
     const payload = {
       ...data,
-      ce_expiry_date: dateToString(data.ce_expiry_date),
-      ce_plus_expiry_date: dateToString(data.ce_plus_expiry_date),
-      iso_expiry_date: dateToString(data.iso_expiry_date),
-      dsptk_expiry_date: dateToString(data.dsptk_expiry_date),
+      ce_expiry_date: formatDBDate(data.ce_expiry_date),
+      ce_plus_expiry_date: formatDBDate(data.ce_plus_expiry_date),
+      iso_expiry_date: formatDBDate(data.iso_expiry_date),
+      dsptk_expiry_date: formatDBDate(data.dsptk_expiry_date),
     } as PutOrganisationPayload;
 
     onSubmit(payload);
