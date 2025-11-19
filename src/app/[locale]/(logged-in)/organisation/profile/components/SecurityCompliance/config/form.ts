@@ -1,6 +1,5 @@
 import {
   VALIDATION_CE_CERTIFICATION_NUMBER,
-  VALIDATION_ISO_CERTIFICATION_NUMBER,
   VALIDATION_DSPTK_CERTIFICATION_NUMBER,
 } from "@/consts/form";
 import yup from "@/config/yup";
@@ -71,13 +70,7 @@ export const getValidation = (t: (key: string) => string) =>
         otherwise: schema => schema.notRequired(),
       }),
 
-    iso_27001_certification_num: yup
-      .string()
-      .optional()
-      .matches(VALIDATION_ISO_CERTIFICATION_NUMBER, {
-        message: t("iso27001CertificationNumInvalid"),
-        excludeEmptyString: true,
-      }),
+    iso_27001_certification_num: yup.string().optional(),
     iso_expiry_date: yup
       .date()
       .nullable()
