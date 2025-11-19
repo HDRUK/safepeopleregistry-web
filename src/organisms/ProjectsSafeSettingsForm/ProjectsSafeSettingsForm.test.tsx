@@ -51,13 +51,10 @@ describe("<ProjectsSafeSettingsForm />", () => {
     });
     fireEvent.submit(form);
 
-    const { access_date, ...restProps } = defaultProps.defaultValues;
-
     await waitFor(() => {
-      expect(defaultProps.onSubmit).toHaveBeenCalledWith({
-        access_date: new Date(access_date),
-        ...restProps,
-      });
+      expect(defaultProps.onSubmit).toHaveBeenCalledWith(
+        defaultProps.defaultValues
+      );
     });
   });
 

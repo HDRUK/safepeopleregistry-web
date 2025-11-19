@@ -20,7 +20,7 @@ import {
   File as ApplicationFile,
   ResearcherTraining,
 } from "../../types/application";
-import { formatDBDate, getDate } from "../../utils/date";
+import { formatDBDateTime, getDate } from "../../utils/date";
 
 const NAMESPACE_TRANSLATION_FORM = "Form.Training";
 const NAMESPACE_TRANSLATION_FILE_UPLOAD = "Certification";
@@ -149,8 +149,8 @@ export default function TrainingForm({
     const yearsRemaining = calculateYearsRemaining(fields.expires_at);
     const formattedFields = {
       ...fields,
-      awarded_at: formatDBDate(fields.awarded_at),
-      expires_at: formatDBDate(fields.expires_at),
+      awarded_at: formatDBDateTime(fields.awarded_at),
+      expires_at: formatDBDateTime(fields.expires_at),
       expires_in_years: yearsRemaining,
       certification_id: file?.id ?? null,
     };

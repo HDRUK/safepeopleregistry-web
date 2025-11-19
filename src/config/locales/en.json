@@ -1702,7 +1702,8 @@
     "heading": "Add new User",
     "requestHeading": "Request to add a new User",
     "description": "Add a User to start the validation process. You can add existing Safe People Registry Users by searching below. If they are affiliated with the wrong Organisation, you will need to contact them to add the correct affiliation. If you cannot find your User, you can <button>invite them to create a Safe People Registry account here.</button> ",
-    "requestDescription": "Here’s where you can request that a team member us added to this project. If you can't find them or they're listed under the wrong Organisation, invite them here. If they already have a Safe People Registry account, they’ll be able to select the correct Organisation. Otherwise, they'll be prompted to register for a Safe People Registry account."
+    "requestDescription": "Here’s where you can request that a team member us added to this project. If you can't find them or they're listed under the wrong Organisation, invite them here. If they already have a Safe People Registry account, they’ll be able to select the correct Organisation. Otherwise, they'll be prompted to register for a Safe People Registry account.",
+    "invitedUsersMessage": "You have invited {users} {count, plural, =0 {} =1 {and # other} other {and # others}}."
   },
   "InviteUserModal": {
     "heading": "Invite user",
