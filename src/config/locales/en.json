@@ -608,7 +608,6 @@
     "iso27001Certified": "ISO27001 Accredited",
     "iso27001CertificationNum": "ISO27001 Accredited",
     "iso27001CertificationNumPlaceholder": "e.g. AB123C",
-    "iso27001CertificationNumInvalid": "ISO27001 identifier is invalid, it should be of the form, e.g: AB12",
     "isoExpiryDate": "Expiry date",
     "isoExpiryDateRequired": "An expiry date for your code needs to be set.",
     "isoExpiryEvidenceRequired": "Evidence of your ISO27001 certification is required",
