@@ -2,14 +2,17 @@ import { ROUTES } from "@/consts/router";
 import { getName } from "@/utils/application";
 import { logout } from "cypress/support/utils/common";
 import { loginCustodian } from "cypress/support/utils/custodian/auth";
-import { goToProjectUsersList, inviteNewProjectUser } from "cypress/support/utils/custodian/projects";
+import {
+  goToProjectUsersList,
+  inviteNewProjectUser,
+} from "cypress/support/utils/custodian/projects";
 import {
   hasAffiliationsTabCustodianUser,
-  hasProjectsTabCustodianUser,
-  hasIdentityTabCustodianUser,
-  hasTrainingandAccreditationsTabCustodianUser,
   hasAutomatedFlagsTabCustodianUser,
   hasHistoryTabCustodianUser,
+  hasIdentityTabCustodianUser,
+  hasProjectsTabCustodianUser,
+  hasTrainingandAccreditationsTabCustodianUser,
 } from "cypress/support/utils/custodian/users";
 
 import { DEFAULT_PROJECT_INVITE_USERS } from "cypress/support/utils/data";
@@ -17,23 +20,18 @@ import { DEFAULT_PROJECT_INVITE_USERS } from "cypress/support/utils/data";
 const dataProjectInviteUser = DEFAULT_PROJECT_INVITE_USERS;
 
 describe("Projects custodians journey", () => {
-
-
   beforeEach(() => {
     loginCustodian();
 
     cy.visitFirst(ROUTES.profileCustodianUsers.path);
-    
+
+    cy.contains("a", getName(dataProjectInviteUser)).click();
   });
 
   before(() => {
     loginCustodian();
     goToProjectUsersList();
     inviteNewProjectUser(dataProjectInviteUser);
-
-    cy.contains("a", getName(dataProjectInviteUser)).click();
-    
-
   });
 
   after(() => {
@@ -63,5 +61,4 @@ describe("Projects custodians journey", () => {
   it("Has History Tab Custodian User", () => {
     hasHistoryTabCustodianUser();
   });
-
 });
