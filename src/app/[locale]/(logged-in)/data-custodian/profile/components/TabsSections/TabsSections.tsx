@@ -1,5 +1,4 @@
 "use client";
-
 import { useStore } from "@/data/store";
 import { Link } from "@/i18n/routing";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
@@ -11,20 +10,17 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { Box, Tab, Tabs } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { PageTabs } from "../../consts/tabs";
-
 const NAMESPACE_TRANSLATION_PROFILE = "CustodianProfile";
-
 interface TabsSectionsProps {
   tabId: PageTabs;
 }
-
 export default function TabsSections({ tabId }: TabsSectionsProps) {
   const routes = useStore(store => store.application.routes);
   const t = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
-
   return (
     <Box sx={{ width: "100%", mb: 4 }}>
       <Tabs
+        data-cy="tabs-navigation"
         variant="fullWidth"
         value={tabId || PageTabs.HOME}
         aria-label={t("navigationAriaLabel")}
