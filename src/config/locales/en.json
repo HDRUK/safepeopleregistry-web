@@ -922,6 +922,7 @@
     "putOrganisationApprovedError": "There was an approving the Organisation. Please try again or contact us at <contactLink></contactLink>",
     "uniqueIdentifierCaption": "This ‘key’ represents you as an Organisation within Safe People Registry. This is unique to you! Your Organisation will have a unique Safe People Registry identifier associated with your account once your Organisation profile has been completed. This persistent unique identifier will be used to notify Data Custodians of any key changes to your Organisation profile that may impact data access decisions.",
     "inviteOrganisationTitle": "Request Organisation to be invited to create a Safe People Registry account",
+    "inviteOrganisationEmailDescription": "Please provide the email address of a senior responsible officer (SRO) within the Organisation you wish to invite. This should be the email address of a legal representative of the Organisation or a registered data protection officer.",
     "inviteOrganisation": "Invite Organisation",
     "postOrganisationUnclaimedError": "Unable to invite the Organisation",
     "postOrganisationInviteError": "Unable to invite the Organisation",
