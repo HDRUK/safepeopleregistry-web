@@ -939,6 +939,7 @@
     "memberIdDescription": "Depending on your selected relationship with the Organisation",
     "home": "Home",
     "inviteThemHere": "Invite them here",
+    "organisationNameSubtitle": "Please provide the email address of a senior responsible officer (SRO) within the Organisation you wish to invite. This should be the email address of a legal representative of the Organisation or a registered data protection officer.",
     "organisationNotListed": "Organisation not listed? <link> Ask them to register </link>",
     "organisationListed": "Organisation already exists? <link> Select them here </link>",
     "affiliationsDescription": "Please list all Organisations (employers or institutes) with whom you are currently employed, on an honorary contract, or enrolled with as a student. Your Organisations will use this to confirm your affiliation. If you input an ORCiD under the Experience tab, some of this information may be automatically populated but require further information.",
