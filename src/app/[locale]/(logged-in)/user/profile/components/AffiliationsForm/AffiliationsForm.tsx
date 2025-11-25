@@ -219,20 +219,27 @@ export default function AffiliationsForm({
                       name="organisation_name"
                       subtitle={tProfile("organisationNameSubtitle")}
                       renderField={fieldProps => <TextField {...fieldProps} />}
-                      description={tProfile.rich("organisationListed", {
-                        link: chunks => (
-                          <Link
-                            component="button"
-                            onClick={e => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              setSelectOrganisation(true);
-                            }}
-                            sx={{ pb: 0.25 }}>
-                            {chunks}
-                          </Link>
-                        ),
-                      })}
+                      description={
+                        <>
+                          <Box mb={2}>
+                            {tProfile("organisationNameSubtitle")}
+                          </Box>
+                          {tProfile.rich("organisationListed", {
+                            link: chunks => (
+                              <Link
+                                component="button"
+                                onClick={e => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  setSelectOrganisation(true);
+                                }}
+                                sx={{ pb: 0.25 }}>
+                                {chunks}
+                              </Link>
+                            ),
+                          })}
+                        </>
+                      }
                     />
                   </Grid>
                   <Grid item xs={12}>
