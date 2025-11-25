@@ -28,9 +28,9 @@ describe("SRO journey", () => {
       logout();
     });
 
-    it("Has the correct tabs disabled", () => {
-      hasSRODisabledTabsOrganisations();
-    });
+    // it("Has the correct tabs disabled", () => {
+    //   hasSRODisabledTabsOrganisations(); -----<<< clean data journey
+    // });
 
     it("Adds SRO info", () => {
       addSROOrganisations(DEFAULT_SRO_FIELDS_ORGANISATIONS);

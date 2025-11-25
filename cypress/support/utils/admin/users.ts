@@ -11,6 +11,18 @@ const hasUser = (pendingInvite: PendingInvite, status: Status) => {
     user: { name, email },
   } = pendingInvite;
 
+
+  cy.get('#data-invites-invite-content nav[aria-label="pagination navigation"]')
+  .find('button.MuiPaginationItem-page')
+  .then(($buttons) => {
+    if ($buttons.length > 1) {
+      cy.wrap($buttons.last()).click();
+    } else {
+      cy.log('Only one page button, skipping click');
+    }
+  });
+
+    
   const row = cy.getResultsRowByValue(email);
 
   row.within(() => {
