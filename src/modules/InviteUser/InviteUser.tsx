@@ -4,7 +4,7 @@ import {
 } from "@/services/organisations";
 import SaveIcon from "@mui/icons-material/Save";
 import { LoadingButton } from "@mui/lab";
-import { Grid, Link, TextField } from "@mui/material";
+import { Box, Grid, Link, TextField } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
@@ -252,23 +252,31 @@ export default function InviteUser({
                     <Grid item xs={12}>
                       <FormControlWrapper
                         name="organisation_name"
+                        subtitle={tProfile("organisationNameSubtitle")}
                         renderField={fieldProps => (
                           <TextField {...fieldProps} />
                         )}
-                        description={tProfile.rich("organisationListed", {
-                          link: chunks => (
-                            <Link
-                              component="button"
-                              onClick={e => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                setSelectOrganisation(true);
-                              }}
-                              sx={{ pb: 0.25 }}>
-                              {chunks}
-                            </Link>
-                          ),
-                        })}
+                        description={
+                          <>
+                            <Box mb={2}>
+                              {tProfile("organisationNameSubtitle")}
+                            </Box>
+                            {tProfile.rich("organisationListed", {
+                              link: chunks => (
+                                <Link
+                                  component="button"
+                                  onClick={e => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    setSelectOrganisation(true);
+                                  }}
+                                  sx={{ pb: 0.25 }}>
+                                  {chunks}
+                                </Link>
+                              ),
+                            })}
+                          </>
+                        }
                       />
                     </Grid>
                     <Grid item xs={12}>

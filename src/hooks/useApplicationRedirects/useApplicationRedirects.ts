@@ -1,5 +1,6 @@
 "use server";
 
+import { getPathServerSide } from "@/utils/router";
 import { EXCLUDE_REDIRECT_URLS } from "../../consts/router";
 import getMe from "../../services/auth/getMe";
 import { getAccessToken } from "../../utils/auth";
@@ -12,10 +13,9 @@ import {
   isInPath,
   redirectToPath,
 } from "../../utils/redirects";
-import usePathServerSide from "../usePathServerSide";
 
 export default async function useApplicationRedirects() {
-  const pathname = usePathServerSide();
+  const pathname = getPathServerSide();
 
   if (pathname && !isInPath(pathname, EXCLUDE_REDIRECT_URLS)) {
     let redirectUrl;
