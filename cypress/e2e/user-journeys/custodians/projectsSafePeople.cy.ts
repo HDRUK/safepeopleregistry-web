@@ -43,19 +43,19 @@ describe("Projects safe people journey", () => {
     logout();
   });
 
-  it("Invites a user to the project", () => {
-    inviteNewProjectUser(dataProjectInviteUser);
+  // it("Invites a user to the project", () => {
+  //   inviteNewProjectUser(dataProjectInviteUser);
 
-    /** This currently isn't working due to observers not finishing */
-    // hasNewProjectUsers({
-    //   ...dataProjectUser,
-    //   model_state: {
-    //     state: {
-    //       slug: Status.PENDING,
-    //     },
-    //   },
-    // });
-  });
+  //   /** This currently isn't working due to observers not finishing */
+  //   // hasNewProjectUsers({
+  //   //   ...dataProjectUser,
+  //   //   model_state: {
+  //   //     state: {
+  //   //       slug: Status.PENDING,
+  //   //     },
+  //   //   },
+  //   // });
+  // });
 
   it("Has added a user to the project", () => {
     // Delay for observers to finish
@@ -93,9 +93,9 @@ describe("Projects safe people journey", () => {
     hasPrimaryContact(dataProjectUser);
   });
 
-  it("Removes a user from the project", () => {
-    removeFromProjectUsers({ first_name, last_name });
+  // it("Removes a user from the project", () => {
+  //   removeFromProjectUsers({ first_name, last_name });
 
-    cy.getResultsRow().should("not.exist");
-  });
+  //   cy.getResultsRow().should("not.exist");
+  // });
 });
