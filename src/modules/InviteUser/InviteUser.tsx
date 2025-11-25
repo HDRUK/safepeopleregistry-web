@@ -252,6 +252,7 @@ export default function InviteUser({
                     <Grid item xs={12}>
                       <FormControlWrapper
                         name="organisation_name"
+                        subtitle={tProfile("organisationNameSubtitle")}
                         renderField={fieldProps => (
                           <TextField {...fieldProps} />
                         )}
