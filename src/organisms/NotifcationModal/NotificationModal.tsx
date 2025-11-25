@@ -29,7 +29,7 @@ import PendingIcon from "@mui/icons-material/Pending";
 import MarkEmailUnreadIcon from "@mui/icons-material/MarkEmailUnread";
 import { useTranslations } from "next-intl";
 import { Notification } from "../../types/notifications";
-import { formatDBDate } from "../../utils/date";
+import { formatDBDateTime } from "../../utils/date";
 import { toTitleCase } from "../../utils/string";
 import { formatNotificationType } from "../../utils/notifications";
 import usePutReadRequest from "../NotificationsMenu/hooks/usePutReadRequest";
@@ -115,7 +115,7 @@ export default function NotificationModal({
             <span>
               {formatNotificationType(notification.type)}
               {" - "}
-              {formatDBDate(notification.data.time)}
+              {formatDBDateTime(notification.data.time)}
             </span>
           }
         />
@@ -182,7 +182,8 @@ export default function NotificationModal({
                   <ListItemText
                     primary={toTitleCase(action.action)}
                     secondary={
-                      action.completed_at && formatDBDate(action.completed_at)
+                      action.completed_at &&
+                      formatDBDateTime(action.completed_at)
                     }
                   />
                 </ListItem>

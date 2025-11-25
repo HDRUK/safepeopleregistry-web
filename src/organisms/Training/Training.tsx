@@ -26,7 +26,7 @@ import {
 import { PostTrainingsPayload } from "../../services/trainings/types";
 import { EntityType } from "../../types/api";
 import { ResearcherTraining, User } from "../../types/application";
-import { formatShortDate } from "../../utils/date";
+import { formatDBDateTime, formatShortDate } from "../../utils/date";
 import { showAlert } from "../../utils/showAlert";
 import TrainingForm from "./TrainingForm";
 
@@ -212,13 +212,19 @@ export default function Training({
 
   const handleSubmit = useCallback(
     async (training: PostTrainingsPayload) => {
+      const payload = {
+        ...training,
+        awarded_at: formatDBDateTime(training.awarded_at),
+        expires_at: formatDBDateTime(training.expires_at),
+      };
+
       if (selectedTraining) {
         // Update existing training
-        await mutateUpdateAsync({ id: selectedTraining.id, ...training });
+        await mutateUpdateAsync({ id: selectedTraining.id, ...payload });
       } else {
         // Create new training
-        await mutateAsync(training);
-        await onSubmit(training);
+        await mutateAsync(payload);
+        await onSubmit(payload);
       }
       refetchTrainings();
     },

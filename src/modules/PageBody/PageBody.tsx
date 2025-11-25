@@ -30,7 +30,7 @@ export default function PageBody({
           flexDirection: "column",
           gap: 4,
           mb: 4,
-          "> div:first-child": {
+          "> div:first-of-type": {
             pt: 0,
           },
           "> div:last-child": {

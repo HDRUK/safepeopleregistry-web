@@ -49,6 +49,18 @@ function renderAffiliationDateRangeCell<T extends ResearcherAffiliation>(
   );
 }
 
+const renderRegistered = (unclaimed: boolean) => {
+  return (
+    <Typography>
+      {unclaimed ? (
+        <ChipStatus status={Status.INVITED} />
+      ) : (
+        <ChipStatus status={Status.REGISTERED} />
+      )}
+    </Typography>
+  );
+};
+
 function renderProjectNameCell<T extends Project>(
   info: CellContext<T, unknown>,
   route?: string
@@ -193,15 +205,17 @@ const renderOrganisationValidatedCell = (
 const renderSelectRoleCell = (
   info: CellContext<ProjectAllUser, unknown>,
   props: {
+    disabled;
     roles: Role[];
     onRoleSelect: (row: ProjectAllUser, roleId: number | null) => void;
   }
 ) => {
   const roleId = info.row.original.role?.id ?? -1;
-  const { onRoleSelect, roles } = props;
+  const { onRoleSelect, roles, disabled } = props;
 
   return (
     <SelectRole
+      disabled={disabled}
       variant="standard"
       size="small"
       value={roleId}
@@ -235,4 +249,5 @@ export {
   renderUserNameCell,
   renderUserOrganisationsNameCell,
   renderWarningCell,
+  renderRegistered,
 };

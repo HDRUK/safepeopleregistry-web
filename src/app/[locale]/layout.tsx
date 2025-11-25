@@ -1,3 +1,4 @@
+import ReactQueryClientProvider from "@/components/ReactQueryClientProvider";
 import ThemeRegistry from "@/components/ThemeRegistry/ThemeRegistry";
 import { locales } from "@/config";
 import ToastProvider from "@/context/ToastProvider";
@@ -5,15 +6,15 @@ import BannerMessage from "@/modules/BannerMessage";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import { Box } from "@mui/system";
+import { GoogleTagManager } from "@next/third-parties/google";
 import type { Metadata } from "next";
-import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { PropsWithChildren } from "react";
+import "../sweetalert2-custom.css";
 import "../global.css";
-import { GoogleTagManager } from "@next/third-parties/google";
-import { getMessages } from "next-intl/server";
-import ReactQueryClientProvider from "@/components/ReactQueryClientProvider";
+import IntlClientProvider from "@/context/IntlClientProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,14 +40,11 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       {gtmId && <GoogleTagManager gtmId={gtmId} />}
-      <head>
-        <link rel="stylesheet" href="/css/sweetalert2-custom.css" />
-      </head>
       <Box
         component="body"
         className={inter.className}
         sx={{ background: "#f2f2f2" }}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
+        <IntlClientProvider locale={locale} messages={messages}>
           <AppRouterCacheProvider options={{ enableCssLayer: true }}>
             <ReactQueryClientProvider>
               <ThemeRegistry>
@@ -66,7 +64,7 @@ export default async function RootLayout({
               </ThemeRegistry>
             </ReactQueryClientProvider>
           </AppRouterCacheProvider>
-        </NextIntlClientProvider>
+        </IntlClientProvider>
       </Box>
     </html>
   );

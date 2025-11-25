@@ -1,0 +1,102 @@
+name: Cypress Tests
+
+on:
+  pull_request:
+    branches: develop
+
+env:
+  CYPRESS_RECORD_KEY: 37722b13-e215-4d2b-95e9-96de1cc70df8
+  CYPRESS_BASE_URL: http://localhost:3000
+  CYPRESS_USER_EMAIL: ${{ secrets.CYPRESS_USER_EMAIL }}
+  CYPRESS_USER_PASSWORD: ${{ secrets.CYPRESS_USER_PASSWORD }}
+  CYPRESS_ORGANISATION_EMAIL: ${{ secrets.CYPRESS_ORGANISATION_EMAIL }}
+  CYPRESS_ORGANISATION_PASSWORD: ${{ secrets.CYPRESS_ORGANISATION_PASSWORD }}
+  CYPRESS_UNAPPROVED_ORGANISATION_EMAIL: ${{ secrets.CYPRESS_UNAPPROVED_ORGANISATION_EMAIL }}
+  CYPRESS_UNAPPROVED_ORGANISATION_PASSWORD: ${{ secrets.CYPRESS_UNAPPROVED_ORGANISATION_PASSWORD }}
+  CYPRESS_CUSTODIAN_EMAIL: ${{ secrets.CYPRESS_CUSTODIAN_EMAIL }}
+  CYPRESS_CUSTODIAN_PASSWORD: ${{ secrets.CYPRESS_CUSTODIAN_PASSWORD }}
+
+  CYPRESS_ADMIN_EMAIL: ${{ secrets.CYPRESS_ADMIN_EMAIL }}
+  CYPRESS_ADMIN_PASSWORD: ${{ secrets.CYPRESS_ADMIN_PASSWORD }}
+
+  NEXT_PUBLIC_API_V1_URL: ${{ vars.NEXT_PUBLIC_API_V1_URL }}
+  NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
+  NEXT_PUBLIC_API_V1_SERVER_URL: ${{ vars.NEXT_PUBLIC_API_V1_SERVER_URL }}
+  NEXT_PUBLIC_API_SERVER_URL: ${{ vars.NEXT_PUBLIC_API_SERVER_URL}}
+
+  NEXT_PUBLIC_KEYCLOAK_CLIENT_ID: ${{ vars.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID }}
+  NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET: ${{ secrets.NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET }}
+  KEYCLOAK_REALM_PUBLIC_KEY: ${{ vars.KEYCLOAK_REALM_PUBLIC_KEY }}
+  NEXT_PUBLIC_KEYCLOAK_REDIRECT_URL_LOGIN: "http://localhost:3000/api/auth/login"
+  NEXT_PUBLIC_KEYCLOAK_REDIRECT_URL_LOGOUT: "http://localhost:3000/api/auth/logout"
+  NEXT_PUBLIC_KEYCLOAK_REDIRECT_URL_REGISTER: "http://localhost:3000/api/auth/register"
+  NEXT_PUBLIC_KEYCLOAK_URL_ME: "http://localhost:3000/api/auth/me"
+  NEXT_PUBLIC_KEYCLOAK_BASE_URL: ${{ vars.NEXT_PUBLIC_KEYCLOAK_BASE_URL }}
+  NEXT_PUBLIC_KEYCLOAK_REALM: ${{ vars.NEXT_PUBLIC_KEYCLOAK_REALM }}
+  NEXT_PUBLIC_LOCAL_ENV: http://localhost:3000
+
+jobs:
+  build:
+    permissions:
+      contents: write
+      id-token: write
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+    environment: develop
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: "feat/REGISTRY-2183"
+
+      - name: Read VERSION file
+        id: getversion
+        run: |
+          sed -n 's/^appVersion:\(.*\)/\1/p' < chart/soursd-web/Chart.yaml > version
+          echo "version=$(sed '/.*\"\(.*\)\".*/ s//\1/g' version)" >> $GITHUB_OUTPUT
+
+      - name: Google Auth
+        id: auth
+        uses: "google-github-actions/auth@v2"
+        with:
+          token_format: "access_token"
+          workload_identity_provider: "${{ secrets.WIF_PROVIDER }}"
+          service_account: "${{ secrets.WIF_SERVICE_ACCOUNT }}"
+
+      - name: Set up gcloud CLI
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Export database to GCS
+        id: exportdb
+        run: |
+          EXPORT_URI="gs://hdrregistrymysqlbackup/hdr-registry-dev-$(date +%Y%m%d%H%M%S).sql.gz"
+          echo "EXPORT_URI=$EXPORT_URI" >> "$GITHUB_OUTPUT"
+          gcloud sql export sql hdr-registry-mysql "$EXPORT_URI" \
+            --database=hdr-registry-dev \
+            --offload
+
+      - name: Install dependencies
+        run: npm install @faker-js/faker dayjs
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          record: true
+          wait-on: http://localhost:3000
+          wait-on-timeout: 120
+          build: npm run build
+          start: npm start
+          browser: chrome
+
+      - name: Restore database from export
+        if: always()
+        run: |
+          echo "Restoring database from ${{ steps.exportdb.outputs.EXPORT_URI }}"
+          gcloud sql import sql hdr-registry-mysql "${{ steps.exportdb.outputs.EXPORT_URI }}" \
+            --database=hdr-registry-dev --quiet
+
+      - name: Delete exported SQL file from GCS
+        if: always()
+        run: |
+          echo "Deleting export file: ${{ steps.exportdb.outputs.EXPORT_URI }}"
+          gsutil rm "${{ steps.exportdb.outputs.EXPORT_URI }}"

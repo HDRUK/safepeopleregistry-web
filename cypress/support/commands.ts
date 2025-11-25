@@ -9,9 +9,9 @@ Cypress.Commands.add("login", (email: string, password: string) => {
       Cypress.env("keycloakBaseUrl"),
       { args },
       ({ email, password }) => {
-        const { getLoginPath } = Cypress.require("./utils/common");
+        const { getKeycloakLoginPath } = Cypress.require("./utils/auth");
 
-        cy.visit(getLoginPath());
+        cy.visit(getKeycloakLoginPath());
 
         cy.get("[id=username]").type(email);
         cy.get("[id=password]").type(password);
@@ -48,14 +48,29 @@ Cypress.Commands.add("getResultsRow", (index?: number | string | undefined) => {
   return tableRows.eq(index);
 });
 
+Cypress.Commands.add("getResultsRow", (index?: number | string | undefined) => {
+  const tableRows = cy.get(dataCy("results")).find("tbody tr");
+
+  if (!index) return tableRows;
+
+  if (typeof index === "string") {
+    if (index === "last") {
+      return tableRows.last();
+    }
+
+    return tableRows.first();
+  }
+
+  return tableRows.eq(index);
+});
+
 Cypress.Commands.add("getResultsRowByValue", (value: string) => {
-  return cy
-    .get(dataCy("results"))
-    .should("exist")
-    .get("tbody tr")
-    .contains("td", value)
-    .should("exist")
-    .parent();
+  const row =
+    value === "first" || value === "last"
+      ? cy.getResultsRow(value)
+      : cy.get(dataCy("results")).should("exist").get("tbody tr");
+
+  return row.contains("td", value).should("exist").parent();
 });
 
 Cypress.Commands.add("getResultsCellByValue", (value: string) => {
@@ -117,7 +132,10 @@ Cypress.Commands.add(
 
     // Bug in pipeline where readonly is true in mui datepicker
     cy.get(`#${id}`).invoke("removeAttr", "readonly");
-    cy.get(`#${id}`).clear().type(dayjs(value).format("DD/MM/YYYY"));
+    cy.get(`#${id}`).clear();
+    cy.get(`#${id}`).type(dayjs(value).format("DD/MM/YYYY"), {
+      force: true,
+    });
   }
 );
 

@@ -167,8 +167,6 @@ export default function InviteUser({
 
     let results;
 
-    console.log("*********** custodianId", custodianId);
-
     if (!custodianId) {
       results = await mutateOrganisationUserInvite({
         organisationId: organisationId as number,
@@ -186,6 +184,7 @@ export default function InviteUser({
 
   return (
     <Form
+      data-cy="invite-user"
       onSubmit={handleSubmit}
       schema={schema}
       {...formOptions}
@@ -253,6 +252,7 @@ export default function InviteUser({
                     <Grid item xs={12}>
                       <FormControlWrapper
                         name="organisation_name"
+                        subtitle={tProfile("organisationNameSubtitle")}
                         renderField={fieldProps => (
                           <TextField {...fieldProps} />
                         )}

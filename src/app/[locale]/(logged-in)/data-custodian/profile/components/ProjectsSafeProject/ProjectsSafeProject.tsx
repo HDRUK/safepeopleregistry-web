@@ -18,7 +18,7 @@ import { pick } from "@/utils/json";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { formatDBDate } from "@/utils/date";
+import { formatDBDateTime } from "@/utils/date";
 import { PageTabs, ProjectsSubTabs } from "../../consts/tabs";
 import SubTabsSections from "../SubTabSections";
 
@@ -63,8 +63,8 @@ export default function ProjectsSafeProject() {
       },
       payload: {
         ...payload,
-        start_date: formatDBDate(payload.start_date),
-        end_date: formatDBDate(payload.end_date),
+        start_date: formatDBDateTime(payload.start_date),
+        end_date: formatDBDateTime(payload.end_date),
       },
     });
   };

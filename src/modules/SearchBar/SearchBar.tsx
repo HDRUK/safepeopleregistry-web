@@ -10,6 +10,7 @@ export interface SearchBarProps {
   placeholder?: string;
   legend?: ReactNode;
   children?: ReactNode;
+  disabled?: boolean;
 }
 
 export default function SearchBar({
@@ -18,6 +19,7 @@ export default function SearchBar({
   onSearch,
   onClear,
   children,
+  disabled,
 }: SearchBarProps) {
   return (
     <Box
@@ -37,6 +39,7 @@ export default function SearchBar({
           },
         }}>
         <SearchField
+          disabled={disabled}
           onSearch={(text: string) => {
             if (!text || text.length < 1) {
               onClear?.();

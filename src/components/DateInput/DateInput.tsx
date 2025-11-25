@@ -31,7 +31,7 @@ const DateInput = ({
   const localeString = useLocale();
   const locale = localeString === "en" ? enGB : enGB; // Add more locales as needed
 
-  const parseDate = (data: string | null) => {
+  const parseDate = (data: Date | string | null) => {
     if (!data) return data;
 
     if (dayjs(data, dateFormat).isValid() && data !== "Invalid Date") {
@@ -41,12 +41,19 @@ const DateInput = ({
     return null;
   };
 
+  const handleChange = (
+    date: Date,
+    context: PickerChangeHandlerContext<DateValidationError>
+  ) => {
+    onChange(parseDate(date), context);
+  };
+
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={locale}>
       <DatePicker
         label={label}
         value={parseDate(value)}
-        onChange={onChange}
+        onChange={handleChange}
         format={dateFormat}
         slotProps={{
           popper: {

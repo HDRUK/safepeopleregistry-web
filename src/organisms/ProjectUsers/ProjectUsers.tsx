@@ -1,5 +1,11 @@
 "use client";
 
+import {
+  ProjectAllUser,
+  CustodianProjectUser,
+  WithPaginatedQueryParms,
+  WithRoutes,
+} from "@/types/application";
 import AddIcon from "@mui/icons-material/Add";
 import ListIcon from "@mui/icons-material/List";
 import ViewColumnIconOutlined from "@mui/icons-material/ViewColumnOutlined";
@@ -23,11 +29,6 @@ import {
   usePaginatedCustodianProjectUsers,
 } from "../../services/custodian_approvals";
 import { EntityType } from "../../types/api";
-import {
-  CustodianProjectUser,
-  WithPaginatedQueryParms,
-  WithRoutes,
-} from "../../types/application";
 import ProjectsAddUserModal from "../ProjectsAddUserModal";
 import ProjectUsersBoard from "../ProjectUsersBoard";
 import ProjectUsersList from "../ProjectUsersList";
@@ -54,6 +55,7 @@ export default function ProjectUsers({
   const t = useTranslations(NAMESPACE_TRANSLATIONS_PROJECT_USERS);
   const tStatus = useTranslations(NAMESPACE_TRANSLATIONS_STATUS);
   const queryClient = useQueryClient();
+  const [invitedUsers, setInvitedUsers] = useState<ProjectAllUser[]>([]);
 
   const [showListView, setShowListView] = useState(
     variant !== EntityType.CUSTODIAN
@@ -122,6 +124,10 @@ export default function ProjectUsers({
     },
     [showListView]
   );
+
+  const handleInvite = (user: ProjectAllUser) => {
+    setInvitedUsers([user, ...invitedUsers]);
+  };
 
   useEffect(() => {
     updateQueryParams({
@@ -233,11 +239,14 @@ export default function ProjectUsers({
 
       {projectId && (
         <ProjectsAddUserModal
+          invitedUsers={invitedUsers}
+          onInvite={handleInvite}
           request={variant === EntityType.ORGANISATION}
           projectId={projectId}
           custodianId={custodianId}
           open={showAddModal}
           onClose={() => {
+            setInvitedUsers([]);
             setShowAddModal(false);
           }}
         />

@@ -54,7 +54,9 @@ export default function KanbanBoardOrganisationsCard({
           )}
         </Box>
       </Text>
-      <Typography color="success.main">Number affiliated users</Typography>
+      <Typography color="success.main">
+        Number affiliated users: {organisation.affiliations_count || 0}
+      </Typography>
       <Typography>
         {project.title} (id: {project.id})
       </Typography>

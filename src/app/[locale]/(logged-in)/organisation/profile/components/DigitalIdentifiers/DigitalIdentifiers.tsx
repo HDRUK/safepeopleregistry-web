@@ -76,6 +76,8 @@ export default function DigitalIdentifiers() {
         }),
         ror_id: yup
           .string()
+          .transform((curr, orig) => (orig === "" ? null : curr))
+          .nullable()
           .matches(VALIDATION_ROR_ID, tForm("rorIdFormatInvalid")),
       }),
     []
@@ -146,6 +148,13 @@ export default function DigitalIdentifiers() {
                       name="ror_id"
                       renderField={fieldProps => <TextField {...fieldProps} />}
                       description={tForm.rich("rorIdDescription", {
+                        rorLink: () => (
+                          <Link
+                            href="https://ror.org/01abcde11"
+                            target="_blank">
+                            01abcde11
+                          </Link>
+                        ),
                         link: chunks => (
                           <Link href="https://ror.org/search" target="_blank">
                             {chunks}

@@ -34,6 +34,8 @@ function getStatus(slug: string) {
       return "Escalation to Validation Manager";
     case Status.PENDING:
       return "Pending";
+    case Status.INVITED:
+      return "Invited";
     default:
       return slug;
   }
@@ -59,6 +61,15 @@ const getName = <T extends { first_name: string; last_name: string }>({
   last_name,
 }: T) => {
   return `${first_name} ${last_name}`;
+};
+
+const getAbbreviatedListWithCount = <T>(data: T[], n: number = 1) => {
+  const items = data.slice(0, n);
+
+  return {
+    items,
+    count: data.length > n ? data.length - n : 0,
+  };
 };
 
 function parseSystemConfig(data: GetSystemConfigResponse | undefined) {
@@ -121,4 +132,5 @@ export {
   getStatus,
   getShortStatus,
   getName,
+  getAbbreviatedListWithCount,
 };

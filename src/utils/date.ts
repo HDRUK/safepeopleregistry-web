@@ -1,7 +1,7 @@
-import { format } from "date-fns";
 import dayjs from "dayjs";
 import {
   FORMAT_DATE_DB,
+  FORMAT_DATETIME_DB,
   FORMAT_DISPLAY_LONG_DATE,
   FORMAT_DISPLAY_SHORT_DATE,
   FORMAT_SHORT_DATE,
@@ -11,14 +11,6 @@ function isExpired(date: string) {
   const expirationTime = dayjs(date);
 
   return expirationTime.isAfter(dayjs());
-}
-
-function dateToString(date?: Date, formatString: string = "yyyy-MM-dd") {
-  return date ? format(date, formatString) : undefined;
-}
-
-function formatStringToISO(date?: string) {
-  return date ? format(date, "yyyy-MM-dd") : undefined;
 }
 
 function formatDisplayTimeDate(date?: string) {
@@ -37,28 +29,44 @@ function getDate(date?: string | null) {
   return undefined;
 }
 
-function formatShortDate(date?: string) {
-  return dayjs(date).format(FORMAT_SHORT_DATE);
-}
-
-function formatDisplayShortDate(date?: string) {
+function formatDateToString(
+  date: Date | string | null | undefined,
+  format: string
+) {
   const djsDate = dayjs(date);
 
-  return djsDate.isValid() ? djsDate.format(FORMAT_DISPLAY_SHORT_DATE) : date;
+  return djsDate.isValid() ? djsDate.format(format) : date;
 }
 
-function formatDisplayLongDate(date?: string) {
-  const djsDate = dayjs(date);
+function dateToString(
+  date: Date | string | null | undefined,
+  formatString: string = "YYYY-MM-DD"
+) {
+  formatDateToString(date, formatString);
+}
 
-  return djsDate.isValid() ? djsDate.format(FORMAT_DISPLAY_LONG_DATE) : date;
+function formatShortDate(date: Date | string | null | undefined) {
+  return formatDateToString(date, FORMAT_SHORT_DATE);
+}
+
+function formatDisplayShortDate(date: Date | string | null | undefined) {
+  return formatDateToString(date, FORMAT_DISPLAY_SHORT_DATE);
+}
+
+function formatDisplayLongDate(date: Date | string | null | undefined) {
+  return formatDateToString(date, FORMAT_DISPLAY_LONG_DATE);
 }
 
 function formatNowDBDate() {
-  return dayjs().format(FORMAT_DATE_DB);
+  return dayjs().format(FORMAT_DATETIME_DB);
 }
 
-function formatDBDate(date?: string) {
-  return dayjs(date).format(FORMAT_DATE_DB);
+function formatDBDateTime(date: Date | string | null | undefined) {
+  return formatDateToString(date, FORMAT_DATETIME_DB);
+}
+
+function formatDBDate(date: Date | string | null | undefined) {
+  return formatDateToString(date, FORMAT_DATE_DB);
 }
 
 function isExpiredInvite(invite_sent_at?: string) {
@@ -72,22 +80,23 @@ function isExpiredInvite(invite_sent_at?: string) {
   );
 }
 
-function getDaysSince(dateString: string) {
-  const date = dayjs(dateString);
-  return date.isValid() ? dayjs().diff(date, "day") : undefined;
+function getDaysSince(date: string) {
+  const djsDate = dayjs(date);
+
+  return djsDate.isValid() ? dayjs().diff(djsDate, "day") : undefined;
 }
 
 export {
   dateToString,
   formatDBDate,
+  formatDBDateTime,
   formatDisplayLongDate,
   formatDisplayShortDate,
+  formatDisplayTimeDate,
   formatNowDBDate,
   formatShortDate,
-  formatStringToISO,
   getDate,
   getDaysSince,
   isExpired,
   isExpiredInvite,
-  formatDisplayTimeDate,
 };

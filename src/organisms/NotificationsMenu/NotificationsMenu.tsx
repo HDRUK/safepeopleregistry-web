@@ -18,7 +18,7 @@ import { useEffect, useRef, useState } from "react";
 import useDebounce from "../../hooks/useDebounce";
 import { NotificationPutType } from "../../services/notifications/types";
 import { Notification } from "../../types/notifications";
-import { formatDBDate } from "../../utils/date";
+import { formatDBDateTime } from "../../utils/date";
 import { formatNotificationType } from "../../utils/notifications";
 import { NotificationModal } from "../NotifcationModal";
 import useGetNotificationsCount from "./hooks/useGetNotificationCounts";
@@ -206,7 +206,7 @@ export default function NotificationsMenu() {
                 variant="caption"
                 color="text.secondary"
                 sx={{ fontWeight: "inherit" }}>
-                {formatDBDate(notif.data.time)}
+                {formatDBDateTime(notif.data.time)}
               </Typography>
             </StyledMenuItem>
           ))
