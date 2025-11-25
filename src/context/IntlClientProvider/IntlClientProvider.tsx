@@ -21,8 +21,11 @@ export default function IntlClientProvider({
 }: IntlClientProviderProps) {
   if (!locales[locale]) notFound();
 
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
   return (
     <NextIntlClientProvider
+      timeZone={timeZone}
       locale={locale}
       messages={messages}
       onError={error => {
