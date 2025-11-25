@@ -1,3 +1,24 @@
+## [1.21.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.20.1...v1.21.0) (2025-11-25)
+
+### ✨ Features
+
+* **REGISTRY-2029:** add affiliations count to project orgs# (#555) ([0b8f275](https://github.com/HDRUK/safepeopleregistry-web/commit/0b8f275f51d0cd3c2be505aa9a22a66547ca4e42))
+* **REGISTRY-2040:** lawful field optional (#561) ([3d1c189](https://github.com/HDRUK/safepeopleregistry-web/commit/3d1c189e6ec26107451b072173d5ecf28feb241c))
+* **REGISTRY-2183:** workflow file for cypress tests (#545) ([db809d8](https://github.com/HDRUK/safepeopleregistry-web/commit/db809d8edd3041a1f0cc6848d97ea01119a58da4))
+* **REGISTRY-2233:** invited users info (#558) ([28c3f95](https://github.com/HDRUK/safepeopleregistry-web/commit/28c3f95c10e460060b4d0d0e764b6ec784cbbacf))
+* **REGISTRY-2237:** resend invites (#551) ([07b4903](https://github.com/HDRUK/safepeopleregistry-web/commit/07b490311844efc8c396dfe07faac5b29500f997))
+* **REGISTRY-2240:** check for no unclaimed flag (#554) ([2a13bd2](https://github.com/HDRUK/safepeopleregistry-web/commit/2a13bd2e4e0791b26352516766f481b747a0c83f))
+* **REGISTRY-2277:** add some field text (#563) ([77d807e](https://github.com/HDRUK/safepeopleregistry-web/commit/77d807e5b9a9c91f1def8bf17939e5c6c92654df))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-2140:** ror mandatory (#556) ([64636c0](https://github.com/HDRUK/safepeopleregistry-web/commit/64636c0e2781622e9885e5ef7e125151d6e5d5a8))
+* **REGISTRY-2191:** change text (#552) ([f37afa1](https://github.com/HDRUK/safepeopleregistry-web/commit/f37afa11d0035dae14f38c6a46bf3f81285d0085))
+* **REGISTRY-2216:** delay status reload (#550) ([bbf970c](https://github.com/HDRUK/safepeopleregistry-web/commit/bbf970c1ac6db0364bbb0b6de96b080cfcdd27ff))
+* **REGISTRY-2239:** missing messages (#553) ([8789ac9](https://github.com/HDRUK/safepeopleregistry-web/commit/8789ac94f4c8222cd241f622755ea0a04e483b53))
+* **REGISTRY-2242:** date field (#560) ([a7ad1e4](https://github.com/HDRUK/safepeopleregistry-web/commit/a7ad1e41e30f740968745c9a56d571f3fac52cae))
+* **REGISTRY-2273:** not redirecting from admin (#562) ([5165b29](https://github.com/HDRUK/safepeopleregistry-web/commit/5165b29be5c5b1eafa722589534b2f421cdf1ff9))
+
 ## [1.20.1](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.20.0...v1.20.1) (2025-11-05)
 
 ### 🐛 Bug Fixes
