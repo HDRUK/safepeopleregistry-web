@@ -4,7 +4,6 @@ import { useMutation } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 import {
   postClaimUser,
-  PostClaimUserPayload,
   postRegister,
   PostRegisterPayload,
 } from "../../services/auth";
