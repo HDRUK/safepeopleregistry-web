@@ -1,15 +1,14 @@
 import { ResponseJson, ResponseOptions } from "@/types/requests";
-import { isServer, postRequest } from "../requests";
 import { handleJsonResponse } from "../requestHelpers";
-import { PostClaimUserPayload, PostRegisterResponse } from "./types";
+import { isServer, postRequest } from "../requests";
+import { PostRegisterResponse } from "./types";
 
 export default async (
-  payload?: PostClaimUserPayload,
+  id: number,
   options?: ResponseOptions
 ): Promise<ResponseJson<PostRegisterResponse>> => {
   const response = await postRequest(
-    `${isServer() ? process.env.NEXT_PUBLIC_API_SERVER_URL : process.env.NEXT_PUBLIC_API_URL}/auth/claimUser`,
-    payload
+    `${isServer() ? process.env.NEXT_PUBLIC_API_SERVER_URL : process.env.NEXT_PUBLIC_API_URL}/auth/claimUser/${id}`
   );
 
   return handleJsonResponse(response, options);
