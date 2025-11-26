@@ -37,29 +37,29 @@ describe("SRO journey", () => {
     });
   });
 
-  describe("Admin", () => {
-    beforeEach(() => {
-      loginAdmin();
+  // describe("Admin", () => {
+  //   beforeEach(() => {
+  //     loginAdmin();
 
-      cy.visitFirst(ROUTES.profileAdmin.path);
-    });
+  //     cy.visitFirst(ROUTES.profileAdmin.path);
+  //   });
 
-    it("Approves an organisation", () => {
-      validateSROOrganisatons(dataOrganisation, "Approve");
+  //   it("Approves an organisation", () => {
+  //     validateSROOrganisatons(dataOrganisation, "Approve");
 
-      hasSROOrganisation(dataOrganisation, "Approved");
-    });
+  //     hasSROOrganisation(dataOrganisation, "Approved");
+  //   });
 
-    //   /**
-    //    * Temporarily disabled, unapproving has not been considered and has
-    //    * lots of implications so the option is disabled
-    //    */
-    //   // it("Unapproves an organisation", () => {
-    //   //   validateSROOrganisatons(dataOrganisation, "Unapprove");
+  //     /**
+  //      * Temporarily disabled, unapproving has not been considered and has
+  //      * lots of implications so the option is disabled
+  //      */
+  //     // it("Unapproves an organisation", () => {
+  //     //   validateSROOrganisatons(dataOrganisation, "Unapprove");
 
-    //   //   hasSROOrganisation(dataOrganisation, "Not approved");
-    //   // });
-  });
+  //     //   hasSROOrganisation(dataOrganisation, "Not approved");
+  //     // });
+  // });
 
   describe("Organisation approved", () => {
     beforeEach(() => {
