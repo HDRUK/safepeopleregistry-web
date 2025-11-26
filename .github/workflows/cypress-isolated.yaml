@@ -79,10 +79,11 @@ jobs:
 
       - name: Configure Laravel .env
         run: |
-          cd safepeopleregistry-api
-          cp .env.example .env
-          sed -i 's/DB_HOST=.*/DB_HOST=127.0.0.1/' .env
-          sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=root/' .env
+            cd safepeopleregistry-api
+            cp .env.example .env
+            sed -i 's/DB_HOST=.*/DB_HOST=127.0.0.1/' .env
+            sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=root/' .env
+            echo "${{ secrets.API_ENVS }}" >> .env
 
       - name: Wait for MySQL
         run: |
@@ -104,7 +105,6 @@ jobs:
       - name: Start Laravel API
         run: |
           cd safepeopleregistry-api
-          echo "${{ secrets.API_ENVS }}" > .env
           nohup php artisan serve --host=0.0.0.0 --port=8000 > laravel.log 2>&1 &
 
       # -------------------------
