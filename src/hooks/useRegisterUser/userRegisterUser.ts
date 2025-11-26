@@ -4,7 +4,6 @@ import { useMutation } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 import {
   postClaimUser,
-  PostClaimUserPayload,
   postRegister,
   PostRegisterPayload,
 } from "../../services/auth";
@@ -39,8 +38,8 @@ export default function useRegisterUser({
 
   const { mutateAsync: mutateClaimUser } = useMutation({
     mutationKey: ["claimUser"],
-    mutationFn: (payload: PostClaimUserPayload) => {
-      return postClaimUser(payload, {
+    mutationFn: (id: number) => {
+      return postClaimUser(id, {
         error: { message: "claimUserError" },
       });
     },
@@ -79,6 +78,7 @@ export default function useRegisterUser({
 
   const handleRegister = async (user: User) => {
     if (!userGroup || queryState.isLoading) return;
+
     Cookies.remove("account_type");
     Cookies.remove("invite_code");
 
@@ -87,8 +87,8 @@ export default function useRegisterUser({
 
     if (hasUnclaimedOrg) {
       // Claim invited user
-      if (unclaimedUser?.registry_id) {
-        await mutateClaimUser({ registry_id: unclaimedUser.registry_id });
+      if (unclaimedUser?.id) {
+        await mutateClaimUser(unclaimedUser.id);
         Cookies.remove("account_digi_ident");
       }
 
