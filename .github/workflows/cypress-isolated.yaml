@@ -1,0 +1,155 @@
+name: PR E2E Tests
+
+on:
+  pull_request:
+
+env:
+  CYPRESS_RECORD_KEY: 37722b13-e215-4d2b-95e9-96de1cc70df8
+  CYPRESS_BASE_URL: http://localhost:3000
+  CYPRESS_USER_EMAIL: ${{ secrets.CYPRESS_USER_EMAIL }}
+  CYPRESS_USER_PASSWORD: ${{ secrets.CYPRESS_USER_PASSWORD }}
+  CYPRESS_ORGANISATION_EMAIL: ${{ secrets.CYPRESS_ORGANISATION_EMAIL }}
+  CYPRESS_ORGANISATION_PASSWORD: ${{ secrets.CYPRESS_ORGANISATION_PASSWORD }}
+  CYPRESS_UNAPPROVED_ORGANISATION_EMAIL: ${{ secrets.CYPRESS_UNAPPROVED_ORGANISATION_EMAIL }}
+  CYPRESS_UNAPPROVED_ORGANISATION_PASSWORD: ${{ secrets.CYPRESS_UNAPPROVED_ORGANISATION_PASSWORD }}
+  CYPRESS_CUSTODIAN_EMAIL: ${{ secrets.CYPRESS_CUSTODIAN_EMAIL }}
+  CYPRESS_CUSTODIAN_PASSWORD: ${{ secrets.CYPRESS_CUSTODIAN_PASSWORD }}
+  CYPRESS_ADMIN_EMAIL: ${{ secrets.CYPRESS_ADMIN_EMAIL }}
+  CYPRESS_ADMIN_PASSWORD: ${{ secrets.CYPRESS_ADMIN_PASSWORD }}
+  NEXT_PUBLIC_API_V1_URL: ${{ vars.NEXT_PUBLIC_API_V1_URL }}
+  NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
+  NEXT_PUBLIC_API_V1_SERVER_URL: ${{ vars.NEXT_PUBLIC_API_V1_SERVER_URL }}
+  NEXT_PUBLIC_API_SERVER_URL: ${{ vars.NEXT_PUBLIC_API_SERVER_URL }}
+  NEXT_PUBLIC_TEMP_USER_ROLES: ${{vars.NEXT_PUBLIC_TEMP_USER_ROLES}}
+  NEXT_PUBLIC_KEYCLOAK_CLIENT_ID: ${{ vars.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID }}
+  NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET: ${{ secrets.NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET }}
+  KEYCLOAK_REALM_PUBLIC_KEY: ${{ vars.KEYCLOAK_REALM_PUBLIC_KEY }}
+  NEXT_PUBLIC_KEYCLOAK_REDIRECT_URL_LOGIN: "http://localhost:3000/api/auth/login"
+  NEXT_PUBLIC_KEYCLOAK_REDIRECT_URL_LOGOUT: "http://localhost:3000/api/auth/logout"
+  NEXT_PUBLIC_KEYCLOAK_REDIRECT_URL_REGISTER: "http://localhost:3000/api/auth/register"
+  NEXT_PUBLIC_KEYCLOAK_URL_ME: "http://localhost:3000/api/auth/me"
+  NEXT_PUBLIC_KEYCLOAK_BASE_URL: ${{ vars.NEXT_PUBLIC_KEYCLOAK_BASE_URL }}
+  NEXT_PUBLIC_KEYCLOAK_REALM: ${{ vars.NEXT_PUBLIC_KEYCLOAK_REALM }}
+  NEXT_PUBLIC_LOCAL_ENV: http://localhost:3000
+  NEXT_INTL_DEFAULT_LOCALE: en
+  NEXT_PUBLIC_RECAPTCHA_SITE_KEY: ${{ secrets.NEXT_PUBLIC_RECAPTCHA_SITE_KEY }}
+  NEXT_PUBLIC_RECAPTCHA_SECRET_KEY: ${{ secrets.NEXT_PUBLIC_RECAPTCHA_SECRET_KEY }}
+  NEXT_PUBLIC_INVITE_TIME_HOURS: ${{ vars.NEXT_PUBLIC_INVITE_TIME_HOURS }}
+  NEXT_PUBLIC_FEATURE_PROJECT_USERS_WORKFLOW: false
+  GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+  
+jobs:
+  e2e-tests:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: speedias
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost"
+          --health-interval=5s
+          --health-timeout=2s
+          --health-retries=10
+
+    steps:
+      - name: Checkout web
+        uses: actions/checkout@v4
+
+      - name: Checkout api
+        uses: actions/checkout@v4
+        with:
+          repository: HDRUK/safepeopleregistry-api
+          path: laravel-api
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # ---------------------------------------------------------------------
+      # ⚡ PHP / COMPOSER CACHE (Laravel)
+      # ---------------------------------------------------------------------
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+
+      - name: Cache Composer deps
+        id: composer-cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            laravel-api/vendor
+            ~/.composer/cache
+          key: composer-${{ hashFiles('laravel-api/composer.lock') }}
+
+      - name: Install Composer deps
+        run: |
+          cd laravel-api
+          composer install --no-interaction --prefer-dist
+
+      # --- Laravel setup ---
+      - name: Copy .env
+        run: |
+          cd laravel-api
+          cp .env.example .env
+          sed -i 's/DB_HOST=.*/DB_HOST=127.0.0.1/' .env
+
+      - name: Generate key
+        run: |
+          cd laravel-api
+          php artisan key:generate
+
+      - name: Run migrations + seed
+        run: |
+          cd laravel-api
+          php artisan migrate --force
+          php artisan db:seed --force
+
+      - name: Start Laravel API
+        run: |
+          cd laravel-api
+          echo "${{ secrets.API_ENVS }}" > .env
+          nohup php artisan serve --host=0.0.0.0 --port=8000 > laravel.log 2>&1 &
+
+      # ---------------------------------------------------------------------
+      # ⚡ NODE / NPM CACHE (Next.js & Cypress)
+      # ---------------------------------------------------------------------
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm # enables built-in npm cache
+
+      - name: Install Node deps
+        run: npm install
+
+      # ---------------------------------------------------------------------
+      # ⚡ CYPRESS CACHE (binary + npm)
+      # ---------------------------------------------------------------------
+      - name: Cache Cypress
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            cypress-${{ runner.os }}-
+
+      # --- Optional: build Next.js ---
+      - name: Build Next.js
+        run: npm run build
+
+      - name: Start Next.js app
+        run: |
+          nohup npm start &
+
+      # ---------------------------------------------------------------------
+      # Run Cypress
+      # ---------------------------------------------------------------------
+      - name: Cypress Tests
+        uses: cypress-io/github-action@v6
+        with:
+          wait-on: |
+            http://localhost:3000
+            http://localhost:8000
