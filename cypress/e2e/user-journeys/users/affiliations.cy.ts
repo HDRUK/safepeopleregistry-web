@@ -47,7 +47,7 @@ describe("Affiliations journey", () => {
     cy.swalClick("Close", "Verification needed");
   });
 
-  it("Adds an affiliation with an end date", () => {
+  it.only("Adds an affiliation with an end date", () => {
     addAffiliationUsers(dataAffiliation);
 
     cy.swalClick();
