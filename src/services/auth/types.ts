@@ -8,15 +8,6 @@ interface PostRegisterPayload {
   organisation_id?: number;
 }
 
-interface PostClaimUserPayload {
-  registry_id: number;
-}
-
 type PostRegisterResponse = User | null;
 
-export type {
-  MeResponse,
-  PostRegisterPayload,
-  PostClaimUserPayload,
-  PostRegisterResponse,
-};
+export type { MeResponse, PostRegisterPayload, PostRegisterResponse };
