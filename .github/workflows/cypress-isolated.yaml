@@ -104,6 +104,7 @@ jobs:
       - name: Start Laravel API
         run: |
           cd safepeopleregistry-api
+          echo "${{ secrets.API_ENVS }}" > .env
           nohup php artisan serve --host=0.0.0.0 --port=8000 > laravel.log 2>&1 &
 
       # -------------------------
