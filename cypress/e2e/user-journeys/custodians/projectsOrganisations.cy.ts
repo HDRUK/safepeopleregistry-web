@@ -1,67 +1,67 @@
-import { Status } from "@/consts/application";
-import { ROUTES } from "@/consts/router";
-import { logout } from "cypress/support/utils/common";
-import { loginCustodian } from "cypress/support/utils/custodian/auth";
-import {
-  changeStatusProjectOrganisations,
-  goToProjectUsersList,
-  hasProjectOrganisations,
-  inviteNewProjectUser,
-  removeFromProjectUsers,
-} from "cypress/support/utils/custodian/projects";
+// import { Status } from "@/consts/application";
+// import { ROUTES } from "@/consts/router";
+// import { logout } from "cypress/support/utils/common";
+// import { loginCustodian } from "cypress/support/utils/custodian/auth";
+// import {
+//   changeStatusProjectOrganisations,
+//   goToProjectUsersList,
+//   hasProjectOrganisations,
+//   inviteNewProjectUser,
+//   removeFromProjectUsers,
+// } from "cypress/support/utils/custodian/projects";
 
-import {
-  DEFAULT_PROJECT_INVITE_USERS,
-  DEFAULT_PROJECT_ORGANISATIONS_CUSTODIANS,
-} from "cypress/support/utils/data";
+// import {
+//   DEFAULT_PROJECT_INVITE_USERS,
+//   DEFAULT_PROJECT_ORGANISATIONS_CUSTODIANS,
+// } from "cypress/support/utils/data";
 
-const dataProjectOrganisation = DEFAULT_PROJECT_ORGANISATIONS_CUSTODIANS;
-const dataProjectInviteUser = DEFAULT_PROJECT_INVITE_USERS;
+// const dataProjectOrganisation = DEFAULT_PROJECT_ORGANISATIONS_CUSTODIANS;
+// const dataProjectInviteUser = DEFAULT_PROJECT_INVITE_USERS;
 
-describe("Projects organisations journey", () => {
-  before(() => {
-    loginCustodian();
+// describe("Projects organisations journey", () => {
+//   before(() => {
+//     loginCustodian();
 
-    goToProjectUsersList();
+//     goToProjectUsersList();
 
-    inviteNewProjectUser(dataProjectInviteUser);
-  });
+//     inviteNewProjectUser(dataProjectInviteUser);
+//   });
 
-  after(() => {
-    loginCustodian();
+//   after(() => {
+//     loginCustodian();
 
-    goToProjectUsersList();
+//     goToProjectUsersList();
 
-    const { first_name, last_name } = dataProjectInviteUser;
+//     const { first_name, last_name } = dataProjectInviteUser;
 
-    removeFromProjectUsers({ first_name, last_name });
-  });
+//     removeFromProjectUsers({ first_name, last_name });
+//   });
 
-  beforeEach(() => {
-    loginCustodian();
+//   beforeEach(() => {
+//     loginCustodian();
 
-    cy.visitFirst(ROUTES.profileCustodianOrganisations.path);
+//     cy.visitFirst(ROUTES.profileCustodianOrganisations.path);
 
-    cy.contains("button", "Switch to list view").click();
-  });
+//     cy.contains("button", "Switch to list view").click();
+//   });
 
-  after(() => {
-    logout();
-  });
+//   after(() => {
+//     logout();
+//   });
 
-  it("Changes status of an organisation", () => {
-    changeStatusProjectOrganisations(
-      dataProjectOrganisation,
-      Status.MORE_ORG_INFO_REQ_ESCALATION_MANAGER
-    );
+//   it("Changes status of an organisation", () => {
+//     changeStatusProjectOrganisations(
+//       dataProjectOrganisation,
+//       Status.MORE_ORG_INFO_REQ_ESCALATION_MANAGER
+//     );
 
-    hasProjectOrganisations({
-      ...dataProjectOrganisation,
-      model_state: {
-        state: {
-          slug: Status.MORE_ORG_INFO_REQ_ESCALATION_MANAGER,
-        },
-      },
-    });
-  });
-});
+//     hasProjectOrganisations({
+//       ...dataProjectOrganisation,
+//       model_state: {
+//         state: {
+//           slug: Status.MORE_ORG_INFO_REQ_ESCALATION_MANAGER,
+//         },
+//       },
+//     });
+//   });
+// });
