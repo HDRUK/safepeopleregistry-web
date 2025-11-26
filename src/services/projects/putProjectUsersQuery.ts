@@ -12,6 +12,9 @@ export default function putProjectUsersQuery(options?: QueryOptions) {
   return {
     mutationKey: ["postProjectUsers", ...(options?.queryKeySuffix || [])],
     mutationFn: ({ params, payload }: PutProjectUsersMutationArgs) => {
+       if (!payload?.users || payload.users.length === 0) {
+        return Promise.resolve();
+      }
       return putProjectUsers(params.id, payload, {
         error: { message: "putProjectUsersError" },
         ...options?.responseOptions,
