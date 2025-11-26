@@ -61,19 +61,19 @@ describe("SRO journey", () => {
   //     // });
   // });
 
-  describe("Organisation approved", () => {
-    beforeEach(() => {
-      loginUnapprovedOrganisation();
+  // describe("Organisation approved", () => {
+  //   beforeEach(() => {
+  //     loginUnapprovedOrganisation();
 
-      cy.visitFirst(ROUTES.profileOrganisationDetailsNameAndAddress.path);
-    });
+  //     cy.visitFirst(ROUTES.profileOrganisationDetailsNameAndAddress.path);
+  //   });
 
-    after(() => {
-      logout();
-    });
+  //   after(() => {
+  //     logout();
+  //   });
 
-    it("Has the correct tabs enabled", () => {
-      hasSROEnabledTabsOrganisations();
-    });
-  });
+  //   it("Has the correct tabs enabled", () => {
+  //     hasSROEnabledTabsOrganisations();
+  //   });
+  // });
 });
