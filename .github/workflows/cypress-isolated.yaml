@@ -54,7 +54,7 @@ jobs:
           --health-cmd="mysqladmin ping -h localhost"
           --health-interval=5s
           --health-timeout=2s
-          --health-retries=10
+          --health-retries=5
 
     steps:
       - name: Checkout web
@@ -64,71 +64,71 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: HDRUK/safepeopleregistry-api
-          path: laravel-api
+          path: safepeopleregistry-api
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      # ---------------------------------------------------------------------
-      # ⚡ PHP / COMPOSER CACHE (Laravel)
-      # ---------------------------------------------------------------------
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: 8.3
 
-      - name: Cache Composer deps
-        id: composer-cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            laravel-api/vendor
-            ~/.composer/cache
-          key: composer-${{ hashFiles('laravel-api/composer.lock') }}
-
       - name: Install Composer deps
         run: |
-          cd laravel-api
+          cd safepeopleregistry-api
           composer install --no-interaction --prefer-dist
 
-
-      # --- Laravel setup ---
-      - name: Copy .env
+      - name: Configure Laravel .env
         run: |
-          cd laravel-api
+          cd safepeopleregistry-api
           cp .env.example .env
           sed -i 's/DB_HOST=.*/DB_HOST=127.0.0.1/' .env
+          sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=root/' .env
 
-      - name: Generate key
+      - name: Wait for MySQL
         run: |
-          cd laravel-api
-          php artisan key:generate
+          for i in {1..15}; do
+            if mysqladmin ping -h127.0.0.1 -proot --silent; then
+              echo "MySQL is ready"; break
+            fi
+            echo "Waiting for MySQL..."
+            sleep 4
+          done
 
       - name: Run migrations + seed
         run: |
-          cd laravel-api
+          cd safepeopleregistry-api
+          php artisan key:generate
           php artisan migrate --force
           php artisan db:seed --force
 
       - name: Start Laravel API
         run: |
-          cd laravel-api
-          echo "${{ secrets.API_ENVS }}" > .env
+          cd safepeopleregistry-api
           nohup php artisan serve --host=0.0.0.0 --port=8000 > laravel.log 2>&1 &
 
-      # ---------------------------------------------------------------------
-      # ⚡ NODE / NPM CACHE (Next.js & Cypress)
-      # ---------------------------------------------------------------------
+      # -------------------------
+      # NODE / NEXT.JS
+      # -------------------------
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: npm # enables built-in npm cache
+          cache: npm
 
       - name: Install Node deps
         run: npm install
 
-      # ---------------------------------------------------------------------
-      # ⚡ CYPRESS CACHE (binary + npm)
-      # ---------------------------------------------------------------------
+      - name: Build Next.js
+        run: npm run build
+
+      - name: Start Next.js
+        run: |
+          nohup npm start > next.log 2>&1 &
+          sleep 10
+
+      # -------------------------
+      # CYPRESS
+      # -------------------------
       - name: Cache Cypress
         uses: actions/cache@v4
         with:
@@ -137,17 +137,6 @@ jobs:
           restore-keys: |
             cypress-${{ runner.os }}-
 
-      # --- Optional: build Next.js ---
-      - name: Build Next.js
-        run: npm run build
-
-      - name: Start Next.js app
-        run: |
-          nohup npm start &
-
-      # ---------------------------------------------------------------------
-      # Run Cypress
-      # ---------------------------------------------------------------------
       - name: Cypress Tests
         uses: cypress-io/github-action@v6
         with:
