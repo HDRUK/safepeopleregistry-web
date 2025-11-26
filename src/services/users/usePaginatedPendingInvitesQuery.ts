@@ -13,7 +13,6 @@ export default function usePaginatedPendingInvitesQuery({
   ...restParams
 }: GetEntityUsersQuery = {}) {
   const queryKey = [queryKeyBase || "getPendingInvites"];
-  console.log(defaultQueryParams, "defaultQueryParams");
 
   return usePaginatedQuery({
     ...getPendingInvitesQuery(),
