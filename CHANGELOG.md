@@ -1,3 +1,9 @@
+## [1.22.1](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.22.0...v1.22.1) (2025-11-26)
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-2277:** text duplicated (#569) ([f3e657a](https://github.com/HDRUK/safepeopleregistry-web/commit/f3e657aa966d8758095907e83cfc9aecd071d3d3))
+
 ## [1.22.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.21.0...v1.22.0) (2025-11-26)
 
 ### ✨ Features
