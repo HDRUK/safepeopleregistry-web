@@ -98,7 +98,7 @@ const hasPrimaryContact = (
 
 const hasProjectOrganisations = (project: CustodianProjectOrganisation) => {
   const projectTitle = project.project_organisation.project.title;
-cy.getLatestRowOfResults();
+  cy.getLatestRowOfResults();
   const row = cy.getResultsRowByValue(
     project.project_organisation.project.title
   );
@@ -137,7 +137,7 @@ const hasNewProjectUsers = (project: CustodianProjectUser) => {
 
 const hasProjectUsers = (project: CustodianProjectUser) => {
   const projectTitle = project.project_has_user.project.title;
-cy.getLatestRowOfResults();
+  cy.getLatestRowOfResults();
   const row = cy.getResultsRowByValue(
     getName(project.project_has_user.registry.user)
   );

@@ -44,7 +44,7 @@ const removeTeamMemberCustodians = (email: string) => {
 
 const hasTeamMemberCustodians = (data: CustodianEditContactFormFields) => {
   const row = cy.getResultsRowByValue(data.email);
-cy.getLatestRowOfResults();
+  cy.getLatestRowOfResults();
   row.within(() => {
     cy.contains("td", getName(data));
     cy.contains(
