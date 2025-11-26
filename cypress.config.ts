@@ -56,8 +56,8 @@ export default defineConfig({
     viewportWidth: 1920,
     viewportHeight: 1080,
     numTestsKeptInMemory: 20,
-    video: true,/// temp
-    videosFolder: "cypress/videos",
+    // video: true,/// temp
+    // videosFolder: "cypress/videos",
     specPattern: [
       "cypress/e2e/user-journeys/admin/users.cy.ts",
       "cypress/e2e/user-journeys/admin/sro.cy.ts",

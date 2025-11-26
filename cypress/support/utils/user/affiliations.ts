@@ -37,7 +37,10 @@ const hasAffiliationUsers = (
   affiliation: ResearcherAffiliation,
   status?: Status
 ) => {
+  cy.getLatestRowOfResults();
+ 
   const row = cy.getResultsRowByValue(affiliation.member_id);
+
 
   row.within(() => {
     cy.contains("td", capitaliseFirstLetter(affiliation.relationship));
@@ -64,6 +67,7 @@ const editAffiliationUsers = (
   affiliation: ResearcherAffiliation,
   edittedAffiliation: ResearcherAffiliation
 ) => {
+  cy.getLatestRowOfResults();
   cy.getResultsActionMenu(affiliation.member_id).click();
 
   cy.actionMenuClick("View or edit");
@@ -83,6 +87,7 @@ const editAffiliationUsers = (
 };
 
 const removeAffiliationUsers = (affiliation: ResearcherAffiliation) => {
+  cy.getLatestRowOfResults();
   cy.getResultsActionMenu(affiliation.member_id).click();
 
   cy.actionMenuClick("Delete");
