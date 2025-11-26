@@ -99,8 +99,7 @@ jobs:
             sed -i 's/DB_HOST=.*/DB_HOST=127.0.0.1/' .env
             sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=root/' .env
 
-            # Append API_ENVS safely
-            printf "%s\n" "$API_ENVS" >> .env
+            echo "$API_ENVS" >> .env
 
             # Run Laravel setup
             php artisan key:generate
