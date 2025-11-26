@@ -1,3 +1,13 @@
+## [1.22.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.21.0...v1.22.0) (2025-11-26)
+
+### ✨ Features
+
+* **REGISTRY-2277:** text change (#566) ([eac3c2d](https://github.com/HDRUK/safepeopleregistry-web/commit/eac3c2d3515a058ffbf3e91baeeac0ce78a80839))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-2284:** update claim user call (#567) ([efe8bdd](https://github.com/HDRUK/safepeopleregistry-web/commit/efe8bdd7d632044dab3b1bef3406ebb695f1895e))
+
 ## [1.21.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.20.1...v1.21.0) (2025-11-25)
 
 ### ✨ Features
