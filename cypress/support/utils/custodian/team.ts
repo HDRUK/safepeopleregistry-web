@@ -20,8 +20,8 @@ const editTeamMemberCustodians = (
   data: CustodianEditContactFormFields,
   oldEmail: string
 ) => {
+  cy.getLatestRowOfResults();
   cy.getResultsRowByValue(oldEmail).find(dataCy("edit-user")).click();
-
   cy.get("#first_name").clear().type(data.first_name);
   cy.get("#last_name").clear().type(data.last_name);
   cy.get("#email").clear().type(data.email);
@@ -32,6 +32,7 @@ const editTeamMemberCustodians = (
 };
 
 const removeTeamMemberCustodians = (email: string) => {
+  cy.getLatestRowOfResults();
   cy.getResultsRowByValue(email).find(dataCy("delete-user")).click();
 
   cy.swalClick(
@@ -43,7 +44,7 @@ const removeTeamMemberCustodians = (email: string) => {
 
 const hasTeamMemberCustodians = (data: CustodianEditContactFormFields) => {
   const row = cy.getResultsRowByValue(data.email);
-
+  cy.getLatestRowOfResults();
   row.within(() => {
     cy.contains("td", getName(data));
     cy.contains(

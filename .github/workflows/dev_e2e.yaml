@@ -2,7 +2,8 @@ name: Cypress Tests
 
 on:
   pull_request:
-    branches: develop
+    branches:
+      - 'develop'
 
 env:
   CYPRESS_RECORD_KEY: 37722b13-e215-4d2b-95e9-96de1cc70df8
@@ -15,15 +16,13 @@ env:
   CYPRESS_UNAPPROVED_ORGANISATION_PASSWORD: ${{ secrets.CYPRESS_UNAPPROVED_ORGANISATION_PASSWORD }}
   CYPRESS_CUSTODIAN_EMAIL: ${{ secrets.CYPRESS_CUSTODIAN_EMAIL }}
   CYPRESS_CUSTODIAN_PASSWORD: ${{ secrets.CYPRESS_CUSTODIAN_PASSWORD }}
-
   CYPRESS_ADMIN_EMAIL: ${{ secrets.CYPRESS_ADMIN_EMAIL }}
   CYPRESS_ADMIN_PASSWORD: ${{ secrets.CYPRESS_ADMIN_PASSWORD }}
-
   NEXT_PUBLIC_API_V1_URL: ${{ vars.NEXT_PUBLIC_API_V1_URL }}
   NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
   NEXT_PUBLIC_API_V1_SERVER_URL: ${{ vars.NEXT_PUBLIC_API_V1_SERVER_URL }}
-  NEXT_PUBLIC_API_SERVER_URL: ${{ vars.NEXT_PUBLIC_API_SERVER_URL}}
-
+  NEXT_PUBLIC_API_SERVER_URL: ${{ vars.NEXT_PUBLIC_API_SERVER_URL }}
+  NEXT_PUBLIC_TEMP_USER_ROLES: ${{vars.NEXT_PUBLIC_TEMP_USER_ROLES}}
   NEXT_PUBLIC_KEYCLOAK_CLIENT_ID: ${{ vars.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID }}
   NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET: ${{ secrets.NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET }}
   KEYCLOAK_REALM_PUBLIC_KEY: ${{ vars.KEYCLOAK_REALM_PUBLIC_KEY }}
@@ -34,69 +33,68 @@ env:
   NEXT_PUBLIC_KEYCLOAK_BASE_URL: ${{ vars.NEXT_PUBLIC_KEYCLOAK_BASE_URL }}
   NEXT_PUBLIC_KEYCLOAK_REALM: ${{ vars.NEXT_PUBLIC_KEYCLOAK_REALM }}
   NEXT_PUBLIC_LOCAL_ENV: http://localhost:3000
-
+  NEXT_INTL_DEFAULT_LOCALE: en
+  NEXT_PUBLIC_RECAPTCHA_SITE_KEY: ${{ secrets.NEXT_PUBLIC_RECAPTCHA_SITE_KEY }}
+  NEXT_PUBLIC_RECAPTCHA_SECRET_KEY: ${{ secrets.NEXT_PUBLIC_RECAPTCHA_SECRET_KEY }}
+  NEXT_PUBLIC_INVITE_TIME_HOURS: ${{ vars.NEXT_PUBLIC_INVITE_TIME_HOURS }}
+  NEXT_PUBLIC_FEATURE_PROJECT_USERS_WORKFLOW: false
+  GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+  
 jobs:
-  build:
-    permissions:
-      contents: write
-      id-token: write
-    timeout-minutes: 20
+  cypress-run:
     runs-on: ubuntu-latest
     environment: develop
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
         with:
-          ref: "feat/REGISTRY-2183"
+          node-version: '20'
+          cache: 'npm'
 
-      - name: Read VERSION file
-        id: getversion
-        run: |
-          sed -n 's/^appVersion:\(.*\)/\1/p' < chart/soursd-web/Chart.yaml > version
-          echo "version=$(sed '/.*\"\(.*\)\".*/ s//\1/g' version)" >> $GITHUB_OUTPUT
-
-      - name: Google Auth
-        id: auth
-        uses: "google-github-actions/auth@v2"
+      - name: Cache Cypress
+        uses: actions/cache@v3
         with:
-          token_format: "access_token"
-          workload_identity_provider: "${{ secrets.WIF_PROVIDER }}"
-          service_account: "${{ secrets.WIF_SERVICE_ACCOUNT }}"
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
 
-      - name: Set up gcloud CLI
-        uses: google-github-actions/setup-gcloud@v2
+      - run: npm ci
 
-      - name: Export database to GCS
-        id: exportdb
-        run: |
-          EXPORT_URI="gs://hdrregistrymysqlbackup/hdr-registry-dev-$(date +%Y%m%d%H%M%S).sql.gz"
-          echo "EXPORT_URI=$EXPORT_URI" >> "$GITHUB_OUTPUT"
-          gcloud sql export sql hdr-registry-mysql "$EXPORT_URI" \
-            --database=hdr-registry-dev \
-            --offload
+      - name: Cache Next.js
+        uses: actions/cache@v3
+        with:
+          path: .next/cache
+          key: nextjs-${{ runner.os }}-${{ hashFiles('**/*.[jt]s', '**/*.[jt]sx', '**/package-lock.json') }}
+          restore-keys: |
+            nextjs-${{ runner.os }}-
 
-      - name: Install dependencies
-        run: npm install @faker-js/faker dayjs
+      - run: npm run build
 
-      - name: Cypress run
+      - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
-          record: true
-          wait-on: http://localhost:3000
-          wait-on-timeout: 120
-          build: npm run build
           start: npm start
-          browser: chrome
+          wait-on: 'http://localhost:3000'
+          wait-on-timeout: 120
+      # if the above fails and you want a video, comment the above and use the below
+      # - name: Run Cypress test
+      #   uses: cypress-io/github-action@v6
+      #   with:
+      #     start: npm start
+      #     wait-on: 'http://localhost:3000'
+      #     wait-on-timeout: 120
+      #     spec: "cypress/e2e/user-journeys/users/affiliations.cy.ts" --- run the test you want
+          
+      # - name: Upload Cypress video
+      #   uses: actions/upload-artifact@v4
+      #   if: always()
+      #   with:
+      #     name: cypress-video
+      #     path: cypress/videos
 
-      - name: Restore database from export
-        if: always()
-        run: |
-          echo "Restoring database from ${{ steps.exportdb.outputs.EXPORT_URI }}"
-          gcloud sql import sql hdr-registry-mysql "${{ steps.exportdb.outputs.EXPORT_URI }}" \
-            --database=hdr-registry-dev --quiet
+ 
 
-      - name: Delete exported SQL file from GCS
-        if: always()
-        run: |
-          echo "Deleting export file: ${{ steps.exportdb.outputs.EXPORT_URI }}"
-          gsutil rm "${{ steps.exportdb.outputs.EXPORT_URI }}"
+
+
+

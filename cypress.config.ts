@@ -10,7 +10,7 @@ export default defineConfig({
         log(message) {
           console.log(message + "\n\n");
 
-          return null;
+         return true;
         },
       });
 
@@ -56,7 +56,8 @@ export default defineConfig({
     viewportWidth: 1920,
     viewportHeight: 1080,
     numTestsKeptInMemory: 20,
-    video: true,
+    // video: true,/// temp
+    // videosFolder: "cypress/videos",
     specPattern: [
       "cypress/e2e/user-journeys/admin/users.cy.ts",
       "cypress/e2e/user-journeys/admin/sro.cy.ts",
