@@ -21,7 +21,7 @@ const addSROOrganisations = (
 };
 
 const hasSROOrganisation = (
-  organisation: Organisation,
+  organisation: Organisation, 
   status: "Approved" | "Not approved"
 ) => {
   cy.getResultsRowByValue(organisation.organisation_name).within(() => {

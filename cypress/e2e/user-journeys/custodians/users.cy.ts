@@ -47,7 +47,7 @@ describe("Projects custodians journey", () => {
   });
 
   it("Has Identity Tab Custodian User", () => {
-    hasIdentityTabCustodianUser();
+    hasIdentityTabCustodianUser(dataProjectInviteUser);
   });
 
   it("Has Training and Accreditations Tab Custodian User", () => {

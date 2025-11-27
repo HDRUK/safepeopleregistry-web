@@ -19,7 +19,7 @@ export default function SubTabs({
   const defaultValue = firstTab.value;
 
   return (
-    <Tabs
+    <Tabs data-cy="sub-tabs-navigation"
       value={current || defaultValue}
       {...restProps}
       variant="fullWidth"
