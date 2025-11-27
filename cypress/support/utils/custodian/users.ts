@@ -18,7 +18,7 @@ const hasAffiliationsTabCustodianUser = () => {
 
     row.within(() => {
         cy.contains("td", DEFAULT_ORGANISATION_NAME).should("exist");
-        cy.contains("td", getStatus(Status.PENDING) ).should("exist");
+        cy.contains("td", getStatus(Status.PENDING)).should("exist");
         cy.contains("td", formatDisplayShortDate(new Date().toISOString())).should("exist");
     });
 };
@@ -43,6 +43,11 @@ const hasIdentityTabCustodianUser = (user: User) => {
     const name = getName(user);
     cy.get(dataCy('page-body')).within(() => {
         cy.contains(name).should("exist");
+        cy.contains('p', 'Location')
+            .should('contain.text', 'Location');    
+        cy.contains('p', 'Location not provided')
+            .should('contain.text', 'Location not provided');
+        cy.contains('p', "IDVT checks incomplete").should("exist");
     });
 };
 
