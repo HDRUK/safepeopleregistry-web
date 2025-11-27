@@ -3,7 +3,7 @@ name: Cypress Tests
 on:
   pull_request:
     branches:
-      - '**'
+      - 'develop'
 
 env:
   CYPRESS_RECORD_KEY: 37722b13-e215-4d2b-95e9-96de1cc70df8
