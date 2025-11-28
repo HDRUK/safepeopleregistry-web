@@ -63,7 +63,7 @@ env:
   MEMCACHED_HOST: "127.0.0.1"
   REDIS_CLIENT: "predis"
   REDIS_HOST: "localhost"
-  REDIS_PASSWORD: ""
+  REDIS_PASSWORD: "mypassword"
   REDIS_PORT: "6379"
   PUSHER_APP_ID: ""
   PUSHER_APP_KEY: ""
@@ -204,6 +204,8 @@ jobs:
             echo "Waiting for Redis..."
             sleep 2
           done
+        env:
+          REDIS_PASSWORD: mypassword
 
       - name: Configure Laravel .env + run migrations/seed
         run: |
