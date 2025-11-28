@@ -44,7 +44,7 @@ env:
     REBUILD_DB: "0"
     PORTAL_URL: "http://localhost:3000"
     PORTAL_PATH_INVITE: "invite"
-    GATEWAY_API_URL: "https://api.dev.hdruk.cloud/api/v1"
+    GATEWAY_API_URL: "http://localhost:8000/api/v1"
     BANNER_URL: "https://soursd.org/images/logos/email_banner.png"
 
     LOG_CHANNEL: "stdout"
