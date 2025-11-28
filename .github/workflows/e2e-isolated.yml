@@ -262,9 +262,6 @@ jobs:
       - name: Run Cypress test
         uses: cypress-io/github-action@v6
         with:
-          start: npm start
-          wait-on: 'http://localhost:3000'
-          wait-on-timeout: 120
           spec: "cypress/e2e/user-journeys/users/affiliations.cy.ts"
       - name: Upload Cypress video
         uses: actions/upload-artifact@v4
