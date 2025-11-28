@@ -158,11 +158,12 @@ jobs:
         ports:
           - 6379:6379
         options: >-
-          --requirepass ""
-          --health-cmd="redis-cli ping"
+          --health-cmd="redis-cli -a mypassword ping"
           --health-interval=5s
           --health-timeout=2s
           --health-retries=5
+        env:
+          REDIS_PASSWORD: mypassword
 
     steps:
       - name: Checkout web
@@ -204,8 +205,7 @@ jobs:
             echo "Waiting for Redis..."
             sleep 2
           done
-        env:
-          REDIS_PASSWORD: mypassword
+        
 
       - name: Configure Laravel .env + run migrations/seed
         run: |
