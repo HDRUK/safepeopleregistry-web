@@ -160,11 +160,11 @@ env:
     CYPRESS_ADMIN_EMAIL: "test.user+admin@safepeopleregistry.com"
 
 
+  
 jobs:
   e2e-tests:
     runs-on: ubuntu-latest
     environment: cypress_dev
-
     services:
       mysql:
         image: mysql:8.0
@@ -210,23 +210,34 @@ jobs:
             sleep 4
           done
 
+
       - name: Configure Laravel .env + run migrations/seed
         run: |
-          cd safepeopleregistry-api
-          cp .env.example .env
-          sed -i 's/DB_HOST=.*/DB_HOST=127.0.0.1/' .env
-          sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=root/' .env
-          php artisan key:generate
-          php artisan migrate --force
-          php artisan db:seed --force
+            cd safepeopleregistry-api
+
+            # Copy base .env
+            cp .env.example .env
+
+            # Set DB credentials
+            sed -i 's/DB_HOST=.*/DB_HOST=127.0.0.1/' .env
+            sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=root/' .env
+
+            # Run Laravel setup
+            php artisan key:generate
+            php artisan migrate --force
+            php artisan db:seed --force
+
+
+      
 
       - name: Start Laravel API
         run: |
           cd safepeopleregistry-api
           nohup php artisan serve --host=0.0.0.0 --port=8000 > laravel.log 2>&1 &
-          echo "Waiting for Laravel API..."
-          npx wait-on http://localhost:8000
 
+      # -------------------------
+      # NODE / NEXT.JS
+      # -------------------------
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -238,13 +249,13 @@ jobs:
 
       - name: Build Next.js
         run: npm run build
-
       - name: Start Next.js
-        run: |
-          nohup npm start > next.log 2>&1 &
-          echo "Waiting for Next.js..."
-          npx wait-on http://localhost:3000
+        run: npm start
 
+
+      # -------------------------
+      # CYPRESS
+      # -------------------------
       - name: Cache Cypress
         uses: actions/cache@v4
         with:
@@ -255,6 +266,4 @@ jobs:
 
       - name: Cypress Tests
         uses: cypress-io/github-action@v6
-        with:
-          wait-on: "http://localhost:3000,http://localhost:8000"
-          wait-on-timeout: 180
+
