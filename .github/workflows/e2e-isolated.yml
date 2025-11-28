@@ -249,11 +249,9 @@ jobs:
 
       - name: Build Next.js
         run: npm run build
-
       - name: Start Next.js
-        run: |
-          nohup npm start > next.log 2>&1 &
-          sleep 10
+        run: npm start
+
 
       # -------------------------
       # CYPRESS
@@ -268,6 +266,4 @@ jobs:
 
       - name: Cypress Tests
         uses: cypress-io/github-action@v6
-        with:
-            wait-on: "http://localhost:3000,http://localhost:8000"
-            wait-on-timeout: 120
+
