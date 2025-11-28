@@ -222,14 +222,11 @@ jobs:
             sed -i 's/DB_HOST=.*/DB_HOST=127.0.0.1/' .env
             sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=root/' .env
 
-            cat <<< "$API_ENVS" >> .env
-
             # Run Laravel setup
             php artisan key:generate
             php artisan migrate --force
             php artisan db:seed --force
-        env:
-            API_ENVS: ${{ secrets.API_ENVS }}
+
 
       
 
