@@ -44,7 +44,7 @@ env:
     REBUILD_DB: "0"
     PORTAL_URL: "http://localhost:3000"
     PORTAL_PATH_INVITE: "invite"
-    GATEWAY_API_URL: "http://localhost:8000/api/v1"
+    GATEWAY_API_URL: "https://api.dev.hdruk.cloud/api/v1"
     BANNER_URL: "https://soursd.org/images/logos/email_banner.png"
 
     LOG_CHANNEL: "stdout"
@@ -133,10 +133,10 @@ env:
 
     IDVT_SUPPLIER_BASE_URL: "https://api.veriff.me"
 
-    NEXT_PUBLIC_API_V1_URL: "https://api.registry.dev.hdruk.cloud/api/v1"
-    NEXT_PUBLIC_API_URL: "https://api.registry.dev.hdruk.cloud/api"
-    NEXT_PUBLIC_API_V1_SERVER_URL: "https://api.registry.dev.hdruk.cloud/api/v1"
-    NEXT_PUBLIC_API_SERVER_URL: "https://api.registry.dev.hdruk.cloud/api"
+    NEXT_PUBLIC_API_V1_URL: "http://localhost:8000/api/v1"
+    NEXT_PUBLIC_API_URL: "http://localhost:8000/api"
+    NEXT_PUBLIC_API_V1_SERVER_URL: "http://localhost:8000/api/v1"
+    NEXT_PUBLIC_API_SERVER_URL: "http://localhost:8000/api"
     NEXT_PUBLIC_HIDE_BANNER: "false"
     NEXT_MIRAGE_SERVER: "true"
     NEXT_PUBLIC_TEMP_USER_ROLES: "'[{ \"role\": \"operational_hdr\", \"state\": \"view\" }]'"
