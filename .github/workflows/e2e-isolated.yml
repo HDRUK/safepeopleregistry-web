@@ -269,6 +269,5 @@ jobs:
       - name: Cypress Tests
         uses: cypress-io/github-action@v6
         with:
-          wait-on: |
-            http://localhost:3000
-            http://localhost:8000
+            wait-on: "http://localhost:3000,http://localhost:8000"
+            wait-on-timeout: 120
