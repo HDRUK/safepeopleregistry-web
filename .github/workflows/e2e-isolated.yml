@@ -249,9 +249,11 @@ jobs:
 
       - name: Build Next.js
         run: npm run build
-      - name: Start Next.js
-        run: npm start
 
+      - name: Start Next.js
+        run: |
+          nohup npm start > next.log 2>&1 &
+          sleep 10
 
       # -------------------------
       # CYPRESS
