@@ -255,6 +255,10 @@ jobs:
 
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
+          headless: true
+          browser-args: "--disable-gpu --disable-software-rasterizer --disable-dev-shm-usage --no-sandbox --enable-unsafe-swiftshader"
       # - name: Run Cypress test
       #   uses: cypress-io/github-action@v6
       #   with:
