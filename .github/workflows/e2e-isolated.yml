@@ -186,25 +186,25 @@ jobs:
           cd safepeopleregistry-api
           composer install --no-interaction --prefer-dist
 
-      - name: Wait for MySQL
-        run: |
-          for i in {1..15}; do
-            if mysqladmin ping -h127.0.0.1 -proot --silent; then
-              echo "MySQL is ready"; break
-            fi
-            echo "Waiting for MySQL..."
-            sleep 4
-          done
+      # - name: Wait for MySQL
+      #   run: |
+      #     for i in {1..15}; do
+      #       if mysqladmin ping -h127.0.0.1 -proot --silent; then
+      #         echo "MySQL is ready"; break
+      #       fi
+      #       echo "Waiting for MySQL..."
+      #       sleep 4
+      #     done
 
-      - name: Wait for Redis
-        run: |
-          for i in {1..15}; do
-            if redis-cli ping | grep -q PONG; then
-              echo "Redis is ready"; break
-            fi
-            echo "Waiting for Redis..."
-            sleep 2
-          done
+      # - name: Wait for Redis
+      #   run: |
+      #     for i in {1..15}; do
+      #       if redis-cli ping | grep -q PONG; then
+      #         echo "Redis is ready"; break
+      #       fi
+      #       echo "Waiting for Redis..."
+      #       sleep 2
+      #     done
         
 
       - name: Configure Laravel .env + run migrations/seed
@@ -216,6 +216,8 @@ jobs:
           php artisan key:generate
           php artisan migrate --force
           php artisan db:seed --force
+          php artisan db:seed --class=TestSeeder
+
 
       - name: Start Laravel API and wait for readiness
         run: |
@@ -257,15 +259,15 @@ jobs:
           restore-keys: |
             cypress-${{ runner.os }}-
 
-      # - name: Run Cypress Tests
-      #   uses: cypress-io/github-action@v6
-      - name: Run Cypress test
+      - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
-        with:
-          spec: "cypress/e2e/user-journeys/users/affiliations.cy.ts"
-      - name: Upload Cypress video
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: cypress-video
-          path: cypress/videos
+      # - name: Run Cypress test
+      #   uses: cypress-io/github-action@v6
+      #   with:
+      #     spec: "cypress/e2e/user-journeys/users/affiliations.cy.ts"
+      # - name: Upload Cypress video
+      #   uses: actions/upload-artifact@v4
+      #   if: always()
+      #   with:
+      #     name: cypress-video
+      #     path: cypress/videos
