@@ -20,7 +20,6 @@ describe("SRO journey", () => {
   describe("Organisation not approved", () => {
     beforeEach(() => {
       loginUnapprovedOrganisation();
-
       cy.visitFirst(ROUTES.profileOrganisationDetailsNameAndAddress.path);
     });
 

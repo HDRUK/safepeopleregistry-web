@@ -175,6 +175,8 @@ jobs:
           repository: HDRUK/safepeopleregistry-api
           path: safepeopleregistry-api
           token: ${{ secrets.GITHUB_TOKEN }}
+          ref: feat/i-am-grumpy
+
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
