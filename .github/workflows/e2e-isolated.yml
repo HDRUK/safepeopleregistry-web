@@ -203,7 +203,7 @@ jobs:
           php artisan migrate --force
           php artisan db:seed --force
           php artisan db:seed --class=TestSeeder
-          mysql -h127.0.0.1 -uroot -proot safepeopleregistry -e "SELECT * FROM users WHERE email IN (
+          mysql -h127.0.0.1 -uroot -proot speedias -e "SELECT * FROM users WHERE email IN (
             'test.user+user@safepeopleregistry.com',
             'test.user+organisation@safepeopleregistry.com',
             'test.user+custodian@safepeopleregistry.com',
