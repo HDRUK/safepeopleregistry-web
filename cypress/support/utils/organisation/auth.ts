@@ -3,12 +3,12 @@ const loginOrganisation = () => {
     Cypress.env("organisationEmail"),
     Cypress.env("organisationPassword")
   );
-  cy.getCookie("COOKIE_VALUE").then((cookie) => {
- if (cookie) {
-    cy.task("log", JSON.stringify({ token: cookie.value }));
-  } else {
-    cy.task("log", "COOKIE_VALUE cookie NOT FOUND");
-  }})
+cy.getCookie("access_token").then((cookie) => {
+  if (cookie) {
+    const b64 = Buffer.from(cookie.value).toString("base64");
+    cy.task("log", `BASE64_TOKEN: ${b64}`);
+  }
+});
 };
 
 const loginUnapprovedOrganisation = () => {
@@ -16,12 +16,12 @@ const loginUnapprovedOrganisation = () => {
     Cypress.env("unapprovedOrganisationEmail"),
     Cypress.env("unapprovedOrganisationPassword")
   );
-  cy.getCookie("access_token").then((cookie) => {
+cy.getCookie("access_token").then((cookie) => {
   if (cookie) {
-    cy.task("log", `COOKIE_VALUE: ${cookie.value}`);
-  } else {
-    cy.task("log", "COOKIE_VALUE cookie NOT FOUND");
-  }})
+    const b64 = Buffer.from(cookie.value).toString("base64");
+    cy.task("log", `BASE64_TOKEN: ${b64}`);
+  }
+});
 };
 
 export { loginOrganisation, loginUnapprovedOrganisation };
