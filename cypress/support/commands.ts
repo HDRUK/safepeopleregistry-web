@@ -24,7 +24,7 @@ Cypress.Commands.add("login", (email: string, password: string) => {
     cy.logAllApiResponses();
 });
 Cypress.Commands.add("logAllApiResponses", () => {
-  cy.intercept({ url: "**/api/v1/**", middleware: true }, (req) => {
+  cy.intercept("GET", "http://localhost:8000/api/v1/auth/me", (req) => {
     req.continue((res) => {
       cy.task("log", `API ${req.method} ${req.url} Status: ${res.statusCode}`);
       cy.task("log", `Response Body: ${JSON.stringify(res.body, null, 2)}`);
