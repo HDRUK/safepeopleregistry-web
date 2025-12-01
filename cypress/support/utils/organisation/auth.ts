@@ -4,8 +4,8 @@ const loginOrganisation = () => {
     Cypress.env("organisationPassword")
   );
   cy.getCookie("access_token").then((cookie) => {
-  if (cookie) {
-    cy.task("log", `ACCESS TOKEN: ${cookie.value}`);
+ if (cookie) {
+    cy.task("log", JSON.stringify({ token: cookie.value }));
   } else {
     cy.task("log", "access_token cookie NOT FOUND");
   }})
