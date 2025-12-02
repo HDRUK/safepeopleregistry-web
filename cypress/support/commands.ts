@@ -50,7 +50,7 @@ Cypress.Commands.add("logToken", () => {
     if (cookie) {
       const encoded = base64url(cookie.value); 
       // const b64 = Buffer.from(cookie.value).toString("base64");
-      cy.task("log", `BASE64_TOKEN: ${encoded}`);
+      cy.task("log", `BASE64_TOKEN: ${encoded} -- end`);
     }
   });
 });
