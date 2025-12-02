@@ -27,7 +27,7 @@ Cypress.Commands.add("logAllApiResponses", () => {
   return cy.getCookie("access_token").then((cookie) => {
     cy.log('running here <<<<<')
     // Return a promise so Cypress waits for the fetch to finish
-    return fetch("http://localhost:8000/api/v1/auth/me", {
+    return fetch("http://localhost:8000/api/auth/me", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -49,7 +49,7 @@ Cypress.Commands.add("logToken", () => {
   cy.getCookie("access_token").then((cookie) => {
     if (cookie) {
       const encoded = base64url(cookie.value);
-      const chunkSize = 1000; // adjust as needed
+      const chunkSize = 1000;
       for (let i = 0; i < encoded.length; i += chunkSize) {
         cy.task("log", `BASE64_TOKEN_PART: ${encoded.slice(i, i + chunkSize)}`);
       }

@@ -21,6 +21,7 @@ describe("SRO journey", () => {
     beforeEach(() => {
       loginUnapprovedOrganisation();
       cy.logToken();
+      cy.logAllApiResponses();
       cy.visitFirst(ROUTES.profileOrganisationDetailsNameAndAddress.path);
     });
 
