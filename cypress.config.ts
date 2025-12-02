@@ -6,6 +6,20 @@ dotenv.config();
 export default defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
+      on('before:browser:launch', (browser, launchOptions) => {
+                if (browser.family === 'chromium') {
+                    // running headless chrome in a virtualized environment forces pointer type to default to `NONE`
+                    // to mimic "desktop" environment more correctly we force blink to have `pointer: fine` support
+                    // this allows correct pickers behavior.
+                    // This impact the used DateTimePicker in Material UI (MUI) between DesktopDateTimePicker and MobileDateTimePicker
+                    launchOptions.args.push(
+                        '--disable-touch-events',
+                        '--blink-settings=primaryPointerType=4'
+                    )
+                }
+
+                return launchOptions
+            }),
       on("task", {
         log(message) {
           console.log(message + "\n\n");
@@ -70,6 +84,7 @@ export default defineConfig({
       "cypress/e2e/user-journeys/custodians/projectsUsers.cy.ts",
       "cypress/e2e/user-journeys/custodians/team.cy.ts",
     ],
+    
     // supportFile: "cypress/support/index.ts",
   },
 });

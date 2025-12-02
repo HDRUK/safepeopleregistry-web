@@ -261,7 +261,7 @@ jobs:
         with:
           browser: chrome
           headless: true
-          browser-args: "--disable-gpu --window-size=1920,1080 --disable-touch-events --disable-features=IsolateOrigins,site-per-process --disable-blink-features=AutomationControlled --blink-settings=primaryPointerType=4"
+          browser-args: "--disable-gpu"
       - name: Upload Cypress video
         uses: actions/upload-artifact@v4
         if: always()
