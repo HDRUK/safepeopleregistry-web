@@ -48,9 +48,12 @@ Cypress.Commands.add("logAllApiResponses", () => {
 Cypress.Commands.add("logToken", () => {
   cy.getCookie("access_token").then((cookie) => {
     if (cookie) {
-      const encoded = base64url(cookie.value); 
-      // const b64 = Buffer.from(cookie.value).toString("base64");
-      cy.task("log", `BASE64_TOKEN: ${encoded} -- end`);
+      const encoded = base64url(cookie.value);
+      const chunkSize = 1000; // adjust as needed
+      for (let i = 0; i < encoded.length; i += chunkSize) {
+        cy.task("log", `BASE64_TOKEN_PART: ${encoded.slice(i, i + chunkSize)}`);
+      }
+      cy.task("log", "-- end of token --");
     }
   });
 });
