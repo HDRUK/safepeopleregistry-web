@@ -7,6 +7,7 @@ import {
   renderOrganisationValidatedCell,
   renderUserNameCell,
 } from "@/utils/cells";
+import { formatDisplayLongDate } from "@/utils/date";
 import { filterColumns } from "@/utils/table";
 import { Link } from "@mui/material";
 import { ColumnDef } from "@tanstack/react-table";
@@ -19,6 +20,7 @@ import { ModuleTables } from "../../types/modules";
 export type OrganisationsTableColumns =
   | "organisationName"
   | "systemApproved"
+  | "systemApprovedAt"
   | "sroProfileLink"
   | "email"
   | "role"
@@ -34,6 +36,7 @@ export default function OrganisationsTable({
   includeColumns = [
     "organisationName",
     "systemApproved",
+    "systemApprovedAt",
     "sroDocument",
     "sroProfileLink",
     "role",
@@ -73,6 +76,10 @@ export default function OrganisationsTable({
       createDefaultColumn("systemApproved", {
         accessorKey: "system_approved",
         cell: renderOrganisationValidatedCell,
+      }),
+      createDefaultColumn("systemApprovedAt", {
+        accessorKey: "system_approved_at",
+        cell: info => formatDisplayLongDate(info.getValue()),
       }),
     ];
 
