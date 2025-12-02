@@ -127,7 +127,7 @@ env:
   NEXT_PUBLIC_KEYCLOAK_REALM: "SOURSD"
   NEXT_PUBLIC_LOCAL_ENV: "http://localhost:3000/"
   NEXT_PUBLIC_FEATURE_PROJECT_USERS_WORKFLOW: "false"
-  CYPRESS_BASE_URL: "http://localhost:3000"
+  CYPRESS_BASE_URL: "http://localhost:3000/en"
   CYPRESS_USER_EMAIL: "test.user+user@safepeopleregistry.com"
   CYPRESS_ORGANISATION_EMAIL: "test.user+organisation@safepeopleregistry.com"
   CYPRESS_UNAPPROVED_ORGANISATION_EMAIL: "test.user+organisation@safepeopleregistry.com"
@@ -259,7 +259,7 @@ jobs:
         with:
           browser: chrome
           headless: true
-          browser-args: "--disable-gpu --disable-software-rasterizer --disable-dev-shm-usage --no-sandbox --enable-unsafe-swiftshader"
+          browser-args: "--disable-gpu"
           spec: "cypress/e2e/user-journeys/admin/sro.cy.ts" 
       # - name: Run Cypress test
       #   uses: cypress-io/github-action@v6
