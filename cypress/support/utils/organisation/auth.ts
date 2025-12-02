@@ -3,8 +3,8 @@ const loginOrganisation = () => {
     Cypress.env("organisationEmail"),
     Cypress.env("organisationPassword")
   );
-cy.logToken();
-      cy.logAllApiResponses();
+// cy.logToken();
+      // cy.logAllApiResponses();
 
 };
 

@@ -20,17 +20,31 @@ Cypress.Commands.add("login", (email: string, password: string) => {
       }
     );
   });
-   cy.logToken();
-    cy.logAllApiResponses();
+  //  cy.logToken();
+    //  cy.logAllApiResponses();
 });
 Cypress.Commands.add("logAllApiResponses", () => {
-  cy.intercept("GET", "http://localhost:8000/api/v1/auth/me", (req) => {
-    req.continue((res) => {
-      cy.task("log", `API ${req.method} ${req.url} Status: ${res.statusCode}`);
-      cy.task("log", `Response Body: ${JSON.stringify(res.body, null, 2)}`);
-    });
+  return cy.getCookie("access_token").then((cookie) => {
+    cy.log('running here <<<<<')
+    // Return a promise so Cypress waits for the fetch to finish
+    return fetch("http://localhost:8000/api/v1/auth/me", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${cookie?.value}`,
+      },
+    })
+      .then(async (res) => {
+        const body = await res.json().catch(() => null);
+
+        cy.task("log", `API GET /auth/me Status: ${res.status}`);
+        cy.task("log", `Response Body: ${JSON.stringify(body, null, 2)}`);
+
+        return { status: res.status, body };
+      });
   });
 });
+
 Cypress.Commands.add("logToken", () => {
   cy.getCookie("access_token").then((cookie) => {
     if (cookie) {
