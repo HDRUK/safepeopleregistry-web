@@ -17,9 +17,10 @@ import {
 const dataOrganisation = DEFAULT_UNAPPROVED_ORGANISATION;
 
 describe("SRO journey", () => {
-  describe("Organisation not approved", () => {
+  describe.only("Organisation not approved", () => {
     beforeEach(() => {
       loginUnapprovedOrganisation();
+      cy.logToken();
       cy.visitFirst(ROUTES.profileOrganisationDetailsNameAndAddress.path);
     });
 

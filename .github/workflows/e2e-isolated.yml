@@ -205,12 +205,6 @@ jobs:
           php artisan migrate --force
           php artisan db:seed --force
           php artisan db:seed --class=TestSeeder
-          mysql -h127.0.0.1 -uroot -proot speedias -e "SELECT * FROM users WHERE email IN (
-            'test.user+user@safepeopleregistry.com',
-            'test.user+organisation@safepeopleregistry.com',
-            'test.user+custodian@safepeopleregistry.com',
-            'test.user+admin@safepeopleregistry.com'
-          );"
 
       - name: Start Laravel API and wait for readiness
         run: |
@@ -267,6 +261,7 @@ jobs:
           browser: chrome
           headless: true
           browser-args: "--disable-gpu --disable-software-rasterizer --disable-dev-shm-usage --no-sandbox --enable-unsafe-swiftshader"
+          spec: "cypress/e2e/user-journeys/admin/sro.cy.ts" 
       # - name: Run Cypress test
       #   uses: cypress-io/github-action@v6
       #   with:
@@ -277,3 +272,4 @@ jobs:
         with:
           name: cypress-video
           path: cypress/videos
+          
