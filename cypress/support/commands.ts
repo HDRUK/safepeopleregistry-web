@@ -20,42 +20,6 @@ Cypress.Commands.add("login", (email: string, password: string) => {
       }
     );
   });
-  //  cy.logToken();
-    //  cy.logAllApiResponses();
-});
-Cypress.Commands.add("logAllApiResponses", () => {
-  return cy.getCookie("access_token").then((cookie) => {
-    cy.log('running here <<<<<')
-    // Return a promise so Cypress waits for the fetch to finish
-    return fetch("http://localhost:8000/api/auth/me", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${cookie?.value}`,
-      },
-    })
-      .then(async (res) => {
-        const body = await res.json().catch(() => null);
-
-        cy.task("log", `API GET /auth/me Status: ${res.status}`);
-        cy.task("log", `Response Body: ${JSON.stringify(body, null, 2)}`);
-
-        return { status: res.status, body };
-      });
-  });
-});
-
-Cypress.Commands.add("logToken", () => {
-  cy.getCookie("access_token").then((cookie) => {
-    if (cookie) {
-      const encoded = base64url(cookie.value);
-      const chunkSize = 1000;
-      for (let i = 0; i < encoded.length; i += chunkSize) {
-        cy.task("log", `BASE64_TOKEN_PART: ${encoded.slice(i, i + chunkSize)}`);
-      }
-      cy.task("log", "-- end of token --");
-    }
-  });
 });
 
 Cypress.Commands.add("dataCy", (value: string) => {
@@ -240,8 +204,6 @@ declare global {
         value: string
       ) => Cypress.Chainable<JQuery<HTMLElement>>;
       getLatestRowOfResults: () => void;
-    logAllApiResponses(): Chainable<void>;
-    logToken(): Chainable<void>;
       getResultsCellByValue: (
         value: string
       ) => Cypress.Chainable<JQuery<HTMLTableCellElement>>;

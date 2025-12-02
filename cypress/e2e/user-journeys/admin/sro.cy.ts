@@ -20,8 +20,6 @@ describe("SRO journey", () => {
   describe.only("Organisation not approved", () => {
     beforeEach(() => {
       loginUnapprovedOrganisation();
-      cy.logToken();
-      cy.logAllApiResponses();
       cy.visitFirst(ROUTES.profileOrganisationDetailsNameAndAddress.path);
     });
 
