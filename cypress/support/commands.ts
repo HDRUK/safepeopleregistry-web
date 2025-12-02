@@ -48,8 +48,9 @@ Cypress.Commands.add("logAllApiResponses", () => {
 Cypress.Commands.add("logToken", () => {
   cy.getCookie("access_token").then((cookie) => {
     if (cookie) {
-      const b64 = Buffer.from(cookie.value).toString("base64");
-      cy.task("log", `BASE64_TOKEN: ${b64}`);
+      const encoded = base64url(cookie.value); 
+      // const b64 = Buffer.from(cookie.value).toString("base64");
+      cy.task("log", `BASE64_TOKEN: ${encoded}`);
     }
   });
 });
@@ -244,3 +245,7 @@ declare global {
     }
   }
 }
+function base64url(value: string) {
+  throw new Error("Function not implemented.");
+}
+

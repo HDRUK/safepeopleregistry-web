@@ -50,6 +50,7 @@
     "@veriff/incontext-sdk": "^2.4.0",
     "axios": "^1.7.7",
     "babel-jest": "^30.0.2",
+    "base64url": "^3.0.1",
     "conventional-changelog-conventionalcommits": "^9.0.0",
     "countries-list": "^3.1.1",
     "date-fns": "^4.1.0",
