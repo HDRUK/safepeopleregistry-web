@@ -83,6 +83,8 @@ env:
   KEYCLOAK_REDIRECT_URL: "http://localhost:8000/api/auth/callback"
   KEYCLOAK_BASE_URL: "https://keycloak.dev.hdruk.cloud"
   KEYCLOAK_REALM: "SOURSD"
+  KEYCLOAK_REGISTRATION_URL: "https://keycloak.dev.hdruk.cloud/realms/SOURSD/protocol/openid-connect/registrations?client_id=speedi-registry-app&scope=openid%20profile&redirect_uri=http://localhost:8000/api/auth/callback&response_type=code"
+  KEYCLOAK_SIGNIN_URL: "https://keycloak.dev.hdruk.cloud/realms/SOURSD/login-actions/authenticate?client_id=speedi-registry-app"
   KEYCLOAK_TEST_USERNAME: "loki.sinclair@hdruk.ac.uk"
   KEYCLOAK_ALLOWED_RESOURCES: "account"
   KEYCLOAK_IGNORE_RESOURCES_VALIDATION: "true"
