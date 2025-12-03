@@ -42,7 +42,7 @@
 //   },
 // });
 
-// describe("Projects safe people journey",{ tags: ['@isolated']}, () => {
+// describe("Projects safe people journey", () => {
 //   beforeEach(() => {
 //     loginCustodian();
 

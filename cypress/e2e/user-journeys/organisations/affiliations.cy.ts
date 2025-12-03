@@ -30,7 +30,7 @@ const dataAffiliation = mockedAffiliation({
   },
 });
 
-describe("Affiliations journey",{ tags: ['@isolated']}, () => {
+describe("Affiliations journey", () => {
   beforeEach(() => {
     loginOrganisation();
 
