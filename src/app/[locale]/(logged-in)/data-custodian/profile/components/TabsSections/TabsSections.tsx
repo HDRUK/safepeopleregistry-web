@@ -13,18 +13,16 @@ import { useTranslations } from "next-intl";
 import { PageTabs } from "../../consts/tabs";
 
 const NAMESPACE_TRANSLATION_PROFILE = "CustodianProfile";
-
 interface TabsSectionsProps {
   tabId: PageTabs;
 }
-
 export default function TabsSections({ tabId }: TabsSectionsProps) {
   const routes = useStore(store => store.application.routes);
   const t = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
-
   return (
     <Box sx={{ width: "100%", mb: 4 }}>
       <Tabs
+        data-cy="tabs-navigation"
         variant="fullWidth"
         value={tabId || PageTabs.HOME}
         aria-label={t("navigationAriaLabel")}

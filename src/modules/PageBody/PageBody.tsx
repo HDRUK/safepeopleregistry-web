@@ -24,6 +24,7 @@ export default function PageBody({
         sx={{ mb: 3 }}
       />
       <Box
+        data-cy="page-body"
         {...restProps}
         sx={{
           display: "flex",
