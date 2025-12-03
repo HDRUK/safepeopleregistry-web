@@ -188,10 +188,10 @@ jobs:
     steps:
       - name: Checkout web
         uses: actions/checkout@v4
-        # with:
-        #   repository: HDRUK/safepeopleregistry-web
-        #   ref: ${{ github.event.inputs.web_branch || 'develop' }}
-        #   token: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          repository: HDRUK/safepeopleregistry-web
+          # ref: ${{ github.event.inputs.web_branch || 'develop' }}
+          # token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Checkout api
         uses: actions/checkout@v4
@@ -251,15 +251,15 @@ jobs:
         with:
           node-version: 20
 
-      # - name: Cache Node modules
-      #   uses: actions/cache@v4
-      #   with:
-      #     path: |
-      #       node_modules
-      #       ~/.npm
-      #     key: node-modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-      #     restore-keys: |
-      #       node-modules-${{ runner.os }}-
+      - name: Cache Node modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            ~/.npm
+          key: node-modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            node-modules-${{ runner.os }}-
 
       - name: Install Node deps
         run: npm ci
@@ -272,25 +272,24 @@ jobs:
           nohup npm start > next.log 2>&1 &
           sleep 10
 
-      # - name: Cache Cypress
-      #   uses: actions/cache@v4
-      #   with:
-      #     path: ~/.cache/Cypress
-      #     key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-      #     restore-keys: |
-      #       cypress-${{ runner.os }}-
+      - name: Cache Cypress
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            cypress-${{ runner.os }}-
 
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
           headless: true
-          browser-args: "--disable-gpu --window-size=1920,1080 --disable-touch-events --disable-features=IsolateOrigins,site-per-process --disable-blink-features=AutomationControlled --blink-settings=primaryPointerType=4"
 
-      - name: Upload Cypress video
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: cypress-video
-          path: cypress/videos
+      # - name: Upload Cypress video
+      #   uses: actions/upload-artifact@v4
+      #   if: always()
+      #   with:
+      #     name: cypress-video
+      #     path: cypress/videos
           
