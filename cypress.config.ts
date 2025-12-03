@@ -6,6 +6,13 @@ dotenv.config();
 export default defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
+      on('window:before:load', (win)=>{
+
+       Object.defineProperty(win.navigator, 'maxTouchPoints', {
+          configurable: true,
+          value: 0
+        });
+      })
       on('before:browser:launch', (browser, launchOptions) => {
                 if (browser.family === 'chromium') {
                     // running headless chrome in a virtualized environment forces pointer type to default to `NONE`
