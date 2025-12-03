@@ -210,7 +210,7 @@ jobs:
       - name: Cache Composer deps
         uses: actions/cache@v4
         with:
-          path: safepeopleregistry-api/vendor
+          path: vendor
           key: e2e-composer-${{ hashFiles('safepeopleregistry-api/composer.lock') }}
           restore-keys: e2e-composer-
 
