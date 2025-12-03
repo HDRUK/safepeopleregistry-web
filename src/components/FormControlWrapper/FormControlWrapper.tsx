@@ -1,5 +1,6 @@
 "use client";
 
+import { getTranslationWithFallback } from "@/utils/translations";
 import {
   Box,
   FormControl,
@@ -85,17 +86,10 @@ export default function FormControlWrapper({
 
   const labelWidth = fullWidth ? "100%" : "auto";
 
-  const tDescription = tForm(`${tKey}Description`);
-  const tSubtitle = tForm(`${tKey}Subtitle`);
-
   const descriptionText =
-    description ||
-    (!tDescription.includes(`${tKey}Description`) &&
-      tForm(`${tKey}Description`));
-
+    description || getTranslationWithFallback(tForm, `${tKey}Description`);
   const subtitleText =
-    subtitle ||
-    (!tSubtitle.includes(`${tKey}Subtitle`) && tForm(`${tKey}Subtitle`));
+    subtitle || getTranslationWithFallback(tForm, `${tKey}Subtitle`);
 
   return (
     <Controller

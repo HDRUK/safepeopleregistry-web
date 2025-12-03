@@ -26,7 +26,7 @@ import {
 import { PostTrainingsPayload } from "../../services/trainings/types";
 import { EntityType } from "../../types/api";
 import { ResearcherTraining, User } from "../../types/application";
-import { formatDBDate, formatShortDate } from "../../utils/date";
+import { formatDBDateTime, formatShortDate } from "../../utils/date";
 import { showAlert } from "../../utils/showAlert";
 import TrainingForm from "./TrainingForm";
 
@@ -214,8 +214,8 @@ export default function Training({
     async (training: PostTrainingsPayload) => {
       const payload = {
         ...training,
-        awarded_at: formatDBDate(training.awarded_at),
-        expires_at: formatDBDate(training.expires_at),
+        awarded_at: formatDBDateTime(training.awarded_at),
+        expires_at: formatDBDateTime(training.expires_at),
       };
 
       if (selectedTraining) {

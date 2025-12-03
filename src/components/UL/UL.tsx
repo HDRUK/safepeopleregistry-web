@@ -36,7 +36,7 @@ export default function UL({
               content: `"${separator}"`,
               padding: "0 4px",
             },
-            "&:first-child": {
+            "&:first-of-type": {
               pl: 0,
             },
             "&:last-child:after": {

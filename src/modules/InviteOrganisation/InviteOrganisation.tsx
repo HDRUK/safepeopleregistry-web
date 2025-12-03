@@ -83,6 +83,9 @@ export default function InviteOrganisationForm({
                     <FormControlWrapper
                       name={name}
                       renderField={fieldProps => <TextField {...fieldProps} />}
+                      description={tOrganisation(
+                        "inviteOrganisationEmailDescription"
+                      )}
                     />
                   </Grid>
                 ))}

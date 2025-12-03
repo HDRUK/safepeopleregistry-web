@@ -22,6 +22,7 @@ import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Results from "@/components/Results";
 import { SEARCH_PAGE_MAX_PER_PAGE } from "@/consts/search";
+import ErrorMessage from "@/components/ErrorMessage";
 import ProjectOrganisationsList from "../ProjectOrganisationsList";
 import ProjectOrganisationsActions from "./ProjectOrganisationsActions";
 
@@ -213,7 +214,7 @@ export default function ProjectOrganisations({
         <Results
           total={total}
           noResultsMessage={t("noResultsMessage")}
-          errorMessage={t("errorMessage")}
+          errorMessage={<ErrorMessage t={t} tKey="errorMessage" />}
           queryState={queryState}>
           {itemsByTransitions && listComponent}
         </Results>

@@ -1,5 +1,6 @@
 import ReactQueryClientProvider from "@/components/ReactQueryClientProvider";
 import ThemeRegistry from "@/components/ThemeRegistry/ThemeRegistry";
+import IntlClientProvider from "@/context/IntlClientProvider";
 import { AppCacheProvider } from "@mui/material-nextjs/v14-pagesRouter";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -17,7 +18,6 @@ import {
 import userEvent, { UserEvent } from "@testing-library/user-event";
 import mediaQuery from "css-mediaquery";
 import { axe } from "jest-axe";
-import { NextIntlClientProvider } from "next-intl";
 import React, { ReactNode } from "react";
 import messages from "../config/locales/en.json";
 
@@ -42,7 +42,7 @@ const Wrapper = ({ children }: { children: ReactNode }) => {
   });
 
   return (
-    <NextIntlClientProvider locale="en" messages={messages}>
+    <IntlClientProvider locale="en" messages={messages}>
       <AppCacheProvider>
         <LocalizationProvider>
           <ReactQueryClientProvider>
@@ -54,7 +54,7 @@ const Wrapper = ({ children }: { children: ReactNode }) => {
           </ReactQueryClientProvider>
         </LocalizationProvider>
       </AppCacheProvider>
-    </NextIntlClientProvider>
+    </IntlClientProvider>
   );
 };
 

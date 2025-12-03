@@ -608,7 +608,6 @@
     "iso27001Certified": "ISO27001 Accredited",
     "iso27001CertificationNum": "ISO27001 Accredited",
     "iso27001CertificationNumPlaceholder": "e.g. AB123C",
-    "iso27001CertificationNumInvalid": "ISO27001 identifier is invalid, it should be of the form, e.g: AB12",
     "isoExpiryDate": "Expiry date",
     "isoExpiryDateRequired": "An expiry date for your code needs to be set.",
     "isoExpiryEvidenceRequired": "Evidence of your ISO27001 certification is required",
@@ -777,7 +776,6 @@
       "dataSensitivityLevelPlaceholder": "Data sensitivity level",
       "dataSensitivityLevelRequired": "Data sensitivity level is required",
       "dataSensitivityLevel": "Data sensitivity level",
-      "lawfulConditionRequired": "Lawful condition is required",
       "lawfulBasisConfirmationRequired": "You must confirm the lawful basis",
       "requestFrequency": "Request frequency",
       "requestFrequencyRequired": "Request frequency is required",
@@ -924,6 +922,7 @@
     "putOrganisationApprovedError": "There was an approving the Organisation. Please try again or contact us at <contactLink></contactLink>",
     "uniqueIdentifierCaption": "This ‘key’ represents you as an Organisation within Safe People Registry. This is unique to you! Your Organisation will have a unique Safe People Registry identifier associated with your account once your Organisation profile has been completed. This persistent unique identifier will be used to notify Data Custodians of any key changes to your Organisation profile that may impact data access decisions.",
     "inviteOrganisationTitle": "Request Organisation to be invited to create a Safe People Registry account",
+    "inviteOrganisationEmailDescription": "Email address of an Organisational contact who is an appropriately senior individual, such as a Head of Department or Human Resources/People Services mailbox. This may also be the person who signs the data access agreements.",
     "inviteOrganisation": "Invite Organisation",
     "postOrganisationUnclaimedError": "Unable to invite the Organisation",
     "postOrganisationInviteError": "Unable to invite the Organisation",
@@ -940,6 +939,7 @@
     "memberIdDescription": "Depending on your selected relationship with the Organisation",
     "home": "Home",
     "inviteThemHere": "Invite them here",
+    "organisationNameSubtitle": "Email address of an Organisational contact who is an appropriately senior individual, such as a Head of Department or Human Resources/People Services mailbox. This may also be the person who signs the data access agreements.",
     "organisationNotListed": "Organisation not listed? <link> Ask them to register </link>",
     "organisationListed": "Organisation already exists? <link> Select them here </link>",
     "affiliationsDescription": "Please list all Organisations (employers or institutes) with whom you are currently employed, on an honorary contract, or enrolled with as a student. Your Organisations will use this to confirm your affiliation. If you input an ORCiD under the Experience tab, some of this information may be automatically populated but require further information.",
@@ -1054,7 +1054,8 @@
     "sroProfileLink": "Name",
     "role": "Role",
     "email": "Email",
-    "noResultsMessage": "No organisations found"
+    "noResultsMessage": "No organisations found",
+    "systemApprovedAt": "Approved at"
   },
   "Affiliations": {
     "affiliationStatusChangedDate": "Status changed",
@@ -1702,7 +1703,8 @@
     "heading": "Add new User",
     "requestHeading": "Request to add a new User",
     "description": "Add a User to start the validation process. You can add existing Safe People Registry Users by searching below. If they are affiliated with the wrong Organisation, you will need to contact them to add the correct affiliation. If you cannot find your User, you can <button>invite them to create a Safe People Registry account here.</button> ",
-    "requestDescription": "Here’s where you can request that a team member us added to this project. If you can't find them or they're listed under the wrong Organisation, invite them here. If they already have a Safe People Registry account, they’ll be able to select the correct Organisation. Otherwise, they'll be prompted to register for a Safe People Registry account."
+    "requestDescription": "Here’s where you can request that a team member us added to this project. If you can't find them or they're listed under the wrong Organisation, invite them here. If they already have a Safe People Registry account, they’ll be able to select the correct Organisation. Otherwise, they'll be prompted to register for a Safe People Registry account.",
+    "invitedUsersMessage": "You have invited {users} {count, plural, =0 {} =1 {and # other} other {and # others}}."
   },
   "InviteUserModal": {
     "heading": "Invite user",

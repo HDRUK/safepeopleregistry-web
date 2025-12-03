@@ -56,16 +56,14 @@ export default function ProjectsSafeDataForm({
           })
         ),
         data_sensitivity_level: yup.string(),
-        legal_basis_for_data_article6: yup
-          .string()
-          .required(t("lawfulConditionRequired")),
+        legal_basis_for_data_article6: yup.string(),
         duty_of_confidentiality: yup.boolean(),
         national_data_optout: yup.boolean(),
         request_frequency: yup.string(),
         dataset_linkage_description: yup.string(),
         data_minimisation: yup.string(),
         data_use_description: yup.string(),
-        access_date: yup.date(),
+        access_date: yup.date().nullable(),
       }),
     [t]
   );
