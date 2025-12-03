@@ -1054,7 +1054,8 @@
     "sroProfileLink": "Name",
     "role": "Role",
     "email": "Email",
-    "noResultsMessage": "No organisations found"
+    "noResultsMessage": "No organisations found",
+    "systemApprovedAt": "Approved at"
   },
   "Affiliations": {
     "affiliationStatusChangedDate": "Status changed",
