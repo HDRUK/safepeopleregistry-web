@@ -39,18 +39,12 @@ export default function ProjectsSafeProjectForm({
       yup.object().shape({
         unique_id: yup.string().required(tForm("uniqueIdRequiredInvalid")),
         title: yup.string().required(tForm("titleRequiredInvalid")),
-        request_category_type: yup
-          .string()
-          .required(tForm("requestCategoryTypeRequiredInvalid")),
+        request_category_type: yup.string().optional(),
         start_date: yup.string().required(tForm("startDateRequiredInvalid")),
         end_date: yup.string().nullable(),
-        lay_summary: yup.string().required(tForm("laySummaryRequiredInvalid")),
-        public_benefit: yup
-          .string()
-          .required(tForm("publicBenefitRequiredInvalid")),
-        technical_summary: yup
-          .string()
-          .required(tForm("technicalSummaryRequiredInvalid")),
+        lay_summary: yup.string().optional(),
+        public_benefit: yup.string().optional(),
+        technical_summary: yup.string().optional(),
         status: yup.string().required(tForm("statusRequiredInvalid")),
       }),
     []
