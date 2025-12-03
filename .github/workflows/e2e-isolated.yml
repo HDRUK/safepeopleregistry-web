@@ -272,21 +272,20 @@ jobs:
           nohup npm start > next.log 2>&1 &
           sleep 10
 
-      - name: Cache Cypress
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            cypress-${{ runner.os }}-
+      # - name: Cache Cypress
+      #   uses: actions/cache@v4
+      #   with:
+      #     path: ~/.cache/Cypress
+      #     key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      #     restore-keys: |
+      #       cypress-${{ runner.os }}-
 
 
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
-          headless: true
-          browser-args: "--disable-gpu"
+          config: video=true
 
       - name: Upload Cypress video
         uses: actions/upload-artifact@v4
@@ -294,7 +293,7 @@ jobs:
         with:
           name: cypress-video
           path: cypress/videos
-          config: video=true
+         
                    
 
       # - name: Run Cypress Tests
