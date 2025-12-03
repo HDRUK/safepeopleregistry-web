@@ -1,4 +1,22 @@
-name: PR E2E Tests
+name: PR Isolated E2E Tests
+
+# on:
+#   schedule:
+#     - cron: "0 19 * * *"   # 7pm r kid
+#   pull_request:
+#     branches:
+#       - main
+#   workflow_dispatch:
+#       inputs:
+#         api_branch:
+#           description: "Branch of safepeopleregistry-api to check out"
+#           required: false
+#           default: "dev"
+#         web_branch:
+#                 description: "Branch of the web repo to check out"
+#                 required: false
+#                 default: "develop"
+
 
 on:
   pull_request:
@@ -170,6 +188,10 @@ jobs:
     steps:
       - name: Checkout web
         uses: actions/checkout@v4
+        with:
+          repository: HDRUK/safepeopleregistry-web
+          ref: ${{ github.event.inputs.web_branch || 'dev' }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Checkout api
         uses: actions/checkout@v4
@@ -177,6 +199,7 @@ jobs:
           repository: HDRUK/safepeopleregistry-api
           path: safepeopleregistry-api
           token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.event.inputs.api_branch || 'dev' }}
 
 
       - name: Setup PHP
@@ -265,13 +288,6 @@ jobs:
             --env grepTags="@isolated" \
             -- --disable-gpu
 
-      # - name: Run Cypress Tests
-      #   uses: cypress-io/github-action@v6
-      #   with:
-      #     browser: chrome
-      #     headless: true
-      #     browser-args: "--disable-gpu"
-      #     env: grepTags="@isolated"
       - name: Upload Cypress video
         uses: actions/upload-artifact@v4
         if: always()
