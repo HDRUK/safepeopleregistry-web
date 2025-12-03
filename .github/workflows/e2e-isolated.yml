@@ -206,7 +206,7 @@ jobs:
           php artisan migrate --force
           php artisan db:seed --force
           php artisan db:seed --class=TestSeeder
-          php artisan que:work
+          php artisan queue:work --daemon > queue.log 2>&1 &
 
       - name: Start Laravel API and wait for readiness
         run: |
