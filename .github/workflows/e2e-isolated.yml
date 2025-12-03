@@ -258,12 +258,20 @@ jobs:
             cypress-${{ runner.os }}-
 
       - name: Run Cypress Tests
-        uses: cypress-io/github-action@v6
-        with:
-          browser: chrome
-          headless: true
-          browser-args: "--disable-gpu"
-          env: grepTags="@isolated"
+        run: |
+          npx cypress run \
+            --browser chrome \
+            --headless \
+            --env grepTags="@isolated" \
+            -- --disable-gpu
+
+      # - name: Run Cypress Tests
+      #   uses: cypress-io/github-action@v6
+      #   with:
+      #     browser: chrome
+      #     headless: true
+      #     browser-args: "--disable-gpu"
+      #     env: grepTags="@isolated"
       # - name: Upload Cypress video
       #   uses: actions/upload-artifact@v4
       #   if: always()
