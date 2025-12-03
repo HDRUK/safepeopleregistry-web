@@ -23,7 +23,8 @@ export default function PageBody({
         actions={actions}
         sx={{ mb: 3 }}
       />
-      <Box data-cy="page-body"
+      <Box
+        data-cy="page-body"
         {...restProps}
         sx={{
           display: "flex",

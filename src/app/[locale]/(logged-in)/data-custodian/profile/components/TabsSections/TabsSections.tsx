@@ -1,4 +1,5 @@
 "use client";
+
 import { useStore } from "@/data/store";
 import { Link } from "@/i18n/routing";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
@@ -10,6 +11,7 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { Box, Tab, Tabs } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { PageTabs } from "../../consts/tabs";
+
 const NAMESPACE_TRANSLATION_PROFILE = "CustodianProfile";
 interface TabsSectionsProps {
   tabId: PageTabs;
