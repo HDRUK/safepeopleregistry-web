@@ -1,12 +1,14 @@
 import { defineConfig } from "cypress";
 import dotenv from "dotenv";
+import { plugin as cypressGrepPlugin } from '@cypress/grep/plugin'
 
 dotenv.config();
 
 export default defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
-      require('@cypress/grep/src/plugin')(config),
+      cypressGrepPlugin(config)
+
       on('before:browser:launch', (browser, launchOptions) => {
                 if (browser.family === 'chromium') {
                     // running headless chrome in a virtualized environment forces pointer type to default to `NONE`
@@ -86,6 +88,6 @@ export default defineConfig({
       "cypress/e2e/user-journeys/custodians/team.cy.ts",
     ],
     
-    // supportFile: "cypress/support/index.ts",
+     supportFile: "cypress/support/e2e.ts",
   },
 });

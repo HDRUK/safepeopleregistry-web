@@ -24,7 +24,7 @@
       "@/mocks/*": ["./mocks/*"],
       "@/*": ["./src/*"]
     },
-    "types": ["cypress", "node", "jest", "@testing-library/jest-dom"]
+    "types": ["cypress", "node", "jest", "@testing-library/jest-dom", "cypress-grep"]
   },
   "files": ["node_modules/gsap/types/index.d.ts"],
   "include": [
