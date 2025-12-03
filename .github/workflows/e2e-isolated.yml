@@ -206,9 +206,8 @@ jobs:
           php artisan migrate --force
           php artisan db:seed --force
           php artisan db:seed --class=TestSeeder
-          php artisan queue:work --daemon > queue.log 2>&1 &
 
-      - name: Start Laravel API and wait for readiness
+      - name: Start Laravel API and queue worker
         run: |
           cd safepeopleregistry-api
           php artisan serve --host=0.0.0.0 --port=8000 > laravel.log 2>&1 &
@@ -221,7 +220,8 @@ jobs:
             echo "Waiting for Laravel... attempt $i"
             sleep 3
           done
-          tail -n 20 laravel.log
+          php artisan queue:work --daemon > queue.log 2>&1 &
+
 
       - name: Setup Node
         uses: actions/setup-node@v4
