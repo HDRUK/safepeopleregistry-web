@@ -1,11 +1,13 @@
 import { defineConfig } from "cypress";
 import dotenv from "dotenv";
+import { plugin as cypressGrepPlugin } from '@cypress/grep/plugin'
 
 dotenv.config();
 
 export default defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
+      cypressGrepPlugin(config)
       on('before:browser:launch', (browser, launchOptions) => {
                 if (browser.family === 'chromium') {
                     // running headless chrome in a virtualized environment forces pointer type to default to `NONE`

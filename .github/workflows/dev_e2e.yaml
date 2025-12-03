@@ -82,7 +82,7 @@ jobs:
           npx cypress run \
             --browser chrome \
             --headless \
-            --env grepTags="@smoke+-@isolated" \
+            --env grepTags="@smoke" \
             -- --disable-gpu
 
 
