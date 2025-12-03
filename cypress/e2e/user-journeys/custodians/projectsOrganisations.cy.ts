@@ -18,7 +18,7 @@ import {
 const dataProjectOrganisation = DEFAULT_PROJECT_ORGANISATIONS_CUSTODIANS;
 const dataProjectInviteUser = DEFAULT_PROJECT_INVITE_USERS;
 
-describe("Projects organisations journey", { tags: ['@nightly']},() => {
+describe("Projects organisations journey", { tags: ['@isolated']},() => {
   before(() => {
     loginCustodian();
 

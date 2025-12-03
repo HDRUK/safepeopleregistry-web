@@ -7,7 +7,7 @@ import { loginAdmin } from "cypress/support/utils/admin/auth";
 import { hasUser, inviteUser } from "cypress/support/utils/admin/users";
 import { DEFAULT_PROJECT_INVITE_USERS } from "cypress/support/utils/data";
 
-describe("Resend invite", { tags: ['@nightly', '@smoke']}, () => {
+describe("Resend invite", { tags: ['@isolated', '@smoke']}, () => {
   beforeEach(() => {
     loginAdmin();
 

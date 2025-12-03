@@ -20,7 +20,7 @@ const edittedDelegate = {
   department_name: "Ethics and Compliance",
 };
 
-describe("Organisations delegates journey", { tags: ['@nightly', '@smoke']}, () => {
+describe("Organisations delegates journey", { tags: ['@isolated', '@smoke']}, () => {
   beforeEach(() => {
     loginOrganisation();
 
