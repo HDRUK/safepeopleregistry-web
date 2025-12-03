@@ -211,8 +211,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: vendor
-          key: e2e-composer-${{ hashFiles('safepeopleregistry-api/composer.lock') }}
+          key: e2e-composer-${{ hashFiles('composer.lock') }}
           restore-keys: e2e-composer-
+          working-directory: safepeopleregistry-api
 
       - name: Install Composer deps
         run: |
