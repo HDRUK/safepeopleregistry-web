@@ -17,7 +17,7 @@ import {
 const dataOrganisation = DEFAULT_UNAPPROVED_ORGANISATION;
 
 describe("SRO journey",{ tags: ['@nightly', '@smoke']}, () => {
-  describe.only("Organisation not approved", () => {
+  describe("Organisation not approved", () => {
     beforeEach(() => {
       loginUnapprovedOrganisation();
       cy.visitFirst(ROUTES.profileOrganisationDetailsNameAndAddress.path);
