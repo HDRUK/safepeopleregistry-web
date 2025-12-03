@@ -210,9 +210,9 @@ jobs:
       - name: Cache Composer deps
         uses: actions/cache@v4
         with:
-          path: vendor
-          key: composer-${{ hashFiles('safepeopleregistry-api/composer.lock') }}
-          restore-keys: composer-
+          path: safepeopleregistry-api/vendor
+          key: e2e-composer-${{ hashFiles('safepeopleregistry-api/composer.lock') }}
+          restore-keys: e2e-composer-
 
       - name: Install Composer deps
         run: |
@@ -257,12 +257,13 @@ jobs:
           path: |
             node_modules
             ~/.npm
-          key: node-modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          key: e2e-node-modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            node-modules-${{ runner.os }}-
+            e2e-node-modules-${{ runner.os }}-
 
       - name: Install Node deps
-        run: npm ci
+        run: npm install
+        # if we switch to ci then bin off cache as it will do a CLEAN INSTALLL
 
       - name: Build Next.js
         run: npm run build
@@ -276,9 +277,9 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          key: e2e-cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            cypress-${{ runner.os }}-
+            e2e-cypress-${{ runner.os }}-
 
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
