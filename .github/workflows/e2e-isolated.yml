@@ -230,7 +230,7 @@ jobs:
           php artisan db:seed --force
           php artisan db:seed --class=TestSeeder
 
-      - name: Start Laravel API and queue worker
+      - name: Start Laravel API and wait for readiness
         run: |
           cd safepeopleregistry-api
           php artisan serve --host=0.0.0.0 --port=8000 > laravel.log 2>&1 &
@@ -243,8 +243,8 @@ jobs:
             echo "Waiting for Laravel... attempt $i"
             sleep 3
           done
+          tail -n 20 laravel.log
           php artisan queue:work --daemon > queue.log 2>&1 &
-
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -280,34 +280,16 @@ jobs:
       #     restore-keys: |
       #       cypress-${{ runner.os }}-
 
-
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
-          config: video=true
-
+          headless: true
+          browser-args: "--disable-gpu"
       - name: Upload Cypress video
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: cypress-video
           path: cypress/videos
-         
-                   
-
-      # - name: Run Cypress Tests
-      #   run: |
-      #     npx cypress run \
-      #       --browser chrome \
-      #       --headless \
-      #       --env grepTags="@isolated" \
-      #       -- --disable-gpu
-
-      # - name: Upload Cypress video
-      #   uses: actions/upload-artifact@v4
-      #   if: always()
-      #   with:
-      #     name: cypress-video
-      #     path: cypress/videos
           

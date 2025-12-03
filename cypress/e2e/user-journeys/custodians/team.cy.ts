@@ -13,7 +13,7 @@ import { DEFAULT_CUSTODIAN_USER_FIELDS } from "cypress/support/utils/data";
 const dataUser = DEFAULT_CUSTODIAN_USER_FIELDS;
 let updatedEmail = dataUser.email;
 
-describe("Custodians team user journey", { tags: ['@isolated', '@smoke']}, () => {
+describe("Custodians team user journey", () => {
   beforeEach(() => {
     loginCustodian();
 

@@ -1,17 +1,13 @@
 import { defineConfig } from "cypress";
 import dotenv from "dotenv";
-// import { plugin as cypressGrepPlugin } from '@cypress/grep/plugin'
 
 dotenv.config();
 
 export default defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
-      // cypressGrepPlugin(config)
       on('before:browser:launch', (browser, launchOptions) => {
                 if (browser.family === 'chromium') {
-                    launchOptions.args.push('--disable-gpu');
-
                     // running headless chrome in a virtualized environment forces pointer type to default to `NONE`
                     // to mimic "desktop" environment more correctly we force blink to have `pointer: fine` support
                     // this allows correct pickers behavior.
@@ -87,9 +83,9 @@ export default defineConfig({
       "cypress/e2e/user-journeys/custodians/projectsOrganisations.cy.ts",
       "cypress/e2e/user-journeys/custodians/projectsUsers.cy.ts",
       "cypress/e2e/user-journeys/custodians/team.cy.ts",
-      "cypress/e2e/user-journeys/custodians/users.cy.ts"
+      "cypress/e2e/user-journeys/custodians/users.cy.ts",
     ],
     
-    //  supportFile: "cypress/support/e2e.ts",
+    // supportFile: "cypress/support/index.ts",
   },
 });
