@@ -28,7 +28,11 @@ export default async function useApplicationRedirects() {
         suppressThrow: true,
       });
 
+      console.log("****************** response", response);
+
       me = response.data;
+
+      console.log("****************** ME", me);
 
       if (response.status === 200) {
         redirectUrl = getProfileRedirectPath(me);
