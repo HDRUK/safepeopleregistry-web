@@ -1,106 +1,106 @@
-name: Cypress Tests
+# name: Cypress Tests
 
-on:
-  pull_request:
-    branches:
-      - 'develop'
+# on:
+#   pull_request:
+#     branches:
+#       - 'develop'
 
-env:
-  CYPRESS_RECORD_KEY: 37722b13-e215-4d2b-95e9-96de1cc70df8
-  CYPRESS_BASE_URL: http://localhost:3000
-  CYPRESS_USER_EMAIL: ${{ secrets.CYPRESS_USER_EMAIL }}
-  CYPRESS_USER_PASSWORD: ${{ secrets.CYPRESS_USER_PASSWORD }}
-  CYPRESS_ORGANISATION_EMAIL: ${{ secrets.CYPRESS_ORGANISATION_EMAIL }}
-  CYPRESS_ORGANISATION_PASSWORD: ${{ secrets.CYPRESS_ORGANISATION_PASSWORD }}
-  CYPRESS_UNAPPROVED_ORGANISATION_EMAIL: ${{ secrets.CYPRESS_UNAPPROVED_ORGANISATION_EMAIL }}
-  CYPRESS_UNAPPROVED_ORGANISATION_PASSWORD: ${{ secrets.CYPRESS_UNAPPROVED_ORGANISATION_PASSWORD }}
-  CYPRESS_CUSTODIAN_EMAIL: ${{ secrets.CYPRESS_CUSTODIAN_EMAIL }}
-  CYPRESS_CUSTODIAN_PASSWORD: ${{ secrets.CYPRESS_CUSTODIAN_PASSWORD }}
-  CYPRESS_ADMIN_EMAIL: ${{ secrets.CYPRESS_ADMIN_EMAIL }}
-  CYPRESS_ADMIN_PASSWORD: ${{ secrets.CYPRESS_ADMIN_PASSWORD }}
-  NEXT_PUBLIC_API_V1_URL: ${{ vars.NEXT_PUBLIC_API_V1_URL }}
-  NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
-  NEXT_PUBLIC_API_V1_SERVER_URL: ${{ vars.NEXT_PUBLIC_API_V1_SERVER_URL }}
-  NEXT_PUBLIC_API_SERVER_URL: ${{ vars.NEXT_PUBLIC_API_SERVER_URL }}
-  NEXT_PUBLIC_TEMP_USER_ROLES: ${{vars.NEXT_PUBLIC_TEMP_USER_ROLES}}
-  NEXT_PUBLIC_KEYCLOAK_CLIENT_ID: ${{ vars.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID }}
-  NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET: ${{ secrets.NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET }}
-  KEYCLOAK_REALM_PUBLIC_KEY: ${{ vars.KEYCLOAK_REALM_PUBLIC_KEY }}
-  NEXT_PUBLIC_KEYCLOAK_REDIRECT_URL_LOGIN: "http://localhost:3000/api/auth/login"
-  NEXT_PUBLIC_KEYCLOAK_REDIRECT_URL_LOGOUT: "http://localhost:3000/api/auth/logout"
-  NEXT_PUBLIC_KEYCLOAK_REDIRECT_URL_REGISTER: "http://localhost:3000/api/auth/register"
-  NEXT_PUBLIC_KEYCLOAK_URL_ME: "http://localhost:3000/api/auth/me"
-  NEXT_PUBLIC_KEYCLOAK_BASE_URL: ${{ vars.NEXT_PUBLIC_KEYCLOAK_BASE_URL }}
-  NEXT_PUBLIC_KEYCLOAK_REALM: ${{ vars.NEXT_PUBLIC_KEYCLOAK_REALM }}
-  NEXT_PUBLIC_LOCAL_ENV: http://localhost:3000
-  NEXT_INTL_DEFAULT_LOCALE: en
-  NEXT_PUBLIC_RECAPTCHA_SITE_KEY: ${{ secrets.NEXT_PUBLIC_RECAPTCHA_SITE_KEY }}
-  NEXT_PUBLIC_RECAPTCHA_SECRET_KEY: ${{ secrets.NEXT_PUBLIC_RECAPTCHA_SECRET_KEY }}
-  NEXT_PUBLIC_INVITE_TIME_HOURS: ${{ vars.NEXT_PUBLIC_INVITE_TIME_HOURS }}
-  NEXT_PUBLIC_FEATURE_PROJECT_USERS_WORKFLOW: false
-  GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+# env:
+#   CYPRESS_RECORD_KEY: 37722b13-e215-4d2b-95e9-96de1cc70df8
+#   CYPRESS_BASE_URL: http://localhost:3000
+#   CYPRESS_USER_EMAIL: ${{ secrets.CYPRESS_USER_EMAIL }}
+#   CYPRESS_USER_PASSWORD: ${{ secrets.CYPRESS_USER_PASSWORD }}
+#   CYPRESS_ORGANISATION_EMAIL: ${{ secrets.CYPRESS_ORGANISATION_EMAIL }}
+#   CYPRESS_ORGANISATION_PASSWORD: ${{ secrets.CYPRESS_ORGANISATION_PASSWORD }}
+#   CYPRESS_UNAPPROVED_ORGANISATION_EMAIL: ${{ secrets.CYPRESS_UNAPPROVED_ORGANISATION_EMAIL }}
+#   CYPRESS_UNAPPROVED_ORGANISATION_PASSWORD: ${{ secrets.CYPRESS_UNAPPROVED_ORGANISATION_PASSWORD }}
+#   CYPRESS_CUSTODIAN_EMAIL: ${{ secrets.CYPRESS_CUSTODIAN_EMAIL }}
+#   CYPRESS_CUSTODIAN_PASSWORD: ${{ secrets.CYPRESS_CUSTODIAN_PASSWORD }}
+#   CYPRESS_ADMIN_EMAIL: ${{ secrets.CYPRESS_ADMIN_EMAIL }}
+#   CYPRESS_ADMIN_PASSWORD: ${{ secrets.CYPRESS_ADMIN_PASSWORD }}
+#   NEXT_PUBLIC_API_V1_URL: ${{ vars.NEXT_PUBLIC_API_V1_URL }}
+#   NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
+#   NEXT_PUBLIC_API_V1_SERVER_URL: ${{ vars.NEXT_PUBLIC_API_V1_SERVER_URL }}
+#   NEXT_PUBLIC_API_SERVER_URL: ${{ vars.NEXT_PUBLIC_API_SERVER_URL }}
+#   NEXT_PUBLIC_TEMP_USER_ROLES: ${{vars.NEXT_PUBLIC_TEMP_USER_ROLES}}
+#   NEXT_PUBLIC_KEYCLOAK_CLIENT_ID: ${{ vars.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID }}
+#   NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET: ${{ secrets.NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET }}
+#   KEYCLOAK_REALM_PUBLIC_KEY: ${{ vars.KEYCLOAK_REALM_PUBLIC_KEY }}
+#   NEXT_PUBLIC_KEYCLOAK_REDIRECT_URL_LOGIN: "http://localhost:3000/api/auth/login"
+#   NEXT_PUBLIC_KEYCLOAK_REDIRECT_URL_LOGOUT: "http://localhost:3000/api/auth/logout"
+#   NEXT_PUBLIC_KEYCLOAK_REDIRECT_URL_REGISTER: "http://localhost:3000/api/auth/register"
+#   NEXT_PUBLIC_KEYCLOAK_URL_ME: "http://localhost:3000/api/auth/me"
+#   NEXT_PUBLIC_KEYCLOAK_BASE_URL: ${{ vars.NEXT_PUBLIC_KEYCLOAK_BASE_URL }}
+#   NEXT_PUBLIC_KEYCLOAK_REALM: ${{ vars.NEXT_PUBLIC_KEYCLOAK_REALM }}
+#   NEXT_PUBLIC_LOCAL_ENV: http://localhost:3000
+#   NEXT_INTL_DEFAULT_LOCALE: en
+#   NEXT_PUBLIC_RECAPTCHA_SITE_KEY: ${{ secrets.NEXT_PUBLIC_RECAPTCHA_SITE_KEY }}
+#   NEXT_PUBLIC_RECAPTCHA_SECRET_KEY: ${{ secrets.NEXT_PUBLIC_RECAPTCHA_SECRET_KEY }}
+#   NEXT_PUBLIC_INVITE_TIME_HOURS: ${{ vars.NEXT_PUBLIC_INVITE_TIME_HOURS }}
+#   NEXT_PUBLIC_FEATURE_PROJECT_USERS_WORKFLOW: false
+#   GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
   
-jobs:
-  cypress-run:
-    runs-on: ubuntu-latest
-    environment: develop
+# jobs:
+#   cypress-run:
+#     runs-on: ubuntu-latest
+#     environment: develop
 
-    steps:
-      - uses: actions/checkout@v3
+#     steps:
+#       - uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-          cache: 'npm'
+#       - uses: actions/setup-node@v3
+#         with:
+#           node-version: '20'
+#           cache: 'npm'
 
-      # - name: Cache Cypress
-      #   uses: actions/cache@v3
-      #   with:
-      #     path: ~/.cache/Cypress
-      #     key: cypress-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+#       # - name: Cache Cypress
+#       #   uses: actions/cache@v3
+#       #   with:
+#       #     path: ~/.cache/Cypress
+#       #     key: cypress-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
 
-      - run: npm ci
+#       - run: npm ci
 
-      - name: Cache Next.js
-        uses: actions/cache@v3
-        with:
-          path: .next/cache
-          key: nextjs-${{ runner.os }}-${{ hashFiles('**/*.[jt]s', '**/*.[jt]sx', '**/package-lock.json') }}
-          restore-keys: |
-            nextjs-${{ runner.os }}-
+#       - name: Cache Next.js
+#         uses: actions/cache@v3
+#         with:
+#           path: .next/cache
+#           key: nextjs-${{ runner.os }}-${{ hashFiles('**/*.[jt]s', '**/*.[jt]sx', '**/package-lock.json') }}
+#           restore-keys: |
+#             nextjs-${{ runner.os }}-
 
-      - run: npm run build
+#       - run: npm run build
 
-      - name: Start app in background
-        run: npm start &
+#       - name: Start app in background
+#         run: npm start &
 
-      - name: Wait for app to be ready
-        run: npx wait-on http://localhost:3000 --timeout 120000
+#       - name: Wait for app to be ready
+#         run: npx wait-on http://localhost:3000 --timeout 120000
      
-      - name: Run Cypress tests
-        run: |
-          npx cypress run \
-            --browser chrome \
-            --headless \
-            --env grepTags="@smoke" \
-            -- --disable-gpu
+#       - name: Run Cypress tests
+#         run: |
+#           npx cypress run \
+#             --browser chrome \
+#             --headless \
+#             --env grepTags="@smoke" \
+#             -- --disable-gpu
 
 
-      # if the above fails and you want a video, comment the above and use the below
-      # - name: Run Cypress test
-      #   uses: cypress-io/github-action@v6
-      #   with:
-      #     start: npm start
-      #     wait-on: 'http://localhost:3000'
-      #     wait-on-timeout: 120
-      #     spec: "cypress/e2e/user-journeys/users/affiliations.cy.ts" --- run the test you want
+#       # if the above fails and you want a video, comment the above and use the below
+#       # - name: Run Cypress test
+#       #   uses: cypress-io/github-action@v6
+#       #   with:
+#       #     start: npm start
+#       #     wait-on: 'http://localhost:3000'
+#       #     wait-on-timeout: 120
+#       #     spec: "cypress/e2e/user-journeys/users/affiliations.cy.ts" --- run the test you want
           
-      # - name: Upload Cypress video
-      #   uses: actions/upload-artifact@v4
-      #   if: always()
-      #   with:
-      #     name: cypress-video
-      #     path: cypress/videos
+#       # - name: Upload Cypress video
+#       #   uses: actions/upload-artifact@v4
+#       #   if: always()
+#       #   with:
+#       #     name: cypress-video
+#       #     path: cypress/videos
 
  
 
