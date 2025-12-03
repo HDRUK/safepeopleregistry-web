@@ -294,6 +294,7 @@ jobs:
         with:
           name: cypress-video
           path: cypress/videos
+          config: video=true
                    
 
       # - name: Run Cypress Tests
