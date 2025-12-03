@@ -16,7 +16,7 @@ import {
 
 const dataOrganisation = DEFAULT_UNAPPROVED_ORGANISATION;
 
-describe("SRO journey", () => {
+describe("SRO journey",{ tags: ['@nightly', '@smoke']}, () => {
   describe.only("Organisation not approved", () => {
     beforeEach(() => {
       loginUnapprovedOrganisation();

@@ -30,7 +30,7 @@ const dataEdittedAffiliation = {
   role: "Administrator",
 };
 
-describe("Affiliations journey", () => {
+describe("Affiliations journey",{ tags: ['@nightly', '@smoke']},  () => {
   beforeEach(() => {
     loginUser();
 

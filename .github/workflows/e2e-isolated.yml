@@ -262,10 +262,11 @@ jobs:
           browser: chrome
           headless: true
           browser-args: "--disable-gpu"
-      - name: Upload Cypress video
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: cypress-video
-          path: cypress/videos
+          env: grep=@smoke
+      # - name: Upload Cypress video
+      #   uses: actions/upload-artifact@v4
+      #   if: always()
+      #   with:
+      #     name: cypress-video
+      #     path: cypress/videos
           

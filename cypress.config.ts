@@ -6,6 +6,7 @@ dotenv.config();
 export default defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
+      require('@cypress/grep/src/plugin')(config),
       on('before:browser:launch', (browser, launchOptions) => {
                 if (browser.family === 'chromium') {
                     // running headless chrome in a virtualized environment forces pointer type to default to `NONE`

@@ -16,7 +16,7 @@ import {
 const dataProject = DEFAULT_PROJECT;
 const dataProjectDetails = DEFAULT_PROJECT_DETAILS;
 
-describe("Projects custodians journey", () => {
+describe("Projects custodians journey", { tags: ['@nightly', '@smoke']}, () => {
   beforeEach(() => {
     loginCustodian();
 

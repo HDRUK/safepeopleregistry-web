@@ -84,6 +84,7 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.2",
+    "@cypress/grep": "^5.0.0",
     "@next/bundle-analyzer": "^15.0.3",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^13.0.0",

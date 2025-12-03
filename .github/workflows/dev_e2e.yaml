@@ -77,6 +77,8 @@ jobs:
           start: npm start
           wait-on: 'http://localhost:3000'
           wait-on-timeout: 120
+          browser-args: "--disable-gpu"
+          env: grep=@smoke
       # if the above fails and you want a video, comment the above and use the below
       # - name: Run Cypress test
       #   uses: cypress-io/github-action@v6

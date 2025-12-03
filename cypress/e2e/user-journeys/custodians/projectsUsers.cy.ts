@@ -32,7 +32,7 @@ const dataProjectUser = mockedCustodianHasProjectUser({
   },
 });
 
-describe("Projects users journey", () => {
+describe("Projects users journey",{ tags: ['@nightly']}, () => {
   after(() => {
     logout();
   });
