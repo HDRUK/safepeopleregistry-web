@@ -19,7 +19,7 @@ import { DEFAULT_PROJECT_INVITE_USERS } from "cypress/support/utils/data";
 
 const dataProjectInviteUser = DEFAULT_PROJECT_INVITE_USERS;
 
-describe("Projects custodians journey", () => {
+describe("Projects custodians journey", { tags: ['@isolated']}, () => {
   beforeEach(() => {
     loginCustodian();
 
