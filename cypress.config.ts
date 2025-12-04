@@ -70,7 +70,7 @@ export default defineConfig({
       "cypress/e2e/user-journeys/custodians/projectsUsers.cy.ts",
       "cypress/e2e/user-journeys/custodians/team.cy.ts",
       "cypress/e2e/user-journeys/custodians/users.cy.ts",
-      "cypress/e2e/user-journeys/custodians/usersConfiguration.cy.ts"
+      "cypress/e2e/user-journeys/custodians/configuration.cy.ts"
     ],
     // supportFile: "cypress/support/index.ts",
   },
