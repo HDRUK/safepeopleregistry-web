@@ -1,25 +1,18 @@
 name: PR Isolated E2E Tests
 
-# on:
-#   schedule:
-#     - cron: "0 19 * * *"   # 7pm r kid
-#   pull_request:
-#     branches:
-#       - main
-#   workflow_dispatch:
-#       inputs:
-#         api_branch:
-#           description: "Branch of safepeopleregistry-api to check out"
-#           required: false
-#           default: "dev"
-#         web_branch:
-#                 description: "Branch of the web repo to check out"
-#                 required: false
-#                 default: "develop"
-
-
 on:
   pull_request:
+  workflow_dispatch:
+      inputs:
+        api_branch:
+          description: "Branch of safepeopleregistry-api to check out"
+          required: false
+          default: "dev"
+        web_branch:
+          description: "Branch of the web repo to check out"
+          required: false
+          default: "develop"
+
 
 env:
   APP_KEY: ${{ secrets.APP_KEY }}
@@ -156,6 +149,7 @@ env:
 
 jobs:
   e2e-tests:
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     environment: cypress_dev
 
