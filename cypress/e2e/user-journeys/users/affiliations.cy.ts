@@ -56,7 +56,6 @@ describe("Affiliations journey", () => {
   });
 
   it("Edits an affiliation and reloads the page", () => {
-
     editAffiliationUsers(dataAffiliation, dataEdittedAffiliation);
 
     hasAffiliationUsers(dataEdittedAffiliation, Status.AFFILIATION_PENDING);

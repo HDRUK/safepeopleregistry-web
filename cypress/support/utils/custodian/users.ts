@@ -15,7 +15,7 @@ const hasAffiliationsTabCustodianUser = () => {
 
   row.within(() => {
     cy.contains("td", DEFAULT_ORGANISATION_NAME).should("exist");
-    cy.contains("td", getStatus(Status.PENDING)).should("exist");
+    cy.contains("td", getStatus(Status.INVITED)).should("exist");
     cy.contains("td", formatDisplayShortDate(new Date().toISOString())).should(
       "exist"
     );

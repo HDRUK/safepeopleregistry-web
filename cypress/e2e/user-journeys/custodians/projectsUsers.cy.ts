@@ -1,77 +1,74 @@
-// import { Status } from "@/consts/application";
-// import { ROUTES } from "@/consts/router";
-// import { mockedCustodianHasProjectUser } from "@/mocks/data/custodian";
-// import { logout } from "cypress/support/utils/common";
-// import { loginCustodian } from "cypress/support/utils/custodian/auth";
-// import {
-//   changeStatusProjectUsers,
-//   goToProjectUsersList,
-//   hasProjectUsers,
-//   inviteNewProjectUser,
-//   removeFromProjectUsers,
-// } from "cypress/support/utils/custodian/projects";
-// import {
-//   DEFAULT_PROJECT_INVITE_USERS,
-//   DEFAULT_PROJECT_USERS_CUSTODIANS,
-// } from "cypress/support/utils/data";
+import { Status } from "@/consts/application";
+import { ROUTES } from "@/consts/router";
+import { mockedCustodianHasProjectUser } from "@/mocks/data/custodian";
+import { logout } from "cypress/support/utils/common";
+import { loginCustodian } from "cypress/support/utils/custodian/auth";
+import {
+  changeStatusProjectUsers,
+  goToProjectUsersList,
+  hasProjectUsers,
+  inviteNewProjectUser,
+  removeFromProjectUsers,
+} from "cypress/support/utils/custodian/projects";
+import {
+  DEFAULT_PROJECT_INVITE_USERS,
+  DEFAULT_PROJECT_USERS_CUSTODIANS,
+} from "cypress/support/utils/data";
 
-// const dataProjectInviteUser = DEFAULT_PROJECT_INVITE_USERS;
+const dataProjectInviteUser = DEFAULT_PROJECT_INVITE_USERS;
 
-// const { first_name, last_name } = dataProjectInviteUser;
+const { first_name, last_name } = dataProjectInviteUser;
 
-// const dataProjectUser = mockedCustodianHasProjectUser({
-//   ...DEFAULT_PROJECT_USERS_CUSTODIANS,
-//   project_has_user: {
-//     ...DEFAULT_PROJECT_USERS_CUSTODIANS.project_has_user,
-//     registry: {
-//       user: {
-//         first_name,
-//         last_name,
-//       },
-//     },
-//   },
-// });
+const dataProjectUser = mockedCustodianHasProjectUser({
+  ...DEFAULT_PROJECT_USERS_CUSTODIANS,
+  project_has_user: {
+    ...DEFAULT_PROJECT_USERS_CUSTODIANS.project_has_user,
+    registry: {
+      user: {
+        first_name,
+        last_name,
+      },
+    },
+  },
+});
 
-// describe("Projects users journey", () => {
-//   after(() => {
-//     logout();
-//   });
+describe("Projects users journey", () => {
+  after(() => {
+    logout();
+  });
 
-//   before(() => {
-//     loginCustodian();
+  before(() => {
+    loginCustodian();
 
-//     goToProjectUsersList();
+    goToProjectUsersList();
 
-//     inviteNewProjectUser(dataProjectInviteUser);
-//   });
+    inviteNewProjectUser(dataProjectInviteUser);
+  });
 
-//   beforeEach(() => {
-//     loginCustodian();
+  beforeEach(() => {
+    loginCustodian();
 
-//     cy.visitFirst(ROUTES.profileCustodianUsers.path);
+    cy.visitFirst(ROUTES.profileCustodianUsers.path);
 
-//     cy.buttonClick("Switch to list view");
-//   });
+    cy.buttonClick("Switch to list view");
+  });
 
-//   it("Changes status of a user", () => {
-//     changeStatusProjectUsers(
-//       { first_name, last_name },
-//       Status.MORE_USER_INFO_REQ_ESCALATION_MANAGER
-//     );
+  it("Changes status of a user", () => {
+    changeStatusProjectUsers({ first_name, last_name }, Status.PENDING);
 
-//     hasProjectUsers({
-//       ...dataProjectUser,
-//       model_state: {
-//         state: {
-//           slug: Status.MORE_USER_INFO_REQ_ESCALATION_MANAGER,
-//         },
-//       },
-//     });
-//   });
+    hasProjectUsers({
+      ...dataProjectUser,
+      model_state: {
+        state: {
+          slug: Status.PENDING,
+        },
+      },
+    });
+  });
 
-//   it("Removes a user from the project", () => {
-//     removeFromProjectUsers({ first_name, last_name });
+  it("Removes a user from the project", () => {
+    removeFromProjectUsers({ first_name, last_name });
 
-//     cy.getResultsRow().should("not.exist");
-//   });
-// });
+    cy.getResultsRow().should("not.exist");
+  });
+});
