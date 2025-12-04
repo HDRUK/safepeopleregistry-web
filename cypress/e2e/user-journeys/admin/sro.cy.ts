@@ -20,6 +20,49 @@ describe("SRO journey", () => {
   describe("Organisation not approved", () => {
     beforeEach(() => {
       loginUnapprovedOrganisation();
+      cy.visitFirst(ROUTES.profileOrganisationDetailsNameAndAddress.path);
+    });
+
+    after(() => {
+      logout();
+    });
+
+    it("Has the correct tabs disabled", () => {
+      hasSRODisabledTabsOrganisations();
+    });
+
+    it("Adds SRO info", () => {
+      addSROOrganisations(DEFAULT_SRO_FIELDS_ORGANISATIONS);
+    });
+  });
+
+  describe("Admin", () => {
+    beforeEach(() => {
+      loginAdmin();
+
+      cy.visitFirst(ROUTES.profileAdmin.path);
+    });
+
+    it("Approves an organisation", () => {
+      validateSROOrganisatons(dataOrganisation, "Approve");
+
+      hasSROOrganisation(dataOrganisation, "Approved");
+    });
+
+      /**
+       * Temporarily disabled, unapproving has not been considered and has
+       * lots of implications so the option is disabled
+       */
+      // it("Unapproves an organisation", () => {
+      //   validateSROOrganisatons(dataOrganisation, "Unapprove");
+
+      //   hasSROOrganisation(dataOrganisation, "Not approved");
+      // });
+  });
+
+  describe("Organisation approved", () => {
+    beforeEach(() => {
+      loginUnapprovedOrganisation();
 
       cy.visitFirst(ROUTES.profileOrganisationDetailsNameAndAddress.path);
     });
@@ -28,52 +71,8 @@ describe("SRO journey", () => {
       logout();
     });
 
-    // it("Has the correct tabs disabled", () => {
-    //   hasSRODisabledTabsOrganisations(); -----<<< clean data journey
-    // });
-
-    it("Adds SRO info", () => {
-      addSROOrganisations(DEFAULT_SRO_FIELDS_ORGANISATIONS);
+    it("Has the correct tabs enabled", () => {
+      hasSROEnabledTabsOrganisations();
     });
   });
-
-  // describe("Admin", () => {
-  //   beforeEach(() => {
-  //     loginAdmin();
-
-  //     cy.visitFirst(ROUTES.profileAdmin.path);
-  //   });
-
-  //   it("Approves an organisation", () => {
-  //     validateSROOrganisatons(dataOrganisation, "Approve");
-
-  //     hasSROOrganisation(dataOrganisation, "Approved");
-  //   });
-
-  //     /**
-  //      * Temporarily disabled, unapproving has not been considered and has
-  //      * lots of implications so the option is disabled
-  //      */
-  //     // it("Unapproves an organisation", () => {
-  //     //   validateSROOrganisatons(dataOrganisation, "Unapprove");
-
-  //     //   hasSROOrganisation(dataOrganisation, "Not approved");
-  //     // });
-  // });
-
-  // describe("Organisation approved", () => {
-  //   beforeEach(() => {
-  //     loginUnapprovedOrganisation();
-
-  //     cy.visitFirst(ROUTES.profileOrganisationDetailsNameAndAddress.path);
-  //   });
-
-  //   after(() => {
-  //     logout();
-  //   });
-
-  //   it("Has the correct tabs enabled", () => {
-  //     hasSROEnabledTabsOrganisations();
-  //   });
-  // });
 });

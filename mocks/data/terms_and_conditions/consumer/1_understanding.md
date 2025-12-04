@@ -10,4 +10,4 @@
 
 ## 1.5 In these Terms, when we refer to "you" or "your," we mean you, the person accessing or using the Safe People Registry as a Researcher.
 
-## 1.6 We will only use your personal data through the Safe People Registry in accordance with our privacy policy (available https://soursd.org/en/privacy-policy).
+## 1.6 We will only use your personal data through the Safe People Registry in accordance with our privacy policy (available https://safepeopleregistry.org/en/privacy-policy).
