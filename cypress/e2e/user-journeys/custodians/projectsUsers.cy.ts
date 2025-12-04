@@ -54,16 +54,13 @@ describe("Projects users journey", () => {
   });
 
   it("Changes status of a user", () => {
-    changeStatusProjectUsers(
-      { first_name, last_name },
-      Status.MORE_USER_INFO_REQ_ESCALATION_MANAGER
-    );
+    changeStatusProjectUsers({ first_name, last_name }, Status.PENDING);
 
     hasProjectUsers({
       ...dataProjectUser,
       model_state: {
         state: {
-          slug: Status.MORE_USER_INFO_REQ_ESCALATION_MANAGER,
+          slug: Status.PENDING,
         },
       },
     });

@@ -28,8 +28,6 @@ describe("Resend invite", () => {
 
     inviteUser(dataInviteUser);
 
-
-
     hasUser(
       mockedPendingInvite({
         user: {

@@ -1,5 +1,12 @@
 import Markdown from "@/components/Markdown";
 
+import disclaimersBusinessContent from "./business/10_disclaimers.md";
+import suspensionBusinessContent from "./business/11_suspension.md";
+import changesBusinessContent from "./business/12_changes.md";
+import thirdPartyBusinessContent from "./business/13_third_party.md";
+import otherBusinessContent from "./business/14_other.md";
+import lawBusinessContent from "./business/15_law.md";
+import contactBusinessContent from "./business/16_contact.md";
 import understandingBusinessContent from "./business/1_understanding.md";
 import researcherUsageBusinessContent from "./business/2_usage_researcher.md";
 import organisationUsageBusinessContent from "./business/3_usage_org.md";
@@ -9,14 +16,12 @@ import acceptableUseBusinessContent from "./business/6_acceptable_use.md";
 import intellectualPropertyBusinessContent from "./business/7_intellectual_property.md";
 import inputDataBusinessContent from "./business/8_input_data.md";
 import liabilityBusinessContent from "./business/9_liability.md";
-import disclaimersBusinessContent from "./business/10_disclaimers.md";
-import suspensionBusinessContent from "./business/11_suspension.md";
-import changesBusinessContent from "./business/12_changes.md";
-import thirdPartyBusinessContent from "./business/13_third_party.md";
-import otherBusinessContent from "./business/14_other.md";
-import lawBusinessContent from "./business/15_law.md";
-import contactBusinessContent from "./business/16_contact.md";
 
+import changesConsumerContent from "./consumer/10_changes.md";
+import thirdPartyConsumerContent from "./consumer/11_third_party.md";
+import otherConsumerContent from "./consumer/12_other.md";
+import lawConsumerContent from "./consumer/13_law.md";
+import contactConsumerContent from "./consumer/14_contact.md";
 import understandingConsumerContent from "./consumer/1_understanding.md";
 import researcherUsageConsumerContent from "./consumer/2_usage_researcher.md";
 import accountConsumerContent from "./consumer/3_account.md";
@@ -26,11 +31,6 @@ import inputDataConsumerContent from "./consumer/6_input_data.md";
 import liabilityConsumerContent from "./consumer/7_liability.md";
 import useConsumerContent from "./consumer/8_use.md";
 import suspensionConsumerContent from "./consumer/9_suspension.md";
-import changesConsumerContent from "./consumer/10_changes.md";
-import thirdPartyConsumerContent from "./consumer/11_third_party.md";
-import otherConsumerContent from "./consumer/12_other.md";
-import lawConsumerContent from "./consumer/13_law.md";
-import contactConsumerContent from "./consumer/14_contact.md";
 
 export const mockedTermsAndConditionsBusiness = {
   understanding: {
