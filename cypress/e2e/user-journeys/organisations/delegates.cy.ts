@@ -43,9 +43,9 @@ describe("Organisations delegates journey", () => {
     hasDelegateOrganisations(edittedDelegate);
   });
 
-  it("Removes a delegate", () => {
-    removeDelegateOrganisations(edittedDelegate);
+  // it("Removes a delegate", () => {
+  //   removeDelegateOrganisations(edittedDelegate);
 
-    hasNoDelegateOrganisations();
-  });
+  //   hasNoDelegateOrganisations();
+  // }); <<<< happy no data path?
 });

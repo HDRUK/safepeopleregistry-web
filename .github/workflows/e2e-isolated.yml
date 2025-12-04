@@ -1,0 +1,285 @@
+name: PR Isolated E2E Tests
+
+on:
+  pull_request:
+  workflow_dispatch:
+      inputs:
+        api_branch:
+          description: "Branch of safepeopleregistry-api to check out"
+          required: false
+          default: "dev"
+
+
+env:
+  APP_KEY: ${{ secrets.APP_KEY }}
+  KEYCLOAK_CLIENT_SECRET: ${{ secrets.KEYCLOAK_CLIENT_SECRET }}
+  KEYCLOAK_TEST_PASSWORD: ${{ secrets.KEYCLOAK_TEST_PASSWORD }}
+  KEYCLOAK_SERVICE_PASSWORD: ${{ secrets.KEYCLOAK_SERVICE_PASSWORD }}
+  KEYCLOAK_REALM_PUBLIC_KEY: ${{ secrets.KEYCLOAK_REALM_PUBLIC_KEY }}
+  IDVT_SUPPLIER_API_KEY: ${{ secrets.IDVT_SUPPLIER_API_KEY }}
+  IDVT_SUPPLIER_SECRET_KEY: ${{ secrets.IDVT_SUPPLIER_SECRET_KEY }}
+  MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+  ORCID_CLIENT_SECRET: ${{ secrets.ORCID_CLIENT_SECRET }}
+  CUSTODIAN_SALT_1: ${{ secrets.CUSTODIAN_SALT_1 }}
+  CUSTODIAN_SALT_2: ${{ secrets.CUSTODIAN_SALT_2 }}
+  REGISTRY_SALT_1: ${{ secrets.REGISTRY_SALT_1 }}
+  REGISTRY_SALT_2: ${{ secrets.REGISTRY_SALT_2 }}
+  LEDGER_SALT: ${{ secrets.LEDGER_SALT }}
+  JWT_SECRET: ${{ secrets.JWT_SECRET }}
+  CYPRESS_ADMIN_PASSWORD: ${{ secrets.CYPRESS_ADMIN_PASSWORD }}
+  CYPRESS_ORGANISATION_PASSWORD: ${{ secrets.CYPRESS_ORGANISATION_PASSWORD }}
+  CYPRESS_UNAPPROVED_ORGANISATION_PASSWORD: ${{ secrets.CYPRESS_UNAPPROVED_ORGANISATION_PASSWORD }}
+  CYPRESS_CUSTODIAN_PASSWORD: ${{ secrets.CYPRESS_CUSTODIAN_PASSWORD }}
+  CYPRESS_USER_PASSWORD: ${{ secrets.CYPRESS_USER_PASSWORD }}
+  GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+  NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET: ${{ secrets.NEXT_PUBLIC_KEYCLOAK_CLIENT_SECRET }}
+  NEXT_PUBLIC_RECAPTCHA_SITE_KEY: ${{ secrets.NEXT_PUBLIC_RECAPTCHA_SITE_KEY }}
+  NEXT_PUBLIC_RECAPTCHA_SECRET_KEY: ${{ secrets.NEXT_PUBLIC_RECAPTCHA_SECRET_KEY }}
+  ORCID_APP_ID: ${{ secrets.ORCID_APP_ID }}
+  MAIL_MAILER: "smtp"
+  MAIL_HOST: "sandbox.smtp.mailtrap.io"
+  MAIL_PORT: "2525"
+  MAIL_USERNAME: "125be91aa64b22"
+  MAIL_ENCRYPTION: "null"
+  MAIL_FROM_ADDRESS: "noreply@healthdatagateway.org"
+  MAIL_FROM_NAME: "speedi-as"
+  APP_NAME: "Safe People Registry"
+  APP_ENV: "dev"
+  APP_DEBUG: "true"
+  APP_URL: "http://localhost:8000"
+  REBUILD_DB: "0"
+  PORTAL_URL: "http://localhost:3000"
+  PORTAL_PATH_INVITE: "invite"
+  GATEWAY_API_URL: "https://api.dev.hdruk.cloud/api/v1"
+  BANNER_URL: "https://soursd.org/images/logos/email_banner.png"
+  LOG_CHANNEL: "stdout"
+  LOG_DEPRECATIONS_CHANNEL: "null"
+  LOG_LEVEL: "debug"
+  DB_CONNECTION: "mysql"
+  DB_HOST: "127.0.0.1"
+  DB_PORT: "3306"
+  DB_DATABASE: "speedias"
+  DB_USERNAME: "root"
+  DB_PASSWORD: "root"
+  BROADCAST_DRIVER: "log"
+  CACHE_DRIVER: "file"
+  FILESYSTEM_DISK: "public"
+  QUEUE_CONNECTION: "database"
+  SESSION_DRIVER: "file"
+  SESSION_LIFETIME: "120"
+  MEMCACHED_HOST: "127.0.0.1"
+  REDIS_CLIENT: "predis"
+  REDIS_HOST: "localhost"
+  REDIS_PASSWORD: "mypassword"
+  REDIS_PORT: "6379"
+  PUSHER_APP_ID: ""
+  PUSHER_APP_KEY: ""
+  PUSHER_APP_SECRET: ""
+  PUSHER_HOST: ""
+  PUSHER_PORT: "443"
+  PUSHER_SCHEME: "https"
+  PUSHER_APP_CLUSTER: "mt1"
+  VITE_APP_NAME: "Safe People Registry"
+  VITE_PUSHER_APP_KEY: ""
+  VITE_PUSHER_HOST: ""
+  VITE_PUSHER_PORT: "443"
+  VITE_PUSHER_SCHEME: "https"
+  VITE_PUSHER_APP_CLUSTER: ""
+  KEYCLOAK_CLIENT_ID: "speedi-registry-app"
+  KEYCLOAK_USER_PROVIDER_CREDENTIAL: "email"
+  KEYCLOAK_REDIRECT_URL: "http://localhost:8000/api/auth/callback"
+  KEYCLOAK_BASE_URL: "https://keycloak.dev.hdruk.cloud"
+  KEYCLOAK_REALM: "SOURSD"
+  KEYCLOAK_REGISTRATION_URL: "https://keycloak.dev.hdruk.cloud/realms/SOURSD/protocol/openid-connect/registrations?client_id=speedi-registry-app&scope=openid%20profile&redirect_uri=http://localhost:8000/api/auth/callback&response_type=code"
+  KEYCLOAK_SIGNIN_URL: "https://keycloak.dev.hdruk.cloud/realms/SOURSD/login-actions/authenticate?client_id=speedi-registry-app"
+  KEYCLOAK_TEST_USERNAME: "loki.sinclair@hdruk.ac.uk"
+  KEYCLOAK_ALLOWED_RESOURCES: "account"
+  KEYCLOAK_IGNORE_RESOURCES_VALIDATION: "true"
+  KEYCLOAK_SERVICE_USERNAME: "loki.sinclair@hdruk.ac.uk"
+  KEYCLOAK_LOAD_USER_FROM_DATABASE: "false"
+  MJML_RENDER_URL: "https://europe-west1-hdrukshareddev.cloudfunctions.net/hdr-shared-mjml-dev"
+  INVITE_TIME_HOURS: "1"
+  SUPPORT_EMAIL: "support@safepeopleregistry.org"
+  OTP_VALIDITY_MINUTES: "30"
+  OTP_LENGTH: "6"
+  OTP_ONLY_DIGITS: "false"
+  OTP_AFFILIATION_VALIDITY_MINUTES: "60"
+  CLAM_AV_SERVICE_URL: "https://hdr-gateway-scanning-dev-qmnkcg5qjq-ew.a.run.app"
+  SCANNING_FILESYSTEM_DISK: "local_scan"
+  ORCID_AUTH_URL: "https://orcid.org/"
+  ORCID_URL: "https://pub.orcid.org/"
+  ORCID_REDIRECT_URL: "https://a81e-109-224-227-234.ngrok-free.app/en/admin"
+  IDVT_ORG_SCANNER: "http://soursd-ocr:8000/grab"
+  IDVT_COMPANIES_HOUSE_URL: "https://find-and-update.company-information.service.gov.uk/company/"
+  OCTANE_SERVER: "roadrunner"
+  OCTANE_HTTPS: "false"
+  RULES_ENGINE_ACTIVE: "true"
+  ROR_API_URL: "https://api.ror.org/v1/organizations"
+  ONS_ACCREDITED_RESEARCHER_LIST_PAGE_URL: "https://uksa.statisticsauthority.gov.uk/digitaleconomyact-research-statistics/better-useofdata-for-research-information-for-researchers/list-of-accredited-researchers-and-research-projects-under-the-research-strand-of-the-digital-economy-act/"
+  ONS_ACCREDITED_RESEARCHER_LIST_URL: "https://uksa.statisticsauthority.gov.uk/wp-content/uploads/%s/%s/%s-%s-%s-UKSA-Accredited-Researcher-Report.xlsx"
+  ONS_COLUMN_START_INDEX: "1"
+  ONS_ROW_START_INDEX: "6"
+  IDVT_SUPPLIER_BASE_URL: "https://api.veriff.me"
+  NEXT_PUBLIC_API_V1_URL: "http://localhost:8000/api/v1"
+  NEXT_PUBLIC_API_URL: "http://localhost:8000/api"
+  NEXT_PUBLIC_API_V1_SERVER_URL: "http://localhost:8000/api/v1"
+  NEXT_PUBLIC_API_SERVER_URL: "http://localhost:8000/api"
+  NEXT_PUBLIC_HIDE_BANNER: "false"
+  NEXT_MIRAGE_SERVER: "true"
+  NEXT_PUBLIC_TEMP_USER_ROLES: "'[{ \"role\": \"operational_hdr\", \"state\": \"view\" }]'"
+  NEXT_PUBLIC_INVITE_TIME_HOURS: "1"
+  NEXT_PUBLIC_KEYCLOAK_CLIENT_ID: "speedi-registry-app"
+  NEXT_PUBLIC_KEYCLOAK_REDIRECT_URL_LOGIN: "http://localhost:3000/api/auth/login"
+  NEXT_PUBLIC_KEYCLOAK_REDIRECT_URL_LOGOUT: "http://localhost:3000/api/auth/logout"
+  NEXT_PUBLIC_KEYCLOAK_REDIRECT_URL_REGISTER: "http://localhost:3000/api/auth/register"
+  NEXT_PUBLIC_KEYCLOAK_BASE_URL: "https://keycloak.dev.hdruk.cloud"
+  NEXT_PUBLIC_KEYCLOAK_REALM: "SOURSD"
+  NEXT_PUBLIC_LOCAL_ENV: "http://localhost:3000/"
+  NEXT_PUBLIC_FEATURE_PROJECT_USERS_WORKFLOW: "false"
+  CYPRESS_BASE_URL: "http://localhost:3000/en"
+  CYPRESS_USER_EMAIL: "test.user+user@safepeopleregistry.com"
+  CYPRESS_ORGANISATION_EMAIL: "test.user+organisation@safepeopleregistry.com"
+  CYPRESS_UNAPPROVED_ORGANISATION_EMAIL: "test.user+organisation@safepeopleregistry.com"
+  CYPRESS_CUSTODIAN_EMAIL: "test.user+custodian@safepeopleregistry.com"
+  CYPRESS_ADMIN_EMAIL: "test.user+admin@safepeopleregistry.com"
+
+jobs:
+  e2e-tests:
+    if: github.event_name != 'pull_request' || github.event.pull_request.state == 'open' && github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    environment: cypress_dev
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: speedias
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost"
+          --health-interval=5s
+          --health-timeout=2s
+          --health-retries=5
+
+      redis:
+        image: redis:7
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd="redis-cli -a mypassword ping"
+          --health-interval=5s
+          --health-timeout=2s
+          --health-retries=5
+        env:
+          REDIS_PASSWORD: mypassword
+
+    steps:
+      - name: Checkout web
+        uses: actions/checkout@v4
+        with:
+          repository: HDRUK/safepeopleregistry-web
+
+      - name: Checkout api
+        uses: actions/checkout@v4
+        with:
+          repository: HDRUK/safepeopleregistry-api
+          path: safepeopleregistry-api
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.event.inputs.api_branch || 'dev' }}
+
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+
+      - name: Cache Composer deps
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: e2e-composer-${{ hashFiles('composer.lock') }}
+          restore-keys: e2e-composer-
+          working-directory: safepeopleregistry-api
+
+      - name: Install Composer deps
+        run: |
+          cd safepeopleregistry-api
+          composer install --no-interaction --prefer-dist
+
+      - name: Configure Laravel .env + run migrations/seed
+        run: |
+          cd safepeopleregistry-api
+          cp .env.example .env
+          sed -i 's/DB_HOST=.*/DB_HOST=127.0.0.1/' .env
+          sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=root/' .env
+          php artisan key:generate
+          php artisan migrate --force
+          php artisan db:seed --force
+          php artisan db:seed --class=TestSeeder
+
+      - name: Start Laravel API and wait for readiness
+        run: |
+          cd safepeopleregistry-api
+          php artisan serve --host=0.0.0.0 --port=8000 > laravel.log 2>&1 &
+          echo "Waiting for Laravel to start..."
+          for i in {1..20}; do
+            if curl -s http://127.0.0.1:8000 >/dev/null; then
+              echo "✅ Laravel is up and running!"
+              break
+            fi
+            echo "Waiting for Laravel... attempt $i"
+            sleep 3
+          done
+          tail -n 20 laravel.log
+          php artisan queue:work --daemon > queue.log 2>&1 &
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Cache Node modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            ~/.npm
+          key: e2e-node-modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            e2e-node-modules-${{ runner.os }}-
+
+      - name: Install Node deps
+        run: npm install
+        # if we switch to ci then bin off cache as it will do a CLEAN INSTALLL
+
+      - name: Build Next.js
+        run: npm run build
+
+      - name: Start Next.js
+        run: |
+          nohup npm start > next.log 2>&1 &
+          sleep 10
+
+      - name: Cache Cypress
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/Cypress
+          key: e2e-cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            e2e-cypress-${{ runner.os }}-
+
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
+          headless: true
+
+      # - name: Upload Cypress video
+      #   uses: actions/upload-artifact@v4
+      #   if: always()
+      #   with:
+      #     name: cypress-video
+      #     path: cypress/videos
+          

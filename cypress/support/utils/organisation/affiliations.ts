@@ -73,6 +73,7 @@ const hasRemoveAffiliationOrganisations = (
 };
 
 const hasAffiliationOrganisations = (affiliation: ResearcherAffiliation) => {
+  cy.getLatestRowOfResults();
   const row = cy.getResultsRowByValue(affiliation.email);
 
   row.within(() => {

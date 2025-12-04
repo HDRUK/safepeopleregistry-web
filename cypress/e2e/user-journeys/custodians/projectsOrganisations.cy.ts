@@ -9,6 +9,7 @@ import {
   inviteNewProjectUser,
   removeFromProjectUsers,
 } from "cypress/support/utils/custodian/projects";
+
 import {
   DEFAULT_PROJECT_INVITE_USERS,
   DEFAULT_PROJECT_ORGANISATIONS_CUSTODIANS,
@@ -17,7 +18,7 @@ import {
 const dataProjectOrganisation = DEFAULT_PROJECT_ORGANISATIONS_CUSTODIANS;
 const dataProjectInviteUser = DEFAULT_PROJECT_INVITE_USERS;
 
-describe("Projects organisations journey", () => {
+describe("Projects organisations journey",() => {
   before(() => {
     loginCustodian();
 

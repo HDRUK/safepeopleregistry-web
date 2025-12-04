@@ -32,7 +32,6 @@ const hasDelegateOrganisations = (data: DelegatesFormValues) => {
     first_name: delegate_first_name,
     last_name: delegate_last_name,
   };
-
   const row = cy.getResultsRowByValue(getName(partialUser));
 
   row.within(() => {

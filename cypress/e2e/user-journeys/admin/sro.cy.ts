@@ -20,7 +20,6 @@ describe("SRO journey", () => {
   describe("Organisation not approved", () => {
     beforeEach(() => {
       loginUnapprovedOrganisation();
-
       cy.visitFirst(ROUTES.profileOrganisationDetailsNameAndAddress.path);
     });
 
@@ -50,15 +49,15 @@ describe("SRO journey", () => {
       hasSROOrganisation(dataOrganisation, "Approved");
     });
 
-    //   /**
-    //    * Temporarily disabled, unapproving has not been considered and has
-    //    * lots of implications so the option is disabled
-    //    */
-    //   // it("Unapproves an organisation", () => {
-    //   //   validateSROOrganisatons(dataOrganisation, "Unapprove");
+      /**
+       * Temporarily disabled, unapproving has not been considered and has
+       * lots of implications so the option is disabled
+       */
+      // it("Unapproves an organisation", () => {
+      //   validateSROOrganisatons(dataOrganisation, "Unapprove");
 
-    //   //   hasSROOrganisation(dataOrganisation, "Not approved");
-    //   // });
+      //   hasSROOrganisation(dataOrganisation, "Not approved");
+      // });
   });
 
   describe("Organisation approved", () => {

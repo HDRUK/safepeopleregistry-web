@@ -21,9 +21,10 @@ const addSROOrganisations = (
 };
 
 const hasSROOrganisation = (
-  organisation: Organisation,
+  organisation: Organisation, 
   status: "Approved" | "Not approved"
 ) => {
+  cy.getLatestRowOfResults();
   cy.getResultsRowByValue(organisation.organisation_name).within(() => {
     cy.contains("td", status);
   });

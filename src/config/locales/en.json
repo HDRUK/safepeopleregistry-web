@@ -871,7 +871,8 @@
     "cookieLink": "Cookie Policy",
     "termsOfServiceLink": "Terms of Service",
     "aboutUsLink": "About",
-    "contactUsLink": "Contact"
+    "contactUsLink": "Contact",
+    "termandConditionsLink": "Terms and Conditions"
   },
   "ContactForm": {
     "namePlaceholder": "Name",
@@ -1054,7 +1055,8 @@
     "sroProfileLink": "Name",
     "role": "Role",
     "email": "Email",
-    "noResultsMessage": "No organisations found"
+    "noResultsMessage": "No organisations found",
+    "systemApprovedAt": "Approved at"
   },
   "Affiliations": {
     "affiliationStatusChangedDate": "Status changed",

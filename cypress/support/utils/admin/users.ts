@@ -11,6 +11,8 @@ const hasUser = (pendingInvite: PendingInvite, status: Status) => {
     user: { name, email },
   } = pendingInvite;
 
+
+  cy.getLatestRowOfResults();
   const row = cy.getResultsRowByValue(email);
 
   row.within(() => {

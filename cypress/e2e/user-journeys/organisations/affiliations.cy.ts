@@ -44,7 +44,11 @@ describe("Affiliations journey", () => {
   it("Adds an affiliation", () => {
     addAffiliationOrganisations(dataUser);
 
-    hasAffiliationOrganisations(dataAffiliation);
+    hasAffiliationOrganisations({...dataAffiliation, model_state: {
+    state: {
+      slug: Status.INVITED,
+    },
+  }, });
   });
 
   it("Approves an affiliation", () => {
