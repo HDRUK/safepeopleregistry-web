@@ -13,27 +13,27 @@ export default defineConfig({
       //     value: 0
       //   });
       // })
-      on('before:browser:launch', (browser, launchOptions) => {
-                if (browser.family === 'chromium') {
-                    // running headless chrome in a virtualized environment forces pointer type to default to `NONE`
-                    // to mimic "desktop" environment more correctly we force blink to have `pointer: fine` support
-                    // this allows correct pickers behavior.
-                    // This impact the used DateTimePicker in Material UI (MUI) between DesktopDateTimePicker and MobileDateTimePicker
-                    launchOptions.args.push(
-                        '--disable-touch-events',
-                        '--blink-settings=primaryPointerType=4'
-                    )
-                }
+      on("before:browser:launch", (browser, launchOptions) => {
+        if (browser.family === "chromium") {
+          // running headless chrome in a virtualized environment forces pointer type to default to `NONE`
+          // to mimic "desktop" environment more correctly we force blink to have `pointer: fine` support
+          // this allows correct pickers behavior.
+          // This impact the used DateTimePicker in Material UI (MUI) between DesktopDateTimePicker and MobileDateTimePicker
+          launchOptions.args.push(
+            "--disable-touch-events",
+            "--blink-settings=primaryPointerType=4"
+          );
+        }
 
-                return launchOptions
-            }),
-      on("task", {
-        log(message) {
-          console.log(message + "\n\n");
+        return launchOptions;
+      }),
+        on("task", {
+          log(message) {
+            console.log(message + "\n\n");
 
-         return true;
-        },
-      });
+            return true;
+          },
+        });
 
       config.env.keycloakBaseUrl = process.env.NEXT_PUBLIC_KEYCLOAK_BASE_URL;
 
@@ -92,7 +92,7 @@ export default defineConfig({
       "cypress/e2e/user-journeys/custodians/team.cy.ts",
       "cypress/e2e/user-journeys/custodians/users.cy.ts",
     ],
-    
+
     // supportFile: "cypress/support/index.ts",
   },
 });

@@ -1,27 +1,18 @@
-"use client";
-
-import {
-  PageBodyContainer,
-  PageColumns,
-  PageColumnBody,
-  PageSection,
-} from "@/modules";
 import Markdown from "@/components/Markdown";
-import privacyPolicyContent from "./privacy_policy.md";
+import { PageBody, PageBodyContainer, PageSection } from "@/modules";
 import InfoPageWrapper from "../../../components/InfoPageWrapper";
+import privacyPolicyContent from "./privacy_policy.md";
 
 export default function PrivaryPolicy() {
   return (
     <InfoPageWrapper>
       <PageBodyContainer
-        sx={{ width: "100%", m: 2, px: 2, background: "white" }}>
-        <PageColumns>
-          <PageColumnBody lg={12}>
-            <PageSection fontSize={18} sx={{ p: 2 }}>
-              <Markdown>{privacyPolicyContent}</Markdown>
-            </PageSection>
-          </PageColumnBody>
-        </PageColumns>
+        sx={{ width: "100%", m: 2, p: 2, background: "white" }}>
+        <PageBody>
+          <PageSection fontSize={18} sx={{ p: 2 }}>
+            <Markdown>{privacyPolicyContent}</Markdown>
+          </PageSection>
+        </PageBody>
       </PageBodyContainer>
     </InfoPageWrapper>
   );
