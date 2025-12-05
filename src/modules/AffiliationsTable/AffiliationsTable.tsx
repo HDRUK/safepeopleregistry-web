@@ -69,7 +69,7 @@ export default function AffiliationsTable({
         cell: renderStatusCell,
       }),
       createDefaultColumn("affiliationStatusChangedDate", {
-        accessorKey: "model_state.state.updated_at",
+        accessorKey: "model_state.updated_at",
         cell: info => formatShortDate(info.getValue()),
       }),
     ];

@@ -36,6 +36,10 @@ export default function Footer() {
       href: "/cookie-policy",
       label: t("cookieLink"),
     },
+    {
+      href: "/terms-and-conditions",
+      label: t("termandConditionsLink"),
+    },
   ];
 
   return (

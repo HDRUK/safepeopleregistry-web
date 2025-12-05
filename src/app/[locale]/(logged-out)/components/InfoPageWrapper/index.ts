@@ -1,3 +1,3 @@
-import { InfoPageWrapper } from "./InfoPageWrapper";
+import InfoPageWrapper from "./InfoPageWrapper";
 
 export default InfoPageWrapper;

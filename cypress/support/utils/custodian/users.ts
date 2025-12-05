@@ -1,10 +1,7 @@
-import ValidationChecks from "@/app/[locale]/(logged-in)/data-custodian/profile/components/ValidationChecks";
 import { Status } from "@/consts/application";
-import { AffiliationStatus } from "@/services/affiliations/types";
 import { User } from "@/types/application";
 import { getName, getStatus } from "@/utils/application";
 import { formatDisplayShortDate } from "@/utils/date";
-import { VALID_LOADERS } from "next/dist/shared/lib/image-config";
 import { dataCy } from "../common";
 import { DEFAULT_ORGANISATION_NAME, DEFAULT_PROJECT_NAME } from "../data";
 

@@ -47,8 +47,9 @@ interface PostUserInvitePayload {
 type PostUserResponse = any;
 
 type PostUserInviteResponse = User;
+type GetUserHistoryResponse = UserHistorys[];
 
-interface UserHistory {
+interface UserHistorys {
   id: number;
   description: string;
   event: UserHistoryLog;
@@ -82,7 +83,8 @@ export type {
   PutUserResponse,
   PutUserPayload,
   UserProjectsResponse,
-  UserHistory,
+  UserHistorys,
+  GetUserHistoryResponse,
   GetUserProjectsResponse,
   PendingInviteResponse,
   PutEmailByInvitePayload,
