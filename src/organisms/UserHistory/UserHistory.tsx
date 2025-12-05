@@ -20,11 +20,10 @@ export default function UserHistory() {
 
   const { data, fetchNextPage, isFetching, isFetchingNextPage } =
     useGetUserHistory(user?.id as number);
-  console.log("isFetchingNextPage", isFetchingNextPage);
-  const userHistorys: UserHistorys[] = useMemo(
-    () => data?.pages.flatMap(page => page.data) ?? [],
-    [data]
-  );
+    const userHistorys: UserHistorys[] = useMemo(
+      () => data?.pages.flatMap(page => page.data) ?? [],
+      [data]
+    );
 
   useEffect(() => {
     if (debouncedIsNearBottom) {
