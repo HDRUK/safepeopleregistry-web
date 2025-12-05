@@ -18,12 +18,13 @@ export default function UserHistory() {
     500
   );
 
-  const { data, fetchNextPage, isFetching, isFetchingNextPage } =
-    useGetUserHistory(user?.id as number);
-    const userHistorys: UserHistorys[] = useMemo(
-      () => data?.pages.flatMap(page => page.data) ?? [],
-      [data]
-    );
+  const { data, fetchNextPage, isFetching } = useGetUserHistory(
+    user?.id as number
+  );
+  const userHistorys: UserHistorys[] = useMemo(
+    () => data?.pages.flatMap(page => page.data) ?? [],
+    [data]
+  );
 
   useEffect(() => {
     if (debouncedIsNearBottom) {
