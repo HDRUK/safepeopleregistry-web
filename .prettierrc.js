@@ -9,6 +9,7 @@ module.exports = {
     bracketSpacing: true,
     jsxSingleQuote: false,
     bracketSameLine: true,
+    formatOnSave: true,
     importOrder: [
         "^react",
         "<THIRD_PARTY_MODULES>",
