@@ -430,7 +430,7 @@ interface ProjectDetails {
   data_use_description?: string;
   access_date?: string;
   data_privacy?: string;
-  research_outputs?: string[];
+  research_outputs?: { research_outputs?: string[] };
   data_assets?: string;
 }
 
