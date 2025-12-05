@@ -1,5 +1,5 @@
-const hasCheckedOnUsersConfiguration = () => {
-  cy.get('input[name="checkbox-10"]').uncheck();
+const hasUnCheckedOnUsersConfigurationAutomatedFlags = () => {
+  cy.get('#10').uncheck();
   cy.contains("p", "Identity").should("exist");
   cy.contains("p", ":").should("exist");
   cy.contains(
@@ -44,7 +44,7 @@ const hasCheckedOnUsersConfiguration = () => {
   cy.swalClick();
 };
 
-const hasUnCheckedOnUsersConfiguration = () => {
+const hasCheckedOnUsersConfigurationAutomatedFlags = () => {
   cy.get("#10").should("exist").check();
   cy.get("#11").should("exist").check();
   cy.get("#12").should("exist").check();
@@ -55,7 +55,7 @@ const hasUnCheckedOnUsersConfiguration = () => {
   cy.swalClick();
 };
 
-const hasCheckedOnOrganisationConfiguration = () => {
+const hasUnCheckedOnOrganisationConfigurationAutomatedFlags = () => {
   cy.get("#16").should("exist").uncheck();
   cy.contains("p", "Sanctions").should("exist");
   cy.contains("p", ":").should("exist");
@@ -112,7 +112,7 @@ const hasCheckedOnOrganisationConfiguration = () => {
   cy.swalClick();
 };
 
-const hasUnCheckedOnOrganisationConfiguration = () => {
+const hasCheckedOnOrganisationConfigurationAutomatedFlags = () => {
   cy.get("#16").should("exist").check();
   cy.get("#17").should("exist").check();
   cy.get("#18").should("exist").check();
@@ -126,8 +126,8 @@ const hasUnCheckedOnOrganisationConfiguration = () => {
 };
 
 export {
-  hasCheckedOnOrganisationConfiguration,
-  hasCheckedOnUsersConfiguration,
-  hasUnCheckedOnOrganisationConfiguration,
-  hasUnCheckedOnUsersConfiguration,
+  hasUnCheckedOnUsersConfigurationAutomatedFlags,
+  hasCheckedOnUsersConfigurationAutomatedFlags,
+  hasUnCheckedOnOrganisationConfigurationAutomatedFlags,
+  hasCheckedOnOrganisationConfigurationAutomatedFlags,
 };
