@@ -1,125 +1,59 @@
 import { useStore } from "@/data/store";
-import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
-import { TranslationValues, useTranslations } from "next-intl";
-import MaskLabel from "../../components/MaskLabel";
-import { getUserHistoryQuery } from "../../services/users";
-import { getInitials, getName } from "../../utils/application";
-import { formatDisplayTimeDate } from "../../utils/date";
-import { toSentenceCase } from "../../utils/string";
+import { Box, CircularProgress } from "@mui/material";
 
-const NAMESPACE_TRANSLATION = "UserHistory";
-const NAMESPACE_TRANSLATION_APPLICATION = "Application.Status";
+import useDebounce from "@/hooks/useDebounce";
 
-function flattenObject(
-  obj: Record<string, unknown>,
-  prefix = ""
-): Record<string, unknown> {
-  return Object.entries(obj).reduce(
-    (acc, [key, value]) => {
-      const newKey = prefix ? `${prefix}_${key}` : key;
-      if (value && typeof value === "object" && !Array.isArray(value)) {
-        Object.assign(
-          acc,
-          flattenObject(value as Record<string, unknown>, newKey)
-        );
-      } else {
-        acc[newKey] = value;
-      }
-      return acc;
-    },
-    {} as Record<string, unknown>
-  );
-}
+import { useEffect, useMemo } from "react";
+import { UserHistorys } from "@/services/users";
+import useElementScrollNearBottom from "@/hooks/useElementScrollNearBottom";
+import useGetUserHistory from "./useGetUserHistory";
+import { StyledMenuItem } from "../NotificationsMenu/NotificationsMenu.styles";
+import { UserHistoryCard } from "./UserHistoryCard";
 
 export default function UserHistory() {
   const user = useStore(store => store.getCurrentUser());
-  const t = useTranslations(NAMESPACE_TRANSLATION);
-  const tApplication = useTranslations(NAMESPACE_TRANSLATION_APPLICATION);
-
-  const { data: userHistory } = useQuery(
-    getUserHistoryQuery(user?.id as number)
+  const { elementRef, isNearBottom } = useElementScrollNearBottom();
+  const [debouncedIsNearBottom, setDebouncedIsNearBottom] = useDebounce(
+    isNearBottom,
+    500
   );
 
+  const { data, fetchNextPage, isFetching, isFetchingNextPage } =
+    useGetUserHistory(user?.id as number);
+  console.log("isFetchingNextPage", isFetchingNextPage);
+  const userHistorys: UserHistorys[] = useMemo(
+    () => data?.pages.flatMap(page => page.data) ?? [],
+    [data]
+  );
+
+  useEffect(() => {
+    if (debouncedIsNearBottom) {
+      fetchNextPage();
+      setDebouncedIsNearBottom(false);
+    }
+  }, [debouncedIsNearBottom, fetchNextPage, setDebouncedIsNearBottom]);
+
+  if (isFetching && !userHistorys.length) {
+    return (
+      <StyledMenuItem>
+        <CircularProgress sx={{ mx: "auto" }} />
+      </StyledMenuItem>
+    );
+  }
+
   return (
-    <Box sx={{ gap: 2, display: "flex", flexDirection: "column" }}>
-      {userHistory?.data?.map(history => {
-        const {
-          id,
-          event,
-          log_name,
-          subject,
-          causer,
-          created_at,
-          properties,
-          description,
-        } = history;
+    <Box
+      sx={{ gap: 2, display: "flex", flexDirection: "column", height: "100%" }}
+      ref={elementRef}>
+      {userHistorys.map(history => (
+        <UserHistoryCard key={history.id} history={history} />
+      ))}
 
-        const logUser = causer || subject;
-        const userName = getName(logUser);
-        const subjectName = getName(subject);
-
-        const changedAttributeString = Object.entries(
-          properties?.attributes || {}
-        )
-          .map(([key, value]) => `${key}: ${value}`)
-          .join(", ");
-
-        const baseProperties = flattenObject(properties);
-
-        const hydratedProperties = {
-          ...baseProperties,
-          ...(properties.old_status && {
-            old_status: tApplication(properties.old_status),
-          }),
-          ...(properties.new_status && {
-            new_status: tApplication(properties.new_status),
-          }),
-        };
-
-        return (
-          <Card
-            key={id}
-            sx={{
-              boxShadow: 1,
-              borderRadius: 1,
-            }}>
-            <CardContent>
-              <Grid container gap={1}>
-                <Grid item xs="auto">
-                  <MaskLabel
-                    initials={getInitials(userName)}
-                    size="medium"
-                    sx={{ justifyContent: "flex-start", mx: 1 }}
-                  />
-                </Grid>
-                <Grid item xs={11} sx={{ color: "text.secondary" }}>
-                  <Typography variant="small">
-                    {formatDisplayTimeDate(created_at)}
-                  </Typography>
-                  <Typography fontWeight="bold">
-                    {userName} -{" "}
-                    {t(`${log_name}.${event}.title`, { name: subjectName })}
-                  </Typography>
-
-                  <Typography variant="body2">
-                    <b>Description:</b>{" "}
-                    {t(`${log_name}.${event}.description`, {
-                      attributeKeys: changedAttributeString,
-                      ...(hydratedProperties ?? {}),
-                    } as unknown as TranslationValues)}
-                  </Typography>
-                  {description && (
-                    <Typography variant="body2">
-                      <b>Comment:</b> {toSentenceCase(description)}
-                    </Typography>
-                  )}
-                </Grid>
-              </Grid>
-            </CardContent>
-          </Card>
-        );
-      })}
+      {isFetching && (
+        <Box sx={{ display: "flex", justifyContent: "center", py: 2 }}>
+          <CircularProgress />
+        </Box>
+      )}
     </Box>
   );
 }
