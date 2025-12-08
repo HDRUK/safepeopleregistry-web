@@ -3,7 +3,7 @@ type FeatureFlags = {
   name: string;
   description: string;
   scope: string;
-  value: boolean;
+  value: string;
   created_at: string;
   updated_at: string;
 };

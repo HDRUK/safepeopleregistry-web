@@ -30,12 +30,14 @@ export default function FeatureFlagList() {
     createDefaultColumn("actions", {
       header: "",
       cell: info => {
-        const { value, id } = info.row.original;
+        const { value, scope, id } = info.row.original;
+        const isDisabled = !(scope === '__laravel_null' || scope === null);
+
 
         return (
           <ActionMenu>
-            <ActionMenuItem onClick={() => handleToggle(id)}>
-              {t(value ? "disable" : "enable")}
+            <ActionMenuItem onClick={() => handleToggle(id)} disabled={isDisabled}>
+              {t(value === "true" ? "disable" : "enable")}
             </ActionMenuItem>
           </ActionMenu>
         );
