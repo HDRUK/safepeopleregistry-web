@@ -35,6 +35,11 @@ export default defineConfig({
           },
         });
 
+      config.env.MAILDEV_PROTOCOL = process.env.CYPRESS_MAILDEV_PROTOCOL;
+      config.env.MAILDEV_HOST = process.env.CYPRESS_MAILDEV_HOST;
+      config.env.MAILDEV_SMTP_PORT = process.env.CYPRESS_MAILDEV_SMTP_PORT;
+      config.env.MAILDEV_API_PORT = process.env.CYPRESS_MAILDEV_API_PORT;
+
       config.env.keycloakBaseUrl = process.env.NEXT_PUBLIC_KEYCLOAK_BASE_URL;
 
       config.env.keycloakClientId = process.env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID;
@@ -80,6 +85,7 @@ export default defineConfig({
     // video: true,
     // videosFolder: "cypress/videos",
     specPattern: [
+      "cypress/e2e/user-journeys/registration/registerUser.cy.ts",
       "cypress/e2e/user-journeys/admin/users.cy.ts",
       "cypress/e2e/user-journeys/admin/sro.cy.ts",
       "cypress/e2e/user-journeys/users/affiliations.cy.ts",
@@ -91,7 +97,7 @@ export default defineConfig({
       "cypress/e2e/user-journeys/custodians/projectsUsers.cy.ts",
       "cypress/e2e/user-journeys/custodians/team.cy.ts",
       "cypress/e2e/user-journeys/custodians/users.cy.ts",
-      "cypress/e2e/user-journeys/custodians/configuration.cy.ts"
+      "cypress/e2e/user-journeys/custodians/configuration.cy.ts",
     ],
 
     // supportFile: "cypress/support/index.ts",

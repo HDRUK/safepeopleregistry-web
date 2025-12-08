@@ -3,12 +3,11 @@ name: PR Isolated E2E Tests
 on:
   pull_request:
   workflow_dispatch:
-      inputs:
-        api_branch:
-          description: "Branch of safepeopleregistry-api to check out"
-          required: false
-          default: "dev"
-
+    inputs:
+      api_branch:
+        description: "Branch of safepeopleregistry-api to check out"
+        required: false
+        default: "dev"
 
 env:
   APP_KEY: ${{ secrets.APP_KEY }}
@@ -126,7 +125,7 @@ env:
   NEXT_PUBLIC_API_SERVER_URL: "http://localhost:8000/api"
   NEXT_PUBLIC_HIDE_BANNER: "false"
   NEXT_MIRAGE_SERVER: "true"
-  NEXT_PUBLIC_TEMP_USER_ROLES: "'[{ \"role\": \"operational_hdr\", \"state\": \"view\" }]'"
+  NEXT_PUBLIC_TEMP_USER_ROLES: '''[{ "role": "operational_hdr", "state": "view" }]'''
   NEXT_PUBLIC_INVITE_TIME_HOURS: "1"
   NEXT_PUBLIC_KEYCLOAK_CLIENT_ID: "speedi-registry-app"
   NEXT_PUBLIC_KEYCLOAK_REDIRECT_URL_LOGIN: "http://localhost:3000/api/auth/login"
@@ -136,6 +135,7 @@ env:
   NEXT_PUBLIC_KEYCLOAK_REALM: "SOURSD"
   NEXT_PUBLIC_LOCAL_ENV: "http://localhost:3000/"
   NEXT_PUBLIC_FEATURE_PROJECT_USERS_WORKFLOW: "false"
+  CYPRESS_MAIL_URL: "http://localhost:8025"
   CYPRESS_BASE_URL: "http://localhost:3000/en"
   CYPRESS_USER_EMAIL: "test.user+user@safepeopleregistry.com"
   CYPRESS_ORGANISATION_EMAIL: "test.user+organisation@safepeopleregistry.com"
@@ -188,7 +188,6 @@ jobs:
           path: safepeopleregistry-api
           token: ${{ secrets.GITHUB_TOKEN }}
           ref: ${{ github.event.inputs.api_branch || 'dev' }}
-
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -282,4 +281,3 @@ jobs:
       #   with:
       #     name: cypress-video
       #     path: cypress/videos
-          

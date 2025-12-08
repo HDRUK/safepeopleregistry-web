@@ -2,8 +2,6 @@ const dataCy = (value: string) => {
   return `[data-cy="${value}"]`;
 };
 
-
-
 const logout = () => {
   /* Yet to fix */
   // cy.get("button")
