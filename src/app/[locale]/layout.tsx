@@ -15,6 +15,10 @@ import { PropsWithChildren } from "react";
 import "../sweetalert2-custom.css";
 import "../global.css";
 import IntlClientProvider from "@/context/IntlClientProvider";
+import { isTestFeatureEnabled } from "@/flags";
+import { FeatureProvider } from "@/components/FeatureProvider";
+import packageJson from "@/../package.json";
+import { RegistryGlobals } from "@/components/RegistryGlobals";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,9 +38,12 @@ export default async function RootLayout({
   if (!locales[locale]) notFound();
 
   const messages = await getMessages();
+  const { version } = packageJson;
 
   const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
-
+  const features = {
+    isTestFeatureEnabled: (await isTestFeatureEnabled()) as boolean,
+  };
   return (
     <html lang={locale}>
       {gtmId && <GoogleTagManager gtmId={gtmId} />}
@@ -48,24 +55,27 @@ export default async function RootLayout({
           <AppRouterCacheProvider options={{ enableCssLayer: true }}>
             <ReactQueryClientProvider>
               <ThemeRegistry>
-                <ToastProvider>
-                  <GlobalStyles
-                    styles={{
-                      [".MuiGrid-item .MuiGrid-container"]: {
-                        maxWidth: "initial",
-                      },
-                    }}
-                  />
-                  {process.env.NEXT_PUBLIC_HIDE_BANNER !== "true" && (
-                    <BannerMessage />
-                  )}
-                  {children}
-                </ToastProvider>
+                <FeatureProvider features={features}>
+                  <ToastProvider>
+                    <GlobalStyles
+                      styles={{
+                        [".MuiGrid-item .MuiGrid-container"]: {
+                          maxWidth: "initial",
+                        },
+                      }}
+                    />
+                    {process.env.NEXT_PUBLIC_HIDE_BANNER !== "true" && (
+                      <BannerMessage />
+                    )}
+                    {children}
+                  </ToastProvider>
+                </FeatureProvider>
               </ThemeRegistry>
             </ReactQueryClientProvider>
           </AppRouterCacheProvider>
         </IntlClientProvider>
       </Box>
+      <RegistryGlobals version={version} features={features} />
     </html>
   );
 }
