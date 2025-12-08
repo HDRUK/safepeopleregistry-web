@@ -34,21 +34,9 @@ export default function FeatureFlagList() {
 
         return (
           <ActionMenu>
-            {value ? (
-              <ActionMenuItem
-                onClick={() => {
-                  handleToggle(id);
-                }}>
-                {t("disable")}
-              </ActionMenuItem>
-            ) : (
-              <ActionMenuItem
-                onClick={() => {
-                  handleToggle(id);
-                }}>
-                {t("enable")}
-              </ActionMenuItem>
-            )}
+            <ActionMenuItem onClick={() => handleToggle(id)}>
+              {t(value ? "disable" : "enable")}
+            </ActionMenuItem>
           </ActionMenu>
         );
       },

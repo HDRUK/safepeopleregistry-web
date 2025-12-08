@@ -1,11 +1,11 @@
 import { SearchDirections } from "@/consts/search";
 import usePaginatedQuery from "@/hooks/usePaginatedQuery";
-import { FeatureFlagsResponse } from "./types";
 import getFeatures from "./getFeatures";
 
+interface GetFeatureFlagsQuery {}
 export default function useFeatureFlagsQuery({
   ...restParams
-}: FeatureFlagsResponse) {
+}: GetFeatureFlagsQuery = {}) {
   const queryKey = ["getFeatureFlags"];
 
   return usePaginatedQuery({
@@ -15,9 +15,7 @@ export default function useFeatureFlagsQuery({
     },
     queryFn: () =>
       getFeatures({
-        error: {
-          message: `${queryKey}Error`,
-        },
+        error: { message: `${queryKey}Error` },
       }),
     ...restParams,
   });
