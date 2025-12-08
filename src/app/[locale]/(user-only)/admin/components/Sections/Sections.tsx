@@ -26,9 +26,7 @@ export default function Sections() {
   };
 
   const sections = [
-    { name: "features",
-      component: <FeatureFlagList/>
-    },
+    { name: "features", component: <FeatureFlagList /> },
     {
       name: "custodian",
       component: <SendInviteCustodian />,

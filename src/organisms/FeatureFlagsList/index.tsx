@@ -6,8 +6,8 @@ import useFeatureFlagsQuery from "@/services/feature_flags/useFeatureFlagsQuery"
 import { FeatureFlags } from "@/types/features";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import FeatureFlagTable from "../FeatureFlagsTable";
 import putFeatureFlagsQuery from "@/services/feature_flags/putFeatureFlagsQuery";
+import FeatureFlagTable from "../FeatureFlagsTable";
 
 const NAMESPACE_TRANSLATIONS_FEATURES = "FeaturesList";
 
@@ -18,19 +18,15 @@ export default function FeatureFlagList() {
   const { refetch, ...query } = useFeatureFlagsQuery();
   const { mutateAsync } = useMutation(putFeatureFlagsQuery());
 
-
-  const handleToggle = async (
-   id: number
-  ) => {
+  const handleToggle = async (id: number) => {
     mutateAsync({
       params: {
         id,
-      }
-    }).then(()=>refetch());
+      },
+    }).then(() => refetch());
   };
 
-
-const extraColumns = [
+  const extraColumns = [
     createDefaultColumn("actions", {
       header: "",
       cell: info => {

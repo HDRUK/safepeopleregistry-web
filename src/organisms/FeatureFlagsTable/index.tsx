@@ -5,11 +5,11 @@ import useColumns from "@/hooks/useColumns";
 import { filterColumns } from "@/utils/table";
 import { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
+import { formatDisplayLongDate } from "@/utils/date";
 import ErrorMessage from "../../components/ErrorMessage";
 import Table from "../../components/Table";
 import { FeatureFlags } from "../../types/features";
 import { ModuleTables } from "../../types/modules";
-import { formatDisplayLongDate } from "@/utils/date";
 
 export type FeatureFlagTableColumns =
   | "name"
@@ -59,12 +59,10 @@ export default function FeatureFlagTable({
       createDefaultColumn("updated", {
         accessorKey: "updated_at",
         cell: info => formatDisplayLongDate(info.getValue()),
-
       }),
       createDefaultColumn("created", {
         accessorKey: "created_at",
         cell: info => formatDisplayLongDate(info.getValue()),
-   
       }),
     ];
 
