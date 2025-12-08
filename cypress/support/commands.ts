@@ -1,6 +1,5 @@
 import dayjs from "dayjs";
 import { dataCy } from "./utils/common";
-
 Cypress.Commands.add("login", (email: string, password: string) => {
   const args = { email, password };
 
@@ -210,3 +209,4 @@ declare global {
     }
   }
 }
+

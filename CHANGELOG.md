@@ -1,3 +1,14 @@
+## [1.23.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.22.1...v1.23.0) (2025-12-04)
+
+### ✨ Features
+
+* **REGISTRY-2119:** test project users content for custodians (#572) ([9b0ac28](https://github.com/HDRUK/safepeopleregistry-web/commit/9b0ac2802bcd4dcadf64f8661e98eaa4b5b0584e))
+* **REGISTRY-2130:** remove mandatory fields (#577) ([65654e9](https://github.com/HDRUK/safepeopleregistry-web/commit/65654e9810e9a3926f19b1426fbb98d4cc598ad2))
+* **REGISTRY-2183:** Cypress dev pipeline (#564) ([75cb308](https://github.com/HDRUK/safepeopleregistry-web/commit/75cb308968d65a98820b5ee8fc30f1cc04eca296))
+* **REGISTRY-2183:** Cypress Phase 2 (#573) ([e92cadc](https://github.com/HDRUK/safepeopleregistry-web/commit/e92cadc6fbd029b22878041b94b9557144388e2a))
+* **REGISTRY-2271:** system_approved_at (#575) ([0681184](https://github.com/HDRUK/safepeopleregistry-web/commit/0681184cd9974f7d31a6dc71d0b31073713ac65d))
+* **REGISTRY-2292:** tcs page (#578) ([9ba8d27](https://github.com/HDRUK/safepeopleregistry-web/commit/9ba8d27e9ee9140af8dafb1ace4927e7fad726fb))
+
 ## [1.22.1](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.22.0...v1.22.1) (2025-11-26)
 
 ### 🐛 Bug Fixes
