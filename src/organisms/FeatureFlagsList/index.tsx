@@ -31,12 +31,13 @@ export default function FeatureFlagList() {
       header: "",
       cell: info => {
         const { value, scope, id } = info.row.original;
-        const isDisabled = !(scope === '__laravel_null' || scope === null);
-
+        const isDisabled = !(scope === "__laravel_null" || scope === null);
 
         return (
           <ActionMenu>
-            <ActionMenuItem onClick={() => handleToggle(id)} disabled={isDisabled}>
+            <ActionMenuItem
+              onClick={() => handleToggle(id)}
+              disabled={isDisabled}>
               {t(value === "true" ? "disable" : "enable")}
             </ActionMenuItem>
           </ActionMenu>
