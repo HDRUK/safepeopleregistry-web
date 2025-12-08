@@ -1,3 +1,9 @@
+## [1.23.1](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.23.0...v1.23.1) (2025-12-08)
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-0000:** Nextjs Security Bump (#584) ([92494c4](https://github.com/HDRUK/safepeopleregistry-web/commit/92494c4936f7ef160df259bdcfb11a9ebe5447ed))
+
 ## [1.23.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.22.1...v1.23.0) (2025-12-04)
 
 ### ✨ Features
