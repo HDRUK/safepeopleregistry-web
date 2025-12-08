@@ -1,14 +1,13 @@
 import { ResponseJson, ResponseOptions } from "@/types/requests";
 import { handleJsonResponse } from "../requestHelpers";
-import { postRequest } from "../requests";
-import { FeatureFlagsResponse, PostFeatureFlagsQueryPayload } from "./types";
+import { putRequest } from "../requests";
+import { FeatureFlagsResponse } from "./types";
 
 export default async (
   id: number,
-  payload: PostFeatureFlagsQueryPayload,
   options?: ResponseOptions
 ): Promise<ResponseJson<FeatureFlagsResponse>> => {
-  const response = await postRequest(`/features/${id}/toggle`, payload);
+  const response = await putRequest(`/features/${id}/toggle`);
 
   return handleJsonResponse(response, options);
 };

@@ -7,7 +7,7 @@ import { FeatureFlags } from "@/types/features";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import FeatureFlagTable from "../FeatureFlagsTable";
-import postFeatureFlagsQuery from "@/services/feature_flags/postFeatureFlagsQuery";
+import putFeatureFlagsQuery from "@/services/feature_flags/putFeatureFlagsQuery";
 
 const NAMESPACE_TRANSLATIONS_FEATURES = "FeaturesList";
 
@@ -16,19 +16,16 @@ export default function FeatureFlagList() {
   const { createDefaultColumn } = useColumns<FeatureFlags>({ t });
 
   const { refetch, ...query } = useFeatureFlagsQuery();
-  const { mutateAsync } = useMutation(postFeatureFlagsQuery());
+  const { mutateAsync } = useMutation(putFeatureFlagsQuery());
 
 
   const handleToggle = async (
-   id: number, value: boolean
+   id: number
   ) => {
     mutateAsync({
       params: {
         id,
-      },
-      payload: {
-        value
-      },
+      }
     }).then(()=>refetch());
   };
 
@@ -44,14 +41,14 @@ const extraColumns = [
             {value ? (
               <ActionMenuItem
                 onClick={() => {
-                  handleToggle(id, false);
+                  handleToggle(id);
                 }}>
                 {t("disable")}
               </ActionMenuItem>
             ) : (
               <ActionMenuItem
                 onClick={() => {
-                  handleToggle(id, true);
+                  handleToggle(id);
                 }}>
                 {t("enable")}
               </ActionMenuItem>

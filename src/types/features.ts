@@ -6,7 +6,5 @@ type FeatureFlags = {
   value: boolean;
   created_at: string;
   updated_at: string;
-}
-export type {
-  FeatureFlags,
 };
+export type { FeatureFlags };

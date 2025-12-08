@@ -3,11 +3,9 @@ import usePaginatedQuery from "@/hooks/usePaginatedQuery";
 import { FeatureFlagsResponse } from "./types";
 import getFeatures from "./getFeatures";
 
-interface GetFeatureFlagsQuery<T = FeatureFlagsResponse> {}
-
 export default function useFeatureFlagsQuery({
   ...restParams
-}: GetFeatureFlagsQuery = {}) {
+}: FeatureFlagsResponse) {
   const queryKey = ["getFeatureFlags"];
 
   return usePaginatedQuery({
