@@ -43,7 +43,7 @@ export default async function RootLayout({
   const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
   const features = {
     isTestFeatureEnabled: (await isTestFeatureEnabled()) as boolean,
-    isTestFeatureUserAdmin: (await isTestFeatureUserAdmin()) as boolean
+    isTestFeatureUserAdmin: (await isTestFeatureUserAdmin()) as boolean,
   };
   return (
     <html lang={locale}>
