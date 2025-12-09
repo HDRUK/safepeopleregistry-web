@@ -80,6 +80,7 @@ export default defineConfig({
     // video: true,
     // videosFolder: "cypress/videos",
     specPattern: [
+      "cypress/e2e/user-journeys/admin/features.cy.ts",
       "cypress/e2e/user-journeys/admin/users.cy.ts",
       "cypress/e2e/user-journeys/admin/sro.cy.ts",
       "cypress/e2e/user-journeys/users/affiliations.cy.ts",
