@@ -9,6 +9,6 @@ export const isTestFeatureEnabled = flag({
 });
 
 export const isTestFeatureUserAdmin = flag({
-  key: "test-feature-user-admin	",
+  key: "test-feature-user-admin",
   adapter: await apiAdapter(),
 });
