@@ -11,6 +11,7 @@ import { OrganisationsList, UsersList } from "@/organisms";
 import { Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { useQueryClient } from "@tanstack/react-query";
+import FeatureFlagList from "@/organisms/FeatureFlagsList";
 
 const NAMESPACE_TRANSLATIONS_ADMINISTRATION = "Administration";
 
@@ -25,6 +26,7 @@ export default function Sections() {
   };
 
   const sections = [
+    { name: "features", component: <FeatureFlagList /> },
     {
       name: "custodian",
       component: <SendInviteCustodian />,

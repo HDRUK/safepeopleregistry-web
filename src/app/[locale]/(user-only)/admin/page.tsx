@@ -1,11 +1,11 @@
 import { PageBody, PageBodyContainer, PageSection } from "@/modules";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import Sections from "./components/Sections/Sections";
 
 const NAMESPACE_TRANSLATIONS_ADMINISTRATION = "Administration";
 
-function Page() {
-  const t = useTranslations(NAMESPACE_TRANSLATIONS_ADMINISTRATION);
+async function Page() {
+  const t = await getTranslations(NAMESPACE_TRANSLATIONS_ADMINISTRATION);
 
   return (
     <PageBodyContainer heading={t("title")} sx={{ mt: 3 }}>
