@@ -5,13 +5,13 @@ import { actionLatestMessage } from "cypress/support/utils/mail";
 import {
   acceptTermsAndConditions,
   checkTermsAndConditionsContent,
-  openUserTermsAndConditions,
+  openOrganisationTermsAndConditions,
   registerKeycloak,
 } from "cypress/support/utils/registration/register";
 
 const registration = mockedRegistration();
 
-describe("Register user journey", () => {
+describe("Register organisation journey", () => {
   beforeEach(() => {
     cy.visitFirst(ROUTES.homepage.path);
   });
@@ -20,13 +20,13 @@ describe("Register user journey", () => {
     cy.contains("button", "Register").click();
     cy.contains("button[disabled]", "Continue").should("exist");
 
-    cy.contains("button", /User/i).click();
+    cy.contains("button", /Organisation/i).click();
 
     cy.contains("button", "Continue").click();
   });
 
   it("Has the correct Terms and Conditions content", () => {
-    openUserTermsAndConditions();
+    openOrganisationTermsAndConditions();
 
     checkTermsAndConditionsContent(
       /Understanding the Terms/i,
@@ -74,8 +74,8 @@ describe("Register user journey", () => {
     checkTermsAndConditionsContent(/Contact Information/i, /CONTACTING US/i);
   });
 
-  it("Registers the user", () => {
-    openUserTermsAndConditions();
+  it("Registers the organisation", () => {
+    openOrganisationTermsAndConditions();
 
     acceptTermsAndConditions();
 
@@ -83,6 +83,6 @@ describe("Register user journey", () => {
 
     actionLatestMessage(EMAIL_REGISTER_VERIFICATION_LABEL);
 
-    cy.url().should("eq", `${Cypress.config().baseUrl}/user/profile`);
+    cy.url().should("eq", `${Cypress.config().baseUrl}/organisation/profile`);
   });
 });

@@ -20,6 +20,20 @@ function openUserTermsAndConditions() {
   cy.contains("button", "Continue").click();
 }
 
+function openCustodianTermsAndConditions() {
+  cy.contains("button", "Register").click();
+  cy.contains("button", /Custodian/i).click();
+
+  cy.contains("button", "Continue").click();
+}
+
+function openOrganisationTermsAndConditions() {
+  cy.contains("button", "Register").click();
+  cy.contains("button", /Organisation/i).click();
+
+  cy.contains("button", "Continue").click();
+}
+
 function acceptTermsAndConditions() {
   cy.contains("button", "Accept Terms and Conditions").click();
 }
@@ -64,4 +78,6 @@ export {
   openUserTermsAndConditions,
   acceptTermsAndConditions,
   registerKeycloak,
+  openOrganisationTermsAndConditions,
+  openCustodianTermsAndConditions,
 };
