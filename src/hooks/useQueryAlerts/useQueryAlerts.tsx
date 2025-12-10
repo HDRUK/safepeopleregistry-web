@@ -70,6 +70,8 @@ export default function useQueryAlerts(
       element.style.display = "hidden";
     }
 
+    console.log("****** QUERY", query);
+
     if (query.isError) {
       alertOptions?.onError?.();
 

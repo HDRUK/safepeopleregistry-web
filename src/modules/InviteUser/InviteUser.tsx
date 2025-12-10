@@ -65,11 +65,17 @@ export default function InviteUser({
     queryState: inviteOrganisationQueryState,
   } = useOrganisationInvite();
 
-  const combinedQueryState = getCombinedQueryState([
+  console.log(
+    "***** ",
     organisationQueryState,
     custodianQueryState,
-    inviteOrganisationQueryState,
-  ]);
+    inviteOrganisationQueryState
+  );
+
+  const combinedQueryState = getCombinedQueryState(
+    [organisationQueryState, custodianQueryState, inviteOrganisationQueryState],
+    false
+  );
 
   useQueryAlerts(combinedQueryState);
 

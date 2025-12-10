@@ -1,9 +1,25 @@
-function actionLatestMessage(label: string) {
-  cy.maildevGetLastMessage().then(email => {
-    const emailHtml = Cypress.$(email.html);
+function actionMessage(
+  label: string | RegExp,
+  options: {
+    to: string;
+  }
+) {
+  cy.wait(6000);
+
+  console.log("options.to", options.to);
+
+  cy.maildevGetMessageBySentTo(options.to).then(email => {
+    const emailHtml = Cypress.$(email?.html);
+
+    console.log("******* ", email);
 
     const link = emailHtml.find("a").filter((_, el) => {
-      return el.textContent === label;
+      if (typeof label === "string") {
+        console.log("******* ", el.textContent, label);
+        return el.textContent === label;
+      }
+
+      return label.test(el.textContent);
     });
 
     const href = link.attr("href");
@@ -16,4 +32,4 @@ function actionLatestMessage(label: string) {
   });
 }
 
-export { actionLatestMessage };
+export { actionMessage };
