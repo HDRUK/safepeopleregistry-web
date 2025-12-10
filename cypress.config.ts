@@ -82,9 +82,11 @@ export default defineConfig({
     viewportWidth: 1920,
     viewportHeight: 1080,
     numTestsKeptInMemory: 20,
-    // video: true,
-    // videosFolder: "cypress/videos",
+    video: true,
+    videosFolder: "cypress/videos",
     specPattern: [
+      "cypress/e2e/user-journeys/admin/inviteOrganisation.cy.ts",
+      "cypress/e2e/user-journeys/admin/inviteUser.cy.ts",
       "cypress/e2e/user-journeys/registration/registerUser.cy.ts",
       "cypress/e2e/user-journeys/registration/registerOrganisation.cy.ts",
       "cypress/e2e/user-journeys/registration/registerCustodian.cy.ts",

@@ -3,7 +3,7 @@ import { openCustodianTermsAndConditions } from "cypress/support/utils/registrat
 
 describe("Register custodian journey", () => {
   beforeEach(() => {
-    cy.visitFirst(ROUTES.homepage.path);
+    cy.visit(ROUTES.homepage.path);
   });
 
   it("Triggers the terms and conditions", () => {

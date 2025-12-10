@@ -1,7 +1,8 @@
 import { ROUTES } from "@/consts/router";
 import { mockedRegistration } from "@/mocks/data/auth";
+import { shouldBeUserProfile } from "cypress/support/utils/common";
 import { EMAIL_REGISTER_VERIFICATION_LABEL } from "cypress/support/utils/data";
-import { actionLatestMessage } from "cypress/support/utils/mail";
+import { actionMessage } from "cypress/support/utils/mail";
 import {
   acceptTermsAndConditions,
   checkTermsAndConditionsContent,
@@ -13,7 +14,7 @@ const registration = mockedRegistration();
 
 describe("Register user journey", () => {
   beforeEach(() => {
-    cy.visitFirst(ROUTES.homepage.path);
+    cy.visit(ROUTES.homepage.path);
   });
 
   it("Triggers the terms and conditions", () => {
@@ -81,8 +82,10 @@ describe("Register user journey", () => {
 
     registerKeycloak(registration);
 
-    actionLatestMessage(EMAIL_REGISTER_VERIFICATION_LABEL);
+    actionMessage(EMAIL_REGISTER_VERIFICATION_LABEL, {
+      to: registration.email,
+    });
 
-    cy.url().should("eq", `${Cypress.config().baseUrl}/user/profile`);
+    shouldBeUserProfile();
   });
 });
