@@ -1,5 +1,6 @@
 import { ROUTES } from "@/consts/router";
 import { mockedRegistration } from "@/mocks/data/auth";
+import { shouldBeOrganisationProfile } from "cypress/support/utils/common";
 import { EMAIL_REGISTER_VERIFICATION_LABEL } from "cypress/support/utils/data";
 import { actionMessage } from "cypress/support/utils/mail";
 import {
@@ -85,6 +86,6 @@ describe("Register organisation journey", () => {
       to: registration.email,
     });
 
-    cy.url().should("eq", `${Cypress.config().baseUrl}/organisation/profile`);
+    shouldBeOrganisationProfile();
   });
 });

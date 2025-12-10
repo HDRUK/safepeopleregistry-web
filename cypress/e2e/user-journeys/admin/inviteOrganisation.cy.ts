@@ -3,7 +3,6 @@ import { mockedInvitedUser } from "@/mocks/data/user";
 import { loginAdmin } from "cypress/support/utils/admin/auth";
 import { inviteNewOrganisation } from "cypress/support/utils/admin/invite";
 import {
-  logout,
   shouldBeOrganisationProfile,
   signout,
 } from "cypress/support/utils/common";
