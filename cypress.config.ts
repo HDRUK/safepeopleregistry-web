@@ -86,11 +86,6 @@ export default defineConfig({
     videosFolder: "cypress/videos",
     specPattern: [
       "cypress/e2e/user-journeys/admin/features.cy.ts",
-      "cypress/e2e/user-journeys/admin/inviteOrganisation.cy.ts",
-      "cypress/e2e/user-journeys/admin/inviteUser.cy.ts",
-      "cypress/e2e/user-journeys/registration/registerUser.cy.ts",
-      "cypress/e2e/user-journeys/registration/registerOrganisation.cy.ts",
-      "cypress/e2e/user-journeys/registration/registerCustodian.cy.ts",
       "cypress/e2e/user-journeys/admin/users.cy.ts",
       "cypress/e2e/user-journeys/admin/sro.cy.ts",
       "cypress/e2e/user-journeys/users/affiliations.cy.ts",
@@ -103,6 +98,11 @@ export default defineConfig({
       "cypress/e2e/user-journeys/custodians/team.cy.ts",
       "cypress/e2e/user-journeys/custodians/users.cy.ts",
       "cypress/e2e/user-journeys/custodians/configuration.cy.ts",
+      "cypress/e2e/user-journeys/admin/inviteOrganisation.cy.ts",
+      "cypress/e2e/user-journeys/admin/inviteUser.cy.ts",
+      "cypress/e2e/user-journeys/registration/registerUser.cy.ts",
+      "cypress/e2e/user-journeys/registration/registerOrganisation.cy.ts",
+      "cypress/e2e/user-journeys/registration/registerCustodian.cy.ts",
     ],
 
     // supportFile: "cypress/support/index.ts",
