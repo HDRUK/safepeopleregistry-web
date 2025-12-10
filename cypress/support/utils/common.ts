@@ -28,16 +28,6 @@ const signout = () => {
   cy.contains("button", "Sign Out").click();
 };
 
-const inviteNewUserForm = (invite: InviteUserFormValues) => {
-  cy.get("#first_name").clear().type(invite.first_name);
-  cy.get("#last_name").clear().type(invite.last_name);
-  cy.get("#email").clear().type(invite.email);
-  cy.selectValue("organisation_id", invite.organisation_id);
-
-  cy.saveFormClick("Invite");
-  cy.swalClick("Close");
-};
-
 const shouldBeUserProfile = () => {
   cy.url().should("eq", `${Cypress.config().baseUrl}/user/profile`);
 };
@@ -49,7 +39,6 @@ const shouldBeOrganisationProfile = () => {
 export {
   dataCy,
   logout,
-  inviteNewUserForm,
   shouldBeUserProfile,
   shouldBeOrganisationProfile,
   signout,

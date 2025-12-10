@@ -11,11 +11,8 @@ function actionMessage(
   cy.maildevGetMessageBySentTo(options.to).then(email => {
     const emailHtml = Cypress.$(email?.html);
 
-    console.log("******* ", email);
-
     const link = emailHtml.find("a").filter((_, el) => {
       if (typeof label === "string") {
-        console.log("******* ", el.textContent, label);
         return el.textContent === label;
       }
 

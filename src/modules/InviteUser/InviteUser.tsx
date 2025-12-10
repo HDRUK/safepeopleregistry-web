@@ -35,6 +35,7 @@ export interface InviteUserFormProps {
   isProjectUser?: boolean;
   projectRoles?: Partial<Role>[];
   actions?: React.ReactNode;
+  combinedSuccess?: boolean;
 }
 
 export default function InviteUser({
@@ -44,6 +45,7 @@ export default function InviteUser({
   custodianId,
   enableEmailCheck = true,
   projectRoles,
+  combinedSuccess = true,
 }: InviteUserFormProps) {
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
   const tUser = useTranslations(NAMESPACE_TRANSLATION_ORGANISATION);
@@ -65,16 +67,9 @@ export default function InviteUser({
     queryState: inviteOrganisationQueryState,
   } = useOrganisationInvite();
 
-  console.log(
-    "***** ",
-    organisationQueryState,
-    custodianQueryState,
-    inviteOrganisationQueryState
-  );
-
   const combinedQueryState = getCombinedQueryState(
     [organisationQueryState, custodianQueryState, inviteOrganisationQueryState],
-    false
+    combinedSuccess
   );
 
   useQueryAlerts(combinedQueryState);

@@ -33,7 +33,9 @@ export default function Sections() {
     },
     {
       name: "user",
-      component: <InviteUser onSuccess={handleInviteSuccess} />,
+      component: (
+        <InviteUser onSuccess={handleInviteSuccess} combinedSuccess={false} />
+      ),
     },
     {
       name: "sro",
