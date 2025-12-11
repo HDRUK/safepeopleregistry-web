@@ -3,3 +3,4 @@ Cypress.on("uncaught:exception", err => {
 });
 
 import "./commands";
+

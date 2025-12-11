@@ -20,10 +20,18 @@ import { DEFAULT_PROJECT_INVITE_USERS } from "cypress/support/utils/data";
 const dataProjectInviteUser = DEFAULT_PROJECT_INVITE_USERS;
 
 describe("Projects custodians journey", () => {
-  beforeEach(() => {
-    loginCustodian();
+  it('should have no detectable accessibility violations on load', () => {
+      loginCustodian();
+      cy.visitFirst(ROUTES.profileCustodianUsers.path);
+      cy.waitForLoadingToFinish();
+      cy.checkA11yPage();
+    });
+})
 
-    cy.visitFirst(ROUTES.profileCustodianUsers.path);
+
+describe("Projects custodians journey", () => {
+  beforeEach(() => {
+   
 
     cy.contains("a", getName(dataProjectInviteUser)).click();
   });
@@ -37,7 +45,7 @@ describe("Projects custodians journey", () => {
   after(() => {
     logout();
   });
-
+  
   it("Has Affiliations Tab Custodian User", () => {
     hasAffiliationsTabCustodianUser();
   });

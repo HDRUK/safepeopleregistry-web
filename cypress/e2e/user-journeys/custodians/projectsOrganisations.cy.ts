@@ -48,6 +48,10 @@ describe("Projects organisations journey",() => {
   after(() => {
     logout();
   });
+  it('should have no detectable accessibility violations on load', () => {
+      cy.waitForLoadingToFinish();
+      cy.checkA11yPage();
+    });
 
   it("Changes status of an organisation", () => {
     changeStatusProjectOrganisations(

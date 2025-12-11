@@ -12,6 +12,10 @@ describe("Projects custodians journey", () => {
   after(() => {
     logout();
   });
+  it('should have no detectable accessibility violations on load', () => {
+      cy.waitForLoadingToFinish();
+      cy.checkA11yPage();
+    });
 
   it("Has UnChecked On Users Configuration Automated Flags", () => {
     hasUnCheckedOnUsersConfigurationAutomatedFlags();

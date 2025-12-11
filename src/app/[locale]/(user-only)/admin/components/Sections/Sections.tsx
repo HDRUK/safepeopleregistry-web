@@ -52,6 +52,7 @@ export default function Sections() {
           <AccordionSummary
             id={`data-${name}-invite`}
             aria-controls={`data-${name}-invite-content`}
+            aria-label={t(`${name}InviteTitle`)}
             expandIcon={<ArrowDropDownIcon />}>
             <Typography>{t(`${name}InviteTitle`)}</Typography>
           </AccordionSummary>

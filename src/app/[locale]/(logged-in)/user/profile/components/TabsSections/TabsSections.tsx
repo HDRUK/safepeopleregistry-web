@@ -24,7 +24,7 @@ export default function TabsSections({ tabId }: TabsSectionsProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
 
   return (
-    <Box sx={{ width: "100%", mb: 4 }}>
+    <Box sx={{ width: "100%", mb: 4 }} component="nav">
       <Tabs
         variant="scrollable"
         value={tabId || PageTabs.HOME}

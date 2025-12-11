@@ -1,5 +1,51 @@
 import dayjs from "dayjs";
 import { dataCy } from "./utils/common";
+import 'cypress-axe';
+import { Result } from "axe-core";
+Cypress.Commands.add('checkA11yPage', () => {
+  cy.injectAxe(); 
+  cy.checkA11y(null, null, (violations) => {
+    cy.logAxeViolations(violations);   
+  });
+});
+Cypress.Commands.add('waitForLoadingToFinish', () => {
+  cy.get('body').then($body => {
+    const spinner = $body.find('[role="progressbar"]');
+    
+    if (spinner.length > 0) {
+      return cy.get('[role="progressbar"]', { timeout: 20000 })
+        .should('not.exist');
+    }
+
+    return;
+  });
+});
+Cypress.Commands.add('logAxeViolations', (violations) => {
+  cy.task(
+    'log',
+    `${violations.length} accessibility violation${violations.length === 1 ? '' : 's'} detected`
+  );
+
+  const violationData = violations.map(({ id, impact, description, nodes }) => ({
+    id,
+    impact,
+    description,
+    nodes: nodes.length,
+  }));
+
+  cy.task('table', violationData);
+
+  violations.forEach((violation) => {
+    violation.nodes.forEach((node, index) => {
+      cy.task(
+        'log',
+        `Violation: ${violation.id} | Node ${index + 1} | Selector: ${node.target.join(', ')}`
+      );
+      cy.task('log', `HTML snippet: ${node.html}`);
+    });
+  });
+});
+
 Cypress.Commands.add("login", (email: string, password: string) => {
   const args = { email, password };
 
@@ -202,7 +248,10 @@ declare global {
       getResultsRowByValue: (
         value: string
       ) => Cypress.Chainable<JQuery<HTMLElement>>;
+      waitForLoadingToFinish: () => Cypress.Chainable<JQuery<HTMLElement>>;
       getLatestRowOfResults: () => void;
+      checkA11yPage: () => void;
+      logAxeViolations: (violations:Result[]) => void;
       getResultsCellByValue: (
         value: string
       ) => Cypress.Chainable<JQuery<HTMLTableCellElement>>;

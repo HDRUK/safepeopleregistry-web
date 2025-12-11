@@ -26,6 +26,10 @@ describe("Projects custodians journey", () => {
   after(() => {
     logout();
   });
+  it('should have no detectable accessibility violations on load', () => {
+      cy.waitForLoadingToFinish();
+      cy.checkA11yPage();
+    });
 
   it("Adds a new project", () => {
     addNewProject(dataProject);

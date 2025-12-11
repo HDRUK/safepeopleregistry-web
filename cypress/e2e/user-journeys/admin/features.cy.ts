@@ -22,6 +22,11 @@ describe("Feature Flag journey", () => {
     after(() => {
       logout();
     });
+    it('should have no detectable accessibility violations on load', () => {
+      cy.waitForLoadingToFinish();
+      cy.checkA11yPage();
+      
+    });
 
     it("Has feature test-feature enabled", () => {
       hasFeatureFlag('test-feature', 'true');

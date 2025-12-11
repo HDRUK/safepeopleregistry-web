@@ -27,12 +27,17 @@ export default defineConfig({
 
         return launchOptions;
       }),
+      
         on("task", {
           log(message) {
             console.log(message + "\n\n");
 
             return true;
           },
+           table(data) {
+            console.table(data);
+            return null;
+          }
         });
 
       config.env.keycloakBaseUrl = process.env.NEXT_PUBLIC_KEYCLOAK_BASE_URL;
