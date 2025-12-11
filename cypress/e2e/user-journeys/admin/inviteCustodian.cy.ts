@@ -8,7 +8,7 @@ import { EMAIL_SIGN_ME_UP } from "cypress/support/utils/data";
 import { actionMessage } from "cypress/support/utils/mail";
 import { registerAndLogin } from "cypress/support/utils/registration/register";
 
-describe("Invite organisation", () => {
+describe("Invite custodian", () => {
   beforeEach(() => {
     loginAdmin();
 
