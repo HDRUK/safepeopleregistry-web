@@ -1,5 +1,22 @@
-import { InviteUserFormValues } from "@/types/form";
+import { InviteCustodianFormValues, InviteUserFormValues } from "@/types/form";
 import { dataCy } from "../common";
+
+const inviteNewCustodianForm = (invite: InviteCustodianFormValues) => {
+  cy.get("#name").clear().type(invite.name);
+  cy.get("#contact_email").clear().type(invite.contact_email);
+};
+
+const inviteNewCustodian = (invite: InviteCustodianFormValues) => {
+  cy.contains("Data Custodian Invitation").click();
+
+  inviteNewCustodianForm(invite);
+
+  cy.get(dataCy("data-custodian-invite")).within(() => {
+    cy.contains("button", "Invite").click();
+  });
+
+  cy.swalClick("Ok");
+};
 
 const inviteNewUserForm = (invite: InviteUserFormValues) => {
   cy.get("#first_name").clear().type(invite.first_name);
@@ -46,4 +63,6 @@ export {
   inviteNewUserForm,
   inviteNewOrganisationForm,
   inviteNewOrganisation,
+  inviteNewCustodian,
+  inviteNewCustodianForm,
 };

@@ -1,18 +1,12 @@
 import { ROUTES } from "@/consts/router";
+import { mockedRegistration } from "@/mocks/data/auth";
 import { mockedInvitedUser } from "@/mocks/data/user";
 import { loginAdmin } from "cypress/support/utils/admin/auth";
 import { inviteNewUser } from "cypress/support/utils/admin/invite";
-import { shouldBeUserProfile, signout } from "cypress/support/utils/common";
-import {
-  DEFAULT_PASSWORD,
-  EMAIL_REGISTER_VERIFICATION_LABEL,
-  EMAIL_SIGN_ME_UP,
-} from "cypress/support/utils/data";
+import { shouldBeUserProfile } from "cypress/support/utils/common";
+import { EMAIL_SIGN_ME_UP } from "cypress/support/utils/data";
 import { actionMessage } from "cypress/support/utils/mail";
-import {
-  acceptTermsAndConditions,
-  registerKeycloak,
-} from "cypress/support/utils/registration/register";
+import { registerAndLogin } from "cypress/support/utils/registration/register";
 
 describe("Invite user", () => {
   beforeEach(() => {
@@ -30,30 +24,9 @@ describe("Invite user", () => {
       to: dataInviteUser.email,
     });
 
-    const { first_name, last_name, email } = dataInviteUser;
+    const registration = mockedRegistration(dataInviteUser);
 
-    registerKeycloak({
-      first_name,
-      last_name,
-      email,
-      password: DEFAULT_PASSWORD,
-      password_confirm: DEFAULT_PASSWORD,
-    });
-
-    signout();
-
-    actionMessage(EMAIL_REGISTER_VERIFICATION_LABEL, {
-      to: email,
-    });
-
-    cy.contains("a", /Click here to proceed/i).click();
-    cy.contains("a", "Back to Login").click();
-
-    cy.login(email, DEFAULT_PASSWORD);
-    cy.visitFirst(ROUTES.register.path);
-    cy.contains("button", "Continue").click();
-
-    acceptTermsAndConditions();
+    registerAndLogin(registration);
 
     shouldBeUserProfile();
   });

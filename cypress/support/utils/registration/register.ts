@@ -1,4 +1,8 @@
-import { dataCy } from "../common";
+import { RegistrationValues } from "@/types/form";
+import { dataCy, signout } from "../common";
+import { actionMessage } from "../mail";
+import { EMAIL_REGISTER_VERIFICATION_LABEL } from "../data";
+import { ROUTES } from "@/consts/router";
 
 function checkTermsAndConditionsContent(
   label: string | RegExp,
@@ -11,6 +15,25 @@ function checkTermsAndConditionsContent(
   cy.get(dataCy("terms-and-conditions_content")).within(() => {
     cy.contains("h3", title);
   });
+}
+
+function registerAndLogin(registration: RegistrationValues) {
+  registerKeycloak(registration);
+
+  signout();
+
+  actionMessage(EMAIL_REGISTER_VERIFICATION_LABEL, {
+    to: registration.email,
+  });
+
+  cy.contains("a", /Click here to proceed/i).click();
+  cy.contains("a", "Back to Login").click();
+
+  cy.login(registration.email, registration.password);
+  cy.visitFirst(ROUTES.register.path);
+  cy.contains("button", "Continue").click();
+
+  acceptTermsAndConditions();
 }
 
 function openUserTermsAndConditions() {
@@ -80,4 +103,5 @@ export {
   registerKeycloak,
   openOrganisationTermsAndConditions,
   openCustodianTermsAndConditions,
+  registerAndLogin,
 };
