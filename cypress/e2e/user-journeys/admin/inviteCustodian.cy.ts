@@ -15,7 +15,7 @@ describe("Invite custodian", () => {
     cy.visit(ROUTES.profileAdmin.path);
   });
 
-  it("Invites a new user", () => {
+  it("Invites a new custodian", () => {
     const dataInviteCustodian = mockedInvitedCustodian();
 
     inviteNewCustodian(dataInviteCustodian);
