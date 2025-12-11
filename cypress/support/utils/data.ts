@@ -8,7 +8,11 @@ import {
 } from "@/mocks/data/custodian";
 import { mockedOrganisation } from "@/mocks/data/organisation";
 import { mockedProject, mockedProjectDetails } from "@/mocks/data/project";
-import { mockedAffiliation, mockedUser } from "@/mocks/data/user";
+import {
+  mockedAffiliation,
+  mockedInvitedUser,
+  mockedUser,
+} from "@/mocks/data/user";
 import { faker } from "@faker-js/faker";
 
 const memberId = Cypress._.random(0, 1e6).toString();
@@ -106,13 +110,12 @@ const DEFAULT_PROJECT = mockedProject({
 
 const DEFAULT_PROJECT_DETAILS = mockedProjectDetails();
 
-const DEFAULT_PROJECT_INVITE_USERS = {
-  first_name: faker.person.firstName(),
-  last_name: faker.person.lastName(),
-  email: faker.internet.email(),
+const DEFAULT_PROJECT_INVITE_USERS = mockedInvitedUser({
   role: DEFAULT_ROLE_NAME,
   organisation_id: DEFAULT_ORGANISATION_NAME,
-};
+});
+
+const DEFAULT_PASSWORD = "Password1234!";
 
 const DEFAULT_SRO_FIELDS_ORGANISATIONS = {
   first_name: faker.person.firstName(),
@@ -138,6 +141,9 @@ const DEFAULT_UNAPPROVED_ORGANISATION = mockedOrganisation({
   organisation_name: DEFAULT_UNAPPROVED_ORGANISATION_NAME,
 });
 
+const EMAIL_REGISTER_VERIFICATION_LABEL = "Link to e-mail address verification";
+const EMAIL_SIGN_ME_UP = "Sign me up!";
+
 export {
   DEFAULT_AFFILIATION_USERS,
   DEFAULT_FROM_DATE,
@@ -158,4 +164,7 @@ export {
   DEFAULT_PROJECT_DETAILS,
   DEFAULT_CUSTODIAN_USER_FIELDS,
   DEFAULT_DELEGATE_FIELDS_ORGANISATIONS,
+  EMAIL_REGISTER_VERIFICATION_LABEL,
+  EMAIL_SIGN_ME_UP,
+  DEFAULT_PASSWORD,
 };

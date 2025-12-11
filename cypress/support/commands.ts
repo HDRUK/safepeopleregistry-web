@@ -1,7 +1,9 @@
 import dayjs from "dayjs";
 import { dataCy } from "./utils/common";
+
 import 'cypress-axe';
 import { Result } from "axe-core";
+
 Cypress.Commands.add('checkA11yPage', () => {
   cy.injectAxe(); 
   cy.checkA11y(null, null, (violations) => {
@@ -45,6 +47,7 @@ Cypress.Commands.add('logAxeViolations', (violations) => {
     });
   });
 });
+
 
 Cypress.Commands.add("login", (email: string, password: string) => {
   const args = { email, password };
@@ -109,7 +112,6 @@ Cypress.Commands.add("getResultsRow", (index?: number | string | undefined) => {
   return tableRows.eq(index);
 });
 
-
 Cypress.Commands.add("getResultsRowByValue", (value: string) => {
   const row =
     value === "first" || value === "last"
@@ -119,30 +121,30 @@ Cypress.Commands.add("getResultsRowByValue", (value: string) => {
   return row.contains("td", value).should("exist").parent();
 });
 
-  Cypress.Commands.add("getLatestRowOfResults", () => {
-     cy.get(dataCy("results")).find("tbody tr").then($row => {
+Cypress.Commands.add("getLatestRowOfResults", () => {
+  cy.get(dataCy("results"))
+    .find("tbody tr")
+    .then($row => {
       if ($row.length === 0) {
         cy.log("No row found, skipping pagination click");
         return;
       }
 
-      cy.wrap($row)
-        .parents('div[data-cy="results"]')
-        .first()
-        .as('resultsDiv');
+      cy.wrap($row).parents('div[data-cy="results"]').first().as("resultsDiv");
 
-      cy.get('@resultsDiv')
-        .find('nav[aria-label="pagination navigation"] button.MuiPaginationItem-page')
+      cy.get("@resultsDiv")
+        .find(
+          'nav[aria-label="pagination navigation"] button.MuiPaginationItem-page'
+        )
         .then($buttons => {
           if ($buttons.length > 1) {
             cy.wrap($buttons.last()).click();
           } else {
-            cy.log('Only one page button, skipping click');
+            cy.log("Only one page button, skipping click");
           }
         });
     });
-  }
-);
+});
 
 Cypress.Commands.add("getResultsCellByValue", (value: string) => {
   return cy
@@ -223,6 +225,18 @@ Cypress.Commands.add(
   }
 );
 
+Cypress.Commands.add("solveGoogleReCAPTCHA", () => {
+  // Wait until the iframe (Google reCAPTCHA) is totally loaded
+  cy.wait(500);
+  cy.get(".g-recaptcha *> iframe").then($iframe => {
+    const $body = $iframe.contents().find("body");
+    cy.wrap($body)
+      .find(".recaptcha-checkbox-border")
+      .should("be.visible")
+      .click();
+  });
+});
+
 declare global {
   namespace Cypress {
     interface Chainable {
@@ -248,14 +262,14 @@ declare global {
       getResultsRowByValue: (
         value: string
       ) => Cypress.Chainable<JQuery<HTMLElement>>;
-      waitForLoadingToFinish: () => Cypress.Chainable<JQuery<HTMLElement>>;
       getLatestRowOfResults: () => void;
+      waitForLoadingToFinish: () => Cypress.Chainable<JQuery<HTMLElement>>;
       checkA11yPage: () => void;
       logAxeViolations: (violations:Result[]) => void;
       getResultsCellByValue: (
         value: string
       ) => Cypress.Chainable<JQuery<HTMLTableCellElement>>;
+      solveGoogleReCAPTCHA: () => void;
     }
   }
 }
-
