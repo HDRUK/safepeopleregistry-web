@@ -1,3 +1,4 @@
+import { Status } from "@/consts/application";
 import {
   Custodian,
   CustodianProjectOrganisation,
@@ -11,7 +12,6 @@ import { faker } from "@faker-js/faker";
 import { mockedOrganisation } from "./organisation";
 import { mockedProject } from "./project";
 import { mockedAffiliation, mockedUser } from "./user";
-import { Status } from "@/consts/application";
 
 const mockedCustodian = (custodian?: Partial<Custodian>): Custodian => ({
   id: 1,
