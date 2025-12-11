@@ -92,7 +92,7 @@ export default defineConfig({
       "cypress/e2e/user-journeys/custodians/team.cy.ts",
       "cypress/e2e/user-journeys/custodians/users.cy.ts",
       "cypress/e2e/user-journeys/custodians/configuration.cy.ts",
-      "cypress/e2e/user-journeys/custodians/manualChecksConfiguration.cy.ts"
+      "cypress/e2e/user-journeys/custodians/manualChecksConfiguration.cy.ts",
     ],
 
     // supportFile: "cypress/support/index.ts",

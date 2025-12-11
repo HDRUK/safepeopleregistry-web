@@ -63,7 +63,6 @@ Cypress.Commands.add("getResultsRow", (index?: number | string | undefined) => {
   return tableRows.eq(index);
 });
 
-
 Cypress.Commands.add("getResultsRowByValue", (value: string) => {
   const row =
     value === "first" || value === "last"
@@ -73,30 +72,30 @@ Cypress.Commands.add("getResultsRowByValue", (value: string) => {
   return row.contains("td", value).should("exist").parent();
 });
 
-  Cypress.Commands.add("getLatestRowOfResults", () => {
-     cy.get(dataCy("results")).find("tbody tr").then($row => {
+Cypress.Commands.add("getLatestRowOfResults", () => {
+  cy.get(dataCy("results"))
+    .find("tbody tr")
+    .then($row => {
       if ($row.length === 0) {
         cy.log("No row found, skipping pagination click");
         return;
       }
 
-      cy.wrap($row)
-        .parents('div[data-cy="results"]')
-        .first()
-        .as('resultsDiv');
+      cy.wrap($row).parents('div[data-cy="results"]').first().as("resultsDiv");
 
-      cy.get('@resultsDiv')
-        .find('nav[aria-label="pagination navigation"] button.MuiPaginationItem-page')
+      cy.get("@resultsDiv")
+        .find(
+          'nav[aria-label="pagination navigation"] button.MuiPaginationItem-page'
+        )
         .then($buttons => {
           if ($buttons.length > 1) {
             cy.wrap($buttons.last()).click();
           } else {
-            cy.log('Only one page button, skipping click');
+            cy.log("Only one page button, skipping click");
           }
         });
     });
-  }
-);
+});
 
 Cypress.Commands.add("getResultsCellByValue", (value: string) => {
   return cy
@@ -165,9 +164,11 @@ Cypress.Commands.add(
 );
 
 Cypress.Commands.add("saveFormClick", (text: string = "Save") => {
-  const formModal = cy.get(dataCy("form-modal")).should("be.visible");
-
-  formModal.get("button").contains(text).click();
+  cy.get(dataCy("form-modal"))
+    .should("be.visible")
+    .within(() => {
+      cy.contains("button", text).click();
+    });
 });
 
 Cypress.Commands.add(
@@ -209,4 +210,3 @@ declare global {
     }
   }
 }
-
