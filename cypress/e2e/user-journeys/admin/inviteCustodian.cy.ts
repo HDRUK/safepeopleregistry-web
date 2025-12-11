@@ -3,7 +3,10 @@ import { mockedRegistration } from "@/mocks/data/auth";
 import { mockedInvitedCustodian } from "@/mocks/data/custodian";
 import { loginAdmin } from "cypress/support/utils/admin/auth";
 import { inviteNewCustodian } from "cypress/support/utils/admin/invite";
-import { shouldBeCustodianProfile } from "cypress/support/utils/common";
+import {
+  shouldBeCustodianProfile,
+  signout,
+} from "cypress/support/utils/common";
 import { EMAIL_SIGN_ME_UP } from "cypress/support/utils/data";
 import { actionMessage } from "cypress/support/utils/mail";
 import { registerAndLogin } from "cypress/support/utils/registration/register";
@@ -19,6 +22,8 @@ describe("Invite custodian", () => {
     const dataInviteCustodian = mockedInvitedCustodian();
 
     inviteNewCustodian(dataInviteCustodian);
+
+    signout();
 
     actionMessage(new RegExp(EMAIL_SIGN_ME_UP, "m"), {
       to: dataInviteCustodian.contact_email,

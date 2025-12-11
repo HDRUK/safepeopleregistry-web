@@ -1,4 +1,7 @@
+import { Status } from "@/consts/application";
+import { ROUTES } from "@/consts/router";
 import { mockedAffiliation } from "@/mocks/data/user";
+import { logout } from "cypress/support/utils/common";
 import {
   DEFAULT_AFFILIATION_USERS,
   DEFAULT_TO_DATE,
@@ -11,9 +14,6 @@ import {
   removeAffiliationUsers,
 } from "cypress/support/utils/user/affiliations";
 import { loginUser } from "cypress/support/utils/user/auth";
-import { ROUTES } from "@/consts/router";
-import { Status } from "@/consts/application";
-import { logout } from "cypress/support/utils/common";
 
 const dataCurrentAffiliation = mockedAffiliation(DEFAULT_AFFILIATION_USERS);
 const dataAffiliation = {
@@ -30,7 +30,7 @@ const dataEdittedAffiliation = {
   role: "Administrator",
 };
 
-describe("Affiliations journey",  () => {
+describe("Affiliations journey", () => {
   beforeEach(() => {
     loginUser();
 

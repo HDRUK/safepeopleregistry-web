@@ -20,14 +20,9 @@ function checkTermsAndConditionsContent(
 function registerAndLogin(registration: RegistrationValues) {
   registerKeycloak(registration);
 
-  signout();
-
   actionMessage(EMAIL_REGISTER_VERIFICATION_LABEL, {
     to: registration.email,
   });
-
-  cy.contains("a", /Click here to proceed/i).click();
-  cy.contains("a", "Back to Login").click();
 
   cy.login(registration.email, registration.password);
   cy.visitFirst(ROUTES.register.path);

@@ -6,11 +6,20 @@ import { capitaliseFirstLetter } from "@/utils/string";
 import { dataCy } from "../common";
 import { DEFAULT_AFFILIATION_USERS } from "../data";
 
-const addAffiliationUsers = (
+const inviteAffiliationOrganisation = (
   affiliation: ResearcherAffiliation = DEFAULT_AFFILIATION_USERS
 ) => {
   cy.buttonClick("Add affiliation");
 
+  cy.contains("button", "Ask them to register").click();
+
+  addAffiliationUsersForm(affiliation, true);
+};
+
+const addAffiliationUsersForm = (
+  affiliation: ResearcherAffiliation,
+  invite?: boolean
+) => {
   cy.get(dataCy("form-modal")).should("be.visible");
 
   cy.dateSelectValue("from", affiliation.from);
@@ -21,7 +30,20 @@ const addAffiliationUsers = (
     cy.checkboxCheck("current_employer");
   }
 
-  cy.selectValue("organisation_id", affiliation.organisation.organisation_name);
+  if (invite) {
+    cy.get("#organisation_name").type(
+      affiliation.organisation.organisation_name
+    );
+    cy.get("#organisation_email").type(
+      affiliation.organisation.lead_applicant_email
+    );
+  } else {
+    cy.selectValue(
+      "organisation_id",
+      affiliation.organisation.organisation_name
+    );
+  }
+
   cy.selectValue("relationship", affiliation.relationship);
   cy.get("#role").type(affiliation.role);
   cy.get("#member_id").type(affiliation.member_id);
@@ -33,14 +55,21 @@ const addAffiliationUsers = (
   cy.saveFormClick();
 };
 
+const addAffiliationUsers = (
+  affiliation: ResearcherAffiliation = DEFAULT_AFFILIATION_USERS
+) => {
+  cy.buttonClick("Add affiliation");
+
+  addAffiliationUsersForm(affiliation);
+};
+
 const hasAffiliationUsers = (
   affiliation: ResearcherAffiliation,
   status?: Status
 ) => {
   cy.getLatestRowOfResults();
- 
-  const row = cy.getResultsRowByValue(affiliation.member_id);
 
+  const row = cy.getResultsRowByValue(affiliation.member_id);
 
   row.within(() => {
     cy.contains("td", capitaliseFirstLetter(affiliation.relationship));
@@ -106,4 +135,5 @@ export {
   hasAffiliationUsers,
   hasRemoveAffiliationUsers,
   removeAffiliationUsers,
+  inviteAffiliationOrganisation,
 };

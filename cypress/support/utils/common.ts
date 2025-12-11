@@ -24,8 +24,11 @@ const logout = () => {
 };
 
 const signout = () => {
-  cy.visit(ROUTES.homepage.path);
-  cy.contains("button", "Sign Out").click();
+  // cy.visit(ROUTES.homepage.path);
+  cy.contains("button", "Sign Out").click({
+    force: true,
+  });
+  cy.get("#kc-logout").should("be.visible").click();
 };
 
 const shouldBeUserProfile = () => {

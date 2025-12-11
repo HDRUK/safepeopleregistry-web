@@ -6,8 +6,6 @@ function actionMessage(
 ) {
   cy.wait(6000);
 
-  console.log("options.to", options.to);
-
   cy.maildevGetMessageBySentTo(options.to).then(email => {
     const emailHtml = Cypress.$(email?.html);
 

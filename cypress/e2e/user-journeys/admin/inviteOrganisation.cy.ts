@@ -3,7 +3,10 @@ import { mockedRegistration } from "@/mocks/data/auth";
 import { mockedInvitedUser } from "@/mocks/data/user";
 import { loginAdmin } from "cypress/support/utils/admin/auth";
 import { inviteNewOrganisation } from "cypress/support/utils/admin/invite";
-import { shouldBeOrganisationProfile } from "cypress/support/utils/common";
+import {
+  shouldBeOrganisationProfile,
+  signout,
+} from "cypress/support/utils/common";
 import { EMAIL_SIGN_ME_UP } from "cypress/support/utils/data";
 import { actionMessage } from "cypress/support/utils/mail";
 import { registerAndLogin } from "cypress/support/utils/registration/register";
@@ -19,6 +22,8 @@ describe("Invite organisation", () => {
     const dataInviteUser = mockedInvitedUser();
 
     inviteNewOrganisation(dataInviteUser);
+
+    signout();
 
     actionMessage(new RegExp(EMAIL_SIGN_ME_UP, "m"), {
       to: dataInviteUser.organisation_email,

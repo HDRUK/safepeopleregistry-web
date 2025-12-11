@@ -1,12 +1,20 @@
 import { Status } from "@/consts/application";
 import { ROUTES } from "@/consts/router";
+import { mockedRegistration } from "@/mocks/data/auth";
 import { mockedAffiliation, mockedUser } from "@/mocks/data/user";
 import { getName } from "@/utils/application";
-import { logout } from "cypress/support/utils/common";
+import { faker } from "@faker-js/faker";
+import {
+  logout,
+  shouldBeUserProfile,
+  signout,
+} from "cypress/support/utils/common";
 import {
   DEFAULT_AFFILIATION_USERS,
   DEFAULT_INVITE_USERS,
+  EMAIL_SIGN_ME_UP,
 } from "cypress/support/utils/data";
+import { actionMessage } from "cypress/support/utils/mail";
 import {
   addAffiliationOrganisations,
   approveAffiliationOrganisations,
@@ -17,6 +25,7 @@ import {
   removeAffiliationOrganisations,
 } from "cypress/support/utils/organisation/affiliations";
 import { loginOrganisation } from "cypress/support/utils/organisation/auth";
+import { registerAndLogin } from "cypress/support/utils/registration/register";
 
 const dataUser = mockedUser(DEFAULT_INVITE_USERS);
 
@@ -44,11 +53,14 @@ describe("Affiliations journey", () => {
   it("Adds an affiliation", () => {
     addAffiliationOrganisations(dataUser);
 
-    hasAffiliationOrganisations({...dataAffiliation, model_state: {
-    state: {
-      slug: Status.INVITED,
-    },
-  }, });
+    hasAffiliationOrganisations({
+      ...dataAffiliation,
+      model_state: {
+        state: {
+          slug: Status.INVITED,
+        },
+      },
+    });
   });
 
   it("Approves an affiliation", () => {
