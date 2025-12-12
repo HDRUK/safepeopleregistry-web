@@ -1,3 +1,10 @@
+## [1.23.2](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.23.1...v1.23.2) (2025-12-12)
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-0000:** Next Version Bump (#591) ([fcb083a](https://github.com/HDRUK/safepeopleregistry-web/commit/fcb083a3fa1457b69dc73cfcd54c9b36d5b227cc))
+* **REGISTRY-0000:** Next Version Bump (#591) (#592) ([82e6874](https://github.com/HDRUK/safepeopleregistry-web/commit/82e68744a36085676d45fece93612225f501ecbd))
+
 ## [1.23.1](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.23.0...v1.23.1) (2025-12-08)
 
 ### 🐛 Bug Fixes

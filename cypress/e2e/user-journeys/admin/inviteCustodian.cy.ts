@@ -1,36 +1,35 @@
 import { ROUTES } from "@/consts/router";
 import { mockedRegistration } from "@/mocks/data/auth";
-import { mockedInvitedUser } from "@/mocks/data/user";
+import { mockedInvitedCustodian } from "@/mocks/data/custodian";
 import { loginAdmin } from "cypress/support/utils/admin/auth";
-import { inviteNewOrganisation } from "cypress/support/utils/admin/invite";
-import { shouldBeOrganisationProfile } from "cypress/support/utils/common";
+import { inviteNewCustodian } from "cypress/support/utils/admin/invite";
+import { shouldBeCustodianProfile } from "cypress/support/utils/common";
 import { EMAIL_SIGN_ME_UP } from "cypress/support/utils/data";
 import { actionMessage } from "cypress/support/utils/mail";
 import { registerAndLogin } from "cypress/support/utils/registration/register";
 
-describe("Invite organisation", () => {
+describe("Invite custodian", () => {
   beforeEach(() => {
     loginAdmin();
 
     cy.visit(ROUTES.profileAdmin.path);
   });
 
-  it("Invites a new user", () => {
-    const dataInviteUser = mockedInvitedUser();
+  it("Invites a new custodian", () => {
+    const dataInviteCustodian = mockedInvitedCustodian();
 
-    inviteNewOrganisation(dataInviteUser);
+    inviteNewCustodian(dataInviteCustodian);
 
     actionMessage(new RegExp(EMAIL_SIGN_ME_UP, "m"), {
-      to: dataInviteUser.organisation_email,
+      to: dataInviteCustodian.contact_email,
     });
 
     const registration = mockedRegistration({
-      ...dataInviteUser,
-      email: dataInviteUser.organisation_email,
+      email: dataInviteCustodian.contact_email,
     });
 
     registerAndLogin(registration);
 
-    shouldBeOrganisationProfile();
+    shouldBeCustodianProfile();
   });
 });
