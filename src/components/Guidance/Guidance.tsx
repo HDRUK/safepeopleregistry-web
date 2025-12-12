@@ -4,6 +4,7 @@ import { Collapse, useTheme } from "@mui/material";
 import { Box, useMediaQuery } from "@mui/system";
 import { ReactNode, useState } from "react";
 import Markdown from "@/components/Markdown";
+import { HeadingLevel } from "@/consts/header";
 import { Position } from "../../consts/ui";
 import { StyledGuidance, StyledInfo } from "./Guidance.styles";
 import GuidanceTitle from "./GuidanceTitle";
@@ -18,6 +19,7 @@ export interface GuidanceProps {
   defaultExpanded?: boolean;
   hasGuidance?: boolean;
   isCollapsible?: boolean;
+  headingComponent?: HeadingLevel;
 }
 
 export default function Guidance({
@@ -29,6 +31,7 @@ export default function Guidance({
   infoTitle,
   hasGuidance = true,
   isCollapsible = true,
+  headingComponent,
 }: GuidanceProps) {
   const theme = useTheme();
   const [expanded, setExpanded] = useState(defaultExpanded);
@@ -38,7 +41,9 @@ export default function Guidance({
     return (
       <StyledGuidance positionVertical={false}>
         <StyledInfo positionVertical={false} infoWidth={infoWidth}>
-          <GuidanceTitle infoTitleIcon={infoTitleIcon}>
+          <GuidanceTitle
+            infoTitleIcon={infoTitleIcon}
+            headingComponent={headingComponent}>
             {infoTitle}
           </GuidanceTitle>
           <Box>
@@ -76,7 +81,9 @@ export default function Guidance({
                 position={isMdDown ? Position.BOTTOM : Position.RIGHT}
               />
 
-              <GuidanceTitle infoTitleIcon={infoTitleIcon}>
+              <GuidanceTitle
+                infoTitleIcon={infoTitleIcon}
+                headingComponent={headingComponent}>
                 {infoTitle}
               </GuidanceTitle>
               <Box sx={{ overflowY: "auto" }}>
