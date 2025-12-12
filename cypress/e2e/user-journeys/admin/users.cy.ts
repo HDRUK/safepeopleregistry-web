@@ -5,6 +5,7 @@ import { getName } from "@/utils/application";
 import { faker } from "@faker-js/faker";
 import { loginAdmin } from "cypress/support/utils/admin/auth";
 import { hasUser, inviteUser } from "cypress/support/utils/admin/users";
+import { logout } from "cypress/support/utils/common";
 import { DEFAULT_PROJECT_INVITE_USERS } from "cypress/support/utils/data";
 
 describe("Resend invite", () => {
@@ -12,6 +13,10 @@ describe("Resend invite", () => {
     loginAdmin();
 
     cy.visitFirst(ROUTES.profileAdmin.path);
+  });
+
+  after(() => {
+    logout();
   });
 
   it("Shows a list of users who are pending invites", () => {

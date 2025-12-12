@@ -15,6 +15,7 @@ import { mockedApproval } from "./approvals";
 import { mockedDepartment } from "./departments";
 import { mockedFile } from "./file";
 import { mockedPermission } from "./permission";
+import { InviteUserFormValues } from "@/types/form";
 
 const mockedPendingInvite = (pendingInvite?: Partial<PendingInvite>) => ({
   id: faker.number.int(),
@@ -46,6 +47,17 @@ const mockedUser = (user?: Partial<User>): User => ({
     verified: true,
     affiliations: [mockedAffiliation()],
   },
+  ...user,
+});
+
+const mockedInvitedUser = (user?: Partial<InviteUserFormValues>) => ({
+  role: "Researcher",
+  organisation_id: "Test Organisation, LTD",
+  first_name: faker.person.firstName(),
+  last_name: faker.person.lastName(),
+  email: faker.internet.email().toLocaleLowerCase(),
+  organisation_name: faker.company.name(),
+  organisation_email: faker.internet.email().toLocaleLowerCase(),
   ...user,
 });
 
@@ -143,4 +155,5 @@ export {
   mockedTraining,
   mockedUser,
   mockedPendingInvite,
+  mockedInvitedUser,
 };

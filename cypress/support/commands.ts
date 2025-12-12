@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { dataCy } from "./utils/common";
+
 Cypress.Commands.add("login", (email: string, password: string) => {
   const args = { email, password };
 
@@ -178,6 +179,18 @@ Cypress.Commands.add(
   }
 );
 
+Cypress.Commands.add("solveGoogleReCAPTCHA", () => {
+  // Wait until the iframe (Google reCAPTCHA) is totally loaded
+  cy.wait(500);
+  cy.get(".g-recaptcha *> iframe").then($iframe => {
+    const $body = $iframe.contents().find("body");
+    cy.wrap($body)
+      .find(".recaptcha-checkbox-border")
+      .should("be.visible")
+      .click();
+  });
+});
+
 declare global {
   namespace Cypress {
     interface Chainable {
@@ -207,6 +220,7 @@ declare global {
       getResultsCellByValue: (
         value: string
       ) => Cypress.Chainable<JQuery<HTMLTableCellElement>>;
+      solveGoogleReCAPTCHA: () => void;
     }
   }
 }
