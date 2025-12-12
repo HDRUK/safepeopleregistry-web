@@ -1,28 +1,27 @@
-import { useTranslations } from "next-intl";
-import useOrganisationInvite from "@/queries/useOrganisationInvite";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
-import InviteOrganisation from "../../modules/InviteOrganisation";
+import useOrganisationInvite from "@/queries/useOrganisationInvite";
+import { WithTranslations } from "@/types/application";
+import { useTranslations } from "next-intl";
 import FormModal, { FormModalProps } from "../../components/FormModal";
+import InviteOrganisation from "../../modules/InviteOrganisation";
 
-interface InviteOrganisationModalProps
-  extends Omit<FormModalProps, "children"> {
-  onSuccess?: (id: number) => void;
-  custodianId?: number;
-}
-
-const NAMESPACE_TRANSLATION = "Organisations.InviteOrganisation";
+type InviteOrganisationModalProps = WithTranslations<
+  Omit<FormModalProps, "children"> & {
+    onSuccess?: (id: number) => void;
+    custodianId?: number;
+  }
+>;
 
 export default function InviteOrganisationModal({
   onSuccess,
   onClose,
+  t,
   ...restProps
 }: InviteOrganisationModalProps) {
-  const t = useTranslations(NAMESPACE_TRANSLATION);
-
-  const { queryState, handleSubmit } = useOrganisationInvite();
+  const { queryState, data, handleSubmit } = useOrganisationInvite();
 
   useQueryAlerts(queryState, {
-    onSuccess,
+    onSuccess: () => onSuccess(data?.data),
   });
 
   return (

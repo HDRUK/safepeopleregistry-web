@@ -59,6 +59,7 @@ export default function useOrganisationInvite({
           resetOrganisationInvite();
         },
       },
+      data: postOrganisationUnclaimedQueryState.data,
       handleSubmit,
       mutateOrganisationUnclaimed,
       mutateOrganisationInvite,
