@@ -132,7 +132,10 @@ const hasAddManualChecksForOrganisationConfigurationManualChecks = () => {
       cy.contains("a", "Manual checks").click();
     });
     const text = 'Mandatory Custodian Training';
-    cy.contains("button", "Add manual check").eq(2).should("exist").click();
+    cy.contains('ul', 'Organisation')
+    .within(() => {
+    cy.contains('button', 'Add manual check').click();
+    });
     cy.contains("h3", "Add User manual check").should("exist");
     cy.contains("label", "Description").should("exist");
     cy.contains("button", "Cancel").should("exist");
@@ -141,7 +144,7 @@ const hasAddManualChecksForOrganisationConfigurationManualChecks = () => {
     cy.saveFormClick("Save");
     cy.contains(text).should("exist");
     cy.contains("a", "Manual checks").should("exist");
-  };
+    };
   
 const hasCancelButtonTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks = () => {
       cy.get(dataCy("sub-tabs-navigation")).within(() => {
