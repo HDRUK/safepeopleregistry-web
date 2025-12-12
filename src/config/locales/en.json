@@ -711,6 +711,7 @@
     "subsidiaryAddressRequired": "Subsidiary address is required",
     "subsidiaryWebsite": "Subsidiary website",
     "subsidiaryWebsitePlaceholder": "Subsidiary website",
+    "sponsorId": "Project sponsor",
     "status": "Change status",
     "statusPlaceholder": "Select a status from the list",
     "text": "Text",
@@ -1296,6 +1297,13 @@
     "website": "Website"
   },
   "Organisations": {
+    "InviteOrganisation": {
+      "heading": "Add a sponsor",
+      "description": "Complete the fields below to invite a Sponsor to create a Safe People Registry account.",
+      "emailDescription": "Please check with the organisation first in order to send the email to the most relevant person. This should ideally be the Senior Responsible Officer.",
+      "inviteButton": "Invite",
+      "cancelButton": "Cancel"
+    },
     "EditDelegate": {
       "heading": "Edit delegate",
       "edit": "Edit",

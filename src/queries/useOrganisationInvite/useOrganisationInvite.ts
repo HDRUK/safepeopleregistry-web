@@ -19,11 +19,13 @@ export default function useOrganisationInvite({
 }: UseOrganisationInviteProps = {}) {
   const {
     mutateAsync: mutateOrganisationUnclaimed,
+    reset: resetOrganisationUnclaimed,
     ...postOrganisationUnclaimedQueryState
   } = useMutation(postOrganisationUnclaimedQuery());
 
   const {
     mutateAsync: mutateOrganisationInvite,
+    reset: resetOrganisationInvite,
     ...postOrganisationInviteQueryState
   } = useMutation(postOrganisationInviteQuery());
 
@@ -50,7 +52,13 @@ export default function useOrganisationInvite({
 
   return useMemo(
     () => ({
-      queryState,
+      queryState: {
+        ...queryState,
+        reset: () => {
+          resetOrganisationUnclaimed();
+          resetOrganisationInvite();
+        },
+      },
       handleSubmit,
       mutateOrganisationUnclaimed,
       mutateOrganisationInvite,

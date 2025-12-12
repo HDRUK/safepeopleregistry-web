@@ -1,6 +1,7 @@
 import { Status } from "@/consts/application";
 import {
   Box,
+  Button,
   FormControlLabel,
   Grid,
   Paper,
@@ -9,7 +10,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import ChipStatus from "../../components/ChipStatus";
 import DateInput from "../../components/DateInput";
 import Form, { FormProps } from "../../components/Form";
@@ -20,6 +21,10 @@ import ProfileNavigationFooter from "../../components/ProfileNavigationFooter";
 import yup from "../../config/yup";
 import { ResearcherProject } from "../../types/application";
 import { MutationState } from "../../types/form";
+import SelectOrganisation from "@/components/SelectOrganisation";
+import InviteUserModal from "@/organisms/InviteUserModal";
+import InviteOrganisationModal from "@/organisms/InviteOrganisationModal";
+import { useQueryClient } from "@tanstack/react-query";
 
 export interface ProjectsSafeProjectFormProps
   extends FormProps<ResearcherProject> {
@@ -33,6 +38,8 @@ export default function ProjectsSafeProjectForm({
   ...restProps
 }: ProjectsSafeProjectFormProps) {
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
+  const queryClient = useQueryClient();
+  const [showInviteModal, setShowInviteModel] = useState(false);
 
   const schema = useMemo(
     () =>
@@ -40,6 +47,7 @@ export default function ProjectsSafeProjectForm({
         unique_id: yup.string().required(tForm("uniqueIdRequiredInvalid")),
         title: yup.string().required(tForm("titleRequiredInvalid")),
         request_category_type: yup.string().optional(),
+        sponsor_id: yup.string().optional(),
         start_date: yup.string().required(tForm("startDateRequiredInvalid")),
         end_date: yup.string().nullable(),
         lay_summary: yup.string().optional(),
@@ -49,6 +57,15 @@ export default function ProjectsSafeProjectForm({
       }),
     []
   );
+
+  const handleInviteSuccess = (id: number) => {
+    console.log("id", id);
+    setShowInviteModel(false);
+
+    queryClient.refetchQueries({
+      queryKey: ["getOrganisations"],
+    });
+  };
 
   const formOptions = {
     disabled: mutateState.isPending,
@@ -84,6 +101,26 @@ export default function ProjectsSafeProjectForm({
                 name="title"
                 t={tForm}
                 renderField={fieldProps => <TextField {...fieldProps} />}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControlWrapper
+                name="sponsor_id"
+                renderField={({ ...fieldProps }) => (
+                  <SelectOrganisation {...fieldProps} />
+                )}
+                sx={{ mb: 1 }}
+              />
+              <Button
+                color="primary"
+                variant="outlined"
+                onClick={() => setShowInviteModel(true)}>
+                Invite sponsor to join
+              </Button>
+              <InviteOrganisationModal
+                open={showInviteModal}
+                onClose={() => setShowInviteModel(false)}
+                onSuccess={handleInviteSuccess}
               />
             </Grid>
             <Grid item xs={12}>
