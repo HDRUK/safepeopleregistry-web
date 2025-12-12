@@ -12,7 +12,7 @@ import { ActionValidationVariants } from "@/organisms/ActionValidationPanel/Acti
 import { getCustodianProjectOrganisationQuery } from "@/services/custodian_approvals";
 import { getOrganisationQuery } from "@/services/organisations";
 import { getCustodianOrganisationValidationLogsQuery } from "@/services/validation_logs";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
 import { useEffect } from "react";
 import { OrganisationsSubTabs } from "../../../../../consts/tabs";
@@ -34,7 +34,7 @@ function CustodianProjectOrganisation({
     data: custodianProjectOrganisation,
     isFetched: isFetchedCustodianProjectOrganisation,
     refetch,
-  } = useQuery(
+  } = useSuspenseQuery(
     getCustodianProjectOrganisationQuery(
       custodian?.id as number,
       projectOrganisationId

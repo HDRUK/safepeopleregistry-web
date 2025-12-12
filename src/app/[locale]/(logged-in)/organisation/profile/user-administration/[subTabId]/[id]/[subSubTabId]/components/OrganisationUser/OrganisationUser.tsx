@@ -9,7 +9,11 @@ import {
 } from "@/modules";
 import { UserGroup } from "@/consts/user";
 import { useStore } from "@/data/store";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useQuery,
+  useQueryClient,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
 // import { getCustodianProjectUserValidationLogsQuery } from "@/services/validation_logs";
 import UserDetails from "@/components/UserDetails";
 import { getUserQuery } from "@/services/users";
@@ -36,7 +40,7 @@ function OrganisationUser({ userId, subSubTabId }: OrganisationUserProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
   const queryClient = useQueryClient();
 
-  const { data: userData, isFetched } = useQuery(getUserQuery(+userId));
+  const { data: userData, isFetched } = useSuspenseQuery(getUserQuery(+userId));
 
   if (userData?.data.user_group !== UserGroup.USERS && isFetched) {
     notFound();

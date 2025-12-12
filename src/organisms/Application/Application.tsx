@@ -93,7 +93,7 @@ export default function Application({
       </OverlayCenterAlert>
     </PageBodyContainer>
   ) : (
-    <LoadingWrapper loading={isLoading} variant="basic">
+    !isLoading && (
       <ApplicationData
         isOrganisation={!!organisationId}
         isCustodian={!!custodianId}
@@ -118,6 +118,6 @@ export default function Application({
         <ActionLogUpdater />
         {children}
       </ApplicationData>
-    </LoadingWrapper>
+    )
   );
 }

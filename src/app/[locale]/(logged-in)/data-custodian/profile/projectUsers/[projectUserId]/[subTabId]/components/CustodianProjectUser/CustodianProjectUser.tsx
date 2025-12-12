@@ -17,7 +17,11 @@ import { getCustodianProjectUserQuery } from "@/services/custodian_approvals";
 import { getUserQuery } from "@/services/users";
 import { getCustodianProjectUserValidationLogsQuery } from "@/services/validation_logs";
 import { toCamelCase } from "@/utils/string";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useQuery,
+  useQueryClient,
+  useSuspenseQuery,
+} from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { notFound } from "next/navigation";
 import { useEffect } from "react";
@@ -43,7 +47,9 @@ function CustodianProjectUser({
   const {
     data: custodianProjectUser,
     isFetched: isFetchedCustodianProjectUser,
-  } = useQuery(getCustodianProjectUserQuery(custodian?.id, projectUserId));
+  } = useSuspenseQuery(
+    getCustodianProjectUserQuery(custodian?.id, projectUserId)
+  );
 
   const { project_has_user: projectUser } = custodianProjectUser?.data || {};
 

@@ -13,6 +13,7 @@ function PageCenter({ children }: PageCenterProps) {
         margin: "0 auto",
         padding: "0 20px",
         width: "100%",
+        flexGrow: 1,
       }}>
       {children}
     </Box>
