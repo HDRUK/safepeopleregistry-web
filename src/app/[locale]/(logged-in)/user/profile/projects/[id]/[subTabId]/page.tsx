@@ -1,13 +1,11 @@
 "use client";
 
-import LoadingWrapper from "@/components/LoadingWrapper";
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
 import { getProjectForUserQuery } from "@/services/projects";
 import { useStore } from "@/data/store";
 import SubPageProjects from "../../../components/SubPageProjects";
 import { ProjectsSubTabs } from "../../../consts/tabs";
-import { Suspense } from "react";
 
 interface SubPageProjectsProps {
   params: {

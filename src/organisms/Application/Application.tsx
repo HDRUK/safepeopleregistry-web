@@ -3,7 +3,6 @@
 import { useTranslations } from "next-intl";
 import { ReactNode } from "react";
 import ErrorMessage from "@/components/ErrorMessage";
-import LoadingWrapper from "../../components/LoadingWrapper";
 import OverlayCenterAlert from "../../components/OverlayCenterAlert";
 import PageBodyContainer from "../../modules/PageBodyContainer";
 import useApplicationDependencies from "../../queries/useApplicationDependencies";
