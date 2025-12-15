@@ -1,7 +1,6 @@
 import useQueryAlerts from "@/hooks/useQueryAlerts";
 import useOrganisationInvite from "@/queries/useOrganisationInvite";
 import { WithTranslations } from "@/types/application";
-import { useTranslations } from "next-intl";
 import FormModal, { FormModalProps } from "../../components/FormModal";
 import InviteOrganisation from "../../modules/InviteOrganisation";
 

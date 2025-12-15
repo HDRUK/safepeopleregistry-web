@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
+import { getSponsorshipStatus } from "@/utils/application";
 import ChipStatus from "../../components/ChipStatus";
 import DateInput from "../../components/DateInput";
 import Form, { FormProps } from "../../components/Form";
@@ -27,6 +28,7 @@ import InviteSponsor from "../InviteSponsor";
 export interface ProjectsSafeProjectFormProps
   extends FormProps<ResearcherProject> {
   mutateState: MutationState;
+  project: ResearcherProject;
 }
 
 const NAMESPACE_TRANSLATION_FORM = "Form.SafeProject";
@@ -34,6 +36,7 @@ const NAMESPACE_TRANSLATION_FORM_SPONSOR = "Organisations.InviteSponsor";
 
 export default function ProjectsSafeProjectForm({
   mutateState,
+  project,
   ...restProps
 }: ProjectsSafeProjectFormProps) {
   const { data: organisationsData, refetch } = useOrganisationsQuery({
@@ -121,10 +124,17 @@ export default function ProjectsSafeProjectForm({
 
                       return (
                         <>
-                          <SelectOrganisation {...fieldProps} />
+                          <SelectOrganisation
+                            {...fieldProps}
+                            disabled={
+                              getSponsorshipStatus(organisation, project) ===
+                              Status.SPONSORSHIP_APPROVED
+                            }
+                          />
                           <Box mt={1}>
                             <InviteSponsor
                               selectedOrganisation={organisation}
+                              project={project}
                               onSuccess={handleInviteSuccess}
                               t={tSponsor}
                             />

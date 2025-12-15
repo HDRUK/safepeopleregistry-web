@@ -101,6 +101,7 @@ export default function ProjectsSafeProject() {
             defaultValues={defaultValues}
             mutateState={mutateState}
             onSubmit={handleSubmit}
+            project={project}
           />
         </PageBody>
       </PageColumnBody>

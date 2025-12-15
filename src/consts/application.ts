@@ -50,6 +50,9 @@ enum Status {
   NONE = "none",
   ORGANISATION_NOT_VALIDATED = "organisation_not_validated",
   ORGANISATION_VALIDATED = "organisation_validated",
+  SPONSORSHIP_PENDING = "sponsorship_pending",
+  SPONSORSHIP_APPROVED = "sponsorship_approved",
+  SPONSORSHIP_REJECTED = "sponsorship_rejected",
 }
 
 export { VALIDATION_SCHEMA_KEY, EMAIL_TEMPLATE, PendingInvite, Status };

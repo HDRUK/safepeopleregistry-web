@@ -1,4 +1,5 @@
 import { GetSystemConfigResponse } from "@/services/system_config/types";
+import { Organisation, ResearcherProject } from "@/types/application";
 import { escapeAndParse } from "./json";
 import { Status, VALIDATION_SCHEMA_KEY } from "../consts/application";
 
@@ -6,6 +7,18 @@ function canUseIdvt(country: string | undefined) {
   return Boolean(
     country && ["United Kingdom", "UK"].find(item => item === country)
   );
+}
+
+function getSponsorshipStatus(
+  organisation: Organisation | undefined,
+  project: ResearcherProject
+) {
+  const statusOrg = organisation?.model_state?.state.slug;
+  const statusProject =
+    project.project_has_sponsorships?.[0]
+      ?.custodian_has_project_has_sponsorship?.[0]?.model_state?.state.slug;
+
+  return statusOrg === Status.INVITED ? statusOrg : statusProject;
 }
 
 function getStatus(slug: string) {
@@ -133,4 +146,5 @@ export {
   getShortStatus,
   getName,
   getAbbreviatedListWithCount,
+  getSponsorshipStatus,
 };
