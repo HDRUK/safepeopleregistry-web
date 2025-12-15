@@ -3,11 +3,11 @@ import Ol from "@/components/Ol";
 import { Typography } from "@mui/material";
 import { ReactNode } from "react";
 
-export const mockedBannerContent = () => (
+
+export const mockedChristmasBannerContent = () => (
   <>
-    Live system launched for public testing! Please note, any accounts made
-    previously on our Beta preview have been removed. Please do get in touch if
-    you notice any issues or would like to try out our system: <ContactLink />.
+    Please note that the HDR UK Technology Team are on reduced hours from Dec 20 - January 3, 
+    and will be unable to respond to support requests during this time.
   </>
 );
 

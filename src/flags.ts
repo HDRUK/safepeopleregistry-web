@@ -8,6 +8,12 @@ export const isTestFeatureEnabled = flag({
   adapter: await apiAdapter(),
 });
 
+export const isChristmasBannerEnabled = flag({
+  key: "christmas-banner",
+  adapter: await apiAdapter(),
+});
+
+
 export const isTestFeatureUserAdmin = flag({
   key: "test-feature-user-admin",
   adapter: await apiAdapter(),
