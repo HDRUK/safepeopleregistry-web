@@ -1,8 +1,8 @@
-import { RegistrationValues } from "@/types/form";
-import { dataCy, signout } from "../common";
-import { actionMessage } from "../mail";
-import { EMAIL_REGISTER_VERIFICATION_LABEL } from "../data";
 import { ROUTES } from "@/consts/router";
+import { RegistrationValues } from "@/types/form";
+import { dataCy } from "../common";
+import { EMAIL_REGISTER_VERIFICATION_LABEL } from "../data";
+import { actionMessage } from "../mail";
 
 function checkTermsAndConditionsContent(
   label: string | RegExp,
@@ -92,11 +92,11 @@ function registerKeycloak(user: {
 }
 
 export {
-  checkTermsAndConditionsContent,
-  openUserTermsAndConditions,
   acceptTermsAndConditions,
-  registerKeycloak,
-  openOrganisationTermsAndConditions,
+  checkTermsAndConditionsContent,
   openCustodianTermsAndConditions,
+  openOrganisationTermsAndConditions,
+  openUserTermsAndConditions,
   registerAndLogin,
+  registerKeycloak,
 };

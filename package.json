@@ -1,6 +1,6 @@
 {
   "name": "safepeopleregistry-web",
-  "version": "1.23.1",
+  "version": "1.23.2",
   "private": true,
   "scripts": {
     "maildev": "maildev",
@@ -70,7 +70,7 @@
     "lodash.get": "^4.4.2",
     "maildev": "^2.2.1",
     "motion": "^11.11.17",
-    "next": "^14.2.33",
+    "next": "^14.2.35",
     "next-intl": "^3.10.0",
     "pretty-bytes": "^6.1.1",
     "react": "^18",
@@ -135,7 +135,9 @@
     "react-syntax-highlighter": "^15.5.0",
     "semantic-release": "^24.2.1",
     "storybook": "^8.0.5",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "axe-core": "^4.10.3",
+    "cypress-axe": "^1.7.0"
   },
   "resolutions": {
     "@typescript-eslint/typescript-estree": "^8.16.0"

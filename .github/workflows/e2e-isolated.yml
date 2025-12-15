@@ -178,8 +178,6 @@ jobs:
     steps:
       - name: Checkout web
         uses: actions/checkout@v4
-        with:
-          repository: HDRUK/safepeopleregistry-web
 
       - name: Checkout api
         uses: actions/checkout@v4

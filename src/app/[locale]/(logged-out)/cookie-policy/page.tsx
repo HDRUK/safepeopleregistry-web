@@ -5,7 +5,9 @@ export default function Page() {
   return (
     <>
       <Header />
-      <CookiePolicy />
+      <main>
+        <CookiePolicy />
+      </main>
       <Footer />
     </>
   );

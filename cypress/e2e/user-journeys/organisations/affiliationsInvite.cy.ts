@@ -42,8 +42,6 @@ describe("Affiliations invite journey", () => {
 
     const registration = mockedRegistration(dataUser);
 
-    console.log("****** registration", registration);
-
     registerAndLogin(registration);
 
     shouldBeUserProfile();
