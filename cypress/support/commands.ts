@@ -196,46 +196,40 @@ Cypress.Commands.add(
   }
 );
 
-// Cypress.Commands.add("saveFormClick", (text: string = "Save") => {
-//   cy.get('[role="presentation"]:not([aria-hidden="true"])')
-//     .then($els => {
-//       cy.log(`Found ${$els.length} matching elements`);
-//       $els.each((index, el) => {
-//         cy.log(`Element ${index + 1}`);
-//         // eslint-disable-next-line no-console
-//         console.log(el);
-//       });
-//     })
-//     .filter(':visible')
-//     .first()
-//     .should("be.visible")
-//     .within(() => {
-//       cy.contains('button[type="submit"]', text).click();
-//     });
-// });
 
 Cypress.Commands.add("saveFormClick", (text: string = "Save") => {
   cy.get('[role="presentation"]:not([aria-hidden="true"])')
     .then($els => {
-      const els = Array.from($els);
+      if ($els.length === 0) {
+        throw new Error("No matching elements found");
+      }
 
-      const getZIndex = (el: Element) => {
-        const z = window.getComputedStyle(el).zIndex;
-        const parsed = parseInt(z ?? "0", 10);
-        return isNaN(parsed) ? 0 : parsed;
-      };
+      let elementToUse: HTMLElement;
 
-      const topElement = els.reduce((top, current) => {
-        return getZIndex(current) > getZIndex(top) ? current : top;
-      });
+      if ($els.length === 1) {
+        elementToUse = $els[0];
+        cy.log("Only one element found, using it directly");
+      } else {
+        cy.log(`${$els.length} elements found, selecting one with highest z-index`);
+        const getZIndex = (el: Element) => {
+          const z = window.getComputedStyle(el).zIndex;
+          const parsed = parseInt(z ?? "0", 10);
+          return isNaN(parsed) ? 0 : parsed;
+        };
 
-      return cy.wrap(topElement);
+        elementToUse = Array.from($els).reduce((top, current) => {
+          return getZIndex(current) > getZIndex(top) ? current : top;
+        });
+      }
+
+      return cy.wrap(elementToUse);
     })
     .should("be.visible")
     .within(() => {
-      cy.contains('button', text).click();
+      cy.get('button').contains(text).click();
     });
 });
+
 
 Cypress.Commands.add(
   "saveContinueClick",
