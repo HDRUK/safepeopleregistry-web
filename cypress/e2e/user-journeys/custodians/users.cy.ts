@@ -30,15 +30,15 @@ describe("Projects custodians journey", () => {
 
 
 describe("Projects custodians journey", () => {
-  before(() => {
-    loginCustodian();             
-    goToProjectUsersList();        
-    inviteNewProjectUser(dataProjectInviteUser);
+ beforeEach(() => {
+    loginCustodian();
+    cy.visitFirst(ROUTES.profileCustodianUsers.path);
+    cy.contains("a", getName(dataProjectInviteUser)).click();
   });
-
-  beforeEach(() => {
-    cy.visitFirst(ROUTES.profileCustodianUsers.path); 
-    cy.contains("a", getName(dataProjectInviteUser)).should('be.visible').click();
+  before(() => {
+    loginCustodian();
+    goToProjectUsersList();
+    inviteNewProjectUser(dataProjectInviteUser);
   });
 
   after(() => {
