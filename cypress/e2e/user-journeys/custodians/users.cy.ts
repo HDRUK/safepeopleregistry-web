@@ -30,13 +30,14 @@ describe("Projects custodians journey", () => {
 
 
 describe("Projects custodians journey", () => {
-  // beforeEach(() => {
-   
+ beforeEach(() => {
+    loginCustodian();
 
-  //   cy.contains("a", getName(dataProjectInviteUser)).click();
-  // });
+    cy.visitFirst(ROUTES.profileCustodianUsers.path);
 
-  beforeEach(() => {
+    cy.contains("a", getName(dataProjectInviteUser)).click();
+  });
+  before(() => {
     loginCustodian();
     goToProjectUsersList();
     inviteNewProjectUser(dataProjectInviteUser);
