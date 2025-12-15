@@ -196,11 +196,44 @@ Cypress.Commands.add(
   }
 );
 
+// Cypress.Commands.add("saveFormClick", (text: string = "Save") => {
+//   cy.get('[role="presentation"]:not([aria-hidden="true"])')
+//     .then($els => {
+//       cy.log(`Found ${$els.length} matching elements`);
+//       $els.each((index, el) => {
+//         cy.log(`Element ${index + 1}`);
+//         // eslint-disable-next-line no-console
+//         console.log(el);
+//       });
+//     })
+//     .filter(':visible')
+//     .first()
+//     .should("be.visible")
+//     .within(() => {
+//       cy.contains('button[type="submit"]', text).click();
+//     });
+// });
+
 Cypress.Commands.add("saveFormClick", (text: string = "Save") => {
-  cy.get(dataCy("form-modal"))
+  cy.get('[role="presentation"]:not([aria-hidden="true"])')
+    .then($els => {
+      const els = Array.from($els);
+
+      const getZIndex = (el: Element) => {
+        const z = window.getComputedStyle(el).zIndex;
+        const parsed = parseInt(z ?? "0", 10);
+        return isNaN(parsed) ? 0 : parsed;
+      };
+
+      const topElement = els.reduce((top, current) => {
+        return getZIndex(current) > getZIndex(top) ? current : top;
+      });
+
+      return cy.wrap(topElement);
+    })
     .should("be.visible")
     .within(() => {
-      cy.contains("button", text).click();
+      cy.contains('button', text).click();
     });
 });
 
