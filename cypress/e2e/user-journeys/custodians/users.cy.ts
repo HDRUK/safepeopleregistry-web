@@ -35,6 +35,7 @@ describe("Projects custodians journey", () => {
 
     cy.visitFirst(ROUTES.profileCustodianUsers.path);
 
+    
     cy.contains("a", getName(dataProjectInviteUser)).click();
   });
   before(() => {
