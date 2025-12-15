@@ -96,22 +96,6 @@ Cypress.Commands.add("getResultsRow", (index?: number | string | undefined) => {
   return tableRows.eq(index);
 });
 
-Cypress.Commands.add("getResultsRow", (index?: number | string | undefined) => {
-  const tableRows = cy.get(dataCy("results")).find("tbody tr");
-
-  if (!index) return tableRows;
-
-  if (typeof index === "string") {
-    if (index === "last") {
-      return tableRows.last();
-    }
-
-    return tableRows.first();
-  }
-
-  return tableRows.eq(index);
-});
-
 Cypress.Commands.add("getResultsRowByValue", (value: string) => {
   const row =
     value === "first" || value === "last"
