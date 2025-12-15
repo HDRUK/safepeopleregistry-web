@@ -213,9 +213,11 @@ Cypress.Commands.add(
 );
 
 Cypress.Commands.add("saveFormClick", (text: string = "Save") => {
-  const formModal = cy.get(dataCy("form-modal")).should("be.visible");
-
-  formModal.get("button").contains(text).click();
+  cy.get(dataCy("form-modal"))
+    .should("be.visible")
+    .within(() => {
+      cy.contains("button", text).click();
+    });
 });
 
 Cypress.Commands.add(
