@@ -13,7 +13,6 @@ export const isChristmasBannerEnabled = flag({
   adapter: await apiAdapter(),
 });
 
-
 export const isTestFeatureUserAdmin = flag({
   key: "test-feature-user-admin",
   adapter: await apiAdapter(),

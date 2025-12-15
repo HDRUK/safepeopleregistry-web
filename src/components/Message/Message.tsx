@@ -4,7 +4,7 @@ import { Alert, AlertProps, Snackbar, SnackbarProps } from "@mui/material";
 import { ReactNode, useState } from "react";
 
 export interface BannerLists {
-  christmasMessage: boolean
+  christmasMessage: boolean;
 }
 
 export interface MessageProps extends AlertProps {
@@ -12,7 +12,7 @@ export interface MessageProps extends AlertProps {
   position?: "body" | "notification";
   isDismissable?: boolean;
   snackbarProps?: SnackbarProps;
-  enabledBanners: BannerLists
+  enabledBanners: BannerLists;
 }
 
 export default function Message({

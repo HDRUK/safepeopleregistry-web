@@ -15,7 +15,11 @@ import { PropsWithChildren } from "react";
 import "../sweetalert2-custom.css";
 import "../global.css";
 import IntlClientProvider from "@/context/IntlClientProvider";
-import { isChristmasBannerEnabled, isTestFeatureEnabled, isTestFeatureUserAdmin } from "@/flags";
+import {
+  isChristmasBannerEnabled,
+  isTestFeatureEnabled,
+  isTestFeatureUserAdmin,
+} from "@/flags";
 import { FeatureProvider } from "@/components/FeatureProvider";
 import packageJson from "@/../package.json";
 import { RegistryGlobals } from "@/components/RegistryGlobals";
@@ -45,15 +49,15 @@ export default async function RootLayout({
   const features = {
     isTestFeatureEnabled: (await isTestFeatureEnabled()) as boolean,
     isTestFeatureUserAdmin: (await isTestFeatureUserAdmin()) as boolean,
-     isChristmasBannerEnabled: (await isChristmasBannerEnabled()) as boolean,
+    isChristmasBannerEnabled: (await isChristmasBannerEnabled()) as boolean,
   };
 
   // below boolean will grow as we get more banners.. i know this is a pointless const for now...
-  const displayBanner = features.isChristmasBannerEnabled
-  
-  const enabledBanners:BannerLists = {
-    christmasMessage: features.isChristmasBannerEnabled
-  }
+  const displayBanner = features.isChristmasBannerEnabled;
+
+  const enabledBanners: BannerLists = {
+    christmasMessage: features.isChristmasBannerEnabled,
+  };
   return (
     <html lang={locale}>
       {gtmId && <GoogleTagManager gtmId={gtmId} />}
@@ -75,7 +79,7 @@ export default async function RootLayout({
                       }}
                     />
                     {displayBanner && (
-                      <BannerMessage enabledBanners={enabledBanners}/>
+                      <BannerMessage enabledBanners={enabledBanners} />
                     )}
                     {children}
                   </ToastProvider>
