@@ -8,28 +8,30 @@ import { ROUTES } from "@/consts/router";
 import { Link } from "@/i18n/routing";
 import {
   StyledContent,
-  StyledFlex,
-  StyledContainer,
+  StyledArticleContainer,
+  StyledSectionFlex,
 } from "./KeyFeatures.styles";
 
 export default function KeyFeatures() {
   return (
     <StyledContent>
-      <Typography variant="h1" sx={{ mb: "16px" }}>
+      <Typography variant="h1" component="h5" sx={{ mb: "16px" }}>
         Key Features
       </Typography>
       <Typography
         variant="h3"
+        component="h6"
         sx={{
           fontWeight: "light",
           color: theme.palette.homepageKeyFeatures.textSecondary,
         }}>
         Capabilities for Users, Organisations, and Data Custodians
       </Typography>
-      <StyledFlex width="100%">
-        <StyledContainer>
+      <StyledSectionFlex width="100%">
+        <StyledArticleContainer>
           <Typography
             variant="h5"
+            component="h6"
             sx={{ marginBottom: "16px", fontWeight: "500" }}>
             User and Organisation Registers
           </Typography>
@@ -39,10 +41,11 @@ export default function KeyFeatures() {
             profiles and share relevant information for Data Custodians to
             assess if a person is ‘Safe’.
           </Typography>
-        </StyledContainer>
-        <StyledContainer>
+        </StyledArticleContainer>
+        <StyledArticleContainer>
           <Typography
             variant="h5"
+            component="h6"
             sx={{ marginBottom: "16px", fontWeight: "500" }}>
             Visibility across Data Custodians
           </Typography>
@@ -51,10 +54,11 @@ export default function KeyFeatures() {
             and current projects as well as approvals for other functionality in
             complementary systems.
           </Typography>
-        </StyledContainer>
-        <StyledContainer>
+        </StyledArticleContainer>
+        <StyledArticleContainer>
           <Typography
             variant="h5"
+            component="h6"
             sx={{ marginBottom: "16px", fontWeight: "500" }}>
             Multiple authentication routes
           </Typography>
@@ -64,8 +68,8 @@ export default function KeyFeatures() {
             enables users to easily associate their Safe People Registry account
             with existing credentials.
           </Typography>
-        </StyledContainer>
-      </StyledFlex>
+        </StyledArticleContainer>
+      </StyledSectionFlex>
       <Box
         sx={{ mt: 2, mb: 3 }}
         width={{

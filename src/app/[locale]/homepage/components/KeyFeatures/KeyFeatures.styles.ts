@@ -13,7 +13,7 @@ const StyledContent = styled("div")`
   color: ${theme.palette.homepageKeyFeatures.contrastText};
 `;
 
-const StyledFlex = styled("div")`
+const Flex = `
   justify-content: space-around;
   text-align: left;
   display: flex;
@@ -24,7 +24,13 @@ const StyledFlex = styled("div")`
   margin-top: 24px;
 `;
 
-const StyledContainer = styled("div")`
+const StyledSectionFlex = styled("section")`
+  ${Flex}
+`;
+const StyledFlex = styled("div")`
+  ${Flex}
+`;
+const Container = `
   background: #ffffff;
   display: flex;
   flex-direction: column;
@@ -34,5 +40,18 @@ const StyledContainer = styled("div")`
   min-height: 240px;
   max-width: 400px;
 `;
+const StyledArticleContainer = styled("article")`
+  ${Container}
+`;
 
-export { StyledContent, StyledFlex, StyledContainer };
+const StyledContainer = styled("div")`
+  ${Container}
+`;
+
+export {
+  StyledContent,
+  StyledFlex,
+  StyledContainer,
+  StyledArticleContainer,
+  StyledSectionFlex,
+};

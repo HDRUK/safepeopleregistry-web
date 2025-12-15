@@ -135,7 +135,9 @@
     "react-syntax-highlighter": "^15.5.0",
     "semantic-release": "^24.2.1",
     "storybook": "^8.0.5",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "axe-core": "^4.10.3",
+    "cypress-axe": "^1.7.0"
   },
   "resolutions": {
     "@typescript-eslint/typescript-estree": "^8.16.0"

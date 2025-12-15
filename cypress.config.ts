@@ -27,12 +27,17 @@ export default defineConfig({
 
         return launchOptions;
       }),
+      
         on("task", {
           log(message) {
             console.log(message + "\n\n");
 
             return true;
           },
+           table(data) {
+            console.table(data);
+            return null;
+          }
         });
 
       config.env.MAILDEV_PROTOCOL = process.env.CYPRESS_MAILDEV_PROTOCOL;

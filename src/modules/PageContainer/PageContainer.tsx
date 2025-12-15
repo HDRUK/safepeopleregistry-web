@@ -10,28 +10,27 @@ interface PageContainerProps {
 
 function PageContainer({ children }: PageContainerProps) {
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        minHeight: "100vh",
-        width: "100%",
-        background: "#fff",
-      }}>
+    <>
       <Header />
-      <PageCenter>
-        <Box
-          sx={{
-            px: 1,
-            flexGrow: 1,
-            display: "flex",
-            flexDirection: "column",
-          }}>
-          {children}
-        </Box>
-      </PageCenter>
+      <main
+        role="main"
+        style={{
+          backgroundColor: "#fff",
+        }}>
+        <PageCenter>
+          <Box
+            sx={{
+              px: 1,
+              flexGrow: 1,
+              display: "flex",
+              flexDirection: "column",
+            }}>
+            {children}
+          </Box>
+        </PageCenter>
+      </main>
       <Footer />
-    </Box>
+    </>
   );
 }
 
