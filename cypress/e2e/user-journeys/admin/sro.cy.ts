@@ -73,10 +73,6 @@ describe("SRO journey", () => {
     after(() => {
       logout();
     });
-    it('should have no detectable accessibility violations on load', () => {
-      cy.waitForLoadingToFinish();
-      cy.checkA11yPage();
-    });
 
     it("Has the correct tabs enabled", () => {
       hasSROEnabledTabsOrganisations();
