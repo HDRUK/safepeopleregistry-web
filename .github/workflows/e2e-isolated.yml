@@ -141,6 +141,7 @@ env:
   CYPRESS_UNAPPROVED_ORGANISATION_EMAIL: "test.user+organisation@safepeopleregistry.com"
   CYPRESS_CUSTODIAN_EMAIL: "test.user+custodian@safepeopleregistry.com"
   CYPRESS_ADMIN_EMAIL: "test.user+admin@safepeopleregistry.com"
+  isTest: 'true'
 
 jobs:
   e2e-tests:

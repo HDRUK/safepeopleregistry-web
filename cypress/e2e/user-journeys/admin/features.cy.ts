@@ -35,6 +35,13 @@ describe("Feature Flag journey", () => {
     it("Can toggle test-feature", () => {
       canToggleFeature('test-feature', 'true');
     });
+
+    it("Can make it christmas", () => {
+      canToggleFeature('christmas-banner', 'true', true);
+      cy.reload()
+      cy.get('[data-testid="banner"]', { timeout: 10000 })
+        .should('be.visible')
+    });
     
   });
 
