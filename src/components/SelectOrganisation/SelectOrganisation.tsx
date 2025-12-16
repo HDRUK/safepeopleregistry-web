@@ -1,11 +1,11 @@
+import useOrganisationsQuery from "@/services/organisations/useOrganisationsQuery";
 import {
   MenuItem,
   Select,
   SelectChangeEvent,
   SelectProps,
 } from "@mui/material";
-import { useEffect, useMemo, useState } from "react";
-import useOrganisationsQuery from "@/services/organisations/useOrganisationsQuery";
+import { useMemo } from "react";
 
 export interface SelectOrganisationProps {
   onChange?: (event: SelectChangeEvent) => void;
@@ -15,7 +15,6 @@ export default function SelectOrganisation({
   onChange,
   ...fieldProps
 }: SelectOrganisationProps & SelectProps) {
-  const [fieldValue, setFieldValue] = useState(fieldProps.value);
   const { data: organisationsData } = useOrganisationsQuery({
     defaultQueryParams: {
       perPage: 1000,
@@ -38,12 +37,8 @@ export default function SelectOrganisation({
     onChange?.(event);
   };
 
-  useEffect(() => {
-    setFieldValue(fieldProps.value);
-  }, [fieldProps.value]);
-
   return (
-    <Select onChange={e => handleChange(e)} {...fieldProps} value={fieldValue}>
+    <Select onChange={e => handleChange(e)} {...fieldProps}>
       {hydratedOrganisationMenu}
     </Select>
   );

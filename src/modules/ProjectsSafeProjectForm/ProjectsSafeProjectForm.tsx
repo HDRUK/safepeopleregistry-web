@@ -9,6 +9,7 @@ import {
   Radio,
   RadioGroup,
   TextField,
+  Typography,
 } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
@@ -24,6 +25,8 @@ import yup from "../../config/yup";
 import { ResearcherProject } from "../../types/application";
 import { MutationState } from "../../types/form";
 import InviteSponsor from "../InviteSponsor";
+import { useFeatures } from "@/components/FeatureProvider";
+import { isSponsorship } from "@/flags";
 
 export interface ProjectsSafeProjectFormProps
   extends FormProps<ResearcherProject> {
@@ -39,11 +42,16 @@ export default function ProjectsSafeProjectForm({
   project,
   ...restProps
 }: ProjectsSafeProjectFormProps) {
+  const [enableSponsor, setEnableSponsor] = useState(
+    !!project.project_has_sponsorships
+  );
   const { data: organisationsData, refetch } = useOrganisationsQuery({
     defaultQueryParams: {
       perPage: 1000,
     },
   });
+
+  const { isSponsorship } = useFeatures();
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
   const tSponsor = useTranslations(NAMESPACE_TRANSLATION_FORM_SPONSOR);
   const [invitedOrganisationId, setInvitedOrganisationId] = useState<number>();
@@ -54,7 +62,7 @@ export default function ProjectsSafeProjectForm({
         unique_id: yup.string().required(tForm("uniqueIdRequiredInvalid")),
         title: yup.string().required(tForm("titleRequiredInvalid")),
         request_category_type: yup.string().optional(),
-        sponsor_id: yup.string().optional(),
+        ...(isSponsorship && { sponsor_id: yup.string().optional() }),
         start_date: yup.string().required(tForm("startDateRequiredInvalid")),
         end_date: yup.string().nullable(),
         lay_summary: yup.string().optional(),
@@ -86,6 +94,7 @@ export default function ProjectsSafeProjectForm({
       {({ setValue }) => {
         if (invitedOrganisationId) {
           setValue("sponsor_id", invitedOrganisationId);
+          setEnableSponsor(false);
           setInvitedOrganisationId(undefined);
         }
 
@@ -114,37 +123,66 @@ export default function ProjectsSafeProjectForm({
                     renderField={fieldProps => <TextField {...fieldProps} />}
                   />
                 </Grid>
-                <Grid item xs={12}>
-                  <FormControlWrapper
-                    name="sponsor_id"
-                    renderField={fieldProps => {
-                      const organisation = organisationsData?.find(
-                        item => item.id === +fieldProps.value
-                      );
+                {isSponsorship && (
+                  <Grid item xs={12}>
+                    <FormControlWrapper
+                      name="sponsor_id"
+                      labelProps={{
+                        ...(!enableSponsor && {
+                          sx: {
+                            "&.MuiFormLabel-root": {
+                              color: "inherit",
+                            },
+                          },
+                        }),
+                      }}
+                      renderField={fieldProps => {
+                        const organisation = organisationsData?.find(
+                          item => item.id === +fieldProps.value
+                        );
 
-                      return (
-                        <>
-                          <SelectOrganisation
-                            {...fieldProps}
-                            disabled={
-                              getSponsorshipStatus(organisation, project) ===
-                              Status.SPONSORSHIP_APPROVED
-                            }
-                          />
-                          <Box mt={1}>
-                            <InviteSponsor
-                              selectedOrganisation={organisation}
-                              project={project}
-                              onSuccess={handleInviteSuccess}
-                              t={tSponsor}
-                            />
-                          </Box>
-                        </>
-                      );
-                    }}
-                    sx={{ mb: 1 }}
-                  />
-                </Grid>
+                        return (
+                          <>
+                            {enableSponsor ? (
+                              <SelectOrganisation
+                                key={organisation?.organisation_name}
+                                {...fieldProps}
+                                onChange={e => {
+                                  fieldProps.onChange(e);
+                                  setEnableSponsor(false);
+                                }}
+                                disabled={
+                                  getSponsorshipStatus(
+                                    organisation,
+                                    project
+                                  ) === Status.SPONSORSHIP_APPROVED ||
+                                  !enableSponsor
+                                }
+                              />
+                            ) : (
+                              <Typography>
+                                {organisation?.organisation_name}
+                              </Typography>
+                            )}
+                            <Box mt={1} sx={{ fontSize: "0.889rem" }}>
+                              <InviteSponsor
+                                selectedOrganisation={organisation}
+                                project={project}
+                                enableChange={!enableSponsor}
+                                onSuccess={handleInviteSuccess}
+                                onChangeOrganisation={() => {
+                                  setEnableSponsor(true);
+                                }}
+                                t={tSponsor}
+                              />
+                            </Box>
+                          </>
+                        );
+                      }}
+                      sx={{ mb: 1 }}
+                    />
+                  </Grid>
+                )}
                 <Grid item xs={12}>
                   <FormControlWrapper
                     name="request_category_type"

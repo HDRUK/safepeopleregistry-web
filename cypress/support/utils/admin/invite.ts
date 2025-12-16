@@ -1,4 +1,7 @@
-import { InviteUserFormValues } from "@/types/form";
+import {
+  InviteOrganisationFormValues,
+  InviteUserFormValues,
+} from "@/types/form";
 import { dataCy } from "../common";
 
 const inviteNewUserForm = (invite: InviteUserFormValues) => {
@@ -6,6 +9,18 @@ const inviteNewUserForm = (invite: InviteUserFormValues) => {
   cy.get("#last_name").clear().type(invite.last_name);
   cy.get("#email").clear().type(invite.email);
   cy.selectValue("organisation_id", invite.organisation_id);
+};
+
+const inviteOrganisationForm = (invite: InviteOrganisationFormValues) => {
+  cy.get("#organisation_name").clear().type(invite.organisation_name);
+  cy.get("#lead_applicant_email").clear().type(invite.lead_applicant_email);
+};
+
+const inviteOrganisation = (invite: InviteOrganisationFormValues) => {
+  inviteOrganisationForm(invite);
+
+  cy.saveFormClick("Invite");
+  cy.swalClick("Close");
 };
 
 const inviteNewOrganisationForm = (invite: InviteUserFormValues) => {
@@ -46,4 +61,6 @@ export {
   inviteNewUserForm,
   inviteNewOrganisationForm,
   inviteNewOrganisation,
+  inviteOrganisation,
+  inviteOrganisationForm,
 };

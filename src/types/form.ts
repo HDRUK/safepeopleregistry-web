@@ -62,6 +62,11 @@ interface DelegatesFormValues {
   delegate_email: string;
 }
 
+interface InviteOrganisationFormValues {
+  organisation_name: string;
+  lead_applicant_email: string;
+}
+
 export type {
   QueryState,
   MutationState,
@@ -71,4 +76,5 @@ export type {
   KeyContactFormValues,
   CustodianEditContactFormFields,
   DelegatesFormValues,
+  InviteOrganisationFormValues,
 };

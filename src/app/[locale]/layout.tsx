@@ -15,7 +15,11 @@ import { PropsWithChildren } from "react";
 import "../sweetalert2-custom.css";
 import "../global.css";
 import IntlClientProvider from "@/context/IntlClientProvider";
-import { isTestFeatureEnabled, isTestFeatureUserAdmin } from "@/flags";
+import {
+  isSponsorship,
+  isTestFeatureEnabled,
+  isTestFeatureUserAdmin,
+} from "@/flags";
 import { FeatureProvider } from "@/components/FeatureProvider";
 import packageJson from "@/../package.json";
 import { RegistryGlobals } from "@/components/RegistryGlobals";
@@ -44,7 +48,9 @@ export default async function RootLayout({
   const features = {
     isTestFeatureEnabled: (await isTestFeatureEnabled()) as boolean,
     isTestFeatureUserAdmin: (await isTestFeatureUserAdmin()) as boolean,
+    isSponsorship: (await isSponsorship()) as boolean,
   };
+
   return (
     <html lang={locale}>
       {gtmId && <GoogleTagManager gtmId={gtmId} />}

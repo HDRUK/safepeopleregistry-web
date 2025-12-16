@@ -12,3 +12,8 @@ export const isTestFeatureUserAdmin = flag({
   key: "test-feature-user-admin",
   adapter: await apiAdapter(),
 });
+
+export const isSponsorship = flag({
+  key: "sponsorship",
+  adapter: await apiAdapter(),
+});

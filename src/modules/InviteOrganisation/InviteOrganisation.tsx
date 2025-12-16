@@ -8,11 +8,10 @@ import FormActions from "../../components/FormActions";
 import FormSection from "../../components/FormSection";
 import yup from "../../config/yup";
 import { MAX_FORM_WIDTH } from "../../consts/form";
-import { PostOrganisationUnclaimedPayload } from "../../services/organisations";
-import { MutationState } from "../../types/form";
+import { InviteOrganisationFormValues, MutationState } from "../../types/form";
 
 export type InviteOrganisationFormProps = WithTranslations<{
-  onSubmit: (organisation: PostOrganisationUnclaimedPayload) => void;
+  onSubmit: (organisation: InviteOrganisationFormValues) => void;
   onCancel: () => void;
   queryState: MutationState;
 }>;

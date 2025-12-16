@@ -66,7 +66,6 @@ const getColorForStatus = (status?: Status): string => {
       Status.MORE_ORG_INFO_REQ_ESCALATION_COMMITTEE,
       Status.PENDING,
       Status.AFFILIATION_PENDING,
-      Status.INVITED,
       Status.SPONSORSHIP_PENDING,
     ].includes(status!)
   )

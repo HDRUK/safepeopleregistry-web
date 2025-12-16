@@ -1301,12 +1301,12 @@
   },
   "Organisations": {
     "InviteSponsor": {
-      "heading": "Invite an organisation",
+      "heading": "Invite a sponsor",
       "description": "Complete the fields below to invite a Sponsor to create a Safe People Registry account.",
       "emailDescription": "Please check with the organisation first in order to send the email to the most relevant person. This should ideally be the Senior Responsible Officer.",
       "inviteButton": "Invite",
       "resendInviteSponsorButton": "Resend invite",
-      "inviteSponsorButton": "Invite sponsor to join",
+      "inviteSponsorButton": "Invite to register",
       "cancelButton": "Cancel"
     },
     "InviteOrganisation": {
@@ -1315,7 +1315,7 @@
       "emailDescription": "Please check with the organisation first in order to send the email to the most relevant person. This should ideally be the Senior Responsible Officer.",
       "inviteButton": "Invite",
       "resendInviteSponsorButton": "Resend invite",
-      "inviteSponsorButton": "Invite sponsor to join",
+      "inviteSponsorButton": "Invite to register",
       "cancelButton": "Cancel"
     },
     "EditDelegate": {
