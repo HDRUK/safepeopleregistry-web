@@ -77,7 +77,7 @@ Cypress.Commands.add("dataCy", (value: string) => {
 Cypress.Commands.add("visitFirst", (path: string) => {
   cy.visit(path);
 
-  cy.get("body").click();
+  // cy.get("body").click();
 });
 
 Cypress.Commands.add("getResultsRow", (index?: number | string | undefined) => {
@@ -106,7 +106,7 @@ Cypress.Commands.add("getResultsRowByValue", (value: string) => {
 });
 
 Cypress.Commands.add("getLatestRowOfResults", () => {
-  cy.get(dataCy("results"))
+  cy.get(dataCy("results")).filter(":visible")
     .find("tbody tr")
     .then($row => {
       if ($row.length === 0) {
