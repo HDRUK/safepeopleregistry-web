@@ -13,8 +13,7 @@ export default function BannerMessage(props: BannerMessageProps) {
       variant="filled"
       severity="warning"
       data-testid="banner"
-      {...messageProps}
-    >
+      {...messageProps}>
       {christmasMessage && mockedChristmasBannerContent()}
     </Message>
   );

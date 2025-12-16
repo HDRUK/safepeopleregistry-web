@@ -4,7 +4,7 @@ const { NEXT_PUBLIC_API_V1_SERVER_URL, isTest } = process.env;
 
 let cache: Record<string, boolean> | null = null;
 let cacheTimestamp: number | null = null;
-const CACHE_TTL_MS = (isTest === 'true') ? 0 : 5 * 60 * 1000;
+const CACHE_TTL_MS = isTest === "true" ? 0 : 5 * 60 * 1000;
 
 interface Feature {
   id: number;
