@@ -106,7 +106,7 @@ Cypress.Commands.add("getResultsRowByValue", (value: string) => {
 });
 
 Cypress.Commands.add("getLatestRowOfResults", () => {
-  cy.get(dataCy("results"))
+  cy.get(dataCy("results")).filter(":visible")
     .find("tbody tr")
     .then($row => {
       if ($row.length === 0) {
