@@ -6,7 +6,7 @@ const hasFeatureFlag = (feature: string, enabled: string) => {
     });
 };
 
-const canToggleFeature = (feature: string, enabled: string) => {
+const canToggleFeature = (feature: string, enabled: string, leave = false) => {
 
     const startingToggle = (enabled === 'true') ? 'Disable' : 'Enable'
     const reverseEnabled = (enabled === 'true') ? 'false' : 'true'
@@ -24,9 +24,14 @@ const canToggleFeature = (feature: string, enabled: string) => {
     cy.getResultsRowByValue(feature).within(() => {
         cy.contains("td", reverseEnabled);
     });
-    cy.getResultsActionMenu(feature).click();
 
+    if(!leave){
+    cy.getResultsActionMenu(feature).click();
     cy.actionMenuClick(reverseToggle);
+    }
+   
+
+   
 };
 
 export {

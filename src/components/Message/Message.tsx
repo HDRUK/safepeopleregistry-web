@@ -12,7 +12,6 @@ export interface MessageProps extends AlertProps {
   position?: "body" | "notification";
   isDismissable?: boolean;
   snackbarProps?: SnackbarProps;
-  enabledBanners: BannerLists;
 }
 
 export default function Message({
