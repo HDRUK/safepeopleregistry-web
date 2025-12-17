@@ -1,4 +1,4 @@
-import { EMAIL_TEMPLATE, Status } from "@/consts/application";
+import { EMAIL_TEMPLATE } from "@/consts/application";
 import {
   Organisation,
   OrganisationIdvt,

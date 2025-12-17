@@ -11,17 +11,15 @@ import StatusList from "@/components/StatusList";
 import Guidance from "@/components/Guidance";
 import { mockedSafeProjectGuidanceProps } from "@/mocks/data/cms";
 import ActionsPanel from "@/components/ActionsPanel";
-import { PageTabs, ProjectsSubTabs } from "../../consts/tabs";
-import SubTabsSections from "../SubTabSections";
-import SubTabsContents from "../SubsTabContents";
 import { Box, Button, Typography } from "@mui/material";
-import UL from "@/components/UL";
 import { useFeatures } from "@/components/FeatureProvider";
 import { CheckOutlined, CloseOutlined } from "@mui/icons-material";
 import { useMutation } from "@tanstack/react-query";
 import patchSponsorshipStatusQuery from "@/services/organisations/patchSponorshipStatusQuery";
-import { Status } from "@/consts/application";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
+import SubTabsContents from "../SubsTabContents";
+import SubTabsSections from "../SubTabSections";
+import { PageTabs, ProjectsSubTabs } from "../../consts/tabs";
 
 interface PageProps {
   projectData: ResearcherProject;
