@@ -202,7 +202,7 @@ export default function NavBar({ loggedIn }: NavBarProps) {
         }}
         data-testid="header-desktop-menu">
         <PageCenter>
-          <StyledHeader>
+          <StyledHeader aria-label="Main navigation">
             <Box
               sx={{
                 display: "flex",

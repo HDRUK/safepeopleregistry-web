@@ -98,7 +98,9 @@ export default function TermsAndConditions({
             ))}
           </List>
         </Box>
-        <Box sx={{ width: "65%", p: 3, overflowY: "auto" }}>
+        <Box
+          sx={{ width: "65%", p: 3, overflowY: "auto" }}
+          data-cy="terms-and-conditions_content">
           {/* This section is a placeholder until we have content sign off from legal team */}
           <>
             <Typography variant="h4" gutterBottom>

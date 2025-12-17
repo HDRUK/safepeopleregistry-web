@@ -1,3 +1,4 @@
+import { Status } from "@/consts/application";
 import {
   Custodian,
   CustodianProjectOrganisation,
@@ -11,7 +12,8 @@ import { faker } from "@faker-js/faker";
 import { mockedOrganisation } from "./organisation";
 import { mockedProject } from "./project";
 import { mockedAffiliation, mockedUser } from "./user";
-import { Status } from "@/consts/application";
+import { getName } from "@/utils/application";
+import { InviteCustodianFormValues } from "@/types/form";
 
 const mockedCustodian = (custodian?: Partial<Custodian>): Custodian => ({
   id: 1,
@@ -40,6 +42,17 @@ const mockedCustodianUser = (
   updated_at: faker.date.recent().toISOString(),
   ...custodianUser,
   user_permissions: custodianUser?.user_permissions || [],
+});
+
+const mockedInvitedCustodian = (
+  props?: Partial<InviteCustodianFormValues>
+) => ({
+  name: getName({
+    first_name: faker.person.firstName(),
+    last_name: faker.person.lastName(),
+  }),
+  contact_email: faker.internet.email().toLowerCase(),
+  ...props,
 });
 
 const mockedProjectUser = (props: Partial<ProjectAllUser>): ProjectAllUser => ({
@@ -136,4 +149,5 @@ export {
   mockedProjectHasOrganisation,
   mockedProjectHasUser,
   mockedProjectUser,
+  mockedInvitedCustodian,
 };

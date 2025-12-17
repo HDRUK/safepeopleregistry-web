@@ -27,13 +27,23 @@ export default defineConfig({
 
         return launchOptions;
       }),
+      
         on("task", {
           log(message) {
             console.log(message + "\n\n");
 
             return true;
           },
+           table(data) {
+            console.table(data);
+            return null;
+          }
         });
+
+      config.env.MAILDEV_PROTOCOL = process.env.CYPRESS_MAILDEV_PROTOCOL;
+      config.env.MAILDEV_HOST = process.env.CYPRESS_MAILDEV_HOST;
+      config.env.MAILDEV_SMTP_PORT = process.env.CYPRESS_MAILDEV_SMTP_PORT;
+      config.env.MAILDEV_API_PORT = process.env.CYPRESS_MAILDEV_API_PORT;
 
       config.env.keycloakBaseUrl = process.env.NEXT_PUBLIC_KEYCLOAK_BASE_URL;
 
@@ -80,6 +90,7 @@ export default defineConfig({
     // video: true,
     // videosFolder: "cypress/videos",
     specPattern: [
+      "cypress/e2e/user-journeys/admin/features.cy.ts",
       "cypress/e2e/user-journeys/admin/users.cy.ts",
       "cypress/e2e/user-journeys/admin/sro.cy.ts",
       "cypress/e2e/user-journeys/users/affiliations.cy.ts",
@@ -91,6 +102,13 @@ export default defineConfig({
       "cypress/e2e/user-journeys/custodians/projectsUsers.cy.ts",
       "cypress/e2e/user-journeys/custodians/team.cy.ts",
       "cypress/e2e/user-journeys/custodians/users.cy.ts",
+      "cypress/e2e/user-journeys/custodians/configuration.cy.ts",
+      // "cypress/e2e/user-journeys/admin/inviteCustodian.cy.ts",
+      // "cypress/e2e/user-journeys/admin/inviteOrganisation.cy.ts",
+      // "cypress/e2e/user-journeys/admin/inviteUser.cy.ts",
+      // "cypress/e2e/user-journeys/registration/registerUser.cy.ts",
+      // "cypress/e2e/user-journeys/registration/registerOrganisation.cy.ts",
+      // "cypress/e2e/user-journeys/registration/registerCustodian.cy.ts",
     ],
 
     // supportFile: "cypress/support/index.ts",

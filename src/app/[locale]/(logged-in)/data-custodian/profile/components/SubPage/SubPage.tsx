@@ -7,6 +7,7 @@ import {
 } from "@/modules";
 import { toCamelCase } from "@/utils/string";
 import { useTranslations } from "next-intl";
+import { HeadingLevel } from "@/consts/header";
 import { ConfigurationSubTabs, PageTabs, UserSubTabs } from "../../consts/tabs";
 import SubTabsSections from "../SubTabSections";
 import SubTabsContents from "../SubsTabContents";
@@ -33,6 +34,7 @@ function SubPage({ params }: PageProps) {
         </PageColumnBody>
         <PageColumnDetails lg={4}>
           <Guidance
+            headingComponent={HeadingLevel.H5}
             infoTitle={t(`guidance.${params.subTabId}.infoTitle`)}
             info={t(`guidance.${params.subTabId}.info`)}
             isCollapsible={false}

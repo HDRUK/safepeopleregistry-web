@@ -5,7 +5,9 @@ export default function Page() {
   return (
     <>
       <Header />
-      <TermsAndConditions />
+      <main>
+        <TermsAndConditions />
+      </main>
       <Footer />
     </>
   );

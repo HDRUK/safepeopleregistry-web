@@ -3,6 +3,10 @@
 import { Alert, AlertProps, Snackbar, SnackbarProps } from "@mui/material";
 import { ReactNode, useState } from "react";
 
+export interface BannerLists {
+  christmasMessage: boolean;
+}
+
 export interface MessageProps extends AlertProps {
   children: ReactNode;
   position?: "body" | "notification";

@@ -1046,6 +1046,17 @@
       "description": "Here you can find all projects that you’ve been added to by a Data Custodian. You can also see the Project status and your own Validation status, as recorded by the Data Custodian."
     }
   },
+  "FeaturesList": {
+    "enable": "Enable",
+    "disable": "Disable",
+    "name": "Name",
+    "description": "Description",
+    "scope": "Scope",
+    "value": "Enabled",
+    "updated": "Last Updated Date",
+    "created": "Created Date",
+    "noResultsMessage": "No features found"
+  },
   "OrganisationsList": {
     "approve": "Approve",
     "unapprove": "Unapprove",
@@ -1214,6 +1225,7 @@
     "inviteCustodianSuccess": "You have successfully invited the Data Custodian"
   },
   "Administration": {
+    "featuresInviteTitle": "Feature Flags",
     "invitesInviteTitle": "Invites",
     "sroInviteTitle": "Organisations - Senior Responsible Officer",
     "userInviteTitle": "User invitation",

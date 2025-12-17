@@ -11,6 +11,7 @@ import { OrganisationsList, UsersList } from "@/organisms";
 import { Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { useQueryClient } from "@tanstack/react-query";
+import FeatureFlagList from "@/organisms/FeatureFlagsList";
 
 const NAMESPACE_TRANSLATIONS_ADMINISTRATION = "Administration";
 
@@ -25,13 +26,16 @@ export default function Sections() {
   };
 
   const sections = [
+    { name: "features", component: <FeatureFlagList /> },
     {
       name: "custodian",
       component: <SendInviteCustodian />,
     },
     {
       name: "user",
-      component: <InviteUser onSuccess={handleInviteSuccess} />,
+      component: (
+        <InviteUser onSuccess={handleInviteSuccess} combinedSuccess={false} />
+      ),
     },
     {
       name: "sro",
@@ -46,10 +50,11 @@ export default function Sections() {
   return (
     <>
       {sections.map(({ name, component }) => (
-        <Accordion>
+        <Accordion data-cy={`data-${name}-invite`}>
           <AccordionSummary
             id={`data-${name}-invite`}
             aria-controls={`data-${name}-invite-content`}
+            aria-label={t(`${name}InviteTitle`)}
             expandIcon={<ArrowDropDownIcon />}>
             <Typography>{t(`${name}InviteTitle`)}</Typography>
           </AccordionSummary>

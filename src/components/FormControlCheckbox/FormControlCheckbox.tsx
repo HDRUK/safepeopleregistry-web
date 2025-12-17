@@ -33,15 +33,9 @@ export default function FormControlCheckbox({
 
   return (
     <FormControlLabel
-      sx={{ alignItems: "flex-start", display: "flex" }}
+      sx={{ alignItems: "center", display: "flex" }}
       control={
-        <Checkbox
-          id={name}
-          sx={{ mt: "-10px" }}
-          {...field}
-          checked={checked}
-          {...restProps}
-        />
+        <Checkbox id={name} {...field} checked={checked} {...restProps} />
       }
       label={
         <>

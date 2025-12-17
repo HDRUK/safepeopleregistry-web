@@ -1,5 +1,6 @@
 import { Box, List, Typography } from "@mui/material";
-import React from "react";
+import React, { useId } from "react";
+import { HeadingLevel } from "@/consts/header";
 import { Rule } from "../../types/rules";
 import CheckboxItem from "../CheckboxItem";
 import SkeletonCheckboxList from "./Skeleton";
@@ -13,6 +14,7 @@ interface CheckboxListType {
   onEdit?: (updatedRule: Rule) => Promise<void>;
   onEditTitle?: string;
   rightButton?: React.ReactNode;
+  headingComponent?: HeadingLevel;
 }
 
 const CheckboxList = ({
@@ -24,6 +26,7 @@ const CheckboxList = ({
   onEdit,
   onEditTitle,
   rightButton,
+  headingComponent,
 }: CheckboxListType) => {
   const handleChange =
     (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,9 +34,10 @@ const CheckboxList = ({
       newChecked[index] = event.target.checked;
       setChecked(newChecked);
     };
+  const headingId = useId();
 
   return (
-    <List>
+    <Box component="section" aria-describedby={headingId}>
       <Box
         sx={{
           display: "flex",
@@ -41,10 +45,15 @@ const CheckboxList = ({
           alignItems: "center",
           mb: 2,
         }}>
-        <Typography variant="h6">{title}</Typography>
+        <Typography
+          variant="h6"
+          component={headingComponent ?? "h6"}
+          id={headingId}>
+          {title}
+        </Typography>
         {rightButton && <Box>{rightButton}</Box>}
       </Box>
-      <Box sx={{ bgcolor: "#f2f2f2", padding: 1, borderRadius: 1 }}>
+      <List sx={{ bgcolor: "#f2f2f2", padding: 1, borderRadius: 1 }}>
         {isLoading ? (
           <SkeletonCheckboxList isLoading={isLoading} n={items?.length || 4} />
         ) : (
@@ -59,8 +68,8 @@ const CheckboxList = ({
             />
           ))
         )}
-      </Box>
-    </List>
+      </List>
+    </Box>
   );
 };
 

@@ -4,7 +4,7 @@ const StyledContainer = styled("div")`
   background: white;
 `;
 
-const StyledHeader = styled("header")`
+const StyledHeader = styled("nav")`
   padding: 10px 20px;
   justify-content: space-between;
   align-items: center;

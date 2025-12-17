@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import { ReactNode } from "react";
 import { mockedProfileGuidance } from "@/mocks/data/cms";
+import { HeadingLevel } from "@/consts/header";
 import Guidance, { GuidanceProps } from "../../components/Guidance";
 
 interface PageGuidanceProps extends GuidanceProps {
@@ -31,7 +32,7 @@ export default function PageGuidance({
   }
 
   return (
-    <Guidance {...guidanceProps}>
+    <Guidance {...guidanceProps} headingComponent={HeadingLevel.H2}>
       {subTabs}
       <Box {...restProps} sx={{ pl: 0 }}>
         <Box sx={{ flexGrow: 1 }}>{children}</Box>

@@ -30,7 +30,7 @@ const dataEdittedAffiliation = {
   role: "Administrator",
 };
 
-describe("Affiliations journey", () => {
+describe("Affiliations journey",  () => {
   beforeEach(() => {
     loginUser();
 
@@ -39,6 +39,11 @@ describe("Affiliations journey", () => {
 
   after(() => {
     logout();
+  });
+
+  it('should have no detectable accessibility violations on load', () => {
+    cy.waitForLoadingToFinish();
+    cy.checkA11yPage();
   });
 
   it("Adds a current affiliation", () => {

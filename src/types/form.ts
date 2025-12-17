@@ -29,6 +29,11 @@ type WithQueryState<T> = T & {
   queryState: QueryState;
 };
 
+interface InviteCustodianFormValues {
+  name: string;
+  contact_email: string;
+}
+
 interface InviteUserFormValues {
   first_name: string;
   last_name: string;
@@ -62,13 +67,23 @@ interface DelegatesFormValues {
   delegate_email: string;
 }
 
+interface RegistrationValues {
+  email: string;
+  first_name: string;
+  last_name: string;
+  password: string;
+  password_confirm: string;
+}
+
 export type {
   QueryState,
   MutationState,
   WithQueryState,
   WithMutationState,
   InviteUserFormValues,
+  InviteCustodianFormValues,
   KeyContactFormValues,
   CustodianEditContactFormFields,
   DelegatesFormValues,
+  RegistrationValues,
 };
