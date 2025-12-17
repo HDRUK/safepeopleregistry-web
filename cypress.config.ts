@@ -95,6 +95,7 @@ export default defineConfig({
       "cypress/e2e/user-journeys/users/affiliations.cy.ts",
       "cypress/e2e/user-journeys/organisations/delegates.cy.ts",
       "cypress/e2e/user-journeys/organisations/affiliations.cy.ts",
+      "cypress/e2e/user-journeys/organisations/projects.cy.ts",
       "cypress/e2e/user-journeys/custodians/projects.cy.ts",
       "cypress/e2e/user-journeys/custodians/projectsSafePeople.cy.ts",
       "cypress/e2e/user-journeys/custodians/projectsOrganisations.cy.ts",

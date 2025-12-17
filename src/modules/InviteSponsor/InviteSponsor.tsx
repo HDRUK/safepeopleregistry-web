@@ -3,7 +3,7 @@ import Text from "@/components/Text";
 import { Status } from "@/consts/application";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
 import InviteOrganisationModal from "@/organisms/InviteOrganisationModal";
-import { postResendInviteByOrganisationQuery } from "@/services/users";
+import { putResendInviteSponorshipQuery } from "@/services/projects";
 import {
   Organisation,
   ResearcherProject,
@@ -35,7 +35,7 @@ export default function InviteSponsor({
   const status = getSponsorshipStatus(selectedOrganisation, project);
 
   const { mutate, ...mutationState } = useMutation(
-    postResendInviteByOrganisationQuery()
+    putResendInviteSponorshipQuery()
   );
 
   useQueryAlerts(mutationState);
@@ -54,7 +54,11 @@ export default function InviteSponsor({
                     component="button"
                     onClick={() => {
                       if (selectedOrganisation) {
-                        mutate(selectedOrganisation.id);
+                        mutate({
+                          params: {
+                            organisationId: selectedOrganisation.id,
+                          },
+                        });
                       }
                     }}>
                     <Text startIcon={<MailOutlineIcon />} fontSize="inherit">

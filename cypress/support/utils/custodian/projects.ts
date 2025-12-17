@@ -235,6 +235,12 @@ const hasProject = (project: ResearcherProject) => {
   });
 };
 
+const hasSponsoredProject = (project: ResearcherProject) => {
+  cy.get(dataCy("projects-sponsorship")).within(() => {
+    hasProject(project);
+  });
+};
+
 const updateSafeDataProject = (projectDetails: ProjectDetails) => {
   cy.get("#datasets\\.0\\.value")
     .clear()
@@ -292,4 +298,5 @@ export {
   updateSafeSettingsProject,
   invitesNewSponsor,
   hasProjectSponsor,
+  hasSponsoredProject,
 };

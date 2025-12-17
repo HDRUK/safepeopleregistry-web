@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import StatusList from "@/components/StatusList";
 import Guidance from "@/components/Guidance";
 import { mockedSafeProjectGuidanceProps } from "@/mocks/data/cms";
+import ActionsPanel from "@/components/ActionsPanel";
 import { PageTabs, ProjectsSubTabs } from "../../consts/tabs";
 import SubTabsSections from "../SubTabSections";
 import SubTabsContents from "../SubsTabContents";
@@ -47,6 +48,7 @@ export default function SubPageProjects({ params, projectData }: PageProps) {
           </PageColumnBody>
           <PageColumnDetails lg={4}>
             <StatusList projectStatus={project?.model_state.state.slug} />
+            <ActionsPanel>Tedst</ActionsPanel>
             <Guidance {...guidance} isCollapsible={false} infoWidth="100%" />
           </PageColumnDetails>
         </PageColumns>

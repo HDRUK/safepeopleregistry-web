@@ -2,6 +2,7 @@ import { EMAIL_TEMPLATE } from "@/consts/application";
 import {
   Organisation,
   OrganisationIdvt,
+  ResearcherProject,
   Subsidiary,
 } from "@/types/application";
 import { Paged } from "@/types/requests";
@@ -64,6 +65,8 @@ type PutOrganisationSubsidiaryPayload = Subsidiary;
 
 type PostOrganisationSubsidiaryPayload = Omit<Subsidiary, "id">;
 
+type GetProjectsResponse = ResearcherProject[];
+
 export type {
   GetOrganisationInviteResponse,
   Organisation,
@@ -84,4 +87,5 @@ export type {
   PostOrganisationSubsidiaryPayload,
   PostOrganisationNewAccountPayload,
   PutSystemApprovedPayload,
+  GetProjectsResponse,
 };
