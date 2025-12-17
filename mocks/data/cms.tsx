@@ -3,11 +3,11 @@ import Ol from "@/components/Ol";
 import { Typography } from "@mui/material";
 import { ReactNode } from "react";
 
-export const mockedBannerContent = () => (
+
+export const mockedChristmasBannerContent = () => (
   <>
-    Live system launched for public testing! Please note, any accounts made
-    previously on our Beta preview have been removed. Please do get in touch if
-    you notice any issues or would like to try out our system: <ContactLink />.
+    Please note that the HDR UK Technology Team are on reduced hours from Dec 20 - January 3, 
+    and will be unable to respond to support requests during this time.
   </>
 );
 
@@ -273,10 +273,10 @@ export const mockedSoursdHomepageInfo = {
   infoTitle: "SoursdInfo",
   info: (
     <>
-      <Typography fontSize="48px" fontWeight="700" mb={1}>
+      <Typography fontSize="48px" fontWeight="700" mb={1} component='h1'>
         Safe People Registry
       </Typography>
-      <Typography variant="h1" fontWeight="normal">
+      <Typography variant="h1" component='h2' fontWeight="normal">
         A platform to enable ‘Safe People’ decision making
       </Typography>
     </>
@@ -286,7 +286,7 @@ export const mockedSoursdHomepageInfo = {
 export const mockedSoursdHomepageUsages = {
   infoTitle: "SoursdUsages",
   infoHeader: (
-    <Typography variant="h2" mb={2}>
+    <Typography variant="h2" component='h3' mb={2}>
       With Safe People Registry you can...
     </Typography>
   ),
@@ -296,7 +296,7 @@ export const mockedManageDelegatesGuidance = {
   infoTitle: "Guidance",
   info: (
     <>
-      <Typography variant="h3" mb={3}>
+      <Typography variant="h3" component='h4' mb={3}>
         Did you know?
       </Typography>
       <Typography mb={5}>

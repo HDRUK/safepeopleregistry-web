@@ -50,7 +50,7 @@ export default function ActionMenu({
           ref={triggerRef}
           size="small"
           onClick={handleOpen}
-          aria-label={ariaLabel}
+          aria-label={ariaLabel ?? "Actions"}
           disabled={disabled}>
           {icon}
         </IconButton>

@@ -123,7 +123,6 @@ env:
   NEXT_PUBLIC_API_URL: "http://localhost:8000/api"
   NEXT_PUBLIC_API_V1_SERVER_URL: "http://localhost:8000/api/v1"
   NEXT_PUBLIC_API_SERVER_URL: "http://localhost:8000/api"
-  NEXT_PUBLIC_HIDE_BANNER: "false"
   NEXT_MIRAGE_SERVER: "true"
   NEXT_PUBLIC_TEMP_USER_ROLES: '''[{ "role": "operational_hdr", "state": "view" }]'''
   NEXT_PUBLIC_INVITE_TIME_HOURS: "1"
@@ -142,6 +141,7 @@ env:
   CYPRESS_UNAPPROVED_ORGANISATION_EMAIL: "test.user+organisation@safepeopleregistry.com"
   CYPRESS_CUSTODIAN_EMAIL: "test.user+custodian@safepeopleregistry.com"
   CYPRESS_ADMIN_EMAIL: "test.user+admin@safepeopleregistry.com"
+  isTest: 'true'
 
 jobs:
   e2e-tests:
@@ -178,8 +178,6 @@ jobs:
     steps:
       - name: Checkout web
         uses: actions/checkout@v4
-        with:
-          repository: HDRUK/safepeopleregistry-web
 
       - name: Checkout api
         uses: actions/checkout@v4

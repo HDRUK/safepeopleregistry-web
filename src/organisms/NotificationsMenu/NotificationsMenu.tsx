@@ -138,6 +138,7 @@ export default function NotificationsMenu() {
   return (
     <Box>
       <IconButton
+        aria-label="Notifications"
         data-testid="notifications-button"
         color={
           notificationsCount?.data.unread

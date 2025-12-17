@@ -1,11 +1,13 @@
 import { Box, BoxProps } from "@mui/material";
 import { ReactNode } from "react";
+import { HeadingLevel } from "@/consts/header";
 import SectionHeading from "../../components/SectionHeading";
 
 export interface PageBodyProps extends BoxProps {
   heading?: ReactNode;
   description?: ReactNode;
   actions?: ReactNode;
+  headingComponent?: HeadingLevel;
 }
 
 export default function PageBody({
@@ -13,6 +15,7 @@ export default function PageBody({
   heading,
   description,
   actions,
+  headingComponent,
   ...restProps
 }: PageBodyProps) {
   return (
@@ -22,6 +25,7 @@ export default function PageBody({
         description={description}
         actions={actions}
         sx={{ mb: 3 }}
+        headingComponent={headingComponent}
       />
       <Box
         data-cy="page-body"

@@ -18,6 +18,7 @@ import { useStore } from "@/data/store";
 import ButtonSave from "@/components/ButtonSave";
 import ErrorMessage from "@/components/ErrorMessage";
 import { DEFAULT_STALE_TIME } from "@/consts/requests";
+import { HeadingLevel } from "@/consts/header";
 
 const NAMESPACE_TRANSLATION_CUSTODIAN_PROFILE = "CustodianProfile";
 
@@ -132,6 +133,7 @@ export default function Rules() {
       description={mockedConfigurationRulesDescription}>
       <Form onSubmit={handleSubmit}>
         <CheckboxList
+          headingComponent={HeadingLevel.H3}
           isLoading={isLoadingUserRules}
           items={formattedUserRules}
           title={t("userRulesTitle")}
@@ -139,6 +141,7 @@ export default function Rules() {
           setChecked={setUserRules}
         />
         <CheckboxList
+          headingComponent={HeadingLevel.H4}
           isLoading={isLoadingOrgRules}
           items={formattedOrgRules}
           title={t("organisationRulesTitle")}

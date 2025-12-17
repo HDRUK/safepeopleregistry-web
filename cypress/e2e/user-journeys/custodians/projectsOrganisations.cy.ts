@@ -18,6 +18,16 @@ import {
 const dataProjectOrganisation = DEFAULT_PROJECT_ORGANISATIONS_CUSTODIANS;
 const dataProjectInviteUser = DEFAULT_PROJECT_INVITE_USERS;
 
+describe("Projects organisations journey AXE", () => {
+    it('should have no detectable accessibility violations on load', () => {
+      loginCustodian();
+      goToProjectUsersList();
+
+      cy.waitForLoadingToFinish();
+      cy.checkA11yPage();
+    });
+});
+
 describe("Projects organisations journey", () => {
   before(() => {
     loginCustodian();
@@ -48,6 +58,7 @@ describe("Projects organisations journey", () => {
   after(() => {
     logout();
   });
+
 
   it("Changes status of an organisation", () => {
     changeStatusProjectOrganisations(

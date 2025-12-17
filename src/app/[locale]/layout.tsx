@@ -17,12 +17,14 @@ import "../global.css";
 import IntlClientProvider from "@/context/IntlClientProvider";
 import {
   isSponsorship,
+  isChristmasBannerEnabled,
   isTestFeatureEnabled,
   isTestFeatureUserAdmin,
 } from "@/flags";
 import { FeatureProvider } from "@/components/FeatureProvider";
 import packageJson from "@/../package.json";
 import { RegistryGlobals } from "@/components/RegistryGlobals";
+import { BannerLists } from "@/components/Message";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -49,6 +51,14 @@ export default async function RootLayout({
     isTestFeatureEnabled: (await isTestFeatureEnabled()) as boolean,
     isTestFeatureUserAdmin: (await isTestFeatureUserAdmin()) as boolean,
     isSponsorship: (await isSponsorship()) as boolean,
+    isChristmasBannerEnabled: (await isChristmasBannerEnabled()) as boolean,
+  };
+
+  // below boolean will grow as we get more banners.. i know this is a pointless const for now...
+  const displayBanner = features.isChristmasBannerEnabled;
+
+  const enabledBanners: BannerLists = {
+    christmasMessage: features.isChristmasBannerEnabled,
   };
 
   return (
@@ -71,8 +81,8 @@ export default async function RootLayout({
                         },
                       }}
                     />
-                    {process.env.NEXT_PUBLIC_HIDE_BANNER !== "true" && (
-                      <BannerMessage />
+                    {displayBanner && (
+                      <BannerMessage enabledBanners={enabledBanners} />
                     )}
                     {children}
                   </ToastProvider>

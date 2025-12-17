@@ -36,10 +36,15 @@ const shouldBeOrganisationProfile = () => {
   cy.url().should("eq", `${Cypress.config().baseUrl}/organisation/profile`);
 };
 
+const shouldBeCustodianProfile = () => {
+  cy.url().should("eq", `${Cypress.config().baseUrl}/data-custodian/profile`);
+};
+
 export {
   dataCy,
   logout,
   shouldBeUserProfile,
   shouldBeOrganisationProfile,
+  shouldBeCustodianProfile,
   signout,
 };

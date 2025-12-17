@@ -5,7 +5,9 @@ export default function Page() {
   return (
     <>
       <Header />
-      <PrivaryPolicy />
+      <main>
+        <PrivaryPolicy />
+      </main>
       <Footer />
     </>
   );

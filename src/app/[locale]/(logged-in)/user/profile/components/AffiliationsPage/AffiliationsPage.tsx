@@ -43,6 +43,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { Status } from "@/consts/application";
 import { formatDBDateTime } from "@/utils/date";
+import { HeadingLevel } from "@/consts/header";
 import AffiliationsForm from "../AffiliationsForm";
 
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";
@@ -354,6 +355,7 @@ export default function AffiliationsPage({
             {...mockedResearcherAffiliationsGuidance}
             isCollapsible={false}
             infoWidth="100%"
+            headingComponent={HeadingLevel.H2}
           />
         </PageColumnDetails>
       </PageColumns>

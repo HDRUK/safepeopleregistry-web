@@ -14,6 +14,7 @@ import {
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { getSponsorshipStatus } from "@/utils/application";
+import { useFeatures } from "@/components/FeatureProvider";
 import ChipStatus from "../../components/ChipStatus";
 import DateInput from "../../components/DateInput";
 import Form, { FormProps } from "../../components/Form";
@@ -25,8 +26,6 @@ import yup from "../../config/yup";
 import { ResearcherProject } from "../../types/application";
 import { MutationState } from "../../types/form";
 import InviteSponsor from "../InviteSponsor";
-import { useFeatures } from "@/components/FeatureProvider";
-import { isSponsorship } from "@/flags";
 
 export interface ProjectsSafeProjectFormProps
   extends FormProps<ResearcherProject> {

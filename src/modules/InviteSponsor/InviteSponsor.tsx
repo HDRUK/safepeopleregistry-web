@@ -11,7 +11,7 @@ import {
 } from "@/types/application";
 import { getSponsorshipStatus } from "@/utils/application";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
-import { Box, Button, Link } from "@mui/material";
+import { Box, Link } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 
