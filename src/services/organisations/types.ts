@@ -1,4 +1,4 @@
-import { EMAIL_TEMPLATE } from "@/consts/application";
+import { EMAIL_TEMPLATE, Status } from "@/consts/application";
 import {
   Organisation,
   OrganisationIdvt,
@@ -67,6 +67,15 @@ type PostOrganisationSubsidiaryPayload = Omit<Subsidiary, "id">;
 
 type GetProjectsResponse = ResearcherProject[];
 
+interface PatchSponsorshipStatusParams {
+  organisationId: number;
+}
+
+interface PatchSponsorshipStatusPayload {
+  project_id: number;
+  status: "approved" | "rejected";
+}
+
 export type {
   GetOrganisationInviteResponse,
   Organisation,
@@ -88,4 +97,6 @@ export type {
   PostOrganisationNewAccountPayload,
   PutSystemApprovedPayload,
   GetProjectsResponse,
+  PatchSponsorshipStatusParams,
+  PatchSponsorshipStatusPayload,
 };

@@ -140,9 +140,15 @@ export default function ProjectsSafeProjectForm({
                           item => item.id === +fieldProps.value
                         );
 
+                        const status = getSponsorshipStatus(
+                          organisation,
+                          project
+                        );
+
                         return (
                           <>
-                            {enableSponsor ? (
+                            {enableSponsor &&
+                            status !== Status.SPONSORSHIP_APPROVED ? (
                               <SelectOrganisation
                                 key={organisation?.organisation_name}
                                 {...fieldProps}

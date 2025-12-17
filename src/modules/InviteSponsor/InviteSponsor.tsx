@@ -42,7 +42,7 @@ export default function InviteSponsor({
 
   return (
     <div data-cy="invite-sponsor">
-      {status !== Status.SPONSORSHIP_APPROVED && (
+      {status !== Status.SPONSORSHIP_APPROVED ? (
         <div>
           {enableChange ? (
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
@@ -93,6 +93,8 @@ export default function InviteSponsor({
             </Text>
           )}
         </div>
+      ) : (
+        <ChipStatus status={status} sx={{ mr: 1 }} />
       )}
       <InviteOrganisationModal
         open={showInviteModal}
