@@ -1,5 +1,5 @@
 import SelectOrganisation from "@/components/SelectOrganisation";
-import { Status } from "@/consts/application";
+import { PAGINATION_UPPER_LIMIT, Status } from "@/consts/application";
 import { useOrganisationsQuery } from "@/services/organisations";
 import {
   Box,
@@ -46,7 +46,7 @@ export default function ProjectsSafeProjectForm({
   );
   const { data: organisationsData, refetch } = useOrganisationsQuery({
     defaultQueryParams: {
-      perPage: 1000,
+      perPage: PAGINATION_UPPER_LIMIT,
     },
   });
 

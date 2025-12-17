@@ -94,8 +94,6 @@ export default function FormControlWrapper({
   const subtitleText =
     subtitle || getTranslationWithFallback(tForm, `${tKey}Subtitle`);
 
-  console.log("labelProps?.sx", labelProps?.sx);
-
   return (
     <Controller
       disabled={context.formState.disabled || disabled}

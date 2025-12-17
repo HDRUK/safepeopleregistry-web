@@ -1,3 +1,4 @@
+import { PAGINATION_UPPER_LIMIT } from "@/consts/application";
 import useOrganisationsQuery from "@/services/organisations/useOrganisationsQuery";
 import {
   MenuItem,
@@ -17,7 +18,7 @@ export default function SelectOrganisation({
 }: SelectOrganisationProps & SelectProps) {
   const { data: organisationsData } = useOrganisationsQuery({
     defaultQueryParams: {
-      perPage: 1000,
+      perPage: PAGINATION_UPPER_LIMIT,
     },
   });
 

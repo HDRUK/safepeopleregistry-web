@@ -55,4 +55,12 @@ enum Status {
   SPONSORSHIP_REJECTED = "sponsorship_rejected",
 }
 
-export { VALIDATION_SCHEMA_KEY, EMAIL_TEMPLATE, PendingInvite, Status };
+const PAGINATION_UPPER_LIMIT = 1000;
+
+export {
+  VALIDATION_SCHEMA_KEY,
+  EMAIL_TEMPLATE,
+  PendingInvite,
+  Status,
+  PAGINATION_UPPER_LIMIT,
+};
