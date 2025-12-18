@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
 import { dataCy } from "./utils/common";
 
-import "cypress-axe";
 import { Result } from "axe-core";
+import "cypress-axe";
 
 Cypress.Commands.add("checkA11yPage", () => {
   cy.injectAxe();

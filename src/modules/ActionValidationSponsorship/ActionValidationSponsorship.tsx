@@ -1,6 +1,6 @@
 import ActionsPanel from "@/components/ActionsPanel";
 import { mockedSponsorshipsGuidance } from "@/mocks/data/cms";
-import { CheckOutlined, CloseOutlined } from "@mui/icons-material";
+import { CheckOutlined } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -14,15 +14,12 @@ import { ChangeEvent, useState } from "react";
 export type ActionValidationSponsorshipStatus = "approved" | "rejected";
 export interface ActionValidationSponsorshipProps {
   onStatusChange: (status: ActionValidationSponsorshipStatus) => void;
-  initialStatus: ActionValidationSponsorshipStatus;
 }
 
 export default function ActionValidationSponsorship({
   onStatusChange,
-  initialStatus,
 }: ActionValidationSponsorshipProps) {
-  const [decision, setDecision] =
-    useState<ActionValidationSponsorshipStatus>(initialStatus);
+  const [decision, setDecision] = useState<ActionValidationSponsorshipStatus>();
 
   const handleChange = (_: ChangeEvent<HTMLInputElement>, status: string) => {
     setDecision(status);
@@ -37,8 +34,7 @@ export default function ActionValidationSponsorship({
           aria-labelledby="sponsorship-decision"
           name="sponsorship-decision"
           onChange={handleChange}
-          sx={{ display: "flex", flexDirection: "row", columnGap: 5, mb: 2 }}
-          defaultValue={decision}>
+          sx={{ display: "flex", flexDirection: "row", columnGap: 5, mb: 2 }}>
           <FormControlLabel
             value="approved"
             control={<Radio />}
