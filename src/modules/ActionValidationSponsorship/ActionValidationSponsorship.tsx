@@ -1,37 +1,63 @@
 import ActionsPanel from "@/components/ActionsPanel";
 import { mockedSponsorshipsGuidance } from "@/mocks/data/cms";
 import { CheckOutlined, CloseOutlined } from "@mui/icons-material";
-import { Box, Button, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  Typography,
+} from "@mui/material";
+import { ChangeEvent, useState } from "react";
 
-interface ActionValidationSponsorshipProps {
-  onStatusChange: (status: "approved" | "rejected") => void;
+export type ActionValidationSponsorshipStatus = "approved" | "rejected";
+export interface ActionValidationSponsorshipProps {
+  onStatusChange: (status: ActionValidationSponsorshipStatus) => void;
+  initialStatus: ActionValidationSponsorshipStatus;
 }
 
 export default function ActionValidationSponsorship({
   onStatusChange,
+  initialStatus,
 }: ActionValidationSponsorshipProps) {
+  const [decision, setDecision] =
+    useState<ActionValidationSponsorshipStatus>(initialStatus);
+
+  const handleChange = (_: ChangeEvent<HTMLInputElement>, status: string) => {
+    setDecision(status);
+  };
+
   return (
     <ActionsPanel>
       <Typography variant="h3">Pending sponsorship</Typography>
       {mockedSponsorshipsGuidance()}
-      <Box sx={{ display: "flex", gap: 1, mt: 1 }}>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 1, mt: 3 }}>
+        <RadioGroup
+          aria-labelledby="sponsorship-decision"
+          name="sponsorship-decision"
+          onChange={handleChange}
+          sx={{ display: "flex", flexDirection: "row", columnGap: 5, mb: 2 }}
+          defaultValue={decision}>
+          <FormControlLabel
+            value="approved"
+            control={<Radio />}
+            label="Confirm sponsorship"
+          />
+          <FormControlLabel
+            value="rejected"
+            control={<Radio />}
+            label="Decline sponsorship"
+          />
+        </RadioGroup>
         <Button
           variant="contained"
           sx={{ alignSelf: "flex-start" }}
           startIcon={<CheckOutlined />}
           onClick={() => {
-            onStatusChange("approved");
+            onStatusChange(decision);
           }}>
-          Confirm sponsorship
-        </Button>
-        <Button
-          variant="outlined"
-          sx={{ alignSelf: "flex-start" }}
-          startIcon={<CloseOutlined />}
-          onClick={() => {
-            onStatusChange("rejected");
-          }}>
-          Decline sponsorship
+          Save decision
         </Button>
       </Box>
     </ActionsPanel>

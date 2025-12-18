@@ -9,13 +9,21 @@ function canUseIdvt(country: string | undefined) {
   );
 }
 
+function isSponsorshipStatusApproved(project: ResearcherProject) {
+  const statusProject =
+    project?.project_has_sponsorships?.[0]
+      ?.custodian_has_project_has_sponsorship?.[0]?.model_state?.state.slug;
+
+  return statusProject === Status.SPONSORSHIP_APPROVED;
+}
+
 function getSponsorshipStatus(
   organisation: Organisation | undefined,
   project: ResearcherProject
 ) {
   const statusOrg = organisation?.model_state?.state.slug;
   const statusProject =
-    project.project_has_sponsorships?.[0]
+    project?.project_has_sponsorships?.[0]
       ?.custodian_has_project_has_sponsorship?.[0]?.model_state?.state.slug;
 
   if (
@@ -154,4 +162,5 @@ export {
   getName,
   getAbbreviatedListWithCount,
   getSponsorshipStatus,
+  isSponsorshipStatusApproved,
 };

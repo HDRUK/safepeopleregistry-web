@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import { PageTabs, ProjectsSubTabs } from "../../consts/tabs";
 import SubTabsContents from "../SubsTabContents";
 import SubTabsSections from "../SubTabSections";
+import { isSponsorshipStatusApproved } from "@/utils/application";
 
 interface PageProps {
   projectData: ResearcherProject;
@@ -73,6 +74,9 @@ export default function SubPageProjects({ params, projectData }: PageProps) {
             {isSponsorship && (
               <ActionValidationSponsorhsip
                 onStatusChange={handleUpdateStatus}
+                initialStatus={
+                  isSponsorshipStatusApproved(project) ? "approved" : "rejected"
+                }
               />
             )}
             <Guidance {...guidance} isCollapsible={false} infoWidth="100%" />
