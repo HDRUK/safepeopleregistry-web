@@ -3,11 +3,48 @@ import Ol from "@/components/Ol";
 import { Typography } from "@mui/material";
 import { ReactNode } from "react";
 
-
 export const mockedChristmasBannerContent = () => (
   <>
-    Please note that the HDR UK Technology Team are on reduced hours from Dec 20 - January 3, 
-    and will be unable to respond to support requests during this time.
+    Please note that the HDR UK Technology Team are on reduced hours from Dec 20
+    - January 3, and will be unable to respond to support requests during this
+    time.
+  </>
+);
+
+export const mockedSponsorshipsGuidance = () => (
+  <>
+    <Typography>
+      The Safe People Registry supports Organisations that take formal
+      responsibility for research projects involving sensitive data. This is
+      called sponsoring a project.
+    </Typography>
+
+    <Typography>
+      When your Organisation confirms sponsorship of a project, you are formally
+      accepting legal accountability for ensuring that:
+    </Typography>
+
+    <ul>
+      <li>
+        The research project has been reviewed and is appropriately designed,
+        managed, and monitored.
+      </li>
+
+      <li>
+        The Chief Investigator is suitably qualified and supported to lead the
+        research.
+      </li>
+
+      <li>
+        All relevant legal, ethical, and regulatory responsibilities are being
+        met by your Organisation.
+      </li>
+
+      <li>
+        Any delegation of Sponsor responsibilities is clearly documented and
+        agreed.
+      </li>
+    </ul>
   </>
 );
 
@@ -273,10 +310,10 @@ export const mockedSoursdHomepageInfo = {
   infoTitle: "SoursdInfo",
   info: (
     <>
-      <Typography fontSize="48px" fontWeight="700" mb={1} component='h1'>
+      <Typography fontSize="48px" fontWeight="700" mb={1} component="h1">
         Safe People Registry
       </Typography>
-      <Typography variant="h1" component='h2' fontWeight="normal">
+      <Typography variant="h1" component="h2" fontWeight="normal">
         A platform to enable ‘Safe People’ decision making
       </Typography>
     </>
@@ -286,7 +323,7 @@ export const mockedSoursdHomepageInfo = {
 export const mockedSoursdHomepageUsages = {
   infoTitle: "SoursdUsages",
   infoHeader: (
-    <Typography variant="h2" component='h3' mb={2}>
+    <Typography variant="h2" component="h3" mb={2}>
       With Safe People Registry you can...
     </Typography>
   ),
@@ -296,7 +333,7 @@ export const mockedManageDelegatesGuidance = {
   infoTitle: "Guidance",
   info: (
     <>
-      <Typography variant="h3" component='h4' mb={3}>
+      <Typography variant="h3" component="h4" mb={3}>
         Did you know?
       </Typography>
       <Typography mb={5}>

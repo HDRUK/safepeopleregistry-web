@@ -78,19 +78,24 @@ export default function InviteSponsor({
               </div>
             </Box>
           ) : (
-            <Text
-              fontSize="inherit"
-              endIcon={
-                <Link
-                  component="button"
-                  onClick={() => {
-                    setShowInviteModel(true);
-                  }}>
-                  {t("inviteSponsorButton")}
-                </Link>
-              }>
-              Organisation not listed?
-            </Text>
+            <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+              {status === Status.SPONSORSHIP_REJECTED && (
+                <ChipStatus status={status} />
+              )}
+              <Text
+                fontSize="inherit"
+                endIcon={
+                  <Link
+                    component="button"
+                    onClick={() => {
+                      setShowInviteModel(true);
+                    }}>
+                    {t("inviteSponsorButton")}
+                  </Link>
+                }>
+                Organisation not listed?
+              </Text>
+            </Box>
           )}
         </div>
       ) : (

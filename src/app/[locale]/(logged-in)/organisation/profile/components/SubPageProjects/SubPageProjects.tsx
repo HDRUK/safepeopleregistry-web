@@ -1,25 +1,23 @@
+import { useFeatures } from "@/components/FeatureProvider";
+import Guidance from "@/components/Guidance";
+import ActionValidationSponsorhsip from "@/modules/ActionValidationSponsorship";
+import StatusList from "@/components/StatusList";
 import { useStore } from "@/data/store";
+import useQueryAlerts from "@/hooks/useQueryAlerts";
+import { mockedSafeProjectGuidanceProps } from "@/mocks/data/cms";
 import {
   PageBodyContainer,
   PageColumnBody,
   PageColumnDetails,
   PageColumns,
 } from "@/modules";
-import { ResearcherProject } from "@/types/application";
-import { useEffect } from "react";
-import StatusList from "@/components/StatusList";
-import Guidance from "@/components/Guidance";
-import { mockedSafeProjectGuidanceProps } from "@/mocks/data/cms";
-import ActionsPanel from "@/components/ActionsPanel";
-import { Box, Button, Typography } from "@mui/material";
-import { useFeatures } from "@/components/FeatureProvider";
-import { CheckOutlined, CloseOutlined } from "@mui/icons-material";
-import { useMutation } from "@tanstack/react-query";
 import patchSponsorshipStatusQuery from "@/services/organisations/patchSponorshipStatusQuery";
-import useQueryAlerts from "@/hooks/useQueryAlerts";
+import { ResearcherProject } from "@/types/application";
+import { useMutation } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { PageTabs, ProjectsSubTabs } from "../../consts/tabs";
 import SubTabsContents from "../SubsTabContents";
 import SubTabsSections from "../SubTabSections";
-import { PageTabs, ProjectsSubTabs } from "../../consts/tabs";
 
 interface PageProps {
   projectData: ResearcherProject;
@@ -73,61 +71,9 @@ export default function SubPageProjects({ params, projectData }: PageProps) {
           <PageColumnDetails lg={4}>
             <StatusList projectStatus={project?.model_state.state.slug} />
             {isSponsorship && (
-              <ActionsPanel sx={{ mb: 2 }}>
-                <Typography variant="h3">Pending sponsorship</Typography>
-                <Typography>
-                  The Safe People Registry supports Organisations that take
-                  formal responsibility for research projects involving
-                  sensitive data. This is called sponsoring a project.
-                </Typography>
-
-                <Typography>
-                  When your Organisation confirms sponsorship of a project, you
-                  are formally accepting legal accountability for ensuring that:
-                </Typography>
-
-                <ul>
-                  <li>
-                    The research project has been reviewed and is appropriately
-                    designed, managed, and monitored.
-                  </li>
-
-                  <li>
-                    The Chief Investigator is suitably qualified and supported
-                    to lead the research.
-                  </li>
-
-                  <li>
-                    All relevant legal, ethical, and regulatory responsibilities
-                    are being met by your Organisation.
-                  </li>
-
-                  <li>
-                    Any delegation of Sponsor responsibilities is clearly
-                    documented and agreed.
-                  </li>
-                </ul>
-                <Box sx={{ display: "flex", gap: 1, mt: 1 }}>
-                  <Button
-                    variant="contained"
-                    sx={{ alignSelf: "flex-start" }}
-                    startIcon={<CheckOutlined />}
-                    onClick={() => {
-                      handleUpdateStatus("approved");
-                    }}>
-                    Confirm sponsorship
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    sx={{ alignSelf: "flex-start" }}
-                    startIcon={<CloseOutlined />}
-                    onClick={() => {
-                      handleUpdateStatus("rejected");
-                    }}>
-                    Decline sponsorship
-                  </Button>
-                </Box>
-              </ActionsPanel>
+              <ActionValidationSponsorhsip
+                onStatusChange={handleUpdateStatus}
+              />
             )}
             <Guidance {...guidance} isCollapsible={false} infoWidth="100%" />
           </PageColumnDetails>

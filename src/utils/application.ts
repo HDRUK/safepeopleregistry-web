@@ -20,7 +20,7 @@ function getSponsorshipStatus(
 
   if (
     statusProject === Status.SPONSORSHIP_APPROVED ||
-    organisation.id === project.project_has_sponsorships?.[0].sponsor_id
+    organisation?.id === project.project_has_sponsorships?.[0]?.sponsor_id
   ) {
     return statusProject;
   }
