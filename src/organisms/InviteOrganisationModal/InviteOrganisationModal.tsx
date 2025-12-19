@@ -32,6 +32,7 @@ export default function InviteOrganisationModal({
       {...restProps}>
       <InviteOrganisation
         t={t}
+        onCancel={onClose}
         onSubmit={handleSubmit}
         queryState={queryState}
       />

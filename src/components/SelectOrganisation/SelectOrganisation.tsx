@@ -10,10 +10,12 @@ import { useMemo } from "react";
 
 export interface SelectOrganisationProps {
   onChange?: (event: SelectChangeEvent) => void;
+  hasEmpty?: boolean;
 }
 
 export default function SelectOrganisation({
   onChange,
+  hasEmpty,
   ...fieldProps
 }: SelectOrganisationProps & SelectProps) {
   const { data: organisationsData } = useOrganisationsQuery({
@@ -40,6 +42,7 @@ export default function SelectOrganisation({
 
   return (
     <Select onChange={e => handleChange(e)} {...fieldProps}>
+      {hasEmpty && <MenuItem value={null}></MenuItem>}
       {hydratedOrganisationMenu}
     </Select>
   );

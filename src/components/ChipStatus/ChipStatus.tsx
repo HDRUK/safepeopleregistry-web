@@ -37,6 +37,7 @@ const getColorForStatus = (status?: Status): string => {
       Status.AFFILIATION_APPROVED,
       Status.ORGANISATION_VALIDATED,
       Status.REGISTERED,
+      Status.ORGANISATION_REGISTERED,
       Status.SPONSORSHIP_APPROVED,
     ].includes(status!)
   )

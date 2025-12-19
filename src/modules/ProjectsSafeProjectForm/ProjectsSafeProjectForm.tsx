@@ -42,7 +42,7 @@ export default function ProjectsSafeProjectForm({
   ...restProps
 }: ProjectsSafeProjectFormProps) {
   const [enableSponsor, setEnableSponsor] = useState(
-    !!project.project_has_sponsorships
+    !project.project_has_sponsorships
   );
   const { data: organisationsData, refetch } = useOrganisationsQuery({
     defaultQueryParams: {
@@ -61,7 +61,9 @@ export default function ProjectsSafeProjectForm({
         unique_id: yup.string().required(tForm("uniqueIdRequiredInvalid")),
         title: yup.string().required(tForm("titleRequiredInvalid")),
         request_category_type: yup.string().optional(),
-        ...(isSponsorship && { sponsor_id: yup.string().optional() }),
+        ...(isSponsorship && {
+          sponsor_id: yup.string().optional().nullable(),
+        }),
         start_date: yup.string().required(tForm("startDateRequiredInvalid")),
         end_date: yup.string().nullable(),
         lay_summary: yup.string().optional(),
@@ -145,11 +147,14 @@ export default function ProjectsSafeProjectForm({
                           project
                         );
 
+                        const edittable = enableSponsor || !organisation;
+
                         return (
                           <>
-                            {enableSponsor &&
+                            {edittable &&
                             status !== Status.SPONSORSHIP_APPROVED ? (
                               <SelectOrganisation
+                                hasEmpty
                                 key={organisation?.organisation_name}
                                 {...fieldProps}
                                 onChange={e => {
@@ -161,7 +166,7 @@ export default function ProjectsSafeProjectForm({
                                     organisation,
                                     project
                                   ) === Status.SPONSORSHIP_APPROVED ||
-                                  !enableSponsor
+                                  !edittable
                                 }
                               />
                             ) : (
@@ -173,7 +178,7 @@ export default function ProjectsSafeProjectForm({
                               <InviteSponsor
                                 selectedOrganisation={organisation}
                                 project={project}
-                                enableChange={!enableSponsor}
+                                enableChange={!edittable}
                                 onSuccess={handleInviteSuccess}
                                 onChangeOrganisation={() => {
                                   setEnableSponsor(true);

@@ -20,6 +20,7 @@ enum Status {
   INVITED = "invited",
   FORM_RECEIVED = "form_received",
   REGISTERED = "registered",
+  ORGANISATION_REGISTERED = "organisation_registered",
   INVITE_SENT = "invite_sent",
   APPROVED = "approved",
   COMPLETED = "completed",

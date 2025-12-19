@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import { PageTabs, ProjectsSubTabs } from "../../consts/tabs";
 import SubTabsContents from "../SubsTabContents";
 import SubTabsSections from "../SubTabSections";
+import { Box } from "@mui/system";
 
 interface PageProps {
   projectData: ResearcherProject;
@@ -66,6 +67,10 @@ export default function SubPageProjects({ params, projectData }: PageProps) {
     });
   };
 
+  const sponsorshipStatus =
+    project?.project_has_sponsorships?.[0]
+      ?.custodian_has_project_has_sponsorship?.[0]?.model_state?.state.slug;
+
   return (
     project && (
       <PageBodyContainer
@@ -84,10 +89,12 @@ export default function SubPageProjects({ params, projectData }: PageProps) {
                   ?.state.slug
               }
             />
-            {isSponsorship && (
-              <ActionValidationSponsorhsip
-                onStatusChange={handleUpdateStatus}
-              />
+            {isSponsorship && sponsorshipStatus && (
+              <Box sx={{ mb: 2 }}>
+                <ActionValidationSponsorhsip
+                  onStatusChange={handleUpdateStatus}
+                />
+              </Box>
             )}
             <Guidance {...guidance} isCollapsible={false} infoWidth="100%" />
           </PageColumnDetails>

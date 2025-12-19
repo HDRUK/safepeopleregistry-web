@@ -26,9 +26,15 @@ function getSponsorshipStatus(
     project?.project_has_sponsorships?.[0]
       ?.custodian_has_project_has_sponsorship?.[0]?.model_state?.state.slug;
 
+  if (statusOrg === Status.INVITED) {
+    return statusOrg;
+  }
+
   if (
-    statusProject === Status.SPONSORSHIP_APPROVED ||
-    organisation?.id === project.project_has_sponsorships?.[0]?.sponsor_id
+    organisation?.id === project.project_has_sponsorships?.[0]?.sponsor_id &&
+    (statusProject === Status.SPONSORSHIP_APPROVED ||
+      statusProject === Status.SPONSORSHIP_REJECTED ||
+      statusProject === Status.SPONSORSHIP_PENDING)
   ) {
     return statusProject;
   }
