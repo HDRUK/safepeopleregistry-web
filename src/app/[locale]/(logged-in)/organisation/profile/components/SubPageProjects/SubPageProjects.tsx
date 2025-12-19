@@ -15,10 +15,10 @@ import patchSponsorshipStatusQuery from "@/services/organisations/patchSponorshi
 import { ResearcherProject } from "@/types/application";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
+import { Box } from "@mui/system";
 import { PageTabs, ProjectsSubTabs } from "../../consts/tabs";
 import SubTabsContents from "../SubsTabContents";
 import SubTabsSections from "../SubTabSections";
-import { Box } from "@mui/system";
 
 interface PageProps {
   projectData: ResearcherProject;

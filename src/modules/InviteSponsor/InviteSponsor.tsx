@@ -33,7 +33,6 @@ export default function InviteSponsor({
 }: InviteSponsorProps) {
   const [showInviteModal, setShowInviteModel] = useState(false);
   const status = getSponsorshipStatus(selectedOrganisation, project);
-  console.log("********* status", status);
   const { mutate, ...mutationState } = useMutation(
     putResendInviteSponorshipQuery()
   );

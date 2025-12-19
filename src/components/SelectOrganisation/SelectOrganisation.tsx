@@ -42,7 +42,7 @@ export default function SelectOrganisation({
 
   return (
     <Select onChange={e => handleChange(e)} {...fieldProps}>
-      {hasEmpty && <MenuItem value={null}></MenuItem>}
+      {hasEmpty && <MenuItem value={null} />}
       {hydratedOrganisationMenu}
     </Select>
   );
