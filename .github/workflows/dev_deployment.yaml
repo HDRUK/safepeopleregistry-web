@@ -4,7 +4,7 @@ run-name: ${{ github.actor }} triggered deploy to DEV pipeline
 on:
   push:
     branches:
-      - "develop"
+      - "fix/test-for-prod-bleed"
 
 env:
   PROJECT_ID: "${{ secrets.PROJECT_ID }}"
@@ -19,12 +19,12 @@ jobs:
       id-token: write
     timeout-minutes: 10
     runs-on: ubuntu-latest
-    environment: develop
+    environment: prod
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: "develop"
+          ref: "fix/test-for-prod-bleed"
 
       - name: Read VERSION file
         id: getversion
@@ -67,13 +67,13 @@ jobs:
       id-token: write
 
     runs-on: ubuntu-latest
-    environment: develop
+    environment: prod
     steps:
       - name: Checkout
         id: checkout
         uses: actions/checkout@v4
         with:
-          ref: "develop"
+          ref: "fix/test-for-prod-bleed"
 
       - name: Google Auth
         id: auth
