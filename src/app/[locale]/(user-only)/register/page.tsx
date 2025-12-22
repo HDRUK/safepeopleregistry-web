@@ -3,10 +3,13 @@ import { PageBody } from "@/modules";
 import { getMeUnclaimed } from "@/services/auth";
 import { getPendingInvite, putEmailByInvite } from "@/services/users";
 import { getDecodedAccessToken } from "@/utils/auth";
+import { redirectProfile } from "@/utils/router";
 import { cookies } from "next/headers";
 import AccountConfirm from "./components/AccountConfirm/AccountConfirm";
 
 async function Page() {
+  await redirectProfile();
+
   const accessToken = await getDecodedAccessToken();
   const cookieStore = await cookies();
   const inviteCode = cookieStore.get("invite_code")?.value;
