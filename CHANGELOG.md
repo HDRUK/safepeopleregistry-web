@@ -1,3 +1,9 @@
+## [1.25.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.24.0...v1.25.0) (2025-12-22)
+
+### ✨ Features
+
+* **GAT-0000:** Make it christmas (#602) ([3a85b85](https://github.com/HDRUK/safepeopleregistry-web/commit/3a85b855bcf2de00796fdc402d579ab6ac7bb426)), closes [GAT-0000](GAT-0000)
+
 ## [1.24.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.23.2...v1.24.0) (2025-12-17)
 
 ### ✨ Features
