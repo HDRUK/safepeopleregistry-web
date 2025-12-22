@@ -15,11 +15,7 @@ import { PropsWithChildren } from "react";
 import "../sweetalert2-custom.css";
 import "../global.css";
 import IntlClientProvider from "@/context/IntlClientProvider";
-import {
-  isChristmasBannerEnabled,
-  isTestFeatureEnabled,
-  isTestFeatureUserAdmin,
-} from "@/flags";
+import { isTestFeatureEnabled, isTestFeatureUserAdmin } from "@/flags";
 import { FeatureProvider } from "@/components/FeatureProvider";
 import packageJson from "@/../package.json";
 import { RegistryGlobals } from "@/components/RegistryGlobals";
@@ -49,7 +45,8 @@ export default async function RootLayout({
   const features = {
     isTestFeatureEnabled: (await isTestFeatureEnabled()) as boolean,
     isTestFeatureUserAdmin: (await isTestFeatureUserAdmin()) as boolean,
-    isChristmasBannerEnabled: (await isChristmasBannerEnabled()) as boolean,
+    // isChristmasBannerEnabled: (await isChristmasBannerEnabled()) as boolean,
+    isChristmasBannerEnabled: true,
   };
 
   // below boolean will grow as we get more banners.. i know this is a pointless const for now...
