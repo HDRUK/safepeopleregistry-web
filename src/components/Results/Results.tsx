@@ -46,7 +46,7 @@ export default function Results({
           <LoadingWrapper
             variant="basic"
             loading={queryState?.isLoading && !queryState?.isError}>
-            {!!total && <div role="list">{children}</div>}
+            {!!total && <div>{children}</div>}
           </LoadingWrapper>
         </Box>
       )}

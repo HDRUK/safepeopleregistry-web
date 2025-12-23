@@ -1,3 +1,36 @@
+## [1.25.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.24.0...v1.25.0) (2025-12-22)
+
+### ✨ Features
+
+* **GAT-0000:** Make it christmas (#602) ([3a85b85](https://github.com/HDRUK/safepeopleregistry-web/commit/3a85b855bcf2de00796fdc402d579ab6ac7bb426)), closes [GAT-0000](GAT-0000)
+
+## [1.24.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.23.2...v1.24.0) (2025-12-17)
+
+### ✨ Features
+
+* **REGISTRY-0000:** Ingest Feature Flags From API (#585) ([31f3ea9](https://github.com/HDRUK/safepeopleregistry-web/commit/31f3ea9895ee5e647f08331aaa7e671a2d4e84f8))
+* **REGISTRY-2095:** [FE] Custodians > Project > Manual checks - can update (#593) ([08caa61](https://github.com/HDRUK/safepeopleregistry-web/commit/08caa6121145711cb5471e81075bee0e20b45937))
+* **REGISTRY-2095:** Fix for conflict (#581) ([14e29f2](https://github.com/HDRUK/safepeopleregistry-web/commit/14e29f2e00d459e8f8b97f8993cb8be597e7e1aa))
+* **REGISTRY-2258:** Feature Flags Admin Table (#583) ([19f550b](https://github.com/HDRUK/safepeopleregistry-web/commit/19f550bbc43faae31061a60ce5d89489f4511745))
+* **REGISTRY-2310:** Axe in cypress (#588) ([dd14715](https://github.com/HDRUK/safepeopleregistry-web/commit/dd14715a26320862dc6f6f5eb5caf328d63d34f3))
+* **REGISTRY-2336:** invite and reg tests (#587) ([7dbf4d9](https://github.com/HDRUK/safepeopleregistry-web/commit/7dbf4d98d62381f77d6bdfd4c920c5dcf81e9e86))
+* **REGISTRY-2344:** invite custodian reg process (#589) ([e58b807](https://github.com/HDRUK/safepeopleregistry-web/commit/e58b807ec1c04f62132c818cc85b004a408a597c))
+* **REGISTRY-2356:** Christmas Banner feature flag (#594) ([71644a8](https://github.com/HDRUK/safepeopleregistry-web/commit/71644a8a6e6fa8e953b8630b4b32631ecb9def2c))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-0000:** Next Version Bump (#591) ([839d0fb](https://github.com/HDRUK/safepeopleregistry-web/commit/839d0fb44007738205d43c0fc5f3ac5251bb5e2c))
+* **REGISTRY-0000:** Space in cache key (#586) ([9b5c1d0](https://github.com/HDRUK/safepeopleregistry-web/commit/9b5c1d09e54df4c075e86a96bcdf515d3799f2d7))
+* **REGISTRY-2317:** Error 500 when we call history endpoint user history (#580) ([38ca009](https://github.com/HDRUK/safepeopleregistry-web/commit/38ca0094450744664a2bafb4967f789815777882))
+* **REGISTRY-2356:** Christmas Banner (#595) ([6e62271](https://github.com/HDRUK/safepeopleregistry-web/commit/6e622710a0ec669d6b0b97f8961fe15f1d7c18a1))
+
+## [1.23.2](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.23.1...v1.23.2) (2025-12-12)
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-0000:** Next Version Bump (#591) ([fcb083a](https://github.com/HDRUK/safepeopleregistry-web/commit/fcb083a3fa1457b69dc73cfcd54c9b36d5b227cc))
+* **REGISTRY-0000:** Next Version Bump (#591) (#592) ([82e6874](https://github.com/HDRUK/safepeopleregistry-web/commit/82e68744a36085676d45fece93612225f501ecbd))
+
 ## [1.23.1](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.23.0...v1.23.1) (2025-12-08)
 
 ### 🐛 Bug Fixes

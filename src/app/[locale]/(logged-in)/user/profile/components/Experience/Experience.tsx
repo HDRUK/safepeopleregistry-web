@@ -186,7 +186,10 @@ export default function Experience() {
                   </FormSection>
 
                   <FormSection>
-                    <Typography variant="subtitle1" gutterBottom>
+                    <Typography
+                      variant="subtitle1"
+                      component="span"
+                      gutterBottom>
                       {tProfile("cvUpload")}
                     </Typography>
                     <Grid container spacing={3}>

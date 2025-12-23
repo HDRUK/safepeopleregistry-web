@@ -5,7 +5,9 @@ export default function Page() {
   return (
     <>
       <Header />
-      <FeaturesContent />
+      <main>
+        <FeaturesContent />
+      </main>
       <Footer />
     </>
   );

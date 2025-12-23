@@ -8,7 +8,7 @@ export default function Page() {
   return (
     <>
       <Header />
-      <div>
+      <main>
         <section>
           <SoursdInfo />
         </section>
@@ -21,7 +21,7 @@ export default function Page() {
         <section>
           <Support />
         </section>
-      </div>
+      </main>
       <Footer />
     </>
   );

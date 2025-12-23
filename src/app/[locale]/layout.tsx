@@ -15,6 +15,11 @@ import { PropsWithChildren } from "react";
 import "../sweetalert2-custom.css";
 import "../global.css";
 import IntlClientProvider from "@/context/IntlClientProvider";
+import { isTestFeatureEnabled, isTestFeatureUserAdmin } from "@/flags";
+import { FeatureProvider } from "@/components/FeatureProvider";
+import packageJson from "@/../package.json";
+import { RegistryGlobals } from "@/components/RegistryGlobals";
+import { BannerLists } from "@/components/Message";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,9 +39,22 @@ export default async function RootLayout({
   if (!locales[locale]) notFound();
 
   const messages = await getMessages();
+  const { version } = packageJson;
 
   const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
+  const features = {
+    isTestFeatureEnabled: (await isTestFeatureEnabled()) as boolean,
+    isTestFeatureUserAdmin: (await isTestFeatureUserAdmin()) as boolean,
+    // isChristmasBannerEnabled: (await isChristmasBannerEnabled()) as boolean,
+    isChristmasBannerEnabled: true,
+  };
 
+  // below boolean will grow as we get more banners.. i know this is a pointless const for now...
+  const displayBanner = features.isChristmasBannerEnabled;
+
+  const enabledBanners: BannerLists = {
+    christmasMessage: features.isChristmasBannerEnabled,
+  };
   return (
     <html lang={locale}>
       {gtmId && <GoogleTagManager gtmId={gtmId} />}
@@ -48,24 +66,27 @@ export default async function RootLayout({
           <AppRouterCacheProvider options={{ enableCssLayer: true }}>
             <ReactQueryClientProvider>
               <ThemeRegistry>
-                <ToastProvider>
-                  <GlobalStyles
-                    styles={{
-                      [".MuiGrid-item .MuiGrid-container"]: {
-                        maxWidth: "initial",
-                      },
-                    }}
-                  />
-                  {process.env.NEXT_PUBLIC_HIDE_BANNER !== "true" && (
-                    <BannerMessage />
-                  )}
-                  {children}
-                </ToastProvider>
+                <FeatureProvider features={features}>
+                  <ToastProvider>
+                    <GlobalStyles
+                      styles={{
+                        [".MuiGrid-item .MuiGrid-container"]: {
+                          maxWidth: "initial",
+                        },
+                      }}
+                    />
+                    {displayBanner && (
+                      <BannerMessage enabledBanners={enabledBanners} />
+                    )}
+                    {children}
+                  </ToastProvider>
+                </FeatureProvider>
               </ThemeRegistry>
             </ReactQueryClientProvider>
           </AppRouterCacheProvider>
         </IntlClientProvider>
       </Box>
+      <RegistryGlobals version={version} features={features} />
     </html>
   );
 }

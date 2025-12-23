@@ -26,7 +26,10 @@ describe("SRO journey", () => {
     after(() => {
       logout();
     });
-
+    it('should have no detectable accessibility violations on load', () => {
+      cy.waitForLoadingToFinish();
+      cy.checkA11yPage();
+    });
     it("Has the correct tabs disabled", () => {
       hasSRODisabledTabsOrganisations();
     });
@@ -49,15 +52,15 @@ describe("SRO journey", () => {
       hasSROOrganisation(dataOrganisation, "Approved");
     });
 
-      /**
-       * Temporarily disabled, unapproving has not been considered and has
-       * lots of implications so the option is disabled
-       */
-      // it("Unapproves an organisation", () => {
-      //   validateSROOrganisatons(dataOrganisation, "Unapprove");
+    /**
+     * Temporarily disabled, unapproving has not been considered and has
+     * lots of implications so the option is disabled
+     */
+    // it("Unapproves an organisation", () => {
+    //   validateSROOrganisatons(dataOrganisation, "Unapprove");
 
-      //   hasSROOrganisation(dataOrganisation, "Not approved");
-      // });
+    //   hasSROOrganisation(dataOrganisation, "Not approved");
+    // });
   });
 
   describe("Organisation approved", () => {
