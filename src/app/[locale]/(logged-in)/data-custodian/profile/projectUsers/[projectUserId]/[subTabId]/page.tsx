@@ -1,16 +1,15 @@
+import { WithParams } from "@/types/application";
+import { UserSubTabs } from "../../../consts/tabs";
 import CustodianProjectUser from "./components/CustodianProjectUser";
 
-interface PageProps {
-  params: {
-    id: number;
-    projectUserId: number;
-    subTabId: string;
-  };
-}
+type PageProps = WithParams<{
+  projectUserId: number;
+  subTabId: UserSubTabs;
+}>;
 
-function CustodianProjectUserPage({
-  params: { projectUserId, subTabId },
-}: PageProps) {
+async function CustodianProjectUserPage({ params }: PageProps) {
+  const { subTabId, projectUserId } = await params;
+
   return (
     <CustodianProjectUser projectUserId={projectUserId} subTabId={subTabId} />
   );

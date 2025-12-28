@@ -1,3 +1,5 @@
+"use client";
+
 import Markdown from "@/components/Markdown";
 import { PageBody, PageBodyContainer, PageSection } from "@/modules";
 import InfoPageWrapper from "../../../components/InfoPageWrapper";

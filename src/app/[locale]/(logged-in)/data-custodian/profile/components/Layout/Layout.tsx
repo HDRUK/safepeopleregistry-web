@@ -1,17 +1,19 @@
-import { ReactNode } from "react";
+import { PropsWithChildren, ReactNode } from "react";
 import useApplicationRedirects from "@/hooks/useApplicationRedirects";
 import { PageTabs } from "../../consts/tabs";
 import TabsSections from "../TabsSections";
+import { WithParams } from "@/types/application";
 
-interface LayoutProps {
-  children: ReactNode;
-  params: {
+type LayoutProps = PropsWithChildren<
+  WithParams<{
     tabId: PageTabs;
-  };
-}
+  }>
+>;
 
-async function Layout({ children, params: { tabId } }: LayoutProps) {
+async function Layout({ children, params }: LayoutProps) {
   await useApplicationRedirects();
+
+  const tabId = (await params).tabId;
 
   return (
     <>

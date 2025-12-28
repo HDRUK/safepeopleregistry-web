@@ -1,10 +1,23 @@
-const withNextIntl = require("next-intl/plugin")();
+import createMdx from "@next/mdx";
+import { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
 
-/** @type {import('next').NextConfig} */
+const withNextIntl = createNextIntlPlugin();
 
-const nextConfig = withNextIntl({
+const nextConfig: NextConfig = {
+  pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx", "css"],
+  // experimental: {
+  //   mdxRs: true,
+  // },
   reactStrictMode: true,
-  swcMinify: true,
+  turbopack: {
+    rules: {
+      "*.md": {
+        loaders: ["raw-loader"],
+        as: "*.js",
+      },
+    },
+  },
   env: {
     API_V1_URL: process.env.NEXT_PUBLIC_API_V1_URL,
   },
@@ -97,7 +110,7 @@ const nextConfig = withNextIntl({
 
     config.module.rules.push({
       test: /\.md$/,
-      type: "asset/source",
+      type: "raw-loader",
     });
 
     return config;
@@ -109,11 +122,11 @@ const nextConfig = withNextIntl({
     // !! WARN !!
     ignoreBuildErrors: true,
   },
-});
+};
 
 const withBundleAnalyzer =
   process.env.ANALYZE_BUNDLE === "true"
     ? require("@next/bundle-analyzer")({ enabled: true })
-    : config => config;
+    : (config: NextConfig) => config;
 
-module.exports = withBundleAnalyzer(nextConfig);
+module.exports = withNextIntl(withBundleAnalyzer(nextConfig));

@@ -1,18 +1,17 @@
 "use client";
 
+import { WithParams } from "@/types/application";
+import { OrganisationsSubTabs } from "../../../consts/tabs";
 import CustodianProjectOrganisation from "./components/CustodianProjectOrganisation";
 
-interface PageProps {
-  params: {
-    id: number;
-    projectOrganisationId: number;
-    subTabId: string;
-  };
-}
+type PageProps = WithParams<{
+  projectOrganisationId: number;
+  subTabId: OrganisationsSubTabs;
+}>;
 
-function CustodianProjectOrganisationsPage({
-  params: { projectOrganisationId, subTabId },
-}: PageProps) {
+async function CustodianProjectOrganisationsPage({ params }: PageProps) {
+  const { subTabId, projectOrganisationId } = await params;
+
   return (
     <CustodianProjectOrganisation
       projectOrganisationId={projectOrganisationId}

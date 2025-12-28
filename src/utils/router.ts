@@ -16,14 +16,14 @@ function needsLoggedInPermissions(routes: Routes, pathname: string | null) {
   });
 }
 
-function getPathServerSide(): string | null {
-  const head = headers();
+async function getPathServerSide(): Promise<string | null> {
+  const head = await headers();
+
   return head.get("x-current-path");
 }
 
 async function redirectProfile() {
-  const pathname = getPathServerSide();
-
+  const pathname = await getPathServerSide();
   const accessToken = await getAccessToken();
 
   if (!accessToken && needsLoggedInPermissions(ROUTES, pathname)) {

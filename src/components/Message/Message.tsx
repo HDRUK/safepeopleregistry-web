@@ -38,7 +38,7 @@ export default function Message({
   if (position === "notification") {
     return (
       <Snackbar open={open} {...snackbarProps}>
-        <Alert {...dismissableProps} {...restProps}>
+        <Alert {...dismissableProps} {...restProps} suppressHydrationWarning>
           {children}
         </Alert>
       </Snackbar>
@@ -47,7 +47,7 @@ export default function Message({
 
   return (
     open && (
-      <Alert {...dismissableProps} {...restProps}>
+      <Alert {...dismissableProps} {...restProps} suppressHydrationWarning>
         {children}
       </Alert>
     )

@@ -39,7 +39,7 @@ function CustodianProjectUser({
   const t = useTranslations(NAMESPACE_TRANSLATION_CUSTODIAN_PROJECT_USER);
   const custodian = useStore(state => state.getCustodian());
   const queryClient = useQueryClient();
-
+  console.log(projectUserId, subTabId);
   const {
     data: custodianProjectUser,
     isFetched: isFetchedCustodianProjectUser,
@@ -55,7 +55,7 @@ function CustodianProjectUser({
   });
 
   if (userData?.data.user_group !== UserGroup.USERS && isFetched) {
-    notFound();
+    // notFound();
   }
 
   const { data: validationLogs, ...queryState } = useQuery({
@@ -68,7 +68,7 @@ function CustodianProjectUser({
   });
 
   if (!project && !projectUser && isFetchedCustodianProjectUser) {
-    notFound();
+    // notFound();
   }
 
   const { user, setUser, setProject, setProjectUser } = useStore(state => ({

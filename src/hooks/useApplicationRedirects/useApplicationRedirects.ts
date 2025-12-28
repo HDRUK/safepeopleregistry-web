@@ -15,7 +15,7 @@ import {
 } from "../../utils/redirects";
 
 export default async function useApplicationRedirects() {
-  const pathname = getPathServerSide();
+  const pathname = await getPathServerSide();
 
   if (pathname && !isInPath(pathname, EXCLUDE_REDIRECT_URLS)) {
     let redirectUrl;

@@ -1,12 +1,10 @@
 "use client";
 
-import { locales } from "@/config";
 import {
   AbstractIntlMessages,
   IntlErrorCode,
   NextIntlClientProvider,
 } from "next-intl";
-import { notFound } from "next/navigation";
 import { PropsWithChildren } from "react";
 
 type IntlClientProviderProps = PropsWithChildren<{
@@ -19,8 +17,6 @@ export default function IntlClientProvider({
   locale,
   messages,
 }: IntlClientProviderProps) {
-  if (!locales[locale]) notFound();
-
   const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
 
   return (

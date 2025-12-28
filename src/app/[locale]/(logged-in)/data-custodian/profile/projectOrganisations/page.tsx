@@ -4,9 +4,9 @@ import { PageTabs } from "../consts/tabs";
 function ProjectOrganisationsPage() {
   return (
     <Page
-      params={{
+      params={Promise.resolve({
         tabId: PageTabs.ORGANISATIONS,
-      }}
+      })}
     />
   );
 }

@@ -4,7 +4,7 @@ import keycloak from "@/config/keycloak";
 import axios from "axios";
 
 export async function GET() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const refreshToken = cookieStore.get("refresh_token")?.value;
 
   if (refreshToken) {

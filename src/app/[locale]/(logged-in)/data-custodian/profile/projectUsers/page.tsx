@@ -4,9 +4,9 @@ import { PageTabs } from "../consts/tabs";
 function ProjectUsersPage() {
   return (
     <Page
-      params={{
+      params={Promise.resolve({
         tabId: PageTabs.USERS,
-      }}
+      })}
     />
   );
 }

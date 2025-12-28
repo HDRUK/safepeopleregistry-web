@@ -1,7 +1,12 @@
+import packageJson from "@/../package.json";
+import { FeatureProvider } from "@/components/FeatureProvider";
+import { BannerLists } from "@/components/Message";
 import ReactQueryClientProvider from "@/components/ReactQueryClientProvider";
+import { RegistryGlobals } from "@/components/RegistryGlobals";
 import ThemeRegistry from "@/components/ThemeRegistry/ThemeRegistry";
-import { locales } from "@/config";
+import IntlClientProvider from "@/context/IntlClientProvider";
 import ToastProvider from "@/context/ToastProvider";
+import { isTestFeatureEnabled, isTestFeatureUserAdmin } from "@/flags";
 import BannerMessage from "@/modules/BannerMessage";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import GlobalStyles from "@mui/material/GlobalStyles";
@@ -10,16 +15,9 @@ import { GoogleTagManager } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { getMessages } from "next-intl/server";
 import { Inter } from "next/font/google";
-import { notFound } from "next/navigation";
 import { PropsWithChildren } from "react";
-import "../sweetalert2-custom.css";
 import "../global.css";
-import IntlClientProvider from "@/context/IntlClientProvider";
-import { isTestFeatureEnabled, isTestFeatureUserAdmin } from "@/flags";
-import { FeatureProvider } from "@/components/FeatureProvider";
-import packageJson from "@/../package.json";
-import { RegistryGlobals } from "@/components/RegistryGlobals";
-import { BannerLists } from "@/components/Message";
+import "../sweetalert2-custom.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,11 +32,11 @@ type RootLayoutProps = PropsWithChildren<{
 
 export default async function RootLayout({
   children,
-  params: { locale },
+  params,
 }: RootLayoutProps) {
-  if (!locales[locale]) notFound();
-
+  const locale = (await params)?.locale;
   const messages = await getMessages();
+
   const { version } = packageJson;
 
   const gtmId = process.env.NEXT_PUBLIC_GTM_ID;

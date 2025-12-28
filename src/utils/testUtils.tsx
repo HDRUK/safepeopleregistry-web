@@ -19,7 +19,7 @@ import userEvent, { UserEvent } from "@testing-library/user-event";
 import mediaQuery from "css-mediaquery";
 import { axe } from "jest-axe";
 import React, { ReactNode } from "react";
-import messages from "../config/locales/en.json";
+import messages from "../../messages/en.json";
 
 const defineMatchMedia = (width: number) => {
   Object.defineProperty(window, "matchMedia", {

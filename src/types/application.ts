@@ -38,6 +38,12 @@ type WithModelState<T> = T & {
   model_state: ModelState;
 };
 
+type Params<T> = Promise<T>;
+
+type WithParams<T> = {
+  params: Params<T>;
+};
+
 type WithRoutes<T> = T & {
   routes: Record<string, RouteConfig>;
 };
@@ -596,4 +602,6 @@ export type {
   WithRoutes,
   WithStateWorkflow,
   WithTranslations,
+  Params,
+  WithParams,
 };
