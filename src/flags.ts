@@ -1,7 +1,7 @@
 import { flag } from "@vercel/flags/next";
 import { createAPIFlagAdapter } from "./utils/apiFlagAdapter";
 
-const adapter = createAPIFlagAdapter()<boolean, never>()
+const adapter = createAPIFlagAdapter()<boolean, never>();
 
 export const isTestFeatureEnabled = flag({
   key: "test-feature",
@@ -10,7 +10,7 @@ export const isTestFeatureEnabled = flag({
 
 export const isChristmasBannerEnabled = flag({
   key: "christmas-banner",
- adapter,
+  adapter,
 });
 
 export const isTestFeatureUserAdmin = flag({

@@ -67,7 +67,7 @@ export function createAPIFlagAdapter() {
         if (!cache || isCacheStale()) {
           cache = await setCache();
         }
-        return(cache[key] ?? false) as ValueType
+        return (cache[key] ?? false) as ValueType;
       },
     };
   };
