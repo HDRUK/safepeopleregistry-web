@@ -24,6 +24,12 @@ import { notFound } from "next/navigation";
 import { PropsWithChildren } from "react";
 import "../global.css";
 import "../sweetalert2-custom.css";
+import IntlClientProvider from "@/context/IntlClientProvider";
+import { isTestFeatureEnabled, isTestFeatureUserAdmin } from "@/flags";
+import { FeatureProvider } from "@/components/FeatureProvider";
+import packageJson from "@/../package.json";
+import { RegistryGlobals } from "@/components/RegistryGlobals";
+import { BannerLists } from "@/components/Message";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -49,8 +55,8 @@ export default async function RootLayout({
   const features = {
     isTestFeatureEnabled: (await isTestFeatureEnabled()) as boolean,
     isTestFeatureUserAdmin: (await isTestFeatureUserAdmin()) as boolean,
-    isSponsorship: (await isSponsorship()) as boolean,
-    isChristmasBannerEnabled: (await isChristmasBannerEnabled()) as boolean,
+    // isChristmasBannerEnabled: (await isChristmasBannerEnabled()) as boolean,
+    isChristmasBannerEnabled: true,
   };
 
   // below boolean will grow as we get more banners.. i know this is a pointless const for now...

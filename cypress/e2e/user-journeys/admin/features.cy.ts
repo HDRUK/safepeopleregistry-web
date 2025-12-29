@@ -33,10 +33,12 @@ describe("Feature Flag journey", () => {
       canToggleFeature("test-feature", "true");
     });
 
-    it("Can make it christmas", () => {
-      canToggleFeature("christmas-banner", "false", true);
-      cy.reload();
-      cy.get('[data-testid="banner"]', { timeout: 10000 }).should("be.visible");
-    });
+    // it("Can make it christmas", () => {
+    //   canToggleFeature('christmas-banner', 'false', true);
+    //   cy.reload()
+    //   cy.get('[data-testid="banner"]', { timeout: 10000 })
+    //     .should('be.visible')
+    // });
+    
   });
 });
