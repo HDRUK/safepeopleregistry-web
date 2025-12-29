@@ -1,21 +1,17 @@
-import { ShowAlert, ShowAlertOptions } from "@/types/common";
+import { AlertModalProps } from "@/components/AlertModal";
+import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
 import { MutationState, QueryState } from "@/types/form";
 import { useTranslations } from "next-intl";
-import { useCallback, useRef, useState } from "react";
-import { SweetAlertIcon } from "sweetalert2";
-import { showAlert } from "../../utils/showAlert";
+import { useCallback, useState } from "react";
 import useQueryAlerts, { QueryAlertOptions } from "../useQueryAlerts";
 
 const NAMESPACE_TRANSALATIONS_APPLICATION = "Application";
 
 export interface QueryAlertConfirmOptions
   extends Omit<QueryAlertOptions, "enabled"> {
-  confirmAlertType?: SweetAlertIcon;
-  confirmAlertProps?: ShowAlertOptions;
-  successAlertType?: SweetAlertIcon;
-  successAlertProps?: ShowAlertOptions;
-  errorAlertType?: SweetAlertIcon;
-  errorAlertProps?: ShowAlertOptions;
+  confirmAlertProps?: AlertModalProps;
+  successAlertProps?: AlertModalProps;
+  errorAlertProps?: AlertModalProps;
 }
 
 export default function useQueryConfirmAlerts<T>(
@@ -23,44 +19,32 @@ export default function useQueryConfirmAlerts<T>(
   alertOptions?: QueryAlertConfirmOptions
 ) {
   const t = useTranslations(NAMESPACE_TRANSALATIONS_APPLICATION);
-  const ref = useRef<ShowAlert>();
-  const refPayload = useRef<T | null | undefined>();
   const [hasClosed, setHasClosed] = useState(false);
+  const { showAlert, hideAlert } = useAlertModal();
 
   const mergedConfirmAlertProps = {
     text: t("alertDeleteDescription"),
     title: t("alertDeleteTitle"),
     confirmButtonText: t("alertDeleteConfirmButton"),
     cancelButtonText: t("alertDeleteCancelButton"),
-    confirmButtonColor: "#DC3645",
     ...alertOptions?.confirmAlertProps,
-    preConfirm: async () => {
-      await alertOptions?.confirmAlertProps?.preConfirm<T>?.(
-        refPayload.current
-      );
-
-      ref.current = null;
-      refPayload.current = null;
+    onConfirm: async (payload: unknown) => {
+      await alertOptions?.confirmAlertProps?.onConfirm?.(payload);
 
       setHasClosed(true);
+      hideAlert();
     },
-    willClose: async () => {
-      await alertOptions?.confirmAlertProps?.willClose<T>?.(refPayload.current);
-
-      ref.current = null;
-      refPayload.current = null;
+    onClose: async (payload: unknown) => {
+      await alertOptions?.confirmAlertProps?.onClose?.(payload);
     },
   };
 
-  useQueryAlerts(query, { ...alertOptions, enabled: hasClosed }, ref);
+  useQueryAlerts(query, { ...alertOptions, enabled: hasClosed });
 
-  return useCallback((payload: T) => {
-    if (!ref.current) {
-      refPayload.current = payload;
-      ref.current = showAlert(
-        alertOptions?.confirmAlertType || "warning",
-        mergedConfirmAlertProps
-      );
-    }
+  return useCallback((payload: unknown) => {
+    showAlert({
+      data: payload,
+      ...mergedConfirmAlertProps,
+    });
   }, []);
 }

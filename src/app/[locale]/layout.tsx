@@ -20,6 +20,7 @@ import { FeatureProvider } from "@/components/FeatureProvider";
 import packageJson from "@/../package.json";
 import { RegistryGlobals } from "@/components/RegistryGlobals";
 import { BannerLists } from "@/components/Message";
+import AlertModalProvider from "@/context/AlertModalProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -78,7 +79,7 @@ export default async function RootLayout({
                     {displayBanner && (
                       <BannerMessage enabledBanners={enabledBanners} />
                     )}
-                    {children}
+                    <AlertModalProvider>{children}</AlertModalProvider>
                   </ToastProvider>
                 </FeatureProvider>
               </ThemeRegistry>
