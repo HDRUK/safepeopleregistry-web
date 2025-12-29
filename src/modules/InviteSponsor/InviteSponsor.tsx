@@ -31,7 +31,7 @@ export default function InviteSponsor({
   enableChange,
   onChangeOrganisation,
 }: InviteSponsorProps) {
-  const [showInviteModal, setShowInviteModel] = useState(false);
+  const [showInviteModal, setShowInviteModal] = useState(false);
   const status = getSponsorshipStatus(selectedOrganisation, project);
   const { mutate, ...mutationState } = useMutation(
     putResendInviteSponorshipQuery()
@@ -72,7 +72,7 @@ export default function InviteSponsor({
                   component="button"
                   onClick={onChangeOrganisation}
                   fontSize="inherit">
-                  Change sponsor
+                  {t("changeSponsorButton")}
                 </Link>
               </div>
             </Box>
@@ -88,12 +88,12 @@ export default function InviteSponsor({
                     component="button"
                     onClick={e => {
                       e.preventDefault();
-                      setShowInviteModel(true);
+                      setShowInviteModal(true);
                     }}>
                     {t("inviteSponsorButton")}
                   </Link>
                 }>
-                Organisation not listed?
+                {t("orgNotListed")}
               </Text>
             </Box>
           )}
@@ -103,9 +103,9 @@ export default function InviteSponsor({
       )}
       <InviteOrganisationModal
         open={showInviteModal}
-        onClose={() => setShowInviteModel(false)}
+        onClose={() => setShowInviteModal(false)}
         onSuccess={(id: number) => {
-          setShowInviteModel(false);
+          setShowInviteModal(false);
 
           onSuccess(id);
         }}

@@ -32,6 +32,11 @@ describe("Projects organisation journey", () => {
     logout();
   });
 
+  it("should have no detectable accessibility violations on load", () => {
+    cy.waitForLoadingToFinish();
+    cy.checkA11yPage();
+  });
+
   it("Shows sponsored projects", () => {
     cy.visitFirst(ROUTES.profileOrganisationProjects.path);
 

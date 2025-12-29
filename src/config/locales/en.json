@@ -1303,6 +1303,8 @@
   },
   "Organisations": {
     "InviteSponsor": {
+      "orgNotListed": "Organisation not listed?",
+      "changeSponsorButton": "Change sponsor",
       "organisationNameRequiredInvalid": "Organisation name is required",
       "emailRequiredInvalid": "Email is required",
       "heading": "Invite a sponsor",
