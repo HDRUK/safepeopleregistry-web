@@ -33,12 +33,15 @@ describe("Feature Flag journey", () => {
       canToggleFeature("test-feature", "true");
     });
 
+    it("Toogles sponsorship", () => {
+      canToggleFeature("sponsorship", "true");
+    });
+
     // it("Can make it christmas", () => {
     //   canToggleFeature('christmas-banner', 'false', true);
     //   cy.reload()
     //   cy.get('[data-testid="banner"]', { timeout: 10000 })
     //     .should('be.visible')
     // });
-    
   });
 });
