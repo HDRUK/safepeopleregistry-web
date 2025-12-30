@@ -1,4 +1,4 @@
-name: "Chromatic"
+name: Chromatic
 
 on: push
 
@@ -12,6 +12,7 @@ jobs:
       || github.base_ref == 'develop' && 'develop'
       ||                             'release'
       }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -19,12 +20,12 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: 21.7.1
+          node-version: 28
+
       - name: Install dependencies
-        # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
         run: npm install
       - name: Run Chromatic
         uses: chromaui/action@latest
         with:
-          # ⚠️ Make sure to configure a `CHROMATIC_PROJECT_TOKEN` repository secret
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          buildScriptName: build-storybook
