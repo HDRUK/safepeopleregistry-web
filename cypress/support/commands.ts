@@ -120,9 +120,7 @@ Cypress.Commands.add("getLatestRowOfResults", () => {
       cy.wrap($row).parents('div[data-cy="results"]').first().as("resultsDiv");
 
       cy.get("@resultsDiv")
-        .find(
-          'nav[aria-label="pagination navigation"] button.MuiPaginationItem-page'
-        )
+        .find("nav button.MuiPaginationItem-page")
         .then($buttons => {
           if ($buttons.length > 1) {
             cy.wrap($buttons.last()).click();

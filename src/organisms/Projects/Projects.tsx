@@ -1,10 +1,10 @@
 "use client";
 
 import { usePagedSponsoredProjectsQuery } from "@/services/organisations";
+import { Typography } from "@mui/material";
 import { ColumnDef } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
-import { Typography } from "@mui/material";
 import { useFeatures } from "../../components/FeatureProvider";
 import { StoreState, useStore } from "../../data/store";
 import useColumns from "../../hooks/useColumns";
@@ -13,33 +13,29 @@ import ProjectsFilters from "../../modules/ProjectsFilters";
 import ProjectsTable from "../../modules/ProjectsTable";
 import useEntityProjectsQuery from "../../services/projects/useEntityProjectsQuery";
 import { EntityType } from "../../types/api";
-import { ResearcherProject } from "../../types/application";
+import {
+  Custodian,
+  Organisation,
+  ResearcherProject,
+  User,
+} from "../../types/application";
 import { renderProjectNameCell } from "../../utils/cells";
 
 const NAMESPACE_TRANSLATIONS_PROJECTS = "Projects";
 
 type VariantConfig = {
-  getId: (store: StoreState) => string | number | undefined;
+  getEntity: (store: StoreState) => Custodian | Organisation | User | undefined;
 };
 
 const variantConfig: Record<EntityType, VariantConfig> = {
   [EntityType.ORGANISATION]: {
-    getId: store => {
-      const organisation = store.getOrganisation();
-      return organisation?.id;
-    },
+    getEntity: store => store.getOrganisation(),
   },
   [EntityType.CUSTODIAN]: {
-    getId: store => {
-      const custodian = store.getCustodian();
-      return custodian?.id;
-    },
+    getEntity: store => store.getCustodian(),
   },
   [EntityType.USER]: {
-    getId: store => {
-      const user = store.getUser();
-      return user?.id;
-    },
+    getEntity: store => store.getUser(),
   },
 };
 
@@ -62,8 +58,8 @@ export default function Projects({
 
   const { isSponsorship } = useFeatures();
   const store = useStore();
-  const { getId } = variantConfig[variant];
-  const defaultEntityId = entityId || getId(store);
+  const entity = variantConfig[variant]?.getEntity(store);
+  const defaultEntityId = entityId || entity?.id;
 
   const {
     data: projectsData,
@@ -144,8 +140,8 @@ export default function Projects({
       </PageSection>
       {showSponsorship && isSponsorship && (
         <PageSection data-cy="projects-sponsorship">
-          <Typography variant="h6" mb={2}>
-            Sponsored Projects
+          <Typography variant="h6" component="h2" mb={2}>
+            {t("sponsoredProjectsTitle")}
           </Typography>
           <ProjectsTable
             total={sponsorshipQuery.total}
@@ -164,18 +160,18 @@ export default function Projects({
               "endDate",
               "users",
               "status",
-              "sponsorStatus",
               "validationStatus",
-              "uniqueId",
-              "statusChanged",
             ]}
+            paginationProps={{
+              "aria-label": "Sponsored projects table pagination",
+            }}
           />
         </PageSection>
       )}
       <PageSection data-cy="projects">
         {showSponsorship && isSponsorship && (
-          <Typography variant="h6" mb={2}>
-            Projects directly associated with Users
+          <Typography variant="h6" component="h2" mb={2}>
+            {t("ownProjectsTitle")}
           </Typography>
         )}
         <ProjectsTable
@@ -197,9 +193,8 @@ export default function Projects({
             "status",
             "organisationStatus",
             "validationStatus",
-            "uniqueId",
-            "statusChanged",
           ]}
+          paginationProps={{ "aria-label": "Projects table pagination" }}
         />
       </PageSection>
     </>
