@@ -9,8 +9,8 @@ import {
   DialogTitle,
 } from "@mui/material";
 import { Box, useTheme } from "@mui/system";
-import AlertModalIconOutline from "./AlertModalIconOutline";
 import { ReactNode } from "react";
+import AlertModalIconOutline from "./AlertModalIconOutline";
 
 export interface AlertModalProps extends DialogProps {
   open: boolean;
