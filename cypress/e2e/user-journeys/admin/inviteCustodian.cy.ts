@@ -9,21 +9,6 @@ import { actionMessage } from "cypress/support/utils/mail";
 import { registerAndLogin } from "cypress/support/utils/registration/register";
 
 describe("Invite custodian", () => {
-import {
-  shouldBeCustodianProfile,
-  signout,
-} from "cypress/support/utils/common";
-import {
-  EMAIL_REGISTER_VERIFICATION_LABEL,
-  EMAIL_SIGN_ME_UP,
-} from "cypress/support/utils/data";
-import { actionMessage } from "cypress/support/utils/mail";
-import {
-  acceptTermsAndConditions,
-  registerKeycloak,
-} from "cypress/support/utils/registration/register";
-
-describe("Invite organisation", () => {
   beforeEach(() => {
     loginAdmin();
 
