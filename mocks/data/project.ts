@@ -9,6 +9,7 @@ const mockedProject = (
   project?: Partial<ResearcherProject>
 ): ResearcherProject => ({
   id: faker.number.int(),
+  unique_id: faker.string.sample(),
   title: faker.string.sample(),
   lay_summary: faker.string.sample(),
   public_benefit: faker.string.sample(),
