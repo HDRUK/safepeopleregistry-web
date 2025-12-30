@@ -3,7 +3,7 @@
 import { getPathServerSide } from "@/utils/router";
 import { EXCLUDE_REDIRECT_URLS } from "../../consts/router";
 import getMe from "../../services/auth/getMe";
-import { getAccessToken } from "../../utils/auth";
+import { getAccessToken } from "../auth";
 import {
   getHomepageRedirectPath,
   getProfileRedirectPath,
@@ -12,10 +12,10 @@ import {
   getSeverErrorRedirectPath,
   isInPath,
   redirectToPath,
-} from "../../utils/redirects";
+} from "../redirects";
 
-export default async function useApplicationRedirects() {
-  const pathname = getPathServerSide();
+export default async function applicationRedirects() {
+  const pathname = await getPathServerSide();
 
   if (pathname && !isInPath(pathname, EXCLUDE_REDIRECT_URLS)) {
     let redirectUrl;
