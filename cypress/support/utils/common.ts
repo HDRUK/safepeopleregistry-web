@@ -37,11 +37,7 @@ const shouldBeOrganisationProfile = () => {
 };
 
 const shouldBeCustodianProfile = () => {
-<<<<<<< Updated upstream
   cy.url().should("eq", `${Cypress.config().baseUrl}/data-custodian/profile`);
-=======
-  cy.url().should("eq", `${Cypress.config().baseUrl}/custodian/profile`);
->>>>>>> Stashed changes
 };
 
 export {
