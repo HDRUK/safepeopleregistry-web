@@ -1,12 +1,8 @@
-<<<<<<< Updated upstream
 import {
+  InviteCustodianFormValues,
   InviteOrganisationFormValues,
   InviteUserFormValues,
-  InviteCustodianFormValues,
 } from "@/types/form";
-=======
-import { InviteCustodianFormValues, InviteUserFormValues } from "@/types/form";
->>>>>>> Stashed changes
 import { dataCy } from "../common";
 
 const inviteNewCustodianForm = (invite: InviteCustodianFormValues) => {
@@ -79,15 +75,12 @@ const inviteNewUser = (invite: InviteUserFormValues) => {
 };
 
 export {
-  inviteNewUser,
-  inviteNewUserForm,
-  inviteNewOrganisationForm,
-  inviteNewOrganisation,
-<<<<<<< Updated upstream
-  inviteOrganisation,
-  inviteOrganisationForm,
-=======
->>>>>>> Stashed changes
   inviteNewCustodian,
   inviteNewCustodianForm,
+  inviteNewOrganisation,
+  inviteNewOrganisationForm,
+  inviteNewUser,
+  inviteNewUserForm,
+  inviteOrganisation,
+  inviteOrganisationForm,
 };
