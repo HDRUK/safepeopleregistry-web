@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "maildev": "maildev",
-    "dev": "NODE_OPTIONS='--inspect' next dev",
+    "dev": "NODE_OPTIONS='--inspect' next dev --turbopack",
     "dev:keycloak": "NODE_OPTIONS='--inspect' NODE_TLS_REJECT_UNAUTHORIZED=0 next dev",
     "build": "next build",
     "start": "next start",
@@ -41,7 +41,7 @@
     "@mui/system": "^5.16.7",
     "@mui/x-date-pickers": "^7.22.2",
     "@next/bundle-analyzer": "^15.0.3",
-    "@next/third-parties": "^15.4.5",
+    "@next/third-parties": "15.5.9",
     "@storybook/addon-essentials": "^8.0.5",
     "@storybook/addon-interactions": "^8.0.5",
     "@storybook/addon-links": "^8.0.5",
@@ -58,7 +58,7 @@
     "dayjs": "^1.11.11",
     "deep-equal": "^2.2.3",
     "dotenv": "^17.2.3",
-    "eslint-config-next": "14.1.4",
+    "eslint-config-next": "15.5.9",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react": "^7.37.5",
@@ -70,11 +70,11 @@
     "lodash.get": "^4.4.2",
     "maildev": "^2.2.1",
     "motion": "^11.11.17",
-    "next": "^14.2.35",
+    "next": "15.5.9",
     "next-intl": "^3.10.0",
     "pretty-bytes": "^6.1.1",
-    "react": "^18",
-    "react-dom": "^18.3.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
     "react-hook-form": "^7.51.1",
     "react-markdown": "^9.1.0",
     "react-toastify": "^10.0.5",
@@ -87,7 +87,7 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.2",
-    "@next/bundle-analyzer": "^15.0.3",
+    "@next/bundle-analyzer": "15.5.9",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^13.0.0",
     "@semantic-release/exec": "6.0.3",
@@ -109,8 +109,8 @@
     "@types/js-cookie": "^3.0.6",
     "@types/lodash.get": "^4.4.9",
     "@types/node": "^20.17.16",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
     "@types/react-syntax-highlighter": "^15.5.13",
     "@types/testing-library__cypress": "^7.0.0",
     "@typescript-eslint/eslint-plugin": "^8.16.0",
@@ -141,5 +141,9 @@
   },
   "resolutions": {
     "@typescript-eslint/typescript-estree": "^8.16.0"
+  },
+  "overrides": {
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3"
   }
 }
