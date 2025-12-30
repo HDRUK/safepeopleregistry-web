@@ -1,53 +1,55 @@
 import dayjs from "dayjs";
 import { dataCy } from "./utils/common";
 
-import 'cypress-axe';
 import { Result } from "axe-core";
+import "cypress-axe";
 
-Cypress.Commands.add('checkA11yPage', () => {
-  cy.injectAxe(); 
-  cy.checkA11y(null, null, (violations) => {
-    cy.logAxeViolations(violations);   
+Cypress.Commands.add("checkA11yPage", () => {
+  cy.injectAxe();
+  cy.checkA11y(null, null, violations => {
+    cy.logAxeViolations(violations);
   });
 });
-Cypress.Commands.add('waitForLoadingToFinish', () => {
-  cy.get('body').then($body => {
+Cypress.Commands.add("waitForLoadingToFinish", () => {
+  cy.get("body").then($body => {
     const spinner = $body.find('[role="progressbar"]');
-    
+
     if (spinner.length > 0) {
-      return cy.get('[role="progressbar"]', { timeout: 20000 })
-        .should('not.exist');
+      return cy
+        .get('[role="progressbar"]', { timeout: 20000 })
+        .should("not.exist");
     }
 
     return;
   });
 });
-Cypress.Commands.add('logAxeViolations', (violations) => {
+Cypress.Commands.add("logAxeViolations", violations => {
   cy.task(
-    'log',
-    `${violations.length} accessibility violation${violations.length === 1 ? '' : 's'} detected`
+    "log",
+    `${violations.length} accessibility violation${violations.length === 1 ? "" : "s"} detected`
   );
 
-  const violationData = violations.map(({ id, impact, description, nodes }) => ({
-    id,
-    impact,
-    description,
-    nodes: nodes.length,
-  }));
+  const violationData = violations.map(
+    ({ id, impact, description, nodes }) => ({
+      id,
+      impact,
+      description,
+      nodes: nodes.length,
+    })
+  );
 
-  cy.task('table', violationData);
+  cy.task("table", violationData);
 
-  violations.forEach((violation) => {
+  violations.forEach(violation => {
     violation.nodes.forEach((node, index) => {
       cy.task(
-        'log',
-        `Violation: ${violation.id} | Node ${index + 1} | Selector: ${node.target.join(', ')}`
+        "log",
+        `Violation: ${violation.id} | Node ${index + 1} | Selector: ${node.target.join(", ")}`
       );
-      cy.task('log', `HTML snippet: ${node.html}`);
+      cy.task("log", `HTML snippet: ${node.html}`);
     });
   });
 });
-
 
 Cypress.Commands.add("login", (email: string, password: string) => {
   const args = { email, password };
@@ -106,7 +108,8 @@ Cypress.Commands.add("getResultsRowByValue", (value: string) => {
 });
 
 Cypress.Commands.add("getLatestRowOfResults", () => {
-  cy.get(dataCy("results")).filter(":visible")
+  cy.get(dataCy("results"))
+    .filter(":visible")
     .find("tbody tr")
     .then($row => {
       if ($row.length === 0) {
@@ -117,9 +120,7 @@ Cypress.Commands.add("getLatestRowOfResults", () => {
       cy.wrap($row).parents('div[data-cy="results"]').first().as("resultsDiv");
 
       cy.get("@resultsDiv")
-        .find(
-          'nav[aria-label="pagination navigation"] button.MuiPaginationItem-page'
-        )
+        .find("nav button.MuiPaginationItem-page")
         .then($buttons => {
           if ($buttons.length > 1) {
             cy.wrap($buttons.last()).click();
@@ -196,7 +197,6 @@ Cypress.Commands.add(
   }
 );
 
-
 Cypress.Commands.add("saveFormClick", (text: string = "Save") => {
   cy.get('[role="presentation"]:not([aria-hidden="true"])')
     .then($els => {
@@ -210,7 +210,9 @@ Cypress.Commands.add("saveFormClick", (text: string = "Save") => {
         elementToUse = $els[0];
         cy.log("Only one element found, using it directly");
       } else {
-        cy.log(`${$els.length} elements found, selecting one with highest z-index`);
+        cy.log(
+          `${$els.length} elements found, selecting one with highest z-index`
+        );
         const getZIndex = (el: Element) => {
           const z = window.getComputedStyle(el).zIndex;
           const parsed = parseInt(z ?? "0", 10);
@@ -226,10 +228,9 @@ Cypress.Commands.add("saveFormClick", (text: string = "Save") => {
     })
     .should("be.visible")
     .within(() => {
-      cy.get('button').contains(text).click();
+      cy.get("button").contains(text).click();
     });
 });
-
 
 Cypress.Commands.add(
   "saveContinueClick",
@@ -278,7 +279,7 @@ declare global {
       getLatestRowOfResults: () => void;
       waitForLoadingToFinish: () => Cypress.Chainable<JQuery<HTMLElement>>;
       checkA11yPage: () => void;
-      logAxeViolations: (violations:Result[]) => void;
+      logAxeViolations: (violations: Result[]) => void;
       getResultsCellByValue: (
         value: string
       ) => Cypress.Chainable<JQuery<HTMLTableCellElement>>;

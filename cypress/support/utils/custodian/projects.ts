@@ -7,11 +7,15 @@ import {
   ResearcherProject,
   User,
 } from "@/types/application";
-import { InviteUserFormValues } from "@/types/form";
+import {
+  InviteOrganisationFormValues,
+  InviteUserFormValues,
+} from "@/types/form";
 import { getName, getShortStatus, getStatus } from "@/utils/application";
 import { formatDisplayLongDate } from "@/utils/date";
 import { dataCy } from "../common";
 import { DEFAULT_PROJECT_NAME, DEFAULT_ROLE_NAME } from "../data";
+import { inviteOrganisation } from "../admin/invite";
 
 const goToProjectUsersList = (projectTitle: string = DEFAULT_PROJECT_NAME) => {
   cy.visitFirst(ROUTES.profileCustodianProjects.path);
@@ -186,11 +190,21 @@ const addNewProjectUser = () => {
   });
 };
 
+const invitesNewSponsor = (invite: InviteOrganisationFormValues) => {
+  cy.contains("button", "Add new project").click();
+  cy.contains("button", "Invite to register").click();
+
+  inviteOrganisation(invite);
+};
+
 const addNewProject = (project: ResearcherProject) => {
   cy.contains("button", "Add new project").click();
 
   cy.get("#unique_id").clear().type(project.unique_id);
   cy.get("#title").clear().type(project.title);
+
+  cy.selectValue("sponsor_id", "Test Organisation, LTD");
+
   cy.get("#request_category_type").clear().type(project.request_category_type);
   cy.dateSelectValue("start_date", project.start_date);
   cy.dateSelectValue("end_date", project.end_date);
@@ -202,6 +216,13 @@ const addNewProject = (project: ResearcherProject) => {
   cy.swalClick("Close");
 };
 
+const hasProjectSponsor = () => {
+  cy.get(dataCy("invite-sponsor")).within(() => {
+    cy.contains(getStatus(Status.INVITED)).should("exist");
+    cy.contains("button", "Resend invite").should("exist");
+  });
+};
+
 const hasProject = (project: ResearcherProject) => {
   cy.getLatestRowOfResults();
   const row = cy.getResultsRowByValue(project.title);
@@ -211,6 +232,12 @@ const hasProject = (project: ResearcherProject) => {
     cy.contains("td", formatDisplayLongDate(project.start_date));
     cy.contains("td", formatDisplayLongDate(project.end_date));
     cy.contains("td", getStatus(project.model_state.state.slug));
+  });
+};
+
+const hasSponsoredProject = (project: ResearcherProject) => {
+  cy.get(dataCy("projects-sponsorship")).within(() => {
+    hasProject(project);
   });
 };
 
@@ -269,4 +296,7 @@ export {
   updateSafeDataProject,
   updateSafeOutputsProject,
   updateSafeSettingsProject,
+  invitesNewSponsor,
+  hasProjectSponsor,
+  hasSponsoredProject,
 };

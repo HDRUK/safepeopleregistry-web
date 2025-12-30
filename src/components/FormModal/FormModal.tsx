@@ -43,11 +43,11 @@ export default function FormModal({
   return (
     <Modal
       data-testid="form-modal"
-      data-cy="form-modal"
       onClose={onClose}
       sx={{ p: 1 }}
       {...restProps}>
       <Card
+        data-cy="form-modal"
         sx={{
           top: "50%",
           left: "50%",

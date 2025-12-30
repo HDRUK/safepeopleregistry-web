@@ -401,6 +401,7 @@ type ResearcherProject = WithModelState<{
   custodian_has_project_user?: CustodianProjectUser[];
   custodian_has_project_organisation?: CustodianProjectOrganisation[];
   project_users_count?: number;
+  project_has_sponsorships?: ProjectSponsorship[];
 }>;
 
 interface PendingInvite {
@@ -483,6 +484,10 @@ type CustodianProjectUser = WithModelState<{
   created_at: string;
   updated_at: string;
   project_has_user: ProjectUser;
+}>;
+
+type ProjectSponsorship = WithModelState<{
+  sponsor_id: number;
 }>;
 
 interface ProjectOrganisation {

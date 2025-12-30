@@ -17,3 +17,8 @@ export const isTestFeatureUserAdmin = flag({
   key: "test-feature-user-admin",
   adapter,
 });
+
+export const isSponsorship = flag({
+  key: "sponsorship",
+  adapter,
+});

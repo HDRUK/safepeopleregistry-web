@@ -37,6 +37,8 @@ const getColorForStatus = (status?: Status): string => {
       Status.AFFILIATION_APPROVED,
       Status.ORGANISATION_VALIDATED,
       Status.REGISTERED,
+      Status.ORGANISATION_REGISTERED,
+      Status.SPONSORSHIP_APPROVED,
     ].includes(status!)
   )
     return "success";
@@ -48,6 +50,7 @@ const getColorForStatus = (status?: Status): string => {
       Status.ORG_VALIDATION_DECLINED,
       Status.AFFILIATION_REJECTED,
       Status.ORGANISATION_NOT_VALIDATED,
+      Status.SPONSORSHIP_REJECTED,
     ].includes(status!)
   )
     return "error";
@@ -64,7 +67,7 @@ const getColorForStatus = (status?: Status): string => {
       Status.MORE_ORG_INFO_REQ_ESCALATION_COMMITTEE,
       Status.PENDING,
       Status.AFFILIATION_PENDING,
-      Status.INVITED,
+      Status.SPONSORSHIP_PENDING,
     ].includes(status!)
   )
     return "warning";

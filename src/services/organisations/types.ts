@@ -2,6 +2,7 @@ import { EMAIL_TEMPLATE } from "@/consts/application";
 import {
   Organisation,
   OrganisationIdvt,
+  ResearcherProject,
   Subsidiary,
 } from "@/types/application";
 import { Paged } from "@/types/requests";
@@ -64,6 +65,17 @@ type PutOrganisationSubsidiaryPayload = Subsidiary;
 
 type PostOrganisationSubsidiaryPayload = Omit<Subsidiary, "id">;
 
+type GetProjectsResponse = ResearcherProject[];
+
+interface PatchSponsorshipStatusParams {
+  organisationId: number;
+}
+
+interface PatchSponsorshipStatusPayload {
+  project_id: number;
+  status: "approved" | "rejected";
+}
+
 export type {
   GetOrganisationInviteResponse,
   Organisation,
@@ -84,4 +96,7 @@ export type {
   PostOrganisationSubsidiaryPayload,
   PostOrganisationNewAccountPayload,
   PutSystemApprovedPayload,
+  GetProjectsResponse,
+  PatchSponsorshipStatusParams,
+  PatchSponsorshipStatusPayload,
 };

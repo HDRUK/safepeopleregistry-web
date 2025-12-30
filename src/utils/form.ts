@@ -143,6 +143,7 @@ function createProjectDefaultValues(
     public_benefit: data?.public_benefit || "",
     technical_summary: data?.technical_summary || "",
     status: data?.model_state?.state.slug || Status.PROJECT_PENDING,
+    sponsor_id: data?.project_has_sponsorships?.[0]?.sponsor_id,
     other_approval_committees:
       mode === DefaultFormValuesMode.DB
         ? JSON.stringify(otherApprovalCommittees)

@@ -16,6 +16,7 @@ const defaultProps: ProjectsSafeProjectFormProps = {
   defaultValues: mockedProject({
     unique_id: "123",
   }),
+  project: mockedProject(),
 };
 
 function setupTest(props?: Partial<ProjectsSafeProjectFormProps>) {

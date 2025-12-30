@@ -1,3 +1,5 @@
+import { PAGINATION_UPPER_LIMIT } from "@/consts/application";
+import useOrganisationsQuery from "@/services/organisations/useOrganisationsQuery";
 import {
   MenuItem,
   Select,
@@ -5,17 +7,22 @@ import {
   SelectProps,
 } from "@mui/material";
 import { useMemo } from "react";
-import useOrganisationsQuery from "@/services/organisations/useOrganisationsQuery";
 
 export interface SelectOrganisationProps {
   onChange?: (event: SelectChangeEvent) => void;
+  hasEmpty?: boolean;
 }
 
 export default function SelectOrganisation({
   onChange,
+  hasEmpty,
   ...fieldProps
 }: SelectOrganisationProps & SelectProps) {
-  const { data: organisationsData } = useOrganisationsQuery();
+  const { data: organisationsData } = useOrganisationsQuery({
+    defaultQueryParams: {
+      perPage: PAGINATION_UPPER_LIMIT,
+    },
+  });
 
   const hydratedOrganisationMenu = useMemo(
     () =>
@@ -35,6 +42,7 @@ export default function SelectOrganisation({
 
   return (
     <Select onChange={e => handleChange(e)} {...fieldProps}>
+      {hasEmpty && <MenuItem value={null} />}
       {hydratedOrganisationMenu}
     </Select>
   );

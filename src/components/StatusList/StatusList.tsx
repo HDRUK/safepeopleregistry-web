@@ -11,6 +11,7 @@ export interface StatusListProps {
   validationStatus?: Status;
   organisationStatus?: Status;
   affiliationStatus?: Status;
+  sponsorshipStatus?: Status;
 }
 
 const NAMESPACE_TRANSLATION = "Application";
@@ -20,11 +21,24 @@ export default function StatusList({
   validationStatus,
   organisationStatus,
   affiliationStatus,
+  sponsorshipStatus,
 }: StatusListProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION);
 
+  let empties: { label: string; value: string }[] = [];
+
+  if (sponsorshipStatus) {
+    empties = [
+      {
+        label: t("sponsorshipStatus"),
+        value: sponsorshipStatus,
+      },
+    ];
+  }
+
   const statuses: { label: string; value?: Status }[] = [
     { label: t("projectStatus"), value: projectStatus },
+    ...empties,
     { label: t("validationStatus"), value: validationStatus },
     { label: t("organisationStatus"), value: organisationStatus },
     { label: t("affiliationStatus"), value: affiliationStatus },
