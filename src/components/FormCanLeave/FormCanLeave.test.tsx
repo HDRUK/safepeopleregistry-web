@@ -5,6 +5,7 @@ import FormCanLeave from ".";
 const renderFormCanLeave = () => {
   render(
     <FormCanLeave>
+      {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
       <a href="/">Link</a>
     </FormCanLeave>
   );
