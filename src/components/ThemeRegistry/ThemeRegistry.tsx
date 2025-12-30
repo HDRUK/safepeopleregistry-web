@@ -11,9 +11,9 @@ export default function ThemeRegistry({
   children: React.ReactNode;
 }) {
   return (
-   <ThemeProvider theme={theme}>
-        <CssBaseline />
-        {children}
-      </ThemeProvider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      {children}
+    </ThemeProvider>
   );
 }
