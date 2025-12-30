@@ -49,6 +49,9 @@ export default function AccountConfirm({
 
   const params = useSearchParams();
 
+  console.log('********** params?.get("type")', params?.get("type"));
+  console.log("*********** unclaimedUser", unclaimedUser);
+
   const [userGroup, setUserGroup] = useState<UserGroup | null>(
     unclaimedUser?.user_group || params?.get("type")
   );

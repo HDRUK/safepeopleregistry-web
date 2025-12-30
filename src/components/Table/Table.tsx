@@ -36,7 +36,7 @@ export interface TableProps<T> extends Partial<TableOptions<T>> {
   noResultsMessage?: ReactNode;
   total?: number;
   sx?: React.CSSProperties;
-  paginationProps: PaginationProps;
+  paginationProps?: PaginationProps;
 }
 
 const Table = <T,>({

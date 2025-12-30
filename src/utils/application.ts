@@ -10,9 +10,10 @@ function canUseIdvt(country: string | undefined) {
 }
 
 function isSponsorshipStatusApproved(project: ResearcherProject) {
-  const statusProject =
+  const statusProject = (
+    project?.custodian_has_project_sponsorships ||
     project?.project_has_sponsorships?.[0]
-      ?.custodian_has_project_has_sponsorship?.[0]?.model_state?.state.slug;
+  )?.model_state?.state.slug;
 
   return statusProject === Status.SPONSORSHIP_APPROVED;
 }
@@ -23,15 +24,21 @@ function getSponsorshipStatus(
 ) {
   const statusOrg = organisation?.model_state?.state.slug;
   const statusProject =
-    project?.project_has_sponsorships?.[0]
-      ?.custodian_has_project_has_sponsorship?.[0]?.model_state?.state.slug;
+    (
+      project?.custodian_has_project_sponsorships ||
+      project?.project_has_sponsorships?.[0]
+    )?.model_state?.state.slug || "";
 
   if (statusOrg === Status.INVITED) {
     return statusOrg;
   }
 
   if (
-    organisation?.id === project.project_has_sponsorships?.[0]?.sponsor_id &&
+    organisation?.id ===
+      (
+        project?.sponsors?.[0] ||
+        project?.project_has_sponsorships?.[0]?.sponsor_id
+      )?.id &&
     (statusProject === Status.SPONSORSHIP_APPROVED ||
       statusProject === Status.SPONSORSHIP_REJECTED ||
       statusProject === Status.SPONSORSHIP_PENDING)
