@@ -52,7 +52,7 @@ const hasAffiliationUsers = (
         status ||
           (affiliation.current_employer
             ? Status.AFFILIATION_EMAIL_VERIFY
-            : Status.AFFILIATION_INVITED)
+            : Status.AFFILIATION_PENDING)
       )
     );
 
