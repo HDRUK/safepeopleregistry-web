@@ -18,8 +18,10 @@ export interface ProjectsSafeOutputsFormFieldValues {
   research_outputs: string[];
 }
 
-export interface ProjectsSafeOutputsFormProps
-  extends Omit<FormProps<ProjectDetails>, "children"> {
+export interface ProjectsSafeOutputsFormProps extends Omit<
+  FormProps<ProjectDetails>,
+  "children"
+> {
   projectId?: number;
   mutateState?: MutationState;
 }

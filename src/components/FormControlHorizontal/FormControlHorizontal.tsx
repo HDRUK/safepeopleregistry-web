@@ -34,8 +34,10 @@ function inferComponentType(
   return null;
 }
 
-export interface FormControlHorizontalProps
-  extends Omit<FormControlProps, "error"> {
+export interface FormControlHorizontalProps extends Omit<
+  FormControlProps,
+  "error"
+> {
   renderField: (fieldProps: FieldValues) => ReactNode;
   name: string;
   tNamespace?: string;

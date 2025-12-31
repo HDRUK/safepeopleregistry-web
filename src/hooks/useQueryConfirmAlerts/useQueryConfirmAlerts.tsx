@@ -8,8 +8,10 @@ import useQueryAlerts, { QueryAlertOptions } from "../useQueryAlerts";
 
 const NAMESPACE_TRANSALATIONS_APPLICATION = "Application";
 
-export interface QueryAlertConfirmOptions
-  extends Omit<QueryAlertOptions, "enabled"> {
+export interface QueryAlertConfirmOptions extends Omit<
+  QueryAlertOptions,
+  "enabled"
+> {
   confirmAlertType?: SweetAlertIcon;
   confirmAlertProps?: ShowAlertOptions;
   successAlertType?: SweetAlertIcon;

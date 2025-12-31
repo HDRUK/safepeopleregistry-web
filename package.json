@@ -20,7 +20,8 @@
     "cy:open": "npx cypress open",
     "precy:open": "scripts/cypress.backup.sh",
     "postcy:open": "scripts/cypress.restore.sh",
-    "cy:run": "./scripts/cypress.run.sh"
+    "cy:run": "./scripts/cypress.run.sh",
+    "prettier": "prettier 'src/**/*.{ts,tsx}' --write"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

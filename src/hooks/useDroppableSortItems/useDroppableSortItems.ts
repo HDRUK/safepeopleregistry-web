@@ -30,8 +30,9 @@ export interface UseDroppableSortItemsFnOptions<T> {
   ) => boolean;
 }
 
-export interface UseDroppableSortItemsMoveOptions<T>
-  extends UseDroppableSortItemsFnOptions<T> {
+export interface UseDroppableSortItemsMoveOptions<
+  T,
+> extends UseDroppableSortItemsFnOptions<T> {
   containerId: UniqueIdentifier;
   item: T;
   items: DndItems<T>;

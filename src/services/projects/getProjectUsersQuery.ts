@@ -5,8 +5,9 @@ import usePaginatedQuery, {
 import getProjectUsers from "./getProjectUsers";
 import { ProjectUsersResponse } from "./types";
 
-interface GetEntityOrganisationsQuery<T = ProjectUsersResponse>
-  extends Partial<PaginatedQueryProps<T>> {}
+interface GetEntityOrganisationsQuery<T = ProjectUsersResponse> extends Partial<
+  PaginatedQueryProps<T>
+> {}
 
 export default function useProjectUsersQuery(
   id: number,

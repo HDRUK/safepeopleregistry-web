@@ -4,8 +4,9 @@ import usePaginatedQuery, {
 import getSponsoredProjects from "./getSponsoredProjects";
 import { GetProjectsResponse } from "./types";
 
-interface PagedSponsoredProjectsQuery<T = GetProjectsResponse>
-  extends Partial<PaginatedQueryProps<T>> {}
+interface PagedSponsoredProjectsQuery<T = GetProjectsResponse> extends Partial<
+  PaginatedQueryProps<T>
+> {}
 
 export default function usePagedSponsoredProjectsQuery(
   id: number,
