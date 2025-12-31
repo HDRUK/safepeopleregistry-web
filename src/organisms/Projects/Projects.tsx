@@ -160,11 +160,13 @@ export default function Projects({
               "endDate",
               "users",
               "status",
+              "sponsorshipStatus",
               "validationStatus",
             ]}
             paginationProps={{
               "aria-label": "Sponsored projects table pagination",
             }}
+            entity={entity as Organisation}
           />
         </PageSection>
       )}
