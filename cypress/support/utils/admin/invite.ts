@@ -1,7 +1,7 @@
 import {
+  InviteCustodianFormValues,
   InviteOrganisationFormValues,
   InviteUserFormValues,
-  InviteCustodianFormValues,
 } from "@/types/form";
 import { dataCy } from "../common";
 
@@ -75,12 +75,12 @@ const inviteNewUser = (invite: InviteUserFormValues) => {
 };
 
 export {
-  inviteNewUser,
-  inviteNewUserForm,
-  inviteNewOrganisationForm,
-  inviteNewOrganisation,
-  inviteOrganisation,
-  inviteOrganisationForm,
   inviteNewCustodian,
   inviteNewCustodianForm,
+  inviteNewOrganisation,
+  inviteNewOrganisationForm,
+  inviteNewUser,
+  inviteNewUserForm,
+  inviteOrganisation,
+  inviteOrganisationForm,
 };

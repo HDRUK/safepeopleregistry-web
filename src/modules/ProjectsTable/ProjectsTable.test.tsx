@@ -72,6 +72,7 @@ describe("<ProjectsTable />", () => {
     });
 
     expect(screen.getByText(project.title)).toBeInTheDocument();
+    expect(screen.getByText(project.unique_id)).toBeInTheDocument();
     expect(screen.getByText(project.lay_summary)).toBeInTheDocument();
     expect(
       screen.getByText(formatDisplayLongDate(project.start_date))
@@ -80,11 +81,6 @@ describe("<ProjectsTable />", () => {
       screen.getByText(formatDisplayLongDate(project.end_date))
     ).toBeInTheDocument();
     expect(screen.getByText("Approved")).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        `${project.organisations[0].organisation_name}, ${project.organisations[1].organisation_name}`
-      )
-    ).toBeInTheDocument();
     expect(screen.getByText("Validated")).toBeInTheDocument();
   });
 

@@ -1476,8 +1476,13 @@
       "noResultsMessage": "It looks like there are no organisations for any projects.",
       "errorMessage": "Couldn't get the users for this project. Please try again or <contactLink>contact support</contactLink> if the problem persists."
     },
+    "sponsoredProjectsTitle": "Sponsored Projects",
+    "ownProjectsTitle": "Projects directly associated with organisation",
+    "statusChanged": "Status changed",
     "status": "Project status",
+    "uniqueId": "ID",
     "organisationStatus": "Organisation status",
+    "sponsorshipStatus": "Sponsorship status",
     "safeProject": "Safe Project",
     "safeData": "Safe Data",
     "safePeople": "Safe People",

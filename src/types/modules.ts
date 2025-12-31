@@ -5,4 +5,5 @@ export interface ModuleTables<T = unknown, P = unknown>
   t: (key: string) => string;
   includeColumns?: P[];
   extraColumns?: TableProps<T>["columns"];
+  paginationProps?: TableProps<T>["paginationProps"];
 }
