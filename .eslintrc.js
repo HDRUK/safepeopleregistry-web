@@ -38,8 +38,7 @@ module.exports = {
     "prettier",
     "plugin:jsx-a11y/recommended",
     "plugin:prettier/recommended",
-    "plugin:security/recommended-legacy",
-    "plugin:storybook/recommended",
+    "plugin:security/recommended-legacy"
   ],
   rules: {
     "unused-imports/no-unused-imports": "error",
