@@ -6,6 +6,7 @@ import { mockedDepartment } from "./departments";
 import { mockedPermission } from "./permission";
 import { mockedUser } from "./user";
 import { mockedAddress } from "./application";
+import { InviteOrganisationFormValues } from "@/types/form";
 
 const mockedCharity = (charity?: Partial<Charity>) => ({
   name: faker.company.name(),
@@ -22,6 +23,14 @@ const mockedSector = (sector?: Partial<Sector>) => ({
   updated_at: faker.date.recent(),
   name: faker.company.name(),
   ...sector,
+});
+
+const mockedOrganisationInvite = (
+  invite?: Partial<InviteOrganisationFormValues>
+) => ({
+  organisation_name: faker.company.name(),
+  lead_applicant_email: faker.internet.email().toLowerCase(),
+  ...invite,
 });
 
 const mockedSubsidiary = (subsidiary?: Partial<Subsidiary>) => ({
@@ -136,4 +145,5 @@ export {
   mockedSubsidiary,
   mockedRule,
   mockedSector,
+  mockedOrganisationInvite,
 };

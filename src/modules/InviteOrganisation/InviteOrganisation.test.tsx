@@ -12,11 +12,14 @@ import InviteOrganisation from "./InviteOrganisation";
 jest.mock("@/data/store");
 
 const mockSubmit = jest.fn();
+const mockCancel = jest.fn();
 
 const renderInviteOrganisationComponent = () => {
   return render(
     <InviteOrganisation
+      t={(key: string) => key}
       onSubmit={mockSubmit}
+      onCancel={mockCancel}
       queryState={{
         isPending: false,
         isError: false,

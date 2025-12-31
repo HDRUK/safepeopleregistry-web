@@ -7,6 +7,7 @@ import {
   FormControlLabelProps,
   FormHelperText,
   FormLabel,
+  FormLabelProps,
 } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { ReactNode } from "react";
@@ -33,6 +34,7 @@ export interface FormControlProps
   fullWidth?: boolean;
   t?: ReturnType<typeof useTranslations>;
   labelPosition?: "top" | "left" | "right";
+  labelProps?: FormLabelProps;
 }
 
 const NAMESPACE_TRANSLATION_FORM = "Form";
@@ -41,6 +43,7 @@ export default function FormControlWrapper({
   name,
   control,
   label,
+  labelProps,
   placeholder,
   displayPlaceholder = false,
   displayLabel = true,
@@ -112,7 +115,10 @@ export default function FormControlWrapper({
                 gap: 0.5,
               }}>
               {displayLabel && (
-                <FormLabel htmlFor={field.name} sx={{ pb: 0.5 }}>
+                <FormLabel
+                  {...labelProps}
+                  htmlFor={field.name}
+                  sx={{ pb: 0.5, ...labelProps?.sx }}>
                   {label || tForm(tKey)}{" "}
                   {isRequired && <span style={{ color: "red" }}>*</span>}
                 </FormLabel>

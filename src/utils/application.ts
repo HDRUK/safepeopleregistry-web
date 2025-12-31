@@ -1,4 +1,5 @@
 import { GetSystemConfigResponse } from "@/services/system_config/types";
+import { Organisation, ResearcherProject } from "@/types/application";
 import { escapeAndParse } from "./json";
 import { Status, VALIDATION_SCHEMA_KEY } from "../consts/application";
 
@@ -6,6 +7,46 @@ function canUseIdvt(country: string | undefined) {
   return Boolean(
     country && ["United Kingdom", "UK"].find(item => item === country)
   );
+}
+
+function isSponsorshipStatusApproved(project: ResearcherProject) {
+  const statusProject = (
+    project?.custodian_has_project_sponsorships ||
+    project?.project_has_sponsorships?.[0]
+  )?.model_state?.state.slug;
+
+  return statusProject === Status.SPONSORSHIP_APPROVED;
+}
+
+function getSponsorshipStatus(
+  organisation: Organisation | undefined,
+  project: ResearcherProject
+) {
+  const statusOrg = organisation?.model_state?.state.slug;
+  const statusProject =
+    (
+      project?.custodian_has_project_sponsorships ||
+      project?.project_has_sponsorships?.[0]
+    )?.model_state?.state.slug || "";
+
+  if (statusOrg === Status.INVITED) {
+    return statusOrg;
+  }
+
+  if (
+    organisation?.id ===
+      (
+        project?.sponsors?.[0] ||
+        project?.project_has_sponsorships?.[0]?.sponsor_id
+      )?.id &&
+    (statusProject === Status.SPONSORSHIP_APPROVED ||
+      statusProject === Status.SPONSORSHIP_REJECTED ||
+      statusProject === Status.SPONSORSHIP_PENDING)
+  ) {
+    return statusProject;
+  }
+
+  return statusOrg;
 }
 
 function getStatus(slug: string) {
@@ -133,4 +174,6 @@ export {
   getShortStatus,
   getName,
   getAbbreviatedListWithCount,
+  getSponsorshipStatus,
+  isSponsorshipStatusApproved,
 };

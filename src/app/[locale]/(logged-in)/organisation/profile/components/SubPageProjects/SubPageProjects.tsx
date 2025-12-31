@@ -1,18 +1,24 @@
+import { useFeatures } from "@/components/FeatureProvider";
+import Guidance from "@/components/Guidance";
+import StatusList from "@/components/StatusList";
 import { useStore } from "@/data/store";
+import useQueryAlerts from "@/hooks/useQueryAlerts";
+import { mockedSafeProjectGuidanceProps } from "@/mocks/data/cms";
 import {
   PageBodyContainer,
   PageColumnBody,
   PageColumnDetails,
   PageColumns,
 } from "@/modules";
+import ActionValidationSponsorhsip from "@/modules/ActionValidationSponsorship";
+import patchSponsorshipStatusQuery from "@/services/organisations/patchSponorshipStatusQuery";
 import { ResearcherProject } from "@/types/application";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
-import StatusList from "@/components/StatusList";
-import Guidance from "@/components/Guidance";
-import { mockedSafeProjectGuidanceProps } from "@/mocks/data/cms";
+import { Box } from "@mui/system";
 import { PageTabs, ProjectsSubTabs } from "../../consts/tabs";
-import SubTabsSections from "../SubTabSections";
 import SubTabsContents from "../SubsTabContents";
+import SubTabsSections from "../SubTabSections";
 
 interface PageProps {
   projectData: ResearcherProject;
@@ -25,16 +31,45 @@ interface PageProps {
 export default function SubPageProjects({ params, projectData }: PageProps) {
   const tabId = PageTabs.PROJECTS;
 
-  const [project, setProject] = useStore(state => [
-    state.getCurrentProject(),
-    state.setCurrentProject,
-  ]);
+  const { isSponsorship } = useFeatures();
+  const queryClient = useQueryClient();
+  const { organisation, project, setProject } = useStore(state => ({
+    organisation: state.getOrganisation(),
+    project: state.getCurrentProject(),
+    setProject: state.setCurrentProject,
+  }));
+
+  const { mutate, ...queryState } = useMutation(patchSponsorshipStatusQuery());
+
+  useQueryAlerts(queryState, {
+    onSuccess: () => {
+      queryClient.refetchQueries({
+        queryKey: ["getProject", project.id],
+      });
+    },
+  });
 
   useEffect(() => {
     setProject(projectData);
   }, [projectData]);
 
   const guidance = mockedSafeProjectGuidanceProps;
+
+  const handleUpdateStatus = (status: "approved" | "rejected") => {
+    mutate({
+      params: {
+        organisationId: organisation.id,
+      },
+      payload: {
+        status,
+        project_id: project.id,
+      },
+    });
+  };
+
+  const sponsorshipStatus =
+    project?.project_has_sponsorships?.[0]
+      ?.custodian_has_project_has_sponsorship?.[0]?.model_state?.state.slug;
 
   return (
     project && (
@@ -46,7 +81,21 @@ export default function SubPageProjects({ params, projectData }: PageProps) {
             <SubTabsContents tabId={tabId} {...params} />
           </PageColumnBody>
           <PageColumnDetails lg={4}>
-            <StatusList projectStatus={project?.model_state.state.slug} />
+            <StatusList
+              projectStatus={project?.model_state.state.slug}
+              sponsorshipStatus={
+                project?.project_has_sponsorships?.[0]
+                  ?.custodian_has_project_has_sponsorship?.[0]?.model_state
+                  ?.state.slug
+              }
+            />
+            {isSponsorship && sponsorshipStatus && (
+              <Box sx={{ mb: 2 }}>
+                <ActionValidationSponsorhsip
+                  onStatusChange={handleUpdateStatus}
+                />
+              </Box>
+            )}
             <Guidance {...guidance} isCollapsible={false} infoWidth="100%" />
           </PageColumnDetails>
         </PageColumns>

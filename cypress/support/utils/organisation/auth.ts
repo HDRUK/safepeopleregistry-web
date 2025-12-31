@@ -10,8 +10,6 @@ const loginUnapprovedOrganisation = () => {
     Cypress.env("unapprovedOrganisationEmail"),
     Cypress.env("unapprovedOrganisationPassword")
   );
-   
-
 };
 
 export { loginOrganisation, loginUnapprovedOrganisation };
