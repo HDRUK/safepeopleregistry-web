@@ -5,6 +5,7 @@ import ReactQueryClientProvider from "@/components/ReactQueryClientProvider";
 import { RegistryGlobals } from "@/components/RegistryGlobals";
 import ThemeRegistry from "@/components/ThemeRegistry/ThemeRegistry";
 import { locales } from "@/config";
+import AlertModalProvider from "@/context/AlertModalProvider";
 import IntlClientProvider from "@/context/IntlClientProvider";
 import {
   isSponsorship,
@@ -82,7 +83,7 @@ export default async function RootLayout({
                   {displayBanner && (
                     <BannerMessage enabledBanners={enabledBanners} />
                   )}
-                  {children}
+                  <AlertModalProvider>{children}</AlertModalProvider>
                 </FeatureProvider>
               </ThemeRegistry>
             </ReactQueryClientProvider>

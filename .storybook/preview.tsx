@@ -3,13 +3,16 @@ import IntlClientProvider from "@/context/IntlClientProvider";
 import type { Preview, StoryFn } from "@storybook/react";
 import ReactQueryClientProvider from "../src/components/ReactQueryClientProvider";
 import ThemeRegistry from "../src/components/ThemeRegistry/ThemeRegistry";
+import AlertModalProvider from "@/context/AlertModalProvider";
 
 export const withMuiTheme = (Story: StoryFn) => {
   return (
     <IntlClientProvider locale="en" messages={messages}>
       <ThemeRegistry>
         <ReactQueryClientProvider>
-          <Story />
+          <AlertModalProvider>
+            <Story />
+          </AlertModalProvider>
         </ReactQueryClientProvider>
       </ThemeRegistry>
     </IntlClientProvider>
