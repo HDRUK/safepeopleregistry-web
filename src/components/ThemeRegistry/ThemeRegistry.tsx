@@ -12,8 +12,8 @@ export default function ThemeRegistry({
 }) {
   return (
     <ThemeProvider theme={theme}>
-        <CssBaseline />
-        {children}
+      <CssBaseline />
+      {children}
     </ThemeProvider>
   );
 }
