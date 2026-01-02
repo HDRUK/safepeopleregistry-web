@@ -40,7 +40,7 @@ export default function ProjectUsersActions({
   const { mutateAsync: makePrimaryContactAsync, ...primaryContactQueryState } =
     useMutation(putProjectUserPrimaryContactQuery());
 
-  useQueryAlerts(primaryContactQueryState);
+  // useQueryAlerts(primaryContactQueryState);
 
   const {
     project_has_user: {

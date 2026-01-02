@@ -22,6 +22,7 @@ import {
   getValidation,
   SecurityCompilanceFormData,
 } from "./config/form";
+import useQueryAlerts from "@/hooks/useQueryAlerts";
 
 const NAMESPACE_TRANSLATION_FORM = "Form";
 const NAMESPACE_TRANSLATION_PROFILE = "ProfileOrganisation";
@@ -31,8 +32,17 @@ export default function SecurityCompliance() {
   const t = useTranslations(NAMESPACE_TRANSLATION_FORM);
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
 
-  const { isPending: isLoading, onSubmit } = useUpdateOrganisation({
+  const {
+    isPending: isLoading,
+    onSubmit,
+    ...mutationState
+  } = useUpdateOrganisation({
     id: organisation?.id,
+  });
+
+  useQueryAlerts({
+    ...mutationState,
+    isLoading,
   });
 
   const schema = getValidation(t);

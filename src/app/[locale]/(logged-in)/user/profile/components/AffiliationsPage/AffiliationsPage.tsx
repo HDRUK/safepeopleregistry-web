@@ -165,8 +165,8 @@ export default function AffiliationsPage({
     onSuccess: () => refetch(),
     confirmAlertProps: {
       text: tProfile("affiliationsDeleteConfirmMessage"),
-      preConfirm: async (id: number) => {
-        await deleteAffiliation(id);
+      onConfirm: async id => {
+        await deleteAffiliation(id as number);
       },
     },
     successAlertProps: {

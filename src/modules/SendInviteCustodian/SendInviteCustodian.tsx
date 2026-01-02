@@ -7,17 +7,23 @@ import { showAlert } from "../../utils/showAlert";
 const NAMESPACE_TRANSLATIONS_ORGANISATION = "Custodian";
 
 export default function SendInviteOrganisation() {
+  const { showAlert, hideAlert } = useAlertModal();
   const t = useTranslations(NAMESPACE_TRANSLATIONS_ORGANISATION);
 
   const handleErrorAlert = () => {
-    showAlert("error", {
+    showAlert({
+      severity: "error",
       text: <ErrorMessage t={t} tKey="inviteCustodianError" />,
       confirmButtonText: t("inviteCustodianErrorButton"),
+      onConfirm: async () => {
+        hideAlert();
+      },
     });
   };
 
   const handleSuccessAlert = () => {
-    showAlert("success", {
+    showAlert({
+      severity: "success",
       text: t("inviteCustodianSuccess"),
       confirmButtonText: t("inviteCustodianSuccessButton"),
     });

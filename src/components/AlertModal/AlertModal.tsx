@@ -1,31 +1,39 @@
 import { CheckOutlined, ErrorOutline, InfoOutlined } from "@mui/icons-material";
 import {
+  AlertProps,
   Button,
+  ButtonProps,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogProps,
   DialogTitle,
+  Typography,
 } from "@mui/material";
 import { Box, useTheme } from "@mui/system";
 import { ReactNode } from "react";
 import AlertModalIconOutline from "./AlertModalIconOutline";
+import { capitaliseFirstLetter } from "@/utils/string";
 
 export interface AlertModalProps extends DialogProps {
   open: boolean;
-  onClose?: (payload?: unknown) => void;
+  onClose?: (payload?: unknown) => Promise<void>;
   text?: ReactNode;
-  severity?: "info" | "warning" | "error" | "success";
+  severity?: AlertProps["severity"];
   confirmButtonText?: string;
+  confirmButtonColor?: ButtonProps["color"];
   cancelButtonText?: string;
-  onConfirm?: (payload?: unknown) => void;
+  cancelButtonColor?: ButtonProps["color"];
+  onConfirm?: (payload?: unknown) => Promise<void>;
   onCancel?: () => void;
-  data: unknown;
+  data?: unknown;
 }
 
 export default function AlertModal(props: AlertModalProps) {
   const theme = useTheme();
+
+  console.log("****** AlertModal props", props);
 
   const {
     open,
@@ -38,6 +46,8 @@ export default function AlertModal(props: AlertModalProps) {
     cancelButtonText,
     onCancel,
     onConfirm,
+    confirmButtonColor,
+    cancelButtonColor,
     ...restProps
   } = props;
 
@@ -49,6 +59,8 @@ export default function AlertModal(props: AlertModalProps) {
     },
   };
 
+  console.log("confirmButtonColor", confirmButtonColor);
+
   return (
     <Dialog
       open={open}
@@ -57,6 +69,8 @@ export default function AlertModal(props: AlertModalProps) {
       sx={{
         ".MuiPaper-root": {
           p: 2,
+          width: "60vw",
+          maxWidth: "600px",
         },
       }}>
       <Box
@@ -64,7 +78,8 @@ export default function AlertModal(props: AlertModalProps) {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          pt: 1,
+          pt: 4,
+          mb: 2,
         }}>
         {(severity === "info" || severity === "warning") && (
           <InfoOutlined {...iconProps} />
@@ -79,21 +94,21 @@ export default function AlertModal(props: AlertModalProps) {
         )}
         {severity === "error" && <ErrorOutline {...iconProps} />}
       </Box>
-      {title && (
-        <DialogTitle
-          sx={{ textAlign: "center", fontSize: theme.typography?.h1.fontSize }}>
-          {title}
-        </DialogTitle>
-      )}
+
+      <DialogTitle
+        sx={{ textAlign: "center", fontSize: theme.typography?.h1.fontSize }}>
+        {title || capitaliseFirstLetter(severity)}
+      </DialogTitle>
       {text && (
         <DialogContent>
-          <DialogContentText>{text}</DialogContentText>
+          <DialogContentText sx={{ textAlign: "center", fontSize: 16 }}>
+            <Typography variant="subtitle1">{text}</Typography>
+          </DialogContentText>
         </DialogContent>
       )}
       <DialogActions
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
+          justifyContent: "center",
         }}>
         {cancelButtonText && (
           <Button
@@ -101,6 +116,7 @@ export default function AlertModal(props: AlertModalProps) {
               onCancel?.();
               onClose?.(data);
             }}
+            color={cancelButtonColor || `primary`}
             variant="outlined">
             {cancelButtonText}
           </Button>
@@ -110,7 +126,8 @@ export default function AlertModal(props: AlertModalProps) {
             onConfirm?.(data);
           }}
           variant="contained"
-          autoFocus>
+          autoFocus
+          color={confirmButtonColor || `primary`}>
           {confirmButtonText}
         </Button>
       </DialogActions>

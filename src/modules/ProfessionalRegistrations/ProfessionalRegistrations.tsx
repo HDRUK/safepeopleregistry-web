@@ -112,8 +112,8 @@ export default function ProfessionalRegistrations({
     {
       onSuccess: () => refetch(),
       confirmAlertProps: {
-        preConfirm: async (id: number) => {
-          await mutateDeleteAsync(id);
+        onConfirm: async id => {
+          await mutateDeleteAsync(id as number);
         },
       },
       errorAlertProps: {
