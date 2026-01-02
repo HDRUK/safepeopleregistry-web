@@ -26,8 +26,8 @@ const nextConfig = withNextIntl({
         permanent: true,
       },
       {
-        source: '/homepage',
-        destination: '/',
+        source: '/:locale/homepage',
+        destination: '/:locale',
         permanent: true,
       },
     ];
