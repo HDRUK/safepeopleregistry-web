@@ -25,6 +25,11 @@ const nextConfig = withNextIntl({
         destination: "/",
         permanent: true,
       },
+      {
+        source: '/homepage',
+        destination: '/',
+        permanent: true,
+      },
     ];
   },
   async rewrites() {
@@ -73,11 +78,7 @@ const nextConfig = withNextIntl({
       {
         source: "/:locale/organisation/profile/projects/:id",
         destination: `/:locale/organisation/profile/projects/:id/safe-project`,
-      },
-      {
-        source: "/:locale",
-        destination: "/:locale/homepage",
-      },
+      }
     ];
   },
   webpack: (config, { isServer }) => {
