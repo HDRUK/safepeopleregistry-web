@@ -127,6 +127,7 @@ export default function InvitesFilters({
       />
       {hasFilter(InvitesFiltersKeys.STATUS) && (
         <SearchActionMenu
+          id="filterByStatus"
           actions={filterStatusActions}
           onClear={() => handleFieldToggle("status", [undefined, undefined])}
           startIcon={<FilterIcon />}
@@ -137,6 +138,7 @@ export default function InvitesFilters({
       )}
       {hasFilter(InvitesFiltersKeys.USER_GROUP) && (
         <SearchActionMenu
+          id="filterByUser"
           actions={filterUserGroupActions}
           onClear={() =>
             handleFieldToggle("user_group", [undefined, undefined])
