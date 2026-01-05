@@ -1,11 +1,11 @@
 import FormActions from "@/components/FormActions";
 import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
 import { ROUTES } from "@/consts/router";
+import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
 import { useStore } from "@/data/store";
 import { PageBody, PageSection } from "@/modules";
 import CustodianIntegrationsForm from "@/modules/CustodianIntegrationsForm";
 import { putCustodianQuery } from "@/services/custodians";
-import { showAlert } from "@/utils/showAlert";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
@@ -18,6 +18,7 @@ interface IntegrationsFormValues {
 }
 
 export default function Integrations() {
+  const { hideAlert, showAlert } = useAlertModal();
   const t = useTranslations(NAMESPACE_TRANSLATION);
 
   const { custodian } = useStore(state => ({
@@ -38,9 +39,13 @@ export default function Integrations() {
 
   const handleSubmit = async (fields: IntegrationsFormValues) => {
     updateCustodian(fields).then(() => {
-      showAlert("success", {
+      showAlert({
+        severity: "success",
         text: t("saveSuccess"),
         confirmButtonText: t("okButton"),
+        onConfirm: async () => {
+          hideAlert();
+        },
       });
     });
   };

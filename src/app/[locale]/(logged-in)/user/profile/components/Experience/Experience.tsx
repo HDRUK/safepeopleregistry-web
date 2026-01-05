@@ -11,6 +11,7 @@ import yup from "@/config/yup";
 import { FileType } from "@/consts/files";
 import { VALIDATION_ORC_ID } from "@/consts/form";
 import { ROUTES } from "@/consts/router";
+import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
 import { useStore } from "@/data/store";
 import useFileUpload from "@/hooks/useFileUpload";
 import useUserFileUpload from "@/hooks/useUserFileUpload";
@@ -26,7 +27,6 @@ import {
 import FileUploadDetails from "@/modules/FileUploadDetails/FileUploadDetails";
 import { putUserQuery } from "@/services/users";
 import { getFileHref, getLatestCV } from "@/utils/file";
-import { showAlert } from "@/utils/showAlert";
 import { Grid, TextField, Typography } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
@@ -43,6 +43,7 @@ export interface ExperienceFormValues {
 export default function Experience() {
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
+  const { showAlert, hideAlert } = useAlertModal();
   const [user, setUser] = useStore(store => [store.config.user, store.setUser]);
   const router = useRouter();
   const [consentScrape, setConsentScrape] = useState(
@@ -87,17 +88,24 @@ export default function Experience() {
         };
         await updateUser.mutateAsync(request);
         setUser(request);
-        showAlert("success", {
+        showAlert({
+          severity: "success",
           text: tProfile("postUserSuccess"),
           confirmButtonText: tProfile("postUserSuccessButton"),
-          preConfirm: () => {
+          onConfirm: async () => {
+            hideAlert();
+
             router.push(ROUTES.profileResearcherAffiliations.path);
           },
         });
       } catch (_) {
-        showAlert("error", {
+        showAlert({
+          severity: "error",
           text: <ErrorMessage t={tProfile} tKey="postUserError" />,
           confirmButtonText: tProfile("postUserErrorButton"),
+          onConfirm: async () => {
+            hideAlert();
+          },
         });
       }
     },

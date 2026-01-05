@@ -15,7 +15,6 @@ import {
   useGetProjectAllUsers,
 } from "../../services/projects";
 import { ProjectAllUser, Role } from "../../types/application";
-import { showAlert } from "../../utils/showAlert";
 import InviteUserModal from "../InviteUserModal";
 
 interface ProjectsAddUserModalProps extends Omit<FormModalProps, "children"> {
@@ -70,9 +69,6 @@ export default function ProjectsAddUserModal({
   const handleSave = async (projectUsers: ProjectAllUser[]) => {
     if (request) {
       // to be implemented - need a flow to requesting users are added to a project by an organisation
-      showAlert("warning", {
-        text: "This does nothing yet, this feature has not been implemented",
-      });
     } else {
       await mutateAsync({
         params: {

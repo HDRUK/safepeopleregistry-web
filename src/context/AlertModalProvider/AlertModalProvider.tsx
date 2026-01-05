@@ -20,11 +20,10 @@ export interface AlertModalProviderProps {
 export default function AlertModalProvider({
   children,
 }: AlertModalProviderProps) {
-  const [alertModalProps, setAlertModalProps] = useState<
-    Partial<AlertModalProps>
-  >({
-    open: false,
-  });
+  const [alertModalProps, setAlertModalProps] =
+    useState<Partial<AlertModalProps> | null>({
+      open: false,
+    });
 
   const value = useMemo(
     () => ({
@@ -35,9 +34,7 @@ export default function AlertModalProvider({
         });
       },
       hideAlert: () => {
-        setAlertModalProps({
-          open: false,
-        });
+        setAlertModalProps(null);
       },
     }),
     []
@@ -45,7 +42,7 @@ export default function AlertModalProvider({
 
   return (
     <AlertModalContext.Provider value={value}>
-      <AlertModal {...alertModalProps} />
+      {alertModalProps && <AlertModal {...alertModalProps} />}
       {children}
     </AlertModalContext.Provider>
   );

@@ -142,7 +142,7 @@
     "alertErrorConfirmButton": "Close",
     "alertDeleteConfirmButton": "Delete",
     "alertDeleteCancelButton": "Cancel",
-    "alertErrorDescription": "There has been a problem with your requests. Please try again or contact us at <contactLink></contactLink>",
+    "alertErrorDescription": "There has been a problem with your request. Please try again or contact us at <contactLink></contactLink>",
     "alertErrorTitle": "Error",
     "alertSuccessDescription": "Your request has been successful",
     "alertSuccessTitle": "Success",
