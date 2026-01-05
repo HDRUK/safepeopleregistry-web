@@ -1,5 +1,5 @@
 import { ActionMenu, ActionMenuItem } from "@/components/ActionMenu";
-import useQueryAlerts from "@/hooks/useQueryAlerts";
+import useQueryAlerts from "@/hooks/useQueryAlerts/useQueryAlerts";
 import KanbanBoardActionsMenuItems from "@/modules/KanbanBoard/KanbanBoardActionMenuItems";
 import useMutateDeleteEntityFromProjectWithConfirmation from "@/queries/useMutateDeleteEntityFromProjectWithConfirmation";
 import { putProjectUserPrimaryContactQuery } from "@/services/projects";
@@ -40,7 +40,7 @@ export default function ProjectUsersActions({
   const { mutateAsync: makePrimaryContactAsync, ...primaryContactQueryState } =
     useMutation(putProjectUserPrimaryContactQuery());
 
-  // useQueryAlerts(primaryContactQueryState);
+  useQueryAlerts(primaryContactQueryState);
 
   const {
     project_has_user: {

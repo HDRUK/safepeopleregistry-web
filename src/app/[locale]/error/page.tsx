@@ -1,18 +1,19 @@
 "use client";
 
-import { showAlert } from "@/utils/showAlert";
-import { Box } from "@mui/material";
-import { useEffect } from "react";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "@/i18n/routing";
-import { useTranslations } from "next-intl";
-import { handleLogin, handleLogout, handleRegister } from "@/utils/keycloak";
 import ContactLink from "@/components/ContactLink";
+import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
+import { useRouter } from "@/i18n/routing";
+import { handleLogin, handleLogout, handleRegister } from "@/utils/keycloak";
+import { Box } from "@mui/material";
+import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 import ReactDOMServer from "react-dom/server";
 
 const Error = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { showAlert, hideAlert } = useAlertModal();
   const type = searchParams?.get("type");
   const t = useTranslations(`Error.${type}`);
 
@@ -40,15 +41,22 @@ const Error = () => {
         t.rich("message", { contact: ContactLink }) ?? t("message")
       );
 
-      showAlert("error", {
+      showAlert({
+        severity: "error",
         text: errorMessage,
         title,
-        preConfirm: getButtonAction(type),
+        onConfirm: async () => {
+          getButtonAction(type);
+
+          hideAlert();
+        },
         confirmButtonText: t("primaryButton"),
         cancelButtonText: hasNavigateButton ? navigateButton : undefined,
-        preDeny: hasNavigateButton
-          ? () => router.push(t("navigatePath"))
-          : undefined,
+        onCancel: () => {
+          if (hasNavigateButton) router.push(t("navigatePath"));
+
+          hideAlert();
+        },
       });
     }
   }, [type, t, router]);

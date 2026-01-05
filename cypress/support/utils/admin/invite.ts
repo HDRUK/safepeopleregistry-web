@@ -19,7 +19,7 @@ const inviteNewCustodian = (invite: InviteCustodianFormValues) => {
     cy.contains("button", "Invite").click();
   });
 
-  cy.swalClick("Ok");
+  cy.clickAlertModal("Ok");
 };
 
 const inviteNewUserForm = (invite: InviteUserFormValues) => {
@@ -38,7 +38,7 @@ const inviteOrganisation = (invite: InviteOrganisationFormValues) => {
   inviteOrganisationForm(invite);
 
   cy.saveFormClick("Invite");
-  cy.swalClick("Close");
+  cy.clickAlertModal("Close");
 };
 
 const inviteNewOrganisationForm = (invite: InviteUserFormValues) => {
@@ -59,7 +59,7 @@ const inviteNewOrganisation = (invite: InviteUserFormValues) => {
     cy.contains("button", "Invite").click();
   });
 
-  cy.swalClick("Close");
+  cy.clickAlertModal("Close");
 };
 
 const inviteNewUser = (invite: InviteUserFormValues) => {
@@ -71,7 +71,7 @@ const inviteNewUser = (invite: InviteUserFormValues) => {
     cy.contains("button", "Invite").click();
   });
 
-  cy.swalClick("Close");
+  cy.clickAlertModal("Close");
 };
 
 export {

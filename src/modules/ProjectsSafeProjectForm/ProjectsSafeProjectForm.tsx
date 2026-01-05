@@ -51,6 +51,7 @@ export default function ProjectsSafeProjectForm({
   });
 
   const { isSponsorship } = useFeatures();
+  console.log("***** isSponsorship", isSponsorship);
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
   const tSponsor = useTranslations(NAMESPACE_TRANSLATION_FORM_SPONSOR);
   const [invitedOrganisationId, setInvitedOrganisationId] = useState<number>();

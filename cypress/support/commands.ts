@@ -148,13 +148,14 @@ Cypress.Commands.add("getResultsActionMenu", (value: string) => {
 });
 
 Cypress.Commands.add(
-  "swalClick",
+  "clickAlertModal",
   (text: string = "OK", title: string = "Success") => {
-    const swalContainer = cy.get(".swal2-container").should("be.visible");
-
-    swalContainer.get(".swal2-title").contains(title);
-
-    swalContainer.get("button").contains(text).click();
+    cy.get(dataCy("alert-modal"))
+      .should("be.visible")
+      .within(() => {
+        cy.get(dataCy("alert-modal-heading")).contains(title);
+        cy.contains("button", text).click();
+      });
   }
 );
 
@@ -260,7 +261,7 @@ declare global {
       getResultsRow: (
         id?: number | "last" | "first" | undefined
       ) => Cypress.Chainable<JQuery<HTMLElement>>;
-      swalClick: (text?: string, title?: string) => void;
+      clickAlertModal: (text?: string, title?: string) => void;
       actionMenuClick: (text: string) => void;
       buttonClick: (text: string) => void;
       checkboxClick: (id: string) => void;

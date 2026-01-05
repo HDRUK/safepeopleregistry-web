@@ -13,8 +13,8 @@ import {
 } from "@mui/material";
 import { Box, useTheme } from "@mui/system";
 import { ReactNode } from "react";
-import AlertModalIconOutline from "./AlertModalIconOutline";
 import { capitaliseFirstLetter } from "@/utils/string";
+import AlertModalIconOutline from "./AlertModalIconOutline";
 
 export interface AlertModalProps extends DialogProps {
   open: boolean;
@@ -32,8 +32,6 @@ export interface AlertModalProps extends DialogProps {
 
 export default function AlertModal(props: AlertModalProps) {
   const theme = useTheme();
-
-  console.log("****** AlertModal props", props);
 
   const {
     open,
@@ -65,6 +63,7 @@ export default function AlertModal(props: AlertModalProps) {
     <Dialog
       open={open}
       onClose={onClose}
+      data-cy="alert-modal"
       {...restProps}
       sx={{
         ".MuiPaper-root": {
@@ -96,17 +95,19 @@ export default function AlertModal(props: AlertModalProps) {
       </Box>
 
       <DialogTitle
+        data-cy="alert-modal-heading"
         sx={{ textAlign: "center", fontSize: theme.typography?.h1.fontSize }}>
         {title || capitaliseFirstLetter(severity)}
       </DialogTitle>
       {text && (
-        <DialogContent>
+        <DialogContent data-cy="alert-modal-text">
           <DialogContentText sx={{ textAlign: "center", fontSize: 16 }}>
             <Typography variant="subtitle1">{text}</Typography>
           </DialogContentText>
         </DialogContent>
       )}
       <DialogActions
+        data-cy="alert-modal-action"
         sx={{
           justifyContent: "center",
         }}>

@@ -5,7 +5,6 @@ import {
   PutOrganisationPayload,
   getOrganisationQuery,
 } from "@/services/organisations";
-import { showAlert } from "@/utils/showAlert";
 import { useTranslations } from "next-intl";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useStore } from "@/data/store";

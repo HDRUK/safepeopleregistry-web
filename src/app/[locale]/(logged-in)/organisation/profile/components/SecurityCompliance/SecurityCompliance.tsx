@@ -14,6 +14,7 @@ import { formatDBDate } from "@/utils/date";
 import { Grid, TextField } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
+import useQueryAlerts from "@/hooks/useQueryAlerts";
 import useUpdateOrganisation from "../../hooks/useUpdateOrganisation";
 import CertificationUploader from "./CertificationUploader";
 import {
@@ -22,7 +23,6 @@ import {
   getValidation,
   SecurityCompilanceFormData,
 } from "./config/form";
-import useQueryAlerts from "@/hooks/useQueryAlerts";
 
 const NAMESPACE_TRANSLATION_FORM = "Form";
 const NAMESPACE_TRANSLATION_PROFILE = "ProfileOrganisation";

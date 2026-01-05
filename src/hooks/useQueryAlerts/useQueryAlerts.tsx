@@ -2,7 +2,6 @@ import { AlertModalProps } from "@/components/AlertModal";
 import ErrorMessage from "@/components/ErrorMessage";
 import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
 import { MutationState, QueryState } from "@/types/form";
-import { on } from "events";
 import { useTranslations } from "next-intl";
 
 const NAMESPACE_TRANSALATIONS_APPLICATION = "Application";
