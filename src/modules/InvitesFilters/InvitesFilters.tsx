@@ -73,17 +73,17 @@ export default function InvitesFilters({
     items: [
       {
         label: t("filterByUserGroup_custodians"),
-        key: "user_group",
+        key: InvitesFiltersKeys.USER_GROUP,
         value: UserGroup.CUSTODIANS,
       },
       {
         label: t("filterByUserGroup_organisations"),
-        key: "user_group",
+        key: InvitesFiltersKeys.USER_GROUP,
         value: UserGroup.ORGANISATIONS,
       },
       {
         label: t("filterByUserGroup_users"),
-        key: "user_group",
+        key: InvitesFiltersKeys.USER_GROUP,
         value: UserGroup.USERS,
       },
     ],
@@ -96,12 +96,12 @@ export default function InvitesFilters({
     items: [
       {
         label: t("filterByStatus_invited"),
-        key: "status",
+        key: InvitesFiltersKeys.STATUS,
         value: Status.PENDING,
       },
       {
         label: t("filterByStatus_registered"),
-        key: "status",
+        key: InvitesFiltersKeys.STATUS,
         value: Status.COMPLETED,
       },
     ],
@@ -129,7 +129,9 @@ export default function InvitesFilters({
         <SearchActionMenu
           id="filterByStatus"
           actions={filterStatusActions}
-          onClear={() => handleFieldToggle("status", [undefined, undefined])}
+          onClear={() =>
+            handleFieldToggle(InvitesFiltersKeys.STATUS, [undefined, undefined])
+          }
           startIcon={<FilterIcon />}
           renderedSelectedLabel={tApplication("filteredBy")}
           renderedDefaultLabel={t("filterByStatus")}
@@ -141,7 +143,10 @@ export default function InvitesFilters({
           id="filterByUser"
           actions={filterUserGroupActions}
           onClear={() =>
-            handleFieldToggle("user_group", [undefined, undefined])
+            handleFieldToggle(InvitesFiltersKeys.USER_GROUP, [
+              undefined,
+              undefined,
+            ])
           }
           startIcon={<FilterIcon />}
           renderedSelectedLabel={tApplication("filteredBy")}
