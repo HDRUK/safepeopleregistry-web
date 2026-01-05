@@ -6,7 +6,7 @@ import UsersTable, { UsersTableProps } from "./UsersTable";
 const pendingInvite = mockedPendingInvite();
 
 const TestComponent = (props?: Partial<UsersTableProps>) => {
-  const t = useTranslations("UsersList");
+  const t = useTranslations("Admin.InvitesFilters");
 
   return (
     <UsersTable t={t} data={[]} {...props} total={props?.data?.length || 0} />

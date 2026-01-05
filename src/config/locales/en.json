@@ -34,6 +34,11 @@
       "approvedOn": "Approved On: {projects}"
     },
     "InvitesFilters": {
+      "searchPlaceholder": "Search by email",
+      "noResultsMessage": "There are no pending invites for these search filters",
+      "name": "Name",
+      "email": "Email",
+      "status": "Status",
       "filterByStatus_invited": "Invited",
       "filterByStatus_registered": "Registered",
       "filterByDateSent": "Date invite sent",
