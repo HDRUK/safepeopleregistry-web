@@ -57,8 +57,6 @@ export default function AlertModal(props: AlertModalProps) {
     },
   };
 
-  console.log("confirmButtonColor", confirmButtonColor);
-
   return (
     <Dialog
       open={open}
