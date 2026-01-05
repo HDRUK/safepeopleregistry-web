@@ -114,7 +114,7 @@ export default function InvitesFilters({
       onClear={resetQueryParams}
       onSearch={(text: string) => {
         updateQueryParams({
-          "invite_sent_at[]": text,
+          "email[]": text,
         });
       }}
       placeholder={t("searchPlaceholder")}>
