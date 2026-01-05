@@ -1,5 +1,6 @@
 import ReactQueryClientProvider from "@/components/ReactQueryClientProvider";
 import ThemeRegistry from "@/components/ThemeRegistry/ThemeRegistry";
+import AlertModalProvider from "@/context/AlertModalProvider";
 import IntlClientProvider from "@/context/IntlClientProvider";
 import { AppCacheProvider } from "@mui/material-nextjs/v14-pagesRouter";
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -48,7 +49,7 @@ const Wrapper = ({ children }: { children: ReactNode }) => {
           <ReactQueryClientProvider>
             <ThemeRegistry>
               <QueryClientProvider client={queryClient}>
-                {children}
+                <AlertModalProvider>{children}</AlertModalProvider>
               </QueryClientProvider>
             </ThemeRegistry>
           </ReactQueryClientProvider>

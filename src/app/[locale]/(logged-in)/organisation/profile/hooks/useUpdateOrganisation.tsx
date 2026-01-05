@@ -5,10 +5,10 @@ import {
   PutOrganisationPayload,
   getOrganisationQuery,
 } from "@/services/organisations";
-import { showAlert } from "@/utils/showAlert";
 import { useTranslations } from "next-intl";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useStore } from "@/data/store";
+import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
 
 interface UseUpdateOrganisationProps {
   id: string | number | undefined;
@@ -20,6 +20,7 @@ const useUpdateOrganisation = ({
   id,
   messageSuccess = true,
 }: UseUpdateOrganisationProps) => {
+  const { showAlert, hideAlert } = useAlertModal();
   const [organisation, setOrganisation] = useStore(store => [
     store.getOrganisation(),
     store.setOrganisation,
@@ -52,10 +53,15 @@ const useUpdateOrganisation = ({
         }
       }
     });
+
     if (messageSuccess) {
-      showAlert("success", {
+      showAlert({
+        severity: "success",
         text: t("text"),
         confirmButtonText: t("confirmText"),
+        onConfirm: async () => {
+          hideAlert();
+        },
       });
     }
     return Promise.resolve();

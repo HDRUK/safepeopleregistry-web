@@ -11,7 +11,6 @@ import useRegisterUser from "@/hooks/useRegisterUser";
 import { ModalContent } from "@/organisms/Training/CertificateUploadModal.styles";
 import { User } from "@/types/application";
 import { handleRegister as handleRegisterKeycloak } from "@/utils/keycloak";
-import { showAlert } from "@/utils/showAlert";
 import { AdminPanelSettingsOutlined } from "@mui/icons-material";
 import BusinessIcon from "@mui/icons-material/Business";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
@@ -23,6 +22,7 @@ import { useEffect, useState } from "react";
 import { getProfilePathByEntity } from "@/utils/redirects";
 import ErrorMessage from "@/components/ErrorMessage";
 import OverlayCenterAlert from "@/components/OverlayCenterAlert";
+import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
 import AccountOption from "../AccountOption";
 
 const NAMESPACE_TRANSLATIONS_PROFILE = "Register";
@@ -44,6 +44,7 @@ export default function AccountConfirm({
   const t = useTranslations(NAMESPACE_TRANSLATIONS_PROFILE);
   const tTerms = useTranslations(NAMESPACE_TRANSLATION_TERMS_AND_CONDITIONS);
   const router = useRouter();
+  const { showAlert, hideAlert } = useAlertModal();
 
   const [custodianModalOpen, setCustodianModalOpen] = useState<boolean>(false);
 
@@ -81,15 +82,16 @@ export default function AccountConfirm({
 
   const handleDeclineTerms = () => {
     setTimeout(() => {
-      showAlert("warning", {
+      showAlert({
+        severity: "warning",
         text: tTerms("alertText"),
         title: tTerms("alertTitle"),
         confirmButtonText: tTerms("alertConfirm"),
         cancelButtonText: tTerms("alertCancel"),
-        closeOnConfirm: true,
-        closeOnCancel: true,
-        preDeny: () => {
+        onCancel: () => {
           router.push(ROUTES.homepage.path);
+
+          hideAlert();
         },
       });
     }, 100);
