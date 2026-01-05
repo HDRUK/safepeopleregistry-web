@@ -23,7 +23,6 @@ import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { PropsWithChildren } from "react";
 import "../global.css";
-import "../sweetalert2-custom.css";
 
 const inter = Inter({ subsets: ["latin"] });
 

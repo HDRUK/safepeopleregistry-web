@@ -9,6 +9,7 @@ import yup from "@/config/yup";
 import { VALIDATION_URL } from "@/consts/form";
 import { DEFAULT_STALE_TIME } from "@/consts/requests";
 import { ROUTES } from "@/consts/router";
+import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
 import { useStore } from "@/data/store";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
 import { mockedWebhookDescription } from "@/mocks/data/cms";
@@ -21,7 +22,6 @@ import {
 } from "@/services/webhooks/index";
 import { Webhook } from "@/services/webhooks/types";
 import { getCombinedQueryState } from "@/utils/query";
-import { showAlert } from "@/utils/showAlert";
 import { Box, Grid, MenuItem, Select, TextField } from "@mui/material";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
@@ -42,6 +42,7 @@ interface WebhookFormData {
 export default function Webhooks() {
   const t = useTranslations(NAMESPACE_TRANSLATION_CUSTODIAN_PROFILE);
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
+  const { showAlert, hideAlert } = useAlertModal();
 
   const { custodian } = useStore(state => ({
     custodian: state.config.custodian,
@@ -149,14 +150,22 @@ export default function Webhooks() {
         ...webhooksToAdd.map(webhook => handleWebhookOperation("add", webhook)),
       ]);
 
-      showAlert("success", {
+      showAlert({
+        severity: "success",
         text: t("saveSuccess"),
         confirmButtonText: t("okButton"),
+        onConfirm: async () => {
+          hideAlert();
+        },
       });
     } catch (_) {
-      showAlert("error", {
+      showAlert({
+        severity: "error",
         text: <ErrorMessage t={t} tKey="webhookError" />,
         confirmButtonText: tForm("errorButton"),
+        onConfirm: async () => {
+          hideAlert();
+        },
       });
     }
 

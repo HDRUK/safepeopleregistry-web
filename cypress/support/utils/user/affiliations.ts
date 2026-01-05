@@ -38,9 +38,8 @@ const hasAffiliationUsers = (
   status?: Status
 ) => {
   cy.getLatestRowOfResults();
- 
-  const row = cy.getResultsRowByValue(affiliation.member_id);
 
+  const row = cy.getResultsRowByValue(affiliation.member_id);
 
   row.within(() => {
     cy.contains("td", capitaliseFirstLetter(affiliation.relationship));
@@ -83,7 +82,7 @@ const editAffiliationUsers = (
   cy.get("#member_id").clear().type(edittedAffiliation.member_id);
 
   cy.saveFormClick();
-  cy.swalClick();
+  cy.clickAlertModal();
 };
 
 const removeAffiliationUsers = (affiliation: ResearcherAffiliation) => {
@@ -92,8 +91,8 @@ const removeAffiliationUsers = (affiliation: ResearcherAffiliation) => {
 
   cy.actionMenuClick("Delete");
 
-  cy.swalClick("Delete", "Warning");
-  cy.swalClick("Close");
+  cy.clickAlertModal("Delete", "Warning");
+  cy.clickAlertModal("Close");
 };
 
 const hasRemoveAffiliationUsers = (affiliation: ResearcherAffiliation) => {

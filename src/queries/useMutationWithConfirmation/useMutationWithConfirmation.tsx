@@ -25,10 +25,10 @@ const useMutationWithConfirmation = <
       confirmButtonText: t("confirmAlertConfirmButton"),
       cancelButtonText: t("confirmAlertCancelButton"),
       ...options?.confirmAlertProps,
-      preConfirm: async (payload: unknown) => {
+      onConfirm: async payload => {
         await mutateAsync(payload);
 
-        options?.confirmAlertProps?.preConfirm?.(payload);
+        options?.confirmAlertProps?.onConfirm?.(payload);
       },
     },
     successAlertProps: {

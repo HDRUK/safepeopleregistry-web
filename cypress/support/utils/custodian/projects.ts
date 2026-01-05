@@ -37,7 +37,7 @@ const changeStatusProjectEntities = (status: Status) => {
     .contains("button", "Confirm")
     .click({ force: true });
 
-  cy.swalClick("Close");
+  cy.clickAlertModal("Close");
 };
 
 const changeStatusProjectOrganisations = (
@@ -68,8 +68,8 @@ const removeFromProjectUsers = (user: User) => {
 
   cy.actionMenuClick("Remove from project");
 
-  cy.swalClick("Delete", "Warning");
-  cy.swalClick("Close");
+  cy.clickAlertModal("Delete", "Warning");
+  cy.clickAlertModal("Close");
 };
 
 const changePrimaryContactProjectUsers = (project: CustodianProjectUser) => {
@@ -81,7 +81,7 @@ const changePrimaryContactProjectUsers = (project: CustodianProjectUser) => {
 
   cy.actionMenuClick("Make primary contact");
 
-  cy.swalClick("Close");
+  cy.clickAlertModal("Close");
 };
 
 const hasPrimaryContact = (
@@ -170,16 +170,16 @@ const inviteNewProjectUser = (invite: InviteUserFormValues) => {
   cy.selectValue("organisation_id", invite.organisation_id);
 
   cy.saveFormClick("Invite");
-  cy.swalClick("Close");
+  cy.clickAlertModal("Close");
 
   cy.wait(2000);
 
   cy.saveContinueClick("Save");
-  cy.swalClick("Close");
+  cy.clickAlertModal("Close");
 
   // Observers haven't complete when refresh is called
   // cy.saveFormClick();
-  // cy.swalClick("Close");
+  // cy.clickAlertModal("Close");
 };
 
 const addNewProjectUser = () => {
@@ -213,7 +213,7 @@ const addNewProject = (project: ResearcherProject) => {
   cy.get("#technical_summary").clear().type(project.technical_summary);
 
   cy.saveContinueClick("Save");
-  cy.swalClick("Close");
+  cy.clickAlertModal("Close");
 };
 
 const hasProjectSponsor = () => {
@@ -262,21 +262,21 @@ const updateSafeDataProject = (projectDetails: ProjectDetails) => {
   cy.dateSelectValue("access_date", projectDetails.access_date);
 
   cy.saveContinueClick("Save");
-  cy.swalClick("Close");
+  cy.clickAlertModal("Close");
 };
 
 const updateSafeSettingsProject = (projectDetails: ProjectDetails) => {
   cy.get("#data_privacy").clear().type(projectDetails.data_privacy);
 
   cy.saveContinueClick("Save");
-  cy.swalClick("Close");
+  cy.clickAlertModal("Close");
 };
 
 const updateSafeOutputsProject = (projectDetails: ProjectDetails) => {
   cy.get("#data_assets").clear().type(projectDetails.data_assets);
 
   cy.saveContinueClick("Save");
-  cy.swalClick("Close");
+  cy.clickAlertModal("Close");
 };
 
 export {

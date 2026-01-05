@@ -1,22 +1,22 @@
-import { useCallback, useMemo, useState, useEffect } from "react";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import {
-  getCustodianValidationChecksQuery,
-  putValidationCheckQuery,
-  postValidationCheckQuery,
-} from "@/services/validation_checks";
-import { useStore } from "@/data/store";
-import { useTranslations } from "next-intl";
-import { Rule } from "@/types/rules";
+import ButtonSave from "@/components/ButtonSave";
 import CheckboxList from "@/components/CheckboxList";
 import Form from "@/components/Form";
-import { getCombinedQueryState } from "@/utils/query";
-import { showAlert } from "@/utils/showAlert";
-import { ValidationCheck } from "@/services/validation_checks/types";
 import FormActions from "@/components/FormActions";
-import ButtonSave from "@/components/ButtonSave";
 import { DEFAULT_STALE_TIME } from "@/consts/requests";
+import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
+import { useStore } from "@/data/store";
 import { PageBody } from "@/modules";
+import {
+  getCustodianValidationChecksQuery,
+  postValidationCheckQuery,
+  putValidationCheckQuery,
+} from "@/services/validation_checks";
+import { ValidationCheck } from "@/services/validation_checks/types";
+import { Rule } from "@/types/rules";
+import { getCombinedQueryState } from "@/utils/query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import AddNewValidationCheck from "../AddNewValidationCheck";
 
 const NAMESPACE_TRANSLATION = "ValidationChecks";
@@ -29,7 +29,7 @@ export enum AppliesTo {
 export default function ValidationChecks() {
   const t = useTranslations(NAMESPACE_TRANSLATION);
   const custodianId = useStore(store => store?.getCustodian()?.id);
-
+  const { showAlert, hideAlert } = useAlertModal();
   const [userChecks, setUserChecks] = useState<boolean[]>([]);
   const [orgChecks, setOrgChecks] = useState<boolean[]>([]);
 
@@ -184,11 +184,16 @@ export default function ValidationChecks() {
     });
 
     await Promise.all(changes);
+
     refetch();
 
-    showAlert("success", {
+    showAlert({
+      severity: "success",
       text: t("updateCheckSuccess"),
       confirmButtonText: t("successButton"),
+      onConfirm: async () => {
+        hideAlert();
+      },
     });
   };
 

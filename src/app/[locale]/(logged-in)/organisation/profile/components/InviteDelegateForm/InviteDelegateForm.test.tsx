@@ -10,7 +10,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import InviteDelegateForm from "./InviteDelegateForm";
 
 jest.mock("@/data/store");
-jest.mock("@/utils/showAlert");
 jest.mock("@/services/organisations");
 
 const mockUseStore = useStore as jest.MockedFunction<typeof useStore>;
