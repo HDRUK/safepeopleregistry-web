@@ -91,6 +91,8 @@ const getShortStatus = (slug: string) => {
       return "Escalation";
     case Status.AFFILIATION_EMAIL_VERIFY:
       return "Email verification needed";
+    case Status.INVITED:
+      return "Invited";
     default:
       return slug;
   }
