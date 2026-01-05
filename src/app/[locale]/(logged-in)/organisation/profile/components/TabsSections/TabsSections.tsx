@@ -55,19 +55,12 @@ export default function TabsSections({ tabId }: TabsSectionsProps) {
           iconPosition="start"
         />
         <Tab
-          icon={
-            organisationApproved ? (
-              <ManageAccountsOutlinedIcon />
-            ) : (
-              <LockOutlinedIcon />
-            )
-          }
+          icon={<ManageAccountsOutlinedIcon />}
           label={<Text>{t("teamAdmin")}</Text>}
           href={routes.profileOrganisationTeamAdministration.path}
           component={Link}
           value={PageTabs.TEAM_ADMINISTRATION}
           iconPosition="start"
-          disabled={!organisationApproved}
         />
         <Tab
           icon={
