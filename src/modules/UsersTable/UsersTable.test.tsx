@@ -21,7 +21,9 @@ describe("<UsersTable />", () => {
   it("renders warning message if no data", () => {
     setupTest();
 
-    expect(screen.getByText(/No users found/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/There are no pending invites for these search filters/i)
+    ).toBeInTheDocument();
   });
 
   it("renders the correct values data", () => {
