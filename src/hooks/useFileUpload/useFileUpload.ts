@@ -55,7 +55,7 @@ export default function useFileUpload(
 
   useQueryAlerts(postFileState, {
     commonAlertProps: {
-      willClose: () => {
+      onConfirm: async () => {
         postFileState.reset();
       },
     },

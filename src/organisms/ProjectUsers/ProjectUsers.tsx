@@ -99,7 +99,7 @@ export default function ProjectUsers({
 
   useQueryAlerts(updateValidationMutationState, {
     successAlertProps: {
-      willClose: () => {
+      onConfirm: async () => {
         queryClient.invalidateQueries({
           queryKey: ["getPaginatedCustodianProjectUsers", custodianId],
         });

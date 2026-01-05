@@ -23,7 +23,7 @@ export default function useMutateDeleteEntityFromProject({
 
   const showConfirm = useQueryConfirmAlerts(mutationState, {
     confirmAlertProps: {
-      preConfirm: async payload => {
+      onConfirm: async payload => {
         await deleteAsync(payload as number);
 
         onDelete?.();

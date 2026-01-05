@@ -11,7 +11,6 @@ const hasUser = (pendingInvite: PendingInvite, status: Status) => {
     user: { name, email },
   } = pendingInvite;
 
-
   cy.getLatestRowOfResults();
   const row = cy.getResultsRowByValue(email);
 
@@ -34,7 +33,7 @@ const inviteUser = (invite: InviteUserFormValues) => {
       force: true,
     });
 
-  // cy.swalClick("Close");
+  // cy.clickAlertModal("Close");
 };
 
 export { hasUser, inviteUser };

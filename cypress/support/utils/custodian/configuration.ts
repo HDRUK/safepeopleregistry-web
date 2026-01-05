@@ -1,5 +1,5 @@
 const hasUnCheckedOnUsersConfigurationAutomatedFlags = () => {
-  cy.get('#10').uncheck();
+  cy.get("#10").uncheck();
   cy.contains("p", "Identity").should("exist");
   cy.contains("p", ":").should("exist");
   cy.contains(
@@ -41,7 +41,7 @@ const hasUnCheckedOnUsersConfigurationAutomatedFlags = () => {
     "A User has been affiliated by a relevant, validated Organisation."
   ).should("exist");
   cy.saveContinueClick("Save");
-  cy.swalClick();
+  cy.clickAlertModal();
 };
 
 const hasCheckedOnUsersConfigurationAutomatedFlags = () => {
@@ -52,7 +52,7 @@ const hasCheckedOnUsersConfigurationAutomatedFlags = () => {
   cy.get("#14").should("exist").check();
   cy.get("#15").should("exist").check();
   cy.saveContinueClick("Save");
-  cy.swalClick();
+  cy.clickAlertModal();
 };
 
 const hasUnCheckedOnOrganisationConfigurationAutomatedFlags = () => {
@@ -109,7 +109,7 @@ const hasUnCheckedOnOrganisationConfigurationAutomatedFlags = () => {
     "An Organisation has at least one Delegate/Key Contact to affiliate Users."
   ).should("exist");
   cy.saveContinueClick("Save");
-  cy.swalClick();
+  cy.clickAlertModal();
 };
 
 const hasCheckedOnOrganisationConfigurationAutomatedFlags = () => {
@@ -122,7 +122,7 @@ const hasCheckedOnOrganisationConfigurationAutomatedFlags = () => {
   cy.get("#22").should("exist").check();
   cy.get("#23").should("exist").check();
   cy.saveContinueClick("Save");
-  cy.swalClick();
+  cy.clickAlertModal();
 };
 
 export {
