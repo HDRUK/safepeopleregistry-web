@@ -29,8 +29,6 @@ describe("Resend invite", () => {
       email: faker.internet.email(),
     };
 
-    cy.task("log", JSON.stringify(dataInviteUser));
-
     inviteUser(dataInviteUser);
 
     hasUser(

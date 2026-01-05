@@ -92,7 +92,7 @@ export const useCustodianProjectUser = ({
       refetch();
     },
     successAlertProps: {
-      willClose: () => {
+      onConfirm: async () => {
         onStatusChange?.();
       },
     },

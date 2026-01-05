@@ -82,7 +82,7 @@ export default function ProfessionalRegistrations({
       : postProfessionalRegistrationQueryState,
     {
       commonAlertProps: {
-        willClose: () => {
+        onConfirm: async () => {
           if (!isEditMode) {
             resetPost();
           }

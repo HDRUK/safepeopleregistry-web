@@ -60,13 +60,13 @@ describe("Projects users journey", () => {
   });
 
   it("Cannot manually change from invited", () => {
-    changeStatusProjectUsers({ first_name, last_name }, Status.INVITED);
+    changeStatusProjectUsers({ first_name, last_name }, Status.PENDING);
 
     hasProjectUsers({
       ...dataProjectUser,
       model_state: {
         state: {
-          slug: Status.INVITED,
+          slug: Status.PENDING,
         },
       },
     });
