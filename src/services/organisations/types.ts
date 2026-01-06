@@ -11,6 +11,21 @@ type OrganisationResponse = Organisation;
 
 type OrganisationsResponse = Paged<Organisation[]>;
 
+type GetOrganisationsHistoryResponse = OrganisationsHistorys[];
+
+interface OrganisationsHistorys {
+  id: number;
+  description: string;
+  event: OrganisationHistoryLog;
+  log_name: string;
+  properties: Record<string, Record<string, string>>;
+  created_at: string;
+  updated_at: string;
+  subject_type: string;
+  subject: Partial<Organisation>;
+  causer: Partial<Organisation>;
+}
+
 interface OrganisationsIdvtResponse {
   data: OrganisationIdvt;
 }
@@ -99,4 +114,6 @@ export type {
   GetProjectsResponse,
   PatchSponsorshipStatusParams,
   PatchSponsorshipStatusPayload,
+  OrganisationsHistorys,
+  GetOrganisationsHistoryResponse,
 };

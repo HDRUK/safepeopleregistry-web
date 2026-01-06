@@ -86,6 +86,16 @@ export default function SubTabsSections({
         }
       ),
     },
+    {
+      label: t("history"),
+      value: OrganisationsSubTabs.HISTORY,
+      href: injectParamsIntoPath(
+        routes.profileCustodianOrganisationsHistory.path,
+        {
+          projectOrganisationId,
+        }
+      ),
+    },
   ];
 
   return <SubTabs current={subTabId} tabs={subTabs} />;

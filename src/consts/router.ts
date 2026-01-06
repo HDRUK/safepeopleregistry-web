@@ -62,6 +62,10 @@ const ROUTES: Routes = {
     path: "/data-custodian/profile/projectOrganisations/{projectOrganisationId}/automated_flags",
     permissions: [UserGroup.CUSTODIANS],
   },
+  profileCustodianOrganisationsHistory: {
+    path: "/data-custodian/profile/projectOrganisations/{projectOrganisationId}/history",
+    permissions: [UserGroup.CUSTODIANS],
+  },
   profileCustodianConfiguration: {
     path: "/data-custodian/profile/configuration",
     permissions: [UserGroup.CUSTODIANS],

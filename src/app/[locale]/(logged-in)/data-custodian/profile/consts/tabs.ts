@@ -38,6 +38,7 @@ enum OrganisationsSubTabs {
   SECTOR_WEBSITE = "sector_website",
   DATA_SECURITY_COMPLIANCE = "data_security_compliance",
   AUTOMATED_FLAGS = "automated_flags",
+  HISTORY = "history",
 }
 
 type TabStructure = {

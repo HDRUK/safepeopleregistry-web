@@ -174,6 +174,16 @@ function createMutation<R, T, P>(
   >;
 }
 
+function getNextPageParam(lastPage: {
+  meta: {
+    last_page: number;
+    current_page: number;
+  };
+}) {
+  const { last_page, current_page } = lastPage.meta;
+  return current_page < last_page ? current_page + 1 : undefined;
+}
+
 function responseToQueryState<T = unknown>(
   response: ResponseJson<T>
 ): {
@@ -204,4 +214,5 @@ export {
   createQuery,
   createMutation,
   responseToQueryState,
+  getNextPageParam,
 };

@@ -1,17 +1,17 @@
 import { HISTORY_PER_PAGE } from "@/consts/history";
-import getUserHistory from "@/services/users/getUserHistory";
 import { getNextPageParam } from "@/utils/query";
+import getOrganisationHistory from "./getOrganisationHistory";
 
-export default function getUserHistoryQuery(userId: number) {
+export default function getUserHistoryQuery(organisationId: number) {
   return {
-    queryKey: ["getUserHistory", userId],
+    queryKey: ["getOrganisationHistory", organisationId],
     queryFn: ({ pageParam }) =>
-      getUserHistory(
-        userId,
+      getOrganisationHistory(
+        organisationId,
         { page: pageParam, per_page: HISTORY_PER_PAGE },
         {
           error: {
-            message: "getUserHistoryError",
+            message: "getOrganisationHistoryError",
           },
         }
       ),

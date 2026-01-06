@@ -2,6 +2,7 @@
 
 import { useStore } from "@/data/store";
 import { notFound } from "next/navigation";
+import OrganisationsHistory from "@/organisms/OrganisationsHistory";
 import OrganisationsPeople from "../../../../../components/OrganisationsPeople";
 import OrganisationsNameAddress from "../../../../../components/OrganisationsNameAddress";
 import OrganisationsDigitalIdentifiers from "../../../../../components/OrganisationsDigitalIdentifiers";
@@ -44,6 +45,9 @@ export default function SubTabsContents({ subTabId }: TabsContentsProps) {
       break;
     case OrganisationsSubTabs.AUTOMATED_FLAGS:
       content = <OrganisationsAutomatedFlags />;
+      break;
+    case OrganisationsSubTabs.HISTORY:
+      content = <OrganisationsHistory />;
       break;
     default:
       content = null;
