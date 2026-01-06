@@ -1,17 +1,17 @@
 "use client";
 
+import { PageBody } from "@/modules";
+import InviteUser from "@/modules/InviteUser";
+import SendInviteCustodian from "@/modules/SendInviteCustodian";
+import { OrganisationsList, InvitesList } from "@/organisms";
+import FeatureFlagList from "@/organisms/FeatureFlagsList";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { Typography } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
-
-import InviteUser from "@/modules/InviteUser";
-import SendInviteCustodian from "@/modules/SendInviteCustodian";
-import { OrganisationsList, UsersList } from "@/organisms";
-import { Typography } from "@mui/material";
-import { useTranslations } from "next-intl";
 import { useQueryClient } from "@tanstack/react-query";
-import FeatureFlagList from "@/organisms/FeatureFlagsList";
+import { useTranslations } from "next-intl";
 
 const NAMESPACE_TRANSLATIONS_ADMINISTRATION = "Administration";
 
@@ -43,7 +43,11 @@ export default function Sections() {
     },
     {
       name: "invites",
-      component: <UsersList />,
+      component: (
+        <PageBody>
+          <InvitesList />
+        </PageBody>
+      ),
     },
   ];
 

@@ -8,11 +8,19 @@ import { hasUser, inviteUser } from "cypress/support/utils/admin/users";
 import { logout } from "cypress/support/utils/common";
 import { DEFAULT_PROJECT_INVITE_USERS } from "cypress/support/utils/data";
 
+const dataInviteUser = {
+  ...DEFAULT_PROJECT_INVITE_USERS,
+  first_name: faker.person.firstName(),
+  last_name: faker.person.lastName(),
+  email: faker.internet.email(),
+};
+
 describe("Resend invite", () => {
   beforeEach(() => {
     loginAdmin();
 
     cy.visitFirst(ROUTES.profileAdmin.path);
+    cy.contains("User invitation").click();
   });
 
   after(() => {
@@ -20,15 +28,6 @@ describe("Resend invite", () => {
   });
 
   it("Shows a list of users who are pending invites", () => {
-    cy.contains("User invitation").click();
-
-    const dataInviteUser = {
-      ...DEFAULT_PROJECT_INVITE_USERS,
-      first_name: faker.person.firstName(),
-      last_name: faker.person.lastName(),
-      email: faker.internet.email(),
-    };
-
     inviteUser(dataInviteUser);
 
     hasUser(
@@ -41,5 +40,23 @@ describe("Resend invite", () => {
       }),
       Status.INVITED
     );
+  });
+
+  it("Shows no users for custodians", () => {
+    cy.contains("Invites").click();
+
+    cy.selectValue("filterByUser", "Custodians");
+  });
+
+  it("Shows no users for organisations", () => {
+    cy.contains("Invites").click();
+
+    cy.selectValue("filterByUser", "Organisations");
+  });
+
+  it("Shows invited users", () => {
+    cy.contains("Invites").click();
+
+    cy.selectValue("filterByUser", "Users");
   });
 });
