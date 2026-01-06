@@ -12,6 +12,45 @@
     "scanOkText": "File was successfully scanned",
     "scanErrorText": "Your file file may have a virus"
   },
+  "Admin": {
+    "InvitesList": {
+      "noResultsMessage": "No invites found",
+      "name": "Name",
+      "email": "Email",
+      "status": "Status",
+      "title": "Users",
+      "loadingAriaLabel": "Loading page",
+      "approve": "Approve",
+      "unapprove": "Unapprove",
+      "approved": "Approved",
+      "permissions": "Permissions",
+      "emailHeading": "Email",
+      "firstNameHeading": "First name",
+      "lastNameHeading": "Last name",
+      "tableSummary": "Table of users",
+      "updateOrganisationApprovalError": "Couldn't update the organisations approval settings",
+      "updateApprovalError": "Couldn't update the researchers approval settings",
+      "viewDetails": "View details",
+      "approvedOn": "Approved On: {projects}"
+    },
+    "InvitesFilters": {
+      "searchPlaceholder": "Search by email",
+      "noResultsMessage": "There are no pending invites for these search filters",
+      "name": "Name",
+      "email": "Email",
+      "status": "Status",
+      "filterByStatus_invited": "Invited",
+      "filterByStatus_registered": "Registered",
+      "filterByDateSent": "Date invite sent",
+      "filterByDateResent": "Date invite resent",
+      "filterByUserGroup": "Filter by user group",
+      "filterByUserGroup_custodians": "Custodians",
+      "filterByUserGroup_organisations": "Organisations",
+      "filterByUserGroup_users": "Users",
+      "filterByStatus": "Filter by status",
+      "sortByInviteSentAt": "Date invite sent"
+    }
+  },
   "Application": {
     "Status": {
       "registered": "Safe People Registry account created",
@@ -1168,26 +1207,6 @@
       "inviteUserSuccessButton": "Ok",
       "inviteUserSuccess": "You have successfully invited the User"
     }
-  },
-  "UsersList": {
-    "noResultsMessage": "No users found",
-    "name": "Name",
-    "email": "Email",
-    "status": "Status",
-    "title": "Users",
-    "loadingAriaLabel": "Loading page",
-    "approve": "Approve",
-    "unapprove": "Unapprove",
-    "approved": "Approved",
-    "permissions": "Permissions",
-    "emailHeading": "Email",
-    "firstNameHeading": "First name",
-    "lastNameHeading": "Last name",
-    "tableSummary": "Table of users",
-    "updateOrganisationApprovalError": "Couldn't update the organisations approval settings",
-    "updateApprovalError": "Couldn't update the researchers approval settings",
-    "viewDetails": "View details",
-    "approvedOn": "Approved On: {projects}"
   },
   "Guidance": {
     "togglePanel": "Toggle guidance panel"
