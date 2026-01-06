@@ -5,7 +5,7 @@ export default async function Page({
   searchParams,
 }: {
   searchParams: {
-    redirect_uri: string;
+    redirect_path: string;
   };
 }) {
   const loggedIn = await isLoggedIn();
@@ -13,7 +13,7 @@ export default async function Page({
   return (
     <KeycloakRedirect
       loggedIn={loggedIn}
-      redirect_uri={searchParams.redirect_uri}
+      redirect_uri={searchParams.redirect_path}
     />
   );
 }
