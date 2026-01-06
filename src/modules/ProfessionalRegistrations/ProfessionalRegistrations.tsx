@@ -82,7 +82,7 @@ export default function ProfessionalRegistrations({
       : postProfessionalRegistrationQueryState,
     {
       commonAlertProps: {
-        willClose: () => {
+        onConfirm: async () => {
           if (!isEditMode) {
             resetPost();
           }
@@ -112,8 +112,8 @@ export default function ProfessionalRegistrations({
     {
       onSuccess: () => refetch(),
       confirmAlertProps: {
-        preConfirm: async (id: number) => {
-          await mutateDeleteAsync(id);
+        onConfirm: async id => {
+          await mutateDeleteAsync(id as number);
         },
       },
       errorAlertProps: {

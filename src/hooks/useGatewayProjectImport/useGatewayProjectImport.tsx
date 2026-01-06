@@ -74,7 +74,7 @@ export default function useGatewayProjectImport() {
     { ...translatedMutationState, reset },
     {
       commonAlertProps: {
-        willClose: () => {
+        onConfirm: async () => {
           setTranslatedMutationState(defaultMutationState);
         },
       },

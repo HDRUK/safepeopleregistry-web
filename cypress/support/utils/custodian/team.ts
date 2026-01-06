@@ -13,7 +13,7 @@ const addNewTeamMemberCustodians = (data: CustodianEditContactFormFields) => {
   cy.get('[name="permissions"]').check(data.permissions);
 
   cy.saveFormClick();
-  cy.swalClick("OK", "User created");
+  cy.clickAlertModal("OK", "User created");
 };
 
 const editTeamMemberCustodians = (
@@ -28,18 +28,18 @@ const editTeamMemberCustodians = (
   cy.get('[name="permissions"]').check(data.permissions);
 
   cy.saveFormClick();
-  cy.swalClick("OK", "User updated");
+  cy.clickAlertModal("OK", "User updated");
 };
 
 const removeTeamMemberCustodians = (email: string) => {
   cy.getLatestRowOfResults();
   cy.getResultsRowByValue(email).find(dataCy("delete-user")).click();
 
-  cy.swalClick(
+  cy.clickAlertModal(
     "Delete user",
     "Are you sure you want to delete this team member?"
   );
-  cy.swalClick("Close");
+  cy.clickAlertModal("Close");
 };
 
 const hasTeamMemberCustodians = (data: CustodianEditContactFormFields) => {

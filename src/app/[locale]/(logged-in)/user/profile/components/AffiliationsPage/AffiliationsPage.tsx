@@ -5,8 +5,10 @@ import FormModal from "@/components/FormModal";
 import Guidance from "@/components/Guidance";
 import { Message } from "@/components/Message";
 import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
+import { Status } from "@/consts/application";
+import { HeadingLevel } from "@/consts/header";
+import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
 import { useStore } from "@/data/store";
-import useQueryAlertFromServer from "@/hooks/useQueryAlertFromServer";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
 import useQueryConfirmAlerts from "@/hooks/useQueryConfirmAlerts";
 import { mockedResearcherAffiliationsGuidance } from "@/mocks/data/cms";
@@ -29,8 +31,8 @@ import {
 import { PostAffiliationPayload } from "@/services/affiliations/types";
 import { ResearcherAffiliation } from "@/types/application";
 import { QueryState } from "@/types/form";
+import { formatDBDateTime } from "@/utils/date";
 import { getCombinedQueryState } from "@/utils/query";
-import { showAlert } from "@/utils/showAlert";
 import { renderErrorToString } from "@/utils/translations";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
@@ -41,9 +43,6 @@ import { CellContext } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
-import { Status } from "@/consts/application";
-import { formatDBDateTime } from "@/utils/date";
-import { HeadingLevel } from "@/consts/header";
 import AffiliationsForm from "../AffiliationsForm";
 
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";
@@ -59,6 +58,7 @@ export default function AffiliationsPage({
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
   const t = useTranslations(NAMESPACE_TRANSLATION_AFFILIATIONS);
   const router = useRouter();
+  const { showAlert, hideAlert } = useAlertModal();
 
   const [open, setOpen] = useState(false);
   const [selectedAffiliation, setSelectedAffiliation] = useState<
@@ -139,24 +139,28 @@ export default function AffiliationsPage({
   const verifiedOrganisationName =
     queryState.data?.organisation?.organisation_name;
 
-  useQueryAlertFromServer(queryState, {
+  useQueryAlerts(queryState, {
     successAlertProps: {
       title: tProfile("affiliationRequestSentTitle"),
       confirmButtonText: tProfile("affiliationRequestSentButton"),
       text: tProfile("affiliationRequestSentDescription", {
         organisationName: verifiedOrganisationName,
       }),
-      willClose: () => {
+      onConfirm: async () => {
         router.replace(routes.profileResearcherAffiliations.path);
+
+        hideAlert();
       },
     },
-    successAlertType: "info",
     errorAlertProps: {
       text: renderErrorToString(
         tProfile,
         "affiliationRequestSentErrorDescription"
       ),
       confirmButtonText: tProfile("affiliationRequestSentErrorButton"),
+      onConfirm: async () => {
+        hideAlert();
+      },
     },
     enabled: !!verifiedOrganisationName,
   });
@@ -165,8 +169,8 @@ export default function AffiliationsPage({
     onSuccess: () => refetch(),
     confirmAlertProps: {
       text: tProfile("affiliationsDeleteConfirmMessage"),
-      preConfirm: async (id: number) => {
-        await deleteAffiliation(id);
+      onConfirm: async id => {
+        await deleteAffiliation(id as number);
       },
     },
     successAlertProps: {
@@ -179,8 +183,13 @@ export default function AffiliationsPage({
 
   const handleResendInvite = async (affiliation: ResearcherAffiliation) => {
     await mutateOrganisationInvite(affiliation?.organisation_id as number);
-    showAlert("success", {
+
+    showAlert({
+      severity: "success",
       text: tProfile("resendInviteSuccess"),
+      onConfirm: async () => {
+        hideAlert();
+      },
     });
   };
 

@@ -12,7 +12,7 @@ function confirmOrganisationSponsorship(label: string) {
   cy.contains("label", label).click();
   cy.contains("button", "Save decision").click();
 
-  cy.swalClick("Close");
+  cy.clickAlertModal("Close");
 }
 
 export { hasOrganisationSponsorshipStatus, confirmOrganisationSponsorship };

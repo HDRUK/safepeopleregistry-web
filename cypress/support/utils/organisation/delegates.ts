@@ -23,7 +23,7 @@ const inviteNewDelegateOrganisations = (data: DelegatesFormValues) => {
   cy.get("#delegate_job_title").type(data.delegate_job_title);
 
   cy.saveFormClick("Invite");
-  cy.swalClick("Close");
+  cy.clickAlertModal("Close");
 };
 
 const hasDelegateOrganisations = (data: DelegatesFormValues) => {
@@ -54,7 +54,7 @@ const editDelegateOrganisations = (
   cy.selectValue("department_id", data.department_name);
 
   cy.saveFormClick();
-  cy.swalClick("Close");
+  cy.clickAlertModal("Close");
 };
 
 const removeDelegateOrganisations = (data: DelegatesFormValues) => {
@@ -62,8 +62,8 @@ const removeDelegateOrganisations = (data: DelegatesFormValues) => {
 
   cy.actionMenuClick("Remove");
 
-  cy.swalClick("Remove", "Remove Delegate?");
-  cy.swalClick("OK");
+  cy.clickAlertModal("Remove", "Remove Delegate?");
+  cy.clickAlertModal("OK");
 };
 
 const hasNoDelegateOrganisations = () => {
