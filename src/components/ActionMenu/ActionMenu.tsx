@@ -1,5 +1,5 @@
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { IconButton, Menu, MenuList, Box, BoxProps } from "@mui/material";
+import { IconButton, Menu, Box, BoxProps } from "@mui/material";
 import { ReactNode, useRef, useState } from "react";
 
 export interface ActionMenuHelpers {
@@ -66,16 +66,23 @@ export default function ActionMenu({
           {trigger}
         </span>
       )}
-      <Menu anchorEl={anchorEl} open={!!anchorEl} onClose={handleClose}>
-        <MenuList dense sx={sx}>
-          {typeof children === "function"
-            ? children({
-                handleClose,
-                handleOpen: () =>
-                  handleOpen({ currentTarget: triggerRef.current }),
-              })
-            : children}
-        </MenuList>
+      <Menu
+        anchorEl={anchorEl}
+        open={!!anchorEl}
+        onClose={handleClose}
+        sx={sx}
+        MenuListProps={{
+          sx: {
+            p: 0,
+          },
+        }}>
+        {typeof children === "function"
+          ? children({
+              handleClose,
+              handleOpen: () =>
+                handleOpen({ currentTarget: triggerRef.current }),
+            })
+          : children}
       </Menu>
     </Box>
   );
