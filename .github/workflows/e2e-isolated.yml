@@ -174,13 +174,16 @@ jobs:
           --health-retries=5
         env:
           REDIS_PASSWORD: mypassword
-      mailhog:
-        image: mailhog/mailhog
-        ports:
-          - 1025:1025
-          - 8025:8025
+     
 
     steps:
+      - name: Install MailDev
+        run: npm install -g maildev
+
+      - name: Start MailDev
+        run: |
+          nohup maildev --smtp=1025 --web=8025 > maildev.log 2>&1 &
+          sleep 5
       - name: Checkout web
         uses: actions/checkout@v4
 
