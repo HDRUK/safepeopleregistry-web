@@ -73,7 +73,7 @@ export default function ActionMenu({
         sx={sx}
         MenuListProps={{
           sx: {
-            p: "0!important",
+            p: "0",
           },
         }}>
         {typeof children === "function"

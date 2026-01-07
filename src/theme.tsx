@@ -314,6 +314,10 @@ const theme = createTheme(
           body,
           .swal2-title {
             line-height: 140%;
+            ul {
+              margin: 4px 0;
+              padding-left: 20px;
+            }
           }
       `,
       },
