@@ -72,13 +72,17 @@ export default function AccountConfirm({
   // Create a new account automatically if type query param exists
   useEffect(() => {
     const initRegister = async () => {
-      if (tokenUser && isValidUserGroup(userGroup) && !unclaimedUser) {
+      if (
+        tokenUser &&
+        isValidUserGroup(params?.get("type")) &&
+        !unclaimedUser
+      ) {
         await handleRegister(tokenUser);
       }
     };
 
     initRegister();
-  }, [unclaimedUser, tokenUser, userGroup]);
+  }, [unclaimedUser, tokenUser, params?.get("type")]);
 
   const handleDeclineTerms = () => {
     setTimeout(() => {
@@ -233,11 +237,15 @@ export default function AccountConfirm({
       {termsDisplayed && (
         <TermsAndConditions
           userGroup={userGroup}
-          onAccept={() =>
-            unclaimedUser
-              ? handleRegister(unclaimedUser)
-              : handleRegisterKeycloak(userGroup)
-          }
+          onAccept={() => {
+            const user = unclaimedUser || tokenUser;
+
+            if (user) {
+              handleRegister(user);
+            } else {
+              handleRegisterKeycloak(userGroup);
+            }
+          }}
           onDecline={handleDeclineTerms}
         />
       )}
