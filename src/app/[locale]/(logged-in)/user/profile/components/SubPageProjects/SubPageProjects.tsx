@@ -13,6 +13,7 @@ import Guidance from "@/components/Guidance";
 import { PageTabs, ProjectsSubTabs } from "../../consts/tabs";
 import SubTabsSections from "../SubTabSections";
 import SubTabsContents from "../SubsTabContents";
+import { getSponsor, getSponsorshipStatus } from "@/utils/application";
 
 interface PageProps {
   projectData: ResearcherProject;
@@ -36,6 +37,11 @@ export default function SubPageProjects({ params, projectData }: PageProps) {
 
   const guidance = mockedSafeProjectGuidanceProps;
 
+  console.log(
+    "project?.project_has_sponsorships?.[0]",
+    project?.project_has_sponsorships?.[0].sponsor
+  );
+
   return (
     project && (
       <PageBodyContainer
@@ -51,6 +57,10 @@ export default function SubPageProjects({ params, projectData }: PageProps) {
               validationStatus={
                 project?.custodian_has_project_user?.[0].model_state.state.slug
               }
+              sponsorshipStatus={getSponsorshipStatus(
+                getSponsor(project),
+                project
+              )}
             />
             <Guidance {...guidance} isCollapsible={false} infoWidth="100%" />
           </PageColumnDetails>
