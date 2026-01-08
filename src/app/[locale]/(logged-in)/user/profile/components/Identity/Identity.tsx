@@ -27,12 +27,13 @@ import { putUserQuery } from "@/services/users";
 import { User } from "@/types/application";
 import { canUseIdvt } from "@/utils/application";
 import { CheckCircle } from "@mui/icons-material";
-import { Button, Grid, TextField } from "@mui/material";
+import { Box, Button, Grid, Link, TextField } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 import VeriffTermsAndConditions from "../VeriffTermsAndConditions";
+import EmailResetModal from "@/organisms/EmailResetModal/EmailResetModal";
 
 export interface IdentityFormValues {
   first_name: string;
@@ -64,6 +65,14 @@ export default function Identity() {
 
   const [showModal, setShowModal] = useState(false);
 
+  const [showEmailChange, setShowEmailChange] = useState(false);
+
+  const refetchUser = () => {
+    queryClient.refetchQueries({
+      queryKey: ["getUser", user.id],
+    });
+  };
+
   const handleDetailsSubmit = useCallback(
     async (fields: IdentityFormValues) => {
       if (user?.id) {
@@ -75,9 +84,7 @@ export default function Identity() {
 
         await updateUser.mutateAsync(request);
 
-        queryClient.refetchQueries({
-          queryKey: ["getUser", user.id],
-        });
+        refetchUser();
       }
     },
     [user]
@@ -99,7 +106,7 @@ export default function Identity() {
     successAlertProps: {
       text: t("postUserSuccess"),
       confirmButtonText: t("postUserSuccessButton"),
-      preConfirm: () => {
+      onConfirm: async () => {
         router.push(ROUTES.profileResearcherExperience.path);
       },
     },
@@ -166,13 +173,39 @@ export default function Identity() {
                       </Grid>
                       <Grid item xs={12}>
                         <FormControlWrapper
+                          disabled
                           name="personal_email"
                           renderField={fieldProps => (
-                            <TextField {...fieldProps} />
+                            <Box sx={{ display: "flex", gap: 2 }}>
+                              <TextField
+                                {...fieldProps}
+                                sx={{ maxWidth: "300px" }}
+                              />{" "}
+                              <Link
+                                component="button"
+                                onClick={e => {
+                                  e.preventDefault();
+                                  setShowEmailChange(true);
+                                }}>
+                                {t("changeEmailLink")}
+                              </Link>
+                            </Box>
                           )}
                           description={t.rich("emailDescription", {
                             bold: chunks => <strong>{chunks}</strong>,
                           })}
+                        />
+
+                        <EmailResetModal
+                          userId={user.id}
+                          open={showEmailChange}
+                          onSuccess={() => {
+                            setShowEmailChange(false);
+                            refetchUser();
+                          }}
+                          onClose={() => {
+                            setShowEmailChange(false);
+                          }}
                         />
                       </Grid>
                       <Grid item xs={12}>

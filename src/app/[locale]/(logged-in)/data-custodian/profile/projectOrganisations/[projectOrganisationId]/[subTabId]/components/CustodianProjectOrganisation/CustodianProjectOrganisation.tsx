@@ -1,3 +1,4 @@
+import LoadingWrapper from "@/components/LoadingWrapper";
 import StatusList from "@/components/StatusList";
 import { Status } from "@/consts/application";
 import { useStore } from "@/data/store";
@@ -12,9 +13,9 @@ import { ActionValidationVariants } from "@/organisms/ActionValidationPanel/Acti
 import { getCustodianProjectOrganisationQuery } from "@/services/custodian_approvals";
 import { getOrganisationQuery } from "@/services/organisations";
 import { getCustodianOrganisationValidationLogsQuery } from "@/services/validation_logs";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { OrganisationsSubTabs } from "../../../../../consts/tabs";
 import SubTabsContents from "../SubsTabContents";
 import SubTabsSections from "../SubTabSections";
@@ -34,7 +35,7 @@ function CustodianProjectOrganisation({
     data: custodianProjectOrganisation,
     isFetched: isFetchedCustodianProjectOrganisation,
     refetch,
-  } = useQuery(
+  } = useSuspenseQuery(
     getCustodianProjectOrganisationQuery(
       custodian?.id as number,
       projectOrganisationId
@@ -44,12 +45,14 @@ function CustodianProjectOrganisation({
   const { project_organisation: projectOrganisation, model_state: state } =
     custodianProjectOrganisation?.data || {};
 
-  const { data: organisationData, isFetched } = useQuery({
+  const { data: organisationData, isFetched } = useSuspenseQuery({
     ...getOrganisationQuery(
       custodianProjectOrganisation?.data.project_organisation.organisation
-        .id as number
+        .id as number,
+      {
+        suspenseEnabled: isFetchedCustodianProjectOrganisation,
+      }
     ),
-    enabled: isFetchedCustodianProjectOrganisation,
   });
 
   if (!organisationData?.data && isFetched) {
@@ -83,24 +86,28 @@ function CustodianProjectOrganisation({
   return (
     organisation && (
       <PageBodyContainer heading={organisation.organisation_name}>
-        <PageColumns>
-          <PageColumnBody lg={8}>
-            <SubTabsSections
-              projectOrganisationId={projectOrganisationId}
-              subTabId={subTabId}
-            />
-            <SubTabsContents subTabId={subTabId} />
-          </PageColumnBody>
-          <PageColumnDetails lg={4}>
-            <StatusList organisationStatus={state?.state.slug || Status.NONE} />
-            <ActionValidationPanel
-              variant={ActionValidationVariants.Organisation}
-              queryState={queryState}
-              logs={validationLogs?.data || []}
-              onStatusChange={refetch}
-            />
-          </PageColumnDetails>
-        </PageColumns>
+        <Suspense fallback={<LoadingWrapper variant="basic" loading />}>
+          <PageColumns>
+            <PageColumnBody lg={8}>
+              <SubTabsSections
+                projectOrganisationId={projectOrganisationId}
+                subTabId={subTabId}
+              />
+              <SubTabsContents subTabId={subTabId} />
+            </PageColumnBody>
+            <PageColumnDetails lg={4}>
+              <StatusList
+                organisationStatus={state?.state.slug || Status.NONE}
+              />
+              <ActionValidationPanel
+                variant={ActionValidationVariants.Organisation}
+                queryState={queryState}
+                logs={validationLogs?.data || []}
+                onStatusChange={refetch}
+              />
+            </PageColumnDetails>
+          </PageColumns>
+        </Suspense>
       </PageBodyContainer>
     )
   );

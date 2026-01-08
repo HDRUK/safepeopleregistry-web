@@ -5,7 +5,7 @@ import { ProjectResponse } from "./types";
 
 export default async (
   id: number | string,
-  options: ResponseOptions
+  options?: ResponseOptions
 ): Promise<ResponseJson<ProjectResponse>> => {
   const response = await getRequest(`/projects/${id}`);
 

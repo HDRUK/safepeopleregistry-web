@@ -8,6 +8,9 @@ export default function getCustodianProjectUserValidationLogsQuery(
   registryId: number,
   options?: QueryOptions
 ) {
+  const suspenseEnabled =
+    options?.suspenseEnabled || options?.suspenseEnabled === undefined;
+
   return {
     queryKey: [
       "getCustodianProjectUserValidationLogs",
@@ -17,15 +20,17 @@ export default function getCustodianProjectUserValidationLogsQuery(
       ...(options?.queryKeySuffix || []),
     ],
     queryFn: ({ queryKey }) =>
-      getCustodianProjectUserValidationLogs(
-        queryKey[1] as number,
-        queryKey[2] as number,
-        queryKey[3] as number,
-        {
-          error: { message: "getCustodianProjectUserValidationLogsError" },
-          ...options?.responseOptions,
-        }
-      ),
+      suspenseEnabled
+        ? getCustodianProjectUserValidationLogs(
+            queryKey[1] as number,
+            queryKey[2] as number,
+            queryKey[3] as number,
+            {
+              error: { message: "getCustodianProjectUserValidationLogsError" },
+              ...options?.responseOptions,
+            }
+          )
+        : null,
     ...options,
   } as UseQueryOptions<
     Awaited<ReturnType<typeof getCustodianProjectUserValidationLogs>>

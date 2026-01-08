@@ -10,7 +10,7 @@ export default function PageBodyContainer({
   ...restProps
 }: PageBodyContainerProps) {
   return (
-    <Box {...restProps}>
+    <Box {...restProps} sx={{ position: "relative", ...restProps.sx }}>
       {heading && (
         <PageHeading
           heading={heading}

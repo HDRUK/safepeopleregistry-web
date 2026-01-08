@@ -11,6 +11,7 @@ interface ResponseTranslation {
 interface QueryOptions extends Partial<UseQueryOptions> {
   queryKeySuffix?: (string | number)[];
   responseOptions?: ResponseOptions;
+  suspenseEnabled?: boolean;
 }
 
 interface MutationOptions extends Partial<UseMutationOptions> {

@@ -1,5 +1,6 @@
 "use client";
 
+import LoadingWrapper from "@/components/LoadingWrapper";
 import UserDetails from "@/components/UserDetails";
 import { UserGroup } from "@/consts/user";
 import { useStore } from "@/data/store";
@@ -17,10 +18,10 @@ import { getCustodianProjectUserQuery } from "@/services/custodian_approvals";
 import { getUserQuery } from "@/services/users";
 import { getCustodianProjectUserValidationLogsQuery } from "@/services/validation_logs";
 import { toCamelCase } from "@/utils/string";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { notFound } from "next/navigation";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { UserSubTabs } from "../../../../../consts/tabs";
 import SubTabsSections from "../SubTabSections";
 import SubTabsContents from "../SubsTabContents";
@@ -43,29 +44,35 @@ function CustodianProjectUser({
   const {
     data: custodianProjectUser,
     isFetched: isFetchedCustodianProjectUser,
-  } = useQuery(getCustodianProjectUserQuery(custodian?.id, projectUserId));
+    refetch,
+  } = useSuspenseQuery(
+    getCustodianProjectUserQuery(custodian?.id, projectUserId)
+  );
 
   const { project_has_user: projectUser } = custodianProjectUser?.data || {};
 
   const { registry, project } = projectUser || {};
 
-  const { data: userData, isFetched } = useQuery({
-    ...getUserQuery(registry?.user?.id as number),
-    enabled: !!registry?.user?.id,
-  });
+  const { data: userData, isFetched } = useSuspenseQuery(
+    getUserQuery(registry?.user?.id as number, {
+      suspenseEnabled: !!registry?.user?.id,
+    })
+  );
 
   if (userData?.data.user_group !== UserGroup.USERS && isFetched) {
     notFound();
   }
 
-  const { data: validationLogs, ...queryState } = useQuery({
-    ...getCustodianProjectUserValidationLogsQuery(
+  const { data: validationLogs, ...queryState } = useSuspenseQuery(
+    getCustodianProjectUserValidationLogsQuery(
       custodian?.id as number,
       project?.id as number,
-      registry?.id as number
-    ),
-    enabled: !!registry?.id,
-  });
+      registry?.id as number,
+      {
+        suspenseEnabled: !!registry?.id,
+      }
+    )
+  );
 
   if (!project && !projectUser && isFetchedCustodianProjectUser) {
     notFound();
@@ -107,28 +114,30 @@ function CustodianProjectUser({
             })}
           </>
         }>
-        <PageColumns>
-          <PageColumnBody lg={8}>
-            <UserDetails projectUser={projectUser} />
+        <Suspense fallback={<LoadingWrapper variant="basic" loading />}>
+          <PageColumns>
+            <PageColumnBody lg={8}>
+              <UserDetails projectUser={projectUser} />
 
-            <SubTabsSections
-              projectUserId={projectUserId}
-              subTabId={subTabId}
-            />
-            <PageBody heading={t(toCamelCase(subTabId))}>
-              <SubTabsContents registryId={registry.id} subTabId={subTabId} />
-            </PageBody>
-          </PageColumnBody>
-          <PageColumnDetails lg={4}>
-            <StatusPanel variant={ActionValidationVariants.ProjectUser} />
-            <ActionValidationPanel
-              variant={ActionValidationVariants.ProjectUser}
-              queryState={queryState}
-              logs={validationLogs?.data || []}
-              onStatusChange={handleStatusUpdate}
-            />
-          </PageColumnDetails>
-        </PageColumns>
+              <SubTabsSections
+                projectUserId={projectUserId}
+                subTabId={subTabId}
+              />
+              <PageBody heading={t(toCamelCase(subTabId))}>
+                <SubTabsContents registryId={registry.id} subTabId={subTabId} />
+              </PageBody>
+            </PageColumnBody>
+            <PageColumnDetails lg={4}>
+              <StatusPanel variant={ActionValidationVariants.ProjectUser} />
+              <ActionValidationPanel
+                variant={ActionValidationVariants.ProjectUser}
+                queryState={queryState}
+                logs={validationLogs?.data || []}
+                onStatusChange={refetch}
+              />
+            </PageColumnDetails>
+          </PageColumns>
+        </Suspense>
       </PageBodyContainer>
     )
   );

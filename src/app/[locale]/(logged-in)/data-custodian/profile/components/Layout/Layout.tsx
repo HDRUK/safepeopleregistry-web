@@ -1,6 +1,7 @@
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 import { PageTabs } from "../../consts/tabs";
 import TabsSections from "../TabsSections";
+import LoadingWrapper from "@/components/LoadingWrapper";
 
 interface LayoutProps {
   children: ReactNode;

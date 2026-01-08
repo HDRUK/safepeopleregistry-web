@@ -761,6 +761,12 @@
     "text": "Text",
     "textPlaceholder": "Enter text here...",
     "textRequired": "Required field",
+    "EmailReset": {
+      "heading": "Change email address",
+      "description": "Please note, changing this email address will also change your sign in email address.",
+      "email": "Email",
+      "updateButton": "Update"
+    },
     "SafeProject": {
       "startDatePlaceholder": "Start date",
       "endDatePlaceholder": "End date",
@@ -1176,6 +1182,7 @@
   "Users": {
     "getUserError": "Could not get the relevant user",
     "Identity": {
+      "changeEmailLink": "Change email",
       "postUserSuccess": "User updated successfully",
       "postUserSuccessButton": "Ok",
       "postUserError": "There was a problem updating your user information. Please try again or contact us at <contactLink></contactLink>",
@@ -1825,6 +1832,50 @@
     "createdAt": "Created at",
     "CUSTODIAN_APPROVER": "Approver",
     "CUSTODIAN_ADMIN": "Admin"
+  },
+  "OrganisationsHistory": {
+    "daysSince": "{days} days ago",
+    "created": {
+      "created": {
+        "title": "Organisation created"
+      }
+    },
+    "updated": {
+      "updated": {
+        "title": "Updated their details",
+        "description": "The following data was changed: {attributeKeys}"
+      }
+    },
+    "project_has_user": {
+      "created": {
+        "title": "Added {name} to a project",
+        "description": "Titled: \"{project_title}\""
+      },
+      "updated": {
+        "title": "{name}'s project information was changed",
+        "description": "On \"{project_title}\", the following was changed... {attributeKeys}"
+      },
+      "deleted": {
+        "title": "Removed {name} from a project",
+        "description": "Titled: \"{project_title}\""
+      }
+    },
+    "validation_check": {
+      "passed": {
+        "title": "Passed manual check",
+        "description": "{check_description}"
+      },
+      "failed": {
+        "title": "Failed manual check",
+        "description": "{check_description}"
+      }
+    },
+    "custodian_project_validation_status": {
+      "status_changed": {
+        "title": "Project validation status changed",
+        "description": "{new_status} on project \"{project_name}\""
+      }
+    }
   },
   "UserHistory": {
     "daysSince": "{days} days ago",

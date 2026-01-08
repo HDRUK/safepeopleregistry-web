@@ -7,6 +7,9 @@ export default function getCustodianProjectOrganisationQuery(
   projectOrganisationId: number,
   options?: QueryOptions
 ) {
+  const suspenseEnabled =
+    options?.suspenseEnabled || options?.suspenseEnabled === undefined;
+
   return {
     queryKey: [
       "getCustodianProjectOrganisation",
@@ -14,16 +17,18 @@ export default function getCustodianProjectOrganisationQuery(
       Number(projectOrganisationId),
     ],
     queryFn: ({ queryKey }) =>
-      getCustodianProjectOrganisation(
-        queryKey[1] as number,
-        queryKey[2] as number,
-        {
-          error: {
-            message: "getCustodianProjectOrganisationError",
-          },
-          ...options?.responseOptions,
-        }
-      ),
+      suspenseEnabled
+        ? getCustodianProjectOrganisation(
+            queryKey[1] as number,
+            queryKey[2] as number,
+            {
+              error: {
+                message: "getCustodianProjectOrganisationError",
+              },
+              ...options?.responseOptions,
+            }
+          )
+        : null,
     ...options,
   } as UseQueryOptions<
     Awaited<ReturnType<typeof getCustodianProjectOrganisation>>
