@@ -148,13 +148,14 @@ Cypress.Commands.add("getResultsActionMenu", (value: string) => {
 });
 
 Cypress.Commands.add(
-  "swalClick",
+  "clickAlertModal",
   (text: string = "OK", title: string = "Success") => {
-    const swalContainer = cy.get(".swal2-container").should("be.visible");
-
-    swalContainer.get(".swal2-title").contains(title);
-
-    swalContainer.get("button").contains(text).click();
+    cy.get(dataCy("alert-modal"))
+      .should("be.visible")
+      .within(() => {
+        cy.get(dataCy("alert-modal-heading")).contains(title);
+        cy.contains("button", text).click();
+      });
   }
 );
 
@@ -180,7 +181,7 @@ Cypress.Commands.add("checkboxUncheck", (id: string) => {
 
 Cypress.Commands.add("selectValue", (id: string, value: string) => {
   cy.get(`#${id}`).click();
-  cy.get(`#menu-${id}`).get("li").contains(value).click();
+  cy.get(`.MuiPopover-root`).get("li").contains(value).click();
 });
 
 Cypress.Commands.add(
@@ -260,7 +261,7 @@ declare global {
       getResultsRow: (
         id?: number | "last" | "first" | undefined
       ) => Cypress.Chainable<JQuery<HTMLElement>>;
-      swalClick: (text?: string, title?: string) => void;
+      clickAlertModal: (text?: string, title?: string) => void;
       actionMenuClick: (text: string) => void;
       buttonClick: (text: string) => void;
       checkboxClick: (id: string) => void;

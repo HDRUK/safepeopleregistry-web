@@ -30,7 +30,7 @@ const dataEdittedAffiliation = {
   role: "Administrator",
 };
 
-describe("Affiliations journey",  () => {
+describe("Affiliations journey", () => {
   beforeEach(() => {
     loginUser();
 
@@ -41,7 +41,7 @@ describe("Affiliations journey",  () => {
     logout();
   });
 
-  it('should have no detectable accessibility violations on load', () => {
+  it("should have no detectable accessibility violations on load", () => {
     cy.waitForLoadingToFinish();
     cy.checkA11yPage();
   });
@@ -49,13 +49,13 @@ describe("Affiliations journey",  () => {
   it("Adds a current affiliation", () => {
     addAffiliationUsers(dataCurrentAffiliation);
 
-    cy.swalClick("Close", "Verification needed");
+    cy.clickAlertModal("Close", "Verification needed");
   });
 
   it("Adds an affiliation with an end date", () => {
     addAffiliationUsers(dataAffiliation);
 
-    cy.swalClick();
+    cy.clickAlertModal();
 
     hasAffiliationUsers(dataAffiliation);
   });

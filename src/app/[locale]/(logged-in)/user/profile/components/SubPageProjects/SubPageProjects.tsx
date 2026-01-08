@@ -10,10 +10,10 @@ import { useEffect } from "react";
 import StatusList from "@/components/StatusList";
 import { mockedSafeProjectGuidanceProps } from "@/mocks/data/cms";
 import Guidance from "@/components/Guidance";
+import { getSponsor, getSponsorshipStatus } from "@/utils/application";
 import { PageTabs, ProjectsSubTabs } from "../../consts/tabs";
 import SubTabsSections from "../SubTabSections";
 import SubTabsContents from "../SubsTabContents";
-import { getSponsor, getSponsorshipStatus } from "@/utils/application";
 
 interface PageProps {
   projectData: ResearcherProject;

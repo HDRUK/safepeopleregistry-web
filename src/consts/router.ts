@@ -9,7 +9,7 @@ const ROUTES: Routes = {
     path: "/register",
   },
   homepage: {
-    path: "/homepage",
+    path: "/",
   },
   about: {
     path: "/about",

@@ -1,18 +1,21 @@
 import { MutationState, QueryState } from "@/types/form";
-import { fireEvent, renderHook, screen, waitFor } from "../../utils/testUtils";
+import { useEffect } from "react";
+import { fireEvent, render, screen, waitFor } from "../../utils/testUtils";
 import useQueryConfirmAlerts from "./useQueryConfirmAlerts";
 
-const renderTest = (queryState: QueryState | MutationState) =>
-  renderHook(() => useQueryConfirmAlerts(queryState));
+const TestComponent = (queryState: QueryState | MutationState) => {
+  const showConfirm = useQueryConfirmAlerts(queryState);
+
+  useEffect(() => {
+    showConfirm(null);
+  }, []);
+
+  return null;
+};
 
 describe("useQueryConfirmAlerts", () => {
   it("show the delete alert", async () => {
-    const init = renderTest({
-      isSuccess: false,
-      isError: false,
-    });
-
-    init.result.current();
+    render(<TestComponent />);
 
     await waitFor(() => {
       expect(screen.getByText(/Delete/)).toBeInTheDocument();
@@ -26,12 +29,7 @@ describe("useQueryConfirmAlerts", () => {
   });
 
   it("show the error alert", async () => {
-    const init = renderTest({
-      isSuccess: false,
-      isError: true,
-    });
-
-    init.result.current();
+    render(<TestComponent isError />);
 
     const deleteButton = screen.getByRole("button", {
       name: /Delete/,

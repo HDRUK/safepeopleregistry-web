@@ -6,7 +6,7 @@ import { dataCy } from "../common";
 const approveAffiliationOrganisations = () => {
   cy.buttonClick("Confirm affiliation");
 
-  cy.swalClick("Close");
+  cy.clickAlertModal("Close");
 };
 
 const hasAffiliationApprovedOrganisations = (
@@ -25,7 +25,7 @@ const hasAffiliationApprovedOrganisations = (
 const declineAffiliationOrganisations = () => {
   cy.buttonClick("Decline affiliation");
 
-  cy.swalClick("Close");
+  cy.clickAlertModal("Close");
 };
 
 const hasAffiliationDeclinedOrganisations = (
@@ -62,8 +62,8 @@ const removeAffiliationOrganisations = (affiliation: ResearcherAffiliation) => {
 
   cy.actionMenuClick("Remove affiliation");
 
-  cy.swalClick("Go ahead", "Delete");
-  cy.swalClick("Close");
+  cy.clickAlertModal("Go ahead", "Delete");
+  cy.clickAlertModal("Close");
 };
 
 const hasRemoveAffiliationOrganisations = (

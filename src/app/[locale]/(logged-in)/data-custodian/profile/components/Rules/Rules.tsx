@@ -1,30 +1,31 @@
-import { useEffect, useMemo, useState } from "react";
-import { useTranslations } from "next-intl";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { PageBody } from "@/modules";
+import ButtonSave from "@/components/ButtonSave";
+import CheckboxList from "@/components/CheckboxList";
+import ErrorMessage from "@/components/ErrorMessage";
 import Form from "@/components/Form";
 import FormActions from "@/components/FormActions";
-import CheckboxList from "@/components/CheckboxList";
-import { mockedConfigurationRulesDescription } from "@/mocks/data/cms";
-import { showAlert } from "@/utils/showAlert";
 import { EntityModelTypes } from "@/consts/custodian";
+import { HeadingLevel } from "@/consts/header";
+import { DEFAULT_STALE_TIME } from "@/consts/requests";
+import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
+import { useStore } from "@/data/store";
+import { mockedConfigurationRulesDescription } from "@/mocks/data/cms";
+import { PageBody } from "@/modules";
 import {
   getCustodianEntityModelQuery,
   GetCustodianEntityModelResponse,
   putCustodianActiveEntityModelQuery,
 } from "@/services/custodians";
 import { Rule } from "@/types/rules";
-import { useStore } from "@/data/store";
-import ButtonSave from "@/components/ButtonSave";
-import ErrorMessage from "@/components/ErrorMessage";
-import { DEFAULT_STALE_TIME } from "@/consts/requests";
-import { HeadingLevel } from "@/consts/header";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
+import { useEffect, useMemo, useState } from "react";
 
 const NAMESPACE_TRANSLATION_CUSTODIAN_PROFILE = "CustodianProfile";
 
 export default function Rules() {
   const t = useTranslations(NAMESPACE_TRANSLATION_CUSTODIAN_PROFILE);
   const queryClient = useQueryClient();
+  const { showAlert, hideAlert } = useAlertModal();
 
   const [userRules, setUserRules] = useState<boolean[]>([]);
   const [orgRules, setOrgRules] = useState<boolean[]>([]);
@@ -115,14 +116,22 @@ export default function Rules() {
 
     try {
       await mutateAsync(payload);
-      showAlert("success", {
+      showAlert({
+        severity: "success",
         text: t("updateRulesSuccess"),
         confirmButtonText: t("successButton"),
+        onConfirm: async () => {
+          hideAlert();
+        },
       });
     } catch (_) {
-      showAlert("error", {
+      showAlert({
+        severity: "error",
         text: <ErrorMessage t={t} tKey="updateRulesError" />,
         confirmButtonText: t("errorButton"),
+        onConfirm: async () => {
+          hideAlert();
+        },
       });
     }
   };

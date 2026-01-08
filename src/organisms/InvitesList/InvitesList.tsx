@@ -3,7 +3,8 @@
 import { ActionMenu, ActionMenuItem } from "@/components/ActionMenu";
 import useColumns from "@/hooks/useColumns";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
-import { UsersTable } from "@/modules";
+import { PageSection, UsersTable } from "@/modules";
+import InvitesFilters from "@/modules/InvitesFilters";
 import {
   postResendInviteQuery,
   usePaginatedPendingInvitesQuery,
@@ -12,9 +13,9 @@ import { PendingInvite } from "@/types/application";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 
-const NAMESPACE_TRANSLATIONS = "UsersList";
+const NAMESPACE_TRANSLATIONS = "Admin.InvitesFilters";
 
-export default function UsersList() {
+export default function InvitesList() {
   const t = useTranslations(NAMESPACE_TRANSLATIONS);
   const { createDefaultColumn } = useColumns<PendingInvite>({ t });
 
@@ -53,5 +54,14 @@ export default function UsersList() {
     }),
   ];
 
-  return <UsersTable extraColumns={extraColumns} {...queryState} t={t} />;
+  return (
+    <>
+      <PageSection>
+        <InvitesFilters {...queryState} />
+      </PageSection>
+      <PageSection>
+        <UsersTable extraColumns={extraColumns} {...queryState} t={t} />
+      </PageSection>
+    </>
+  );
 }

@@ -5,8 +5,10 @@ import ReactQueryClientProvider from "@/components/ReactQueryClientProvider";
 import { RegistryGlobals } from "@/components/RegistryGlobals";
 import ThemeRegistry from "@/components/ThemeRegistry/ThemeRegistry";
 import { locales } from "@/config";
+import AlertModalProvider from "@/context/AlertModalProvider";
 import IntlClientProvider from "@/context/IntlClientProvider";
 import {
+  isChristmasBannerEnabled,
   isSponsorship,
   isTestFeatureEnabled,
   isTestFeatureUserAdmin,
@@ -22,7 +24,6 @@ import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { PropsWithChildren } from "react";
 import "../global.css";
-import "../sweetalert2-custom.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -49,8 +50,7 @@ export default async function RootLayout({
     isTestFeatureEnabled: (await isTestFeatureEnabled()) as boolean,
     isTestFeatureUserAdmin: (await isTestFeatureUserAdmin()) as boolean,
     isSponsorship: (await isSponsorship()) as boolean,
-    // isChristmasBannerEnabled: (await isChristmasBannerEnabled()) as boolean,
-    isChristmasBannerEnabled: true,
+    isChristmasBannerEnabled: (await isChristmasBannerEnabled()) as boolean,
   };
 
   // below boolean will grow as we get more banners.. i know this is a pointless const for now...
@@ -82,7 +82,7 @@ export default async function RootLayout({
                   {displayBanner && (
                     <BannerMessage enabledBanners={enabledBanners} />
                   )}
-                  {children}
+                  <AlertModalProvider>{children}</AlertModalProvider>
                 </FeatureProvider>
               </ThemeRegistry>
             </ReactQueryClientProvider>

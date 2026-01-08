@@ -21,7 +21,7 @@ const addSROOrganisations = (
 };
 
 const hasSROOrganisation = (
-  organisation: Organisation, 
+  organisation: Organisation,
   status: "Approved" | "Not approved"
 ) => {
   cy.getLatestRowOfResults();
@@ -32,7 +32,7 @@ const hasSROOrganisation = (
 
 const hasSRODisabledTabsOrganisations = () => {
   cy.get(dataCy("tabs-navigation")).within(() => {
-    cy.contains("a.Mui-disabled", "Team").should("exist");
+    cy.contains("a.Mui-disabled", "Team").should("not.exist");
     cy.contains("a.Mui-disabled", "Users").should("exist");
     cy.contains("a.Mui-disabled", "Projects").should("exist");
   });

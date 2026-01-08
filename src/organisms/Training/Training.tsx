@@ -2,6 +2,8 @@
 
 import { StoreUserHistories } from "@/data/store";
 
+import ErrorMessage from "@/components/ErrorMessage";
+import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
@@ -9,7 +11,6 @@ import { Button, Typography } from "@mui/material";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
-import ErrorMessage from "@/components/ErrorMessage";
 import { ActionMenu, ActionMenuItem } from "../../components/ActionMenu";
 import FormModal from "../../components/FormModal";
 import Table from "../../components/Table";
@@ -27,7 +28,6 @@ import { PostTrainingsPayload } from "../../services/trainings/types";
 import { EntityType } from "../../types/api";
 import { ResearcherTraining, User } from "../../types/application";
 import { formatDBDateTime, formatShortDate } from "../../utils/date";
-import { showAlert } from "../../utils/showAlert";
 import TrainingForm from "./TrainingForm";
 
 const NAMESPACE_TRANSLATION_TRAINING = "Training";
@@ -47,6 +47,7 @@ export default function Training({
   setHistories,
   getHistories,
 }: TrainingProps) {
+  const { showAlert, hideAlert } = useAlertModal();
   const t = useTranslations(NAMESPACE_TRANSLATION_TRAINING);
   const tApplication = useTranslations(NAMESPACE_TRANSLATION_APPLICATION);
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
@@ -97,9 +98,13 @@ export default function Training({
         setFileIdToDownload(undefined);
       }
     } catch (_) {
-      showAlert("error", {
+      showAlert({
+        severity: "error",
         text: <ErrorMessage t={t} tKey="fileDownloadError" />,
         confirmButtonText: t("errorButton"),
+        onConfirm: async () => {
+          hideAlert();
+        },
       });
     }
   }, [fileIdToDownload, fileDownload]);
@@ -145,8 +150,8 @@ export default function Training({
     {
       onSuccess: () => refetchTrainings(),
       confirmAlertProps: {
-        preConfirm: async (id: number) => {
-          await mutateDeleteAsync(id);
+        onConfirm: async id => {
+          await mutateDeleteAsync(id as number);
         },
       },
       errorAlertProps: {

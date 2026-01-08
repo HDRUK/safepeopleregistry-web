@@ -14,6 +14,7 @@ import { formatDBDate } from "@/utils/date";
 import { Grid, TextField } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
+import useQueryAlerts from "@/hooks/useQueryAlerts";
 import useUpdateOrganisation from "../../hooks/useUpdateOrganisation";
 import CertificationUploader from "./CertificationUploader";
 import {
@@ -31,8 +32,17 @@ export default function SecurityCompliance() {
   const t = useTranslations(NAMESPACE_TRANSLATION_FORM);
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
 
-  const { isPending: isLoading, onSubmit } = useUpdateOrganisation({
+  const {
+    isPending: isLoading,
+    onSubmit,
+    ...mutationState
+  } = useUpdateOrganisation({
     id: organisation?.id,
+  });
+
+  useQueryAlerts({
+    ...mutationState,
+    isLoading,
   });
 
   const schema = getValidation(t);
