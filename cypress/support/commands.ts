@@ -187,7 +187,7 @@ Cypress.Commands.add("selectValue", (id: string, value: string) => {
   }
 
   cy.get(selector).click();
-  cy.get(`.MuiPopover-root`).get("li").contains(value).click();
+  cy.get('[id^="menu-"].MuiPopover-root').get("li").contains(value).click();
 });
 
 Cypress.Commands.add(

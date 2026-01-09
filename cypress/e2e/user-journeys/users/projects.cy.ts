@@ -40,10 +40,10 @@ describe("Projects", () => {
     logout();
   });
 
-  // it("should have no detectable accessibility violations on load", () => {
-  //   cy.waitForLoadingToFinish();
-  //   cy.checkA11yPage();
-  // });
+  it("should have no detectable accessibility violations on load", () => {
+    cy.waitForLoadingToFinish();
+    cy.checkA11yPage();
+  });
 
   it("Has the correct sponsorship status", () => {
     cy.get(dataCy("sponsorship-status"))
