@@ -13,7 +13,7 @@ import {
 } from "@/types/form";
 import { getName, getShortStatus, getStatus } from "@/utils/application";
 import { formatDisplayLongDate } from "@/utils/date";
-import { dataCy } from "../common";
+import { dataCy, getModalByHeader } from "../common";
 import { DEFAULT_PROJECT_NAME, DEFAULT_ROLE_NAME } from "../data";
 import { inviteOrganisation } from "../admin/invite";
 
@@ -185,8 +185,10 @@ const inviteNewProjectUser = (invite: InviteUserFormValues) => {
 const addNewProjectUser = (user: User) => {
   cy.contains("button", "Add a new member").click();
 
-  cy.getResultsRowByValue(getName(user)).within(() => {
-    cy.selectValue(dataCy("project-role"), DEFAULT_ROLE_NAME);
+  getModalByHeader("Add new User").within(() => {
+    cy.getResultsRowByValue(getName(user)).within(() => {
+      cy.selectValue(dataCy("project-role"), DEFAULT_ROLE_NAME);
+    });
   });
 };
 
