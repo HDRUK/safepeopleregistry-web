@@ -9,8 +9,10 @@ import { useLocale } from "next-intl";
 import { enGB } from "date-fns/locale/en-GB";
 import dayjs from "dayjs";
 
-export interface DateInputProps
-  extends Omit<DatePickerProps<Date>, "onChange"> {
+export interface DateInputProps extends Omit<
+  DatePickerProps<Date>,
+  "onChange"
+> {
   id?: string;
   label?: string;
   format?: string;

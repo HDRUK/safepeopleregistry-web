@@ -15,16 +15,15 @@ enum OrganisationUsersFilterKeys {
   STATUS = "status",
 }
 
-export interface OrganisationUsersFiltersProps
-  extends PropsWithChildren<
-    Pick<
-      PaginatedQueryReturn<User>,
-      | "updateQueryParams"
-      | "resetQueryParams"
-      | "handleFieldToggle"
-      | "queryParams"
-    >
-  > {
+export interface OrganisationUsersFiltersProps extends PropsWithChildren<
+  Pick<
+    PaginatedQueryReturn<User>,
+    | "updateQueryParams"
+    | "resetQueryParams"
+    | "handleFieldToggle"
+    | "queryParams"
+  >
+> {
   statusList?: string[];
   includeFilters?: OrganisationUsersFilterKeys[];
 }

@@ -22,8 +22,10 @@ export type ExtendedUseFormReturn<T extends FieldValues> = UseFormReturn<T> & {
   isFieldRequired: (fieldName: keyof T) => boolean;
 };
 
-export interface FormProps<T extends AnyObject>
-  extends Omit<HTMLAttributes<HTMLFormElement>, "onSubmit" | "children"> {
+export interface FormProps<T extends AnyObject> extends Omit<
+  HTMLAttributes<HTMLFormElement>,
+  "onSubmit" | "children"
+> {
   children: ReactNode | ((methods: UseFormReturn<T>) => ReactNode);
   autoComplete?: "off";
   error?: ReactNode;

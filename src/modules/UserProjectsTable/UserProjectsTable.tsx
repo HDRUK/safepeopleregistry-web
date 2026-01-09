@@ -18,8 +18,10 @@ export type UserProjectsTableColumns =
   | "projectStatus"
   | "validationStatus";
 
-export interface UserProjectsTableProps
-  extends ModuleTables<ResearcherProject, UserProjectsTableColumns> {
+export interface UserProjectsTableProps extends ModuleTables<
+  ResearcherProject,
+  UserProjectsTableColumns
+> {
   routes?: {
     name: RouteConfig;
   };

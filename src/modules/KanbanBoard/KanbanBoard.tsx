@@ -68,10 +68,9 @@ export type KanbanBoardEntityProps<T> = WithRoutes<{
   options?: Partial<UseDroppableSortItemsFnOptions<T>>;
 }>;
 
-export interface KanbanBoardProps<T>
-  extends WithQueryState<
-    WithStateWorkflow<WithTranslations<UseDroppableSortItemsProps<T>>>
-  > {
+export interface KanbanBoardProps<T> extends WithQueryState<
+  WithStateWorkflow<WithTranslations<UseDroppableSortItemsProps<T>>>
+> {
   adjustScale?: boolean;
   cancelDrop?: CancelDrop;
   strategy?: SortingStrategy;

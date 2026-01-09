@@ -20,17 +20,16 @@ export enum ProjectOrganisationsFilterKeys {
   SORT = "sort",
 }
 
-export interface ProjectOrganisationsFilterProps
-  extends PropsWithChildren<
-    Pick<
-      PaginatedQueryReturn<CustodianProjectOrganisation>,
-      | "updateQueryParams"
-      | "resetQueryParams"
-      | "handleSortToggle"
-      | "handleFieldToggle"
-      | "queryParams"
-    >
-  > {
+export interface ProjectOrganisationsFilterProps extends PropsWithChildren<
+  Pick<
+    PaginatedQueryReturn<CustodianProjectOrganisation>,
+    | "updateQueryParams"
+    | "resetQueryParams"
+    | "handleSortToggle"
+    | "handleFieldToggle"
+    | "queryParams"
+  >
+> {
   statusList?: string[];
   includeFilters?: ProjectOrganisationsFilterKeys[];
 }

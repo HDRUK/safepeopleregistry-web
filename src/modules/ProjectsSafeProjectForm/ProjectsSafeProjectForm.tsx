@@ -27,8 +27,7 @@ import { ResearcherProject } from "../../types/application";
 import { MutationState } from "../../types/form";
 import InviteSponsor from "../InviteSponsor";
 
-export interface ProjectsSafeProjectFormProps
-  extends FormProps<ResearcherProject> {
+export interface ProjectsSafeProjectFormProps extends FormProps<ResearcherProject> {
   mutateState: MutationState;
   project: ResearcherProject;
 }

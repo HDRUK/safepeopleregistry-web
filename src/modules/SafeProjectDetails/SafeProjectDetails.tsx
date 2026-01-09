@@ -33,7 +33,9 @@ export default function SafeProjectDetails({
           column_id: "custodians",
           content: (
             <Typography component="ul">
-              {projectData.custodians?.map(({ name }) => <li>{name}</li>)}
+              {projectData.custodians?.map(({ name }) => (
+                <li>{name}</li>
+              ))}
             </Typography>
           ),
         },

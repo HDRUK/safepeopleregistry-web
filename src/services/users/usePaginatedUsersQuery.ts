@@ -4,8 +4,9 @@ import usePaginatedQuery, {
 import getUsers from "./getUsers";
 import { UsersResponse } from "./types";
 
-interface GetEntityUsersQuery<T = UsersResponse>
-  extends Partial<PaginatedQueryProps<T>> {}
+interface GetEntityUsersQuery<T = UsersResponse> extends Partial<
+  PaginatedQueryProps<T>
+> {}
 
 export default function usePaginatedUsersQuery({
   queryKeyBase,

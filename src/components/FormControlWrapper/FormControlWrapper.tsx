@@ -20,8 +20,10 @@ import {
 import { ExtendedUseFormReturn } from "../Form";
 import FormControlDescription from "../FormControlDescription";
 
-export interface FormControlProps
-  extends Omit<FormControlLabelProps, "control" | "label"> {
+export interface FormControlProps extends Omit<
+  FormControlLabelProps,
+  "control" | "label"
+> {
   renderField: (fieldProps: FieldValues & { error?: boolean }) => ReactNode;
   name: string;
   subtitle?: ReactNode;

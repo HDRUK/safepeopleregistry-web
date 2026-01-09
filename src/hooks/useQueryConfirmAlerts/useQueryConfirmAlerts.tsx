@@ -7,8 +7,10 @@ import useQueryAlerts, { QueryAlertOptions } from "../useQueryAlerts";
 
 const NAMESPACE_TRANSALATIONS_APPLICATION = "Application";
 
-export interface QueryAlertConfirmOptions
-  extends Omit<QueryAlertOptions, "enabled"> {
+export interface QueryAlertConfirmOptions extends Omit<
+  QueryAlertOptions,
+  "enabled"
+> {
   confirmAlertProps?: Omit<AlertModalProps, "open">;
   successAlertProps?: Omit<AlertModalProps, "open">;
   errorAlertProps?: Omit<AlertModalProps, "open">;

@@ -25,7 +25,6 @@ module.exports = {
   },
   plugins: [
     "react",
-    "react-hooks",
     "@typescript-eslint",
     "prettier",
     "import",
@@ -40,7 +39,6 @@ module.exports = {
     "plugin:jsx-a11y/recommended",
     "plugin:prettier/recommended",
     "plugin:security/recommended-legacy",
-    "plugin:react-hooks/recommended",
     "plugin:storybook/recommended",
   ],
   rules: {
