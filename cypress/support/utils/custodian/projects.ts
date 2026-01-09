@@ -182,11 +182,11 @@ const inviteNewProjectUser = (invite: InviteUserFormValues) => {
   // cy.clickAlertModal("Close");
 };
 
-const addNewProjectUser = () => {
-  cy.contains("button", "Add a new member");
+const addNewProjectUser = (user: User) => {
+  cy.contains("button", "Add a new member").click();
 
-  cy.getResultsRowByValue("Bill Murray").within(() => {
-    cy.selectValue("project-role", DEFAULT_ROLE_NAME);
+  cy.getResultsRowByValue(getName(user)).within(() => {
+    cy.selectValue(dataCy("project-role"), DEFAULT_ROLE_NAME);
   });
 };
 

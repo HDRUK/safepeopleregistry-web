@@ -144,6 +144,12 @@ const DEFAULT_UNAPPROVED_ORGANISATION = mockedOrganisation({
 const EMAIL_REGISTER_VERIFICATION_LABEL = "Link to e-mail address verification";
 const EMAIL_SIGN_ME_UP = "Sign me up!";
 
+const DEFAULT_USER = {
+  first_name: DEFAULT_USER_FIRST_NAME,
+  last_name: DEFAULT_USER_LAST_NAME,
+  email: DEFAULT_USER_EMAIL,
+};
+
 export {
   DEFAULT_AFFILIATION_USERS,
   DEFAULT_FROM_DATE,
@@ -167,4 +173,5 @@ export {
   EMAIL_REGISTER_VERIFICATION_LABEL,
   EMAIL_SIGN_ME_UP,
   DEFAULT_PASSWORD,
+  DEFAULT_USER,
 };
