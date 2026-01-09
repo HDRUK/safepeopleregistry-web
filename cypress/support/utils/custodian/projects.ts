@@ -186,9 +186,11 @@ const addNewProjectUser = (user: User) => {
   cy.contains("button", "Add a new member").click();
 
   getModalByHeader("Add new User").within(() => {
-    cy.getResultsRowByValue(getName(user)).within(() => {
-      cy.selectValue(dataCy("project-role"), DEFAULT_ROLE_NAME);
-    });
+    cy.getResultsRowByValue(getName(user))
+      .first()
+      .within(() => {
+        cy.selectValue(dataCy("project-role"), DEFAULT_ROLE_NAME);
+      });
   });
 };
 
