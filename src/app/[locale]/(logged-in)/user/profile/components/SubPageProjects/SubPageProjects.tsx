@@ -37,11 +37,6 @@ export default function SubPageProjects({ params, projectData }: PageProps) {
 
   const guidance = mockedSafeProjectGuidanceProps;
 
-  console.log(
-    "project?.project_has_sponsorships?.[0]",
-    project?.project_has_sponsorships?.[0].sponsor
-  );
-
   return (
     project && (
       <PageBodyContainer
