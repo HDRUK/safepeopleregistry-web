@@ -20,7 +20,7 @@ export default function SelectOrganisation({
 }: SelectOrganisationProps & SelectProps) {
   const { data: organisationsData } = useOrganisationsQuery({
     defaultQueryParams: {
-      perPage: PAGINATION_UPPER_LIMIT,
+      per_page: PAGINATION_UPPER_LIMIT,
     },
   });
 

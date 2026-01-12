@@ -180,8 +180,14 @@ Cypress.Commands.add("checkboxUncheck", (id: string) => {
 });
 
 Cypress.Commands.add("selectValue", (id: string, value: string) => {
-  cy.get(`#${id}`).click();
-  cy.get(`.MuiPopover-root`).get("li").contains(value).click();
+  let selector = `#${id}`;
+
+  if (id.includes("data-cy")) {
+    selector = id;
+  }
+
+  cy.get(selector).click();
+  cy.get('[id^="menu-"].MuiPopover-root').get("li").contains(value).click();
 });
 
 Cypress.Commands.add(

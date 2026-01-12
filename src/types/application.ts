@@ -490,6 +490,7 @@ type CustodianProjectUser = WithModelState<{
 
 type ProjectSponsorship = WithModelState<{
   sponsor_id: number;
+  sponsor: Organisation;
 }>;
 
 interface ProjectOrganisation {

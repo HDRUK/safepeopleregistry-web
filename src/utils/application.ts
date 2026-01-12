@@ -23,11 +23,12 @@ function getSponsorshipStatus(
   project: ResearcherProject
 ) {
   const statusOrg = organisation?.model_state?.state.slug;
+
   const statusProject =
     (
-      project?.custodian_has_project_sponsorships ||
       project?.project_has_sponsorships?.[0]
-        ?.custodian_has_project_has_sponsorship?.[0]
+        ?.custodian_has_project_has_sponsorship?.[0] ||
+      project?.custodian_has_project_sponsorships
     )?.model_state?.state.slug || "";
 
   if (statusOrg === Status.INVITED) {
@@ -46,6 +47,10 @@ function getSponsorshipStatus(
   }
 
   return statusOrg;
+}
+
+function getSponsor(project: ResearcherProject) {
+  return project?.project_has_sponsorships?.[0]?.sponsor;
 }
 
 function getStatus(slug: string) {
@@ -91,8 +96,6 @@ const getShortStatus = (slug: string) => {
       return "Escalation";
     case Status.AFFILIATION_EMAIL_VERIFY:
       return "Email verification needed";
-    case Status.INVITED:
-      return "Invited";
     default:
       return slug;
   }
@@ -177,4 +180,5 @@ export {
   getAbbreviatedListWithCount,
   getSponsorshipStatus,
   isSponsorshipStatusApproved,
+  getSponsor,
 };
