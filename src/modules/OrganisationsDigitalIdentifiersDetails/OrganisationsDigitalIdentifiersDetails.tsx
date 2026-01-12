@@ -25,6 +25,7 @@ export default function OrganisationsDigitalIdentifiersDetails({
           column_id: "companies_house_no",
           content: (
             <Link
+              target="_blank"
               href={`https://find-and-update.company-information.service.gov.uk/company/${organisationData.companies_house_no}`}>
               {organisationData.companies_house_no}
             </Link>
@@ -33,7 +34,9 @@ export default function OrganisationsDigitalIdentifiersDetails({
         {
           column_id: "ror_id",
           content: (
-            <Link href={`https://ror.org/${organisationData.ror_id}`}>
+            <Link
+              target="_blank"
+              href={`https://ror.org/${organisationData.ror_id}`}>
               {organisationData.ror_id}
             </Link>
           ),
