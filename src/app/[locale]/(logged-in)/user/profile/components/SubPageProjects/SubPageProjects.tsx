@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import StatusList from "@/components/StatusList";
 import { mockedSafeProjectGuidanceProps } from "@/mocks/data/cms";
 import Guidance from "@/components/Guidance";
+import { getSponsor, getSponsorshipStatus } from "@/utils/application";
 import { PageTabs, ProjectsSubTabs } from "../../consts/tabs";
 import SubTabsSections from "../SubTabSections";
 import SubTabsContents from "../SubsTabContents";
@@ -51,6 +52,10 @@ export default function SubPageProjects({ params, projectData }: PageProps) {
               validationStatus={
                 project?.custodian_has_project_user?.[0].model_state.state.slug
               }
+              sponsorshipStatus={getSponsorshipStatus(
+                getSponsor(project),
+                project
+              )}
             />
             <Guidance {...guidance} isCollapsible={false} infoWidth="100%" />
           </PageColumnDetails>

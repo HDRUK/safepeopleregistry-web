@@ -16,6 +16,8 @@ import putProjectUserPrimaryContactQuery from "./putProjectUserPrimaryContactQue
 import putProjectUsersQuery from "./putProjectUsersQuery";
 import useGetProjectAllUsers from "./useGetProjectAllUsers";
 import useGetProjectUsers from "./useGetProjectUsers";
+import putResendInviteSponorshipQuery from "./putResendInviteSponorshipQuery";
+import putResendInviteSponorship from "./putResendInviteSponorship";
 
 export {
   getAllProjects,
@@ -36,6 +38,8 @@ export {
   putProjectUsersQuery,
   useGetProjectAllUsers,
   useGetProjectUsers,
+  putResendInviteSponorshipQuery,
+  putResendInviteSponorship,
 };
 
 export type * from "./types";

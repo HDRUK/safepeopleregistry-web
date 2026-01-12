@@ -1,5 +1,6 @@
 import FormModal, { FormModalProps } from "@/components/FormModal";
 import { Message } from "@/components/Message";
+import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
 import { useStore } from "@/data/store";
 import CustodianEditContactForm from "@/modules/CustodianEditContactForm";
 import {
@@ -11,7 +12,6 @@ import { CustodianUser } from "@/types/application";
 import { CustodianEditContactFormFields } from "@/types/form";
 import { getPermission } from "@/utils/permissions";
 import { getCombinedQueryState } from "@/utils/query";
-import { showAlert } from "@/utils/showAlert";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useCallback } from "react";
@@ -30,6 +30,7 @@ export default function UsersModal({
   onClose,
   ...restProps
 }: UserModalProps) {
+  const { showAlert, hideAlert } = useAlertModal();
   const tForm = useTranslations(NAMESPACE_TRANSLATION_PROFILE_FORM);
   const permissions = useStore(state => state.config.permissions);
 
@@ -96,13 +97,17 @@ export default function UsersModal({
 
       onClose();
 
-      showAlert("success", {
+      showAlert({
+        severity: "success",
         text: user?.id
           ? tForm("updateSuccessfulDescription")
           : tForm("createSuccessfulDescription"),
         title: user?.id
           ? tForm("updateSuccessfulTitle")
           : tForm("createSuccessfulTitle"),
+        onConfirm: async () => {
+          hideAlert();
+        },
       });
     },
     [custodianId]

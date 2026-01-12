@@ -17,7 +17,6 @@ env:
   KEYCLOAK_REALM_PUBLIC_KEY: ${{ secrets.KEYCLOAK_REALM_PUBLIC_KEY }}
   IDVT_SUPPLIER_API_KEY: ${{ secrets.IDVT_SUPPLIER_API_KEY }}
   IDVT_SUPPLIER_SECRET_KEY: ${{ secrets.IDVT_SUPPLIER_SECRET_KEY }}
-  MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
   ORCID_CLIENT_SECRET: ${{ secrets.ORCID_CLIENT_SECRET }}
   CUSTODIAN_SALT_1: ${{ secrets.CUSTODIAN_SALT_1 }}
   CUSTODIAN_SALT_2: ${{ secrets.CUSTODIAN_SALT_2 }}
@@ -36,10 +35,11 @@ env:
   NEXT_PUBLIC_RECAPTCHA_SECRET_KEY: ${{ secrets.NEXT_PUBLIC_RECAPTCHA_SECRET_KEY }}
   ORCID_APP_ID: ${{ secrets.ORCID_APP_ID }}
   MAIL_MAILER: "smtp"
-  MAIL_HOST: "sandbox.smtp.mailtrap.io"
-  MAIL_PORT: "2525"
-  MAIL_USERNAME: "125be91aa64b22"
-  MAIL_ENCRYPTION: "null"
+  MAIL_HOST: "127.0.0.1"
+  MAIL_PORT: "1025"
+  MAIL_USERNAME:
+  MAIL_PASSWORD:
+  MAIL_ENCRYPTION: null
   MAIL_FROM_ADDRESS: "noreply@healthdatagateway.org"
   MAIL_FROM_NAME: "speedi-as"
   APP_NAME: "Safe People Registry"
@@ -174,8 +174,16 @@ jobs:
           --health-retries=5
         env:
           REDIS_PASSWORD: mypassword
+     
 
     steps:
+      - name: Install MailDev
+        run: npm install -g maildev
+
+      - name: Start MailDev
+        run: |
+          nohup maildev --smtp=1025 --web=8025 > maildev.log 2>&1 &
+          sleep 5
       - name: Checkout web
         uses: actions/checkout@v4
 

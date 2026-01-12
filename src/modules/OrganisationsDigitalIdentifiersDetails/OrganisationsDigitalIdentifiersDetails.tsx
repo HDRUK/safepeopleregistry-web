@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Link } from "@mui/material";
 import FieldsToText from "../../components/FieldsToText";
 import { Organisation } from "../../types/application";
 import CharitiesTable from "../CharitiesTable";
@@ -21,8 +21,27 @@ export default function OrganisationsDigitalIdentifiersDetails({
         {
           column_id: "organisation_unique_id",
         },
-        "companies_house_no",
-        "ror_id",
+        {
+          column_id: "companies_house_no",
+          content: (
+            <Link
+              target="_blank"
+              href={`https://find-and-update.company-information.service.gov.uk/company/${organisationData.companies_house_no}`}>
+              {organisationData.companies_house_no}
+            </Link>
+          ),
+        },
+        {
+          column_id: "ror_id",
+          content: (
+            <Link
+              target="_blank"
+              href={`https://ror.org/${organisationData.ror_id}`}>
+              {organisationData.ror_id}
+            </Link>
+          ),
+        },
+        "",
         {
           column_id: "charities",
           content: (

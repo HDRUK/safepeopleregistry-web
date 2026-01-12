@@ -67,6 +67,11 @@ interface DelegatesFormValues {
   delegate_email: string;
 }
 
+interface InviteOrganisationFormValues {
+  organisation_name: string;
+  lead_applicant_email: string;
+}
+
 interface RegistrationValues {
   email: string;
   first_name: string;
@@ -85,5 +90,6 @@ export type {
   KeyContactFormValues,
   CustodianEditContactFormFields,
   DelegatesFormValues,
+  InviteOrganisationFormValues,
   RegistrationValues,
 };

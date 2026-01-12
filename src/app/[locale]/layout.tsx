@@ -1,7 +1,18 @@
+import packageJson from "@/../package.json";
+import { FeatureProvider } from "@/components/FeatureProvider";
+import { BannerLists } from "@/components/Message";
 import ReactQueryClientProvider from "@/components/ReactQueryClientProvider";
+import { RegistryGlobals } from "@/components/RegistryGlobals";
 import ThemeRegistry from "@/components/ThemeRegistry/ThemeRegistry";
 import { locales } from "@/config";
-import ToastProvider from "@/context/ToastProvider";
+import AlertModalProvider from "@/context/AlertModalProvider";
+import IntlClientProvider from "@/context/IntlClientProvider";
+import {
+  isChristmasBannerEnabled,
+  isSponsorship,
+  isTestFeatureEnabled,
+  isTestFeatureUserAdmin,
+} from "@/flags";
 import BannerMessage from "@/modules/BannerMessage";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import GlobalStyles from "@mui/material/GlobalStyles";
@@ -12,14 +23,7 @@ import { getMessages } from "next-intl/server";
 import { Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { PropsWithChildren } from "react";
-import "../sweetalert2-custom.css";
 import "../global.css";
-import IntlClientProvider from "@/context/IntlClientProvider";
-import { isTestFeatureEnabled, isTestFeatureUserAdmin } from "@/flags";
-import { FeatureProvider } from "@/components/FeatureProvider";
-import packageJson from "@/../package.json";
-import { RegistryGlobals } from "@/components/RegistryGlobals";
-import { BannerLists } from "@/components/Message";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -45,8 +49,8 @@ export default async function RootLayout({
   const features = {
     isTestFeatureEnabled: (await isTestFeatureEnabled()) as boolean,
     isTestFeatureUserAdmin: (await isTestFeatureUserAdmin()) as boolean,
-    // isChristmasBannerEnabled: (await isChristmasBannerEnabled()) as boolean,
-    isChristmasBannerEnabled: true,
+    isSponsorship: (await isSponsorship()) as boolean,
+    isChristmasBannerEnabled: (await isChristmasBannerEnabled()) as boolean,
   };
 
   // below boolean will grow as we get more banners.. i know this is a pointless const for now...
@@ -55,6 +59,7 @@ export default async function RootLayout({
   const enabledBanners: BannerLists = {
     christmasMessage: features.isChristmasBannerEnabled,
   };
+
   return (
     <html lang={locale}>
       {gtmId && <GoogleTagManager gtmId={gtmId} />}
@@ -67,19 +72,17 @@ export default async function RootLayout({
             <ReactQueryClientProvider>
               <ThemeRegistry>
                 <FeatureProvider features={features}>
-                  <ToastProvider>
-                    <GlobalStyles
-                      styles={{
-                        [".MuiGrid-item .MuiGrid-container"]: {
-                          maxWidth: "initial",
-                        },
-                      }}
-                    />
-                    {displayBanner && (
-                      <BannerMessage enabledBanners={enabledBanners} />
-                    )}
-                    {children}
-                  </ToastProvider>
+                  <GlobalStyles
+                    styles={{
+                      [".MuiGrid-item .MuiGrid-container"]: {
+                        maxWidth: "initial",
+                      },
+                    }}
+                  />
+                  {displayBanner && (
+                    <BannerMessage enabledBanners={enabledBanners} />
+                  )}
+                  <AlertModalProvider>{children}</AlertModalProvider>
                 </FeatureProvider>
               </ThemeRegistry>
             </ReactQueryClientProvider>

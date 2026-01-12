@@ -5,6 +5,13 @@ const dataCy = (value: string) => {
   return `[data-cy="${value}"]`;
 };
 
+function getModalByHeader(header) {
+  return cy
+    .get('div[role="presentation"]')
+    .filter(`:has(div:contains("${header}"))`)
+    .first();
+}
+
 const logout = () => {
   /* Yet to fix */
   // Cypress.session.clearAllSavedSessions();
@@ -47,4 +54,5 @@ export {
   shouldBeOrganisationProfile,
   shouldBeCustodianProfile,
   signout,
+  getModalByHeader,
 };

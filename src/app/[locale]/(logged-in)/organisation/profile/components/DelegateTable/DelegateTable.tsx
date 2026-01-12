@@ -2,17 +2,16 @@ import { ActionMenu } from "@/components/ActionMenu";
 import DecoupleDelegate from "@/components/DecoupleDelegate";
 import ErrorMessage from "@/components/ErrorMessage";
 import FormModal from "@/components/FormModal";
-import LoadingWrapper from "@/components/LoadingWrapper";
 import Table from "@/components/Table";
-import { DEFAULT_STALE_TIME } from "@/consts/requests";
-import { useStore } from "@/data/store";
-import { getOrganisationDelegatesQuery } from "@/services/organisations";
+import { PageSection } from "@/modules";
+import { UsersResponse } from "@/services/users";
 import { User } from "@/types/application";
+import { ResponseJson } from "@/types/requests";
 import { getName } from "@/utils/application";
 import { formatShortDate } from "@/utils/date";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import { Box, Button } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
+import { UseQueryResult } from "@tanstack/react-query";
 import { CellContext, ColumnDef } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
@@ -21,25 +20,13 @@ import InviteDelegateForm from "../InviteDelegateForm";
 
 const NAMESPACE_TRANSLATION_PROFILE = "ProfileOrganisation";
 
-const DelegateTable = () => {
+const DelegateTable = ({
+  refetch,
+  data,
+  isLoading,
+  isError,
+}: UseQueryResult<ResponseJson<UsersResponse>, Error>) => {
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
-  const { organisation } = useStore(state => ({
-    organisation: state.config.organisation,
-    user: state.getUser(),
-  }));
-
-  const {
-    isLoading: isLoadingDelegates,
-    isError: isErrorDelegates,
-    data: delegatesData,
-    refetch: refetchDelegates,
-  } = useQuery({
-    ...getOrganisationDelegatesQuery(
-      organisation?.id as number,
-      !!organisation
-    ),
-    staleTime: DEFAULT_STALE_TIME,
-  });
 
   const [openInviteModal, setOpenInviteModal] = useState<boolean>(false);
 
@@ -52,10 +39,10 @@ const DelegateTable = () => {
 
   const renderActions = (info: CellContext<User, unknown>) => (
     <ActionMenu>
-      <EditDelegate user={info.row.original} onSuccess={refetchDelegates} />
+      <EditDelegate user={info.row.original} onSuccess={refetch} />
       <DecoupleDelegate
         user={info.row.original}
-        onSuccess={refetchDelegates}
+        onSuccess={refetch}
         payload={{ is_delegate: 0 }}
         namespace="DecoupleDelegates"
       />
@@ -92,18 +79,20 @@ const DelegateTable = () => {
   ];
 
   return (
-    <LoadingWrapper variant="basic" loading={isLoadingDelegates}>
-      <Table
-        total={delegatesData?.data.length}
-        data={delegatesData?.data || []}
-        columns={columns}
-        errorMessage={<ErrorMessage t={tProfile} tKey="getDelegatesError" />}
-        queryState={{
-          isLoading: isLoadingDelegates,
-          isError: isErrorDelegates || delegatesData === undefined,
-        }}
-      />
-      <>
+    <>
+      <PageSection>
+        <Table
+          total={data?.data.length}
+          data={data?.data || []}
+          columns={columns}
+          errorMessage={<ErrorMessage t={tProfile} tKey="getDelegatesError" />}
+          queryState={{
+            isLoading,
+            isError: isError || data === undefined,
+          }}
+        />
+      </PageSection>
+      <PageSection>
         <Button variant="outlined" onClick={() => setOpenInviteModal(true)}>
           {tProfile("inviteAnotherDelegate")}
         </Button>
@@ -115,12 +104,12 @@ const DelegateTable = () => {
             onCancel={() => setOpenInviteModal(false)}
             onSuccess={() => {
               setOpenInviteModal(false);
-              refetchDelegates();
+              refetch();
             }}
           />
         </FormModal>
-      </>
-    </LoadingWrapper>
+      </PageSection>
+    </>
   );
 };
 

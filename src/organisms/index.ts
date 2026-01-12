@@ -4,7 +4,8 @@ import OrganisationsProjectsTable from "./OrganisationsProjectsTable";
 import Training from "./Training";
 import Application from "./Application";
 import OrganisationsList from "./OrganisationsList";
-import UsersList from "./UsersList";
+import InvitesList from "./InvitesList";
+import InviteOrganisationModal from "./InviteOrganisationModal";
 
 export {
   Application,
@@ -13,5 +14,6 @@ export {
   OrganisationsProjectsTable,
   Training,
   OrganisationsList,
-  UsersList,
+  InvitesList,
+  InviteOrganisationModal,
 };

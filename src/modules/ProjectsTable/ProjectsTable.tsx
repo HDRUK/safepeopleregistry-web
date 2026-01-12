@@ -1,5 +1,6 @@
 import useColumns from "@/hooks/useColumns";
 import { ModuleTables } from "@/types/modules";
+import { getSponsorshipStatus } from "@/utils/application";
 import { formatDisplayLongDate } from "@/utils/date";
 import { filterColumns } from "@/utils/table";
 import { CellContext, ColumnDef } from "@tanstack/react-table";
@@ -8,7 +9,12 @@ import ChipStatus from "../../components/ChipStatus";
 import ErrorMessage from "../../components/ErrorMessage";
 import Table from "../../components/Table";
 import { EntityType } from "../../types/api";
-import { ResearcherProject } from "../../types/application";
+import {
+  Custodian,
+  Organisation,
+  ResearcherProject,
+  User,
+} from "../../types/application";
 import {
   renderOrganisationsNameCell,
   renderProjectNameCell,
@@ -23,19 +29,24 @@ export type ProjectsTableColumns =
   | "organisations"
   | "status"
   | "organisationStatus"
-  | "validationStatus";
+  | "sponsorshipStatus"
+  | "validationStatus"
+  | "uniqueId"
+  | "statusChanged";
 
 export type ProjectsTableProps = ModuleTables<
   ResearcherProject,
   ProjectsTableColumns
 > & {
   variant: EntityType;
+  entity?: Custodian | Organisation | User;
 };
 
 export default function ProjectsTable({
   t,
   variant,
   includeColumns = [
+    "uniqueId",
     "title",
     "laySummary",
     "startDate",
@@ -44,9 +55,12 @@ export default function ProjectsTable({
     "organisations",
     "status",
     "organisationStatus",
+    "sponsorshipStatus",
     "validationStatus",
+    "statusChanged",
   ],
   extraColumns,
+  entity,
   ...restProps
 }: ProjectsTableProps) {
   const { createDefaultColumn } = useColumns<ResearcherProject>({
@@ -65,6 +79,9 @@ export default function ProjectsTable({
         cell: info => {
           return renderProjectNameCell(info);
         },
+      }),
+      createDefaultColumn("uniqueId", {
+        accessorKey: "unique_id",
       }),
       createDefaultColumn("laySummary", {
         accessorKey: "lay_summary",
@@ -85,21 +102,29 @@ export default function ProjectsTable({
               accessorKey: "project_users_count",
               minSize: 50,
             }),
+            createDefaultColumn("organisations", {
+              cell: info => renderOrganisationsNameCell(info.getValue()),
+            }),
           ]
         : []),
-      createDefaultColumn("organisations", {
-        cell: info => renderOrganisationsNameCell(info.getValue()),
-      }),
-      createDefaultColumn("status", {
-        cell: info => (
-          <ChipStatus status={info.row.original.model_state?.state.slug} />
-        ),
-      }),
       ...(variant === EntityType.ORGANISATION
         ? [
             createDefaultColumn("organisationStatus", {
               accessorKey: "custodian_has_project_organisation",
               cell: renderStatus,
+            }),
+            createDefaultColumn("sponsorshipStatus", {
+              accessorKey: "custodian_has_project_sponsorships",
+              cell: info => {
+                return (
+                  <ChipStatus
+                    status={getSponsorshipStatus(
+                      entity as Organisation,
+                      info.row.original
+                    )}
+                  />
+                );
+              },
             }),
           ]
         : []),
@@ -112,6 +137,15 @@ export default function ProjectsTable({
             },
           ]
         : []),
+      createDefaultColumn("status", {
+        cell: info => (
+          <ChipStatus status={info.row.original.model_state?.state.slug} />
+        ),
+      }),
+      createDefaultColumn("statusChanged", {
+        cell: info =>
+          formatDisplayLongDate(info.row.original.model_state?.updated_at),
+      }),
     ];
 
     return filterColumns(initialColumns, includeColumns, extraColumns || []);

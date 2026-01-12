@@ -21,6 +21,7 @@ import getOrganisationRegistriesQuery from "./getOrganisationRegistriesQuery";
 import postOrganisationNewAccount from "./postOrganisationNewAccount";
 import putOrganisationApprovedQuery from "./putOrganisationApprovedQuery";
 import putOrganisationApproved from "./putOrganisationApproved";
+import usePagedSponsoredProjectsQuery from "./usePagedSponsoredProjectsQuery";
 
 export {
   putOrganisationApprovedQuery,
@@ -46,6 +47,7 @@ export {
   useOrganisationsQuery,
   postCustodianInviteUser,
   postCustodianInviteUserQuery,
+  usePagedSponsoredProjectsQuery,
 };
 
 export type * from "./types";

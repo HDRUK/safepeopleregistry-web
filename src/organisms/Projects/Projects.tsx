@@ -1,60 +1,65 @@
 "use client";
 
-import { StoreState, useStore } from "@/data/store";
+import { usePagedSponsoredProjectsQuery } from "@/services/organisations";
+import { Typography } from "@mui/material";
 import { ColumnDef } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
+import { useFeatures } from "../../components/FeatureProvider";
+import { StoreState, useStore } from "../../data/store";
 import useColumns from "../../hooks/useColumns";
 import PageSection from "../../modules/PageSection";
 import ProjectsFilters from "../../modules/ProjectsFilters";
 import ProjectsTable from "../../modules/ProjectsTable";
 import useEntityProjectsQuery from "../../services/projects/useEntityProjectsQuery";
 import { EntityType } from "../../types/api";
-import { ResearcherProject } from "../../types/application";
+import {
+  Custodian,
+  Organisation,
+  ResearcherProject,
+  User,
+} from "../../types/application";
 import { renderProjectNameCell } from "../../utils/cells";
 
 const NAMESPACE_TRANSLATIONS_PROJECTS = "Projects";
 
 type VariantConfig = {
-  getId: (store: StoreState) => string | number | undefined;
+  getEntity: (store: StoreState) => Custodian | Organisation | User | undefined;
 };
 
 const variantConfig: Record<EntityType, VariantConfig> = {
   [EntityType.ORGANISATION]: {
-    getId: store => {
-      const organisation = store.getOrganisation();
-      return organisation?.id;
-    },
+    getEntity: store => store.getOrganisation(),
   },
   [EntityType.CUSTODIAN]: {
-    getId: store => {
-      const custodian = store.getCustodian();
-      return custodian?.id;
-    },
+    getEntity: store => store.getCustodian(),
   },
   [EntityType.USER]: {
-    getId: store => {
-      const user = store.getUser();
-      return user?.id;
-    },
+    getEntity: store => store.getUser(),
   },
 };
 
 interface ProjectsProps {
   variant: EntityType;
   entityId?: number;
+  includeSponsorship?: boolean;
 }
 
-export default function Projects({ variant, entityId }: ProjectsProps) {
+export default function Projects({
+  variant,
+  entityId,
+  includeSponsorship,
+}: ProjectsProps) {
   const t = useTranslations(NAMESPACE_TRANSLATIONS_PROJECTS);
   const routes = useStore(state => state.getApplication().routes);
   const { createDefaultColumn } = useColumns<ResearcherProject>({
     t,
   });
 
+  const { isSponsorship } = useFeatures();
   const store = useStore();
-  const { getId } = variantConfig[variant];
-  const defaultEntityId = entityId || getId(store);
+  const entity = variantConfig[variant]?.getEntity(store);
+  const defaultEntityId = entityId || entity?.id;
 
   const {
     data: projectsData,
@@ -71,6 +76,14 @@ export default function Projects({ variant, entityId }: ProjectsProps) {
     variant,
     queryKeyBase: ["getProjects"],
     enabled: !!defaultEntityId,
+  });
+
+  const showSponsorship =
+    variant === EntityType.ORGANISATION && includeSponsorship;
+
+  const sponsorshipQuery = usePagedSponsoredProjectsQuery(defaultEntityId, {
+    queryKeyBase: ["getSponsoredProjects"],
+    enabled: includeSponsorship,
   });
 
   const extraColumns: ColumnDef<ResearcherProject>[] = useMemo(
@@ -104,13 +117,65 @@ export default function Projects({ variant, entityId }: ProjectsProps) {
       <PageSection>
         <ProjectsFilters
           queryParams={queryParams}
-          updateQueryParams={updateQueryParams}
-          resetQueryParams={resetQueryParams}
-          handleSortToggle={handleSortToggle}
-          handleFieldToggle={handleFieldToggle}
+          updateQueryParams={newParams => {
+            updateQueryParams(newParams);
+            if (showSponsorship) sponsorshipQuery.updateQueryParams(newParams);
+          }}
+          resetQueryParams={overideParams => {
+            resetQueryParams(overideParams);
+            if (showSponsorship)
+              sponsorshipQuery.resetQueryParams(overideParams);
+          }}
+          handleSortToggle={(field, direction) => {
+            handleSortToggle(field, direction);
+            if (showSponsorship)
+              sponsorshipQuery.handleSortToggle(field, direction);
+          }}
+          handleFieldToggle={(field, options, isMultiple) => {
+            handleFieldToggle(field, options, isMultiple);
+            if (showSponsorship)
+              sponsorshipQuery.handleFieldToggle(field, options, isMultiple);
+          }}
         />
       </PageSection>
-      <PageSection>
+      {showSponsorship && isSponsorship && (
+        <PageSection data-cy="projects-sponsorship">
+          <Typography variant="h6" component="h2" mb={2}>
+            {t("sponsoredProjectsTitle")}
+          </Typography>
+          <ProjectsTable
+            total={sponsorshipQuery.total}
+            last_page={sponsorshipQuery.last_page}
+            setPage={sponsorshipQuery.setPage}
+            data={sponsorshipQuery.data}
+            queryState={sponsorshipQuery}
+            isPaginated
+            extraColumns={extraColumns}
+            t={t}
+            variant={variant}
+            includeColumns={[
+              "title",
+              "laySummary",
+              "startDate",
+              "endDate",
+              "users",
+              "status",
+              "sponsorshipStatus",
+              "validationStatus",
+            ]}
+            paginationProps={{
+              "aria-label": "Sponsored projects table pagination",
+            }}
+            entity={entity as Organisation}
+          />
+        </PageSection>
+      )}
+      <PageSection data-cy="projects">
+        {showSponsorship && isSponsorship && (
+          <Typography variant="h6" component="h2" mb={2}>
+            {t("ownProjectsTitle")}
+          </Typography>
+        )}
         <ProjectsTable
           total={total}
           last_page={last_page}
@@ -121,6 +186,17 @@ export default function Projects({ variant, entityId }: ProjectsProps) {
           extraColumns={extraColumns}
           t={t}
           variant={variant}
+          includeColumns={[
+            "title",
+            "laySummary",
+            "startDate",
+            "endDate",
+            "users",
+            "status",
+            "organisationStatus",
+            "validationStatus",
+          ]}
+          paginationProps={{ "aria-label": "Projects table pagination" }}
         />
       </PageSection>
     </>

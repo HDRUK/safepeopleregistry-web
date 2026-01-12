@@ -98,7 +98,7 @@ export const useCustodianProjectOrganisation = ({
       refetch();
     },
     successAlertProps: {
-      willClose: () => {
+      onConfirm: async () => {
         onStatusChange?.();
       },
     },

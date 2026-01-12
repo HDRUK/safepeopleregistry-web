@@ -20,6 +20,7 @@ enum Status {
   INVITED = "invited",
   FORM_RECEIVED = "form_received",
   REGISTERED = "registered",
+  ORGANISATION_REGISTERED = "organisation_registered",
   INVITE_SENT = "invite_sent",
   APPROVED = "approved",
   COMPLETED = "completed",
@@ -50,6 +51,17 @@ enum Status {
   NONE = "none",
   ORGANISATION_NOT_VALIDATED = "organisation_not_validated",
   ORGANISATION_VALIDATED = "organisation_validated",
+  SPONSORSHIP_PENDING = "sponsorship_pending",
+  SPONSORSHIP_APPROVED = "sponsorship_approved",
+  SPONSORSHIP_REJECTED = "sponsorship_rejected",
 }
 
-export { VALIDATION_SCHEMA_KEY, EMAIL_TEMPLATE, PendingInvite, Status };
+const PAGINATION_UPPER_LIMIT = 1000;
+
+export {
+  VALIDATION_SCHEMA_KEY,
+  EMAIL_TEMPLATE,
+  PendingInvite,
+  Status,
+  PAGINATION_UPPER_LIMIT,
+};

@@ -7,11 +7,15 @@ import {
   ResearcherProject,
   User,
 } from "@/types/application";
-import { InviteUserFormValues } from "@/types/form";
+import {
+  InviteOrganisationFormValues,
+  InviteUserFormValues,
+} from "@/types/form";
 import { getName, getShortStatus, getStatus } from "@/utils/application";
 import { formatDisplayLongDate } from "@/utils/date";
-import { dataCy } from "../common";
+import { dataCy, getModalByHeader } from "../common";
 import { DEFAULT_PROJECT_NAME, DEFAULT_ROLE_NAME } from "../data";
+import { inviteOrganisation } from "../admin/invite";
 
 const goToProjectUsersList = (projectTitle: string = DEFAULT_PROJECT_NAME) => {
   cy.visitFirst(ROUTES.profileCustodianProjects.path);
@@ -33,7 +37,7 @@ const changeStatusProjectEntities = (status: Status) => {
     .contains("button", "Confirm")
     .click({ force: true });
 
-  cy.swalClick("Close");
+  cy.clickAlertModal("Close");
 };
 
 const changeStatusProjectOrganisations = (
@@ -64,8 +68,8 @@ const removeFromProjectUsers = (user: User) => {
 
   cy.actionMenuClick("Remove from project");
 
-  cy.swalClick("Delete", "Warning");
-  cy.swalClick("Close");
+  cy.clickAlertModal("Delete", "Warning");
+  cy.clickAlertModal("Close");
 };
 
 const changePrimaryContactProjectUsers = (project: CustodianProjectUser) => {
@@ -77,7 +81,7 @@ const changePrimaryContactProjectUsers = (project: CustodianProjectUser) => {
 
   cy.actionMenuClick("Make primary contact");
 
-  cy.swalClick("Close");
+  cy.clickAlertModal("Close");
 };
 
 const hasPrimaryContact = (
@@ -166,24 +170,35 @@ const inviteNewProjectUser = (invite: InviteUserFormValues) => {
   cy.selectValue("organisation_id", invite.organisation_id);
 
   cy.saveFormClick("Invite");
-  cy.swalClick("Close");
+  cy.clickAlertModal("Close");
 
   cy.wait(2000);
 
   cy.saveContinueClick("Save");
-  cy.swalClick("Close");
+  cy.clickAlertModal("Close");
 
   // Observers haven't complete when refresh is called
   // cy.saveFormClick();
-  // cy.swalClick("Close");
+  // cy.clickAlertModal("Close");
 };
 
-const addNewProjectUser = () => {
-  cy.contains("button", "Add a new member");
+const addNewProjectUser = (user: User) => {
+  cy.contains("button", "Add a new member").click();
 
-  cy.getResultsRowByValue("Bill Murray").within(() => {
-    cy.selectValue("project-role", DEFAULT_ROLE_NAME);
+  getModalByHeader("Add new User").within(() => {
+    cy.getResultsRowByValue(getName(user))
+      .first()
+      .within(() => {
+        cy.selectValue(dataCy("project-role"), DEFAULT_ROLE_NAME);
+      });
   });
+};
+
+const invitesNewSponsor = (invite: InviteOrganisationFormValues) => {
+  cy.contains("button", "Add new project").click();
+  cy.contains("button", "Invite to register").click();
+
+  inviteOrganisation(invite);
 };
 
 const addNewProject = (project: ResearcherProject) => {
@@ -191,6 +206,9 @@ const addNewProject = (project: ResearcherProject) => {
 
   cy.get("#unique_id").clear().type(project.unique_id);
   cy.get("#title").clear().type(project.title);
+
+  cy.selectValue("sponsor_id", "Test Organisation, LTD");
+
   cy.get("#request_category_type").clear().type(project.request_category_type);
   cy.dateSelectValue("start_date", project.start_date);
   cy.dateSelectValue("end_date", project.end_date);
@@ -199,7 +217,14 @@ const addNewProject = (project: ResearcherProject) => {
   cy.get("#technical_summary").clear().type(project.technical_summary);
 
   cy.saveContinueClick("Save");
-  cy.swalClick("Close");
+  cy.clickAlertModal("Close");
+};
+
+const hasProjectSponsor = () => {
+  cy.get(dataCy("invite-sponsor")).within(() => {
+    cy.contains(getStatus(Status.INVITED)).should("exist");
+    cy.contains("button", "Resend invite").should("exist");
+  });
 };
 
 const hasProject = (project: ResearcherProject) => {
@@ -211,6 +236,12 @@ const hasProject = (project: ResearcherProject) => {
     cy.contains("td", formatDisplayLongDate(project.start_date));
     cy.contains("td", formatDisplayLongDate(project.end_date));
     cy.contains("td", getStatus(project.model_state.state.slug));
+  });
+};
+
+const hasSponsoredProject = (project: ResearcherProject) => {
+  cy.get(dataCy("projects-sponsorship")).within(() => {
+    hasProject(project);
   });
 };
 
@@ -235,21 +266,21 @@ const updateSafeDataProject = (projectDetails: ProjectDetails) => {
   cy.dateSelectValue("access_date", projectDetails.access_date);
 
   cy.saveContinueClick("Save");
-  cy.swalClick("Close");
+  cy.clickAlertModal("Close");
 };
 
 const updateSafeSettingsProject = (projectDetails: ProjectDetails) => {
   cy.get("#data_privacy").clear().type(projectDetails.data_privacy);
 
   cy.saveContinueClick("Save");
-  cy.swalClick("Close");
+  cy.clickAlertModal("Close");
 };
 
 const updateSafeOutputsProject = (projectDetails: ProjectDetails) => {
   cy.get("#data_assets").clear().type(projectDetails.data_assets);
 
   cy.saveContinueClick("Save");
-  cy.swalClick("Close");
+  cy.clickAlertModal("Close");
 };
 
 export {
@@ -269,4 +300,7 @@ export {
   updateSafeDataProject,
   updateSafeOutputsProject,
   updateSafeSettingsProject,
+  invitesNewSponsor,
+  hasProjectSponsor,
+  hasSponsoredProject,
 };

@@ -35,6 +35,7 @@ const PAYLOAD_FIELDS = [
   "technical_summary",
   "other_approval_committees",
   "status",
+  "sponsor_id",
 ];
 
 export default function ProjectsSafeProject() {
@@ -100,6 +101,7 @@ export default function ProjectsSafeProject() {
             defaultValues={defaultValues}
             mutateState={mutateState}
             onSubmit={handleSubmit}
+            project={project}
           />
         </PageBody>
       </PageColumnBody>

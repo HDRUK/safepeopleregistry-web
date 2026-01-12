@@ -11,6 +11,7 @@ export interface StatusListProps {
   validationStatus?: Status;
   organisationStatus?: Status;
   affiliationStatus?: Status;
+  sponsorshipStatus?: Status;
 }
 
 const NAMESPACE_TRANSLATION = "Application";
@@ -20,14 +21,44 @@ export default function StatusList({
   validationStatus,
   organisationStatus,
   affiliationStatus,
+  sponsorshipStatus,
 }: StatusListProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION);
 
-  const statuses: { label: string; value?: Status }[] = [
-    { label: t("projectStatus"), value: projectStatus },
-    { label: t("validationStatus"), value: validationStatus },
-    { label: t("organisationStatus"), value: organisationStatus },
-    { label: t("affiliationStatus"), value: affiliationStatus },
+  let empties: { label: string; value: string; dataCy: string }[] = [];
+
+  if (sponsorshipStatus) {
+    empties = [
+      {
+        label: t("sponsorshipStatus"),
+        value: sponsorshipStatus,
+        dataCy: "sponsorship-status",
+      },
+    ];
+  }
+
+  const statuses: { label: string; value?: Status; dataCy: string }[] = [
+    {
+      label: t("projectStatus"),
+      value: projectStatus,
+      dataCy: "project-status",
+    },
+    ...empties,
+    {
+      label: t("validationStatus"),
+      value: validationStatus,
+      dataCy: "validation-status",
+    },
+    {
+      label: t("organisationStatus"),
+      value: organisationStatus,
+      dataCy: "organisation-status",
+    },
+    {
+      label: t("affiliationStatus"),
+      value: affiliationStatus,
+      dataCy: "affiliation-status",
+    },
   ];
 
   return (
@@ -42,8 +73,9 @@ export default function StatusList({
         }}>
         {statuses
           .filter(s => s.value)
-          .map(({ label, value }) => (
+          .map(({ label, value, dataCy }) => (
             <Box
+              data-cy={dataCy}
               key={label}
               sx={{ display: "flex", gap: 2, alignItems: "center" }}>
               <Typography fontSize={18} sx={{ minWidth: 180 }}>

@@ -27,17 +27,16 @@ export default defineConfig({
 
         return launchOptions;
       }),
-      
         on("task", {
           log(message) {
             console.log(message + "\n\n");
 
             return true;
           },
-           table(data) {
+          table(data) {
             console.table(data);
             return null;
-          }
+          },
         });
 
       config.env.MAILDEV_PROTOCOL = process.env.CYPRESS_MAILDEV_PROTOCOL;
@@ -96,6 +95,7 @@ export default defineConfig({
       "cypress/e2e/user-journeys/users/affiliations.cy.ts",
       "cypress/e2e/user-journeys/organisations/delegates.cy.ts",
       "cypress/e2e/user-journeys/organisations/affiliations.cy.ts",
+      "cypress/e2e/user-journeys/organisations/projects.cy.ts",
       "cypress/e2e/user-journeys/custodians/projects.cy.ts",
       "cypress/e2e/user-journeys/custodians/projectsSafePeople.cy.ts",
       "cypress/e2e/user-journeys/custodians/projectsOrganisations.cy.ts",
@@ -103,6 +103,7 @@ export default defineConfig({
       "cypress/e2e/user-journeys/custodians/team.cy.ts",
       "cypress/e2e/user-journeys/custodians/users.cy.ts",
       "cypress/e2e/user-journeys/custodians/configuration.cy.ts",
+      // "cypress/e2e/user-journeys/users/projects.cy.ts",
       // "cypress/e2e/user-journeys/admin/inviteCustodian.cy.ts",
       // "cypress/e2e/user-journeys/admin/inviteOrganisation.cy.ts",
       // "cypress/e2e/user-journeys/admin/inviteUser.cy.ts",

@@ -9,6 +9,7 @@ const mockedProject = (
   project?: Partial<ResearcherProject>
 ): ResearcherProject => ({
   id: faker.number.int(),
+  unique_id: faker.string.sample(),
   title: faker.string.sample(),
   lay_summary: faker.string.sample(),
   public_benefit: faker.string.sample(),
@@ -19,6 +20,7 @@ const mockedProject = (
   other_approval_committees: faker.string.sample(),
   organisations: [mockedOrganisation()],
   status: Status.PROJECT_PENDING,
+  project_has_sponsorships: {},
   model_state: {
     state: {
       slug: Status.APPROVED,

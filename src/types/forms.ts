@@ -1,7 +1,7 @@
+import { FormControlProps } from "@/components/FormControlWrapper";
 import yup from "@/config/yup";
-import { ComponentType, ComponentProps } from "react";
-import { FormControlHorizontalProps } from "@/components/FormControlHorizontal";
 import { SxProps } from "@mui/system";
+import { ComponentProps, ComponentType } from "react";
 
 export type FormDefaultValue = string | number | boolean | Date;
 
@@ -11,7 +11,7 @@ export type FormFieldConfig<T extends ComponentType<any>> = {
   label?: string;
   component: T;
   componentProps?: ComponentProps<T>;
-  formControlProps?: FormControlHorizontalProps;
+  formControlProps?: FormControlProps;
   fieldSx?: SxProps;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   validation?: yup.Schema<any>;
