@@ -1175,6 +1175,11 @@
   },
   "Users": {
     "getUserError": "Could not get the relevant user",
+    "EmailChangeModal": {
+      "heading": "Change email",
+      "description": "Please note, changing your email here will also change your sign in email.",
+      "updateButton": "Update"
+    },
     "Identity": {
       "postUserSuccess": "User updated successfully",
       "postUserSuccessButton": "Ok",

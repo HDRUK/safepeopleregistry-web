@@ -23,16 +23,22 @@ import {
   PageColumns,
   PageSection,
 } from "@/modules";
-import { putUserQuery } from "@/services/users";
+import {
+  putChangeEmail,
+  PutChangeEmailPayload,
+  putChangeEmailQuery,
+  putUserQuery,
+} from "@/services/users";
 import { User } from "@/types/application";
 import { canUseIdvt } from "@/utils/application";
 import { CheckCircle } from "@mui/icons-material";
-import { Button, Grid, TextField } from "@mui/material";
+import { Box, Button, Grid, Link, TextField } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 import VeriffTermsAndConditions from "../VeriffTermsAndConditions";
+import EmailChangeModal from "@/organisms/EmailChangeModal";
 
 export interface IdentityFormValues {
   first_name: string;
@@ -61,8 +67,12 @@ export default function Identity() {
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
 
   const updateUser = useMutation(putUserQuery(user?.id));
+  const { mutateAsync: changeEmailMutate, ...changeEmailState } = useMutation(
+    putChangeEmailQuery()
+  );
 
   const [showModal, setShowModal] = useState(false);
+  const [showChangeEmail, setShowChangeEmail] = useState(false);
 
   const handleDetailsSubmit = useCallback(
     async (fields: IdentityFormValues) => {
@@ -99,7 +109,7 @@ export default function Identity() {
     successAlertProps: {
       text: t("postUserSuccess"),
       confirmButtonText: t("postUserSuccessButton"),
-      preConfirm: () => {
+      onConfirm: async () => {
         router.push(ROUTES.profileResearcherExperience.path);
       },
     },
@@ -118,6 +128,15 @@ export default function Identity() {
       }),
     []
   );
+
+  const handleChangeEmail = async (payload: PutChangeEmailPayload) => {
+    await changeEmailMutate({
+      params: {
+        id: user.id,
+      },
+      payload,
+    });
+  };
 
   const error = updateUser.isError && (
     <ErrorMessage t={t} tKey={updateUser.error} />
@@ -168,7 +187,23 @@ export default function Identity() {
                         <FormControlWrapper
                           name="personal_email"
                           renderField={fieldProps => (
-                            <TextField {...fieldProps} />
+                            <Box sx={{ display: "flex" }}>
+                              <TextField {...fieldProps} />
+                              <Link
+                                component="button"
+                                onClick={() => {
+                                  setShowChangeEmail(true);
+                                }}>
+                                Change email
+                              </Link>
+                              <EmailChangeModal
+                                open={showChangeEmail}
+                                onClose={() => {
+                                  setShowChangeEmail(false);
+                                }}
+                                userId={user.id}
+                              />
+                            </Box>
                           )}
                           description={t.rich("emailDescription", {
                             bold: chunks => <strong>{chunks}</strong>,

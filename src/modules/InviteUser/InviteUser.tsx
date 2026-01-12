@@ -105,17 +105,9 @@ export default function InviteUser({
             "email-exists",
             tForm("emailAlreadyExists"),
             async function (value) {
-              if (!enableEmailCheck) return true;
+              if (!enableEmailCheck || !value) return true;
 
-              if (!value) return true;
-
-              try {
-                const userExists = await checkEmailExists(value);
-                return !userExists;
-              } catch (err) {
-                console.error("Error checking email existence", err);
-                return true;
-              }
+              return checkEmailExists(value);
             }
           ),
         organisation_id: selectOrganisation

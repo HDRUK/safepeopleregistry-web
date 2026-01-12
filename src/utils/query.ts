@@ -5,6 +5,7 @@ import {
   ResponseOptions,
 } from "@/types/requests";
 import {
+  QueryClient,
   QueryKey,
   QueryMeta,
   UseMutationOptions,
@@ -12,6 +13,7 @@ import {
 } from "@tanstack/react-query";
 import { MutationState, QueryState } from "../types/form";
 import { SearchParams } from "../types/query";
+import { getUsers } from "@/services/users";
 
 function isQueriesLoading<T extends MutationState & QueryState>(queries: T[]) {
   return queries.some(
@@ -190,6 +192,26 @@ function responseToQueryState<T = unknown>(
   };
 }
 
+const checkEmailExists = async (
+  queryClient: QueryClient,
+  email: string,
+  useCache = false
+) => {
+  const queryKey = ["getUsersByEmail", email];
+  const cachedData = queryClient.getQueryData(queryKey);
+
+  if (cachedData && useCache) {
+    return cachedData.data.data.length > 0;
+  }
+
+  const fetchedData = await queryClient.fetchQuery({
+    queryKey,
+    queryFn: () => getUsers({ email }),
+  });
+
+  return fetchedData.data.data.length > 0;
+};
+
 export {
   getCombinedQueryState,
   getQueriesError,
@@ -204,4 +226,5 @@ export {
   createQuery,
   createMutation,
   responseToQueryState,
+  checkEmailExists,
 };
