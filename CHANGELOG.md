@@ -1,3 +1,25 @@
+## [1.26.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.25.0...v1.26.0) (2026-01-12)
+
+### ✨ Features
+
+* **REGISTRY-0000:** unhardcode christmas (#614) ([520eba0](https://github.com/HDRUK/safepeopleregistry-web/commit/520eba069abb92fef031d4667552969d9b1371b1))
+* **REGISTRY-1112:** change ror id and companies house to link (#621) ([35ebc29](https://github.com/HDRUK/safepeopleregistry-web/commit/35ebc291e2d1c7e96b3da4b7343522a02ce66c1f))
+* **REGISTRY-1714:** changes to projects tables and status functions (#607) ([5f9d6cc](https://github.com/HDRUK/safepeopleregistry-web/commit/5f9d6cc01591f57f9f1b9d64b724e2f0b2c94a58))
+* **REGISTRY-1716:** sponsorship (#600) ([5c16bb2](https://github.com/HDRUK/safepeopleregistry-web/commit/5c16bb240a66c796538a03f7e1e2818ffd765589))
+* **REGISTRY-2258:** Feature flags simpler adapter (#605) ([b829201](https://github.com/HDRUK/safepeopleregistry-web/commit/b829201b966bab7ed6038a70b40c9a3d8c1f73bd))
+* **REGISTRY-2265:** some filters for pending invites (#612) ([7306f8b](https://github.com/HDRUK/safepeopleregistry-web/commit/7306f8b9b4716a107894069d346b24368b56d9f0))
+* **REGISTRY-2399:** alert modal jazz (#606) ([f5351f3](https://github.com/HDRUK/safepeopleregistry-web/commit/f5351f3f25c2a4edc2f2a08b648b31294f86c05b))
+* **REGISTRY-2401:** swapp sweet alerts out (#611) ([aa9c7fd](https://github.com/HDRUK/safepeopleregistry-web/commit/aa9c7fd5c6e09b23299f433188841398fa31901d))
+* **REGISTRY-2431:** status against project for user (#619) ([496e9eb](https://github.com/HDRUK/safepeopleregistry-web/commit/496e9ebb52eee414d8de48d753b31276fa63e344))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-0000:** Big Beautiful Buttons duplicate ULs (#616) ([b0fd1fa](https://github.com/HDRUK/safepeopleregistry-web/commit/b0fd1fadd319404f70e3602279fd87c54ec73899))
+* **REGISTRY-0000:** use local maildev instead of mailtrap for e2e (#617) ([267280f](https://github.com/HDRUK/safepeopleregistry-web/commit/267280f220b2f9d157932622b11cc2454e46d820))
+* **REGISTRY-1906:** enable teams tab (#613) ([af8b5bf](https://github.com/HDRUK/safepeopleregistry-web/commit/af8b5bff455399641a7411746b153621a0dd3361))
+* **REGISTRY-2400:** Blank homepage (#610) ([e858ed3](https://github.com/HDRUK/safepeopleregistry-web/commit/e858ed3834ec1f259880b978d4f26de5225e2a19))
+* **REGISTRY-2416:** incorrect querystring param name (#615) ([f981f8a](https://github.com/HDRUK/safepeopleregistry-web/commit/f981f8aa2939eff774cbe591aac89bf0f571936e))
+
 ## [1.25.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.24.0...v1.25.0) (2025-12-22)
 
 ### ✨ Features
