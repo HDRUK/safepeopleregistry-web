@@ -93,7 +93,7 @@ export default function UsersModal({
         first_name,
         last_name,
         email,
-        permissions: userPermissions
+        permissions: userPermissions,
       });
 
       if (!user?.id && userResponse?.data) {
