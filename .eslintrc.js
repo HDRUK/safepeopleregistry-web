@@ -34,7 +34,6 @@ module.exports = {
   extends: [
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended",
-    "airbnb",
     "prettier",
     "plugin:jsx-a11y/recommended",
     "plugin:prettier/recommended",
@@ -58,6 +57,7 @@ module.exports = {
     "@typescript-eslint/no-empty-object-type": "off",
     "@typescript-eslint/no-require-imports": "off",
     "import/no-cycle": "off",
+    "react/display-name": "off",
     "react/jsx-filename-extension": [
       1,
       {

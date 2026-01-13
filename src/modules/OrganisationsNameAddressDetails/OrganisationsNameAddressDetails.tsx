@@ -30,7 +30,7 @@ export default function OrganisationsNameAddressDetails({
                 "country",
                 "postcode",
               ].map(key => (
-                <div>{organisationData[key]}</div>
+                <div key={organisationData[key]}>{organisationData[key]}</div>
               ))}
             </Typography>
           ),

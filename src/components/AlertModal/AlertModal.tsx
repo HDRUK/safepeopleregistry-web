@@ -125,7 +125,6 @@ export default function AlertModal(props: AlertModalProps) {
             onConfirm?.(data);
           }}
           variant="contained"
-          autoFocus
           color={confirmButtonColor || `primary`}>
           {confirmButtonText}
         </Button>

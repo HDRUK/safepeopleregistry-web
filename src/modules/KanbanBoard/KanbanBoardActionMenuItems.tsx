@@ -57,7 +57,9 @@ export default function KanbanBoardActionsMenuItems<
             onChange={handleStatusChange}
             data-cy="kanban-change-status">
             {allowedTransitions.map(key => (
-              <MenuItem value={key}>{tStatus(key)}</MenuItem>
+              <MenuItem key={key} value={key}>
+                {tStatus(key)}
+              </MenuItem>
             ))}
           </Select>
           <Button variant="outlined" onClick={handleClose}>

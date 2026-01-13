@@ -171,7 +171,7 @@ export default function NotificationModal({
                 bgcolor: "background.paper",
               }}>
               {notification.data.actions.map(action => (
-                <ListItem>
+                <ListItem key={action.action}>
                   <ListItemIcon>
                     {action.completed_at ? (
                       <CheckIcon color="success" />

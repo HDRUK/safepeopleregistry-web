@@ -54,7 +54,7 @@ export default function Sections() {
   return (
     <>
       {sections.map(({ name, component }) => (
-        <Accordion data-cy={`data-${name}-invite`}>
+        <Accordion key={name} data-cy={`data-${name}-invite`}>
           <AccordionSummary
             id={`data-${name}-invite`}
             aria-controls={`data-${name}-invite-content`}

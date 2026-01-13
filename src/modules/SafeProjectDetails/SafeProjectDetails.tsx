@@ -34,7 +34,7 @@ export default function SafeProjectDetails({
           content: (
             <Typography component="ul">
               {projectData.custodians?.map(({ name }) => (
-                <li>{name}</li>
+                <li key={name}>{name}</li>
               ))}
             </Typography>
           ),

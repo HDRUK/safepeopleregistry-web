@@ -29,7 +29,7 @@ const PaletteColors = ({
   <Grid container gap={3}>
     {Object.entries(palette).map(([key, colors]) => {
       return (
-        <Box>
+        <Box key={key}>
           <Typography variant="subtitle1" mb={1}>
             {key}
           </Typography>

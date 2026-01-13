@@ -74,7 +74,7 @@ export default function SecurityCompliance() {
           onSubmit={handleSubmit}>
           <>
             {certificationRows.map(cert => (
-              <FormSection heading={t(cert.name)}>
+              <FormSection key={cert.name} heading={t(cert.name)}>
                 <Grid container rowSpacing={3}>
                   <Grid container item spacing={3}>
                     <Grid item xs={6}>

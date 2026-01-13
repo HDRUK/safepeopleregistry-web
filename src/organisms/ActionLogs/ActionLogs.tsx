@@ -100,7 +100,7 @@ export default function ActionLogs({
         <PageBody>
           <ActionsPanel variant="plain" {...panelProps}>
             {hydratedInCompletedActions.map(action => (
-              <ActionsPanelItem {...action} />
+              <ActionsPanelItem key={action.heading} {...action} />
             ))}
           </ActionsPanel>
         </PageBody>

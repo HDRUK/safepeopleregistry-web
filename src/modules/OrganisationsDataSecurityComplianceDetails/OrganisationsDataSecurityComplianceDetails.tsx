@@ -62,7 +62,7 @@ export default function OrganisationsDataSecurityComplianceDetails({
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 5 }}>
       {data.map(({ name, num, expiryDate, file }) => (
-        <div>
+        <div key={name}>
           <Typography variant="h5" sx={{ mb: 1 }}>
             {name}
           </Typography>

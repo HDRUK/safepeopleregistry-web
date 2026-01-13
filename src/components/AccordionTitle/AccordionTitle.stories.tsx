@@ -27,7 +27,7 @@ const BasicStoryComponent = (props: AccordionTitleProps) => (
 
 export const Basic: Story = {
   args: {
-    icon: [<BusinessIcon />],
+    icon: <BusinessIcon />,
     children: "Orgnisation 1",
     actions: (
       <ActionMenu>

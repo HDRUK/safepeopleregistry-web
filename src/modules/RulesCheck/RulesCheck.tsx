@@ -103,7 +103,7 @@ export default function RulesCheck({ rules }: RulesCheckProps) {
       }}>
       {formattedRules.map(({ heading, passed }) => {
         return (
-          <div>
+          <div key={heading}>
             <Typography fontWeight={600}>{heading}</Typography>
             <Typography
               color={passed !== false ? "success.main" : "error.main"}
