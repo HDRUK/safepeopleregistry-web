@@ -99,7 +99,7 @@ export default function Identity() {
     successAlertProps: {
       text: t("postUserSuccess"),
       confirmButtonText: t("postUserSuccessButton"),
-      preConfirm: () => {
+      onConfirm: async () => {
         router.push(ROUTES.profileResearcherExperience.path);
       },
     },
