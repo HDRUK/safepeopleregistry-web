@@ -19,7 +19,6 @@ import { useCallback } from "react";
 
 export interface CustodianEditContactModalProps
   extends Omit<FormModalProps, "children"> {
-  custodianId: number;
   user: Partial<CustodianUser>;
   onClose: () => void;
 }
@@ -27,7 +26,6 @@ export interface CustodianEditContactModalProps
 const NAMESPACE_TRANSLATION_PROFILE_FORM = "CustodianProfile.EditContact";
 
 export default function UsersModal({
-  custodianId,
   user,
   onClose,
   ...restProps
@@ -95,8 +93,7 @@ export default function UsersModal({
         first_name,
         last_name,
         email,
-        permissions: userPermissions,
-        custodian_id: custodianId,
+        permissions: userPermissions
       });
 
       if (!user?.id && userResponse?.data) {
@@ -118,7 +115,7 @@ export default function UsersModal({
         },
       });
     },
-    [custodianId]
+    []
   );
 
   return (
