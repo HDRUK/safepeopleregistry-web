@@ -7,7 +7,7 @@ on:
       api_branch:
         description: "Branch of safepeopleregistry-api to check out"
         required: false
-        default: "dev"
+        default: "fix/custodian-user-controller-id"
 
 env:
   APP_KEY: ${{ secrets.APP_KEY }}
