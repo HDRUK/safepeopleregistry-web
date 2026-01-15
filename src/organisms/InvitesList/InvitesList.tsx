@@ -3,7 +3,7 @@
 import { ActionMenu, ActionMenuItem } from "@/components/ActionMenu";
 import useColumns from "@/hooks/useColumns";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
-import { PageSection, UsersTable } from "@/modules";
+import { PageSection, InvitesTable } from "@/modules";
 import InvitesFilters from "@/modules/InvitesFilters";
 import {
   postResendInviteQuery,
@@ -60,7 +60,7 @@ export default function InvitesList() {
         <InvitesFilters {...queryState} />
       </PageSection>
       <PageSection>
-        <UsersTable extraColumns={extraColumns} {...queryState} t={t} />
+        <InvitesTable extraColumns={extraColumns} {...queryState} t={t} />
       </PageSection>
     </>
   );

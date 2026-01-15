@@ -1,14 +1,14 @@
 "use client";
 
-// import DateInput from "@/components/DateInput";
+import DateInput from "@/components/DateInput";
 import { Status } from "@/consts/application";
 import { UserGroup } from "@/consts/user";
 import useFilter from "@/hooks/useFilter";
 import useSort from "@/hooks/useSort";
-// import { formatDBDateTime } from "@/utils/date";
+import { formatDBDate } from "@/utils/date";
 import SortIcon from "@mui/icons-material/Sort";
 import { useTranslations } from "next-intl";
-// import { useState } from "react";
+import { useState } from "react";
 import { FilterIcon } from "../../consts/icons";
 import { PaginatedQueryReturn } from "../../hooks/usePaginatedQuery";
 import { ResearcherProject } from "../../types/application";
@@ -48,7 +48,7 @@ export default function InvitesFilters({
     InvitesFiltersKeys.DATE_SENT,
   ],
 }: InvitesFiltersProps) {
-  // const [dateSent, setDateSent] = useState<Date | string | null>(null);
+  const [dateSent, setDateSent] = useState<Date | string | null>(null);
   const t = useTranslations(NAMESPACE_TRANSLATIONS_INVITES);
   const tApplication = useTranslations(NAMESPACE_TRANSLATIONS_APPLICATION);
 
@@ -112,9 +112,9 @@ export default function InvitesFilters({
   return (
     <SearchBar
       onClear={resetQueryParams}
-      onSearch={(text: string) => {
+      onSearch={(email: string) => {
         updateQueryParams({
-          "email[]": text,
+          email,
         });
       }}
       placeholder={t("searchPlaceholder")}>
@@ -155,18 +155,24 @@ export default function InvitesFilters({
         />
       )}
 
-      {/* {hasFilter(InvitesFiltersKeys.DATE_SENT) && (
+      {hasFilter(InvitesFiltersKeys.DATE_SENT) && (
         <DateInput
           value={dateSent}
+          clearable
+          onClear={() => {
+            setDateSent(null);
+
+            handleFieldToggle("invite_sent_at", [undefined, undefined]);
+          }}
           onChange={value => {
             setDateSent(value);
             handleFieldToggle("invite_sent_at", [
-              formatDBDateTime(value),
+              formatDBDate(value),
               undefined,
             ]);
           }}
         />
-      )} */}
+      )}
     </SearchBar>
   );
 }
