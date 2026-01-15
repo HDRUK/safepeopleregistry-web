@@ -34,6 +34,7 @@
       "approvedOn": "Approved On: {projects}"
     },
     "InvitesFilters": {
+      "inviteSentAt": "Invite sent at",
       "searchPlaceholder": "Search by email",
       "noResultsMessage": "There are no pending invites for these search filters",
       "name": "Name",

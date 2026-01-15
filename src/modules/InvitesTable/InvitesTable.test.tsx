@@ -1,23 +1,23 @@
 import { mockedPendingInvite } from "@/mocks/data/user";
 import { commonAccessibilityTests, render, screen } from "@/utils/testUtils";
 import { useTranslations } from "next-intl";
-import UsersTable, { UsersTableProps } from "./UsersTable";
+import InvitesTable, { InvitesTableProps } from "./InvitesTable";
 
 const pendingInvite = mockedPendingInvite();
 
-const TestComponent = (props?: Partial<UsersTableProps>) => {
+const TestComponent = (props?: Partial<InvitesTableProps>) => {
   const t = useTranslations("Admin.InvitesFilters");
 
   return (
-    <UsersTable t={t} data={[]} {...props} total={props?.data?.length || 0} />
+    <InvitesTable t={t} data={[]} {...props} total={props?.data?.length || 0} />
   );
 };
 
-const setupTest = (props?: Partial<UsersTableProps>) => {
+const setupTest = (props?: Partial<InvitesTableProps>) => {
   return render(<TestComponent {...props} />);
 };
 
-describe("<UsersTable />", () => {
+describe("<InvitesTable />", () => {
   it("renders warning message if no data", () => {
     setupTest();
 
