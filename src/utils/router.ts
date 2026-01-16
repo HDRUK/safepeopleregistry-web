@@ -74,12 +74,12 @@ export default async function redirectApplication() {
         redirectUrl = await getSeverErrorRedirectPath(accessToken, pathname);
       }
 
-      if (redirectUrl) redirectToPath(redirectUrl, pathname);
+      if (redirectUrl) await redirectToPath(redirectUrl, pathname);
 
       return me;
     }
 
-    redirectToPath(getHomepageRedirectPath(), pathname);
+    await redirectToPath(getHomepageRedirectPath(), pathname);
   }
 
   return null;

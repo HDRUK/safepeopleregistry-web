@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { ROUTES } from "../consts/router";
 import { getRefreshAccessToken } from "../services/auth";
@@ -7,8 +8,14 @@ import { Routes } from "../types/router";
 import { getLoginUrl, getRegisterUrl } from "./keycloak";
 import { capitaliseFirstLetter } from "./string";
 
-function redirectToPath(redirectUrl: string, pathname: string) {
-  if (redirectUrl && !isInPath(redirectUrl, pathname)) {
+async function redirectToPath(redirectUrl: string, pathname?: string) {
+  const locale = await cookies().get("NEXT_LOCALE")?.value;
+
+  if (
+    (pathname && redirectUrl && !isInPath(redirectUrl, pathname)) ||
+    !pathname ||
+    (pathname !== `/${locale}` && redirectUrl === "/")
+  ) {
     redirect(redirectUrl);
   }
 }
