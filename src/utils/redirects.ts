@@ -1,4 +1,6 @@
-import Cookies from "js-cookie";
+"use server";
+
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { ROUTES } from "../consts/router";
 import { getRefreshAccessToken } from "../services/auth";
@@ -7,8 +9,14 @@ import { Routes } from "../types/router";
 import { getLoginUrl, getRegisterUrl } from "./keycloak";
 import { capitaliseFirstLetter } from "./string";
 
-function redirectToPath(redirectUrl: string, pathname: string) {
-  if (redirectUrl && !isInPath(redirectUrl, pathname)) {
+async function redirectToPath(redirectUrl: string, pathname?: string) {
+  const locale = await cookies().get("NEXT_LOCALE")?.value;
+
+  if (
+    (pathname && redirectUrl && !isInPath(redirectUrl, pathname)) ||
+    !pathname ||
+    (pathname !== `/${locale}` && redirectUrl === "/")
+  ) {
     redirect(redirectUrl);
   }
 }
@@ -38,10 +46,11 @@ const getRegisterRedirectPath = async () => {
 
 async function getRefreshTokenRedirectPath() {
   const accessToken = await getRefreshAccessToken();
+  const cookieStore = await cookies();
 
   if (!accessToken) {
-    Cookies.remove("access_token");
-    Cookies.remove("refresh_token");
+    cookieStore.delete("access_token");
+    cookieStore.delete("refresh_token");
 
     return getLoginUrl();
   }
