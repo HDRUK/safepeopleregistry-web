@@ -50,7 +50,6 @@ const renderCustodianEditContactModalDetails = (
   return render(
     <CustodianEditContactModal
       user={defaultUser}
-      custodianId={1}
       onClose={mockOnClose}
       open
       {...props}
