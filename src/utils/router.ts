@@ -1,3 +1,5 @@
+"use server";
+
 import { EXCLUDE_REDIRECT_URLS, ROUTES } from "@/consts/router";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
@@ -24,13 +26,13 @@ function needsLoggedInPermissions(routes: Routes, pathname: string | null) {
   });
 }
 
-function getPathServerSide(): string | null {
-  const head = headers();
+async function getPathServerSide(): Promise<string | null> {
+  const head = await headers();
   return head.get("x-current-path");
 }
 
 async function redirectProfile() {
-  const pathname = getPathServerSide();
+  const pathname = await getPathServerSide();
   const accessToken = await getAccessToken();
 
   if (!accessToken && needsLoggedInPermissions(ROUTES, pathname)) {
@@ -49,7 +51,7 @@ async function redirectProfile() {
 }
 
 export default async function redirectApplication() {
-  const pathname = getPathServerSide();
+  const pathname = await getPathServerSide();
 
   if (pathname && !isInPath(pathname, EXCLUDE_REDIRECT_URLS)) {
     let redirectUrl;

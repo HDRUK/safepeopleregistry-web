@@ -1,4 +1,5 @@
-import Cookies from "js-cookie";
+"use server";
+
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { ROUTES } from "../consts/router";
@@ -45,10 +46,11 @@ const getRegisterRedirectPath = async () => {
 
 async function getRefreshTokenRedirectPath() {
   const accessToken = await getRefreshAccessToken();
+  const cookieStore = await cookies();
 
   if (!accessToken) {
-    Cookies.remove("access_token");
-    Cookies.remove("refresh_token");
+    cookieStore.delete("access_token");
+    cookieStore.delete("refresh_token");
 
     return getLoginUrl();
   }
