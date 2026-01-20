@@ -182,7 +182,6 @@ jobs:
           POSTGRES_DB: keycloak
           POSTGRES_USER: keycloak
           POSTGRES_PASSWORD: password
-        # Use options for healthchecks since depends_on isn't available
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -211,10 +210,10 @@ jobs:
             quay.io/keycloak/keycloak:22.0.5 \
             start-dev
 
-      - name: Populate DB
-        run: |
-          until pg_isready -h localhost -U keycloak; do sleep 2; done
-          PGPASSWORD=password psql -h localhost -U keycloak -d keycloak < ./database/keycloak.sql
+      # - name: Populate DB
+      #   run: |
+      #     until pg_isready -h localhost -U keycloak; do sleep 2; done
+      #     PGPASSWORD=password psql -h localhost -U keycloak -d keycloak < ./database/keycloak.sql
 
       - name: Checkout web
         uses: actions/checkout@v4
