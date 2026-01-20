@@ -34,6 +34,7 @@
       "approvedOn": "Approved On: {projects}"
     },
     "InvitesFilters": {
+      "inviteSentAt": "Invite sent at",
       "searchPlaceholder": "Search by email",
       "noResultsMessage": "There are no pending invites for these search filters",
       "name": "Name",
@@ -1181,6 +1182,7 @@
       "updateButton": "Update"
     },
     "Identity": {
+      "orcId": "Orc ID",
       "postUserSuccess": "User updated successfully",
       "postUserSuccessButton": "Ok",
       "postUserError": "There was a problem updating your user information. Please try again or contact us at <contactLink></contactLink>",

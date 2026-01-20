@@ -12,6 +12,7 @@ export default function TableSelectRole({
   return (
     <SelectInput
       id="project-role"
+      data-cy="project-role"
       options={[
         ...roles.map(({ id, name }) => ({
           label: name,

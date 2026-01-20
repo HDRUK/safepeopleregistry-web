@@ -182,7 +182,6 @@ export default function Contacts() {
           {modalProps?.user && custodian?.id && (
             <CustodianEditContactModal
               {...modalProps}
-              custodianId={custodian.id}
               onClose={handleCloseModal}
             />
           )}

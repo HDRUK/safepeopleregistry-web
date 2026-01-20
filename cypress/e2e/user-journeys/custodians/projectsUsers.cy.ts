@@ -1,7 +1,6 @@
 import { Status } from "@/consts/application";
 import { ROUTES } from "@/consts/router";
 import { mockedCustodianHasProjectUser } from "@/mocks/data/custodian";
-import { getName } from "@/utils/application";
 import { logout } from "cypress/support/utils/common";
 import { loginCustodian } from "cypress/support/utils/custodian/auth";
 import {

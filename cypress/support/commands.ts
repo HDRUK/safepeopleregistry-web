@@ -107,6 +107,12 @@ Cypress.Commands.add("getResultsRowByValue", (value: string) => {
   return row.contains("td", value).should("exist").parent();
 });
 
+Cypress.Commands.add("clickTabsNavigation", (label: string) => {
+  cy.get(dataCy("tabs-navigation")).within(() => {
+    cy.contains("a", label);
+  });
+});
+
 Cypress.Commands.add("getLatestRowOfResults", () => {
   cy.get(dataCy("results"))
     .filter(":visible")
@@ -180,8 +186,14 @@ Cypress.Commands.add("checkboxUncheck", (id: string) => {
 });
 
 Cypress.Commands.add("selectValue", (id: string, value: string) => {
-  cy.get(`#${id}`).click();
-  cy.get(`.MuiPopover-root`).get("li").contains(value).click();
+  let selector = `#${id}`;
+
+  if (id.includes("data-cy")) {
+    selector = id;
+  }
+
+  cy.get(selector).click();
+  cy.get('[id^="menu-"].MuiPopover-root').get("li").contains(value).click();
 });
 
 Cypress.Commands.add(
@@ -285,6 +297,7 @@ declare global {
         value: string
       ) => Cypress.Chainable<JQuery<HTMLTableCellElement>>;
       solveGoogleReCAPTCHA: () => void;
+      clickTabsNavigation: (label: string) => void;
     }
   }
 }
