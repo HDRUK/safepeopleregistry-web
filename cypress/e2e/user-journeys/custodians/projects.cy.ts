@@ -1,9 +1,12 @@
 import { ROUTES } from "@/consts/router";
+import { mockedOrganisationInvite } from "@/mocks/data/organisation";
 import { logout } from "cypress/support/utils/common";
 import { loginCustodian } from "cypress/support/utils/custodian/auth";
 import {
   addNewProject,
   hasProject,
+  hasProjectSponsor,
+  invitesNewSponsor,
   updateSafeDataProject,
   updateSafeOutputsProject,
   updateSafeSettingsProject,
@@ -15,6 +18,7 @@ import {
 
 const dataProject = DEFAULT_PROJECT;
 const dataProjectDetails = DEFAULT_PROJECT_DETAILS;
+const invitedSponsor = mockedOrganisationInvite();
 
 describe("Projects custodians journey", () => {
   beforeEach(() => {
@@ -37,6 +41,12 @@ describe("Projects custodians journey", () => {
     cy.visitFirst(ROUTES.profileCustodianProjects.path);
 
     hasProject(dataProject);
+  });
+
+  it("Invites a sponsor", () => {
+    invitesNewSponsor(invitedSponsor);
+
+    hasProjectSponsor();
   });
 
   it("Edits safe data", () => {

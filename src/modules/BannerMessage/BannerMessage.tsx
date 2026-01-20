@@ -1,7 +1,7 @@
 import { mockedChristmasBannerContent } from "@/mocks/data/cms";
 import { BannerLists, Message, MessageProps } from "../../components/Message";
 
-export interface BannerMessageProps extends MessageProps {
+export interface BannerMessageProps extends Omit<MessageProps, "children"> {
   enabledBanners: BannerLists;
 }
 export default function BannerMessage(props: BannerMessageProps) {

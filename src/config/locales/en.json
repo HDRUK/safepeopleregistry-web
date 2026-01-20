@@ -12,10 +12,54 @@
     "scanOkText": "File was successfully scanned",
     "scanErrorText": "Your file file may have a virus"
   },
+  "Admin": {
+    "InvitesList": {
+      "noResultsMessage": "No invites found",
+      "name": "Name",
+      "email": "Email",
+      "status": "Status",
+      "title": "Users",
+      "loadingAriaLabel": "Loading page",
+      "approve": "Approve",
+      "unapprove": "Unapprove",
+      "approved": "Approved",
+      "permissions": "Permissions",
+      "emailHeading": "Email",
+      "firstNameHeading": "First name",
+      "lastNameHeading": "Last name",
+      "tableSummary": "Table of users",
+      "updateOrganisationApprovalError": "Couldn't update the organisations approval settings",
+      "updateApprovalError": "Couldn't update the researchers approval settings",
+      "viewDetails": "View details",
+      "approvedOn": "Approved On: {projects}"
+    },
+    "InvitesFilters": {
+      "inviteSentAt": "Invite sent at",
+      "searchPlaceholder": "Search by email",
+      "noResultsMessage": "There are no pending invites for these search filters",
+      "name": "Name",
+      "email": "Email",
+      "status": "Status",
+      "filterByStatus_invited": "Invited",
+      "filterByStatus_registered": "Registered",
+      "filterByDateSent": "Date invite sent",
+      "filterByDateResent": "Date invite resent",
+      "filterByUserGroup": "Filter by user group",
+      "filterByUserGroup_custodians": "Custodians",
+      "filterByUserGroup_organisations": "Organisations",
+      "filterByUserGroup_users": "Users",
+      "filterByStatus": "Filter by status",
+      "sortByInviteSentAt": "Date invite sent"
+    }
+  },
   "Application": {
     "Status": {
       "registered": "Safe People Registry account created",
       "invited": "Invited",
+      "sponsorship_pending": "Pending",
+      "sponsorship_rejected": "Declined",
+      "sponsorship_approved": "Confirmed",
+      "organisation_registered": "Registered",
       "invite_sent": "Invite sent",
       "affiliated": "Affiliated",
       "pending": "Pending Validation",
@@ -71,6 +115,7 @@
       "escalate_validation": "Escalate Validation",
       "none": "None"
     },
+    "sponsorshipStatus": "Sponsorship",
     "role": "Role",
     "email": "Email",
     "link": "Link",
@@ -98,7 +143,7 @@
     "alertErrorConfirmButton": "Close",
     "alertDeleteConfirmButton": "Delete",
     "alertDeleteCancelButton": "Cancel",
-    "alertErrorDescription": "There has been a problem with your requests. Please try again or contact us at <contactLink></contactLink>",
+    "alertErrorDescription": "There has been a problem with your request. Please try again or contact us at <contactLink></contactLink>",
     "alertErrorTitle": "Error",
     "alertSuccessDescription": "Your request has been successful",
     "alertSuccessTitle": "Success",
@@ -711,6 +756,7 @@
     "subsidiaryAddressRequired": "Subsidiary address is required",
     "subsidiaryWebsite": "Subsidiary website",
     "subsidiaryWebsitePlaceholder": "Subsidiary website",
+    "sponsorId": "Project sponsor",
     "status": "Change status",
     "statusPlaceholder": "Select a status from the list",
     "text": "Text",
@@ -1131,6 +1177,7 @@
   "Users": {
     "getUserError": "Could not get the relevant user",
     "Identity": {
+      "orcId": "Orc ID",
       "postUserSuccess": "User updated successfully",
       "postUserSuccessButton": "Ok",
       "postUserError": "There was a problem updating your user information. Please try again or contact us at <contactLink></contactLink>",
@@ -1162,26 +1209,6 @@
       "inviteUserSuccessButton": "Ok",
       "inviteUserSuccess": "You have successfully invited the User"
     }
-  },
-  "UsersList": {
-    "noResultsMessage": "No users found",
-    "name": "Name",
-    "email": "Email",
-    "status": "Status",
-    "title": "Users",
-    "loadingAriaLabel": "Loading page",
-    "approve": "Approve",
-    "unapprove": "Unapprove",
-    "approved": "Approved",
-    "permissions": "Permissions",
-    "emailHeading": "Email",
-    "firstNameHeading": "First name",
-    "lastNameHeading": "Last name",
-    "tableSummary": "Table of users",
-    "updateOrganisationApprovalError": "Couldn't update the organisations approval settings",
-    "updateApprovalError": "Couldn't update the researchers approval settings",
-    "viewDetails": "View details",
-    "approvedOn": "Approved On: {projects}"
   },
   "Guidance": {
     "togglePanel": "Toggle guidance panel"
@@ -1296,6 +1323,28 @@
     "website": "Website"
   },
   "Organisations": {
+    "InviteSponsor": {
+      "orgNotListed": "Organisation not listed?",
+      "changeSponsorButton": "Change sponsor",
+      "organisationNameRequiredInvalid": "Organisation name is required",
+      "emailRequiredInvalid": "Email is required",
+      "heading": "Invite a sponsor",
+      "description": "Complete the fields below to invite a Sponsor to create a Safe People Registry account.",
+      "emailDescription": "Please check with the organisation first in order to send the email to the most relevant person. This should ideally be the Senior Responsible Officer.",
+      "inviteButton": "Invite",
+      "resendInviteSponsorButton": "Resend invite",
+      "inviteSponsorButton": "Invite to register",
+      "cancelButton": "Cancel"
+    },
+    "InviteOrganisation": {
+      "heading": "Invite an organisation",
+      "description": "Complete the fields below to invite a Sponsor to create a Safe People Registry account.",
+      "emailDescription": "Please check with the organisation first in order to send the email to the most relevant person. This should ideally be the Senior Responsible Officer.",
+      "inviteButton": "Invite",
+      "resendInviteSponsorButton": "Resend invite",
+      "inviteSponsorButton": "Invite to register",
+      "cancelButton": "Cancel"
+    },
     "EditDelegate": {
       "heading": "Edit delegate",
       "edit": "Edit",
@@ -1448,8 +1497,13 @@
       "noResultsMessage": "It looks like there are no organisations for any projects.",
       "errorMessage": "Couldn't get the users for this project. Please try again or <contactLink>contact support</contactLink> if the problem persists."
     },
+    "sponsoredProjectsTitle": "Sponsored Projects",
+    "ownProjectsTitle": "Projects directly associated with organisation",
+    "statusChanged": "Status changed",
     "status": "Project status",
+    "uniqueId": "ID",
     "organisationStatus": "Organisation status",
+    "sponsorshipStatus": "Sponsorship status",
     "safeProject": "Safe Project",
     "safeData": "Safe Data",
     "safePeople": "Safe People",

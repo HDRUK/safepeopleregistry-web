@@ -1,10 +1,20 @@
-import { ROUTES } from "@/consts/router";
+"use server";
+
+import { EXCLUDE_REDIRECT_URLS, ROUTES } from "@/consts/router";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import getMe from "../services/auth/getMe";
 import { RouteConfig, Routes } from "../types/router";
 import { getAccessToken } from "./auth";
-import { getProfileRedirectPath, redirectToPath } from "./redirects";
+import {
+  getHomepageRedirectPath,
+  getProfileRedirectPath,
+  getRefreshTokenRedirectPath,
+  getRegisterRedirectPath,
+  getSeverErrorRedirectPath,
+  isInPath,
+  redirectToPath,
+} from "./redirects";
 
 function needsLoggedInPermissions(routes: Routes, pathname: string | null) {
   if (!pathname) return false;
@@ -16,14 +26,13 @@ function needsLoggedInPermissions(routes: Routes, pathname: string | null) {
   });
 }
 
-function getPathServerSide(): string | null {
-  const head = headers();
+async function getPathServerSide(): Promise<string | null> {
+  const head = await headers();
   return head.get("x-current-path");
 }
 
 async function redirectProfile() {
-  const pathname = getPathServerSide();
-
+  const pathname = await getPathServerSide();
   const accessToken = await getAccessToken();
 
   if (!accessToken && needsLoggedInPermissions(ROUTES, pathname)) {
@@ -39,6 +48,43 @@ async function redirectProfile() {
       redirectToPath(getProfileRedirectPath(response.data), pathname);
     }
   }
+}
+
+export default async function redirectApplication() {
+  const pathname = await getPathServerSide();
+
+  if (pathname && !isInPath(pathname, EXCLUDE_REDIRECT_URLS)) {
+    let redirectUrl;
+
+    const accessToken = await getAccessToken();
+    let me;
+
+    if (accessToken) {
+      const response = await getMe({
+        suppressThrow: true,
+      });
+
+      me = response.data;
+
+      if (response.status === 200) {
+        redirectUrl = getProfileRedirectPath(me);
+      } else if (response.status === 401) {
+        redirectUrl = await getRefreshTokenRedirectPath();
+      } else if (response.status === 404) {
+        redirectUrl = await getRegisterRedirectPath();
+      } else if (response.status === 500) {
+        redirectUrl = await getSeverErrorRedirectPath(accessToken, pathname);
+      }
+
+      if (redirectUrl) await redirectToPath(redirectUrl, pathname);
+
+      return me;
+    }
+
+    await redirectToPath(getHomepageRedirectPath(), pathname);
+  }
+
+  return null;
 }
 
 export { getPathServerSide, needsLoggedInPermissions, redirectProfile };

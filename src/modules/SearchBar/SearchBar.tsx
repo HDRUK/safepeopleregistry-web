@@ -39,6 +39,7 @@ export default function SearchBar({
           },
         }}>
         <SearchField
+          id="searchByText"
           disabled={disabled}
           onSearch={(text: string) => {
             if (!text || text.length < 1) {

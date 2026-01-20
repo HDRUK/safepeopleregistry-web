@@ -22,6 +22,8 @@ import getPendingInvitesQuery from "./getPendingInvitesQuery";
 import getPendingInvites from "./getPendingInvites";
 import postResendInvite from "./postResendInvite";
 import postResendInviteQuery from "./postResendInviteQuery";
+import postResendInviteByOrganisation from "./postResendInviteByOrganisation";
+import postResendInviteByOrganisationQuery from "./postResendInviteByOrganisationQuery";
 
 export {
   getPendingInvitesQuery,
@@ -48,6 +50,8 @@ export {
   usePaginatedPendingInvitesQuery,
   postResendInvite,
   postResendInviteQuery,
+  postResendInviteByOrganisation,
+  postResendInviteByOrganisationQuery,
 };
 
 export type * from "./types";

@@ -1,5 +1,6 @@
 import FormModal, { FormModalProps } from "@/components/FormModal";
 import { Message } from "@/components/Message";
+import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
 import { useStore } from "@/data/store";
 import CustodianEditContactForm from "@/modules/CustodianEditContactForm";
 import {
@@ -12,14 +13,12 @@ import { CustodianEditContactFormFields } from "@/types/form";
 import { getName } from "@/utils/application";
 import { getPermission } from "@/utils/permissions";
 import { getCombinedQueryState } from "@/utils/query";
-import { showAlert } from "@/utils/showAlert";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useCallback } from "react";
 
 export interface CustodianEditContactModalProps
   extends Omit<FormModalProps, "children"> {
-  custodianId: number;
   user: Partial<CustodianUser>;
   onClose: () => void;
 }
@@ -27,11 +26,11 @@ export interface CustodianEditContactModalProps
 const NAMESPACE_TRANSLATION_PROFILE_FORM = "CustodianProfile.EditContact";
 
 export default function UsersModal({
-  custodianId,
   user,
   onClose,
   ...restProps
 }: CustodianEditContactModalProps) {
+  const { showAlert, hideAlert } = useAlertModal();
   const t = useTranslations(NAMESPACE_TRANSLATION_PROFILE_FORM);
   const permissions = useStore(state => state.config.permissions);
   const queryClient = useQueryClient();
@@ -95,7 +94,6 @@ export default function UsersModal({
         last_name,
         email,
         permissions: userPermissions,
-        custodian_id: custodianId,
       });
 
       if (!user?.id && userResponse?.data) {
@@ -104,16 +102,20 @@ export default function UsersModal({
 
       onClose();
 
-      showAlert("success", {
+      showAlert({
+        severity: "success",
         text: user?.id
           ? t("updateSuccessfulDescription")
           : t("createSuccessfulDescription"),
         title: user?.id
           ? t("updateSuccessfulTitle")
           : t("createSuccessfulTitle"),
+        onConfirm: async () => {
+          hideAlert();
+        },
       });
     },
-    [custodianId]
+    []
   );
 
   return (

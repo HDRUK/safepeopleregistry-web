@@ -5,12 +5,9 @@ import { getStatus } from "@/utils/application";
 import { dataCy } from "../common";
 
 const hasUser = (pendingInvite: PendingInvite, status: Status) => {
-  cy.contains("Invites").click();
-
   const {
     user: { name, email },
   } = pendingInvite;
-
 
   cy.getLatestRowOfResults();
   const row = cy.getResultsRowByValue(email);
@@ -20,6 +17,12 @@ const hasUser = (pendingInvite: PendingInvite, status: Status) => {
     cy.contains("td", email);
     cy.contains("td", getStatus(status));
   });
+};
+
+const hasNoPendingInvites = () => {
+  cy.contains("There are no pending invites for these search filters").should(
+    "exist"
+  );
 };
 
 const inviteUser = (invite: InviteUserFormValues) => {
@@ -34,7 +37,7 @@ const inviteUser = (invite: InviteUserFormValues) => {
       force: true,
     });
 
-  // cy.swalClick("Close");
+  // cy.clickAlertModal("Close");
 };
 
-export { hasUser, inviteUser };
+export { hasUser, hasNoPendingInvites, inviteUser };

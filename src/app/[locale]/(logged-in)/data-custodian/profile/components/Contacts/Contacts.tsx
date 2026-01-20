@@ -108,7 +108,7 @@ export default function Contacts() {
       title: t("deleteWarningTitle"),
       confirmButtonText: t("deleteUserButton"),
       cancelButtonText: t("cancelButton"),
-      preConfirm: async id => {
+      onConfirm: async id => {
         await deleteCustodianUserAsync(id as number);
         refetch();
       },
@@ -182,7 +182,6 @@ export default function Contacts() {
           {modalProps?.user && custodian?.id && (
             <CustodianEditContactModal
               {...modalProps}
-              custodianId={custodian.id}
               onClose={handleCloseModal}
             />
           )}

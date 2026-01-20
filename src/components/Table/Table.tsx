@@ -1,5 +1,6 @@
 import {
   Table as MuiTable,
+  PaginationProps,
   TableBody,
   TableCell,
   TableContainer,
@@ -35,6 +36,7 @@ export interface TableProps<T> extends Partial<TableOptions<T>> {
   noResultsMessage?: ReactNode;
   total?: number;
   sx?: React.CSSProperties;
+  paginationProps?: PaginationProps;
 }
 
 const Table = <T,>({
@@ -51,6 +53,7 @@ const Table = <T,>({
   noResultsMessage = "No results",
   total,
   sx,
+  paginationProps,
   ...restProps
 }: TableProps<T>) => {
   const perPage = useStore(state => state.getApplication().system.PER_PAGE);
@@ -98,6 +101,7 @@ const Table = <T,>({
             onChange={(e: React.ChangeEvent<unknown>, page: number) => {
               setPage?.(page);
             }}
+            {...paginationProps}
           />
         )
       }>

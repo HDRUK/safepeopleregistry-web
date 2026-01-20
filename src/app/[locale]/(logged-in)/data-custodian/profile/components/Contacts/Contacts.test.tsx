@@ -114,7 +114,6 @@ describe("Contacts", () => {
       if (saveButton) {
         await waitFor(() => {
           expect(mockMutateAsync).toHaveBeenCalledWith({
-            custodian_id: 1,
             email: "john.smith@hdruk.ac.uk",
             first_name: "John",
             id: 1,

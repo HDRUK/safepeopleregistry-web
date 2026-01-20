@@ -41,6 +41,10 @@ type PutProjectDetailsResponse = number;
 
 type ProjectDetailsResponse = ProjectDetails;
 
+interface PutResendSponsorshipInviteParams {
+  organisationId: number;
+}
+
 export type {
   ProjectsResponse,
   ProjectAllUsersResponse,
@@ -56,4 +60,5 @@ export type {
   PutProjectDetailsResponse,
   ProjectDetailsResponse,
   ProjectAllUserResponse,
+  PutResendSponsorshipInviteParams,
 };

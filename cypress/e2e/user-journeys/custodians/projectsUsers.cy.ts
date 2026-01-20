@@ -52,11 +52,13 @@ describe("Projects users journey", () => {
 
     cy.buttonClick("Switch to list view");
   });
-  it('should have no detectable accessibility violations on load', () => {
-      cy.waitForLoadingToFinish();
-      cy.checkA11yPage();
-    });
-  it("Changes status of a user", () => {
+
+  it("should have no detectable accessibility violations on load", () => {
+    cy.waitForLoadingToFinish();
+    cy.checkA11yPage();
+  });
+
+  it("Cannot manually change from invited", () => {
     changeStatusProjectUsers({ first_name, last_name }, Status.PENDING);
 
     hasProjectUsers({

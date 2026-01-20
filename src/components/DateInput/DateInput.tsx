@@ -8,6 +8,8 @@ import { DatePicker, DatePickerProps } from "@mui/x-date-pickers/DatePicker";
 import { useLocale } from "next-intl";
 import { enGB } from "date-fns/locale/en-GB";
 import dayjs from "dayjs";
+import IconClose from "@mui/icons-material/Close";
+import IconButton from "../IconButton";
 
 export interface DateInputProps
   extends Omit<DatePickerProps<Date>, "onChange"> {
@@ -18,6 +20,7 @@ export interface DateInputProps
     value: Date | string | null,
     context: PickerChangeHandlerContext<DateValidationError>
   ) => void;
+  onClear?: () => void;
 }
 
 const DateInput = ({
@@ -26,6 +29,7 @@ const DateInput = ({
   onChange = () => {},
   id,
   format: dateFormat = "dd/MM/yyyy",
+  onClear,
   ...restProps
 }: DateInputProps) => {
   const localeString = useLocale();
@@ -62,13 +66,13 @@ const DateInput = ({
           inputAdornment: {
             "data-cy": `${id}-button`,
           },
-          textField: {
+          textField: params => ({
             id,
             fullWidth: true,
             variant: "outlined",
             size: "small",
             error: restProps.error,
-            inputProps: {
+            InputProps: {
               "data-testid": (restProps as Record<string, string>)?.[
                 "data-testid"
               ],
@@ -76,8 +80,18 @@ const DateInput = ({
                 "aria-labelledby"
               ],
               ...restProps.inputProps,
+              ...(onClear && {
+                endAdornment: (
+                  <>
+                    <IconButton size="small" onClick={onClear}>
+                      <IconClose />
+                    </IconButton>
+                    {params.InputProps?.endAdornment}
+                  </>
+                ),
+              }),
             },
-          },
+          }),
         }}
         {...restProps}
       />

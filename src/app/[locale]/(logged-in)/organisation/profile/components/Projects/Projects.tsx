@@ -13,7 +13,7 @@ export default function Projects() {
       heading={t("projects")}
       description={t("projectsListDescription")}>
       <PageBody>
-        <ProjectsList variant={EntityType.ORGANISATION} />
+        <ProjectsList variant={EntityType.ORGANISATION} includeSponsorship />
       </PageBody>
     </PageBodyContainer>
   );

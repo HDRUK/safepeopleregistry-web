@@ -51,7 +51,7 @@ describe("useQueryAlerts", () => {
 
     expect(
       screen.getByText(
-        /There has been a problem with your requests. Please try again or contact us at/
+        /There has been a problem with your request. Please try again or contact us at/
       )
     ).toBeInTheDocument();
   });

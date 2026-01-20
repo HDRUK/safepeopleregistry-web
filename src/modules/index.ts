@@ -13,8 +13,9 @@ import OrganisationsFilters from "./OrganisationsFilters";
 import OrganisationsPeopleTable from "./OrganisationsPeopleTable";
 import AffiliationsTable from "./AffiliationsTable";
 import OrganisationsTable from "./OrganisationsTable";
-import UsersTable from "./UsersTable";
+import InvitesTable from "./InvitesTable";
 import ProjectsTable from "./ProjectsTable";
+import InvitesFilters from "./InvitesFilters";
 
 export {
   AffiliationsTable,
@@ -33,5 +34,6 @@ export {
   OrganisationsPeopleTable,
   OrganisationsTable,
   ProjectsTable,
-  UsersTable,
+  InvitesTable,
+  InvitesFilters,
 };
