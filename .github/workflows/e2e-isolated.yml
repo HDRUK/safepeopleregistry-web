@@ -211,15 +211,15 @@ jobs:
             quay.io/keycloak/keycloak:22.0.5 \
             start-dev
 
-      - name: Populate DB
-        run: |
-          until pg_isready -h localhost -p 5432 -U keycloak; do
-            echo "Waiting for Postgres port to open..."
-            sleep 2
-          done
+      # - name: Populate DB
+      #   run: |
+      #     until pg_isready -h localhost -p 5432 -U keycloak; do
+      #       echo "Waiting for Postgres port to open..."
+      #       sleep 2
+      #     done
 
-          echo "Keycloak db is up! Running SQL..."
-          PGPASSWORD=password psql -h localhost -p 5432 -U keycloak -d keycloak -f ./database/keycloak.sql
+      #     echo "Keycloak db is up! Running SQL..."
+      #     PGPASSWORD=password psql -h localhost -p 5432 -U keycloak -d keycloak -f ./database/keycloak.sql
 
       - name: Checkout web
         uses: actions/checkout@v4
