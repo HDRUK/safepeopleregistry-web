@@ -87,10 +87,10 @@ env:
   KEYCLOAK_CLIENT_ID: "speedi-registry-app"
   KEYCLOAK_USER_PROVIDER_CREDENTIAL: "email"
   KEYCLOAK_REDIRECT_URL: "http://localhost:8000/api/auth/callback"
-  KEYCLOAK_BASE_URL: "http://localost:8080"
+  KEYCLOAK_BASE_URL: "http://localhost:8080"
   KEYCLOAK_REALM: "SOURSD"
-  KEYCLOAK_REGISTRATION_URL: "http://localost:8080/realms/SOURSD/protocol/openid-connect/registrations?client_id=speedi-registry-app&scope=openid%20profile&redirect_uri=http://localhost:8000/api/auth/callback&response_type=code"
-  KEYCLOAK_SIGNIN_URL: "http://localost:8080/realms/SOURSD/login-actions/authenticate?client_id=speedi-registry-app"
+  KEYCLOAK_REGISTRATION_URL: "http://localhost:8080/realms/SOURSD/protocol/openid-connect/registrations?client_id=speedi-registry-app&scope=openid%20profile&redirect_uri=http://localhost:8000/api/auth/callback&response_type=code"
+  KEYCLOAK_SIGNIN_URL: "http://localhost:8080/realms/SOURSD/login-actions/authenticate?client_id=speedi-registry-app"
   KEYCLOAK_TEST_USERNAME: "loki.sinclair@hdruk.ac.uk"
   KEYCLOAK_ALLOWED_RESOURCES: "account"
   KEYCLOAK_IGNORE_RESOURCES_VALIDATION: "true"
@@ -198,17 +198,29 @@ jobs:
           nohup maildev --smtp=1025 --web=8025 > maildev.log 2>&1 &
           sleep 5
 
-      - name: Start Keycloak
+      - name: Checkout Keycloak repo
+        uses: actions/checkout@v4
+        with:
+          repository: HDRUK/hdruk-keycloak
+          path: hdruk-keycloak
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Start Keycloak
+        working-directory: ./hdruk-keycloak
         run: |
-          docker run -d --name keycloak \
+          docker build -t keycloak .
+
+          docker run -d \
+            --name keycloak \
             --network host \
+            -p 8080:8080 \
             -e KC_DB=postgres \
             -e KC_DB_URL=jdbc:postgresql://postgres:5432/keycloak \
             -e KC_DB_USERNAME=keycloak \
             -e KC_DB_PASSWORD=password \
             -e KEYCLOAK_ADMIN=admin \
             -e KEYCLOAK_ADMIN_PASSWORD=admin \
-            quay.io/keycloak/keycloak:22.0.5 \
+            keycloak \
             start-dev
 
       # - name: Populate DB
