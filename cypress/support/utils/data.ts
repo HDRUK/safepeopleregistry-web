@@ -54,7 +54,7 @@ const DEFAULT_PROJECT_NAME = "Test project";
 
 const DEFAULT_ORGANISATION_NAME = "Test Organisation, LTD";
 const DEFAULT_UNAPPROVED_ORGANISATION_NAME = "Test Organisation, LTD";
-
+const DEFAULT_ORC_ID = "0000-0000-0000-0000";
 const DEFAULT_ROLE_NAME = "Researcher";
 
 const DEFAULT_PDF_FILE = {
@@ -174,4 +174,5 @@ export {
   EMAIL_SIGN_ME_UP,
   DEFAULT_PASSWORD,
   DEFAULT_USER,
+  DEFAULT_ORC_ID,
 };
