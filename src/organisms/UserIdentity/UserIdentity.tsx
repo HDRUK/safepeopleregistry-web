@@ -1,8 +1,9 @@
 import { useStore } from "@/data/store";
 import { getName } from "@/utils/application";
 import ErrorIcon from "@mui/icons-material/Error";
-import { Box, Typography } from "@mui/material";
+import { Box, Link, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
+import LaunchIcon from "@mui/icons-material/Launch";
 import Text from "../../components/Text";
 
 const NAMESPACE_TRANSLATION = "Users.Identity";
@@ -34,6 +35,14 @@ export default function UserIdentity() {
           {user?.location || t("locationMissing")}
         </Text>
       </Box>
+      {user?.orc_id && (
+        <Box>
+          <Typography sx={{ fontWeight: 600 }}>{t("orcId")}</Typography>
+          <Link href={`https://orcid.org/${user?.orc_id}`} target="_blank">
+            <Text endIcon={<LaunchIcon />}>{user?.orc_id}</Text>
+          </Link>
+        </Box>
+      )}
       <Text
         sx={{ fontWeight: 600 }}
         startIcon={idvtComplete ?? <ErrorIcon color="error" />}>
