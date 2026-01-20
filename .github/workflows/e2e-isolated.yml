@@ -175,6 +175,14 @@ jobs:
         env:
           REDIS_PASSWORD: mypassword
 
+      keycloak:
+        image: quay.io/keycloak/keycloak:22.0.5
+        env:
+          KEYCLOAK_USER: "admin"
+          KEYCLOAK_PASSWORD: "admin"
+        ports:
+          - 8080:8080
+        command: start-dev
     steps:
       - name: Install MailDev
         run: npm install -g maildev
