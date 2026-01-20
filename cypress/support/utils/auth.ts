@@ -20,4 +20,11 @@ const getKeycloakLogoutPath = () => {
   return `${logoutUrl}?${params.toString()}`;
 };
 
-export { getKeycloakLogoutPath, getKeycloakLoginPath };
+function checkExpiredRedirect() {
+  cy.clearCookie("access_token");
+  cy.reload();
+
+  cy.url().should("eq", Cypress.config("baseUrl"));
+}
+
+export { getKeycloakLogoutPath, getKeycloakLoginPath, checkExpiredRedirect };
