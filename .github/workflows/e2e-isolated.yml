@@ -181,6 +181,8 @@ jobs:
           POSTGRES_DB: keycloak
           POSTGRES_USER: keycloak
           POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -201,7 +203,7 @@ jobs:
           docker run -d --name keycloak \
             --network host \
             -e KC_DB=postgres \
-            -e KC_DB_URL=jdbc:postgresql://localhost:5432/keycloak \
+            -e KC_DB_URL=jdbc:postgresql://postgres:5432/keycloak \
             -e KC_DB_USERNAME=keycloak \
             -e KC_DB_PASSWORD=password \
             -e KEYCLOAK_ADMIN=admin \
@@ -212,10 +214,12 @@ jobs:
       - name: Populate DB
         run: |
           until pg_isready -h localhost -p 5432 -U keycloak; do
-            echo "Waiting for Postgres on localhost..."
+            echo "Waiting for Postgres port to open..."
             sleep 2
           done
-          PGPASSWORD=password psql -h localhost -U keycloak -d keycloak < ./database/keycloak.sql
+
+          echo "Keycloak db is up! Running SQL..."
+          PGPASSWORD=password psql -h localhost -p 5432 -U keycloak -d keycloak -f ./database/keycloak.sql
 
       - name: Checkout web
         uses: actions/checkout@v4
