@@ -1,3 +1,4 @@
+version: "3.8"
 name: PR Isolated E2E Tests
 
 on:
@@ -175,13 +176,18 @@ jobs:
         env:
           REDIS_PASSWORD: mypassword
 
-      keycloak:
-        image: quay.io/keycloak/keycloak:22.0.5
+      postgres:
+        image: postgres:15
         env:
-          KEYCLOAK_USER: "admin"
-          KEYCLOAK_PASSWORD: "admin"
-        ports:
-          - 8080:8080
+          POSTGRES_DB: keycloak
+          POSTGRES_USER: keycloak
+          POSTGRES_PASSWORD: password
+        # Use options for healthchecks since depends_on isn't available
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - name: Install MailDev
@@ -191,6 +197,25 @@ jobs:
         run: |
           nohup maildev --smtp=1025 --web=8025 > maildev.log 2>&1 &
           sleep 5
+
+      - name: Start Keycloak
+        run: |
+          docker run -d --name keycloak \
+            --network host \
+            -e KC_DB=postgres \
+            -e KC_DB_URL=jdbc:postgresql://localhost:5432/keycloak \
+            -e KC_DB_USERNAME=keycloak \
+            -e KC_DB_PASSWORD=password \
+            -e KEYCLOAK_ADMIN=admin \
+            -e KEYCLOAK_ADMIN_PASSWORD=admin \
+            quay.io/keycloak/keycloak:22.0.5 \
+            start-dev
+
+      # - name: Populate DB
+      #   run: |
+      #     until pg_isready -h localhost -U keycloak; do sleep 2; done
+      #     PGPASSWORD=password psql -h localhost -U keycloak -d keycloak < populate.sql
+
       - name: Checkout web
         uses: actions/checkout@v4
 
