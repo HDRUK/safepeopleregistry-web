@@ -87,10 +87,10 @@ env:
   KEYCLOAK_CLIENT_ID: "speedi-registry-app"
   KEYCLOAK_USER_PROVIDER_CREDENTIAL: "email"
   KEYCLOAK_REDIRECT_URL: "http://localhost:8000/api/auth/callback"
-  KEYCLOAK_BASE_URL: "https://keycloak.dev.hdruk.cloud"
+  KEYCLOAK_BASE_URL: "http://localost:8080"
   KEYCLOAK_REALM: "SOURSD"
-  KEYCLOAK_REGISTRATION_URL: "https://keycloak.dev.hdruk.cloud/realms/SOURSD/protocol/openid-connect/registrations?client_id=speedi-registry-app&scope=openid%20profile&redirect_uri=http://localhost:8000/api/auth/callback&response_type=code"
-  KEYCLOAK_SIGNIN_URL: "https://keycloak.dev.hdruk.cloud/realms/SOURSD/login-actions/authenticate?client_id=speedi-registry-app"
+  KEYCLOAK_REGISTRATION_URL: "http://localost:8080/realms/SOURSD/protocol/openid-connect/registrations?client_id=speedi-registry-app&scope=openid%20profile&redirect_uri=http://localhost:8000/api/auth/callback&response_type=code"
+  KEYCLOAK_SIGNIN_URL: "http://localost:8080/realms/SOURSD/login-actions/authenticate?client_id=speedi-registry-app"
   KEYCLOAK_TEST_USERNAME: "loki.sinclair@hdruk.ac.uk"
   KEYCLOAK_ALLOWED_RESOURCES: "account"
   KEYCLOAK_IGNORE_RESOURCES_VALIDATION: "true"
@@ -211,7 +211,10 @@ jobs:
 
       - name: Populate DB
         run: |
-          until pg_isready -h localhost -U keycloak; do sleep 2; done
+          until pg_isready -h localhost -p 5432 -U keycloak; do
+            echo "Waiting for Postgres on localhost..."
+            sleep 2
+          done
           PGPASSWORD=password psql -h localhost -U keycloak -d keycloak < ./database/keycloak.sql
 
       - name: Checkout web
