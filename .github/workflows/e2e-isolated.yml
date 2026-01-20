@@ -203,6 +203,7 @@ jobs:
         with:
           repository: HDRUK/hdruk-keycloak
           path: hdruk-keycloak
+          ref: main
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and Start Keycloak
