@@ -197,18 +197,18 @@ jobs:
           nohup maildev --smtp=1025 --web=8025 > maildev.log 2>&1 &
           sleep 5
 
-      - name: Start Keycloak
-        run: |
-          docker run -d --name keycloak \
-            --network host \
-            -e KC_DB=postgres \
-            -e KC_DB_URL=jdbc:postgresql://localhost:5432/keycloak \
-            -e KC_DB_USERNAME=keycloak \
-            -e KC_DB_PASSWORD=password \
-            -e KEYCLOAK_ADMIN=admin \
-            -e KEYCLOAK_ADMIN_PASSWORD=admin \
-            quay.io/keycloak/keycloak:22.0.5 \
-            start-dev
+      # - name: Start Keycloak
+      #   run: |
+      #     docker run -d --name keycloak \
+      #       --network host \
+      #       -e KC_DB=postgres \
+      #       -e KC_DB_URL=jdbc:postgresql://localhost:5432/keycloak \
+      #       -e KC_DB_USERNAME=keycloak \
+      #       -e KC_DB_PASSWORD=password \
+      #       -e KEYCLOAK_ADMIN=admin \
+      #       -e KEYCLOAK_ADMIN_PASSWORD=admin \
+      #       quay.io/keycloak/keycloak:22.0.5 \
+      #       start-dev
 
       # - name: Populate DB
       #   run: |
