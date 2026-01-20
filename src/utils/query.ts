@@ -161,6 +161,7 @@ function createMutation<R, T, P>(
   return {
     mutationKey: formattedMutationKey,
     mutationFn: (mutationArgs: MutateWithArgs<T, P>) => {
+      console.log("**** MUTATION", options?.responseOptions);
       return mutationFn(mutationArgs, {
         error: {
           message: `${mutationKey}Error`,

@@ -23,12 +23,8 @@ import {
   PageColumns,
   PageSection,
 } from "@/modules";
-import {
-  putChangeEmail,
-  PutChangeEmailPayload,
-  putChangeEmailQuery,
-  putUserQuery,
-} from "@/services/users";
+import EmailChangeModal from "@/organisms/EmailChangeModal";
+import { putUserQuery } from "@/services/users";
 import { User } from "@/types/application";
 import { canUseIdvt } from "@/utils/application";
 import { CheckCircle } from "@mui/icons-material";
@@ -38,7 +34,6 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 import VeriffTermsAndConditions from "../VeriffTermsAndConditions";
-import EmailChangeModal from "@/organisms/EmailChangeModal";
 
 export interface IdentityFormValues {
   first_name: string;
@@ -54,7 +49,10 @@ const NAMESPACE_TRANSLATION_PROFILE = "Profile";
 export default function Identity() {
   const queryClient = useQueryClient();
   const router = useRouter();
-  const user = useStore(state => state.getUser());
+  const { user, setUser } = useStore(state => ({
+    user: state.getUser(),
+    setUser: state.setUser,
+  }));
   const { registry } = user as User;
   const { identity } = registry;
   const { idvt_started_at, idvt_success } = identity || {
@@ -67,9 +65,6 @@ export default function Identity() {
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
 
   const updateUser = useMutation(putUserQuery(user?.id));
-  const { mutateAsync: changeEmailMutate, ...changeEmailState } = useMutation(
-    putChangeEmailQuery()
-  );
 
   const [showModal, setShowModal] = useState(false);
   const [showChangeEmail, setShowChangeEmail] = useState(false);
@@ -129,15 +124,6 @@ export default function Identity() {
     []
   );
 
-  const handleChangeEmail = async (payload: PutChangeEmailPayload) => {
-    await changeEmailMutate({
-      params: {
-        id: user.id,
-      },
-      payload,
-    });
-  };
-
   const error = updateUser.isError && (
     <ErrorMessage t={t} tKey={updateUser.error} />
   );
@@ -187,11 +173,15 @@ export default function Identity() {
                         <FormControlWrapper
                           name="personal_email"
                           renderField={fieldProps => (
-                            <Box sx={{ display: "flex" }}>
-                              <TextField {...fieldProps} />
+                            <Box sx={{ display: "flex", gap: 2 }}>
+                              <TextField
+                                {...fieldProps}
+                                sx={{ width: "500px" }}
+                              />
                               <Link
                                 component="button"
-                                onClick={() => {
+                                onClick={e => {
+                                  e.preventDefault();
                                   setShowChangeEmail(true);
                                 }}>
                                 Change email
@@ -201,6 +191,10 @@ export default function Identity() {
                                 onClose={() => {
                                   setShowChangeEmail(false);
                                 }}
+                                onSuccess={() => {
+                                  setShowChangeEmail(false);
+                                }}
+                                defaultEmail={fieldProps.value}
                                 userId={user.id}
                               />
                             </Box>

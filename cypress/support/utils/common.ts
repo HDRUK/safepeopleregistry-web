@@ -1,5 +1,4 @@
 import { ROUTES } from "@/consts/router";
-import { InviteUserFormValues } from "@/types/form";
 
 const dataCy = (value: string) => {
   return `[data-cy="${value}"]`;
@@ -49,10 +48,10 @@ const shouldBeCustodianProfile = () => {
 
 export {
   dataCy,
-  logout,
-  shouldBeUserProfile,
-  shouldBeOrganisationProfile,
-  shouldBeCustodianProfile,
-  signout,
   getModalByHeader,
+  logout,
+  shouldBeCustodianProfile,
+  shouldBeOrganisationProfile,
+  shouldBeUserProfile,
+  signout,
 };

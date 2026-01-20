@@ -11,8 +11,8 @@ export default function putChangeEmailQuery(options?: QueryOptions) {
   >(
     {
       mutationKey: ["putChangeEmail"],
-      mutationFn: ({ payload, params }) => {
-        return putChangeEmail(params.id, payload);
+      mutationFn: ({ payload, params }, responseOptions) => {
+        return putChangeEmail(params.id, payload, responseOptions);
       },
     },
     options

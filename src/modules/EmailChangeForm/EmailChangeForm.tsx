@@ -1,45 +1,25 @@
-import {
-  postCustodianInviteUserQuery,
-  postOrganisationInviteUserQuery,
-} from "@/services/organisations";
+import ButtonSave from "@/components/ButtonSave";
+import FormActions from "@/components/FormActions";
+import { WithTranslations } from "@/types/application";
 import { TextField } from "@mui/material";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useTranslations } from "next-intl";
-import { ReactNode, useMemo, useState } from "react";
+import { ReactNode, useMemo } from "react";
 import Form from "../../components/Form";
 import FormControlWrapper from "../../components/FormControlWrapper";
 import yup from "../../config/yup";
 import { MAX_FORM_WIDTH } from "../../consts/form";
-import useQueryAlerts from "../../hooks/useQueryAlerts";
-import useOrganisationInvite from "../../queries/useOrganisationInvite";
-import { getUsers } from "../../services/users";
-import {
-  EmailChangeFormValues,
-  InviteUserFormValues,
-  QueryState,
-} from "../../types/form";
-import { checkEmailExists, getCombinedQueryState } from "../../utils/query";
-import { t } from "framer-motion/dist/types.d-B_QPEvFK";
-import { WithTranslations } from "@/types/application";
-import FormActions from "@/components/FormActions";
-import { LoadingButton } from "@mui/lab";
-import ButtonSave from "@/components/ButtonSave";
-
-const NAMESPACE_TRANSLATION_FORM = "Form";
-const NAMESPACE_TRANSLATION_ORGANISATION = "Users.InviteUser";
-const NAMESPACE_TRANSLATION_PROFILE = "Profile";
+import { EmailChangeFormValues, QueryState } from "../../types/form";
 
 export type EmailChangeFormProps = WithTranslations<{
   onSubmit?: (fields: EmailChangeFormValues) => void;
   actions: ReactNode;
-  validateEmail?: (email: string) => Promise<boolean>;
   queryState: QueryState;
+  defaultEmail?: string;
 }>;
 
 export default function EmailChangeForm({
   actions,
   onSubmit,
-  validateEmail,
+  defaultEmail,
   queryState,
   t,
 }: EmailChangeFormProps) {
@@ -49,21 +29,14 @@ export default function EmailChangeForm({
         email: yup
           .string()
           .email(t("emailFormatInvalid"))
-          .required(t("emailRequiredInvalid"))
-          .test(
-            "email-exists",
-            t("emailAlreadyExists"),
-            async function (value) {
-              return !!validateEmail?.(value);
-            }
-          ),
+          .required(t("emailRequiredInvalid")),
       }),
     [t]
   );
 
   const formOptions = {
     defaultValues: {
-      email: "",
+      email: defaultEmail,
     },
   };
 

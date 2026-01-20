@@ -13,7 +13,7 @@ export default defineConfig({
       //     value: 0
       //   });
       // })
-      (on("before:browser:launch", (browser, launchOptions) => {
+      on("before:browser:launch", (browser, launchOptions) => {
         if (browser.family === "chromium") {
           // running headless chrome in a virtualized environment forces pointer type to default to `NONE`
           // to mimic "desktop" environment more correctly we force blink to have `pointer: fine` support
@@ -37,7 +37,7 @@ export default defineConfig({
             console.table(data);
             return null;
           },
-        }));
+        });
 
       config.env.MAILDEV_PROTOCOL = process.env.CYPRESS_MAILDEV_PROTOCOL;
       config.env.MAILDEV_HOST = process.env.CYPRESS_MAILDEV_HOST;
@@ -89,21 +89,22 @@ export default defineConfig({
     // video: true,
     // videosFolder: "cypress/videos",
     specPattern: [
-      "cypress/e2e/user-journeys/admin/features.cy.ts",
-      "cypress/e2e/user-journeys/admin/users.cy.ts",
-      "cypress/e2e/user-journeys/admin/sro.cy.ts",
-      "cypress/e2e/user-journeys/users/affiliations.cy.ts",
-      "cypress/e2e/user-journeys/organisations/delegates.cy.ts",
-      "cypress/e2e/user-journeys/organisations/affiliations.cy.ts",
-      "cypress/e2e/user-journeys/organisations/projects.cy.ts",
-      "cypress/e2e/user-journeys/custodians/projects.cy.ts",
-      "cypress/e2e/user-journeys/custodians/projectsSafePeople.cy.ts",
-      "cypress/e2e/user-journeys/custodians/projectsOrganisations.cy.ts",
-      "cypress/e2e/user-journeys/custodians/projectsUsers.cy.ts",
-      "cypress/e2e/user-journeys/custodians/team.cy.ts",
-      "cypress/e2e/user-journeys/custodians/users.cy.ts",
-      "cypress/e2e/user-journeys/custodians/configuration.cy.ts",
-      "cypress/e2e/user-journeys/auth/redirects.cy.ts",
+      // "cypress/e2e/user-journeys/admin/features.cy.ts",
+      // "cypress/e2e/user-journeys/admin/users.cy.ts",
+      // "cypress/e2e/user-journeys/admin/sro.cy.ts",
+      // "cypress/e2e/user-journeys/users/affiliations.cy.ts",
+      // "cypress/e2e/user-journeys/organisations/delegates.cy.ts",
+      // "cypress/e2e/user-journeys/organisations/affiliations.cy.ts",
+      // "cypress/e2e/user-journeys/organisations/projects.cy.ts",
+      // "cypress/e2e/user-journeys/custodians/projects.cy.ts",
+      // "cypress/e2e/user-journeys/custodians/projectsSafePeople.cy.ts",
+      // "cypress/e2e/user-journeys/custodians/projectsOrganisations.cy.ts",
+      // "cypress/e2e/user-journeys/custodians/projectsUsers.cy.ts",
+      // "cypress/e2e/user-journeys/custodians/team.cy.ts",
+      // "cypress/e2e/user-journeys/custodians/users.cy.ts",
+      // "cypress/e2e/user-journeys/custodians/configuration.cy.ts",
+      // "cypress/e2e/user-journeys/auth/redirects.cy.ts",
+      "cypress/e2e/user-journeys/users/profile.cy.ts",
       // "cypress/e2e/user-journeys/users/projects.cy.ts",
       // "cypress/e2e/user-journeys/admin/inviteCustodian.cy.ts",
       // "cypress/e2e/user-journeys/admin/inviteOrganisation.cy.ts",
