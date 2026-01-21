@@ -6,13 +6,11 @@ import {
   ResponseOptions,
 } from "@/types/requests";
 import {
-  QueryClient,
   QueryKey,
   QueryMeta,
   UseMutationOptions,
   UseQueryOptions,
 } from "@tanstack/react-query";
-import { getUsers } from "@/services/users";
 import { MutationState, QueryState } from "../types/form";
 import { SearchParams } from "../types/query";
 
@@ -134,9 +132,11 @@ function createQuery<R>(
     queryKey: formattedQueryKey,
     queryFn: data =>
       queryFn(data, {
-        error: {
-          message: `${formattedQueryKey[0]}Error`,
-        },
+        ...(!options?.noErrorKey && {
+          error: {
+            message: `${formattedQueryKey[0]}Error`,
+          },
+        }),
         ...options?.responseOptions,
       }),
     ...options,
@@ -195,27 +195,9 @@ function responseToQueryState<T = unknown>(
   };
 }
 
-const checkEmailExists = async (
-  queryClient: QueryClient,
-  email: string,
-  useCache = false
-) => {
-  const queryKey = ["getUsersByEmail", email];
-  const cachedData = queryClient.getQueryData(queryKey);
-
-  if (cachedData && useCache) {
-    return cachedData.data.data.length > 0;
-  }
-
-  const fetchedData = await queryClient.fetchQuery({
-    queryKey,
-    queryFn: () => getUsers({ email }),
-  });
-
-  return fetchedData.data.data.length > 0;
-};
-
 export {
+  createMutation,
+  createQuery,
   getCombinedQueryState,
   getQueriesError,
   getSearchQuerystring,
@@ -226,8 +208,5 @@ export {
   isQueriesError,
   isQueriesFetched,
   isQueriesLoading,
-  createQuery,
-  createMutation,
   responseToQueryState,
-  checkEmailExists,
 };
