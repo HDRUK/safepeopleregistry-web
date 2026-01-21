@@ -9,6 +9,7 @@ import FormModal, { FormModalProps } from "../../components/FormModal";
 
 interface EmailChangeModalProps extends Omit<FormModalProps, "children"> {
   onSuccess?: () => void;
+  onUpdateError?: () => void;
   onUpdated?: (email: string) => void;
   userId: number;
   defaultEmail: string;
@@ -18,6 +19,7 @@ const NAMESPACE_TRANSLATION = "Users.EmailChangeModal";
 
 export default function EmailChangeModal({
   onSuccess,
+  onUpdateError,
   onUpdated,
   onClose,
   userId,
@@ -44,14 +46,18 @@ export default function EmailChangeModal({
   });
 
   const handleSubmit = async (payload: EmailChangeFormValues) => {
-    await changeEmailMutate({
-      params: {
-        id: userId,
-      },
-      payload,
-    });
+    try {
+      await changeEmailMutate({
+        params: {
+          id: userId,
+        },
+        payload,
+      });
 
-    onUpdated?.(payload.email);
+      onUpdated?.(payload.email);
+    } catch (_) {
+      onUpdateError?.();
+    }
   };
 
   return (
