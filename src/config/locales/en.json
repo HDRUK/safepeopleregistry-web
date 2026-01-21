@@ -1181,7 +1181,8 @@
       "description": "This will change the email address you use to login to the Safe People Registry.",
       "updateButton": "Update",
       "emailRequiredInvalid": "Email is required",
-      "emailFormatInvalid": "Email is not a valid format"
+      "emailFormatInvalid": "Email is not a valid format",
+      "409Error": "This email cannot be used, please try another."
     },
     "Identity": {
       "orcId": "Orc ID",

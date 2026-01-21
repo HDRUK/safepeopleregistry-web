@@ -1,5 +1,4 @@
 import ButtonCancel from "@/components/ButtonCancel";
-import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
 import EmailChangeForm from "@/modules/EmailChangeForm";
 import { putChangeEmailQuery } from "@/services/users";
@@ -26,27 +25,22 @@ export default function EmailChangeModal({
   ...restProps
 }: EmailChangeModalProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION);
-  const { showAlert } = useAlertModal();
 
   const { mutateAsync: changeEmailMutate, ...changeEmailState } = useMutation(
     putChangeEmailQuery({
-      responseOptions: {},
+      noErrorKey: true,
     })
   );
 
   useQueryAlerts(changeEmailState, {
+    ...(changeEmailState.error === "409Error" && {
+      errorAlertProps: {
+        text: t(changeEmailState.error),
+      },
+    }),
     onSuccess: () => {
       onSuccess?.();
     },
-    onError: modalProps => {
-      showAlert({
-        ...modalProps,
-        ...(changeEmailState.error === "409Error" && {
-          text: "This email cannot be used, please try another.",
-        }),
-      });
-    },
-    showOnlySuccess: true,
   });
 
   const handleSubmit = async (payload: EmailChangeFormValues) => {

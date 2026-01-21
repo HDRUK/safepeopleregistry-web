@@ -1,9 +1,9 @@
-import { QueryOptions, ResponseJson } from "@/types/requests";
+import { MutationOptions, ResponseJson } from "@/types/requests";
 import { createMutation } from "@/utils/query";
 import putChangeEmail from "./putChangeEmail";
 import { PutChangeEmailParams, PutChangeEmailPayload } from "./types";
 
-export default function putChangeEmailQuery(options?: QueryOptions) {
+export default function putChangeEmailQuery(options?: MutationOptions) {
   return createMutation<
     ResponseJson<null>,
     PutChangeEmailParams,
@@ -11,8 +11,8 @@ export default function putChangeEmailQuery(options?: QueryOptions) {
   >(
     {
       mutationKey: ["putChangeEmail"],
-      mutationFn: ({ payload, params }) => {
-        return putChangeEmail(params.id, payload);
+      mutationFn: ({ payload, params }, responseOptions) => {
+        return putChangeEmail(params.id, payload, responseOptions);
       },
     },
     options

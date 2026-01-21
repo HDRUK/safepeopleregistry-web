@@ -1,5 +1,6 @@
 import {
   MutateWithArgs,
+  MutationOptions,
   QueryOptions,
   ResponseJson,
   ResponseOptions,
@@ -150,7 +151,7 @@ function createMutation<R, T, P>(
       options: ResponseOptions
     ) => Promise<R>;
   },
-  options?: QueryOptions
+  options?: MutationOptions
 ) {
   const { mutationKey, mutationFn } = mutation;
   const formattedMutationKey = [
@@ -162,9 +163,11 @@ function createMutation<R, T, P>(
     mutationKey: formattedMutationKey,
     mutationFn: (mutationArgs: MutateWithArgs<T, P>) => {
       return mutationFn(mutationArgs, {
-        error: {
-          message: `${mutationKey}Error`,
-        },
+        ...(!options?.noErrorKey && {
+          error: {
+            message: `${mutationKey}Error`,
+          },
+        }),
         ...options?.responseOptions,
       });
     },
