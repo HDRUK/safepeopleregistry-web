@@ -1179,7 +1179,9 @@
     "EmailChangeModal": {
       "heading": "Change email",
       "description": "Please note, changing your email here will also change your sign in email.",
-      "updateButton": "Update"
+      "updateButton": "Update",
+      "emailRequiredInvalid": "Email is required",
+      "emailFormatInvalid": "Email is not a valid format"
     },
     "Identity": {
       "orcId": "Orc ID",

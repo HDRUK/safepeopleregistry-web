@@ -19,7 +19,7 @@ function handleResponseError(
   options?: ResponseOptions
 ) {
   if (!response?.ok) {
-    if (!options) {
+    if (!options?.error) {
       return new Error(`${response?.status}Error`).message;
     }
 

@@ -30,9 +30,7 @@ export default function EmailChangeModal({
 
   const { mutateAsync: changeEmailMutate, ...changeEmailState } = useMutation(
     putChangeEmailQuery({
-      responseOptions: {
-        suppressThrow: true,
-      },
+      responseOptions: {},
     })
   );
 
