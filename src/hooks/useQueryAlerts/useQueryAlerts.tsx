@@ -25,8 +25,6 @@ export default function useQueryAlerts(
   const { showAlert, hideAlert } = useAlertModal();
   const t = useTranslations(NAMESPACE_TRANSALATIONS_APPLICATION);
 
-  console.log("**** query", query);
-
   const mergedSuccessAlertProps = {
     severity: "success",
     text: t("alertSuccessDescription"),

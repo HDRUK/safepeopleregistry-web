@@ -9,7 +9,8 @@ import { useTranslations } from "next-intl";
 import FormModal, { FormModalProps } from "../../components/FormModal";
 
 interface EmailChangeModalProps extends Omit<FormModalProps, "children"> {
-  onSuccess?: (result: string) => void;
+  onSuccess?: () => void;
+  onUpdated?: (email: string) => void;
   userId: number;
   defaultEmail: string;
 }
@@ -18,6 +19,7 @@ const NAMESPACE_TRANSLATION = "Users.EmailChangeModal";
 
 export default function EmailChangeModal({
   onSuccess,
+  onUpdated,
   onClose,
   userId,
   defaultEmail,
@@ -35,7 +37,9 @@ export default function EmailChangeModal({
   );
 
   useQueryAlerts(changeEmailState, {
-    onSuccess,
+    onSuccess: () => {
+      onSuccess?.();
+    },
     onError: modalProps => {
       showAlert({
         ...modalProps,
@@ -54,6 +58,8 @@ export default function EmailChangeModal({
       },
       payload,
     });
+
+    onUpdated?.(payload.email);
   };
 
   return (

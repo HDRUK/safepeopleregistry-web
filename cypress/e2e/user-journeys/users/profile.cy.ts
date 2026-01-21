@@ -26,6 +26,8 @@ describe("Profile journey", () => {
   });
 
   it("Updates the users email", () => {
+    cy.get("#personal_email").should("have.attr", "disabled");
+
     changeEmail(newEmail);
 
     cy.reload();

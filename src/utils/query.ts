@@ -11,9 +11,9 @@ import {
   UseMutationOptions,
   UseQueryOptions,
 } from "@tanstack/react-query";
+import { getUsers } from "@/services/users";
 import { MutationState, QueryState } from "../types/form";
 import { SearchParams } from "../types/query";
-import { getUsers } from "@/services/users";
 
 function isQueriesLoading<T extends MutationState & QueryState>(queries: T[]) {
   return queries.some(
@@ -161,7 +161,6 @@ function createMutation<R, T, P>(
   return {
     mutationKey: formattedMutationKey,
     mutationFn: (mutationArgs: MutateWithArgs<T, P>) => {
-      console.log("**** MUTATION", options?.responseOptions);
       return mutationFn(mutationArgs, {
         error: {
           message: `${mutationKey}Error`,

@@ -177,6 +177,7 @@ export default function Identity() {
                               <TextField
                                 {...fieldProps}
                                 sx={{ width: "500px" }}
+                                disabled
                               />
                               <Link
                                 component="button"
@@ -193,6 +194,12 @@ export default function Identity() {
                                 }}
                                 onSuccess={() => {
                                   setShowChangeEmail(false);
+                                }}
+                                onUpdated={(email: string) => {
+                                  setUser({
+                                    ...user,
+                                    email,
+                                  });
                                 }}
                                 defaultEmail={fieldProps.value}
                                 userId={user.id}
