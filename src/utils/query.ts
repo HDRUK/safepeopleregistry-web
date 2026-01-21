@@ -1,5 +1,6 @@
 import {
   MutateWithArgs,
+  MutationOptions,
   QueryOptions,
   ResponseJson,
   ResponseOptions,
@@ -131,9 +132,11 @@ function createQuery<R>(
     queryKey: formattedQueryKey,
     queryFn: data =>
       queryFn(data, {
-        error: {
-          message: `${formattedQueryKey[0]}Error`,
-        },
+        ...(!options?.noErrorKey && {
+          error: {
+            message: `${formattedQueryKey[0]}Error`,
+          },
+        }),
         ...options?.responseOptions,
       }),
     ...options,
@@ -148,7 +151,7 @@ function createMutation<R, T, P>(
       options: ResponseOptions
     ) => Promise<R>;
   },
-  options?: QueryOptions
+  options?: MutationOptions
 ) {
   const { mutationKey, mutationFn } = mutation;
   const formattedMutationKey = [
@@ -160,9 +163,11 @@ function createMutation<R, T, P>(
     mutationKey: formattedMutationKey,
     mutationFn: (mutationArgs: MutateWithArgs<T, P>) => {
       return mutationFn(mutationArgs, {
-        error: {
-          message: `${mutationKey}Error`,
-        },
+        ...(!options?.noErrorKey && {
+          error: {
+            message: `${mutationKey}Error`,
+          },
+        }),
         ...options?.responseOptions,
       });
     },
@@ -191,6 +196,8 @@ function responseToQueryState<T = unknown>(
 }
 
 export {
+  createMutation,
+  createQuery,
   getCombinedQueryState,
   getQueriesError,
   getSearchQuerystring,
@@ -201,7 +208,5 @@ export {
   isQueriesError,
   isQueriesFetched,
   isQueriesLoading,
-  createQuery,
-  createMutation,
   responseToQueryState,
 };

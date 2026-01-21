@@ -13,7 +13,7 @@ export default defineConfig({
       //     value: 0
       //   });
       // })
-      (on("before:browser:launch", (browser, launchOptions) => {
+      on("before:browser:launch", (browser, launchOptions) => {
         if (browser.family === "chromium") {
           // running headless chrome in a virtualized environment forces pointer type to default to `NONE`
           // to mimic "desktop" environment more correctly we force blink to have `pointer: fine` support
@@ -37,7 +37,7 @@ export default defineConfig({
             console.table(data);
             return null;
           },
-        }));
+        });
 
       config.env.MAILDEV_PROTOCOL = process.env.CYPRESS_MAILDEV_PROTOCOL;
       config.env.MAILDEV_HOST = process.env.CYPRESS_MAILDEV_HOST;
@@ -104,6 +104,7 @@ export default defineConfig({
       "cypress/e2e/user-journeys/custodians/users.cy.ts",
       "cypress/e2e/user-journeys/custodians/configuration.cy.ts",
       "cypress/e2e/user-journeys/auth/redirects.cy.ts",
+      "cypress/e2e/user-journeys/users/profile.cy.ts",
       // "cypress/e2e/user-journeys/users/projects.cy.ts",
       // "cypress/e2e/user-journeys/admin/inviteCustodian.cy.ts",
       // "cypress/e2e/user-journeys/admin/inviteOrganisation.cy.ts",
