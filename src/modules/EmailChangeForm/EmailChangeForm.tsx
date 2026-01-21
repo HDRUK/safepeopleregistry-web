@@ -56,7 +56,7 @@ export default function EmailChangeForm({
       />
       <FormActions>
         {actions}
-        <ButtonSave loading={mutateState.isPending}>
+        <ButtonSave isLoading={mutateState.isPending}>
           {t(`updateButton`)}
         </ButtonSave>
       </FormActions>
