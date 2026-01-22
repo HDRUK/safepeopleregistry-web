@@ -223,6 +223,22 @@ jobs:
             keycloak \
             /opt/keycloak/bin/kc.sh start-dev --http-enabled=true --hostname-strict=false
 
+      - name: Wait for Keycloak
+        run: |
+          echo "Waiting for Keycloak to be ready..."
+          # Retries for up to 60 seconds
+          for i in {1..30}; do
+            if curl -s http://localhost:8080/health/live; then
+              echo "Keycloak is up!"
+              exit 0
+            fi
+            echo "Still waiting..."
+            sleep 2
+          done
+          echo "Keycloak failed to start in time"
+          docker logs keycloak
+          exit 1
+
       # - name: Populate DB
       #   run: |
       #     until pg_isready -h localhost -p 5432 -U keycloak; do
