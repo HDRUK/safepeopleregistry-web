@@ -47,21 +47,19 @@ describe("Profile journey", () => {
 
     cy.get("#personal_email").should("have.value", newEmail);
 
-    if (Cypress.env("keycloakTests") === "true") {
-      signout();
-      cy.clearAllSessionStorage();
+    signout();
+    cy.clearAllSessionStorage();
 
-      actionMessage(EMAIL_UPDATE_ACCOUNT_LABEL, {
-        to: newEmail,
-      });
+    actionMessage(EMAIL_UPDATE_ACCOUNT_LABEL, {
+      to: newEmail,
+    });
 
-      cy.contains(/Click here to proceed/).click();
+    cy.contains(/Click here to proceed/).click();
 
-      loginUser(newEmail);
+    loginUser(newEmail);
 
-      cy.visit(ROUTES.profileResearcher.path);
+    cy.visit(ROUTES.profileResearcher.path);
 
-      shouldBeUserProfile();
-    }
+    shouldBeUserProfile();
   });
 });
