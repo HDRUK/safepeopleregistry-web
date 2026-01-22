@@ -221,7 +221,7 @@ jobs:
             -e KEYCLOAK_ADMIN=admin \
             -e KEYCLOAK_ADMIN_PASSWORD=admin \
             keycloak \
-            /opt/keycloak/bin/kc.sh start-dev --health-enabled=true --http-enabled=true --hostname-strict=false
+            start-dev --health-enabled=true --http-enabled=true --hostname-strict=false
 
       - name: Wait for Keycloak
         run: |
