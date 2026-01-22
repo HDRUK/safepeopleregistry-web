@@ -207,7 +207,9 @@ jobs:
             sleep 2
           done
 
-          PGPASSWORD=password psql -h localhost -U keycloak -d keycloak < "$GITHUB_WORKSPACE/database/keycloak.sql"
+          SQL_FILE=$(find . -name "keycloak.sql" | head -n 1)
+          echo "Restoring from: $SQL_FILE"
+          PGPASSWORD=password psql -h localhost -U keycloak -d keycloak < "$SQL_FILE"
 
       # - name: Fix Keycloak DB Permissions
       #   run: |
