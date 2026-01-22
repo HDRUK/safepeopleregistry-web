@@ -207,11 +207,11 @@ jobs:
             sleep 2
           done
 
-          PGPASSWORD=password psql -h localhost -U keycloak -d keycloak < ./database/keycloak.sql
+          PGPASSWORD=password psql -h localhost -U keycloak -d keycloak < "$GITHUB_WORKSPACE/database/keycloak.sql"
 
-      - name: Fix Keycloak DB Permissions
-        run: |
-          docker exec -i postgres psql -U postgres -c "ALTER SCHEMA public OWNER TO keycloak; GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO keycloak;"
+      # - name: Fix Keycloak DB Permissions
+      #   run: |
+      #     docker exec -i postgres psql -U postgres -c "ALTER SCHEMA public OWNER TO keycloak; GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO keycloak;"
 
       - name: Checkout Keycloak repo
         uses: actions/checkout@v4
