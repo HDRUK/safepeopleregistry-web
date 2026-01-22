@@ -204,7 +204,7 @@ jobs:
           repository: HDRUK/hdruk-keycloak
           path: hdruk-keycloak
           ref: main
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
 
       - name: Build and Start Keycloak
         working-directory: ./hdruk-keycloak
@@ -241,7 +241,7 @@ jobs:
         with:
           repository: HDRUK/safepeopleregistry-api
           path: safepeopleregistry-api
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
           ref: ${{ github.event.inputs.api_branch || 'dev' }}
 
       - name: Setup PHP
