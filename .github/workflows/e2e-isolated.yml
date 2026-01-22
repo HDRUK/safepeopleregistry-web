@@ -213,7 +213,6 @@ jobs:
 
           docker run -d \
             --name keycloak \
-            --network host \
             -p 8080:8080 \
             -e KC_DB=postgres \
             -e KC_DB_URL=jdbc:postgresql://postgres:5432/keycloak \
@@ -222,6 +221,7 @@ jobs:
             -e KEYCLOAK_ADMIN=admin \
             -e KEYCLOAK_ADMIN_PASSWORD=admin \
             keycloak
+            start-dev
 
       # - name: Populate DB
       #   run: |
