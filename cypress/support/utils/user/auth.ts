@@ -1,5 +1,8 @@
-const loginUser = () => {
-  cy.login(Cypress.env("userEmail"), Cypress.env("userPassword"));
+const loginUser = (email?: string, password?: string) => {
+  cy.login(
+    email || Cypress.env("userEmail"),
+    password || Cypress.env("userPassword")
+  );
 };
 
 export { loginUser };

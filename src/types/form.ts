@@ -34,6 +34,10 @@ interface InviteCustodianFormValues {
   contact_email: string;
 }
 
+interface EmailChangeFormValues {
+  email: string;
+}
+
 interface InviteUserFormValues {
   first_name: string;
   last_name: string;
@@ -92,4 +96,5 @@ export type {
   DelegatesFormValues,
   InviteOrganisationFormValues,
   RegistrationValues,
+  EmailChangeFormValues,
 };

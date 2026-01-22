@@ -5,9 +5,8 @@ import { redirect } from "next/navigation";
 import { ROUTES } from "../consts/router";
 import { getRefreshAccessToken } from "../services/auth";
 import { User } from "../types/application";
-import { Routes } from "../types/router";
+import { getProfilePathByEntity } from "./entity";
 import { getLoginUrl, getRegisterUrl } from "./keycloak";
-import { capitaliseFirstLetter } from "./string";
 
 async function redirectToPath(redirectUrl: string, pathname?: string) {
   const locale = await cookies().get("NEXT_LOCALE")?.value;
@@ -19,19 +18,6 @@ async function redirectToPath(redirectUrl: string, pathname?: string) {
   ) {
     redirect(redirectUrl);
   }
-}
-
-function getProfilePathByEntity(user: User | string) {
-  if (!user) return ROUTES.homepage.path;
-
-  const profileEntity = capitaliseFirstLetter(
-    (typeof user === "string" ? user : user.user_group)
-      .replace(/USER/i, "RESEARCHER")
-      .replace(/s$/i, "")
-      .toLowerCase()
-  );
-
-  return ROUTES[`profile${profileEntity}` as keyof Routes].path;
 }
 
 const getProfileRedirectPath = (user: User) => {
@@ -87,7 +73,6 @@ function isInPath(pathname: string, pathToCompare: string | string[]) {
 
 export {
   getHomepageRedirectPath,
-  getProfilePathByEntity,
   getProfileRedirectPath,
   getRefreshTokenRedirectPath,
   getRegisterRedirectPath,
