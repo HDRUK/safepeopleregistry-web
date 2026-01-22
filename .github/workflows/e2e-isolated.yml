@@ -220,8 +220,8 @@ jobs:
             -e KC_DB_PASSWORD=password \
             -e KEYCLOAK_ADMIN=admin \
             -e KEYCLOAK_ADMIN_PASSWORD=admin \
-            keycloak
-            start-dev
+            keycloak \
+            /opt/keycloak/bin/kc.sh start-dev --http-enabled=true --hostname-strict=false
 
       # - name: Populate DB
       #   run: |
