@@ -26,6 +26,8 @@ describe("Profile journey", () => {
   });
 
   after(() => {
+    cy.visitFirst(ROUTES.profileResearcherIdentity.path);
+
     changeEmail(Cypress.env("userEmail"));
 
     logout();
