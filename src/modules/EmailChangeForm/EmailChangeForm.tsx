@@ -7,20 +7,21 @@ import Form from "../../components/Form";
 import FormControlWrapper from "../../components/FormControlWrapper";
 import yup from "../../config/yup";
 import { MAX_FORM_WIDTH } from "../../consts/form";
-import { EmailChangeFormValues, QueryState } from "../../types/form";
+import { EmailChangeFormValues, WithMutationState } from "../../types/form";
 
-export type EmailChangeFormProps = WithTranslations<{
-  onSubmit?: (fields: EmailChangeFormValues) => void;
-  actions: ReactNode;
-  queryState: QueryState;
-  defaultEmail?: string;
-}>;
+export type EmailChangeFormProps = WithMutationState<
+  WithTranslations<{
+    onSubmit?: (fields: EmailChangeFormValues) => void;
+    actions: ReactNode;
+    defaultEmail?: string;
+  }>
+>;
 
 export default function EmailChangeForm({
   actions,
   onSubmit,
   defaultEmail,
-  queryState,
+  mutateState,
   t,
 }: EmailChangeFormProps) {
   const schema = useMemo(
@@ -49,11 +50,13 @@ export default function EmailChangeForm({
       sx={{ maxWidth: MAX_FORM_WIDTH }}>
       <FormControlWrapper
         name="email"
-        renderField={fieldProps => <TextField {...fieldProps} />}
+        renderField={fieldProps => (
+          <TextField disabled={mutateState.isPending} {...fieldProps} />
+        )}
       />
       <FormActions>
         {actions}
-        <ButtonSave loading={queryState.isLoading}>
+        <ButtonSave isLoading={mutateState.isPending}>
           {t(`updateButton`)}
         </ButtonSave>
       </FormActions>

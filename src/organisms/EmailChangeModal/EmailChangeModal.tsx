@@ -71,7 +71,7 @@ export default function EmailChangeModal({
       <EmailChangeForm
         t={t}
         defaultEmail={defaultEmail}
-        queryState={changeEmailState}
+        mutateState={changeEmailState}
         actions={<ButtonCancel onClick={onClose} />}
         onSubmit={handleSubmit}
       />

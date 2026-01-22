@@ -54,6 +54,7 @@
     "babel-jest": "^30.0.2",
     "conventional-changelog-conventionalcommits": "^9.0.0",
     "countries-list": "^3.1.1",
+    "cypress-if": "^1.13.2",
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.11",
     "deep-equal": "^2.2.3",
