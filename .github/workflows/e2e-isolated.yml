@@ -198,6 +198,16 @@ jobs:
           nohup maildev --smtp=1025 --web=8025 > maildev.log 2>&1 &
           sleep 5
 
+      - name: Update Keycloak DB
+        run: |
+          until docker exec postgres pg_isready; do sleep 2; done
+
+          cat ./database/keycloak.sql | docker exec -i postgres psql -U keycloak -d keycloak
+
+      - name: Fix Keycloak DB Permissions
+        run: |
+          docker exec -i postgres psql -U postgres -c "ALTER SCHEMA public OWNER TO keycloak; GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO keycloak;"
+
       - name: Checkout Keycloak repo
         uses: actions/checkout@v4
         with:
@@ -219,8 +229,8 @@ jobs:
             -e KC_DB_URL=jdbc:postgresql://host.docker.internal:5432/keycloak \
             -e KC_DB_USERNAME=keycloak \
             -e KC_DB_PASSWORD=password \
-            -e KEYCLOAK_ADMIN=admin \
-            -e KEYCLOAK_ADMIN_PASSWORD=admin \
+            -e KC_BOOTSTRAP_ADMIN_USERNAME=admin \
+            -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin \
             keycloak \
             start-dev --health-enabled=true --http-enabled=true --hostname-strict=false
 
@@ -238,17 +248,7 @@ jobs:
           done
           echo "Keycloak failed to start in time"
           docker logs keycloak
-          exit 1
-
-      # - name: Populate DB
-      #   run: |
-      #     until pg_isready -h localhost -p 5432 -U keycloak; do
-      #       echo "Waiting for Postgres port to open..."
-      #       sleep 2
-      #     done
-
-      #     echo "Keycloak db is up! Running SQL..."
-      #     PGPASSWORD=password psql -h localhost -p 5432 -U keycloak -d keycloak -f ./database/keycloak.sql
+          exit 1Should I
 
       - name: Checkout web
         uses: actions/checkout@v4
