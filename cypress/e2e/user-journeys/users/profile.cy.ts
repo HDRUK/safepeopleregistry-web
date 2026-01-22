@@ -1,7 +1,18 @@
 import { ROUTES } from "@/consts/router";
 import { faker } from "@faker-js/faker";
-import { getModalByHeader, logout } from "cypress/support/utils/common";
-import { DEFAULT_USER } from "cypress/support/utils/data";
+import {
+  // dataCy,
+  // getModalByHeader,
+  logout,
+  // shouldBeUserProfile,
+  // signout,
+} from "cypress/support/utils/common";
+// import {
+//   DEFAULT_USER,
+//   EMAIL_REGISTER_VERIFICATION_LABEL,
+//   EMAIL_UPDATE_ACCOUNT_LABEL,
+// } from "cypress/support/utils/data";
+// import { actionMessage } from "cypress/support/utils/mail";
 import { loginUser } from "cypress/support/utils/user/auth";
 import { changeEmail } from "cypress/support/utils/user/profile";
 
@@ -33,5 +44,21 @@ describe("Profile journey", () => {
     cy.reload();
 
     cy.get("#personal_email").should("have.value", newEmail);
+
+    // signout();
+
+    // cy.clearAllSessionStorage();
+
+    // actionMessage(EMAIL_UPDATE_ACCOUNT_LABEL, {
+    //   to: newEmail,
+    // });
+
+    // cy.contains(/Click here to proceed/).click();
+
+    // loginUser(newEmail);
+
+    // cy.visit(ROUTES.profileResearcher.path);
+
+    // shouldBeUserProfile();
   });
 });

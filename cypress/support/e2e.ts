@@ -1,4 +1,5 @@
 import "cypress-maildev";
+import "cypress-if";
 import "./commands";
 
 Cypress.on("uncaught:exception", err => {

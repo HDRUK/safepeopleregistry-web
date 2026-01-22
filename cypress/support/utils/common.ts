@@ -32,6 +32,8 @@ const logout = () => {
 const signout = () => {
   cy.visit(ROUTES.homepage.path);
   cy.contains("button", "Sign Out").click();
+
+  cy.get("#kc-logout").if().click();
 };
 
 const shouldBeUserProfile = () => {
