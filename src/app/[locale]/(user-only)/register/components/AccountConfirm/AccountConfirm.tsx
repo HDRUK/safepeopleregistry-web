@@ -72,9 +72,7 @@ export default function AccountConfirm({
   // Create a new account automatically if type query param exists
   useEffect(() => {
     const initRegister = async () => {
-      console.log("User group", userGroup);
       if (tokenUser && isValidUserGroup(userGroup) && !unclaimedUser) {
-        console.log("Registering", tokenUser);
         await handleRegister(tokenUser);
       }
     };
