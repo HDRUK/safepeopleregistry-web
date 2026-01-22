@@ -19,10 +19,10 @@ import { Box, Button, Link, Modal, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { getProfilePathByEntity } from "@/utils/redirects";
 import ErrorMessage from "@/components/ErrorMessage";
 import OverlayCenterAlert from "@/components/OverlayCenterAlert";
 import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
+import { getProfilePathByEntity } from "@/utils/entity";
 import AccountOption from "../AccountOption";
 
 const NAMESPACE_TRANSLATIONS_PROFILE = "Register";

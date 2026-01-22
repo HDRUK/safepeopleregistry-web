@@ -24,8 +24,12 @@ import postResendInvite from "./postResendInvite";
 import postResendInviteQuery from "./postResendInviteQuery";
 import postResendInviteByOrganisation from "./postResendInviteByOrganisation";
 import postResendInviteByOrganisationQuery from "./postResendInviteByOrganisationQuery";
+import putChangeEmail from "./putChangeEmail";
+import putChangeEmailQuery from "./putChangeEmailQuery";
 
 export {
+  putChangeEmail,
+  putChangeEmailQuery,
   getPendingInvitesQuery,
   getPendingInvites,
   getPendingInvite,

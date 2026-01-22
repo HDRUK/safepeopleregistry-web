@@ -23,11 +23,12 @@ import {
   PageColumns,
   PageSection,
 } from "@/modules";
+import EmailChangeModal from "@/organisms/EmailChangeModal";
 import { putUserQuery } from "@/services/users";
 import { User } from "@/types/application";
 import { canUseIdvt } from "@/utils/application";
 import { CheckCircle } from "@mui/icons-material";
-import { Button, Grid, TextField } from "@mui/material";
+import { Box, Button, Grid, Link, TextField } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -48,7 +49,10 @@ const NAMESPACE_TRANSLATION_PROFILE = "Profile";
 export default function Identity() {
   const queryClient = useQueryClient();
   const router = useRouter();
-  const user = useStore(state => state.getUser());
+  const { user, setUser } = useStore(state => ({
+    user: state.getUser(),
+    setUser: state.setUser,
+  }));
   const { registry } = user as User;
   const { identity } = registry;
   const { idvt_started_at, idvt_success } = identity || {
@@ -63,6 +67,7 @@ export default function Identity() {
   const updateUser = useMutation(putUserQuery(user?.id));
 
   const [showModal, setShowModal] = useState(false);
+  const [showChangeEmail, setShowChangeEmail] = useState(false);
 
   const handleDetailsSubmit = useCallback(
     async (fields: IdentityFormValues) => {
@@ -168,7 +173,38 @@ export default function Identity() {
                         <FormControlWrapper
                           name="personal_email"
                           renderField={fieldProps => (
-                            <TextField {...fieldProps} />
+                            <Box sx={{ display: "flex", gap: 2 }}>
+                              <TextField
+                                {...fieldProps}
+                                sx={{ width: "500px" }}
+                                disabled
+                              />
+                              <Link
+                                component="button"
+                                onClick={e => {
+                                  e.preventDefault();
+                                  setShowChangeEmail(true);
+                                }}>
+                                Change email
+                              </Link>
+                              <EmailChangeModal
+                                open={showChangeEmail}
+                                onClose={() => {
+                                  setShowChangeEmail(false);
+                                }}
+                                onSuccess={() => {
+                                  setShowChangeEmail(false);
+                                }}
+                                onUpdated={(email: string) => {
+                                  setUser({
+                                    ...user,
+                                    email,
+                                  });
+                                }}
+                                defaultEmail={fieldProps.value}
+                                userId={user.id}
+                              />
+                            </Box>
                           )}
                           description={t.rich("emailDescription", {
                             bold: chunks => <strong>{chunks}</strong>,
