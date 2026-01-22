@@ -198,6 +198,9 @@ jobs:
           nohup maildev --smtp=1025 --web=8025 > maildev.log 2>&1 &
           sleep 5
 
+      - name: Checkout web
+        uses: actions/checkout@v4
+
       - name: Update Keycloak DB
         run: |
           sudo apt-get update && sudo apt-get install -y postgresql-client
@@ -256,9 +259,6 @@ jobs:
           echo "Keycloak failed to start in time"
           docker logs keycloak
           exit 1Should I
-
-      - name: Checkout web
-        uses: actions/checkout@v4
 
       - name: Checkout api
         uses: actions/checkout@v4
