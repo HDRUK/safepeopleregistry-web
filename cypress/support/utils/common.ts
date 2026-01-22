@@ -37,15 +37,15 @@ const signout = () => {
 };
 
 const shouldBeUserProfile = () => {
-  cy.url().should("eq", `${Cypress.config().baseUrl}/user/profile`);
+  cy.contains("Add your personal details").should("exist");
 };
 
 const shouldBeOrganisationProfile = () => {
-  cy.url().should("eq", `${Cypress.config().baseUrl}/organisation/profile`);
+  cy.contains("Complete your Organisation name & address").should("exist");
 };
 
 const shouldBeCustodianProfile = () => {
-  cy.url().should("eq", `${Cypress.config().baseUrl}/data-custodian/profile`);
+  cy.contains("Complete your configuration").should("exist");
 };
 
 export {
