@@ -214,8 +214,9 @@ jobs:
           docker run -d \
             --name keycloak \
             -p 8080:8080 \
+            --add-host=host.docker.internal:host-gateway \
             -e KC_DB=postgres \
-            -e KC_DB_URL=jdbc:postgresql://postgres:5432/keycloak \
+            -e KC_DB_URL=jdbc:postgresql://host.docker.internal:5432/keycloak \
             -e KC_DB_USERNAME=keycloak \
             -e KC_DB_PASSWORD=password \
             -e KEYCLOAK_ADMIN=admin \
