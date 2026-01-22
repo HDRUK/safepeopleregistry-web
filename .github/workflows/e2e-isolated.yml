@@ -200,9 +200,14 @@ jobs:
 
       - name: Update Keycloak DB
         run: |
-          until docker exec postgres pg_isready; do sleep 2; done
+          sudo apt-get update && sudo apt-get install -y postgresql-client
 
-          cat ./database/keycloak.sql | docker exec -i postgres psql -U keycloak -d keycloak
+          until pg_isready -h localhost -p 5432; do
+            echo "Waiting for Postgres service..."
+            sleep 2
+          done
+
+          PGPASSWORD=password psql -h localhost -U keycloak -d keycloak < ./database/keycloak.sql
 
       - name: Fix Keycloak DB Permissions
         run: |
