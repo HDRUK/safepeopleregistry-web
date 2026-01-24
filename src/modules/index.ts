@@ -16,6 +16,11 @@ import OrganisationsTable from "./OrganisationsTable";
 import InvitesTable from "./InvitesTable";
 import ProjectsTable from "./ProjectsTable";
 import InvitesFilters from "./InvitesFilters";
+<<<<<<< Updated upstream
+=======
+import EmailsTable from "./EmailsTable";
+import EmailsFilters from "./EmailsFilters";
+>>>>>>> Stashed changes
 
 export {
   AffiliationsTable,
@@ -36,4 +41,9 @@ export {
   ProjectsTable,
   InvitesTable,
   InvitesFilters,
+<<<<<<< Updated upstream
+=======
+  EmailsTable,
+  EmailsFilters,
+>>>>>>> Stashed changes
 };
