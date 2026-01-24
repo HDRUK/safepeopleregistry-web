@@ -1,10 +1,10 @@
-import { QueryOptions, ResponseJson } from "../../types/requests";
+import { Paged, QueryOptions, ResponseJson } from "../../types/requests";
 import { createQuery } from "../../utils/query";
 import getEmails from "./getEmails";
 import { EmailsResponse } from "./types";
 
 export default (options?: QueryOptions) =>
-  createQuery<ResponseJson<EmailsResponse>>(
+  createQuery<ResponseJson<Paged<EmailsResponse>>>(
     {
       queryKey: ["getEmails"],
       queryFn: async (

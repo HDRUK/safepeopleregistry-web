@@ -3,7 +3,7 @@
 import { PageBody } from "@/modules";
 import InviteUser from "@/modules/InviteUser";
 import SendInviteCustodian from "@/modules/SendInviteCustodian";
-import { OrganisationsList, InvitesList } from "@/organisms";
+import { OrganisationsList, InvitesList, EmailsList } from "@/organisms";
 import FeatureFlagList from "@/organisms/FeatureFlagsList";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Typography } from "@mui/material";
@@ -46,6 +46,14 @@ export default function Sections() {
       component: (
         <PageBody>
           <InvitesList />
+        </PageBody>
+      ),
+    },
+    {
+      name: "emails",
+      component: (
+        <PageBody>
+          <EmailsList />
         </PageBody>
       ),
     },

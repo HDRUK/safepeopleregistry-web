@@ -46,6 +46,14 @@ type WithPaginatedQueryParms<T> = T & {
   paginatedQueryParams: QueryParams;
 };
 
+interface Email {
+  to: string;
+  subject: string;
+  updated_at: string;
+  status: string;
+  id: number;
+}
+
 interface File {
   id: number;
   name: string;
@@ -604,4 +612,5 @@ export type {
   WithRoutes,
   WithStateWorkflow,
   WithTranslations,
+  Email,
 };
