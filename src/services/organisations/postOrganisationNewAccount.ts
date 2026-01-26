@@ -5,7 +5,7 @@ import { PostOrganisationNewAccountPayload } from "./types";
 
 export default async (
   payload: PostOrganisationNewAccountPayload,
-  options: ResponseOptions
+  options?: ResponseOptions
 ): Promise<ResponseJson<number>> => {
   const response = await postRequest(`/organisations/new_account`, payload);
 

@@ -1,15 +1,20 @@
 "use client";
 
+import ErrorMessage from "@/components/ErrorMessage";
 import Guidance from "@/components/Guidance";
 import LoadingWrapper from "@/components/LoadingWrapper";
+import OverlayCenterAlert from "@/components/OverlayCenterAlert";
 import SoursdLogo from "@/components/SoursdLogo";
 import TermsAndConditions from "@/components/TermsAndConditions";
 import { CONTACT_MAIL_ADDRESS } from "@/config/contacts";
 import { ROUTES } from "@/consts/router";
 import { UserGroup } from "@/consts/user";
+import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
 import useRegisterUser from "@/hooks/useRegisterUser";
+import useTransitionRedirect from "@/hooks/useTransitionRedirect";
 import { ModalContent } from "@/organisms/Training/CertificateUploadModal.styles";
 import { User } from "@/types/application";
+import { getProfilePathByEntity } from "@/utils/entity";
 import { handleRegister as handleRegisterKeycloak } from "@/utils/keycloak";
 import { AdminPanelSettingsOutlined } from "@mui/icons-material";
 import BusinessIcon from "@mui/icons-material/Business";
@@ -17,12 +22,8 @@ import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import { LoadingButton } from "@mui/lab";
 import { Box, Button, Link, Modal, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { redirect, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import ErrorMessage from "@/components/ErrorMessage";
-import OverlayCenterAlert from "@/components/OverlayCenterAlert";
-import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
-import { getProfilePathByEntity } from "@/utils/entity";
 import AccountOption from "../AccountOption";
 
 const NAMESPACE_TRANSLATIONS_PROFILE = "Register";
@@ -99,18 +100,19 @@ export default function AccountConfirm({
 
   const { isLoading, isError, error, isSuccess } = registerUserState;
 
-  if (isSuccess && userGroup) {
-    redirect(getProfilePathByEntity(userGroup));
-  }
+  const isRedirecting = useTransitionRedirect({
+    path: getProfilePathByEntity(userGroup),
+    enabled: userGroup && isSuccess,
+  });
 
-  if (isError || isLoading) {
+  if (isError || isLoading || isRedirecting) {
     return (
       <Box
         sx={{
           height: "70vh",
           position: "relative",
         }}>
-        <LoadingWrapper variant="basic" loading={isLoading}>
+        <LoadingWrapper variant="basic" loading={isLoading || isRedirecting}>
           <OverlayCenterAlert messageProps={{ severity: "error" }}>
             <ErrorMessage tKey={error[0]} t={t} />
           </OverlayCenterAlert>
