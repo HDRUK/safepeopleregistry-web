@@ -1823,7 +1823,7 @@ bfe8fa02-5527-4589-b742-fffc1ff2ecca	t	f	account-console	0	t	\N	/realms/SOURSD/a
 e9245e8a-48fd-4b8b-add1-e7e5c998809f	t	t	admin-cli	0	t	\N	\N	f	\N	f	726a9ec1-c25f-4f4c-a6bb-9fb0c2d8a9a8	openid-connect	0	f	f	${client_admin-cli}	f	client-secret	\N	\N	\N	f	f	t	f
 53dcc167-e5c7-4a51-b708-cef18370e62c	t	f	account	0	t	\N	/realms/GATEWAY/account/	f		f	726a9ec1-c25f-4f4c-a6bb-9fb0c2d8a9a8	openid-connect	0	f	f	${client_account}	f	client-secret	${authBaseUrl}		\N	t	f	f	f
 bfad858c-3558-4e6d-99e6-d1e29a08adc0	t	t	gateway-federation-broker	0	t	\N	https://2175a2470d67.ngrok-free.app	f	https://2175a2470d67.ngrok-free.app	f	726a9ec1-c25f-4f4c-a6bb-9fb0c2d8a9a8	openid-connect	-1	t	f	Gateway Federation Broker	f	client-secret	https://2175a2470d67.ngrok-free.app		\N	t	f	t	f
-2e713a57-2d5f-4835-aca9-8342751942d1	t	t	speedi-registry-app	0	f	c5jQYeoX2c945Ifu6JqSehicSs4tt5oa	http://localhost:3000	f	http://localhost:8100/api	f	95b0b755-b0d8-46d1-99b5-be385e3fa5c4	openid-connect	-1	t	f	SOURSD Service Application	t	client-secret	http://localhost:8100/api		\N	t	t	t	f
+2e713a57-2d5f-4835-aca9-8342751942d1	t	t	speedi-registry-app	0	f	e2uLxcKfNMl6NE30gL0jlvdKATzZzdfy	http://localhost:3000	f	http://localhost:8100/api	f	95b0b755-b0d8-46d1-99b5-be385e3fa5c4	openid-connect	-1	t	f	SOURSD Service Application	t	client-secret	http://localhost:8100/api		\N	t	t	t	f
 \.
 
 
