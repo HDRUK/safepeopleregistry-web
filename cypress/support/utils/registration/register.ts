@@ -27,7 +27,7 @@ function registerAndLogin(registration: RegistrationValues) {
   });
 
   cy.contains("a", /Click here to proceed/i).click();
-  cy.contains("a", "Back to Login").click();
+  // cy.contains("a", "Back to Login").click();
 
   cy.login(registration.email, registration.password);
   cy.visitFirst(ROUTES.register.path);
