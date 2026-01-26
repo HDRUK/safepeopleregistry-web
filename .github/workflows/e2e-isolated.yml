@@ -191,7 +191,9 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
+    permissions:
+      contents: "read"
+      id-token: "write"
     steps:
       - name: Install MailDev
         run: npm install -g maildev
