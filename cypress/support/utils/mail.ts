@@ -19,6 +19,8 @@ function actionMessage(
 
     const href = link.attr("href");
 
+    cy.log(`****** FOUND HREF: ${href}`);
+
     if (!href) {
       throw new Error("Email doesn't exist");
     } else {

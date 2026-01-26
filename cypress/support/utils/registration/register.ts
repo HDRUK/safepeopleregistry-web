@@ -78,15 +78,15 @@ function registerKeycloak(user: {
 
   cy.contains("button", "Register").click();
 
-  // cy.contains(
-  //   ".instruction",
-  //   /An email with instructions to verify your email address has been sent to your address/i
-  // );
+  cy.contains(
+    ".instruction",
+    /An email with instructions to verify your email address has been sent to your address/i
+  );
 
-  // cy.contains(
-  //   ".instruction",
-  //   "Haven't received a verification code in your email? Click here to re-send the email."
-  // );
+  cy.contains(
+    ".instruction",
+    "Haven't received a verification code in your email? Click here to re-send the email."
+  );
 
   cy.contains("a", "Click here");
 }
