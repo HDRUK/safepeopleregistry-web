@@ -217,7 +217,15 @@ jobs:
       - name: Setup gcloud cli
         uses: "google-github-actions/setup-gcloud@v2"
 
+      - name: Cache Keycloak SQL file
+        id: cache-keycloak-sql
+        uses: actions/cache@v4
+        with:
+          path: ./keycloak.sql
+          key: ${{ runner.os }}-keycloak-sql-v1
+
       - name: Download Keycloak SQL file
+        if: steps.cache-keycloak-sql.outputs.cache-hit != 'true'
         run: |
           gcloud storage cp gs://hdrregistrypostgresquery/keycloak.sql ./keycloak.sql
 
