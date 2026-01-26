@@ -206,6 +206,8 @@ jobs:
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
 
       - name: Setup gcloud cli
         uses: "google-github-actions/setup-gcloud@v2"
