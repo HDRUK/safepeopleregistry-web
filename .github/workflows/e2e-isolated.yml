@@ -204,6 +204,14 @@ jobs:
       - name: Checkout web
         uses: actions/checkout@v4
 
+      - name: Debug Secret Presence
+        run: |
+          if [ -n "${{ secrets.WIF_PROVIDER }}" ]; then
+            echo "WIF_PROVIDER is set"
+          else
+            echo "WIF_PROVIDER is EMPTY"
+          fi
+
       - name: Google Auth
         id: auth
         uses: "google-github-actions/auth@v2"
@@ -231,10 +239,6 @@ jobs:
           SQL_FILE=$(find . -name "keycloak.sql" | head -n 1)
           echo "Restoring from: $SQL_FILE"
           PGPASSWORD=password psql -h localhost -U keycloak -d keycloak < "$SQL_FILE"
-
-      # - name: Fix Keycloak DB Permissions
-      #   run: |
-      #     docker exec -i postgres psql -U postgres -c "ALTER SCHEMA public OWNER TO keycloak; GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO keycloak;"
 
       - name: Checkout Keycloak repo
         uses: actions/checkout@v4
