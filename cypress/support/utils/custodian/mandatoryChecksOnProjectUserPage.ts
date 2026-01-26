@@ -1,19 +1,16 @@
 import { dataCy } from "../common";
 
 const checkMandatoryCustodianTrainingTestingChecksAddMoreIformationCancelButton = () => {
-  cy.contains('h5', 'Mandatory training has been completed').closest('.MuiPaper-root').within(($el) => {
-    cy.contains('h5', 'Mandatory training has been completed').should('exist');
+    cy.verifyMandatoryTrainingCardTitleExists("Mandatory training has been completed");
     cy.contains("button", "…").should('exist').click();
     cy.document().find('.MuiPopover-root:visible').within(() => {
       cy.contains('Add more information').click();
       })
     cy.contains("button", "Cancel").should('exist').click();
-  });
 };
 
 const checkMandatoryCustodianTrainingTestingChecksAddMoreInformation = () => {
-  cy.contains('h5', 'Mandatory training has been completed').closest('.MuiPaper-root').within(() => {
-    cy.contains('h5', 'Mandatory training has been completed').should('exist');
+  cy.verifyMandatoryTrainingCardTitleExists("Mandatory training has been completed");
     cy.contains("button", "…").should('exist').click();
     cy.document().find('.MuiPopover-root:visible').within(() => {
       cy.contains('Add more information').click();
@@ -23,20 +20,16 @@ const checkMandatoryCustodianTrainingTestingChecksAddMoreInformation = () => {
    cy.get("#comment").should('exist').type(text);
    cy.contains("button", "Add information").should('exist').click();
    cy.contains(text).should("exist");
-  });
 };
 
 const checkMandatoryCustodianTrainingTestingChecksPassCancelButton = () => {
-  cy.contains('h5', 'Mandatory training has been completed').closest('.MuiPaper-root').within(() => {
-    cy.contains('h5', 'Mandatory training has been completed').should('exist');
+  cy.verifyMandatoryTrainingCardTitleExists("Mandatory training has been completed");
     cy.contains('button', 'Pass').click();
     cy.contains("button", "Cancel").should('exist').click();
-  });
 };
 
 const checkMandatoryCustodianTrainingTestingChecksPass = () => {
-  cy.contains('h5', 'Mandatory training has been completed').closest('.MuiPaper-root').within(() => {
-    cy.contains('h5', 'Mandatory training has been completed').should('exist');
+  cy.verifyMandatoryTrainingCardTitleExists("Mandatory training has been completed");
     cy.contains("button", "Pass").should('exist').click();
   cy.contains("label", "Add any further comment").should('exist');
   const text = 'Mandatory Custodian Training Testing';
@@ -44,12 +37,11 @@ const checkMandatoryCustodianTrainingTestingChecksPass = () => {
   cy.contains("button", "Confirm pass").should('exist').click();
   cy.contains("span", "Passed").should('exist');
   cy.contains(text).should("exist");
-  });
 };
 
 const checkMandatoryCustodianTrainingTestingChecksPassChangeDecision = () => {
-  cy.contains('h5', 'Mandatory training has been completed').closest('.MuiPaper-root').within(($el) => {
-    cy.contains('h5', 'Mandatory training has been completed').should('exist');
+  cy.get(".MuiPaper-root").then(($el) => {
+    cy.verifyMandatoryTrainingCardTitleExists("Mandatory training has been completed");
     if($el.find('button:contains("Pass")').length){
       cy.contains("button", "Pass").should('exist').click();
   const text = 'Mandatory Custodian Training Testing';
@@ -99,8 +91,8 @@ const checkMandatoryCustodianTrainingTestingChecksPassViewLessViewAll = () => {
   };
 
 const checkMandatoryCustodianTrainingTestingChecksFailCancelButton = () => {
-  cy.contains('h5', 'Mandatory training has been completed').closest('.MuiPaper-root').within(($el) => {
-    cy.contains('h5', 'Mandatory training has been completed').should('exist');
+  cy.get(".MuiPaper-root").then(($el) => {
+    cy.verifyMandatoryTrainingCardTitleExists("Mandatory training has been completed");
     const comment = 'Mandatory Custodian Training Testing';
     if ($el.find('button:contains("Change Decision")').length) {
       cy.wrap($el).contains('button', 'Change Decision').click();
@@ -112,8 +104,8 @@ const checkMandatoryCustodianTrainingTestingChecksFailCancelButton = () => {
   };
 
   const checkMandatoryCustodianTrainingTestingChecksFail = () => {
-    cy.contains('h5', 'Mandatory training has been completed').closest('.MuiPaper-root').within(($el) => {
-      cy.contains('h5', 'Mandatory training has been completed').should('exist');
+    cy.get(".MuiPaper-root").then(($el) => {
+      cy.verifyMandatoryTrainingCardTitleExists("Mandatory training has been completed");
       const comment = 'Mandatory Custodian Training Testing';
       if ($el.find('button:contains("Change Decision")').length) {
         cy.wrap($el).contains('button', 'Change Decision').click();
@@ -136,17 +128,11 @@ const checkMandatoryCustodianTrainingTestingChecksFailCancelButton = () => {
     cy.contains(text).should("exist");
       }
     });
-
-
-    cy.contains('h5', 'Mandatory training has been completed').closest('.MuiPaper-root').within(() => {
-      cy.contains('h5', 'Mandatory training has been completed').should('exist');
-      
-    });
   };
 
 const checkMandatoryCustodianTrainingTestingChecksFailChangeDecision = () => {
-  cy.contains('h5', 'Mandatory training has been completed').closest('.MuiPaper-root').within(($el) => {
-    cy.contains('h5', 'Mandatory training has been completed').should('exist');
+  cy.get(".MuiPaper-root").then(($el) => {
+    cy.verifyMandatoryTrainingCardTitleExists("Mandatory training has been completed");
     if($el.find('button:contains("Fail")').length){
       cy.contains("button", "Fail").should('exist').click();
   const text = 'Mandatory Custodian Training Testing';
@@ -194,39 +180,6 @@ const checkMandatoryCustodianTrainingTestingChecksFailViewLessViewAll = () => {
   .click();
   })
   };
-
-const checkMandatoryCustodianTrainingTestingChecksAddMoreIformationCancelButton1 = () => {
-    cy.contains('h5', 'Mandatory training has been completed').closest('.MuiPaper-root').within(($el) => {
-      cy.contains('h5', 'Mandatory training has been completed').should('exist');
-      if ($el.find('button:contains("Change Decision")').length) {
-        cy.wrap($el).contains('button', 'Change Decision').click();
-        cy.contains("button", "…").should('exist').click();
-        cy.contains('Add more information').click();
-
-      cy.contains("button", "Cancel").should('exist').click();
-      } else {
-        cy.wrap($el).contains('button', 'Fail').click();
-        cy.contains("button", "…").should('exist').click();
-        cy.get('[data-testid="validation-log-add-more-info"]').should('exist').click({ force: true });
-        cy.contains("button", "Cancel").should('exist').click();
-      }
-    });
-  };
-
-const checkMandatoryCustodianTrainingTestingChecksAddMoreInformation1 = () => {
-  cy.contains('h5', 'Mandatory training has been completed').closest('.MuiPaper-root').within(() => {
-    cy.contains('h5', 'Mandatory training has been completed').should('exist');
-    cy.contains("button", "…").should('exist').click();
-    cy.get('[data-testid="InfoOutlinedIcon"]').should('exist')
-    cy.contains("p", "Add more information").should('exist').click();
-    cy.contains("label", "Add any further comment").should('exist');
-    const text = 'Add more information Testing';
-   cy.get("#comment").should('exist').type(text);
-   cy.contains("button", "Add information").should('exist').click();
-   cy.contains("span", "Added").should('exist');
-   cy.contains(text).should("exist");
-  });
-};
   
 export {
   checkMandatoryCustodianTrainingTestingChecksPassCancelButton,
