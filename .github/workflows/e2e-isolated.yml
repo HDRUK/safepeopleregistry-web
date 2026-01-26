@@ -137,7 +137,7 @@ env:
   CYPRESS_MAILDEV_PROTOCOL: "http"
   CYPRESS_MAILDEV_HOST: "localhost"
   CYPRESS_MAILDEV_SMTP_PORT: "1025"
-  CYPRESS_MAILDEV_API_PORT: "1080"
+  CYPRESS_MAILDEV_API_PORT: "8025"
   CYPRESS_BASE_URL: "http://localhost:3000/en"
   CYPRESS_USER_EMAIL: "test.user+user@safepeopleregistry.com"
   CYPRESS_ORGANISATION_EMAIL: "test.user+organisation@safepeopleregistry.com"
@@ -198,7 +198,7 @@ jobs:
 
       - name: Start MailDev
         run: |
-          nohup maildev --smtp=1025 --web=8025 > maildev.log 2>&1 &
+          nohup maildev --smtp=1025 --web=8025 --ip 0.0.0.0 > maildev.log 2>&1 &
           sleep 5
 
       - name: Checkout web
