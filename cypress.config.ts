@@ -109,12 +109,12 @@ export default defineConfig({
       // ...(process.env.CYPRESS_KEYCLOAK_TESTS === "true"
       //   ? [
       // "cypress/e2e/user-journeys/users/profile.cy.ts",
-      // "cypress/e2e/user-journeys/admin/inviteCustodian.cy.ts",
-      // "cypress/e2e/user-journeys/admin/inviteOrganisation.cy.ts",
-      // "cypress/e2e/user-journeys/admin/inviteUser.cy.ts",
+      "cypress/e2e/user-journeys/admin/inviteCustodian.cy.ts",
+      "cypress/e2e/user-journeys/admin/inviteOrganisation.cy.ts",
+      "cypress/e2e/user-journeys/admin/inviteUser.cy.ts",
       "cypress/e2e/user-journeys/registration/registerUser.cy.ts",
-      // "cypress/e2e/user-journeys/registration/registerOrganisation.cy.ts",
-      // "cypress/e2e/user-journeys/registration/registerCustodian.cy.ts",
+      "cypress/e2e/user-journeys/registration/registerOrganisation.cy.ts",
+      "cypress/e2e/user-journeys/registration/registerCustodian.cy.ts",
       //   ]
       // : []),
     ],
