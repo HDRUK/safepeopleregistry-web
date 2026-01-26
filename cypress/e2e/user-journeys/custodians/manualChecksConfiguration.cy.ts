@@ -4,7 +4,7 @@ import { loginCustodian } from "cypress/support/utils/custodian/auth";
 import { hasAddManualChecksForOrganisationConfigurationManualChecks, 
          hasAddManualChecksForUsersConfigurationManualChecks, 
          hasCancelButtonTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks, 
-         hasCancelButtonTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks, 
+         hasCancelButtonTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks,
          hasCheckedOnOrganisationConfigurationManualChecks, 
          hasCheckedOnUsersConfigurationManualChecks, 
          hasCloseIconTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks, 
