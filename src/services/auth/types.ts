@@ -6,6 +6,7 @@ type MeResponse = User;
 interface PostRegisterPayload {
   account_type: UserGroup;
   organisation_id?: number;
+  t_and_c_agreed: boolean;
 }
 
 type PostRegisterResponse = User | null;
