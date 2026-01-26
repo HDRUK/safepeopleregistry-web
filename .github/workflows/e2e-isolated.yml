@@ -204,10 +204,13 @@ jobs:
       - name: Checkout web
         uses: actions/checkout@v4
 
-      - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v2
+      - name: Google Auth
+        id: auth
+        uses: "google-github-actions/auth@v2"
         with:
-          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+          token_format: "access_token"
+          workload_identity_provider: "${{ secrets.WIF_PROVIDER }}"
+          service_account: "${{ secrets.WIF_SERVICE_ACCOUNT }}"
 
       - name: Setup gcloud cli
         uses: "google-github-actions/setup-gcloud@v2"
