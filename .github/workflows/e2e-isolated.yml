@@ -144,8 +144,6 @@ env:
   CYPRESS_UNAPPROVED_ORGANISATION_EMAIL: "test.user+organisation@safepeopleregistry.com"
   CYPRESS_CUSTODIAN_EMAIL: "test.user+custodian@safepeopleregistry.com"
   CYPRESS_ADMIN_EMAIL: "test.user+admin@safepeopleregistry.com"
-  WIF_PROVIDER: ${{ secrets.WIF_PROVIDER }}
-  WIF_SERVICE_ACCOUNT: ${{ secrets.WIF_SERVICE_ACCOUNT }}
   isTest: "true"
 
 jobs:
@@ -207,14 +205,6 @@ jobs:
 
       - name: Checkout web
         uses: actions/checkout@v4
-
-      - name: Debug Secret Presence
-        run: |
-          if [ -n "${{ secrets.WIF_PROVIDER }}" ]; then
-            echo "WIF_PROVIDER is set"
-          else
-            echo "WIF_PROVIDER is EMPTY"
-          fi
 
       - name: Google Auth
         id: auth
