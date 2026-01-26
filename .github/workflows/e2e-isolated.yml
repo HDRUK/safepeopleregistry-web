@@ -130,7 +130,7 @@ env:
   NEXT_PUBLIC_KEYCLOAK_REDIRECT_URL_LOGIN: "http://localhost:3000/api/auth/login"
   NEXT_PUBLIC_KEYCLOAK_REDIRECT_URL_LOGOUT: "http://localhost:3000/api/auth/logout"
   NEXT_PUBLIC_KEYCLOAK_REDIRECT_URL_REGISTER: "http://localhost:3000/api/auth/register"
-  NEXT_PUBLIC_KEYCLOAK_BASE_URL: "https://keycloak.dev.hdruk.cloud"
+  NEXT_PUBLIC_KEYCLOAK_BASE_URL: "http://localhost:8080"
   NEXT_PUBLIC_KEYCLOAK_REALM: "SOURSD"
   NEXT_PUBLIC_LOCAL_ENV: "http://localhost:3000/"
   NEXT_PUBLIC_FEATURE_PROJECT_USERS_WORKFLOW: "false"
