@@ -1798,6 +1798,11 @@
     "SanctionsCheck": {
       "country": "Sanctioned country"
     },
+    "Training": {
+      "registry": {
+        "trainings": "Training"
+      }
+    },
     "DelegateCheck": {
       "delegate_contacts": "Delegate contacts"
     },
@@ -1818,9 +1823,13 @@
       }
     },
     "DataSecurityCompliance": {
-      "ceCertifiedPlus": "Data security compliance: Has Cyber Essentials Plus accreditation.",
-      "dsptkCertified": "Data security compliance: Is DSPTK certified.",
-      "certifications": "Data security compliance: An Organisation must have Cyber Essentials and ISO27001 accreditations."
+      "ce_plus_certified": "Data security compliance: Has Cyber Essentials Plus accreditation.",
+      "iso_27001_certified": "Data security compliance: Has ISO27001 accreditation.",
+      "ce_or_iso_certified": "Data security compliance: Has Cyber Essentials or ISO27001 accreditation.",
+      "ce_plus_or_iso_certified": "Data security compliance: Has Cyber Essentials Plus or ISO27001 accreditation.",
+      "dsptk_certified": "Data security compliance: Is DSPTK certified.",
+      "certifications": "Data security compliance: An Organisation must have Cyber Essentials and ISO27001 accreditations.",
+      "ce_certified": "Data security compliance: Has Cyber Essentials accreditation."
     }
   },
   "ActionsPanelValidationCheck": {
