@@ -7,9 +7,10 @@ import TermsAndConditions from "@/components/TermsAndConditions";
 import { CONTACT_MAIL_ADDRESS } from "@/config/contacts";
 import { ROUTES } from "@/consts/router";
 import { UserGroup } from "@/consts/user";
-import useRegisterUser from "@/hooks/useRegisterUser";
+import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
 import { ModalContent } from "@/organisms/Training/CertificateUploadModal.styles";
 import { User } from "@/types/application";
+import { getProfilePathByEntity } from "@/utils/entity";
 import { handleRegister as handleRegisterKeycloak } from "@/utils/keycloak";
 import { AdminPanelSettingsOutlined } from "@mui/icons-material";
 import BusinessIcon from "@mui/icons-material/Business";
@@ -17,12 +18,9 @@ import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import { LoadingButton } from "@mui/lab";
 import { Box, Button, Link, Modal, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { redirect, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import ErrorMessage from "@/components/ErrorMessage";
-import OverlayCenterAlert from "@/components/OverlayCenterAlert";
-import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
-import { getProfilePathByEntity } from "@/utils/entity";
+import { useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
+import { acceptTCs, registerInvite, rejectTCs } from "../../actions";
 import AccountOption from "../AccountOption";
 
 const NAMESPACE_TRANSLATIONS_PROFILE = "Register";
@@ -30,28 +28,19 @@ const NAMESPACE_TRANSLATION_TERMS_AND_CONDITIONS = "TermsAndConditions";
 
 interface AccountConfirmProps {
   unclaimedUser: User | undefined;
-  tokenUser: Partial<User>;
 }
 
-const isValidUserGroup = (userGroup?: string | null) => {
-  return userGroup === UserGroup.USERS || userGroup === UserGroup.ORGANISATIONS;
-};
-
-export default function AccountConfirm({
-  unclaimedUser,
-  tokenUser,
-}: AccountConfirmProps) {
+export default function AccountConfirm({ unclaimedUser }: AccountConfirmProps) {
   const t = useTranslations(NAMESPACE_TRANSLATIONS_PROFILE);
   const tTerms = useTranslations(NAMESPACE_TRANSLATION_TERMS_AND_CONDITIONS);
   const router = useRouter();
+  const [isTransitioning, startTransition] = useTransition();
   const { showAlert, hideAlert } = useAlertModal();
 
   const [custodianModalOpen, setCustodianModalOpen] = useState<boolean>(false);
 
-  const params = useSearchParams();
-
   const [userGroup, setUserGroup] = useState<UserGroup | null>(
-    unclaimedUser?.user_group || params?.get("type")
+    unclaimedUser?.user_group
   );
   const [termsDisplayed, setTermsDisplayed] = useState(false);
 
@@ -60,25 +49,17 @@ export default function AccountConfirm({
       ? unclaimedUser
       : undefined;
 
-  const { handleRegister, ...registerUserState } = useRegisterUser({
-    userGroup,
-    unclaimedUser,
-  });
-
   const handleSelect = (option: UserGroup) => {
     setUserGroup(option);
   };
 
-  // Create a new account automatically if type query param exists
-  useEffect(() => {
-    const initRegister = async () => {
-      if (tokenUser && isValidUserGroup(userGroup) && !unclaimedUser) {
-        await handleRegister(tokenUser);
-      }
-    };
+  const handleRegister = async (user: User) => {
+    startTransition(async () => {
+      await registerInvite(user);
 
-    initRegister();
-  }, [unclaimedUser, tokenUser, userGroup]);
+      router.push(getProfilePathByEntity(userGroup as UserGroup));
+    });
+  };
 
   const handleDeclineTerms = () => {
     setTimeout(() => {
@@ -97,30 +78,11 @@ export default function AccountConfirm({
     }, 100);
   };
 
-  const { isLoading, isError, error, isSuccess } = registerUserState;
-
-  if (isSuccess && userGroup) {
-    redirect(getProfilePathByEntity(userGroup));
-  }
-
-  if (isError || isLoading) {
-    return (
-      <Box
-        sx={{
-          height: "70vh",
-          position: "relative",
-        }}>
-        <LoadingWrapper variant="basic" loading={isLoading}>
-          <OverlayCenterAlert messageProps={{ severity: "error" }}>
-            <ErrorMessage tKey={error[0]} t={t} />
-          </OverlayCenterAlert>
-        </LoadingWrapper>
-      </Box>
-    );
-  }
-
-  const isContinueDisabled = userGroup === null || isLoading;
   const guidanceKey = userGroup?.toLowerCase();
+
+  if (isTransitioning) {
+    return <LoadingWrapper variant="basic" loading={isTransitioning} />;
+  }
 
   return (
     <>
@@ -208,7 +170,7 @@ export default function AccountConfirm({
                       : () => setCustodianModalOpen(true)
                   }
                   variant="contained"
-                  disabled={isContinueDisabled}
+                  disabled={!userGroup}
                   sx={{ p: 2, minWidth: 300 }}
                   fullWidth>
                   {t("continueButton")}
@@ -218,7 +180,7 @@ export default function AccountConfirm({
               {unclaimedUser && (
                 <LoadingButton
                   onClick={() => setTermsDisplayed(true)}
-                  disabled={registerUserState.isLoading}
+                  disabled={isTransitioning}
                   variant="contained"
                   sx={{ p: 2, minWidth: 300 }}
                   fullWidth>
@@ -233,12 +195,20 @@ export default function AccountConfirm({
       {termsDisplayed && (
         <TermsAndConditions
           userGroup={userGroup}
-          onAccept={() =>
-            unclaimedUser
-              ? handleRegister(unclaimedUser)
-              : handleRegisterKeycloak(userGroup)
-          }
-          onDecline={handleDeclineTerms}
+          onAccept={async () => {
+            await acceptTCs(userGroup);
+
+            if (unclaimedUser) {
+              handleRegister(unclaimedUser);
+            } else {
+              handleRegisterKeycloak(userGroup);
+            }
+          }}
+          onDecline={async () => {
+            await rejectTCs(userGroup);
+
+            handleDeclineTerms();
+          }}
         />
       )}
 

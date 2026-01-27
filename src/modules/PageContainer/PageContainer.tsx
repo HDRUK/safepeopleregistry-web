@@ -10,12 +10,13 @@ interface PageContainerProps {
 
 function PageContainer({ children }: PageContainerProps) {
   return (
-    <>
+    <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <Header />
       <main
         role="main"
         style={{
           backgroundColor: "#fff",
+          flexGrow: 1,
         }}>
         <PageCenter>
           <Box
@@ -30,7 +31,7 @@ function PageContainer({ children }: PageContainerProps) {
         </PageCenter>
       </main>
       <Footer />
-    </>
+    </Box>
   );
 }
 

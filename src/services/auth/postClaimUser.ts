@@ -10,6 +10,8 @@ export default async (
   const response = await postRequest(
     `${isServer() ? process.env.NEXT_PUBLIC_API_SERVER_URL : process.env.NEXT_PUBLIC_API_URL}/auth/claimUser/${id}`
   );
+  const json = await response.json();
+  console.log("**** registering", json);
 
   return handleJsonResponse(response, options);
 };
