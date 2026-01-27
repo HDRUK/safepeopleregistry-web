@@ -26,18 +26,18 @@ describe("<OrganisationsAutomatedFlags />", () => {
     await waitFor(() => {
       expect(
         screen.getByText(
-          /Data security compliance: Has Cyber Essentials or ISO27001 accreditation./i
+          /Data security compliance: Cyber Essentials or ISO27001 accreditation/i
         )
       ).toBeInTheDocument();
 
       expect(
         screen.getByText(
-          /Data security compliance: Has Cyber Essentials Plus or ISO27001 accreditation./i
+          /Data security compliance: Cyber Essentials Plus or ISO27001 accreditation/i
         )
       ).toBeInTheDocument();
 
       expect(
-        screen.getByText(/Data security compliance: Is DSPTK certified/i)
+        screen.getByText(/Data security compliance: DSPTK certified/i)
       ).toBeInTheDocument();
 
       expect(screen.getByText(/Delegate contacts/i)).toBeInTheDocument();
