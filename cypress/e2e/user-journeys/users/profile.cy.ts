@@ -1,17 +1,11 @@
 import { ROUTES } from "@/consts/router";
 import { faker } from "@faker-js/faker";
 import {
-  dataCy,
-  getModalByHeader,
   logout,
   shouldBeUserProfile,
   signout,
 } from "cypress/support/utils/common";
-import {
-  DEFAULT_USER,
-  EMAIL_REGISTER_VERIFICATION_LABEL,
-  EMAIL_UPDATE_ACCOUNT_LABEL,
-} from "cypress/support/utils/data";
+import { EMAIL_UPDATE_ACCOUNT_LABEL } from "cypress/support/utils/data";
 import { actionMessage } from "cypress/support/utils/mail";
 import { loginUser } from "cypress/support/utils/user/auth";
 import { changeEmail } from "cypress/support/utils/user/profile";

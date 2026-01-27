@@ -87,10 +87,10 @@ env:
   KEYCLOAK_CLIENT_ID: "speedi-registry-app"
   KEYCLOAK_USER_PROVIDER_CREDENTIAL: "email"
   KEYCLOAK_REDIRECT_URL: "http://localhost:8000/api/auth/callback"
-  KEYCLOAK_BASE_URL: "https://keycloak.dev.hdruk.cloud"
+  KEYCLOAK_BASE_URL: "http://localhost:8080"
   KEYCLOAK_REALM: "SOURSD"
-  KEYCLOAK_REGISTRATION_URL: "https://keycloak.dev.hdruk.cloud/realms/SOURSD/protocol/openid-connect/registrations?client_id=speedi-registry-app&scope=openid%20profile&redirect_uri=http://localhost:8000/api/auth/callback&response_type=code"
-  KEYCLOAK_SIGNIN_URL: "https://keycloak.dev.hdruk.cloud/realms/SOURSD/login-actions/authenticate?client_id=speedi-registry-app"
+  KEYCLOAK_REGISTRATION_URL: "http://localhost:8080/realms/SOURSD/protocol/openid-connect/registrations?client_id=speedi-registry-app&scope=openid%20profile&redirect_uri=http://localhost:8000/api/auth/callback&response_type=code"
+  KEYCLOAK_SIGNIN_URL: "http://localhost:8080/realms/SOURSD/login-actions/authenticate?client_id=speedi-registry-app"
   KEYCLOAK_TEST_USERNAME: "loki.sinclair@hdruk.ac.uk"
   KEYCLOAK_ALLOWED_RESOURCES: "account"
   KEYCLOAK_IGNORE_RESOURCES_VALIDATION: "true"
@@ -130,18 +130,21 @@ env:
   NEXT_PUBLIC_KEYCLOAK_REDIRECT_URL_LOGIN: "http://localhost:3000/api/auth/login"
   NEXT_PUBLIC_KEYCLOAK_REDIRECT_URL_LOGOUT: "http://localhost:3000/api/auth/logout"
   NEXT_PUBLIC_KEYCLOAK_REDIRECT_URL_REGISTER: "http://localhost:3000/api/auth/register"
-  NEXT_PUBLIC_KEYCLOAK_BASE_URL: "https://keycloak.dev.hdruk.cloud"
+  NEXT_PUBLIC_KEYCLOAK_BASE_URL: "http://localhost:8080"
   NEXT_PUBLIC_KEYCLOAK_REALM: "SOURSD"
   NEXT_PUBLIC_LOCAL_ENV: "http://localhost:3000/"
   NEXT_PUBLIC_FEATURE_PROJECT_USERS_WORKFLOW: "false"
-  CYPRESS_MAIL_URL: "http://localhost:8025"
+  CYPRESS_MAILDEV_PROTOCOL: "http"
+  CYPRESS_MAILDEV_HOST: "localhost"
+  CYPRESS_MAILDEV_SMTP_PORT: "1025"
+  CYPRESS_MAILDEV_API_PORT: "8025"
   CYPRESS_BASE_URL: "http://localhost:3000/en"
   CYPRESS_USER_EMAIL: "test.user+user@safepeopleregistry.com"
   CYPRESS_ORGANISATION_EMAIL: "test.user+organisation@safepeopleregistry.com"
   CYPRESS_UNAPPROVED_ORGANISATION_EMAIL: "test.user+organisation@safepeopleregistry.com"
   CYPRESS_CUSTODIAN_EMAIL: "test.user+custodian@safepeopleregistry.com"
   CYPRESS_ADMIN_EMAIL: "test.user+admin@safepeopleregistry.com"
-  isTest: 'true'
+  isTest: "true"
 
 jobs:
   e2e-tests:
@@ -174,25 +177,119 @@ jobs:
           --health-retries=5
         env:
           REDIS_PASSWORD: mypassword
-     
 
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: keycloak
+          POSTGRES_USER: keycloak
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    permissions:
+      contents: "read"
+      id-token: "write"
     steps:
       - name: Install MailDev
         run: npm install -g maildev
 
       - name: Start MailDev
         run: |
-          nohup maildev --smtp=1025 --web=8025 > maildev.log 2>&1 &
+          nohup maildev --smtp=1025 --web=8025 --ip 0.0.0.0 > maildev.log 2>&1 &
           sleep 5
+
       - name: Checkout web
         uses: actions/checkout@v4
+
+      - name: Google Auth
+        id: auth
+        uses: "google-github-actions/auth@v2"
+        with:
+          token_format: "access_token"
+          workload_identity_provider: "${{ secrets.WIF_PROVIDER }}"
+          service_account: "${{ secrets.WIF_SERVICE_ACCOUNT }}"
+
+      - name: Setup gcloud cli
+        uses: "google-github-actions/setup-gcloud@v2"
+
+      - name: Cache Keycloak SQL file
+        id: cache-keycloak-sql
+        uses: actions/cache@v4
+        with:
+          path: ./keycloak.sql
+          key: ${{ runner.os }}-keycloak-sql-v1
+
+      - name: Download Keycloak SQL file
+        if: steps.cache-keycloak-sql.outputs.cache-hit != 'true'
+        run: |
+          gcloud storage cp gs://hdrregistrypostgresquery/keycloak.sql ./keycloak.sql
+
+      - name: Update Keycloak DB
+        run: |
+          sudo apt-get update && sudo apt-get install -y postgresql-client
+
+          until pg_isready -h localhost -p 5432; do
+            echo "Waiting for Postgres service..."
+            sleep 2
+          done
+
+          SQL_FILE=$(find . -name "keycloak.sql" | head -n 1)
+          echo "Restoring from: $SQL_FILE"
+          PGPASSWORD=password psql -h localhost -U keycloak -d keycloak < "$SQL_FILE"
+
+      - name: Checkout Keycloak repo
+        uses: actions/checkout@v4
+        with:
+          repository: HDRUK/hdruk-keycloak
+          path: hdruk-keycloak
+          ref: main
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: Build and Start Keycloak
+        working-directory: ./hdruk-keycloak
+        run: |
+          docker build -t keycloak .
+
+          docker run -d \
+            --name keycloak \
+            -p 8080:8080 \
+            --add-host=host.docker.internal:host-gateway \
+            -e KC_DB=postgres \
+            -e KC_DB_URL=jdbc:postgresql://host.docker.internal:5432/keycloak \
+            -e KC_DB_USERNAME=keycloak \
+            -e KC_DB_PASSWORD=password \
+            -e KC_BOOTSTRAP_ADMIN_USERNAME=admin \
+            -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin \
+            keycloak \
+            start-dev --health-enabled=true --http-enabled=true --hostname-strict=false
+
+      - name: Wait for Keycloak
+        run: |
+          echo "Waiting for Keycloak to be ready..."
+          # Retries for up to 60 seconds
+          for i in {1..30}; do
+            if curl -s http://localhost:8080/health/live; then
+              echo "Keycloak is up!"
+              exit 0
+            fi
+            echo "Still waiting..."
+            sleep 2
+          done
+          echo "Keycloak failed to start in time"
+          docker logs keycloak
+          exit 1Should I
 
       - name: Checkout api
         uses: actions/checkout@v4
         with:
           repository: HDRUK/safepeopleregistry-api
           path: safepeopleregistry-api
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
           ref: ${{ github.event.inputs.api_branch || 'dev' }}
 
       - name: Setup PHP
