@@ -7,6 +7,8 @@ function actionMessage(
   // cy.wait(6000);
 
   cy.maildevGetMessageBySentTo(options.to).then(email => {
+    console.log("***** email", label, options.to, email);
+
     const emailHtml = Cypress.$(email?.html);
 
     const link = emailHtml.find("a").filter((_, el) => {
