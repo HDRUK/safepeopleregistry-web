@@ -1,7 +1,7 @@
 "use client";
 
 import DateInput from "@/components/DateInput";
-import { Status } from "@/consts/application";
+import { PendingInvite } from "@/consts/application";
 import { UserGroup } from "@/consts/user";
 import useFilter from "@/hooks/useFilter";
 import useSort from "@/hooks/useSort";
@@ -19,9 +19,9 @@ const NAMESPACE_TRANSLATIONS_INVITES = "Admin.InvitesFilters";
 const NAMESPACE_TRANSLATIONS_APPLICATION = "Application";
 
 export enum InvitesFiltersKeys {
-  USER_GROUP = "user_group",
-  STATUS = "status",
-  DATE_SENT = "invite_sent_at",
+  USER_GROUP = "user_group__and",
+  STATUS = "status[]__and",
+  DATE_SENT = "invite_sent_at[]__and",
 }
 
 export interface InvitesFiltersProps
@@ -97,12 +97,12 @@ export default function InvitesFilters({
       {
         label: t("filterByStatus_invited"),
         key: InvitesFiltersKeys.STATUS,
-        value: Status.PENDING,
+        value: PendingInvite.PENDING,
       },
       {
         label: t("filterByStatus_registered"),
         key: InvitesFiltersKeys.STATUS,
-        value: Status.COMPLETED,
+        value: PendingInvite.COMPLETE,
       },
     ],
     onFilter: (key: string, value: string) =>
@@ -162,11 +162,14 @@ export default function InvitesFilters({
           onClear={() => {
             setDateSent(null);
 
-            handleFieldToggle("invite_sent_at", [undefined, undefined]);
+            handleFieldToggle(InvitesFiltersKeys.DATE_SENT, [
+              undefined,
+              undefined,
+            ]);
           }}
           onChange={value => {
             setDateSent(value);
-            handleFieldToggle("invite_sent_at", [
+            handleFieldToggle(InvitesFiltersKeys.DATE_SENT, [
               formatDBDate(value),
               undefined,
             ]);
