@@ -1,23 +1,24 @@
 import { ROUTES } from "@/consts/router";
 import { logout } from "cypress/support/utils/common";
 import { loginCustodian } from "cypress/support/utils/custodian/auth";
-import { hasAddManualChecksForOrganisationConfigurationManualChecks, 
-         hasAddManualChecksForUsersConfigurationManualChecks, 
-         hasCancelButtonTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks, 
-         hasCancelButtonTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks, 
-         hasCheckedOnOrganisationConfigurationManualChecks, 
-         hasCheckedOnUsersConfigurationManualChecks, 
-         hasCloseIconTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks, 
-         hasCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks, 
-         hasEditCancelButtonTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks, 
-         hasEditCancelButtonTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks, 
-         hasEditCloseIconTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks, 
-         hasEditCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks, 
-         hasEditManualChecksForOrganisationConfigurationManualChecks, 
-         hasEditManualChecksForUsersConfigurationManualChecks, 
-         hasUnCheckedOnOrganisationConfigurationManualChecks, 
-         hasUnCheckedOnUsersConfigurationManualChecks } 
-from "cypress/support/utils/custodian/manualChecksConfiguration";
+import {
+  hasAddManualChecksForOrganisationConfigurationManualChecks,
+  hasAddManualChecksForUsersConfigurationManualChecks,
+  hasCancelButtonTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks,
+  hasCancelButtonTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks,
+  hasCheckedOnOrganisationConfigurationManualChecks,
+  hasCheckedOnUsersConfigurationManualChecks,
+  hasCloseIconTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks,
+  hasCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks,
+  hasEditCancelButtonTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks,
+  hasEditCancelButtonTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks,
+  hasEditCloseIconTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks,
+  hasEditCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks,
+  hasEditManualChecksForOrganisationConfigurationManualChecks,
+  hasEditManualChecksForUsersConfigurationManualChecks,
+  hasUnCheckedOnOrganisationConfigurationManualChecks,
+  hasUnCheckedOnUsersConfigurationManualChecks,
+} from "cypress/support/utils/custodian/manualChecksConfiguration";
 
 describe("Projects custodians journey", () => {
   beforeEach(() => {
@@ -60,7 +61,7 @@ describe("Projects custodians journey", () => {
   it("Has Edit Close Icon Takes Back To The Manaul Checks Page For Users Configuration Manual Checks", () => {
     hasEditCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks();
   });
- 
+
   it("Has UnChecked On Organisation Configuration Manual Checks", () => {
     hasUnCheckedOnOrganisationConfigurationManualChecks();
   });

@@ -29,6 +29,7 @@ const hasAddManualChecksForUsersConfigurationManualChecks = () => {
     cy.contains("a", "Manual checks").click();
   });
   const text = 'Mandatory Custodian Training';
+  Cypress.env('manualCheckText', text);
   cy.contains("button", "Add manual check").should("exist").click();
   cy.contains("h3", "Add User manual check").should("exist");
   cy.contains("label", "Description").should("exist");
@@ -38,7 +39,6 @@ const hasAddManualChecksForUsersConfigurationManualChecks = () => {
   cy.saveFormClick("Save");
   cy.contains(text).should("exist");
   cy.contains("a", "Manual checks").should("exist");
-
 };
 
 const hasCancelButtonTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks = () => {
@@ -132,9 +132,10 @@ const hasAddManualChecksForOrganisationConfigurationManualChecks = () => {
       cy.contains("a", "Manual checks").click();
     });
     const text = 'Mandatory Custodian Training';
-    cy.contains('ul', 'Organisation')
+    cy.contains('h6', 'Organisation')
+    .parent()
     .within(() => {
-    cy.contains('button', 'Add manual check').click();
+      cy.contains('button', 'Add manual check').click();
     });
     cy.contains("h3", "Add User manual check").should("exist");
     cy.contains("label", "Description").should("exist");
