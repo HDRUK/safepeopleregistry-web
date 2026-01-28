@@ -7,6 +7,14 @@ import {
 
 type PutUserPayload = Partial<User>;
 
+interface PutChangeEmailPayload {
+  email: string;
+}
+
+interface PutChangeEmailParams {
+  id: string | number;
+}
+
 type PendingInviteResponse = PendingInvite;
 interface UpdatePermissonsPayload {
   user_id: number;
@@ -90,4 +98,6 @@ export type {
   PutEmailByInvitePayload,
   PutEmailByInviteParams,
   PendingInvitesResponse,
+  PutChangeEmailPayload,
+  PutChangeEmailParams,
 };

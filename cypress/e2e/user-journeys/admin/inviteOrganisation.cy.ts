@@ -15,7 +15,7 @@ describe("Invite organisation", () => {
     cy.visit(ROUTES.profileAdmin.path);
   });
 
-  it("Invites a new user", () => {
+  it("Invites a new organisation", () => {
     const dataInviteUser = mockedInvitedUser();
 
     inviteNewOrganisation(dataInviteUser);
