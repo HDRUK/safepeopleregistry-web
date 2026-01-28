@@ -5,7 +5,7 @@ import OverlayCenter from "../OverlayCenter";
 
 export type LoadingWrapperProps = {
   loading: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   variant?: "rich" | "basic";
   additionalProps?: BoxProps["sx"];
 };

@@ -45,7 +45,7 @@ async function redirectProfile() {
     });
 
     if (response.status === 200) {
-      redirectToPath(getProfileRedirectPath(response.data), pathname);
+      await redirectToPath(getProfileRedirectPath(response.data), pathname);
     }
   }
 }
