@@ -2,17 +2,18 @@ import { ROUTES } from "@/consts/router";
 import { getName } from "@/utils/application";
 import { logout } from "cypress/support/utils/common";
 import { loginCustodian } from "cypress/support/utils/custodian/auth";
-import { checkMandatoryCustodianTrainingTestingChecksFailCancelButton, 
-         checkMandatoryCustodianTrainingTestingChecksPassCancelButton,
-         checkMandatoryCustodianTrainingTestingChecksPass,
-         checkMandatoryCustodianTrainingTestingChecksPassChangeDecision,
-         checkMandatoryCustodianTrainingTestingChecksPassViewLessViewAll,
-         checkMandatoryCustodianTrainingTestingChecksFail,
-         checkMandatoryCustodianTrainingTestingChecksFailChangeDecision,
-         checkMandatoryCustodianTrainingTestingChecksFailViewLessViewAll,
-         checkMandatoryCustodianTrainingTestingChecksAddMoreInformation,
-         checkMandatoryCustodianTrainingTestingChecksAddMoreIformationCancelButton,
- } from "cypress/support/utils/custodian/mandatoryChecksOnProjectUserPage";
+import {
+  checkMandatoryCustodianTrainingTestingChecksAddMoreIformationCancelButton,
+  checkMandatoryCustodianTrainingTestingChecksAddMoreInformation,
+  checkMandatoryCustodianTrainingTestingChecksFail,
+  checkMandatoryCustodianTrainingTestingChecksFailCancelButton,
+  checkMandatoryCustodianTrainingTestingChecksFailChangeDecision,
+  checkMandatoryCustodianTrainingTestingChecksFailViewLessViewAll,
+  checkMandatoryCustodianTrainingTestingChecksPass,
+  checkMandatoryCustodianTrainingTestingChecksPassCancelButton,
+  checkMandatoryCustodianTrainingTestingChecksPassChangeDecision,
+  checkMandatoryCustodianTrainingTestingChecksPassViewLessViewAll,
+} from "cypress/support/utils/custodian/mandatoryChecksOnProjectUserPage";
 import { hasAddManualChecksForUsersConfigurationManualChecks } from "cypress/support/utils/custodian/manualChecksConfiguration";
 import {
   goToProjectUsersList,
@@ -23,37 +24,37 @@ import { DEFAULT_PROJECT_INVITE_USERS } from "cypress/support/utils/data";
 
 const dataProjectInviteUser = DEFAULT_PROJECT_INVITE_USERS;
 
-describe("Projects custodians journey", () => {
-  it('should have no detectable accessibility violations on load', () => {
-      loginCustodian();
-      cy.visitFirst(ROUTES.profileCustodianUsers.path);
-      cy.waitForLoadingToFinish();
-      cy.checkA11yPage();
-    });
-})
-
-describe("Projects custodians journey", () => {
- beforeEach(() => {
-    loginCustodian();
-    cy.visitFirst(ROUTES.profileCustodianUsers.path);
-    cy.contains("a", getName(dataProjectInviteUser)).click();
-  });
+describe("Custodian mandatory checks for user", () => {
   before(() => {
     loginCustodian();
+
     goToProjectUsersList();
     inviteNewProjectUser(dataProjectInviteUser);
+
     cy.visitFirst(ROUTES.profileCustodianConfiguration.path);
+
     hasAddManualChecksForUsersConfigurationManualChecks();
+  });
+
+  beforeEach(() => {
+    loginCustodian();
+
+    cy.visitFirst(ROUTES.profileCustodianUsers.path);
+    cy.buttonClick("Switch to list view");
+
+    cy.contains("a", getName(dataProjectInviteUser)).click();
   });
 
   after(() => {
     logout();
   });
 
-  it('should have no detectable accessibility violations on load', () => {
+  it("should have no detectable accessibility violations on load", () => {
     cy.waitForLoadingToFinish();
     cy.checkA11yPage();
   });
+
+  it("Has the correct content and navigation", () => {});
 
   it("Check Mandatory Custodian Training Testing Checks Add More Iformation Cancel Button", () => {
     checkMandatoryCustodianTrainingTestingChecksAddMoreIformationCancelButton();
@@ -95,4 +96,3 @@ describe("Projects custodians journey", () => {
     checkMandatoryCustodianTrainingTestingChecksFailViewLessViewAll();
   });
 });
-
