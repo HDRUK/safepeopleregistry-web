@@ -1185,7 +1185,7 @@
       "409Error": "This email cannot be used, please try another."
     },
     "Identity": {
-      "orcId": "Orc ID",
+      "orcId": "ORCiD",
       "postUserSuccess": "User updated successfully",
       "postUserSuccessButton": "Ok",
       "postUserError": "There was a problem updating your user information. Please try again or contact us at <contactLink></contactLink>",
