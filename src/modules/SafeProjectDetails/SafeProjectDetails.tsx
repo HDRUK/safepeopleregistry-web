@@ -1,4 +1,6 @@
 import { Typography } from "@mui/material";
+import { getSponsorshipStatus } from "@/utils/application";
+import { Status } from "@/consts/application";
 import FieldsToText from "../../components/FieldsToText";
 import { ResearcherProject } from "../../types/application";
 import { formatDisplayLongDate } from "../../utils/date";
@@ -15,6 +17,9 @@ export default function SafeProjectDetails({
 }: SafeProjectDetailsProps) {
   const data = createProjectDefaultValues(projectData);
 
+  const sponsor = projectData.project_has_sponsorships?.[0]?.sponsor;
+  const sponsorshipStatus = getSponsorshipStatus(sponsor, projectData);
+
   return (
     <FieldsToText
       data={data}
@@ -29,6 +34,14 @@ export default function SafeProjectDetails({
             </Typography>
           ),
         },
+        ...(sponsorshipStatus === Status.SPONSORSHIP_APPROVED
+          ? [
+              {
+                column_id: "project_has_sponsorships",
+                content: sponsor?.organisation_name,
+              },
+            ]
+          : []),
         {
           column_id: "custodians",
           content: (
