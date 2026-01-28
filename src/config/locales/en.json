@@ -1083,7 +1083,7 @@
     "delete": "Delete",
     "reinviteOrganisation": "Resend invitiation",
     "resendInviteSuccess": "An invite has been sent to the organisation again!",
-    "missingOrcIdMessage": "There’s some missing information from your ORCID identifier that we need you to complete",
+    "missingOrcIdMessage": "There’s some missing information from your ORCID that we need you to complete",
     "affiliationOrganisationWarningMessage": "Please complete this field as we couldn’t match the information. Sometimes the identifier of an Organisation within an ORCID profile does not exactly match the identifier of an Organisation registered within Safe People Registry therefore please select an Organisation from the dropdown box. If the Organisation is not listed, please <link> invite them here </link>",
     "affiliationsEmailWarningMessage": "Please complete this field as we couldn’t match the information.",
     "putOrganisationForbidden": "Your account does not have permissions to perform this update",
