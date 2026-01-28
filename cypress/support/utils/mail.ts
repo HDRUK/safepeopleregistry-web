@@ -4,7 +4,7 @@ function actionMessage(
     to: string;
   }
 ) {
-  cy.wait(6000);
+  // cy.wait(6000);
 
   cy.maildevGetMessageBySentTo(options.to).then(email => {
     const emailHtml = Cypress.$(email?.html);
@@ -20,7 +20,7 @@ function actionMessage(
     const href = link.attr("href");
 
     if (!href) {
-      throw new Error("Email doesn't exist");
+      throw new Error(`Email doesn't exist: ${email?.html}`);
     } else {
       cy.visit(href);
     }
