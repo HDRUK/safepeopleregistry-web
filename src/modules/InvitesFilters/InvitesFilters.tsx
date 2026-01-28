@@ -19,7 +19,7 @@ const NAMESPACE_TRANSLATIONS_INVITES = "Admin.InvitesFilters";
 const NAMESPACE_TRANSLATIONS_APPLICATION = "Application";
 
 export enum InvitesFiltersKeys {
-  USER_GROUP = "user_group__and",
+  USER_GROUP = "user_group",
   STATUS = "status[]__and",
   DATE_SENT = "invite_sent_at[]__and",
 }
