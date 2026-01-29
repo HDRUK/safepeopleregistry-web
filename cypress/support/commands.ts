@@ -240,6 +240,14 @@ Cypress.Commands.add(
   }
 );
 
+Cypress.Commands.add("verifyMandatoryTrainingCardTitleExists", (text: string = "Mandatory training has been completed") => {
+  cy.contains("h5", text)
+    .closest(".MuiPaper-root")
+    .within(($el) => {
+      cy.wrap($el).contains("h5", text).should("exist");
+    });
+});
+
 Cypress.Commands.add("solveGoogleReCAPTCHA", () => {
   // Wait until the iframe (Google reCAPTCHA) is totally loaded
   cy.wait(500);
@@ -270,6 +278,7 @@ declare global {
       selectValue: (id: string, value: string) => void;
       dateSelectValue: (id: string, value: string) => void;
       saveFormClick: (text?: string) => void;
+      verifyMandatoryTrainingCardTitleExists: (text?: string) => void;
       saveContinueClick: (text?: string) => void;
       getResultsActionMenu: (
         value: string
