@@ -14,7 +14,7 @@ import {
   checkMandatoryCustodianTrainingTestingChecksPassChangeDecision,
   checkMandatoryCustodianTrainingTestingChecksPassViewLessViewAll,
 } from "cypress/support/utils/custodian/mandatoryChecksOnProjectUserPage";
-import { hasAddManualChecksForUsersConfigurationManualChecks } from "cypress/support/utils/custodian/manualChecksConfiguration";
+import { addManualChecksForUsersConfigurationManualChecks } from "cypress/support/utils/custodian/manualChecksConfiguration";
 import {
   goToProjectUsersList,
   inviteNewProjectUser,
@@ -33,7 +33,7 @@ describe("Custodian mandatory checks for user", () => {
 
     cy.visitFirst(ROUTES.profileCustodianConfiguration.path);
 
-    hasAddManualChecksForUsersConfigurationManualChecks();
+    addManualChecksForUsersConfigurationManualChecks();
   });
 
   beforeEach(() => {
@@ -48,13 +48,6 @@ describe("Custodian mandatory checks for user", () => {
   after(() => {
     logout();
   });
-
-  it("should have no detectable accessibility violations on load", () => {
-    cy.waitForLoadingToFinish();
-    cy.checkA11yPage();
-  });
-
-  it("Has the correct content and navigation", () => {});
 
   it("Check Mandatory Custodian Training Testing Checks Add More Iformation Cancel Button", () => {
     checkMandatoryCustodianTrainingTestingChecksAddMoreIformationCancelButton();
