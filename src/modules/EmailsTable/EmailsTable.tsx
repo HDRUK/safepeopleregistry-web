@@ -12,13 +12,18 @@ import { Email } from "../../types/application";
 import { ModuleTables } from "../../types/modules";
 import { filterColumns } from "../../utils/table";
 
-export type EmailsTableColumns = "to" | "subject" | "dateTried" | "jobStatus";
+export type EmailsTableColumns =
+  | "to"
+  | "subject"
+  | "dateTried"
+  | "jobStatus"
+  | "errorMessage";
 
 export type EmailsTableProps = ModuleTables<Email, EmailsTableColumns>;
 
 export default function EmailsTable({
   extraColumns,
-  includeColumns = ["to", "subject", "dateTried", "jobStatus"],
+  includeColumns = ["to", "subject", "dateTried", "jobStatus", "errorMessage"],
   data,
   t,
   ...restProps
@@ -48,6 +53,9 @@ export default function EmailsTable({
             }
           />
         ),
+      }),
+      createDefaultColumn("errorMessage", {
+        accessorKey: "error_message",
       }),
     ];
 

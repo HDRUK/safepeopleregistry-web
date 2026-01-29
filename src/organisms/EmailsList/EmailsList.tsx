@@ -31,7 +31,7 @@ export default function EmailsList() {
     useMutation(getEmailLogQuery());
 
   const handleResendEmail = async (id: number) => {
-    await mutateAsyncResend(id);
+    await mutateAsyncResend({ params: { id } });
   };
 
   const handleGetEmailLog = async (id: number) => {
@@ -39,8 +39,10 @@ export default function EmailsList() {
   };
 
   useQueryAlerts(mutationStateResend, {
-    onSuccess: () => {
-      refetch();
+    successAlertProps: {
+      onConfirm: () => {
+        refetch();
+      },
     },
   });
 

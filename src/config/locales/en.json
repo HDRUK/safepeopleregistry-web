@@ -19,7 +19,8 @@
       "messageStatus": "Message status",
       "subject": "Subject",
       "to": "To",
-      "jobStatus": "Job status"
+      "jobStatus": "Job status",
+      "errorMessage": "Error message"
     },
     "EmailsFilters": {
       "filterByStatus": "Filter by status",

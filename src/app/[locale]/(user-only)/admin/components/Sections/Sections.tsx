@@ -21,7 +21,10 @@ export default function Sections() {
 
   const handleInviteSuccess = () => {
     queryClient.refetchQueries({
-      queryKey: ["getPendingInvites"],
+      predicate: query =>
+        ["getPendingInvites", "getEmails"].some(key =>
+          query.queryKey.includes(key)
+        ),
     });
   };
 
@@ -29,7 +32,7 @@ export default function Sections() {
     { name: "features", component: <FeatureFlagList /> },
     {
       name: "custodian",
-      component: <SendInviteCustodian />,
+      component: <SendInviteCustodian onSuccess={handleInviteSuccess} />,
     },
     {
       name: "user",
