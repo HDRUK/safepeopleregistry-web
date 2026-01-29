@@ -20,7 +20,10 @@ import {
   inviteNewProjectUser,
 } from "cypress/support/utils/custodian/projects";
 
-import { DEFAULT_PROJECT_INVITE_USERS } from "cypress/support/utils/data";
+import {
+  DEFAULT_PROJECT_INVITE_USERS,
+  DEFAULT_TRAINING_TITLE,
+} from "cypress/support/utils/data";
 
 const dataProjectInviteUser = DEFAULT_PROJECT_INVITE_USERS;
 
@@ -33,7 +36,7 @@ describe("Custodian mandatory checks for user", () => {
 
     cy.visitFirst(ROUTES.profileCustodianConfiguration.path);
 
-    addManualChecksForUsersConfigurationManualChecks();
+    addManualChecksForUsersConfigurationManualChecks(DEFAULT_TRAINING_TITLE);
   });
 
   beforeEach(() => {

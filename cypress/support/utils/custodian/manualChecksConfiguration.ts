@@ -1,3 +1,4 @@
+import { faker } from "@faker-js/faker";
 import { dataCy } from "../common";
 
 const hasUnCheckedOnUsersConfigurationManualChecks = () => {
@@ -24,16 +25,13 @@ const hasCheckedOnUsersConfigurationManualChecks = () => {
   cy.get("#2").should("exist").check();
 };
 
-const addManualChecksForUsersConfigurationManualChecks = () => {
+const addManualChecksForUsersConfigurationManualChecks = (title: string) => {
   cy.get(dataCy("sub-tabs-navigation")).within(() => {
     cy.contains("a", "Manual checks").click();
   });
 
-  const text = "Mandatory Custodian Training";
-  Cypress.env("manualCheckText", text);
-
   cy.contains("button", "Add manual check").click();
-  cy.get("#text").type(text);
+  cy.get("#text").type(title);
   cy.saveFormClick("Save");
 };
 
@@ -205,13 +203,17 @@ const hasAddManualChecksForUsersConfigurationManualChecks = () => {
   cy.get(dataCy("sub-tabs-navigation")).within(() => {
     cy.contains("a", "Manual checks").click();
   });
-  const text = "Mandatory Custodian Training";
+  const text = faker.string.sample(20);
+
   cy.contains("button", "Add manual check").should("exist").click();
   cy.contains("h3", "Add User manual check").should("exist");
   cy.contains("label", "Description").should("exist");
   cy.contains("button", "Cancel").should("exist");
+
   cy.get("#text").type(text);
+
   cy.saveFormClick("Save");
+
   cy.contains(text).should("exist");
   cy.contains("a", "Manual checks").should("exist");
 };

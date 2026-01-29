@@ -21,6 +21,8 @@ const DEFAULT_FROM_DATE = "2025-01-01";
 const DEFAULT_TO_DATE = "2025-02-01";
 const DEFAULT_DEPARTMENT = "Clinical Research";
 
+const DEFAULT_TRAINING_TITLE = "Mandatory Custodian Training";
+
 const DEFAULT_USER_FIRST_NAME = "Test";
 const DEFAULT_USER_LAST_NAME = "User";
 const DEFAULT_USER_EMAIL = process.env.CYPRESS_USER_EMAIL;
@@ -177,4 +179,5 @@ export {
   DEFAULT_USER,
   DEFAULT_ORC_ID,
   EMAIL_UPDATE_ACCOUNT_LABEL,
+  DEFAULT_TRAINING_TITLE,
 };
