@@ -18,8 +18,8 @@ const NAMESPACE_TRANSLATIONS_EMAILS = "Admin.EmailsFilters";
 const NAMESPACE_TRANSLATIONS_APPLICATION = "Application";
 
 export enum EmailsFiltersKeys {
-  STATUS = "message_status",
-  DATE_TRIED = "updated_at",
+  STATUS = "job_status[]__and",
+  DATE_TRIED = "updated_at[]__and",
 }
 
 export interface EmailsFiltersProps
@@ -68,12 +68,12 @@ export default function EmailsFilters({
       {
         label: t("filterByStatus_failed"),
         key: EmailsFiltersKeys.STATUS,
-        value: Status.EMAIL_FAILED,
+        value: "0",
       },
       {
         label: t("filterByStatus_successful"),
         key: EmailsFiltersKeys.STATUS,
-        value: Status.EMAIL_SUCCESSFUL,
+        value: "1",
       },
     ],
     onFilter: (key: string, value: string) =>
@@ -83,9 +83,9 @@ export default function EmailsFilters({
   return (
     <SearchBar
       onClear={resetQueryParams}
-      onSearch={(email: string) => {
+      onSearch={(to: string) => {
         updateQueryParams({
-          email,
+          "to[]__and": to,
         });
       }}
       placeholder={t("searchPlaceholder")}>

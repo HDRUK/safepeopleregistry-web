@@ -17,13 +17,21 @@ export type EmailsTableColumns =
   | "subject"
   | "dateTried"
   | "jobStatus"
+  | "messageStatus"
   | "errorMessage";
 
 export type EmailsTableProps = ModuleTables<Email, EmailsTableColumns>;
 
 export default function EmailsTable({
   extraColumns,
-  includeColumns = ["to", "subject", "dateTried", "jobStatus", "errorMessage"],
+  includeColumns = [
+    "to",
+    "subject",
+    "dateTried",
+    "jobStatus",
+    "messageStatus",
+    "errorMessage",
+  ],
   data,
   t,
   ...restProps
@@ -54,6 +62,10 @@ export default function EmailsTable({
           />
         ),
       }),
+      createDefaultColumn("messageStatus", {
+        accessorKey: "message_status",
+        cell: info => t(`email_${info.getValue() ?? "none"}`),
+      }),
       createDefaultColumn("errorMessage", {
         accessorKey: "error_message",
       }),
@@ -61,8 +73,6 @@ export default function EmailsTable({
 
     return filterColumns(initialColumns, includeColumns, extraColumns || []);
   }, [includeColumns, extraColumns]);
-
-  console.log("columns", columns);
 
   return (
     <Table

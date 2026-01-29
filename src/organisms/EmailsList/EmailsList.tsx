@@ -10,10 +10,8 @@ import { Email } from "../../types/application";
 
 import {
   putResendEmailQuery,
-  getEmailLogQuery,
   usePaginatedEmailsQuery,
 } from "../../services/emails";
-import { Status } from "@/consts/application";
 
 const NAMESPACE_TRANSLATIONS_TABLES = "Admin.EmailsTable";
 
@@ -27,15 +25,8 @@ export default function EmailsList() {
   const { mutateAsync: mutateAsyncResend, ...mutationStateResend } =
     useMutation(putResendEmailQuery());
 
-  const { mutateAsync: mutateAsyncGetLog, ...mutationStateGetLog } =
-    useMutation(getEmailLogQuery());
-
   const handleResendEmail = async (id: number) => {
     await mutateAsyncResend({ params: { id } });
-  };
-
-  const handleGetEmailLog = async (id: number) => {
-    await mutateAsyncGetLog(id);
   };
 
   useQueryAlerts(mutationStateResend, {
@@ -50,19 +41,12 @@ export default function EmailsList() {
     createDefaultColumn("actions", {
       header: "",
       cell: info => {
-        const { id, job_status } = info.row.original;
+        const { id } = info.row.original;
 
         return (
           <ActionMenu>
-            {!job_status && (
-              <ActionMenuItem
-                disabled={job_status}
-                onClick={() => handleResendEmail(id)}>
-                Resend email
-              </ActionMenuItem>
-            )}
-            <ActionMenuItem onClick={() => handleGetEmailLog(id)}>
-              Detailed log
+            <ActionMenuItem onClick={() => handleResendEmail(id)}>
+              {t("resendEmail")}
             </ActionMenuItem>
           </ActionMenu>
         );
