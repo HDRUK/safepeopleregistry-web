@@ -26,6 +26,9 @@ export default function SendInviteOrganisation() {
       severity: "success",
       text: t("inviteCustodianSuccess"),
       confirmButtonText: t("inviteCustodianSuccessButton"),
+      onConfirm: async () => {
+        hideAlert();
+      },
     });
   };
 

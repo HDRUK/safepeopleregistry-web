@@ -3,7 +3,6 @@
 import { ActionMenu, ActionMenuItem } from "@/components/ActionMenu";
 import FormModal from "@/components/FormModal";
 import Guidance from "@/components/Guidance";
-import { Message } from "@/components/Message";
 import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
 import { Status } from "@/consts/application";
 import { HeadingLevel } from "@/consts/header";
@@ -287,10 +286,6 @@ export default function AffiliationsPage({
     [selectedAffiliation, postAffiliations, putAffiliation]
   );
 
-  const orcIdBannerToAppear = affiliationsData?.some(affiliation => {
-    return affiliation.organisation_id === null || affiliation.email === null;
-  });
-
   return (
     <PageBodyContainer heading={tProfile("affiliationsTitle")}>
       <PageColumns>
@@ -321,12 +316,6 @@ export default function AffiliationsPage({
               <Typography sx={{ mb: 2 }}>
                 {tProfile("affiliationsDescription")}
               </Typography>
-              {!!orcIdBannerToAppear && (
-                <Message severity="warning" sx={{ mb: 2 }}>
-                  {/* This contains a link in the designs that should link to the first entry that needed to be edited, this can be implemented once edit affiliations is implemented */}
-                  {tProfile("missingOrcIdMessage")}
-                </Message>
-              )}{" "}
               {affiliationsData && (
                 <AffiliationsTable
                   t={t}
