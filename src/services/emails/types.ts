@@ -2,4 +2,8 @@ import { Email } from "@/types/application";
 
 type EmailsResponse = Email[];
 
-export type { EmailsResponse };
+interface PutResendEmailParams {
+  id: number;
+}
+
+export type { EmailsResponse, PutResendEmailParams };

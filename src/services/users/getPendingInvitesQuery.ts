@@ -1,16 +1,16 @@
 import { QueryOptions, ResponseJson } from "../../types/requests";
 import { createQuery } from "../../utils/query";
-import getEmails from "./getEmails";
-import { EmailsResponse } from "./types";
+import getPendingInvites from "./getPendingInvites";
+import { PendingInvitesResponse } from "./types";
 
 export default (options?: QueryOptions) =>
-  createQuery<ResponseJson<EmailsResponse>>(
+  createQuery<ResponseJson<PendingInvitesResponse>>(
     {
-      queryKey: ["getEmails"],
+      queryKey: ["getPendingInvites"],
       queryFn: async (
         searchParams: Record<string, string | number | undefined>,
         queryFnOptions
-      ) => getEmails(searchParams, queryFnOptions),
+      ) => getPendingInvites(searchParams, queryFnOptions),
     },
     options
   );

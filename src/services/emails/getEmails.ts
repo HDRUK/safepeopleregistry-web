@@ -9,7 +9,7 @@ export default async (
   options?: ResponseOptions
 ): Promise<ResponseJson<Paged<EmailsResponse>>> => {
   const response = await getRequest(
-    `/emails${getSearchQuerystring(searchParams)}`
+    `/email_logs${getSearchQuerystring(searchParams)}`
   );
 
   return handleJsonResponse(response, options);
