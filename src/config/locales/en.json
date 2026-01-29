@@ -13,6 +13,20 @@
     "scanErrorText": "Your file file may have a virus"
   },
   "Admin": {
+    "EmailsTable": {
+      "noResultsMessage": "No email jobs found",
+      "dateTried": "Date last tried",
+      "messageStatus": "Message status",
+      "subject": "Subject",
+      "to": "To",
+      "jobStatus": "Job status"
+    },
+    "EmailsFilters": {
+      "filterByStatus": "Filter by status",
+      "sortByDateTried": "Date tried",
+      "filterByStatus_failed": "Failed",
+      "filterByStatus_successful": "Successful"
+    },
     "InvitesList": {
       "noResultsMessage": "No invites found",
       "name": "Name",
@@ -54,6 +68,8 @@
   },
   "Application": {
     "Status": {
+      "email_successful": "Successfully sent",
+      "email_failed": "Failed to send",
       "registered": "Safe People Registry account created",
       "invited": "Invited",
       "sponsorship_pending": "Pending",
@@ -1260,6 +1276,7 @@
     "inviteCustodianSuccess": "You have successfully invited the Data Custodian"
   },
   "Administration": {
+    "emailsInviteTitle": "Email logs",
     "featuresInviteTitle": "Feature Flags",
     "invitesInviteTitle": "Invites",
     "sroInviteTitle": "Organisations - Senior Responsible Officer",

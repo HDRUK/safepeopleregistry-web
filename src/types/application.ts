@@ -50,7 +50,8 @@ interface Email {
   to: string;
   subject: string;
   updated_at: string;
-  status: string;
+  job_status: boolean;
+  message_status: string;
   id: number;
 }
 

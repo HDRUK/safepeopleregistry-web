@@ -1,23 +1,24 @@
 "use client";
 
+import ChipStatus from "@/components/ChipStatus";
+import { Status } from "@/consts/application";
 import { formatDisplayLongDate } from "@/utils/date";
 import { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
 import ErrorMessage from "../../components/ErrorMessage";
 import Table from "../../components/Table";
 import useColumns from "../../hooks/useColumns";
-import { Email, PendingInvite } from "../../types/application";
+import { Email } from "../../types/application";
 import { ModuleTables } from "../../types/modules";
-import { renderRegistered } from "../../utils/cells";
 import { filterColumns } from "../../utils/table";
 
-export type EmailsTableColumns = "to" | "subject" | "dateTried" | "status";
+export type EmailsTableColumns = "to" | "subject" | "dateTried" | "jobStatus";
 
 export type EmailsTableProps = ModuleTables<Email, EmailsTableColumns>;
 
 export default function EmailsTable({
   extraColumns,
-  includeColumns = ["to", "subject", "dateTried", "status"],
+  includeColumns = ["to", "subject", "dateTried", "jobStatus"],
   data,
   t,
   ...restProps
@@ -38,14 +39,22 @@ export default function EmailsTable({
         accessorKey: "updated_at",
         cell: info => formatDisplayLongDate(info.getValue()),
       }),
-      createDefaultColumn("status", {
-        accessorKey: "status",
-        cell: info => renderRegistered(info.getValue()),
+      createDefaultColumn("jobStatus", {
+        accessorKey: "job_status",
+        cell: info => (
+          <ChipStatus
+            status={
+              info.getValue() ? Status.EMAIL_SUCCESSFUL : Status.EMAIL_FAILED
+            }
+          />
+        ),
       }),
     ];
 
     return filterColumns(initialColumns, includeColumns, extraColumns || []);
   }, [includeColumns, extraColumns]);
+
+  console.log("columns", columns);
 
   return (
     <Table

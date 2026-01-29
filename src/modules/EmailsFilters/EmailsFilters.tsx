@@ -18,8 +18,7 @@ const NAMESPACE_TRANSLATIONS_EMAILS = "Admin.EmailsFilters";
 const NAMESPACE_TRANSLATIONS_APPLICATION = "Application";
 
 export enum EmailsFiltersKeys {
-  USER_GROUP = "user_group",
-  STATUS = "status",
+  STATUS = "message_status",
   DATE_TRIED = "updated_at",
 }
 

@@ -48,15 +48,17 @@ export default function EmailsList() {
     createDefaultColumn("actions", {
       header: "",
       cell: info => {
-        const { id, status } = info.row.original;
+        const { id, job_status } = info.row.original;
 
         return (
           <ActionMenu>
-            <ActionMenuItem
-              disabled={status === Status.EMAIL_SUCCESSFUL}
-              onClick={() => handleResendEmail(id)}>
-              Resend email
-            </ActionMenuItem>
+            {!job_status && (
+              <ActionMenuItem
+                disabled={job_status}
+                onClick={() => handleResendEmail(id)}>
+                Resend email
+              </ActionMenuItem>
+            )}
             <ActionMenuItem onClick={() => handleGetEmailLog(id)}>
               Detailed log
             </ActionMenuItem>
