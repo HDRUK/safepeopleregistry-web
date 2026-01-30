@@ -16,6 +16,8 @@ import OrganisationsTable from "./OrganisationsTable";
 import InvitesTable from "./InvitesTable";
 import ProjectsTable from "./ProjectsTable";
 import InvitesFilters from "./InvitesFilters";
+import EmailsTable from "./EmailsTable";
+import EmailsFilters from "./EmailsFilters";
 
 export {
   AffiliationsTable,
@@ -36,4 +38,6 @@ export {
   ProjectsTable,
   InvitesTable,
   InvitesFilters,
+  EmailsTable,
+  EmailsFilters,
 };

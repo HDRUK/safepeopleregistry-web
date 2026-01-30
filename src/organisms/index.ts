@@ -6,6 +6,7 @@ import Application from "./Application";
 import OrganisationsList from "./OrganisationsList";
 import InvitesList from "./InvitesList";
 import InviteOrganisationModal from "./InviteOrganisationModal";
+import EmailsList from "./EmailsList";
 
 export {
   Application,
@@ -16,4 +17,5 @@ export {
   OrganisationsList,
   InvitesList,
   InviteOrganisationModal,
+  EmailsList,
 };

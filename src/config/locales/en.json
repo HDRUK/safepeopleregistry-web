@@ -13,6 +13,43 @@
     "scanErrorText": "Your file file may have a virus"
   },
   "Admin": {
+    "EmailsTable": {
+      "viewLogs": "View log info",
+      "headingErrorMessage": "Job error",
+      "headingSendGridResponse": "SendGrid response",
+      "heading": "Email log information",
+      "email_none": "None",
+      "email_delivered": "Delivered",
+      "email_not_delivered": "Not delivered",
+      "email_processed": "Processed",
+      "email_bounced": "Bounced",
+      "email_dropped": "Dropped",
+      "email_deferred": "Deferred",
+      "email_blocked": "Blocked",
+      "noResultsMessage": "No email jobs found",
+      "dateTried": "Date last tried",
+      "messageStatus": "Sendgrid status",
+      "subject": "Subject",
+      "to": "To",
+      "jobStatus": "Queue status",
+      "errorMessage": "Error message",
+      "resendEmail": "Resend email"
+    },
+    "EmailsFilters": {
+      "searchPlaceholder": "Search by email",
+      "filterByStatus": "Filter by queue status",
+      "filterByMessageStatus": "Filter by SendGrid status",
+      "sortByDateTried": "Date tried",
+      "filterByStatus_failed": "Failed",
+      "filterByStatus_successful": "Successful",
+      "filterByMessageStatus_delivered": "Delivered",
+      "filterByMessageStatus_not_delivered": "Not delivered",
+      "filterByMessageStatus_processed": "Processed",
+      "filterByMessageStatus_bounced": "Bounced",
+      "filterByMessageStatus_dropped": "Dropped",
+      "filterByMessageStatus_deferred": "Deferred",
+      "filterByMessageStatus_blocked": "Blocked"
+    },
     "InvitesList": {
       "noResultsMessage": "No invites found",
       "name": "Name",
@@ -54,6 +91,8 @@
   },
   "Application": {
     "Status": {
+      "email_successful": "Successful",
+      "email_failed": "Failed",
       "registered": "Safe People Registry account created",
       "invited": "Invited",
       "sponsorship_pending": "Pending",
@@ -1260,6 +1299,7 @@
     "inviteCustodianSuccess": "You have successfully invited the Data Custodian"
   },
   "Administration": {
+    "emailsInviteTitle": "Email logs",
     "featuresInviteTitle": "Feature Flags",
     "invitesInviteTitle": "Invites",
     "sroInviteTitle": "Organisations - Senior Responsible Officer",

@@ -1,8 +1,6 @@
 "use client";
 
 import DateInput from "@/components/DateInput";
-import { PendingInvite } from "@/consts/application";
-import { UserGroup } from "@/consts/user";
 import useFilter from "@/hooks/useFilter";
 import useSort from "@/hooks/useSort";
 import { formatDBDate } from "@/utils/date";
@@ -15,16 +13,16 @@ import { ResearcherProject } from "../../types/application";
 import SearchActionMenu from "../SearchActionMenu";
 import SearchBar from "../SearchBar";
 
-const NAMESPACE_TRANSLATIONS_INVITES = "Admin.InvitesFilters";
+const NAMESPACE_TRANSLATIONS_EMAILS = "Admin.EmailsFilters";
 const NAMESPACE_TRANSLATIONS_APPLICATION = "Application";
 
-export enum InvitesFiltersKeys {
-  USER_GROUP = "user_group",
-  STATUS = "status[]__and",
-  DATE_SENT = "invite_sent_at[]__and",
+export enum EmailsFiltersKeys {
+  STATUS = "job_status",
+  MESSAGE_STATUS = "message_status",
+  DATE_TRIED = "updated_at[]__and",
 }
 
-export interface InvitesFiltersProps
+export interface EmailsFiltersProps
   extends Pick<
     PaginatedQueryReturn<ResearcherProject>,
     | "updateQueryParams"
@@ -32,25 +30,25 @@ export interface InvitesFiltersProps
     | "handleFieldToggle"
     | "queryParams"
   > {
-  includeFilters?: InvitesFiltersKeys[];
+  includeFilters?: EmailsFiltersKeys[];
 }
 
-export default function InvitesFilters({
+export default function EmailsFilters({
   handleSortToggle,
   handleFieldToggle,
   updateQueryParams,
   queryParams,
   includeFilters = [
-    InvitesFiltersKeys.USER_GROUP,
-    InvitesFiltersKeys.STATUS,
-    InvitesFiltersKeys.DATE_SENT,
+    EmailsFiltersKeys.STATUS,
+    EmailsFiltersKeys.MESSAGE_STATUS,
+    EmailsFiltersKeys.DATE_TRIED,
   ],
-}: InvitesFiltersProps) {
+}: EmailsFiltersProps) {
   const [dateSent, setDateSent] = useState<Date | string | null>(null);
-  const t = useTranslations(NAMESPACE_TRANSLATIONS_INVITES);
+  const t = useTranslations(NAMESPACE_TRANSLATIONS_EMAILS);
   const tApplication = useTranslations(NAMESPACE_TRANSLATIONS_APPLICATION);
 
-  const hasFilter = (key: InvitesFiltersKeys) => {
+  const hasFilter = (key: EmailsFiltersKeys) => {
     return includeFilters.includes(key);
   };
 
@@ -58,49 +56,64 @@ export default function InvitesFilters({
     queryParams,
     items: [
       {
-        label: t("sortByInviteSentAt"),
-        key: "invite_sent_at",
+        label: t("sortByDateTried"),
+        key: "updated_at",
       },
     ],
     onSort: (key: string, direction: string) =>
       handleSortToggle(key, direction),
   });
 
-  const { actions: filterUserGroupActions } = useFilter({
+  const { actions: filterStatusActions } = useFilter({
     queryParams,
     items: [
       {
-        label: t("filterByUserGroup_custodians"),
-        key: InvitesFiltersKeys.USER_GROUP,
-        value: UserGroup.CUSTODIANS,
+        label: t("filterByStatus_failed"),
+        key: EmailsFiltersKeys.STATUS,
+        value: "0",
       },
       {
-        label: t("filterByUserGroup_organisations"),
-        key: InvitesFiltersKeys.USER_GROUP,
-        value: UserGroup.ORGANISATIONS,
-      },
-      {
-        label: t("filterByUserGroup_users"),
-        key: InvitesFiltersKeys.USER_GROUP,
-        value: UserGroup.USERS,
+        label: t("filterByStatus_successful"),
+        key: EmailsFiltersKeys.STATUS,
+        value: "1",
       },
     ],
     onFilter: (key: string, value: string) =>
       handleFieldToggle(key, [value, undefined]),
   });
 
-  const { actions: filterStatusActions } = useFilter({
+  const { actions: filterMessageStatusActions } = useFilter({
     queryParams,
     items: [
       {
-        label: t("filterByStatus_invited"),
-        key: InvitesFiltersKeys.STATUS,
-        value: PendingInvite.PENDING,
+        label: t("filterByMessageStatus_processed"),
+        key: EmailsFiltersKeys.MESSAGE_STATUS,
+        value: "processed",
       },
       {
-        label: t("filterByStatus_registered"),
-        key: InvitesFiltersKeys.STATUS,
-        value: PendingInvite.COMPLETE,
+        label: t("filterByMessageStatus_delivered"),
+        key: EmailsFiltersKeys.MESSAGE_STATUS,
+        value: "delivered",
+      },
+      {
+        label: t("filterByMessageStatus_deferred"),
+        key: EmailsFiltersKeys.MESSAGE_STATUS,
+        value: "deferred",
+      },
+      {
+        label: t("filterByMessageStatus_dropped"),
+        key: EmailsFiltersKeys.MESSAGE_STATUS,
+        value: "dropped",
+      },
+      {
+        label: t("filterByMessageStatus_bounced"),
+        key: EmailsFiltersKeys.MESSAGE_STATUS,
+        value: "bounced",
+      },
+      {
+        label: t("filterByMessageStatus_blocked"),
+        key: EmailsFiltersKeys.MESSAGE_STATUS,
+        value: "blocked",
       },
     ],
     onFilter: (key: string, value: string) =>
@@ -111,12 +124,12 @@ export default function InvitesFilters({
     <SearchBar
       onClear={() => {
         updateQueryParams({
-          email: undefined,
+          "to[]__and": undefined,
         });
       }}
-      onSearch={(email: string) => {
+      onSearch={(to: string) => {
         updateQueryParams({
-          email,
+          "to[]__and": to,
         });
       }}
       placeholder={t("searchPlaceholder")}>
@@ -127,12 +140,12 @@ export default function InvitesFilters({
         renderedDefaultLabel={tApplication("sortBy")}
         aria-label={tApplication("sortBy")}
       />
-      {hasFilter(InvitesFiltersKeys.STATUS) && (
+      {hasFilter(EmailsFiltersKeys.STATUS) && (
         <SearchActionMenu
           id="filterByStatus"
           actions={filterStatusActions}
           onClear={() =>
-            handleFieldToggle(InvitesFiltersKeys.STATUS, [undefined, undefined])
+            handleFieldToggle(EmailsFiltersKeys.STATUS, [undefined, undefined])
           }
           startIcon={<FilterIcon />}
           renderedSelectedLabel={tApplication("filteredBy")}
@@ -140,38 +153,37 @@ export default function InvitesFilters({
           aria-label={t("filterByStatus")}
         />
       )}
-      {hasFilter(InvitesFiltersKeys.USER_GROUP) && (
+      {hasFilter(EmailsFiltersKeys.MESSAGE_STATUS) && (
         <SearchActionMenu
-          id="filterByUser"
-          actions={filterUserGroupActions}
+          id="filterByMessageStatus"
+          actions={filterMessageStatusActions}
           onClear={() =>
-            handleFieldToggle(InvitesFiltersKeys.USER_GROUP, [
+            handleFieldToggle(EmailsFiltersKeys.MESSAGE_STATUS, [
               undefined,
               undefined,
             ])
           }
           startIcon={<FilterIcon />}
           renderedSelectedLabel={tApplication("filteredBy")}
-          renderedDefaultLabel={t("filterByUserGroup")}
-          aria-label={t("filterByUserGroup")}
+          renderedDefaultLabel={t("filterByMessageStatus")}
+          aria-label={t("filterByMessageStatus")}
         />
       )}
-
-      {hasFilter(InvitesFiltersKeys.DATE_SENT) && (
+      {hasFilter(EmailsFiltersKeys.DATE_TRIED) && (
         <DateInput
           value={dateSent}
           clearable
           onClear={() => {
             setDateSent(null);
 
-            handleFieldToggle(InvitesFiltersKeys.DATE_SENT, [
+            handleFieldToggle(EmailsFiltersKeys.DATE_TRIED, [
               undefined,
               undefined,
             ]);
           }}
           onChange={value => {
             setDateSent(value);
-            handleFieldToggle(InvitesFiltersKeys.DATE_SENT, [
+            handleFieldToggle(EmailsFiltersKeys.DATE_TRIED, [
               formatDBDate(value),
               undefined,
             ]);

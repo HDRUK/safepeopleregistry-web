@@ -2,9 +2,10 @@
 
 import { Box } from "@mui/material";
 import { ReactNode } from "react";
+import { BoxProps } from "@mui/system";
 import SearchField from "../SearchField";
 
-export interface SearchBarProps {
+export interface SearchBarProps extends BoxProps {
   onSearch: (text: string) => void;
   onClear?: () => void;
   placeholder?: string;
@@ -20,14 +21,17 @@ export default function SearchBar({
   onClear,
   children,
   disabled,
+  ...restProps
 }: SearchBarProps) {
   return (
     <Box
+      {...restProps}
       sx={{
         display: "flex",
         flexDirection: "column",
         gap: 2,
         flexGrow: 1,
+        ...restProps.sx,
       }}>
       <Box
         sx={{

@@ -1,9 +1,10 @@
 "use client";
 
+import { JOB_DELAY } from "@/consts/application";
 import { PageBody } from "@/modules";
 import InviteUser from "@/modules/InviteUser";
 import SendInviteCustodian from "@/modules/SendInviteCustodian";
-import { OrganisationsList, InvitesList } from "@/organisms";
+import { OrganisationsList, InvitesList, EmailsList } from "@/organisms";
 import FeatureFlagList from "@/organisms/FeatureFlagsList";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Typography } from "@mui/material";
@@ -20,16 +21,21 @@ export default function Sections() {
   const queryClient = useQueryClient();
 
   const handleInviteSuccess = () => {
-    queryClient.refetchQueries({
-      queryKey: ["getPendingInvites"],
-    });
+    setTimeout(() => {
+      queryClient.refetchQueries({
+        predicate: query =>
+          ["getPendingInvites", "getEmails"].some(key =>
+            query.queryKey.includes(key)
+          ),
+      });
+    }, JOB_DELAY);
   };
 
   const sections = [
     { name: "features", component: <FeatureFlagList /> },
     {
       name: "custodian",
-      component: <SendInviteCustodian />,
+      component: <SendInviteCustodian onSuccess={handleInviteSuccess} />,
     },
     {
       name: "user",
@@ -46,6 +52,14 @@ export default function Sections() {
       component: (
         <PageBody>
           <InvitesList />
+        </PageBody>
+      ),
+    },
+    {
+      name: "emails",
+      component: (
+        <PageBody data-cy="emails-list">
+          <EmailsList />
         </PageBody>
       ),
     },
