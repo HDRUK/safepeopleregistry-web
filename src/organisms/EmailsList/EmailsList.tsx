@@ -11,7 +11,7 @@ import { Email } from "../../types/application";
 import FormModal from "@/components/FormModal";
 import Text from "@/components/Text";
 import { Refresh } from "@mui/icons-material";
-import { Link, Typography } from "@mui/material";
+import { Button, Link, Typography } from "@mui/material";
 import { useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import {
@@ -65,14 +65,14 @@ export default function EmailsList() {
   ];
 
   return (
-    <div data-cy="emails-list">
+    <>
       <PageSection>
         <EmailsFilters {...queryState} />
       </PageSection>
       <PageSection>
-        <Link component="button" onClick={() => refetch()}>
-          <Text startIcon={<Refresh />}>Update</Text>
-        </Link>
+        <Button startIcon={<Refresh />} onClick={() => refetch()}>
+          Update
+        </Button>
         <FormModal
           heading={t("heading")}
           open={!!activeLog}
@@ -80,15 +80,15 @@ export default function EmailsList() {
           sx={{ minWidth: "800px" }}>
           <Typography variant="h6">{t("headingErrorMessage")}</Typography>
           <SyntaxHighlighter language="text">
-            {activeLog?.error_message}
+            {activeLog?.error_message || "OK"}
           </SyntaxHighlighter>
           <Typography variant="h6">{t("headingSendGridResponse")}</Typography>
           <SyntaxHighlighter language="text">
-            {activeLog?.message_response}
+            {activeLog?.message_response || "OK"}
           </SyntaxHighlighter>
         </FormModal>
         <EmailsTable extraColumns={extraColumns} {...queryState} t={t} />
       </PageSection>
-    </div>
+    </>
   );
 }

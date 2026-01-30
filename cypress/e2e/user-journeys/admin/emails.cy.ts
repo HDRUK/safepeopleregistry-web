@@ -4,7 +4,7 @@ import { mockedInvitedUser } from "@/mocks/data/user";
 import { formatDisplayLongDate } from "@/utils/date";
 import { loginAdmin } from "cypress/support/utils/admin/auth";
 import { inviteNewUser } from "cypress/support/utils/admin/invite";
-import { dataCy, logout } from "cypress/support/utils/common";
+import { dataCy, getModalByHeader, logout } from "cypress/support/utils/common";
 
 const dataInviteUser = mockedInvitedUser();
 
@@ -56,5 +56,22 @@ describe("Resend invite", () => {
     cy.actionMenuClick("Resend email");
 
     cy.clickAlertModal("Close");
+  });
+
+  it("Resends the email", () => {
+    cy.get(dataCy("emails-list"))
+      .find("tr")
+      .last()
+      .find(dataCy("action-menu"))
+      .last()
+      .click();
+
+    cy.actionMenuClick("View log info");
+
+    getModalByHeader("Email log information").within(() => {
+      cy.contains("h6", "Job error");
+      cy.contains("h6", "SendGrid response");
+      cy.contains("OK");
+    });
   });
 });

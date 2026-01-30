@@ -58,7 +58,7 @@ export default function Sections() {
     {
       name: "emails",
       component: (
-        <PageBody>
+        <PageBody data-cy="emails-list">
           <EmailsList />
         </PageBody>
       ),
