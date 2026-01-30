@@ -58,7 +58,7 @@ describe("Resend invite", () => {
     cy.clickAlertModal("Close");
   });
 
-  it("Resends the email", () => {
+  it("Views the log information", () => {
     cy.get(dataCy("emails-list"))
       .find("tr")
       .last()

@@ -28,7 +28,6 @@ export interface InvitesFiltersProps
   extends Pick<
     PaginatedQueryReturn<ResearcherProject>,
     | "updateQueryParams"
-    | "resetQueryParams"
     | "handleSortToggle"
     | "handleFieldToggle"
     | "queryParams"
@@ -39,7 +38,6 @@ export interface InvitesFiltersProps
 export default function InvitesFilters({
   handleSortToggle,
   handleFieldToggle,
-  resetQueryParams,
   updateQueryParams,
   queryParams,
   includeFilters = [

@@ -2,18 +2,17 @@
 
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { ActionMenu, ActionMenuItem } from "../../components/ActionMenu";
-import useColumns from "../../hooks/useColumns";
-import useQueryAlerts from "../../hooks/useQueryAlerts";
-import { EmailsFilters, EmailsTable, PageSection } from "../../modules";
-import { Email } from "../../types/application";
 
 import FormModal from "@/components/FormModal";
-import Text from "@/components/Text";
 import { Refresh } from "@mui/icons-material";
-import { Button, Link, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
+import { Email } from "../../types/application";
+import { EmailsFilters, EmailsTable, PageSection } from "../../modules";
+import useQueryAlerts from "../../hooks/useQueryAlerts";
+import useColumns from "../../hooks/useColumns";
+import { ActionMenu, ActionMenuItem } from "../../components/ActionMenu";
 import {
   putResendEmailQuery,
   usePaginatedEmailsQuery,

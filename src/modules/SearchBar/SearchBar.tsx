@@ -2,8 +2,8 @@
 
 import { Box } from "@mui/material";
 import { ReactNode } from "react";
-import SearchField from "../SearchField";
 import { BoxProps } from "@mui/system";
+import SearchField from "../SearchField";
 
 export interface SearchBarProps extends BoxProps {
   onSearch: (text: string) => void;
