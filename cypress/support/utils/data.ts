@@ -21,6 +21,8 @@ const DEFAULT_FROM_DATE = "2025-01-01";
 const DEFAULT_TO_DATE = "2025-02-01";
 const DEFAULT_DEPARTMENT = "Clinical Research";
 
+const DEFAULT_TRAINING_TITLE = "Mandatory Custodian Training";
+
 const DEFAULT_USER_FIRST_NAME = "Test";
 const DEFAULT_USER_LAST_NAME = "User";
 const DEFAULT_USER_EMAIL = process.env.CYPRESS_USER_EMAIL;
@@ -54,7 +56,7 @@ const DEFAULT_PROJECT_NAME = "Test project";
 
 const DEFAULT_ORGANISATION_NAME = "Test Organisation, LTD";
 const DEFAULT_UNAPPROVED_ORGANISATION_NAME = "Test Organisation, LTD";
-
+const DEFAULT_ORC_ID = "0000-0000-0000-0000";
 const DEFAULT_ROLE_NAME = "Researcher";
 
 const DEFAULT_PDF_FILE = {
@@ -175,5 +177,7 @@ export {
   EMAIL_SIGN_ME_UP,
   DEFAULT_PASSWORD,
   DEFAULT_USER,
+  DEFAULT_ORC_ID,
   EMAIL_UPDATE_ACCOUNT_LABEL,
+  DEFAULT_TRAINING_TITLE,
 };

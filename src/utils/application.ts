@@ -1,7 +1,7 @@
 import { GetSystemConfigResponse } from "@/services/system_config/types";
 import { Organisation, ResearcherProject } from "@/types/application";
-import { escapeAndParse } from "./json";
 import { Status, VALIDATION_SCHEMA_KEY } from "../consts/application";
+import { escapeAndParse } from "./json";
 
 function canUseIdvt(country: string | undefined) {
   return Boolean(
@@ -169,16 +169,16 @@ function getInitials(name: string): string {
 }
 
 export {
+  canUseIdvt,
+  getAbbreviatedListWithCount,
   getInitials,
+  getName,
+  getShortStatus,
+  getSponsor,
+  getSponsorshipStatus,
+  getStatus,
   injectParamsIntoPath,
   isProduction,
-  parseSystemConfig,
-  canUseIdvt,
-  getStatus,
-  getShortStatus,
-  getName,
-  getAbbreviatedListWithCount,
-  getSponsorshipStatus,
   isSponsorshipStatusApproved,
-  getSponsor,
+  parseSystemConfig,
 };

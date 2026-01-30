@@ -569,8 +569,8 @@
     "countyRequiredInvalid": "County is required",
     "countryRequiredInvalid": "Country is required",
     "custodianRequiredInvalid": "Data Custodian is required",
-    "orcIdRequiredInvalid": "Orc id is required",
-    "orcIdFormatInvalid": "Orc id should follow the format 0000-0000-0000-0000",
+    "orcIdRequiredInvalid": "ORCID identifier is required",
+    "orcIdFormatInvalid": "ORCID identifier should follow the format 0000-0000-0000-0000",
     "charityRegistrationIdRequiredInvalid": "Charity registration id is required",
     "charityRegistrationIdFormatInvalid": "Charity registration id is not in the correct format. It should be a an 8 digit number",
     "charityRegistrationId": "Charity registration ID",
@@ -599,8 +599,8 @@
     "firstName": "First name",
     "lastNamePlaceholder": "Last name",
     "lastName": "Last name",
-    "orcIdPlaceholder": "ORCiD",
-    "orcId": "ORCiD",
+    "orcIdPlaceholder": "ORCID identifier",
+    "orcId": "ORCID identifier",
     "websitePlaceholder": "Organisation website",
     "website": "Organisation website",
     "companiesHouseNoPlaceholder": "Companies House ID",
@@ -668,11 +668,11 @@
     "departmentIdPlaceholder": "Department",
     "digitalToolkitCodePlaceholder": "Dsptk ods code",
     "digitalToolkitCode": "Dsptk ods code",
-    "whatIsTheOrcId": "Your ORCiD is a value which identifies you to Data Custodians (although in general anyone) and provides information to them such as your research outputs and activities. If you don't have one of these you can signup at https://orcid.org/register. Although it is recommended to provide this, it is not required for the registry, however it is required for the content scrape.",
+    "whatIsTheOrcId": "Your ORCID identifier is a value which identifies you to Data Custodians (although in general anyone) and provides information to them such as your research outputs and activities. If you don't have one of these you can signup at https://orcid.org/register. Although it is recommended to provide this, it is not required for the registry, however it is required for the content scrape.",
     "roleAdministrator": "Administrator",
     "roleApprover": "Approver",
-    "consentScrapeDescription": "I consent to the Safe People Registry gathering research experience and employment information from my ORCiD.",
-    "consentScrapePlaceholder": "I consent to Safe People Registry gathering research experience and employment information from my ORCiD.",
+    "consentScrapeDescription": "I consent to the Safe People Registry gathering research experience and employment information from my ORCID identifier.",
+    "consentScrapePlaceholder": "I consent to Safe People Registry gathering research experience and employment information from my ORCID identifier.",
     "organisationDataSecurityComplianceTemp": {},
     "organisationDataSecurityCompliance": "Organisation data security compliance",
     "ceCertified": "Cyber Essentials Certified",
@@ -994,8 +994,8 @@
   },
   "NotificationsMenu": {
     "noNotifications": "You have no notifications!",
-    "orcIdSuccessTitle": "ORCiD scrape completed",
-    "orcIdSuccessDescription": "Employment, educaton and qualifications has been gathered from your ORCiD profile. You will need to reload the page to see the updates."
+    "orcIdSuccessTitle": "ORCID scrape completed",
+    "orcIdSuccessDescription": "Employment, educaton and qualifications has been gathered from your ORCID profile. You will need to reload the page to see the updates."
   },
   "NotificationsModal": {
     "colField": "Field",
@@ -1028,7 +1028,7 @@
     "organisationNameSubtitle": "Email address of an Organisational contact who is an appropriately senior individual, such as a Head of Department or Human Resources/People Services mailbox. This may also be the person who signs the data access agreements.",
     "organisationNotListed": "Organisation not listed? <link> Ask them to register </link>",
     "organisationListed": "Organisation already exists? <link> Select them here </link>",
-    "affiliationsDescription": "Please list all Organisations (employers or institutes) with whom you are currently employed, on an honorary contract, or enrolled with as a student. Your Organisations will use this to confirm your affiliation. If you input an ORCiD under the Experience tab, some of this information may be automatically populated but require further information.",
+    "affiliationsDescription": "Please list all Organisations (employers or institutes) with whom you are currently employed, on an honorary contract, or enrolled with as a student. Your Organisations will use this to confirm your affiliation.",
     "postAffiliationSuccess": "You have successfully created an affiliation",
     "postAffiliationVerification": "We have sent a verification email to {email}. Please click the link in the email.",
     "postAffiliationError": "There was an error creating your affiliation. Please try again or contact us at <contactLink></contactLink>",
@@ -1102,7 +1102,7 @@
     "userDeclarationCheckboxLabel": "I have signed a User declaration for accessing Digital Economy Act accredited environments.",
     "findOutMore": "Find out more",
     "employmentEducationPublicationRecord": "Employment, education and publication record",
-    "orcidDescription": "Enter your ORCiD (if you have one) to help Data Custodians identify you.",
+    "orcidDescription": "Enter your ORCID identifier (if you have one) to help Data Custodians identify you.",
     "orcidFormDescription": "We’ll automatically import your publicly visible employment information to speed up affiliation in the next tab. You can edit this after it’s been pulled in.",
     "cvUpload": "CV Upload",
     "cvUploadDescription": "Some Data Custodians require a CV. The CV should include your employment history, education and qualifications, and publication record.",
@@ -1122,8 +1122,8 @@
     "delete": "Delete",
     "reinviteOrganisation": "Resend invitiation",
     "resendInviteSuccess": "An invite has been sent to the organisation again!",
-    "missingOrcIdMessage": "There’s some missing information from your ORCiD that we need you to complete",
-    "affiliationOrganisationWarningMessage": "Please complete this field as we couldn’t match the information. Sometimes the identifier of an Organisation within an ORCiD profile does not exactly match the identifier of an Organisation registered within Safe People Registry therefore please select an Organisation from the dropdown box. If the Organisation is not listed, please <link> invite them here </link>",
+    "missingOrcIdMessage": "There’s some missing information from your ORCID that we need you to complete",
+    "affiliationOrganisationWarningMessage": "Please complete this field as we couldn’t match the information. Sometimes the identifier of an Organisation within an ORCID profile does not exactly match the identifier of an Organisation registered within Safe People Registry therefore please select an Organisation from the dropdown box. If the Organisation is not listed, please <link> invite them here </link>",
     "affiliationsEmailWarningMessage": "Please complete this field as we couldn’t match the information.",
     "putOrganisationForbidden": "Your account does not have permissions to perform this update",
     "Projects": {
@@ -1224,7 +1224,7 @@
       "409Error": "This email cannot be used, please try another."
     },
     "Identity": {
-      "orcId": "Orc ID",
+      "orcId": "ORCID identifier",
       "postUserSuccess": "User updated successfully",
       "postUserSuccessButton": "Ok",
       "postUserError": "There was a problem updating your user information. Please try again or contact us at <contactLink></contactLink>",
@@ -1838,6 +1838,11 @@
     "SanctionsCheck": {
       "country": "Sanctioned country"
     },
+    "Training": {
+      "registry": {
+        "trainings": "Training"
+      }
+    },
     "DelegateCheck": {
       "delegate_contacts": "Delegate contacts"
     },
@@ -1850,17 +1855,20 @@
       }
     },
     "UKDataProtection": {
-      "location": "User location: A User should be located in a country which adheres to equivalent data protection law."
+      "location": "User location: A User should be located in a country which adheres to equivalent data protection law"
     },
     "AffiliatedOrganisation": {
       "registry": {
-        "affiliations": "Organisation: A user must be affiliated with an organisation."
+        "affiliations": "Organisation: A user must be affiliated with an organisation"
       }
     },
     "DataSecurityCompliance": {
-      "ceCertifiedPlus": "Data security compliance: Has Cyber Essentials Plus accreditation.",
-      "dsptkCertified": "Data security compliance: Is DSPTK certified.",
-      "certifications": "Data security compliance: An Organisation must have Cyber Essentials and ISO27001 accreditations."
+      "ce_plus_certified": "Data security compliance: Cyber Essentials Plus accreditation",
+      "iso_27001_certified": "Data security compliance: ISO27001 accreditation",
+      "ce_or_iso_certified": "Data security compliance: Cyber Essentials or ISO27001 accreditation",
+      "ce_plus_or_iso_certified": "Data security compliance: Cyber Essentials Plus or ISO27001 accreditation",
+      "dsptk_certified": "Data security compliance: DSPTK certified",
+      "ce_certified": "Data security compliance: Cyber Essentials accreditation"
     }
   },
   "ActionsPanelValidationCheck": {

@@ -44,7 +44,6 @@ export default defineConfig({
       config.env.MAILDEV_SMTP_PORT = process.env.CYPRESS_MAILDEV_SMTP_PORT;
       config.env.MAILDEV_API_PORT = process.env.CYPRESS_MAILDEV_API_PORT;
 
-      config.env.keycloakTests = process.env.CYPRESS_KEYCLOAK_TESTS;
       config.env.keycloakBaseUrl = process.env.NEXT_PUBLIC_KEYCLOAK_BASE_URL;
 
       config.env.keycloakClientId = process.env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID;
@@ -106,18 +105,16 @@ export default defineConfig({
       "cypress/e2e/user-journeys/custodians/users.cy.ts",
       "cypress/e2e/user-journeys/custodians/configuration.cy.ts",
       "cypress/e2e/user-journeys/auth/redirects.cy.ts",
+      "cypress/e2e/user-journeys/custodians/mandatoryChecksOnProjectUserPage.cy.ts",
+      "cypress/e2e/user-journeys/custodians/manualChecksConfiguration.cy.ts",
       // "cypress/e2e/user-journeys/users/projects.cy.ts",
-      ...(process.env.CYPRESS_KEYCLOAK_TESTS === "true"
-        ? [
-            "cypress/e2e/user-journeys/users/profile.cy.ts",
-            "cypress/e2e/user-journeys/admin/inviteCustodian.cy.ts",
-            "cypress/e2e/user-journeys/admin/inviteOrganisation.cy.ts",
-            "cypress/e2e/user-journeys/admin/inviteUser.cy.ts",
-            "cypress/e2e/user-journeys/registration/registerUser.cy.ts",
-            "cypress/e2e/user-journeys/registration/registerOrganisation.cy.ts",
-            "cypress/e2e/user-journeys/registration/registerCustodian.cy.ts",
-          ]
-        : []),
+      "cypress/e2e/user-journeys/admin/inviteCustodian.cy.ts",
+      "cypress/e2e/user-journeys/admin/inviteOrganisation.cy.ts",
+      "cypress/e2e/user-journeys/admin/inviteUser.cy.ts",
+      "cypress/e2e/user-journeys/registration/registerUser.cy.ts",
+      "cypress/e2e/user-journeys/registration/registerOrganisation.cy.ts",
+      "cypress/e2e/user-journeys/registration/registerCustodian.cy.ts",
+      "cypress/e2e/user-journeys/users/profile.cy.ts",
     ],
     // supportFile: "cypress/support/index.ts",
   },

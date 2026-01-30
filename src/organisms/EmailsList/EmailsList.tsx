@@ -65,7 +65,7 @@ export default function EmailsList() {
   ];
 
   return (
-    <>
+    <div data-cy="emails-list">
       <PageSection>
         <EmailsFilters {...queryState} />
       </PageSection>
@@ -89,6 +89,6 @@ export default function EmailsList() {
         </FormModal>
         <EmailsTable extraColumns={extraColumns} {...queryState} t={t} />
       </PageSection>
-    </>
+    </div>
   );
 }

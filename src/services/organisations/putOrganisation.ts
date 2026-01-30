@@ -6,7 +6,7 @@ import { OrganisationResponse, PutOrganisationPayload } from "./types";
 export default async (
   id: number,
   payload: PutOrganisationPayload,
-  options: ResponseOptions
+  options?: ResponseOptions
 ): Promise<ResponseJson<OrganisationResponse>> => {
   const response = await putRequest(`/organisations/${id}`, payload);
 

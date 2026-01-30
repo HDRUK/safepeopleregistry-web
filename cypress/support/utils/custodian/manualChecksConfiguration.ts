@@ -1,3 +1,4 @@
+import { faker } from "@faker-js/faker";
 import { dataCy } from "../common";
 
 const hasUnCheckedOnUsersConfigurationManualChecks = () => {
@@ -24,76 +25,70 @@ const hasCheckedOnUsersConfigurationManualChecks = () => {
   cy.get("#2").should("exist").check();
 };
 
-const hasAddManualChecksForUsersConfigurationManualChecks = () => {
+const addManualChecksForUsersConfigurationManualChecks = (title: string) => {
   cy.get(dataCy("sub-tabs-navigation")).within(() => {
     cy.contains("a", "Manual checks").click();
   });
-  const text = 'Mandatory Custodian Training';
-  cy.contains("button", "Add manual check").should("exist").click();
-  cy.contains("h3", "Add User manual check").should("exist");
-  cy.contains("label", "Description").should("exist");
-  cy.contains("button", "Cancel").should("exist");
-  cy.get("#text")
-  .type(text);
-  cy.saveFormClick("Save");
-  cy.contains(text).should("exist");
-  cy.contains("a", "Manual checks").should("exist");
 
+  cy.contains("button", "Add manual check").click();
+  cy.get("#text").type(title);
+  cy.saveFormClick("Save");
 };
 
-const hasCancelButtonTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks = () => {
+const hasCancelButtonTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks =
+  () => {
     cy.get(dataCy("sub-tabs-navigation")).within(() => {
       cy.contains("a", "Manual checks").click();
     });
     cy.contains("button", "Add manual check").should("exist").click();
     cy.contains("button", "Cancel").should("exist").click();
     cy.contains("a", "Manual checks").should("exist");
-};
+  };
 
-  const hasCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks = () => {
+const hasCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks =
+  () => {
     cy.get(dataCy("sub-tabs-navigation")).within(() => {
       cy.contains("a", "Manual checks").click();
     });
     cy.contains("button", "Add manual check").should("exist").click();
     cy.get('[data-testid="CloseIcon"]').should("exist").click();
     cy.contains("a", "Manual checks").should("exist");
-};
+  };
 
 const hasEditManualChecksForUsersConfigurationManualChecks = () => {
+  cy.get(dataCy("sub-tabs-navigation")).within(() => {
+    cy.contains("a", "Manual checks").click();
+  });
+  const text = "Mandatory Custodian Training Testing";
+  cy.get('[data-cy="action-menu"]').eq(0).should("exist").click();
+  cy.contains('li[role="menuitem"]', "Edit").should("exist").click();
+  cy.contains("h3", "Edit User manual check").should("exist");
+  cy.contains("label", "Description").should("exist");
+  cy.contains("button", "Cancel").should("exist");
+  cy.get("#text").clear().type(text);
+  cy.saveFormClick("Save");
+  cy.contains(text).should("exist");
+  cy.contains("a", "Manual checks").should("exist");
+};
+
+const hasEditCancelButtonTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks =
+  () => {
     cy.get(dataCy("sub-tabs-navigation")).within(() => {
       cy.contains("a", "Manual checks").click();
     });
-    const text = 'Mandatory Custodian Training Testing';
     cy.get('[data-cy="action-menu"]').eq(0).should("exist").click();
-    cy.contains('li[role="menuitem"]', 'Edit').should("exist").click();
-    cy.contains("h3", "Edit User manual check").should("exist");
-    cy.contains("label", "Description").should("exist");
-    cy.contains("button", "Cancel").should("exist");
-    cy.get("#text")
-    .clear()
-    .type(text);
-    cy.saveFormClick("Save");
-    cy.contains(text).should("exist");
-    cy.contains("a", "Manual checks").should("exist");
-  
-  };
-  
-  const hasEditCancelButtonTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks = () => {
-    cy.get(dataCy("sub-tabs-navigation")).within(() => {
-        cy.contains("a", "Manual checks").click();
-      });
-    cy.get('[data-cy="action-menu"]').eq(0).should("exist").click();
-    cy.contains('li[role="menuitem"]', 'Edit').should("exist").click();
+    cy.contains('li[role="menuitem"]', "Edit").should("exist").click();
     cy.contains("button", "Cancel").should("exist").click();
     cy.contains("a", "Manual checks").should("exist");
   };
-  
-const hasEditCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks = () => {
+
+const hasEditCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks =
+  () => {
     cy.get(dataCy("sub-tabs-navigation")).within(() => {
-        cy.contains("a", "Manual checks").click();
-      });
+      cy.contains("a", "Manual checks").click();
+    });
     cy.get('[data-cy="action-menu"]').eq(0).should("exist").click();
-    cy.contains('li[role="menuitem"]', 'Edit').should("exist").click();
+    cy.contains('li[role="menuitem"]', "Edit").should("exist").click();
     cy.get('[data-testid="CloseIcon"]').should("exist").click();
     cy.contains("a", "Manual checks").should("exist");
   };
@@ -128,84 +123,105 @@ const hasCheckedOnOrganisationConfigurationManualChecks = () => {
 };
 
 const hasAddManualChecksForOrganisationConfigurationManualChecks = () => {
-    cy.get(dataCy("sub-tabs-navigation")).within(() => {
-      cy.contains("a", "Manual checks").click();
-    });
-    const text = 'Mandatory Custodian Training';
-    cy.contains('ul', 'Organisation')
+  cy.get(dataCy("sub-tabs-navigation")).within(() => {
+    cy.contains("a", "Manual checks").click();
+  });
+  const text = "Mandatory Custodian Training";
+  cy.contains("h6", "Organisation")
+    .parent()
     .within(() => {
-    cy.contains('button', 'Add manual check').click();
+      cy.contains("button", "Add manual check").click();
     });
-    cy.contains("h3", "Add User manual check").should("exist");
-    cy.contains("label", "Description").should("exist");
-    cy.contains("button", "Cancel").should("exist");
-    cy.get("#text")
-    .type(text);
-    cy.saveFormClick("Save");
-    cy.contains(text).should("exist");
-    cy.contains("a", "Manual checks").should("exist");
-    };
-  
-const hasCancelButtonTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks = () => {
-      cy.get(dataCy("sub-tabs-navigation")).within(() => {
-        cy.contains("a", "Manual checks").click();
-      });
-      cy.contains("button", "Add manual check").should("exist").click();
-      cy.contains("button", "Cancel").should("exist").click();
-      cy.contains("a", "Manual checks").should("exist");
-  };
-  
-const hasCloseIconTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks = () => {
-      cy.get(dataCy("sub-tabs-navigation")).within(() => {
-        cy.contains("a", "Manual checks").click();
-      });
-      cy.contains("button", "Add manual check").should("exist").click();
-      cy.get('[data-testid="CloseIcon"]').should("exist").click();
-      cy.contains("a", "Manual checks").should("exist");
-  };
+  cy.contains("h3", "Add User manual check").should("exist");
+  cy.contains("label", "Description").should("exist");
+  cy.contains("button", "Cancel").should("exist");
+  cy.get("#text").type(text);
+  cy.saveFormClick("Save");
+  cy.contains(text).should("exist");
+  cy.contains("a", "Manual checks").should("exist");
+};
 
-  const hasEditManualChecksForOrganisationConfigurationManualChecks = () => {
+const hasCancelButtonTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks =
+  () => {
     cy.get(dataCy("sub-tabs-navigation")).within(() => {
       cy.contains("a", "Manual checks").click();
     });
-    const text = 'Is the Organisation aligned with the SDE network? Testing';
-    cy.get('[data-cy="action-menu"]').eq(4).should("exist").click();
-    cy.contains('li[role="menuitem"]', 'Edit').should("exist").click();
-    cy.contains("h3", "Edit Organisation manual check").should("exist");
-    cy.contains("label", "Description").should("exist");
-    cy.contains("button", "Cancel").should("exist");
-    cy.get("#text")
-    .clear()
-    .type(text);
-    cy.saveFormClick("Save");
-    cy.contains(text).should("exist");
-    cy.contains("a", "Manual checks").should("exist");
-  
-  };
-  
-const hasEditCancelButtonTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks = () => {
-    cy.get(dataCy("sub-tabs-navigation")).within(() => {
-        cy.contains("a", "Manual checks").click();
-      });
-    cy.get('[data-cy="action-menu"]').eq(4).should("exist").click();
-    cy.contains('li[role="menuitem"]', 'Edit').should("exist").click();
+    cy.contains("button", "Add manual check").should("exist").click();
     cy.contains("button", "Cancel").should("exist").click();
     cy.contains("a", "Manual checks").should("exist");
   };
-  
-const hasEditCloseIconTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks = () => {
+
+const hasCloseIconTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks =
+  () => {
     cy.get(dataCy("sub-tabs-navigation")).within(() => {
-        cy.contains("a", "Manual checks").click();
-      });
-    cy.get('[data-cy="action-menu"]').eq(4).should("exist").click();
-    cy.contains('li[role="menuitem"]', 'Edit').should("exist").click();
+      cy.contains("a", "Manual checks").click();
+    });
+    cy.contains("button", "Add manual check").should("exist").click();
     cy.get('[data-testid="CloseIcon"]').should("exist").click();
     cy.contains("a", "Manual checks").should("exist");
   };
 
+const hasEditManualChecksForOrganisationConfigurationManualChecks = () => {
+  cy.get(dataCy("sub-tabs-navigation")).within(() => {
+    cy.contains("a", "Manual checks").click();
+  });
+  const text = "Is the Organisation aligned with the SDE network? Testing";
+  cy.get('[data-cy="action-menu"]').eq(4).should("exist").click();
+  cy.contains('li[role="menuitem"]', "Edit").should("exist").click();
+  cy.contains("h3", "Edit Organisation manual check").should("exist");
+  cy.contains("label", "Description").should("exist");
+  cy.contains("button", "Cancel").should("exist");
+  cy.get("#text").clear().type(text);
+  cy.saveFormClick("Save");
+  cy.contains(text).should("exist");
+  cy.contains("a", "Manual checks").should("exist");
+};
+
+const hasEditCancelButtonTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks =
+  () => {
+    cy.get(dataCy("sub-tabs-navigation")).within(() => {
+      cy.contains("a", "Manual checks").click();
+    });
+    cy.get('[data-cy="action-menu"]').eq(4).should("exist").click();
+    cy.contains('li[role="menuitem"]', "Edit").should("exist").click();
+    cy.contains("button", "Cancel").should("exist").click();
+    cy.contains("a", "Manual checks").should("exist");
+  };
+
+const hasEditCloseIconTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks =
+  () => {
+    cy.get(dataCy("sub-tabs-navigation")).within(() => {
+      cy.contains("a", "Manual checks").click();
+    });
+    cy.get('[data-cy="action-menu"]').eq(4).should("exist").click();
+    cy.contains('li[role="menuitem"]', "Edit").should("exist").click();
+    cy.get('[data-testid="CloseIcon"]').should("exist").click();
+    cy.contains("a", "Manual checks").should("exist");
+  };
+
+const hasAddManualChecksForUsersConfigurationManualChecks = () => {
+  cy.get(dataCy("sub-tabs-navigation")).within(() => {
+    cy.contains("a", "Manual checks").click();
+  });
+  const text = faker.string.sample(20);
+
+  cy.contains("button", "Add manual check").should("exist").click();
+  cy.contains("h3", "Add User manual check").should("exist");
+  cy.contains("label", "Description").should("exist");
+  cy.contains("button", "Cancel").should("exist");
+
+  cy.get("#text").type(text);
+
+  cy.saveFormClick("Save");
+
+  cy.contains(text).should("exist");
+  cy.contains("a", "Manual checks").should("exist");
+};
+
 export {
   hasUnCheckedOnUsersConfigurationManualChecks,
   hasCheckedOnUsersConfigurationManualChecks,
+  addManualChecksForUsersConfigurationManualChecks,
   hasAddManualChecksForUsersConfigurationManualChecks,
   hasCancelButtonTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks,
   hasCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks,
