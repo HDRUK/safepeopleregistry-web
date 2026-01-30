@@ -134,7 +134,7 @@
     "jest-extended": "^4.0.2",
     "next-router-mock": "^0.9.13",
     "prettier": "^3.2.5",
-    "react-syntax-highlighter": "^15.5.0",
+    "react-syntax-highlighter": "^15.6.6",
     "semantic-release": "^24.2.1",
     "storybook": "^8.0.5",
     "ts-node": "^10.9.2",
