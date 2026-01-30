@@ -1,5 +1,6 @@
 "use client";
 
+import { JOB_DELAY } from "@/consts/application";
 import { PageBody } from "@/modules";
 import InviteUser from "@/modules/InviteUser";
 import SendInviteCustodian from "@/modules/SendInviteCustodian";
@@ -20,12 +21,14 @@ export default function Sections() {
   const queryClient = useQueryClient();
 
   const handleInviteSuccess = () => {
-    queryClient.refetchQueries({
-      predicate: query =>
-        ["getPendingInvites", "getEmails"].some(key =>
-          query.queryKey.includes(key)
-        ),
-    });
+    setTimeout(() => {
+      queryClient.refetchQueries({
+        predicate: query =>
+          ["getPendingInvites", "getEmails"].some(key =>
+            query.queryKey.includes(key)
+          ),
+      });
+    }, JOB_DELAY);
   };
 
   const sections = [

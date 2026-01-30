@@ -111,7 +111,11 @@ export default function InvitesFilters({
 
   return (
     <SearchBar
-      onClear={resetQueryParams}
+      onClear={() => {
+        updateQueryParams({
+          email: undefined,
+        });
+      }}
       onSearch={(email: string) => {
         updateQueryParams({
           email,

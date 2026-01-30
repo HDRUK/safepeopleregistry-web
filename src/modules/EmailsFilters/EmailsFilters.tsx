@@ -1,7 +1,6 @@
 "use client";
 
 import DateInput from "@/components/DateInput";
-import { Status } from "@/consts/application";
 import useFilter from "@/hooks/useFilter";
 import useSort from "@/hooks/useSort";
 import { formatDBDate } from "@/utils/date";
@@ -18,7 +17,8 @@ const NAMESPACE_TRANSLATIONS_EMAILS = "Admin.EmailsFilters";
 const NAMESPACE_TRANSLATIONS_APPLICATION = "Application";
 
 export enum EmailsFiltersKeys {
-  STATUS = "job_status[]__and",
+  STATUS = "job_status",
+  MESSAGE_STATUS = "message_status",
   DATE_TRIED = "updated_at[]__and",
 }
 
@@ -26,7 +26,6 @@ export interface EmailsFiltersProps
   extends Pick<
     PaginatedQueryReturn<ResearcherProject>,
     | "updateQueryParams"
-    | "resetQueryParams"
     | "handleSortToggle"
     | "handleFieldToggle"
     | "queryParams"
@@ -37,10 +36,13 @@ export interface EmailsFiltersProps
 export default function EmailsFilters({
   handleSortToggle,
   handleFieldToggle,
-  resetQueryParams,
   updateQueryParams,
   queryParams,
-  includeFilters = [EmailsFiltersKeys.STATUS, EmailsFiltersKeys.DATE_TRIED],
+  includeFilters = [
+    EmailsFiltersKeys.STATUS,
+    EmailsFiltersKeys.MESSAGE_STATUS,
+    EmailsFiltersKeys.DATE_TRIED,
+  ],
 }: EmailsFiltersProps) {
   const [dateSent, setDateSent] = useState<Date | string | null>(null);
   const t = useTranslations(NAMESPACE_TRANSLATIONS_EMAILS);
@@ -80,9 +82,51 @@ export default function EmailsFilters({
       handleFieldToggle(key, [value, undefined]),
   });
 
+  const { actions: filterMessageStatusActions } = useFilter({
+    queryParams,
+    items: [
+      {
+        label: t("filterByMessageStatus_processed"),
+        key: EmailsFiltersKeys.MESSAGE_STATUS,
+        value: "processed",
+      },
+      {
+        label: t("filterByMessageStatus_delivered"),
+        key: EmailsFiltersKeys.MESSAGE_STATUS,
+        value: "delivered",
+      },
+      {
+        label: t("filterByMessageStatus_deferred"),
+        key: EmailsFiltersKeys.MESSAGE_STATUS,
+        value: "deferred",
+      },
+      {
+        label: t("filterByMessageStatus_dropped"),
+        key: EmailsFiltersKeys.MESSAGE_STATUS,
+        value: "dropped",
+      },
+      {
+        label: t("filterByMessageStatus_bounced"),
+        key: EmailsFiltersKeys.MESSAGE_STATUS,
+        value: "bounced",
+      },
+      {
+        label: t("filterByMessageStatus_blocked"),
+        key: EmailsFiltersKeys.MESSAGE_STATUS,
+        value: "blocked",
+      },
+    ],
+    onFilter: (key: string, value: string) =>
+      handleFieldToggle(key, [value, undefined]),
+  });
+
   return (
     <SearchBar
-      onClear={resetQueryParams}
+      onClear={() => {
+        updateQueryParams({
+          "to[]__and": undefined,
+        });
+      }}
       onSearch={(to: string) => {
         updateQueryParams({
           "to[]__and": to,
@@ -109,6 +153,22 @@ export default function EmailsFilters({
           aria-label={t("filterByStatus")}
         />
       )}
+      {hasFilter(EmailsFiltersKeys.MESSAGE_STATUS) && (
+        <SearchActionMenu
+          id="filterByMessageStatus"
+          actions={filterMessageStatusActions}
+          onClear={() =>
+            handleFieldToggle(EmailsFiltersKeys.MESSAGE_STATUS, [
+              undefined,
+              undefined,
+            ])
+          }
+          startIcon={<FilterIcon />}
+          renderedSelectedLabel={tApplication("filteredBy")}
+          renderedDefaultLabel={t("filterByMessageStatus")}
+          aria-label={t("filterByMessageStatus")}
+        />
+      )}
       {hasFilter(EmailsFiltersKeys.DATE_TRIED) && (
         <DateInput
           value={dateSent}
@@ -116,11 +176,17 @@ export default function EmailsFilters({
           onClear={() => {
             setDateSent(null);
 
-            handleFieldToggle("updated_at", [undefined, undefined]);
+            handleFieldToggle(EmailsFiltersKeys.DATE_TRIED, [
+              undefined,
+              undefined,
+            ]);
           }}
           onChange={value => {
             setDateSent(value);
-            handleFieldToggle("updated_at", [formatDBDate(value), undefined]);
+            handleFieldToggle(EmailsFiltersKeys.DATE_TRIED, [
+              formatDBDate(value),
+              undefined,
+            ]);
           }}
         />
       )}

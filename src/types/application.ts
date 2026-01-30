@@ -53,6 +53,8 @@ interface Email {
   job_status: boolean;
   message_status: string;
   id: number;
+  error_message: string;
+  message_response: string;
 }
 
 interface File {

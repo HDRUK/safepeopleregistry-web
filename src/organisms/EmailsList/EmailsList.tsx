@@ -8,6 +8,12 @@ import useQueryAlerts from "../../hooks/useQueryAlerts";
 import { EmailsFilters, EmailsTable, PageSection } from "../../modules";
 import { Email } from "../../types/application";
 
+import FormModal from "@/components/FormModal";
+import Text from "@/components/Text";
+import { Refresh } from "@mui/icons-material";
+import { Link, Typography } from "@mui/material";
+import { useState } from "react";
+import SyntaxHighlighter from "react-syntax-highlighter";
 import {
   putResendEmailQuery,
   usePaginatedEmailsQuery,
@@ -19,6 +25,7 @@ export default function EmailsList() {
   const t = useTranslations(NAMESPACE_TRANSLATIONS_TABLES);
 
   const { createDefaultColumn } = useColumns<Email>({ t });
+  const [activeLog, setActiveLog] = useState<Email | null>(null);
 
   const { refetch, ...queryState } = usePaginatedEmailsQuery();
 
@@ -31,7 +38,7 @@ export default function EmailsList() {
 
   useQueryAlerts(mutationStateResend, {
     successAlertProps: {
-      onConfirm: () => {
+      onConfirm: async () => {
         refetch();
       },
     },
@@ -48,6 +55,9 @@ export default function EmailsList() {
             <ActionMenuItem onClick={() => handleResendEmail(id)}>
               {t("resendEmail")}
             </ActionMenuItem>
+            <ActionMenuItem onClick={() => setActiveLog(info.row.original)}>
+              {t("viewLogs")}
+            </ActionMenuItem>
           </ActionMenu>
         );
       },
@@ -60,6 +70,23 @@ export default function EmailsList() {
         <EmailsFilters {...queryState} />
       </PageSection>
       <PageSection>
+        <Link component="button" onClick={() => refetch()}>
+          <Text startIcon={<Refresh />}>Update</Text>
+        </Link>
+        <FormModal
+          heading={t("heading")}
+          open={!!activeLog}
+          onClose={() => setActiveLog(null)}
+          sx={{ minWidth: "800px" }}>
+          <Typography variant="h6">{t("headingErrorMessage")}</Typography>
+          <SyntaxHighlighter language="text">
+            {activeLog?.error_message}
+          </SyntaxHighlighter>
+          <Typography variant="h6">{t("headingSendGridResponse")}</Typography>
+          <SyntaxHighlighter language="text">
+            {activeLog?.message_response}
+          </SyntaxHighlighter>
+        </FormModal>
         <EmailsTable extraColumns={extraColumns} {...queryState} t={t} />
       </PageSection>
     </>

@@ -59,6 +59,7 @@ enum Status {
 }
 
 const PAGINATION_UPPER_LIMIT = 1000;
+const JOB_DELAY = 2000;
 
 export {
   VALIDATION_SCHEMA_KEY,
@@ -66,4 +67,5 @@ export {
   PendingInvite,
   Status,
   PAGINATION_UPPER_LIMIT,
+  JOB_DELAY,
 };

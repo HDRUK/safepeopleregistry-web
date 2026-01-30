@@ -104,7 +104,7 @@ Cypress.Commands.add("getResultsRowByValue", (value: string) => {
       ? cy.getResultsRow(value)
       : cy.get(dataCy("results")).should("exist").get("tbody tr");
 
-  return row.contains("td", value).should("exist").parent();
+  return cy.get("td").contains(value).should("exist").parent();
 });
 
 Cypress.Commands.add("getLatestRowOfResults", () => {
