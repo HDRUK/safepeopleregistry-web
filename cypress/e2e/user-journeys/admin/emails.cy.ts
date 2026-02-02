@@ -70,8 +70,10 @@ describe("Resend invite", () => {
 
     getModalByHeader("Email log information").within(() => {
       cy.contains("h6", "Job error");
+      cy.contains("No error found");
+
       cy.contains("h6", "SendGrid response");
-      cy.contains("OK");
+      cy.contains("Nothing found for this id");
     });
   });
 });
