@@ -14,7 +14,10 @@
   },
   "Admin": {
     "EmailsTable": {
+      "noErrorFound": "No error found",
+      "noSendGridResponse": "Nothing found for this id",
       "viewLogs": "View log info",
+      "updateSendGridLogs": "Update SendGrid log",
       "headingErrorMessage": "Job error",
       "headingSendGridResponse": "SendGrid response",
       "heading": "Email log information",
