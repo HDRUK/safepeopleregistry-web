@@ -125,7 +125,7 @@ export default function EmailsList() {
           sx={{ width: "800px" }}>
           <Typography variant="h6">{t("headingErrorMessage")}</Typography>
           <SyntaxHighlighter language="text">
-            {activeLog?.error_message || "No error found"}
+            {activeLog?.error_message || t("noErrorFound")}
           </SyntaxHighlighter>
           <Typography variant="h6" sx={{ display: "flex", gap: 1 }}>
             {t("headingSendGridResponse")}{" "}
@@ -144,7 +144,7 @@ export default function EmailsList() {
           </Typography>
           <SyntaxHighlighter language="json">
             {(activeLog?.message_response && getMessageResponse(activeLog)) ||
-              "Nothing found for this id"}
+              t("noSendGridResponse")}
           </SyntaxHighlighter>
         </FormModal>
         <EmailsTable extraColumns={extraColumns} {...queryState} t={t} />
