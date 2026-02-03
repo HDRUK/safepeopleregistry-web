@@ -73,7 +73,7 @@ export default function EmailsList() {
     createDefaultColumn("actions", {
       header: "",
       cell: info => {
-        const { id } = info.row.original;
+        const { id, message_id } = info.row.original;
 
         return (
           <ActionMenu>
@@ -83,9 +83,11 @@ export default function EmailsList() {
             <ActionMenuItem onClick={() => setActiveLog(info.row.original)}>
               {t("viewLogs")}
             </ActionMenuItem>
-            <ActionMenuItem onClick={() => handleUpdateSendGridLogs(id)}>
-              {t("updateSendGridLogs")}
-            </ActionMenuItem>
+            {message_id && (
+              <ActionMenuItem onClick={() => handleUpdateSendGridLogs(id)}>
+                {t("updateSendGridLogs")}
+              </ActionMenuItem>
+            )}
           </ActionMenu>
         );
       },
@@ -127,25 +129,30 @@ export default function EmailsList() {
           <SyntaxHighlighter language="text">
             {activeLog?.error_message || t("noErrorFound")}
           </SyntaxHighlighter>
-          <Typography variant="h6" sx={{ display: "flex", gap: 1 }}>
-            {t("headingSendGridResponse")}{" "}
-            {!mutationStateStatus.isPending ? (
-              <Refresh
-                onClick={() => handleUpdateSendGridLogs(activeLog.id)}
-                sx={{
-                  ":hover": {
-                    cursor: "pointer",
-                  },
-                }}
-              />
-            ) : (
-              <CircularProgress size="1em" />
-            )}
-          </Typography>
-          <SyntaxHighlighter language="json">
-            {(activeLog?.message_response && getMessageResponse(activeLog)) ||
-              t("noSendGridResponse")}
-          </SyntaxHighlighter>
+          {activeLog?.message_id && (
+            <>
+              <Typography variant="h6" sx={{ display: "flex", gap: 1 }}>
+                {t("headingSendGridResponse")}{" "}
+                {!mutationStateStatus.isPending ? (
+                  <Refresh
+                    onClick={() => handleUpdateSendGridLogs(activeLog.id)}
+                    sx={{
+                      ":hover": {
+                        cursor: "pointer",
+                      },
+                    }}
+                  />
+                ) : (
+                  <CircularProgress size="1em" />
+                )}
+              </Typography>
+              <SyntaxHighlighter language="json">
+                {(activeLog?.message_response &&
+                  getMessageResponse(activeLog)) ||
+                  t("noSendGridResponse")}
+              </SyntaxHighlighter>
+            </>
+          )}
         </FormModal>
         <EmailsTable extraColumns={extraColumns} {...queryState} t={t} />
       </PageSection>
