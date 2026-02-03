@@ -67,6 +67,9 @@ export default function EmailsList() {
         mutationStateStatus.reset();
       },
     },
+    errorAlertProps: {
+      text: t("sendGridError"),
+    },
   });
 
   const extraColumns = [
