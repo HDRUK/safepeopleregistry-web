@@ -155,7 +155,7 @@ const usePaginatedQuery = <T,>({
         delete updatedQueryParams[API_SORT_KEY];
       }
 
-      setQueryParams(updatedQueryParams);
+      updateQueryParams(updatedQueryParams);
     },
     [queryParams]
   );
@@ -172,14 +172,14 @@ const usePaginatedQuery = <T,>({
           ? currentArray.filter(v => v !== item)
           : [...currentArray, item];
 
-        setQueryParams({
+        updateQueryParams({
           ...queryParams,
           [field]: newArray.length > 0 ? newArray : undefined,
         });
       } else {
         const newValue = currentValue === options[0] ? options[1] : options[0];
 
-        setQueryParams({
+        updateQueryParams({
           ...queryParams,
           [field]: newValue,
         });

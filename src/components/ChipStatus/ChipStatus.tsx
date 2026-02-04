@@ -39,6 +39,7 @@ const getColorForStatus = (status?: Status): string => {
       Status.REGISTERED,
       Status.ORGANISATION_REGISTERED,
       Status.SPONSORSHIP_APPROVED,
+      Status.EMAIL_SUCCESSFUL,
     ].includes(status!)
   )
     return "success";
@@ -51,6 +52,7 @@ const getColorForStatus = (status?: Status): string => {
       Status.AFFILIATION_REJECTED,
       Status.ORGANISATION_NOT_VALIDATED,
       Status.SPONSORSHIP_REJECTED,
+      Status.EMAIL_FAILED,
     ].includes(status!)
   )
     return "error";

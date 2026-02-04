@@ -136,6 +136,102 @@ const mockedOrganisation = (
     }),
   ],
   sro_profile_uri: faker.internet.url(),
+  rules: [
+    {
+      ruleId: 16,
+      rule: "SanctionsCheck",
+      conditions: {
+        path: "country",
+        sanctioned_countries: ["China", "Russia", "North Korea"],
+      },
+      actual: "United Kingdom",
+      status: true,
+    },
+    {
+      ruleId: 17,
+      rule: "DataSecurityCompliance",
+      conditions: {
+        path: "ce_certified",
+        expects: 1,
+      },
+      actual: true,
+      status: true,
+    },
+    {
+      ruleId: 18,
+      rule: "DataSecurityCompliance",
+      conditions: {
+        path: "ce_plus_certified",
+        expects: 1,
+      },
+      actual: 1,
+      status: true,
+    },
+    {
+      ruleId: 19,
+      rule: "DataSecurityCompliance",
+      conditions: {
+        path: "iso_27001_certified",
+        expects: 1,
+      },
+      actual: true,
+      status: true,
+    },
+    {
+      ruleId: 20,
+      status: false,
+      failed_rules: {
+        rule: "DataSecurityCompliance",
+        status: "failed",
+        conditions: {
+          path: "ce_or_iso_certified",
+          expects: 1,
+        },
+        actual: null,
+      },
+    },
+    {
+      ruleId: 21,
+      status: false,
+      failed_rules: {
+        rule: "DataSecurityCompliance",
+        status: "failed",
+        conditions: {
+          path: "ce_plus_or_iso_certified",
+          expects: 1,
+        },
+        actual: null,
+      },
+    },
+    {
+      ruleId: 22,
+      status: false,
+      failed_rules: {
+        rule: "DataSecurityCompliance",
+        status: "failed",
+        conditions: {
+          path: "dsptk_certified",
+          expects: 1,
+        },
+        actual: 0,
+      },
+    },
+    {
+      ruleId: 23,
+      status: false,
+      failed_rules: {
+        rule: "DelegateCheck",
+        status: "failed",
+        conditions: {
+          path: "delegate_contacts",
+          expects: {
+            minimum: 1,
+          },
+        },
+        actual: null,
+      },
+    },
+  ],
   ...organisation,
 });
 
