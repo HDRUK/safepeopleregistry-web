@@ -1,4 +1,4 @@
-import { Status } from "@/consts/application";
+import { JOB_DELAY, Status } from "@/consts/application";
 import { ROUTES } from "@/consts/router";
 import {
   CustodianProjectOrganisation,
@@ -189,11 +189,13 @@ const addNewProjectUser = (user: User) => {
     cy.getResultsRowByValue(getName(user))
       .first()
       .within(() => {
-        cy.get(dataCy("project-role")).get('[role="combobox"]').click();
+        cy.wait(JOB_DELAY);
 
-        cy.focused().type("{downarrow}{enter}");
+        cy.get(dataCy("project-role")).get('[role="combobox"]').click();
       });
   });
+
+  cy.focused().type("{downarrow}{enter}");
 
   cy.contains("button", "Save")
     .should("be.visible")
