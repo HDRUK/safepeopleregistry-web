@@ -1,3 +1,31 @@
+## [1.27.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.26.0...v1.27.0) (2026-02-05)
+
+### ✨ Features
+
+* **REGISTRY-1661:** orc id as link for org and custodian user view (#627) ([b08f171](https://github.com/HDRUK/safepeopleregistry-web/commit/b08f1713f8e3b7d4687fa196164b09590993fac0))
+* **REGISTRY-1661:** orc id text change (#640) ([1ebd9d8](https://github.com/HDRUK/safepeopleregistry-web/commit/1ebd9d874b53f6893fda765b4cc104f2ff6c6720))
+* **REGISTRY-2178:** success messaging (#622) ([6138833](https://github.com/HDRUK/safepeopleregistry-web/commit/613883332ce27998adfc9c230a88f0d70993c338))
+* **REGISTRY-2244:** change email (#629) ([bd3298b](https://github.com/HDRUK/safepeopleregistry-web/commit/bd3298bc11e27f2bd90acb93c5449ef6164a4daf))
+* **REGISTRY-2265:** additional filters and tests (#625) ([37b7823](https://github.com/HDRUK/safepeopleregistry-web/commit/37b78230c790cd0b65db75be82c1250441cfa706))
+* **REGISTRY-2341:** keycloak in pipeline for registrations (#628) ([0a890bf](https://github.com/HDRUK/safepeopleregistry-web/commit/0a890bf8309543012ac8eb0a95021182b8b53e5d))
+* **REGISTRY-2358:** Mandatory checks on project user page (#636) ([ff4d67a](https://github.com/HDRUK/safepeopleregistry-web/commit/ff4d67a3bc298290d705d3e2f448665ec79e9274))
+* **REGISTRY-2411:** and for invites filters (#641) ([2d4b26b](https://github.com/HDRUK/safepeopleregistry-web/commit/2d4b26b46fc7afe8414f08208bbb00bd233f0ca4))
+* **REGISTRY-2431:** show sponsor in project detail (#648) ([d790587](https://github.com/HDRUK/safepeopleregistry-web/commit/d7905872283a69eb44e9cd1ab1769ed7545241ef))
+* **REGISTRY-2437:** remove automated scrape for orc id (#638) ([e19d762](https://github.com/HDRUK/safepeopleregistry-web/commit/e19d76253858a7aabe88ed4b834ad4625563e11b))
+* **REGISTRY-2472:** additional reg tests and fix (#632) ([364a148](https://github.com/HDRUK/safepeopleregistry-web/commit/364a148d542e6912b423c668dd78a80b134904ed))
+* **REGISTRY-2476:** email log table (#642) ([882b778](https://github.com/HDRUK/safepeopleregistry-web/commit/882b77807cbbf35f483b1e60acb529864c3dc12c))
+* **REGISTRY-2485:** handle not sendgrid (#646) ([f95c1e3](https://github.com/HDRUK/safepeopleregistry-web/commit/f95c1e3b6c9e6a777b56120d40ce906b8efdb7e5))
+* **REGISTRY-2485:** update error message (#647) ([19758cd](https://github.com/HDRUK/safepeopleregistry-web/commit/19758cde5d4445b4be55727bba07df981e50aa8c))
+* **REGISTRY-2485:** update sendgrid info (#645) ([2ac445b](https://github.com/HDRUK/safepeopleregistry-web/commit/2ac445b6b7ab8790dd210939fc21b6790e38cd0c))
+* **REGISTRY-2495:** white screen, double register, next redirect (#637) ([aa1ee33](https://github.com/HDRUK/safepeopleregistry-web/commit/aa1ee3346fe73f30e023a0b2e017e804afc8e9c0))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-0000:** Custodian ID for custodian user (#624) ([995c0bc](https://github.com/HDRUK/safepeopleregistry-web/commit/995c0bc75f50c0413f8d7178707d6888f8844bc1))
+* **REGISTRY-0005:** missing package (#643) ([0b1c644](https://github.com/HDRUK/safepeopleregistry-web/commit/0b1c64466ebf20de54953294fbac9424cd7cde0f))
+* **REGISTRY-2280:** read out rules verbatim (#639) ([75480d4](https://github.com/HDRUK/safepeopleregistry-web/commit/75480d49be3bf3dd8028d29d10f63405a67e7103))
+* **REGISTRY-2451:** redirect when no access token (#626) ([f595c66](https://github.com/HDRUK/safepeopleregistry-web/commit/f595c6655654d1aacc5234051906bb6c4df90dcf))
+
 ## [1.26.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.25.0...v1.26.0) (2026-01-12)
 
 ### ✨ Features
