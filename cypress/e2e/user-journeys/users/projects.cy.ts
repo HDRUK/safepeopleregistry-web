@@ -29,7 +29,7 @@ describe("Projects", () => {
     addNewProjectUser(DEFAULT_USER);
 
     //Job / observable needs time to complete
-    cy.wait(2000);
+    cy.wait(4000);
   });
 
   beforeEach(() => {
