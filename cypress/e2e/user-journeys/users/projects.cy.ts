@@ -27,6 +27,9 @@ describe("Projects", () => {
     cy.contains("a", "Safe People").click();
 
     addNewProjectUser(DEFAULT_USER);
+
+    //Job / observable needs time to complete
+    cy.wait(2000);
   });
 
   beforeEach(() => {

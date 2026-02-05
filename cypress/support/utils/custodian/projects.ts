@@ -193,9 +193,12 @@ const addNewProjectUser = (user: User) => {
 
         cy.focused().type("{downarrow}{enter}");
       });
-
-    cy.contains("button", "Save").click();
   });
+
+  cy.contains("button", "Save")
+    .should("be.visible")
+    .and("be.enabled")
+    .trigger("click");
 };
 
 const invitesNewSponsor = (invite: InviteOrganisationFormValues) => {
