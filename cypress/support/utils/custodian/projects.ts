@@ -166,8 +166,8 @@ const inviteNewProjectUser = (invite: InviteUserFormValues) => {
   cy.get("#first_name").clear().type(invite.first_name);
   cy.get("#last_name").clear().type(invite.last_name);
   cy.get("#email").clear().type(invite.email);
-  cy.selectValue("role", invite.role);
-  cy.selectValue("organisation_id", invite.organisation_id);
+  cy.selectValue("##role", invite.role);
+  cy.selectValue("##organisation_id", invite.organisation_id);
 
   cy.saveFormClick("Invite");
   cy.clickAlertModal("Close");
@@ -189,8 +189,12 @@ const addNewProjectUser = (user: User) => {
     cy.getResultsRowByValue(getName(user))
       .first()
       .within(() => {
-        cy.selectValue(dataCy("project-role"), DEFAULT_ROLE_NAME);
+        cy.get(dataCy("project-role")).get('[role="combobox"]').click();
+
+        cy.focused().type("{downarrow}{enter}");
       });
+
+    cy.contains("button", "Save").click();
   });
 };
 
@@ -207,7 +211,7 @@ const addNewProject = (project: ResearcherProject) => {
   cy.get("#unique_id").clear().type(project.unique_id);
   cy.get("#title").clear().type(project.title);
 
-  cy.selectValue("sponsor_id", "Test Organisation, LTD");
+  cy.selectValue("#sponsor_id", "Test Organisation, LTD");
 
   cy.get("#request_category_type").clear().type(project.request_category_type);
   cy.dateSelectValue("start_date", project.start_date);
@@ -249,7 +253,7 @@ const updateSafeDataProject = (projectDetails: ProjectDetails) => {
   cy.get("#datasets\\.0\\.value")
     .clear()
     .type(JSON.parse(projectDetails.datasets)[0]);
-  cy.selectValue("data_sensitivity_level", "Anonymous");
+  cy.selectValue("##data_sensitivity_level", "Anonymous");
   cy.checkboxCheck("duty_of_confidentiality");
   cy.checkboxCheck("national_data_optout");
 

@@ -21,8 +21,11 @@ const addAffiliationUsers = (
     cy.checkboxCheck("current_employer");
   }
 
-  cy.selectValue("organisation_id", affiliation.organisation.organisation_name);
-  cy.selectValue("relationship", affiliation.relationship);
+  cy.selectValue(
+    "#organisation_id",
+    affiliation.organisation.organisation_name
+  );
+  cy.selectValue("#relationship", affiliation.relationship);
   cy.get("#role").type(affiliation.role);
   cy.get("#member_id").type(affiliation.member_id);
 
@@ -77,7 +80,7 @@ const editAffiliationUsers = (
     cy.dateSelectValue("to", edittedAffiliation.to);
   }
 
-  cy.selectValue("relationship", edittedAffiliation.relationship);
+  cy.selectValue("#relationship", edittedAffiliation.relationship);
   cy.get("#role").clear().type(edittedAffiliation.role);
   cy.get("#member_id").clear().type(edittedAffiliation.member_id);
 

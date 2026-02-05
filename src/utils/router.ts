@@ -34,7 +34,7 @@ async function getPathServerSide(): Promise<string | null> {
 async function redirectProfile() {
   const pathname = await getPathServerSide();
   const accessToken = await getAccessToken();
-
+  console.log("**** PATHNAME", pathname, accessToken);
   if (!accessToken && needsLoggedInPermissions(ROUTES, pathname)) {
     redirect(ROUTES.homepage.path);
   }
@@ -43,7 +43,7 @@ async function redirectProfile() {
     const response = await getMe({
       suppressThrow: true,
     });
-
+    console.log("**** response", response);
     if (response.status === 200) {
       await redirectToPath(getProfileRedirectPath(response.data), pathname);
     }

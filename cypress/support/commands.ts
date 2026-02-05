@@ -179,8 +179,8 @@ Cypress.Commands.add("checkboxUncheck", (id: string) => {
   cy.get(`#${id}`).uncheck();
 });
 
-Cypress.Commands.add("selectValue", (id: string, value: string) => {
-  cy.get(`#${id}`).click();
+Cypress.Commands.add("selectValue", (selector: string, value: string) => {
+  cy.get(selector).click();
   cy.get(`.MuiPopover-root`).get("li").contains(value).click();
 });
 
@@ -278,7 +278,7 @@ declare global {
       checkboxClick: (id: string) => void;
       checkboxCheck: (id: string) => void;
       checkboxUncheck: (id: string) => void;
-      selectValue: (id: string, value: string) => void;
+      selectValue: (selector: string, value: string) => void;
       dateSelectValue: (id: string, value: string) => void;
       saveFormClick: (text?: string) => void;
       verifyMandatoryTrainingCardTitleExists: (text?: string) => void;
