@@ -1,5 +1,4 @@
 import { ROUTES } from "@/consts/router";
-import { InviteUserFormValues } from "@/types/form";
 
 const dataCy = (value: string) => {
   return `[data-cy="${value}"]`;
@@ -33,26 +32,28 @@ const logout = () => {
 const signout = () => {
   cy.visit(ROUTES.homepage.path);
   cy.contains("button", "Sign Out").click();
+
+  cy.get("#kc-logout").if().click();
 };
 
 const shouldBeUserProfile = () => {
-  cy.url().should("eq", `${Cypress.config().baseUrl}/user/profile`);
+  cy.contains("Add your personal details").should("exist");
 };
 
 const shouldBeOrganisationProfile = () => {
-  cy.url().should("eq", `${Cypress.config().baseUrl}/organisation/profile`);
+  cy.contains("Complete your Organisation name & address").should("exist");
 };
 
 const shouldBeCustodianProfile = () => {
-  cy.url().should("eq", `${Cypress.config().baseUrl}/data-custodian/profile`);
+  cy.contains("Complete your configuration").should("exist");
 };
 
 export {
   dataCy,
-  logout,
-  shouldBeUserProfile,
-  shouldBeOrganisationProfile,
-  shouldBeCustodianProfile,
-  signout,
   getModalByHeader,
+  logout,
+  shouldBeCustodianProfile,
+  shouldBeOrganisationProfile,
+  shouldBeUserProfile,
+  signout,
 };

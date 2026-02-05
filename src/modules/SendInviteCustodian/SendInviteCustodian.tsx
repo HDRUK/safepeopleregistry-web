@@ -6,7 +6,15 @@ import useCustodianInvite from "../../queries/useCustodianInvite";
 
 const NAMESPACE_TRANSLATIONS_ORGANISATION = "Custodian";
 
-export default function SendInviteOrganisation() {
+interface SendInviteOrganisationProps {
+  onSuccess?: () => void;
+  onError?: () => void;
+}
+
+export default function SendInviteOrganisation({
+  onSuccess,
+  onError,
+}: SendInviteOrganisationProps) {
   const { showAlert, hideAlert } = useAlertModal();
   const t = useTranslations(NAMESPACE_TRANSLATIONS_ORGANISATION);
 
@@ -17,6 +25,8 @@ export default function SendInviteOrganisation() {
       confirmButtonText: t("inviteCustodianErrorButton"),
       onConfirm: async () => {
         hideAlert();
+
+        onError?.();
       },
     });
   };
@@ -26,6 +36,11 @@ export default function SendInviteOrganisation() {
       severity: "success",
       text: t("inviteCustodianSuccess"),
       confirmButtonText: t("inviteCustodianSuccessButton"),
+      onConfirm: async () => {
+        hideAlert();
+
+        onSuccess?.();
+      },
     });
   };
 

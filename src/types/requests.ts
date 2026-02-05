@@ -11,11 +11,13 @@ interface ResponseTranslation {
 interface QueryOptions extends Partial<UseQueryOptions> {
   queryKeySuffix?: (string | number)[];
   responseOptions?: ResponseOptions;
+  noErrorKey?: boolean;
 }
 
 interface MutationOptions extends Partial<UseMutationOptions> {
   mutationKeySuffix?: (string | number)[];
   responseOptions?: ResponseOptions;
+  noErrorKey?: boolean;
 }
 
 type QueryFunctionContextDefault = QueryFunctionContext<[string, number]>;

@@ -2,6 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
+import { formatDisplayLongDate } from "@/utils/date";
 import ErrorMessage from "../../components/ErrorMessage";
 import Table from "../../components/Table";
 import useColumns from "../../hooks/useColumns";
@@ -10,17 +11,20 @@ import { ModuleTables } from "../../types/modules";
 import { renderRegistered } from "../../utils/cells";
 import { filterColumns } from "../../utils/table";
 
-export type UsersTableColumns = "name" | "email" | "status";
+export type InvitesTableColumns = "name" | "email" | "inviteSentAt" | "status";
 
-export type UsersTableProps = ModuleTables<PendingInvite, UsersTableColumns>;
+export type InvitesTableProps = ModuleTables<
+  PendingInvite,
+  InvitesTableColumns
+>;
 
-export default function UsersTable({
+export default function InvitesTable({
   extraColumns,
-  includeColumns = ["name", "email", "status"],
+  includeColumns = ["name", "email", "inviteSentAt", "status"],
   data,
   t,
   ...restProps
-}: UsersTableProps) {
+}: InvitesTableProps) {
   const { createDefaultColumn } = useColumns<PendingInvite>({
     t,
   });
@@ -32,6 +36,10 @@ export default function UsersTable({
       }),
       createDefaultColumn("email", {
         accessorKey: "user.email",
+      }),
+      createDefaultColumn("inviteSentAt", {
+        accessorKey: "invite_sent_at",
+        cell: info => formatDisplayLongDate(info.getValue()),
       }),
       createDefaultColumn("status", {
         accessorKey: "user.unclaimed",

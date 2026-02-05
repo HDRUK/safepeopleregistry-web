@@ -1,7 +1,6 @@
 import ErrorMessage from "@/components/ErrorMessage";
 import Form from "@/components/Form";
 import FormActions from "@/components/FormActions";
-import FormControlCheckbox from "@/components/FormControlCheckbox";
 import FormControl from "@/components/FormControlWrapper";
 import FormSection from "@/components/FormSection";
 import Guidance from "@/components/Guidance";
@@ -31,24 +30,21 @@ import { Grid, TextField, Typography } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import React, { ChangeEvent, useCallback, useMemo, useState } from "react";
+import { ChangeEvent, useCallback, useMemo } from "react";
 
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";
 const NAMESPACE_TRANSLATION_FORM = "Form";
 
 export interface ExperienceFormValues {
   orc_id?: string | null;
-  consent_scrape?: boolean;
 }
+
 export default function Experience() {
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
   const { showAlert, hideAlert } = useAlertModal();
   const [user, setUser] = useStore(store => [store.config.user, store.setUser]);
   const router = useRouter();
-  const [consentScrape, setConsentScrape] = useState(
-    user?.consent_scrape || false
-  );
 
   const latestCV = getLatestCV(user?.registry?.files || []);
 
@@ -84,10 +80,12 @@ export default function Experience() {
         const request = {
           ...user,
           orc_id: fields.orc_id,
-          consent_scrape: consentScrape,
         };
+
         await updateUser.mutateAsync(request);
+
         setUser(request);
+
         showAlert({
           severity: "success",
           text: tProfile("postUserSuccess"),
@@ -109,23 +107,16 @@ export default function Experience() {
         });
       }
     },
-    [user, consentScrape, updateUser, tProfile, router]
+    [user, updateUser, tProfile, router]
   );
 
   const error = updateUser.isError && (
     <ErrorMessage t={tProfile} tKey={updateUser.error} />
   );
 
-  const handleConsentScrapeChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setConsentScrape(event.target.checked);
-    },
-    []
-  );
   const formOptions = {
     defaultValues: {
       orc_id: user?.orc_id,
-      consent_scrape: consentScrape,
     },
     error,
   };
@@ -139,16 +130,7 @@ export default function Experience() {
           .matches(
             new RegExp(`(${VALIDATION_ORC_ID.source})|^$`),
             tForm("orcIdFormatInvalid")
-          )
-          .when("consent_scrape", {
-            is: true,
-            then: () =>
-              yup
-                .string()
-                .required(tForm("orcIdRequiredInvalid"))
-                .matches(VALIDATION_ORC_ID, tForm("orcIdFormatInvalid")),
-          }),
-        consent_scrape: yup.boolean().defined(),
+          ),
       }),
     []
   );
@@ -173,21 +155,11 @@ export default function Experience() {
                         <FormControl
                           name="orc_id"
                           label="ORCID"
-                          description={tProfile("orcidFormDescription")}
                           renderField={fieldProps => (
                             <Text sx={{ maxWidth: "100%" }}>
                               <TextField {...fieldProps} fullWidth />
                             </Text>
                           )}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <FormControlCheckbox
-                          name="consent_scrape"
-                          color="primary"
-                          onChange={handleConsentScrapeChange}
-                          checked={consentScrape}
-                          label={tForm("consentScrapeDescription")}
                         />
                       </Grid>
                     </Grid>

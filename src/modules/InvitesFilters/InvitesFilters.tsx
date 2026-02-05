@@ -1,14 +1,14 @@
 "use client";
 
-// import DateInput from "@/components/DateInput";
-import { Status } from "@/consts/application";
+import DateInput from "@/components/DateInput";
+import { PendingInvite } from "@/consts/application";
 import { UserGroup } from "@/consts/user";
 import useFilter from "@/hooks/useFilter";
 import useSort from "@/hooks/useSort";
-// import { formatDBDateTime } from "@/utils/date";
+import { formatDBDate } from "@/utils/date";
 import SortIcon from "@mui/icons-material/Sort";
 import { useTranslations } from "next-intl";
-// import { useState } from "react";
+import { useState } from "react";
 import { FilterIcon } from "../../consts/icons";
 import { PaginatedQueryReturn } from "../../hooks/usePaginatedQuery";
 import { ResearcherProject } from "../../types/application";
@@ -20,15 +20,14 @@ const NAMESPACE_TRANSLATIONS_APPLICATION = "Application";
 
 export enum InvitesFiltersKeys {
   USER_GROUP = "user_group",
-  STATUS = "status",
-  DATE_SENT = "invite_sent_at",
+  STATUS = "status[]__and",
+  DATE_SENT = "invite_sent_at[]__and",
 }
 
 export interface InvitesFiltersProps
   extends Pick<
     PaginatedQueryReturn<ResearcherProject>,
     | "updateQueryParams"
-    | "resetQueryParams"
     | "handleSortToggle"
     | "handleFieldToggle"
     | "queryParams"
@@ -39,7 +38,6 @@ export interface InvitesFiltersProps
 export default function InvitesFilters({
   handleSortToggle,
   handleFieldToggle,
-  resetQueryParams,
   updateQueryParams,
   queryParams,
   includeFilters = [
@@ -48,7 +46,7 @@ export default function InvitesFilters({
     InvitesFiltersKeys.DATE_SENT,
   ],
 }: InvitesFiltersProps) {
-  // const [dateSent, setDateSent] = useState<Date | string | null>(null);
+  const [dateSent, setDateSent] = useState<Date | string | null>(null);
   const t = useTranslations(NAMESPACE_TRANSLATIONS_INVITES);
   const tApplication = useTranslations(NAMESPACE_TRANSLATIONS_APPLICATION);
 
@@ -97,12 +95,12 @@ export default function InvitesFilters({
       {
         label: t("filterByStatus_invited"),
         key: InvitesFiltersKeys.STATUS,
-        value: Status.PENDING,
+        value: PendingInvite.PENDING,
       },
       {
         label: t("filterByStatus_registered"),
         key: InvitesFiltersKeys.STATUS,
-        value: Status.COMPLETED,
+        value: PendingInvite.COMPLETE,
       },
     ],
     onFilter: (key: string, value: string) =>
@@ -111,10 +109,14 @@ export default function InvitesFilters({
 
   return (
     <SearchBar
-      onClear={resetQueryParams}
-      onSearch={(text: string) => {
+      onClear={() => {
         updateQueryParams({
-          "email[]": text,
+          email: undefined,
+        });
+      }}
+      onSearch={(email: string) => {
+        updateQueryParams({
+          email,
         });
       }}
       placeholder={t("searchPlaceholder")}>
@@ -155,18 +157,27 @@ export default function InvitesFilters({
         />
       )}
 
-      {/* {hasFilter(InvitesFiltersKeys.DATE_SENT) && (
+      {hasFilter(InvitesFiltersKeys.DATE_SENT) && (
         <DateInput
           value={dateSent}
+          clearable
+          onClear={() => {
+            setDateSent(null);
+
+            handleFieldToggle(InvitesFiltersKeys.DATE_SENT, [
+              undefined,
+              undefined,
+            ]);
+          }}
           onChange={value => {
             setDateSent(value);
-            handleFieldToggle("invite_sent_at", [
-              formatDBDateTime(value),
+            handleFieldToggle(InvitesFiltersKeys.DATE_SENT, [
+              formatDBDate(value),
               undefined,
             ]);
           }}
         />
-      )} */}
+      )}
     </SearchBar>
   );
 }

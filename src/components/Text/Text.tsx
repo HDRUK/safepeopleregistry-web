@@ -18,7 +18,7 @@ export default function Text({
   endIcon,
   sx,
   variant,
-  iconSize = "1.25em",
+  iconSize = "1.1em",
   copyable,
   ...restProps
 }: TextProps) {

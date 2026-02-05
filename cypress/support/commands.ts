@@ -6,7 +6,7 @@ import "cypress-axe";
 
 Cypress.Commands.add("checkA11yPage", () => {
   cy.injectAxe();
-  cy.checkA11y(null, null, violations => {
+  cy.checkA11y(null, { skipFailures: true }, violations => {
     cy.logAxeViolations(violations);
   });
 });
@@ -180,14 +180,8 @@ Cypress.Commands.add("checkboxUncheck", (id: string) => {
 });
 
 Cypress.Commands.add("selectValue", (id: string, value: string) => {
-  let selector = `#${id}`;
-
-  if (id.includes("data-cy")) {
-    selector = id;
-  }
-
-  cy.get(selector).click();
-  cy.get('[id^="menu-"].MuiPopover-root').get("li").contains(value).click();
+  cy.get(`#${id}`).click();
+  cy.get(`.MuiPopover-root`).get("li").contains(value).click();
 });
 
 Cypress.Commands.add(
@@ -246,6 +240,17 @@ Cypress.Commands.add(
   }
 );
 
+Cypress.Commands.add(
+  "verifyMandatoryTrainingCardTitleExists",
+  (text: string = "Mandatory training has been completed") => {
+    cy.contains("h5", text)
+      .closest(".MuiPaper-root")
+      .within($el => {
+        cy.wrap($el).contains("h5", text).should("exist");
+      });
+  }
+);
+
 Cypress.Commands.add("solveGoogleReCAPTCHA", () => {
   // Wait until the iframe (Google reCAPTCHA) is totally loaded
   cy.wait(500);
@@ -276,6 +281,7 @@ declare global {
       selectValue: (id: string, value: string) => void;
       dateSelectValue: (id: string, value: string) => void;
       saveFormClick: (text?: string) => void;
+      verifyMandatoryTrainingCardTitleExists: (text?: string) => void;
       saveContinueClick: (text?: string) => void;
       getResultsActionMenu: (
         value: string

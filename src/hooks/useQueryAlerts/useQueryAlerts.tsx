@@ -13,8 +13,9 @@ export interface QueryAlertOptions {
   errorAlertProps?: Omit<AlertModalProps, "open">;
   enabled?: boolean;
   showOnlyError?: boolean;
+  showOnlySuccess?: boolean;
   onSuccess?: () => void;
-  onError?: () => void;
+  onError?: (modalProps: AlertModalProps) => void;
 }
 
 export default function useQueryAlerts(
@@ -71,9 +72,11 @@ export default function useQueryAlerts(
 
   if (isEnabled) {
     if (query.isError) {
-      alertOptions?.onError?.();
+      alertOptions?.onError?.(mergedErrorAlertProps);
 
-      showAlert(mergedErrorAlertProps);
+      if (!alertOptions?.showOnlySuccess) {
+        showAlert(mergedErrorAlertProps);
+      }
 
       query.reset?.();
     } else if (query.isSuccess) {
