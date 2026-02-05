@@ -166,8 +166,8 @@ const inviteNewProjectUser = (invite: InviteUserFormValues) => {
   cy.get("#first_name").clear().type(invite.first_name);
   cy.get("#last_name").clear().type(invite.last_name);
   cy.get("#email").clear().type(invite.email);
-  cy.selectValue("##role", invite.role);
-  cy.selectValue("##organisation_id", invite.organisation_id);
+  cy.selectValue("#role", invite.role);
+  cy.selectValue("#organisation_id", invite.organisation_id);
 
   cy.saveFormClick("Invite");
   cy.clickAlertModal("Close");
@@ -253,7 +253,7 @@ const updateSafeDataProject = (projectDetails: ProjectDetails) => {
   cy.get("#datasets\\.0\\.value")
     .clear()
     .type(JSON.parse(projectDetails.datasets)[0]);
-  cy.selectValue("##data_sensitivity_level", "Anonymous");
+  cy.selectValue("#data_sensitivity_level", "Anonymous");
   cy.checkboxCheck("duty_of_confidentiality");
   cy.checkboxCheck("national_data_optout");
 
