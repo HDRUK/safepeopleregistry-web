@@ -8,7 +8,7 @@ const addSROOrganisations = (
     sro_profile_uri: string;
   }
 ) => {
-  cy.selectValue("department", data.department);
+  cy.selectValue("#department", data.department);
   cy.get("#role").clear().type(data.job_title);
   cy.get("#sro_profile_uri").clear().type(data.sro_profile_uri);
 

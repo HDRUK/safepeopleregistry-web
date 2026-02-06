@@ -55,6 +55,12 @@ function getSponsor(project: ResearcherProject) {
 
 function getStatus(slug: string) {
   switch (slug) {
+    case Status.SPONSORSHIP_REJECTED:
+      return "Declined";
+    case Status.SPONSORSHIP_PENDING:
+      return "Pending";
+    case Status.SPONSORSHIP_APPROVED:
+      return "Confirmed";
     case Status.PROJECT_APPROVED:
       return "Approved";
     case Status.PROJECT_PENDING:
