@@ -43,7 +43,7 @@ async function redirectProfile() {
     const response = await getMe({
       suppressThrow: true,
     });
-    console.log("**** response", response);
+
     if (response.status === 200) {
       await redirectToPath(getProfileRedirectPath(response.data), pathname);
     }
