@@ -1,4 +1,7 @@
+import Guidance from "@/components/Guidance";
+import StatusList from "@/components/StatusList";
 import { useStore } from "@/data/store";
+import { mockedSafeProjectGuidanceProps } from "@/mocks/data/cms";
 import {
   PageBodyContainer,
   PageColumnBody,
@@ -6,11 +9,9 @@ import {
   PageColumns,
 } from "@/modules";
 import { ResearcherProject } from "@/types/application";
-import { useEffect } from "react";
-import StatusList from "@/components/StatusList";
-import { mockedSafeProjectGuidanceProps } from "@/mocks/data/cms";
-import Guidance from "@/components/Guidance";
 import { getSponsor, getSponsorshipStatus } from "@/utils/application";
+import { useEffect } from "react";
+import { useFeatures } from "@/components/FeatureProvider";
 import { PageTabs, ProjectsSubTabs } from "../../consts/tabs";
 import SubTabsSections from "../SubTabSections";
 import SubTabsContents from "../SubsTabContents";
@@ -26,6 +27,7 @@ interface PageProps {
 export default function SubPageProjects({ params, projectData }: PageProps) {
   const tabId = PageTabs.PROJECTS;
 
+  const { isSponsorship } = useFeatures();
   const [project, setProject] = useStore(state => [
     state.getCurrentProject(),
     state.setCurrentProject,
@@ -36,6 +38,7 @@ export default function SubPageProjects({ params, projectData }: PageProps) {
   }, [projectData]);
 
   const guidance = mockedSafeProjectGuidanceProps;
+  const sponsorshipStatus = getSponsorshipStatus(getSponsor(project), project);
 
   return (
     project && (
@@ -52,10 +55,7 @@ export default function SubPageProjects({ params, projectData }: PageProps) {
               validationStatus={
                 project?.custodian_has_project_user?.[0].model_state.state.slug
               }
-              sponsorshipStatus={getSponsorshipStatus(
-                getSponsor(project),
-                project
-              )}
+              sponsorshipStatus={isSponsorship && sponsorshipStatus}
             />
             <Guidance {...guidance} isCollapsible={false} infoWidth="100%" />
           </PageColumnDetails>

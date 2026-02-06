@@ -3,6 +3,7 @@ import { dataCy } from "./utils/common";
 
 import { Result } from "axe-core";
 import "cypress-axe";
+import { JOB_DELAY } from "@/consts/application";
 
 Cypress.Commands.add("checkA11yPage", () => {
   cy.injectAxe();
@@ -179,8 +180,8 @@ Cypress.Commands.add("checkboxUncheck", (id: string) => {
   cy.get(`#${id}`).uncheck();
 });
 
-Cypress.Commands.add("selectValue", (id: string, value: string) => {
-  cy.get(`#${id}`).click();
+Cypress.Commands.add("selectValue", (selector: string, value: string) => {
+  cy.get(selector).click();
   cy.get(`.MuiPopover-root`).get("li").contains(value).click();
 });
 
@@ -263,6 +264,26 @@ Cypress.Commands.add("solveGoogleReCAPTCHA", () => {
   });
 });
 
+Cypress.Commands.add("clickUntilFound", (selector, action, assertions) => {
+  const clickUntilFound = (maxAttempts = 10, attempts = 0) => {
+    if (attempts >= maxAttempts) {
+      throw new Error("Timed out finding the element after multiple updates");
+    }
+
+    cy.get("body").then($body => {
+      if (!$body.find(selector).length) {
+        action();
+        cy.wait(JOB_DELAY);
+        clickUntilFound(maxAttempts, attempts + 1);
+      } else {
+        assertions();
+      }
+    });
+  };
+
+  clickUntilFound();
+});
+
 declare global {
   namespace Cypress {
     interface Chainable {
@@ -272,13 +293,18 @@ declare global {
       getResultsRow: (
         id?: number | "last" | "first" | undefined
       ) => Cypress.Chainable<JQuery<HTMLElement>>;
+      clickUntilFound: (
+        selector: string,
+        action: () => void,
+        assertions: () => void
+      ) => void;
       clickAlertModal: (text?: string, title?: string) => void;
       actionMenuClick: (text: string) => void;
       buttonClick: (text: string) => void;
       checkboxClick: (id: string) => void;
       checkboxCheck: (id: string) => void;
       checkboxUncheck: (id: string) => void;
-      selectValue: (id: string, value: string) => void;
+      selectValue: (selector: string, value: string) => void;
       dateSelectValue: (id: string, value: string) => void;
       saveFormClick: (text?: string) => void;
       verifyMandatoryTrainingCardTitleExists: (text?: string) => void;

@@ -26,7 +26,7 @@ const inviteNewUserForm = (invite: InviteUserFormValues) => {
   cy.get("#first_name").clear().type(invite.first_name);
   cy.get("#last_name").clear().type(invite.last_name);
   cy.get("#email").clear().type(invite.email);
-  cy.selectValue("organisation_id", invite.organisation_id);
+  cy.selectValue("#organisation_id", invite.organisation_id);
 };
 
 const inviteOrganisationForm = (invite: InviteOrganisationFormValues) => {
