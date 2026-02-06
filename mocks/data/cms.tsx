@@ -132,7 +132,7 @@ export const mockedCustodianSafeProjectGuidanceProps = {
   infoTitle: "Did you know?",
   info: (
     <>
-      <Typography>
+      <Typography mb={2}>
         The Five Safe properties follow the{" "}
         <a
           rel="noreferrer"
