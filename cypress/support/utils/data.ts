@@ -96,9 +96,9 @@ const DEFAULT_PROJECT_USERS_CUSTODIANS = mockedCustodianHasProjectUser({
 const DEFAULT_PROJECT = mockedProject({
   title: DEFAULT_PROJECT_NAME,
   unique_id: faker.string.alphanumeric(10).toUpperCase(),
-  lay_summary: faker.lorem.paragraphs(2),
-  technical_summary: faker.lorem.paragraphs(2),
-  public_benefit: faker.lorem.paragraphs(2),
+  lay_summary: faker.lorem.sentence(),
+  technical_summary: faker.lorem.sentence(),
+  public_benefit: faker.lorem.sentence(),
   request_category_type: "Health Data Research",
   start_date: "2024-07-01",
   end_date: "2025-07-01",

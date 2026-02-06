@@ -1,6 +1,7 @@
-import { Typography } from "@mui/material";
+import ChipStatus from "@/components/ChipStatus";
+import Text from "@/components/Text";
 import { getSponsorshipStatus } from "@/utils/application";
-import { Status } from "@/consts/application";
+import { Typography } from "@mui/material";
 import FieldsToText from "../../components/FieldsToText";
 import { ResearcherProject } from "../../types/application";
 import { formatDisplayLongDate } from "../../utils/date";
@@ -34,11 +35,15 @@ export default function SafeProjectDetails({
             </Typography>
           ),
         },
-        ...(sponsorshipStatus === Status.SPONSORSHIP_APPROVED
+        ...(sponsor
           ? [
               {
                 column_id: "project_has_sponsorships",
-                content: sponsor?.organisation_name,
+                content: (
+                  <Text endIcon={<ChipStatus status={sponsorshipStatus} />}>
+                    {sponsor?.organisation_name}
+                  </Text>
+                ),
               },
             ]
           : []),
