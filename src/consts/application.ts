@@ -59,7 +59,7 @@ enum Status {
 }
 
 const PAGINATION_UPPER_LIMIT = 1000;
-const JOB_DELAY = 2000;
+const JOB_DELAY = 4000;
 
 export {
   VALIDATION_SCHEMA_KEY,

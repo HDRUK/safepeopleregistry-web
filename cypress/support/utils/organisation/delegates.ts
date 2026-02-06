@@ -19,7 +19,7 @@ const inviteNewDelegateOrganisations = (data: DelegatesFormValues) => {
   cy.get("#delegate_first_name").type(data.delegate_first_name);
   cy.get("#delegate_last_name").type(data.delegate_last_name);
   cy.get("#delegate_email").type(data.delegate_email);
-  cy.selectValue("department_name", DEFAULT_DEPARTMENT);
+  cy.selectValue("#department_name", DEFAULT_DEPARTMENT);
   cy.get("#delegate_job_title").type(data.delegate_job_title);
 
   cy.saveFormClick("Invite");
@@ -51,7 +51,7 @@ const editDelegateOrganisations = (
 
   cy.get("#first_name").clear().type(data.delegate_first_name);
   cy.get("#last_name").clear().type(data.delegate_last_name);
-  cy.selectValue("department_id", data.department_name);
+  cy.selectValue("#department_id", data.department_name);
 
   cy.saveFormClick();
   cy.clickAlertModal("Close");

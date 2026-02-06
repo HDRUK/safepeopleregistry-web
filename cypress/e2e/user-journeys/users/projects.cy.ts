@@ -13,7 +13,7 @@ import { loginUser } from "cypress/support/utils/user/auth";
 
 const dataProject = {
   ...DEFAULT_PROJECT,
-  title: faker.string.sample(10),
+  title: faker.string.alpha(20),
 };
 
 describe("Projects", () => {
@@ -33,7 +33,7 @@ describe("Projects", () => {
     loginUser();
 
     cy.visitFirst(ROUTES.profileResearcherProjects.path);
-    cy.contains("a", dataProject.title);
+    cy.contains("a", dataProject.title).click();
   });
 
   after(() => {
@@ -48,18 +48,18 @@ describe("Projects", () => {
   it("Has the correct sponsorship status", () => {
     cy.get(dataCy("sponsorship-status"))
       .contains(getStatus(Status.SPONSORSHIP_PENDING))
-      .should("exists");
+      .should("exist");
   });
 
   it("Has the correct project status", () => {
     cy.get(dataCy("project-status"))
       .contains(getStatus(Status.PROJECT_PENDING))
-      .should("exists");
+      .should("exist");
   });
 
   it("Has the correct validation status", () => {
     cy.get(dataCy("validation-status"))
       .contains(getStatus(Status.PENDING))
-      .should("exists");
+      .should("exist");
   });
 });
