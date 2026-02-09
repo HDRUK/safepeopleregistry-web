@@ -32,7 +32,9 @@ describe("<InvitesTable />", () => {
     });
 
     expect(screen.getByText(pendingInvite.user.name)).toBeInTheDocument();
-    expect(screen.getByText("Invited")).toBeInTheDocument();
+    expect(
+      screen.getByText("Safe People Registry account created")
+    ).toBeInTheDocument();
   });
 
   it("has no accessibility violations", async () => {
