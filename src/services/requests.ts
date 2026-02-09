@@ -48,6 +48,10 @@ async function request<T>(
       host = `${process.env.NEXT_PUBLIC_API_V1_URL}`;
     }
 
+    console.log(`${host}${url}`, '<<< url');
+    console.log(`${headers}`, '<<< headers');
+
+
     const response = await fetch(`${host}${url}`, {
       ...options,
       method,
