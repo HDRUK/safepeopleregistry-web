@@ -138,6 +138,35 @@ export default function Projects({
           }}
         />
       </PageSection>
+      <PageSection data-cy="projects">
+        {showSponsorship && isSponsorship && (
+          <Typography variant="h6" component="h2" mb={2}>
+            {t("ownProjectsTitle")}
+          </Typography>
+        )}
+        <ProjectsTable
+          total={total}
+          last_page={last_page}
+          setPage={setPage}
+          data={projectsData}
+          queryState={queryState}
+          isPaginated
+          extraColumns={extraColumns}
+          t={t}
+          variant={variant}
+          includeColumns={[
+            "title",
+            "laySummary",
+            "startDate",
+            "endDate",
+            "users",
+            "status",
+            "organisationStatus",
+            "validationStatus",
+          ]}
+          paginationProps={{ "aria-label": "Projects table pagination" }}
+        />
+      </PageSection>
       {showSponsorship && isSponsorship && (
         <PageSection data-cy="projects-sponsorship">
           <Typography variant="h6" component="h2" mb={2}>
@@ -170,35 +199,6 @@ export default function Projects({
           />
         </PageSection>
       )}
-      <PageSection data-cy="projects">
-        {showSponsorship && isSponsorship && (
-          <Typography variant="h6" component="h2" mb={2}>
-            {t("ownProjectsTitle")}
-          </Typography>
-        )}
-        <ProjectsTable
-          total={total}
-          last_page={last_page}
-          setPage={setPage}
-          data={projectsData}
-          queryState={queryState}
-          isPaginated
-          extraColumns={extraColumns}
-          t={t}
-          variant={variant}
-          includeColumns={[
-            "title",
-            "laySummary",
-            "startDate",
-            "endDate",
-            "users",
-            "status",
-            "organisationStatus",
-            "validationStatus",
-          ]}
-          paginationProps={{ "aria-label": "Projects table pagination" }}
-        />
-      </PageSection>
     </>
   );
 }
