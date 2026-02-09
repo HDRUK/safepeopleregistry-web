@@ -120,7 +120,7 @@ const usePaginatedQuery = <T,>({
   };
 
   const queryResult = useQuery({
-    queryKey: [...queryKeyBase, new URLSearchParams(queryParams).toString()],
+    queryKey: [...queryKeyBase, queryParams],
     queryFn: () => queryFn(queryParams),
     placeholderData: keepPreviousData,
     enabled,
