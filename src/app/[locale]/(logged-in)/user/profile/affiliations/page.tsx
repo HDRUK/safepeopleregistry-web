@@ -20,6 +20,8 @@ async function Page({ searchParams }: PageProps) {
       )
     : {};
 
+  console.log("*** queryState", queryState);
+
   return (
     <AffiliationsPage
       queryState={queryState}

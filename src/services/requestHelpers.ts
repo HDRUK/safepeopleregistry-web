@@ -53,6 +53,7 @@ async function handleJsonResponse(
   response: Response | ResponseEmptyError,
   options?: ResponseOptions
 ) {
+  console.log("*** response", response);
   try {
     const responseError = handleResponseError(response, options);
 
@@ -60,10 +61,15 @@ async function handleJsonResponse(
       return Promise.reject(responseError);
 
     const data = await response.json();
+    console.log("*** data", data);
     const dataError = handleDataError(data, options);
 
     if (!options?.suppressThrow && dataError) return Promise.reject(dataError);
-
+    console.log("*** resolving", {
+      ...data,
+      status: response.status,
+      ok: response.ok,
+    });
     return Promise.resolve({
       ...data,
       status: response.status,
