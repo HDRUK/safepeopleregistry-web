@@ -13,11 +13,7 @@ async function Page({ searchParams }: PageProps) {
   const verify = searchParams?.verify;
 
   const queryState = verify
-    ? responseToQueryState(
-        await putVerifyEmail(verify, {
-          suppressThrow: true,
-        })
-      )
+    ? responseToQueryState(await putVerifyEmail(verify))
     : {};
 
   return (

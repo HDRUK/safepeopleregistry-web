@@ -24,7 +24,7 @@ function DndSortableItem({
     useSortable({
       id,
     });
-
+  console.log("**** sortable item disabled", disabled);
   return (
     <DndItem
       ref={disabled ? undefined : setNodeRef}
@@ -34,7 +34,8 @@ function DndSortableItem({
       transform={transform}
       listeners={listeners}
       isDroppable={isDroppable !== false}
-      isError={isError}>
+      isError={isError}
+      disabled={disabled}>
       {children}
     </DndItem>
   );

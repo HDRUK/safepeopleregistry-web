@@ -82,9 +82,11 @@ export interface KanbanBoardProps<T>
   options: Partial<UseDroppableSortItemsFnOptions<T>> | undefined;
   isDisabledItem?: (data: T) => boolean;
   isDroppableItem?: (data: T) => boolean;
+  disabledContainers?: string[];
 }
 
 export interface KanbanBoardHelperProps<T> {
+  disabled?: boolean;
   data?: T;
   allowedTransitions: string[];
   onMoveClick: (id: number, status: string) => void;
@@ -105,6 +107,7 @@ export default function KanbanBoard<T>({
   options,
   isDisabledItem,
   isDroppableItem,
+  disabledContainers,
   ...restProps
 }: KanbanBoardProps<T>) {
   const { handleDragSort, handleDragSortEnd, handleDragSortStart, handleMove } =
@@ -271,57 +274,69 @@ export default function KanbanBoard<T>({
       cancelDrop={cancelDrop}
       modifiers={modifiers}>
       <KanbanBoardColumns sx={{ maxHeight: "90vh" }}>
-        {containers.map(containerId => (
-          <DndDroppableContainer key={containerId} id={containerId}>
-            <SortableContext items={items[containerId]} strategy={strategy}>
-              <KanbanBoardColumn
-                dragOver={
-                  activeId && findItemIndex(containerId, activeId, items) > -1
-                }
-                isDropAllowed={
-                  !activeId ||
-                  options?.isTransitionAllowed?.(
-                    activeData?.containerId,
-                    containerId
-                  )
-                }
-                heading={`${t(containerId)} (${findDroppables(containerId, items).length})`}
-                sx={{
-                  height: "100%",
-                  width: "236px",
-                }}>
-                {items[containerId].map(data => {
-                  return (
-                    <DndSortableItem
-                      disabled={isSortingContainer || isDisabledItem?.(data)}
-                      isDroppable={data?.isDroppable || isDroppableItem?.(data)}
-                      isError={data.isError}
-                      key={`${containerId}${data.id}`}
-                      id={data.id}
-                      index={findItemIndex(containerId, data.id, items)}>
-                      <restProps.cardComponent
-                        data={data}
-                        sx={{
-                          width: "220px",
-                        }}
-                        actions={
-                          <restProps.cardActionsComponent
-                            data={data}
-                            allowedColumns={getAllowedColumns(containerId)}
-                            onMoveClick={(
-                              _: DragEvent,
-                              moveToId: UniqueIdentifier
-                            ) => handleMoveClick(data, moveToId)}
-                          />
+        {containers.map(containerId => {
+          const containerDisabled = disabledContainers?.includes(containerId);
+
+          return (
+            <DndDroppableContainer key={containerId} id={containerId}>
+              <SortableContext items={items[containerId]} strategy={strategy}>
+                <KanbanBoardColumn
+                  containerId={containerId}
+                  disabled={containerDisabled}
+                  dragOver={
+                    activeId && findItemIndex(containerId, activeId, items) > -1
+                  }
+                  isDropAllowed={
+                    !activeId ||
+                    options?.isTransitionAllowed?.(
+                      activeData?.containerId,
+                      containerId
+                    )
+                  }
+                  heading={`${t(containerId)} (${findDroppables(containerId, items).length})`}
+                  sx={{
+                    height: "100%",
+                    width: "236px",
+                  }}>
+                  {items[containerId].map(data => {
+                    const itemDisabled =
+                      isDisabledItem?.(data) || containerDisabled;
+                    console.log("**** containerDisabled", containerDisabled);
+                    return (
+                      <DndSortableItem
+                        disabled={isSortingContainer || itemDisabled}
+                        isDroppable={
+                          data?.isDroppable || isDroppableItem?.(data)
                         }
-                      />
-                    </DndSortableItem>
-                  );
-                })}
-              </KanbanBoardColumn>
-            </SortableContext>
-          </DndDroppableContainer>
-        ))}
+                        isError={data.isError}
+                        key={`${containerId}${data.id}`}
+                        id={data.id}
+                        index={findItemIndex(containerId, data.id, items)}>
+                        <restProps.cardComponent
+                          data={data}
+                          sx={{
+                            width: "220px",
+                          }}
+                          actions={
+                            <restProps.cardActionsComponent
+                              disabled={itemDisabled}
+                              data={data}
+                              allowedColumns={getAllowedColumns(containerId)}
+                              onMoveClick={(
+                                _: DragEvent,
+                                moveToId: UniqueIdentifier
+                              ) => handleMoveClick(data, moveToId)}
+                            />
+                          }
+                        />
+                      </DndSortableItem>
+                    );
+                  })}
+                </KanbanBoardColumn>
+              </SortableContext>
+            </DndDroppableContainer>
+          );
+        })}
       </KanbanBoardColumns>
       {createPortal(
         <DragOverlay
