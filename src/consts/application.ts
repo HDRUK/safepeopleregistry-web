@@ -37,6 +37,9 @@ enum Status {
   AFFILIATION_APPROVED = "affiliation_approved",
   AFFILIATION_REJECTED = "affiliation_rejected",
   AFFILIATION_LEFT = "affiliation_left",
+  AFFILIATION_ACCOUNT_IN_PROGRESS = "affiliation_account_in_progress",
+  AFFILIATION_INFO_REQUIRED = "affiliation_info_required",
+  AFFILIATION_ORGANISATION_INVITED = "affiliation_organisation_invited",
   VALIDATION_IN_PROGRESS = "validation_in_progress",
   VALIDATION_COMPLETE = "validation_complete",
   VALIDATED = "validated",
@@ -59,7 +62,7 @@ enum Status {
 }
 
 const PAGINATION_UPPER_LIMIT = 1000;
-const JOB_DELAY = 2000;
+const JOB_DELAY = 4000;
 
 export {
   VALIDATION_SCHEMA_KEY,

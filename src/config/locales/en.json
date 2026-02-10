@@ -119,6 +119,9 @@
       "project_approved": "Approved",
       "project_in_progress": "In progress",
       "project_declined_approval": "Declined approval",
+      "affiliation_account_in_progress": "Org account in progress",
+      "affiliation_info_required": "Affiliation info required",
+      "affiliation_organisation_invited": "Org invited",
       "affiliation_pending": "Pending Affiliation",
       "affiliation_pending_short": "Pending",
       "affiliation_email_verify": "Email verification needed",
@@ -1132,7 +1135,7 @@
     "putOrganisationForbidden": "Your account does not have permissions to perform this update",
     "Projects": {
       "heading": "Projects",
-      "description": "Here you can find all projects that you’ve been added to by a Data Custodian. You can also see the Project status and your own Validation status, as recorded by the Data Custodian."
+      "description": "Here you can find all projects that you’ve been added to by a Data Custodian. You can also see the Project status and your own Validation status, as recorded by the Data Custodian. Your Projects register is visible to all Data Custodians working with you in the Safe People Registry."
     }
   },
   "FeaturesList": {

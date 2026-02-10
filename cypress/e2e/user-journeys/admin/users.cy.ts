@@ -48,7 +48,7 @@ describe("Resend invite", () => {
   });
 
   it("Shows no users for custodians", () => {
-    cy.selectValue("filterByUser", "Custodians");
+    cy.selectValue("#filterByUser", "Custodians");
 
     cy.contains("There are no pending invites for these search filters").should(
       "exist"
@@ -56,13 +56,13 @@ describe("Resend invite", () => {
   });
 
   it("Shows no users for organisations", () => {
-    cy.selectValue("filterByUser", "Organisations");
+    cy.selectValue("#filterByUser", "Organisations");
 
     hasNoPendingInvites();
   });
 
   it("Shows invited users", () => {
-    cy.selectValue("filterByUser", "Users");
+    cy.selectValue("#filterByUser", "Users");
 
     hasUser(dataPendingInvite, Status.INVITED);
   });

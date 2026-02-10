@@ -68,7 +68,7 @@ export const mockedOrganisationHomeIntro = (
 );
 
 export const mockedProjectsIntro =
-  "This list includes all projects recorded in the Safe People Registry for your Data Custodian. Clicking on a project will show you more information and next steps, such as adding Users to begin the validation process.";
+  "This list includes all projects recorded in the Safe People Registry for your Data Custodian. Note that these will be visible to other Data Custodians who work with the same Users. Clicking on a project will show you more information and next steps, such as adding Users to begin the validation process.";
 
 export const mockedUserHomeIntro = (
   <>
@@ -131,19 +131,22 @@ export const mockedSafeProjectGuidanceProps = {
 export const mockedCustodianSafeProjectGuidanceProps = {
   infoTitle: "Did you know?",
   info: (
-    <Typography>
-      The Five Safe properties follow the{" "}
-      <a
-        rel="noreferrer"
-        target="_blank"
-        href="https://zenodo.org/records/5902743#.ZDgTHcrMKUn">
-        data use register transparency
-      </a>{" "}
-      standard (linked). Further details on how to fill out each field can be
-      found in that standard. These details can be used to generate your own
-      data use register. The characteristics of each project can be updated
-      throughout the course of the project.
-    </Typography>
+    <>
+      <Typography mb={2}>
+        The Five Safe properties follow the{" "}
+        <a
+          rel="noreferrer"
+          target="_blank"
+          href="https://zenodo.org/records/5902743#.ZDgTHcrMKUn">
+          data use register transparency standard
+        </a>
+        . Further details on how to fill out each field can be found in that
+        standard. These details can be used to generate your own data use
+        register. The characteristics of each project can be updated throughout
+        the course of the project.
+      </Typography>
+      <Typography>User Projects are visible to all Data Custodians.</Typography>
+    </>
   ),
 };
 

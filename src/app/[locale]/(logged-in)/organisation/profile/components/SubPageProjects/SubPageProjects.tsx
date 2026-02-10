@@ -83,11 +83,7 @@ export default function SubPageProjects({ params, projectData }: PageProps) {
           <PageColumnDetails lg={4}>
             <StatusList
               projectStatus={project?.model_state.state.slug}
-              sponsorshipStatus={
-                project?.project_has_sponsorships?.[0]
-                  ?.custodian_has_project_has_sponsorship?.[0]?.model_state
-                  ?.state.slug
-              }
+              sponsorshipStatus={isSponsorship && sponsorshipStatus}
             />
             {isSponsorship && sponsorshipStatus && (
               <Box sx={{ mb: 2 }}>
