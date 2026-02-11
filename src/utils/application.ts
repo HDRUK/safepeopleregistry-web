@@ -101,7 +101,7 @@ const getColorForStatus = (status?: Status): string => {
   )
     return "warning";
 
-  return "midGrey";
+  return "neutral";
 };
 
 function getStatus(slug: string) {

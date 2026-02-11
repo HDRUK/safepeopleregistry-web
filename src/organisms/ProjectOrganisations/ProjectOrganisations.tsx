@@ -158,6 +158,10 @@ export default function ProjectOrganisations({
             }}
             allowedTransitions={rewriteTransitions(props)}
             {...props}
+            disabled={
+              custodianProjectOrganisations?.project_organisation?.organisation
+                ?.system_approved || props.disabled
+            }
           />
         );
       },

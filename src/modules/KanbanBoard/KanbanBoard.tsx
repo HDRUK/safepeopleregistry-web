@@ -301,7 +301,7 @@ export default function KanbanBoard<T>({
                   {items[containerId].map(data => {
                     const itemDisabled =
                       isDisabledItem?.(data) || containerDisabled;
-                    console.log("**** containerDisabled", containerDisabled);
+
                     return (
                       <DndSortableItem
                         disabled={isSortingContainer || itemDisabled}

@@ -54,22 +54,25 @@ export default function ProjectUsersActions({
   } = data;
 
   return (
-    <ActionMenu disabled={disabled}>
+    <ActionMenu>
       {({ handleClose }) => (
         <>
-          <KanbanBoardActionsMenuItems
-            onMoveClick={(id: number, status: string) => {
-              onMoveClick(id, status);
+          {!disabled && (
+            <KanbanBoardActionsMenuItems
+              onMoveClick={(id: number, status: string) => {
+                onMoveClick(id, status);
 
-              handleClose();
-            }}
-            allowedTransitions={allowedTransitions}
-            data={data}
-            t={t}
-            tStatus={tStatus}
-            handleClose={handleClose}
-            {...restProps}
-          />
+                handleClose();
+              }}
+              allowedTransitions={allowedTransitions}
+              data={data}
+              t={t}
+              tStatus={tStatus}
+              handleClose={handleClose}
+              disabled={disabled}
+              {...restProps}
+            />
+          )}
           <ActionMenuItem
             onClick={() => {
               showConfirm(id);

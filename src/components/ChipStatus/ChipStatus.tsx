@@ -1,6 +1,6 @@
 import { Status } from "@/consts/application";
 import { getColorForStatus } from "@/utils/application";
-import { Chip, ChipProps, Tooltip } from "@mui/material";
+import { Chip, ChipProps, Theme, Tooltip, useTheme } from "@mui/material";
 import { useTranslations } from "next-intl";
 
 const STATUS_WITH_SHORT_DESCRIPTION = [
@@ -28,10 +28,38 @@ export interface ChipStatusProps extends ChipProps {
 
 const NAMESPACE_TRANSLATION = "Application.Status";
 
+const getColors = (indexColor: string, theme: Theme) => {
+  let colors = {
+    color: "#fff",
+    backgroundColor: theme.palette[`neutral-400`].main,
+  };
+
+  if (indexColor === "warning") {
+    colors = {
+      color: "#000",
+      backgroundColor: theme.palette[`${indexColor}-500`].main,
+    };
+  } else if (indexColor === "success") {
+    colors = {
+      color: "#fff",
+      backgroundColor: theme.palette[`${indexColor}-700`].main,
+    };
+  } else if (indexColor === "error") {
+    colors = {
+      color: "#fff",
+      backgroundColor: theme.palette[`${indexColor}-500`].main,
+    };
+  }
+
+  return colors;
+};
+
 export default function ChipStatus({ status, ...restProps }: ChipStatusProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION);
+  const theme = useTheme();
 
-  const color = getColorForStatus(status);
+  const indexColor = getColorForStatus(status);
+  const colors = getColors(indexColor, theme);
 
   const tooltipKey = `${status}_short`;
 
@@ -55,10 +83,7 @@ export default function ChipStatus({ status, ...restProps }: ChipStatusProps) {
       size="small"
       {...restProps}
       sx={{
-        backgroundColor: `${color}.main`,
-        "& > .MuiChip-label": {
-          color: `${color}.contrastText`,
-        },
+        ...colors,
         ...(restProps.sx || {}),
       }}
     />
