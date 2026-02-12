@@ -1,3 +1,14 @@
+## [1.28.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.27.0...v1.28.0) (2026-02-10)
+
+### ✨ Features
+
+* **REGISTRY-2368:** status text (#652) ([ec8d8d6](https://github.com/HDRUK/safepeopleregistry-web/commit/ec8d8d61c4ccd3c821f69c4bd7078a8c97f8b4d7))
+* **REGISTRY-2507:** content changes (#653) ([ca9f762](https://github.com/HDRUK/safepeopleregistry-web/commit/ca9f7628b7df44b6cfe5904d7d49081583ae2b72))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-2515:** add test back and fix mui issue (#651) ([4ec4633](https://github.com/HDRUK/safepeopleregistry-web/commit/4ec46338d70fe6741d31dd8c2dac17fe989d117c))
+
 ## [1.27.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.26.0...v1.27.0) (2026-02-05)
 
 ### ✨ Features
