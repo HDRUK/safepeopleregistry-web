@@ -8,6 +8,7 @@ import { rectSortingStrategy } from "@dnd-kit/sortable";
 import { useTranslations } from "next-intl";
 import { useCallback, useMemo } from "react";
 import { STATUS_ORDER_MAP } from "@/consts/status";
+import { Status } from "@/consts/application";
 import KanbanBoard, {
   KanbanBoardEntityProps,
   KanbanBoardHelperProps,
@@ -76,6 +77,7 @@ export default function ProjectUsers({
       onMove={handleMove}
       options={options}
       queryState={updateQueryState}
+      disabledContainers={[Status.INVITED]}
     />
   );
 }

@@ -34,7 +34,8 @@ function DndSortableItem({
       transform={transform}
       listeners={listeners}
       isDroppable={isDroppable !== false}
-      isError={isError}>
+      isError={isError}
+      disabled={disabled}>
       {children}
     </DndItem>
   );

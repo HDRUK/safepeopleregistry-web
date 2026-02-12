@@ -13,6 +13,7 @@ import { Button } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { Status } from "@/consts/application";
 import ButtonToggle from "../../components/ButtonToggle";
 import ErrorMessage from "../../components/ErrorMessage";
 import Results from "../../components/Results";
@@ -148,6 +149,20 @@ export default function ProjectUsers({
     isTransitionAllowed,
   };
 
+  const rewriteTransitions = (
+    props: KanbanBoardHelperProps<CustodianProjectUser>
+  ) => {
+    const { slug } = props.data.model_state.state;
+
+    let allowedTransitions = getAllowedTransitions(slug);
+
+    if (slug === Status.INVITED) {
+      allowedTransitions = [];
+    }
+
+    return allowedTransitions;
+  };
+
   const updateQueryState = { isError, isSuccess, reset };
 
   const commonProps = useMemo(
@@ -167,9 +182,7 @@ export default function ProjectUsers({
             onMoveClick={async (id, status) => {
               handleUpdateSafePeople(id, status);
             }}
-            allowedTransitions={getAllowedTransitions(
-              props.data.model_state.state.slug
-            )}
+            allowedTransitions={rewriteTransitions(props)}
             {...props}
           />
         );

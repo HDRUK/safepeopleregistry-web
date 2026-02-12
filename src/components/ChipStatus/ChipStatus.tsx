@@ -1,5 +1,6 @@
 import { Status } from "@/consts/application";
-import { Chip, ChipProps, Tooltip } from "@mui/material";
+import { getColorForStatus } from "@/utils/application";
+import { Chip, ChipProps, Theme, Tooltip, useTheme } from "@mui/material";
 import { useTranslations } from "next-intl";
 
 const STATUS_WITH_SHORT_DESCRIPTION = [
@@ -27,61 +28,38 @@ export interface ChipStatusProps extends ChipProps {
 
 const NAMESPACE_TRANSLATION = "Application.Status";
 
-const getColorForStatus = (status?: Status): string => {
-  if (
-    [
-      Status.PROJECT_APPROVED,
-      Status.PROJECT_IN_PROGRESS,
-      Status.VALIDATION_COMPLETE,
-      Status.VALIDATED,
-      Status.AFFILIATION_APPROVED,
-      Status.ORGANISATION_VALIDATED,
-      Status.REGISTERED,
-      Status.ORGANISATION_REGISTERED,
-      Status.SPONSORSHIP_APPROVED,
-      Status.EMAIL_SUCCESSFUL,
-    ].includes(status!)
-  )
-    return "success";
+const getColors = (indexColor: string, theme: Theme) => {
+  let colors = {
+    color: "#fff",
+    backgroundColor: theme.palette[`neutral-400`].main,
+  };
 
-  if (
-    [
-      Status.PROJECT_DECLINED_APPROVAL,
-      Status.USER_VALIDATION_DECLINED,
-      Status.ORG_VALIDATION_DECLINED,
-      Status.AFFILIATION_REJECTED,
-      Status.ORGANISATION_NOT_VALIDATED,
-      Status.SPONSORSHIP_REJECTED,
-      Status.EMAIL_FAILED,
-    ].includes(status!)
-  )
-    return "error";
+  if (indexColor === "warning") {
+    colors = {
+      color: "#000",
+      backgroundColor: theme.palette[`${indexColor}-500`].main,
+    };
+  } else if (indexColor === "success") {
+    colors = {
+      color: "#fff",
+      backgroundColor: theme.palette[`${indexColor}-700`].main,
+    };
+  } else if (indexColor === "error") {
+    colors = {
+      color: "#fff",
+      backgroundColor: theme.palette[`${indexColor}-500`].main,
+    };
+  }
 
-  if (
-    [
-      Status.PROJECT_PENDING,
-      Status.VALIDATION_IN_PROGRESS,
-      Status.MORE_USER_INFO_REQ,
-      Status.MORE_USER_INFO_REQ_ESCALATION_MANAGER,
-      Status.MORE_USER_INFO_REQ_ESCALATION_COMITTEE,
-      Status.MORE_ORG_INFO_REQ,
-      Status.MORE_ORG_INFO_REQ_ESCALATION_MANAGER,
-      Status.MORE_ORG_INFO_REQ_ESCALATION_COMMITTEE,
-      Status.PENDING,
-      Status.AFFILIATION_PENDING,
-      Status.SPONSORSHIP_PENDING,
-      Status.AFFILIATION_INFO_REQUIRED,
-    ].includes(status!)
-  )
-    return "warning";
-
-  return "midGrey";
+  return colors;
 };
 
 export default function ChipStatus({ status, ...restProps }: ChipStatusProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION);
+  const theme = useTheme();
 
-  const color = getColorForStatus(status);
+  const indexColor = getColorForStatus(status);
+  const colors = getColors(indexColor, theme);
 
   const tooltipKey = `${status}_short`;
 
@@ -105,10 +83,7 @@ export default function ChipStatus({ status, ...restProps }: ChipStatusProps) {
       size="small"
       {...restProps}
       sx={{
-        backgroundColor: `${color}.main`,
-        "& > .MuiChip-label": {
-          color: `${color}.contrastText`,
-        },
+        ...colors,
         ...(restProps.sx || {}),
       }}
     />

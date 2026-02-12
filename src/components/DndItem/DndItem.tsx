@@ -67,7 +67,7 @@ const DndItem = React.forwardRef<HTMLLIElement, DndItemProps>(
             isDroppable !== false && {
               cursor: " grabbing",
             }),
-          ...(isDroppable === false && {
+          ...((isDroppable === false || disabled) && {
             cursor: "not-allowed",
           }),
         }}

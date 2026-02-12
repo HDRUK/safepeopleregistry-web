@@ -1,5 +1,6 @@
 "use client";
 
+import { Status } from "@/consts/application";
 import { PaginatedQueryHelpers } from "@/hooks/usePaginatedQuery";
 import { KanbanBoardEntityProps } from "@/modules/KanbanBoard";
 import ProjectOrganisationsTable from "@/modules/ProjectOrganisationsTable";
@@ -30,7 +31,12 @@ export default function ProjectOrganisationsList({
   const renderActionMenuCell = (
     info: CellContext<CustodianProjectOrganisation, unknown>
   ) => {
-    return actions?.({ data: info.row.original });
+    return actions?.({
+      data: info.row.original,
+      disabled: [Status.INVITED].includes(
+        info.row.original.model_state?.state.slug
+      ),
+    });
   };
 
   const extraColumns: ColumnDef<CustodianProjectOrganisation>[] =
