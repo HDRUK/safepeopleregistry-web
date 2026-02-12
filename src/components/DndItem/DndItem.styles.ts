@@ -62,7 +62,6 @@ const StyledItem = styled(Box)(
     align-items: center;
     ${disabled &&
     `
-      *,
       .MuiTypography-root {
         color: #5B5B5B;
       }

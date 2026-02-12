@@ -1,7 +1,9 @@
 import { Status } from "@/consts/application";
 import { getColorForStatus } from "@/utils/application";
 import { Chip, ChipProps, Theme, Tooltip, useTheme } from "@mui/material";
+import CircleIcon from "@mui/icons-material/Circle";
 import { useTranslations } from "next-intl";
+import Text from "../Text";
 
 const STATUS_WITH_SHORT_DESCRIPTION = [
   Status.PENDING,
@@ -24,6 +26,7 @@ const STATUS_WITH_SHORT_DESCRIPTION = [
 
 export interface ChipStatusProps extends ChipProps {
   status: Status | undefined;
+  variant?: "default" | "icon";
 }
 
 const NAMESPACE_TRANSLATION = "Application.Status";
@@ -54,7 +57,11 @@ const getColors = (indexColor: string, theme: Theme) => {
   return colors;
 };
 
-export default function ChipStatus({ status, ...restProps }: ChipStatusProps) {
+export default function ChipStatus({
+  status,
+  variant = "default",
+  ...restProps
+}: ChipStatusProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION);
   const theme = useTheme();
 
@@ -77,17 +84,30 @@ export default function ChipStatus({ status, ...restProps }: ChipStatusProps) {
       : t(status)
     : t("none");
 
-  const chip = (
-    <Chip
-      label={label}
-      size="small"
-      {...restProps}
-      sx={{
-        ...colors,
-        ...(restProps.sx || {}),
-      }}
-    />
-  );
+  const chip =
+    variant === "icon" ? (
+      <Text
+        variant="small"
+        endIcon={
+          <CircleIcon
+            sx={{
+              color: colors.backgroundColor,
+            }}
+          />
+        }>
+        {label}
+      </Text>
+    ) : (
+      <Chip
+        label={label}
+        size="small"
+        {...restProps}
+        sx={{
+          ...colors,
+          ...(restProps.sx || {}),
+        }}
+      />
+    );
 
   return hasShortTranslation ? (
     <Tooltip title={t(status)}>{chip}</Tooltip>
