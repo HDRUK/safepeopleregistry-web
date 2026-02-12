@@ -62,7 +62,10 @@ const StyledItem = styled(Box)(
     align-items: center;
     ${disabled &&
     `
-      opacity: 0.6;
+      *,
+      .MuiTypography-root {
+        color: #5B5B5B;
+      }
     `}
     box-shadow: $box-shadow;
     outline: none;
