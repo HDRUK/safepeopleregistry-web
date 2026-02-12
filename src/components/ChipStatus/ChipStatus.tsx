@@ -3,7 +3,8 @@ import { getColorForStatus } from "@/utils/application";
 import { Chip, ChipProps, Theme, Tooltip, useTheme } from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
 import { useTranslations } from "next-intl";
-import Text from "../Text";
+import { BoxProps } from "@mui/system";
+import Text, { TextProps } from "../Text";
 
 const STATUS_WITH_SHORT_DESCRIPTION = [
   Status.PENDING,
@@ -24,9 +25,11 @@ const STATUS_WITH_SHORT_DESCRIPTION = [
   Status.FORM_RECEIVED,
 ];
 
-export interface ChipStatusProps extends ChipProps {
+export interface ChipStatusProps extends BoxProps {
   status: Status | undefined;
   variant?: "default" | "icon";
+  chipProps?: ChipProps;
+  textProps?: TextProps;
 }
 
 const NAMESPACE_TRANSLATION = "Application.Status";
@@ -60,6 +63,8 @@ const getColors = (indexColor: string, theme: Theme) => {
 export default function ChipStatus({
   status,
   variant = "default",
+  chipProps,
+  textProps,
   ...restProps
 }: ChipStatusProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION);
@@ -94,13 +99,16 @@ export default function ChipStatus({
               color: colors.backgroundColor,
             }}
           />
-        }>
+        }
+        {...textProps}
+        {...restProps}>
         {label}
       </Text>
     ) : (
       <Chip
         label={label}
         size="small"
+        {...chipProps}
         {...restProps}
         sx={{
           ...colors,
