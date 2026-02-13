@@ -1,5 +1,6 @@
 import { Box, Card, CardProps, Typography } from "@mui/material";
 import { ReactNode } from "react";
+import ChipStatus from "@/components/ChipStatus";
 import Text from "../../components/Text";
 import { CustodianProjectUser, WithRoutes } from "../../types/application";
 import {
@@ -49,13 +50,19 @@ export default function KanbanBoardUsersCard({
           {renderProjectUserNameCell(project_has_user, routes.name.path)}
         </Box>
       </Text>
-      <Typography color="success.main">
-        {renderUserOrganisationsNameCell(affiliation?.organisation)}
-      </Typography>
-      <Typography>
-        {project.title} (id: {project.id})
-      </Typography>
-      <Typography>{role?.name}</Typography>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+        <ChipStatus
+          status={affiliation?.model_state?.state.slug}
+          variant="icon"
+        />
+        <Typography color="success.main">
+          {renderUserOrganisationsNameCell(affiliation?.organisation)}
+        </Typography>
+        <Typography>
+          {project.title} (id: {project.id})
+        </Typography>
+        <Typography>{role?.name}</Typography>
+      </Box>
     </Card>
   );
 }
