@@ -124,6 +124,8 @@ export default function KanbanBoard<T>({
   const initialArgs = useRef<DragUpdateEventArgsInitial<T> | null>();
   const { isError } = queryState;
 
+  console.log("*** inital data", initialData);
+
   const activeId = activeData?.item.id;
 
   const recentlyMovedToNewContainer = useRef(false);
