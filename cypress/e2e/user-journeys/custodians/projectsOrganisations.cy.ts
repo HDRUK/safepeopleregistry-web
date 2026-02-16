@@ -1,6 +1,6 @@
 import { Status } from "@/consts/application";
 import { ROUTES } from "@/consts/router";
-import { logout } from "cypress/support/utils/common";
+import { dataCy, logout } from "cypress/support/utils/common";
 import { loginCustodian } from "cypress/support/utils/custodian/auth";
 import {
   changeStatusProjectOrganisations,
@@ -67,9 +67,6 @@ describe("Projects organisations journey", () => {
       .last()
       .click();
 
-    cy.get(".MuiPopover-root")
-      .should("be.visible")
-      .contains(/change status/i)
-      .should("not.exist");
+    cy.get(".MuiPopover-root").should("not.exist");
   });
 });

@@ -11,10 +11,15 @@ import { setAcceptTCs } from "@/utils/register";
 import { cookies } from "next/headers";
 
 async function registerUser() {
-  await postRegister({
-    account_type: UserGroup.USERS,
-    t_and_c_agreed: true,
-  });
+  await postRegister(
+    {
+      account_type: UserGroup.USERS,
+      t_and_c_agreed: true,
+    },
+    {
+      suppressThrow: true,
+    }
+  );
 
   await setAcceptTCs(false, UserGroup.USERS);
 }
