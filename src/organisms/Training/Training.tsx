@@ -11,6 +11,8 @@ import { Button, Typography } from "@mui/material";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
+import { FileStatus } from "@/consts/files";
+import { formatDBDateTime, formatShortDate } from "@/utils/date";
 import { ActionMenu, ActionMenuItem } from "../../components/ActionMenu";
 import FormModal from "../../components/FormModal";
 import Table from "../../components/Table";
@@ -27,7 +29,6 @@ import {
 import { PostTrainingsPayload } from "../../services/trainings/types";
 import { EntityType } from "../../types/api";
 import { ResearcherTraining, User } from "../../types/application";
-import { formatDBDateTime, formatShortDate } from "../../utils/date";
 import TrainingForm from "./TrainingForm";
 
 const NAMESPACE_TRANSLATION_TRAINING = "Training";
@@ -268,8 +269,28 @@ export default function Training({
         ]
       : []),
   ];
+
+  const USER_CV_FILE = user.registry.files?.findLast(
+    f => f.type === "CV" && f.status === FileStatus.PROCESSED
+  );
+
   return (
     <>
+      {USER_CV_FILE && (
+        <>
+          <Typography>
+            {t("cvUploaded")} {formatShortDate(USER_CV_FILE.created_at)}
+          </Typography>
+          <Button
+            onClick={() => downloadFile(USER_CV_FILE?.id)}
+            variant="outlined"
+            color="primary"
+            sx={{ my: 2, mb: 3 }}>
+            {t("downloadCv")}
+          </Button>
+        </>
+      )}
+
       <Typography variant="h3" sx={{ mb: 1 }}>
         {t("trainingHistoryTitle")}
       </Typography>
