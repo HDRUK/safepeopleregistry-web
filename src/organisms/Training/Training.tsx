@@ -276,7 +276,7 @@ export default function Training({
 
   return (
     <>
-      {USER_CV_FILE && (
+      {variant === EntityType.CUSTODIAN && USER_CV_FILE && (
         <>
           <Typography>
             {t("cvUploaded")} {formatShortDate(USER_CV_FILE.created_at)}
