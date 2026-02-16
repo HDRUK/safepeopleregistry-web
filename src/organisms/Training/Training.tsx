@@ -11,7 +11,7 @@ import { Button, Typography } from "@mui/material";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
-import { FileStatus } from "@/consts/files";
+import { FileStatus, FileType } from "@/consts/files";
 import { formatDBDateTime, formatShortDate } from "@/utils/date";
 import { ActionMenu, ActionMenuItem } from "../../components/ActionMenu";
 import FormModal from "../../components/FormModal";
@@ -271,7 +271,7 @@ export default function Training({
   ];
 
   const USER_CV_FILE = user.registry.files?.findLast(
-    f => f.type === "CV" && f.status === FileStatus.PROCESSED
+    f => f.type === FileType.CV && f.status === FileStatus.PROCESSED
   );
 
   return (
