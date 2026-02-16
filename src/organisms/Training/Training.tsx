@@ -270,7 +270,7 @@ export default function Training({
       : []),
   ];
 
-  const USER_CV_FILE = user.registry.files?.findLast(
+  const USER_CV_FILE = user?.registry?.files?.findLast(
     f => f.type === FileType.CV && f.status === FileStatus.PROCESSED
   );
 
