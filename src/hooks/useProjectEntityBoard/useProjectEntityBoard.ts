@@ -18,13 +18,19 @@ export default function useProjectEntityBoard<
     status: UniqueIdentifier | undefined,
     transitionStatus: UniqueIdentifier | undefined
   ) {
+    console.log(
+      "stateWorkflow[status]",
+      stateWorkflow,
+      status,
+      status && stateWorkflow && stateWorkflow[status]
+    );
     return process.env.NEXT_PUBLIC_FEATURE_PROJECT_USERS_WORKFLOW === "true"
       ? !!(
           stateWorkflow &&
           status &&
           transitionStatus &&
           (transitionStatus === status ||
-            stateWorkflow[status].includes(transitionStatus))
+            stateWorkflow[status]?.includes(transitionStatus))
         )
       : true;
   }
