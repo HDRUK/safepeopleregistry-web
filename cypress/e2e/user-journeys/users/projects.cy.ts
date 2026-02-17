@@ -27,6 +27,8 @@ describe("Projects", () => {
     cy.contains("a", "Safe People").click();
 
     addNewProjectUser(DEFAULT_USER);
+
+    cy.clickAlertModal("Close");
   });
 
   beforeEach(() => {
