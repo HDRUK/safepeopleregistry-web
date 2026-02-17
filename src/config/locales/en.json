@@ -1107,7 +1107,6 @@
     "location": "Location",
     "accreditedResearcherCheckboxLabel": "I am a registered Accredited Researcher as published on the UK Statistics Authority website.",
     "userDeclarationCheckboxLabel": "I have signed a User declaration for accessing Digital Economy Act accredited environments.",
-    "checkAccreditedResearcher": "Check Accredited Researcher listing",
     "findOutMore": "Find out more",
     "employmentEducationPublicationRecord": "Employment, education and publication record",
     "orcidDescription": "Enter your ORCID identifier (if you have one) to help Data Custodians identify you.",
