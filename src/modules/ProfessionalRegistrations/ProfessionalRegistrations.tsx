@@ -9,6 +9,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import ErrorMessage from "@/components/ErrorMessage";
+import Icon from "@/components/Icon";
 import { ActionMenu, ActionMenuItem } from "../../components/ActionMenu";
 import Table from "../../components/Table";
 import { AddIcon, RejectIcon, VerifyIcon } from "../../consts/icons";
@@ -27,7 +28,6 @@ import {
   User,
 } from "../../types/application";
 import ProfessionalRegistrationsFormModal from "./ProfessionalRegistrationsFormModal";
-import Icon from "@/components/Icon";
 
 const NAMESPACE_TRANSLATION_PROFESSIONAL = "ProfessionalRegistrations";
 const NAMESPACE_TRANSLATION_APPLICATION = "Application";
