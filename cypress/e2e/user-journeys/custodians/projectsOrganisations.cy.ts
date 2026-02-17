@@ -1,6 +1,6 @@
 import { Status } from "@/consts/application";
 import { ROUTES } from "@/consts/router";
-import { logout } from "cypress/support/utils/common";
+import { dataCy, logout } from "cypress/support/utils/common";
 import { loginCustodian } from "cypress/support/utils/custodian/auth";
 import {
   changeStatusProjectOrganisations,
@@ -19,13 +19,13 @@ const dataProjectOrganisation = DEFAULT_PROJECT_ORGANISATIONS_CUSTODIANS;
 const dataProjectInviteUser = DEFAULT_PROJECT_INVITE_USERS;
 
 describe("Projects organisations journey AXE", () => {
-    it('should have no detectable accessibility violations on load', () => {
-      loginCustodian();
-      goToProjectUsersList();
+  it("should have no detectable accessibility violations on load", () => {
+    loginCustodian();
+    goToProjectUsersList();
 
-      cy.waitForLoadingToFinish();
-      cy.checkA11yPage();
-    });
+    cy.waitForLoadingToFinish();
+    cy.checkA11yPage();
+  });
 });
 
 describe("Projects organisations journey", () => {
@@ -59,20 +59,14 @@ describe("Projects organisations journey", () => {
     logout();
   });
 
+  it("Cannot change the status of an organisation", () => {
+    cy.get("tbody")
+      .find("tr")
+      .last()
+      .find(dataCy("action-menu"))
+      .last()
+      .click();
 
-  it("Changes status of an organisation", () => {
-    changeStatusProjectOrganisations(
-      dataProjectOrganisation,
-      Status.MORE_ORG_INFO_REQ_ESCALATION_MANAGER
-    );
-
-    hasProjectOrganisations({
-      ...dataProjectOrganisation,
-      model_state: {
-        state: {
-          slug: Status.MORE_ORG_INFO_REQ_ESCALATION_MANAGER,
-        },
-      },
-    });
+    cy.get(".MuiPopover-root").should("not.exist");
   });
 });

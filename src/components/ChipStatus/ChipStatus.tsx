@@ -37,7 +37,7 @@ const NAMESPACE_TRANSLATION = "Application.Status";
 const getColors = (indexColor: string, theme: Theme) => {
   let colors = {
     color: "#fff",
-    backgroundColor: theme.palette[`neutral-400`].main,
+    backgroundColor: theme.palette[`neutral-500`].main,
   };
 
   if (indexColor === "warning") {
