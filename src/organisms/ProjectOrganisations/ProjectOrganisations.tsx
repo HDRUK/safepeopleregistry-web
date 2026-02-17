@@ -132,7 +132,7 @@ export default function ProjectOrganisations({
 
     let allowedTransitions = getAllowedTransitions(slug);
 
-    if (slug === Status.INVITED) {
+    if ([Status.INVITED, Status.SYSTEM_APPROVAL].includes(slug)) {
       allowedTransitions = [];
     }
 
@@ -159,7 +159,7 @@ export default function ProjectOrganisations({
             allowedTransitions={rewriteTransitions(props)}
             {...props}
             disabled={
-              custodianProjectOrganisations?.project_organisation?.organisation
+              !custodianProjectOrganisations?.project_organisation?.organisation
                 ?.system_approved || props.disabled
             }
           />

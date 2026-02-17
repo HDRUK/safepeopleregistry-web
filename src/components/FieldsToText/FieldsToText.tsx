@@ -60,12 +60,16 @@ export default function FieldsToText<T>({
       {filteredKeys.map(key =>
         typeof key === "string" ? (
           <div key={key}>
-            <Typography variant="h6">{getHeading(key)}</Typography>
+            <Typography variant="h6" component="h3">
+              {getHeading(key)}
+            </Typography>
             <Typography>{renderItems(_get(data, key))}</Typography>
           </div>
         ) : (
           <div key={getHeading(key)}>
-            <Typography variant="h6">{getHeading(key)}</Typography>
+            <Typography variant="h6" component="h3">
+              {getHeading(key)}
+            </Typography>
             <Typography>
               {key.content || renderItems(_get(data, key.column_id))}
             </Typography>
