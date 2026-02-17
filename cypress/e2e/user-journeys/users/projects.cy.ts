@@ -44,6 +44,7 @@ describe("Projects", () => {
 
   it("should have no detectable accessibility violations on load", () => {
     cy.waitForLoadingToFinish();
+    cy.contains("h1", dataProject.title).should("exist");
     cy.checkA11yPage();
   });
 

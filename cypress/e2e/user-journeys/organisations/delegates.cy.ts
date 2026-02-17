@@ -6,9 +6,7 @@ import { loginOrganisation } from "cypress/support/utils/organisation/auth";
 import {
   editDelegateOrganisations,
   hasDelegateOrganisations,
-  hasNoDelegateOrganisations,
   inviteNewDelegateOrganisations,
-  removeDelegateOrganisations,
 } from "cypress/support/utils/organisation/delegates";
 
 const dataDelegate = DEFAULT_DELEGATE_FIELDS_ORGANISATIONS;
@@ -31,9 +29,9 @@ describe("Organisations delegates journey", () => {
     logout();
   });
 
-  it('should have no detectable accessibility violations on load', () => {
-      cy.waitForLoadingToFinish();
-      cy.checkA11yPage();
+  it("should have no detectable accessibility violations on load", () => {
+    cy.waitForLoadingToFinish();
+    cy.checkA11yPage();
   });
 
   it("Adds a new delegate", () => {

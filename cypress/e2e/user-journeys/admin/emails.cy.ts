@@ -32,12 +32,7 @@ describe("Resend invite", () => {
   it("Shows a list of emails", () => {
     cy.wait(20000);
     cy.contains("button", "Update").click();
-    // cy.clickUntilFound(
-    //   `td:contains(${dataInviteUser.email})`,
-    //   () => {
-    //     cy.contains("button", "Update").click();
-    //   },
-    //   () => {
+
     cy.get(dataCy("emails-list"))
       .find("tbody tr")
       .first()
@@ -48,8 +43,6 @@ describe("Resend invite", () => {
         cy.contains("td", "Successful").should("exist");
         cy.contains("td", "None").should("exist");
       });
-    //   }
-    // );
   });
 
   it("Resends the email", () => {
