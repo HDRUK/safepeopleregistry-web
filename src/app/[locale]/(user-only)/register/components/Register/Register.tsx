@@ -35,7 +35,7 @@ export default function Register({
           if (searchParams.type === UserGroup.ORGANISATIONS) {
             await registerOrganisation(tokenUser);
           } else if (searchParams.type === UserGroup.USERS) {
-            await registerUser();
+            await registerUser(UserGroup.USERS);
           }
         }
 

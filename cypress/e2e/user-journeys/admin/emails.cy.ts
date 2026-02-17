@@ -30,28 +30,19 @@ describe("Resend invite", () => {
   });
 
   it("Shows a list of emails", () => {
-    cy.clickUntilFound(
-      `td:contains(${dataInviteUser.email})`,
-      () => {
-        cy.contains("button", "Update").click();
-      },
-      () => {
-        cy.get(dataCy("emails-list"))
-          .find("tbody tr")
-          .first()
-          .within(() => {
-            cy.contains("td", "Safe People Registry | User invite").should(
-              "exist"
-            );
-            cy.contains("td", dataInviteUser.email).should("exist");
-            cy.contains("td", formatDisplayLongDate(new Date())).should(
-              "exist"
-            );
-            cy.contains("td", "Successful").should("exist");
-            cy.contains("td", "None").should("exist");
-          });
-      }
-    );
+    cy.wait(20000);
+    cy.contains("button", "Update").click();
+
+    cy.get(dataCy("emails-list"))
+      .find("tbody tr")
+      .first()
+      .within(() => {
+        cy.contains("td", "Safe People Registry | User invite").should("exist");
+        cy.contains("td", dataInviteUser.email).should("exist");
+        cy.contains("td", formatDisplayLongDate(new Date())).should("exist");
+        cy.contains("td", "Successful").should("exist");
+        cy.contains("td", "None").should("exist");
+      });
   });
 
   it("Resends the email", () => {

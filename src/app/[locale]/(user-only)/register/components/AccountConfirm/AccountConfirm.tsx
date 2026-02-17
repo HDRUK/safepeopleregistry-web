@@ -55,7 +55,7 @@ export default function AccountConfirm({ unclaimedUser }: AccountConfirmProps) {
 
   const handleRegister = async (user: User) => {
     startTransition(async () => {
-      await registerInvite(user);
+      await registerInvite(user, userGroup as UserGroup);
 
       router.push(getProfilePathByEntity(userGroup as UserGroup));
     });

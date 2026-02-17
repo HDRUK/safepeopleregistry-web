@@ -24,7 +24,7 @@ export default function useProjectEntityBoard<
           status &&
           transitionStatus &&
           (transitionStatus === status ||
-            stateWorkflow[status].includes(transitionStatus))
+            stateWorkflow[status]?.includes(transitionStatus))
         )
       : true;
   }
