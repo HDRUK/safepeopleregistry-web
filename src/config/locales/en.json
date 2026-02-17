@@ -1196,7 +1196,9 @@
     "successDeleteMessage": "Your training entry was successfully deleted",
     "editTrainingCourse": "Edit Training Course",
     "updateTrainingError": "There was an error updating the training course. Please <contactLink>contact support</contactLink> if the problem persists.",
-    "updateTrainingSuccess": "Training course updated successfully"
+    "updateTrainingSuccess": "Training course updated successfully",
+    "cvUploaded": "CV Uploaded",
+    "downloadCv": "Download CV"
   },
   "ProfileCompleteStatus": {
     "profileComplete": "Profile complete",
