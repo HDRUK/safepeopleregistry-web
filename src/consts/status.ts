@@ -3,6 +3,7 @@ import { Status } from "./application";
 const STATUS_ORDER = [
   Status.AFFILIATION_INVITED,
   Status.INVITED,
+  Status.SYSTEM_APPROVAL,
   Status.INVITE_SENT,
   Status.FORM_RECEIVED,
   Status.PENDING,
