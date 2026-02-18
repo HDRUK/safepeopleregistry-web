@@ -58,6 +58,16 @@ const hasTrainingandAccreditationsTabCustodianUser = () => {
   cy.contains("h2", "Training and Accreditations").should("exist");
   cy.contains("h3", "Training history").should("exist");
   cy.contains("h3", "Professional membership history").should("exist");
+  cy.contains(
+    "p",
+    "I am a registered Accredited Researcher as published on the UK Statistics Authority website."
+  ).should("exist");
+  cy.contains(
+    "p",
+    "I have signed a User declaration for accessing Digital Economy Act accredited environments."
+  ).should("exist");
+  cy.get('[data-testid="AccreditedResearcherIcon"]').should("exist");
+  cy.get('[data-testid="UserDeclarationIcon"]').should("exist");
 };
 
 const hasAutomatedFlagsTabCustodianUser = () => {
