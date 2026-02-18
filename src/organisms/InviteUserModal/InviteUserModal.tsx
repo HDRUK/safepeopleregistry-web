@@ -1,4 +1,5 @@
 import ButtonCancel from "@/components/ButtonCancel";
+import { EntityType } from "@/types/api";
 import { useTranslations } from "next-intl";
 import FormModal, { FormModalProps } from "../../components/FormModal";
 import InviteUser from "../../modules/InviteUser";
@@ -9,6 +10,8 @@ interface InviteUserProps extends Omit<FormModalProps, "children"> {
   projectRoles?: Partial<Role>[];
   organisationId?: number;
   custodianId?: number;
+  entityId: number;
+  entityType: EntityType;
 }
 
 const NAMESPACE_TRANSLATION = "InviteUserModal";
@@ -19,6 +22,8 @@ export default function InviteUserModal({
   organisationId,
   custodianId,
   projectRoles,
+  entityId,
+  entityType,
   ...restProps
 }: InviteUserProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION);
@@ -36,6 +41,8 @@ export default function InviteUserModal({
         projectRoles={projectRoles}
         organisationId={organisationId}
         custodianId={custodianId}
+        entityId={entityId}
+        entityType={entityType}
       />
     </FormModal>
   );

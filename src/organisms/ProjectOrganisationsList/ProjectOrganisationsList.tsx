@@ -1,6 +1,6 @@
 "use client";
 
-import { Status } from "@/consts/application";
+import { DISABLED_ORGANISATION_STATUS } from "@/consts/projects";
 import { PaginatedQueryHelpers } from "@/hooks/usePaginatedQuery";
 import { KanbanBoardEntityProps } from "@/modules/KanbanBoard";
 import ProjectOrganisationsTable from "@/modules/ProjectOrganisationsTable";
@@ -33,7 +33,7 @@ export default function ProjectOrganisationsList({
   ) => {
     return actions?.({
       data: info.row.original,
-      disabled: [Status.INVITED].includes(
+      disabled: DISABLED_ORGANISATION_STATUS.includes(
         info.row.original.model_state?.state.slug
       ),
     });

@@ -198,6 +198,7 @@ type User = WithModelState<{
   organisation?: Organisation;
   custodian_id?: number;
   custodian_user_id?: number;
+  custodian_user?: CustodianUser;
   consent_scrape: boolean;
   orc_id: string | null;
   orcid_scanning: boolean;
@@ -223,6 +224,7 @@ type User = WithModelState<{
   uksa_registered?: boolean;
   rules?: RuleState;
   t_and_c_agreed?: boolean;
+  invited_by?: User;
 }>;
 interface AddressFields {
   postcode?: string;
@@ -306,6 +308,7 @@ type Organisation = OrganisationIdvt &
     project?: WithModelState<ResearcherProject>;
     system_approved?: boolean;
     sro_profile_uri?: string;
+    sro_officer?: User;
   }>;
 
 interface ResearcherEducation {

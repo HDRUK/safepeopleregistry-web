@@ -34,7 +34,11 @@ describe("<ActionValidationStatus />", () => {
     hookParams = { organisationId: 1, custodianId: 2 }
   ) =>
     render(
-      <ActionValidationStatus useApprovalHook={hook} hookParams={hookParams} />
+      <ActionValidationStatus
+        useApprovalHook={hook}
+        hookParams={hookParams}
+        disabledStatus={[]}
+      />
     );
 
   it("it can approve", async () => {
