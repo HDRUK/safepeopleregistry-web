@@ -15,7 +15,6 @@ import { useMemo } from "react";
 export interface SelectOrganisationProps {
   onChange?: (event: SelectChangeEvent) => void;
   hasEmpty?: boolean;
-  includeUnapproved?: boolean;
   entityType: EntityType;
   entityId: number;
   showNotApprovedText?: boolean;
@@ -24,7 +23,6 @@ export interface SelectOrganisationProps {
 export default function SelectOrganisation({
   onChange,
   hasEmpty,
-  includeUnapproved = false,
   entityType,
   entityId,
   showNotApprovedText,
@@ -56,7 +54,7 @@ export default function SelectOrganisation({
             </div>
           </MenuItem>
         )),
-    [organisationsData, includeUnapproved]
+    [organisationsData]
   );
 
   const handleChange = (event: SelectChangeEvent) => {
