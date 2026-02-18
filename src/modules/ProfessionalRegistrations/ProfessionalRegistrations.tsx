@@ -287,7 +287,11 @@ export default function ProfessionalRegistrations({
                 alignItems: "center",
               }}>
               <Icon sx={{ mr: 1 }}>
-                {user.uksa_registered ? <VerifyIcon /> : <RejectIcon />}
+                {user.uksa_registered ? (
+                  <VerifyIcon data-testid="AccreditedResearcherIcon" />
+                ) : (
+                  <RejectIcon data-testid="AccreditedResearcherIcon" />
+                )}
               </Icon>
               <Typography>
                 {tProfile("accreditedResearcherCheckboxLabel")}
@@ -309,7 +313,11 @@ export default function ProfessionalRegistrations({
               alignItems: "center",
             }}>
             <Icon sx={{ mr: 1 }}>
-              {user.declaration_signed ? <VerifyIcon /> : <RejectIcon />}
+              {user.declaration_signed ? (
+                <VerifyIcon data-testid="UserDeclarationIcon" />
+              ) : (
+                <RejectIcon data-testid="UserDeclarationIcon" />
+              )}
             </Icon>
             <Typography>{tProfile("userDeclarationCheckboxLabel")}</Typography>
           </Box>
