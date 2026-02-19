@@ -509,6 +509,8 @@
     "unsavedAlertTitle": "You have unsaved changes",
     "unsavedAlertConfirmButton": "Leave form",
     "unsavedAlertCancelButton": "Go back",
+    "savingAlertTitle": "Saving changes",
+    "savingAlertText": "Your changes are still being saved. Please wait a moment before leaving this page.",
     "certificationUploadPlaceholder": "Upload certification",
     "leadApplicantEmail": "Email",
     "leadApplicantEmailPlaceholder": "Email",
