@@ -61,7 +61,7 @@ interface File {
   id: number;
   name: string;
   path: string;
-  status: keyof typeof FileStatus;
+  status: FileStatus;
   type: keyof typeof FileType;
   created_at: string;
   updated_at: string;
