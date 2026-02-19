@@ -1,18 +1,18 @@
 import { useRouter } from "@/i18n/routing";
 import { useEffect } from "react";
-import { useFormState } from "react-hook-form";
 
 interface UseRouteChangeProps {
   canLeave?: boolean;
+  isSubmitting?: boolean;
   onBlocked: (pathname: string | null, isSubmitting: boolean) => void;
 }
 
 export default function useRouteChange({
   canLeave,
+  isSubmitting = false,
   onBlocked,
 }: UseRouteChangeProps) {
   const router = useRouter();
-  const { isSubmitting } = useFormState();
 
   const continueTo = (pathname: string) => {
     router.push(pathname);

@@ -17,13 +17,14 @@ export default function FormCanLeave({
 }: FormCanLeaveProps) {
   const { showAlert, hideAlert } = useAlertModal();
   const t = useTranslations(NAMESPACE_TRANSLATION_FORM);
-  const formState = useFormState();
-  const isDirty = !!Object.keys(formState.dirtyFields).length;
+  const { dirtyFields, isSubmitting } = useFormState();
+  const isDirty = !!Object.keys(dirtyFields).length;
 
   useWatch();
 
   const { continueTo } = useRouteChange({
     canLeave: !isDirty || canLeave,
+    isSubmitting,
     onBlocked: (pathname: string | null, isSubmitting: boolean) => {
       // 1) Submitting: block navigation
       if (isSubmitting) {
