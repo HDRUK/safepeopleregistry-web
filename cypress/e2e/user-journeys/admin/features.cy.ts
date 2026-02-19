@@ -30,9 +30,9 @@ describe("Feature Flag journey", () => {
       canToggleFeature("test-feature", "true");
     });
 
-    // it("Toogles sponsorship", () => {
-    //   canToggleFeature("sponsorship", "true");
-    // });
+    it("Toggles sponsorship", () => {
+      canToggleFeature("sponsorship", "true");
+    });
 
     it("Can make it christmas", () => {
       canToggleFeature("christmas-banner", "false", true);
