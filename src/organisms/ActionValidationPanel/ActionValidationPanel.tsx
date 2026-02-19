@@ -1,6 +1,10 @@
+import {
+  DISABLED_ORGANISATION_STATUS,
+  DISABLED_USER_STATUS,
+} from "@/consts/projects";
 import { useStore } from "@/data/store";
-import { useTranslations } from "next-intl";
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 import ActionsPanel from "../../components/ActionsPanel";
 import LoadingWrapper from "../../components/LoadingWrapper";
@@ -79,6 +83,7 @@ function ActionValidationPanel({
         <ActionValidationStatus<CustodianParams>
           useApprovalHook={useCustodianProjectUser}
           hookParams={projectUserHookParams}
+          disabledStatus={DISABLED_USER_STATUS}
         />
       );
 
@@ -103,6 +108,7 @@ function ActionValidationPanel({
           useApprovalHook={useCustodianProjectOrganisation}
           hookParams={organisationHookParams}
           disabled={!projectOrganisation?.organisation.system_approved}
+          disabledStatus={DISABLED_ORGANISATION_STATUS}
         />
       );
 
