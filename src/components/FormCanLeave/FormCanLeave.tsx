@@ -24,7 +24,22 @@ export default function FormCanLeave({
 
   const { continueTo } = useRouteChange({
     canLeave: !isDirty || canLeave,
-    onBlocked: (pathname: string | null) => {
+    onBlocked: (pathname: string | null, isSubmitting: boolean) => {
+      // 1) Submitting: block navigation
+      if (isSubmitting) {
+        showAlert({
+          severity: "warning",
+          title: t("savingAlertTitle"),
+          text: t("savingAlertText"),
+          onConfirm: async () => {
+            hideAlert();
+          },
+        });
+
+        return;
+      }
+
+      // 2) Dirty + not submitting: “unsaved changes” modal
       showAlert({
         severity: "warning",
         text: t("unsavedAlertText"),
@@ -34,6 +49,9 @@ export default function FormCanLeave({
         onConfirm: async () => {
           if (pathname) continueTo(pathname);
 
+          hideAlert();
+        },
+        onCancel: () => {
           hideAlert();
         },
       });

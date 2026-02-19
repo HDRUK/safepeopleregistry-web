@@ -1,9 +1,10 @@
 import { useRouter } from "@/i18n/routing";
 import { useEffect } from "react";
+import { useFormState } from "react-hook-form";
 
 interface UseRouteChangeProps {
   canLeave?: boolean;
-  onBlocked: (pathname: string | null) => void;
+  onBlocked: (pathname: string | null, isSubmitting: boolean) => void;
 }
 
 export default function useRouteChange({
@@ -11,6 +12,7 @@ export default function useRouteChange({
   onBlocked,
 }: UseRouteChangeProps) {
   const router = useRouter();
+  const { isSubmitting } = useFormState();
 
   const continueTo = (pathname: string) => {
     router.push(pathname);
@@ -21,7 +23,7 @@ export default function useRouteChange({
       if (document.activeElement && !canLeave) {
         e.preventDefault();
 
-        onBlocked(document.activeElement.href);
+        onBlocked(document.activeElement.href, isSubmitting);
       }
     };
 
@@ -34,7 +36,7 @@ export default function useRouteChange({
         link.removeEventListener("click", handleRouteChange);
       });
     };
-  }, [canLeave]);
+  }, [canLeave, isSubmitting]);
 
   return {
     continueTo,
