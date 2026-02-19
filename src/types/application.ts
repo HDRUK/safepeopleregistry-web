@@ -221,7 +221,7 @@ type User = WithModelState<{
   status: Status;
   declaration_signed?: boolean;
   uksa_registered?: boolean;
-  rules?: RuleState;
+  rules?: RuleState[];
   t_and_c_agreed?: boolean;
 }>;
 interface AddressFields {
