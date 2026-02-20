@@ -62,16 +62,21 @@ export default function Form<T extends FieldValues>({
   };
 
   const methods = useForm<T>(formOptions);
+
   const { handleSubmit, reset } = methods;
 
   const prevDefaultValues = useRef(defaultValues);
 
   useEffect(() => {
-    if (defaultValues && !deepEqual(defaultValues, prevDefaultValues.current)) {
+    if (!defaultValues || methods.formState.isSubmitting) {
+      return;
+    }
+
+    if (!deepEqual(defaultValues, prevDefaultValues.current)) {
       reset(defaultValues);
       prevDefaultValues.current = defaultValues;
     }
-  }, [defaultValues, reset]);
+  }, [defaultValues, methods.formState.isSubmitting, reset]);
 
   const extendedMethods: ExtendedUseFormReturn<T> = {
     ...methods,
@@ -80,10 +85,13 @@ export default function Form<T extends FieldValues>({
   };
 
   const handleFormSubmit = async (values: T) => {
+    // Protect the submit payload from mutation
+    const submitPayload = structuredClone(values);
+
     await onSubmit(values);
 
     if (shouldResetKeep) {
-      reset(values);
+      reset(submitPayload);
     } else if (shouldReset) {
       reset(defaultValues);
     }
