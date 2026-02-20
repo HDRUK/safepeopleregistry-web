@@ -30,7 +30,7 @@ describe("Feature Flag journey", () => {
       canToggleFeature("test-feature", "true");
     });
 
-    it("Toogles sponsorship", () => {
+    it("Toggles sponsorship", () => {
       canToggleFeature("sponsorship", "true");
     });
 
