@@ -1,11 +1,13 @@
 "use client";
 
 import { JOB_DELAY } from "@/consts/application";
+import { useStore } from "@/data/store";
 import { PageBody } from "@/modules";
 import InviteUser from "@/modules/InviteUser";
 import SendInviteCustodian from "@/modules/SendInviteCustodian";
 import { OrganisationsList, InvitesList, EmailsList } from "@/organisms";
 import FeatureFlagList from "@/organisms/FeatureFlagsList";
+import { EntityType } from "@/types/api";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Typography } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
@@ -19,6 +21,7 @@ const NAMESPACE_TRANSLATIONS_ADMINISTRATION = "Administration";
 export default function Sections() {
   const t = useTranslations(NAMESPACE_TRANSLATIONS_ADMINISTRATION);
   const queryClient = useQueryClient();
+  const user = useStore(state => state.getUser());
 
   const handleInviteSuccess = () => {
     setTimeout(() => {
@@ -40,7 +43,12 @@ export default function Sections() {
     {
       name: "user",
       component: (
-        <InviteUser onSuccess={handleInviteSuccess} combinedSuccess={false} />
+        <InviteUser
+          entityId={user.id}
+          entityType={EntityType.ADMIN}
+          onSuccess={handleInviteSuccess}
+          combinedSuccess={false}
+        />
       ),
     },
     {

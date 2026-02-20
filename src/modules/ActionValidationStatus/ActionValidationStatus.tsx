@@ -1,14 +1,15 @@
-import { useTranslations } from "next-intl";
-import { Grid, Box } from "@mui/material";
+import { Status } from "@/consts/application";
+import { UseCustodianProjectOrganisationResult } from "@/hooks/useCustodianProjectOrganisation/useCustodianProjectOrganisation";
+import { UseCustodianProjectUserResult } from "@/hooks/useCustodianProjectUser/useCustodianProjectUser";
 import { TextareaAutosize } from "@mui/base/TextareaAutosize";
 import { LoadingButton } from "@mui/lab";
+import { Box, Grid } from "@mui/material";
+import { useTranslations } from "next-intl";
 import { useMemo } from "react";
-import { UseCustodianProjectUserResult } from "@/hooks/useCustodianProjectUser/useCustodianProjectUser";
-import { UseCustodianProjectOrganisationResult } from "@/hooks/useCustodianProjectOrganisation/useCustodianProjectOrganisation";
-import FormControl from "../../components/FormControlWrapper";
 import Form from "../../components/Form";
-import yup from "../../config/yup";
+import FormControl from "../../components/FormControlWrapper";
 import SelectValidationActionStatus from "../../components/SelectValidationActionStatus";
+import yup from "../../config/yup";
 
 const NAMESPACE_TRANSLATION_ACTION_VALIDATION = "ActionValidationPanel";
 
@@ -25,12 +26,14 @@ interface ActionValidationStatusProps<TParams> {
   useApprovalHook: UseApprovalHook<TParams>;
   hookParams: TParams;
   disabled?: boolean;
+  disabledStatus: Status[];
 }
 
 const ActionValidationStatus = <TParams,>({
   useApprovalHook,
   hookParams,
   disabled,
+  disabledStatus,
 }: ActionValidationStatusProps<TParams>) => {
   const t = useTranslations(NAMESPACE_TRANSLATION_ACTION_VALIDATION);
   const { data, statusOptions, changeValidationStatus, isLoading } =
@@ -58,6 +61,8 @@ const ActionValidationStatus = <TParams,>({
     changeValidationStatus({ status, comment });
   };
 
+  const statusDisabled = disabledStatus.includes(statusSlug);
+
   return (
     <Box sx={{ p: 2 }}>
       <Form
@@ -67,7 +72,7 @@ const ActionValidationStatus = <TParams,>({
         {...formOptions}>
         <Grid item xs={12}>
           <FormControl
-            disabled={disabled}
+            disabled={disabled || statusDisabled}
             name="status"
             renderField={fieldProps => (
               <SelectValidationActionStatus
