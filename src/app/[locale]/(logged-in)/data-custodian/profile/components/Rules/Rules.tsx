@@ -111,7 +111,16 @@ export default function Rules() {
 
     const payload = {
       configs: [
-        ...createRulePayload(userRulesData, userRules),
+        ...createRulePayload(
+          // TEMPORARILY FILTER ANY TRAINING RULES
+          {
+            ...userRulesData,
+            data: userRulesData?.data?.filter(
+              u => u.name !== RuleName.TRAINING
+            ),
+          },
+          userRules
+        ),
         ...createRulePayload(orgRulesData, orgRules),
       ],
     };
