@@ -76,7 +76,7 @@ export default function ProjectsTable({
     const statusSlug = isUnVerified
       ? affiliationStatus
       : validationState?.[0]?.model_state.state.slug;
-    console.log(validationState, "<<<");
+
 
     return <ChipStatus status={statusSlug} />;
   };
