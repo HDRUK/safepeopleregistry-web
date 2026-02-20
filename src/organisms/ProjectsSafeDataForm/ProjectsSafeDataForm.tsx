@@ -52,7 +52,7 @@ export default function ProjectsSafeDataForm({
       yup.object().shape({
         datasets: yup.array().of(
           yup.object().shape({
-            value: yup.string(),
+            value: yup.string().nullable(),
           })
         ),
         data_sensitivity_level: yup.string(),
