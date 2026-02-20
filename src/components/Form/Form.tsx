@@ -61,7 +61,10 @@ export default function Form<T extends FieldValues>({
     }),
   };
 
-  const methods = useForm<T>(formOptions);
+  const methods = useForm<T>({
+    defaultValues,
+  });
+
   const { handleSubmit, reset } = methods;
 
   const prevDefaultValues = useRef(defaultValues);
