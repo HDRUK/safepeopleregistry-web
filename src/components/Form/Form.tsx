@@ -61,9 +61,7 @@ export default function Form<T extends FieldValues>({
     }),
   };
 
-  const methods = useForm<T>({
-    defaultValues,
-  });
+  const methods = useForm<T>(formOptions);
 
   const { handleSubmit, reset } = methods;
 
@@ -87,10 +85,13 @@ export default function Form<T extends FieldValues>({
   };
 
   const handleFormSubmit = async (values: T) => {
-    await onSubmit(values);
+    // Protect the submit payload from mutation
+    const submitPayload = structuredClone(values);
+
+    await onSubmit(submitPayload);
 
     if (shouldResetKeep) {
-      reset(methods.getValues());
+      reset(submitPayload);
     } else if (shouldReset) {
       reset(defaultValues);
     }
