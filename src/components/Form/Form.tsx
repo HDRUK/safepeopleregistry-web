@@ -70,11 +70,15 @@ export default function Form<T extends FieldValues>({
   const prevDefaultValues = useRef(defaultValues);
 
   useEffect(() => {
-    if (defaultValues && !deepEqual(defaultValues, prevDefaultValues.current)) {
+    if (!defaultValues || methods.formState.isSubmitting) {
+      return;
+    }
+
+    if (!deepEqual(defaultValues, prevDefaultValues.current)) {
       reset(defaultValues);
       prevDefaultValues.current = defaultValues;
     }
-  }, [defaultValues, reset]);
+  }, [defaultValues, methods.formState.isSubmitting, reset]);
 
   const extendedMethods: ExtendedUseFormReturn<T> = {
     ...methods,
@@ -86,7 +90,7 @@ export default function Form<T extends FieldValues>({
     await onSubmit(values);
 
     if (shouldResetKeep) {
-      reset(values);
+      reset(methods.getValues());
     } else if (shouldReset) {
       reset(defaultValues);
     }
