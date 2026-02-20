@@ -65,7 +65,9 @@ export default function ProjectsSafeData() {
     await mutateAsync({
       ...project.project_detail,
       ...payload,
-      datasets: payload?.datasets?.map(d => d.value),
+      datasets: payload?.datasets
+        .filter(v => v?.value && v.value.trim() !== "")
+        .map(d => d.value),
       access_date: formatDBDateTime(payload.access_date),
     });
   };
