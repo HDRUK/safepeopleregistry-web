@@ -17,14 +17,30 @@ export default function FormCanLeave({
 }: FormCanLeaveProps) {
   const { showAlert, hideAlert } = useAlertModal();
   const t = useTranslations(NAMESPACE_TRANSLATION_FORM);
-  const formState = useFormState();
-  const isDirty = !!Object.keys(formState.dirtyFields).length;
+  const { dirtyFields, isSubmitting } = useFormState();
+  const isDirty = !!Object.keys(dirtyFields).length;
 
   useWatch();
 
   const { continueTo } = useRouteChange({
     canLeave: !isDirty || canLeave,
-    onBlocked: (pathname: string | null) => {
+    isSubmitting,
+    onBlocked: (pathname: string | null, isSubmitting: boolean) => {
+      // 1) Submitting: block navigation
+      if (isSubmitting) {
+        showAlert({
+          severity: "warning",
+          title: t("savingAlertTitle"),
+          text: t("savingAlertText"),
+          onConfirm: async () => {
+            hideAlert();
+          },
+        });
+
+        return;
+      }
+
+      // 2) Dirty + not submitting: “unsaved changes” modal
       showAlert({
         severity: "warning",
         text: t("unsavedAlertText"),
@@ -34,6 +50,9 @@ export default function FormCanLeave({
         onConfirm: async () => {
           if (pathname) continueTo(pathname);
 
+          hideAlert();
+        },
+        onCancel: () => {
           hideAlert();
         },
       });
