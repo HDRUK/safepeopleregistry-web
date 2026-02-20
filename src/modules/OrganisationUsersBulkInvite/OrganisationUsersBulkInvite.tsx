@@ -1,4 +1,5 @@
 import InviteUserModal from "@/organisms/InviteUserModal";
+import { EntityType } from "@/types/api";
 import { Box, Button } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
@@ -32,6 +33,8 @@ export default function OrganisationUsersBulkInvite({
       <UserBulkInvite organisation_id={organisation.id} />
 
       <InviteUserModal
+        entityType={EntityType.ORGANISATION}
+        entityId={organisation.id}
         organisationId={organisation.id}
         open={open}
         onClose={() => setOpen(false)}

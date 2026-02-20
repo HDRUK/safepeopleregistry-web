@@ -1,4 +1,5 @@
 import { useStore } from "@/data/store";
+import { EntityType } from "@/types/api";
 import { getAbbreviatedListWithCount, getName } from "@/utils/application";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import Link from "@mui/material/Link";
@@ -178,6 +179,8 @@ export default function ProjectsAddUserModal({
       </FormModal>
 
       <InviteUserModal
+        entityType={EntityType.CUSTODIAN}
+        entityId={custodianId}
         custodianId={custodianId}
         projectRoles={projectRoles}
         onSuccess={handleInviteSuccess}

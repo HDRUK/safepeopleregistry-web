@@ -1,6 +1,9 @@
+import { useFeatures } from "@/components/FeatureProvider";
 import SelectOrganisation from "@/components/SelectOrganisation";
 import { PAGINATION_UPPER_LIMIT, Status } from "@/consts/application";
 import { useOrganisationsQuery } from "@/services/organisations";
+import { EntityType } from "@/types/api";
+import { getSponsorshipStatus } from "@/utils/application";
 import {
   Box,
   FormControlLabel,
@@ -13,8 +16,6 @@ import {
 } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
-import { getSponsorshipStatus } from "@/utils/application";
-import { useFeatures } from "@/components/FeatureProvider";
 import ChipStatus from "../../components/ChipStatus";
 import DateInput from "../../components/DateInput";
 import Form, { FormProps } from "../../components/Form";
@@ -31,6 +32,8 @@ export interface ProjectsSafeProjectFormProps
   extends FormProps<ResearcherProject> {
   mutateState: MutationState;
   project: ResearcherProject;
+  entityId: number;
+  entityType: EntityType;
 }
 
 const NAMESPACE_TRANSLATION_FORM = "Form.SafeProject";
@@ -39,6 +42,8 @@ const NAMESPACE_TRANSLATION_FORM_SPONSOR = "Organisations.InviteSponsor";
 export default function ProjectsSafeProjectForm({
   mutateState,
   project,
+  entityId,
+  entityType,
   ...restProps
 }: ProjectsSafeProjectFormProps) {
   const [enableSponsor, setEnableSponsor] = useState(
@@ -154,6 +159,8 @@ export default function ProjectsSafeProjectForm({
                             {edittable &&
                             status !== Status.SPONSORSHIP_APPROVED ? (
                               <SelectOrganisation
+                                entityType={entityType}
+                                entityId={entityId}
                                 hasEmpty
                                 key={organisation?.organisation_name}
                                 {...fieldProps}
