@@ -88,7 +88,7 @@ export default function Form<T extends FieldValues>({
     // Protect the submit payload from mutation
     const submitPayload = structuredClone(values);
 
-    await onSubmit(submitPayload);
+    await onSubmit(values);
 
     if (shouldResetKeep) {
       reset(submitPayload);
