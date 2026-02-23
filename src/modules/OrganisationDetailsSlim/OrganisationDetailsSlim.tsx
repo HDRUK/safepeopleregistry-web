@@ -1,13 +1,18 @@
 import { Box, Link, Typography } from "@mui/material";
+import { useTranslations } from "next-intl";
 import { Organisation } from "../../types/application";
 
 export interface OrganisationDetailsSlimProps {
   organisation: Organisation;
 }
 
+const NAMESPACE_TRANSLATION_APPLICATION = "Application";
+
 export default function OrganisationDetailsSlim({
   organisation,
 }: OrganisationDetailsSlimProps) {
+  const t = useTranslations(NAMESPACE_TRANSLATION_APPLICATION);
+
   if (!organisation) {
     return null;
   }
