@@ -8,6 +8,7 @@ import { useMemo } from "react";
 import ChipStatus from "../../components/ChipStatus";
 import ErrorMessage from "../../components/ErrorMessage";
 import Table from "../../components/Table";
+import { Status } from "../../consts/application";
 import { EntityType } from "../../types/api";
 import {
   Custodian,
@@ -69,8 +70,15 @@ export default function ProjectsTable({
 
   const renderStatus = (info: CellContext<ResearcherProject, unknown>) => {
     const validationState = info.getValue();
+    const affiliationStatus =
+      validationState?.[0]?.project_has_user?.affiliation.model_state?.state
+        .slug;
+    const isUnVerified = affiliationStatus === Status.AFFILIATION_EMAIL_VERIFY;
+    const statusSlug = isUnVerified
+      ? affiliationStatus
+      : validationState?.[0]?.model_state.state.slug;
 
-    return <ChipStatus status={validationState?.[0]?.model_state.state.slug} />;
+    return <ChipStatus status={statusSlug} />;
   };
 
   const columns = useMemo(() => {
