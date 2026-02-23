@@ -1,3 +1,3 @@
-import OrganisationDetails from "./OrganisationDetailsSlim";
+import OrganisationDetailsSlim from "./OrganisationDetailsSlim";
 
-export default OrganisationDetails;
+export default OrganisationDetailsSlim;

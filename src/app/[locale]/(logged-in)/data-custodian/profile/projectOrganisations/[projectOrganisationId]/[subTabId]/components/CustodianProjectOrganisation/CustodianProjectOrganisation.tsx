@@ -15,10 +15,10 @@ import { getCustodianOrganisationValidationLogsQuery } from "@/services/validati
 import { useQuery } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
 import { useEffect } from "react";
+import OrganisationDetailsSlim from "@/modules/OrganisationDetailsSlim";
 import { OrganisationsSubTabs } from "../../../../../consts/tabs";
 import SubTabsContents from "../SubsTabContents";
 import SubTabsSections from "../SubTabSections";
-import OrganisationDetailsSlim from "@/modules/OrganisationDetailsSlim";
 
 interface CustodianProjectUserProps {
   projectOrganisationId: number;
@@ -80,7 +80,6 @@ function CustodianProjectOrganisation({
   useEffect(() => {
     if (organisationData?.data) setOrganisation(organisationData.data);
   }, [organisationData]);
-
 
   const projectTitle =
     custodianProjectOrganisation?.data.project_organisation.project.title;
