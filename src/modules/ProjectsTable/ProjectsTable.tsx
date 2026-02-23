@@ -77,7 +77,6 @@ export default function ProjectsTable({
       ? affiliationStatus
       : validationState?.[0]?.model_state.state.slug;
 
-
     return <ChipStatus status={statusSlug} />;
   };
 
