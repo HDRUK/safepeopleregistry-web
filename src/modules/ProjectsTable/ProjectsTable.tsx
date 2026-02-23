@@ -71,7 +71,7 @@ export default function ProjectsTable({
   const renderStatus = (info: CellContext<ResearcherProject, unknown>) => {
     const validationState = info.getValue();
     const affiliationStatus =
-      validationState?.[0]?.project_has_user.affiliation.model_state.state.slug;
+      validationState?.[0]?.project_has_user?.affiliation.model_state.state.slug;
     const isUnVerified = affiliationStatus === Status.AFFILIATION_EMAIL_VERIFY;
     const statusSlug = isUnVerified
       ? affiliationStatus
