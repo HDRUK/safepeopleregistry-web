@@ -1,5 +1,5 @@
 name: Release workflow
-run-name: ${{ github.actor }} Release workflow
+run-name: ${{ github.actor }} triggered Release workflow
 
 on:
   push:
