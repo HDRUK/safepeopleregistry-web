@@ -3,13 +3,13 @@
 import { useStore } from "@/data/store";
 import { notFound } from "next/navigation";
 import OrganisationsPeople from "../../../../../components/OrganisationsPeople";
-import OrganisationsNameAddress from "../../../../../components/OrganisationsNameAddress";
 import OrganisationsDigitalIdentifiers from "../../../../../components/OrganisationsDigitalIdentifiers";
 import OrganisationsSectorWebsite from "../../../../../components/OrganisationsSectorWebsite";
 import OrganisationsDataSecurityCompliance from "../../../../../components/OrganisationsDataSecurityCompliance";
 
 import { OrganisationsSubTabs } from "../../../../../consts/tabs";
 import OrganisationsAutomatedFlags from "../../../../../components/OrganisationsAutomatedFlags";
+import OrganisationsContactDetails from "../../../../../components/OrganisationsContactDetails";
 
 interface TabsContentsProps {
   subTabId: OrganisationsSubTabs;
@@ -30,8 +30,8 @@ export default function SubTabsContents({ subTabId }: TabsContentsProps) {
     case OrganisationsSubTabs.PEOPLE:
       content = <OrganisationsPeople />;
       break;
-    case OrganisationsSubTabs.NAME_ADDRESS:
-      content = <OrganisationsNameAddress />;
+    case OrganisationsSubTabs.CONTACT_DETAILS:
+      content = <OrganisationsContactDetails />;
       break;
     case OrganisationsSubTabs.DIGITAL_IDENTIFIERS:
       content = <OrganisationsDigitalIdentifiers />;

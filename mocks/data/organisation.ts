@@ -135,6 +135,12 @@ const mockedOrganisation = (
       id: 1,
     }),
   ],
+  sro_officer: mockedUser({
+    first_name: "Jane",
+    last_name: "Doe",
+    email: "jane.doe@hdruk.ac.uk",
+    id: 2,
+  }),
   sro_profile_uri: faker.internet.url(),
   rules: [
     {
