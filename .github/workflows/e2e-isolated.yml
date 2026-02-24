@@ -271,18 +271,26 @@ jobs:
       - name: Wait for Keycloak
         run: |
           echo "Waiting for Keycloak to be ready..."
-          # Retries for up to 60 seconds
+          ready=0
+          # Retries for up to 60 seconds (30 * 2s)
           for i in {1..30}; do
-            if curl -s http://localhost:8080/health/live; then
+            if curl -sf http://localhost:8080/health/live >/dev/null; then
               echo "Keycloak is up!"
-              exit 0
+              ready=1
+              break
             fi
-            echo "Still waiting..."
+            echo "Still waiting... ($i/30)"
             sleep 2
           done
+
+          if [ "$ready" -eq 1 ]; then
+            exit 0
+          fi
+
           echo "Keycloak failed to start in time"
-          docker logs keycloak
-          exit 1Should I
+          docker logs keycloak || true
+          exit 1
+
 
       - name: Checkout api
         uses: actions/checkout@v4
@@ -304,6 +312,13 @@ jobs:
           key: e2e-composer-${{ hashFiles('composer.lock') }}
           restore-keys: e2e-composer-
           working-directory: safepeopleregistry-api
+
+      - name: Cache Composer deps
+        uses: actions/cache@v4
+        with:
+          path: safepeopleregistry-api/vendor
+          key: e2e-composer-${{ hashFiles('safepeopleregistry-api/composer.lock') }}
+          restore-keys: e2e-composer-          
 
       - name: Install Composer deps
         run: |
