@@ -3,15 +3,16 @@
 import { StoreUserHistories } from "@/data/store";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import { Button, Typography } from "@mui/material";
+import { Box, Button, Link, Typography } from "@mui/material";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { ColumnDef } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import ErrorMessage from "@/components/ErrorMessage";
+import Icon from "@/components/Icon";
 import { ActionMenu, ActionMenuItem } from "../../components/ActionMenu";
 import Table from "../../components/Table";
-import { AddIcon } from "../../consts/icons";
+import { AddIcon, RejectIcon, VerifyIcon } from "../../consts/icons";
 import useQueryAlerts from "../../hooks/useQueryAlerts";
 import useQueryConfirmAlerts from "../../hooks/useQueryConfirmAlerts";
 import useMutationUpdateProfessionalRegistration from "../../queries/useMutationUpdateProfessionalRegistration";
@@ -28,8 +29,12 @@ import {
 } from "../../types/application";
 import ProfessionalRegistrationsFormModal from "./ProfessionalRegistrationsFormModal";
 
-const NAMESPACE_TRANSLATION_PROFILE = "ProfessionalRegistrations";
+const NAMESPACE_TRANSLATION_PROFESSIONAL = "ProfessionalRegistrations";
 const NAMESPACE_TRANSLATION_APPLICATION = "Application";
+const NAMESPACE_TRANSLATION_PROFILE = "Profile";
+
+const UKSA_URL =
+  "https://uksa.statisticsauthority.gov.uk/digitaleconomyact-research-statistics/better-useofdata-for-research-information-for-researchers/list-of-accredited-researchers-and-research-projects-under-the-research-strand-of-the-digital-economy-act/";
 
 interface ProfessionalRegistrationsProps {
   variant: EntityType;
@@ -51,8 +56,9 @@ export default function ProfessionalRegistrations({
     ResearcherProfessionalRegistration | undefined
   >(undefined);
   const [isEditMode, setIsEditMode] = useState(false);
-  const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
+  const tProfessional = useTranslations(NAMESPACE_TRANSLATION_PROFESSIONAL);
   const tApplication = useTranslations(NAMESPACE_TRANSLATION_APPLICATION);
+  const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
 
   const {
     data: professionalRegistrationsData,
@@ -94,15 +100,15 @@ export default function ProfessionalRegistrations({
       errorAlertProps: {
         text: (
           <ErrorMessage
-            t={tProfile}
+            t={tProfessional}
             key={isEditMode ? "errorPutMessage" : "errorCreateMessage"}
           />
         ),
       },
       successAlertProps: {
         text: isEditMode
-          ? tProfile("successEditMessage")
-          : tProfile("successCreateMessage"),
+          ? tProfessional("successEditMessage")
+          : tProfessional("successCreateMessage"),
       },
     }
   );
@@ -117,10 +123,10 @@ export default function ProfessionalRegistrations({
         },
       },
       errorAlertProps: {
-        text: <ErrorMessage t={tProfile} tKey="errorDeleteMessage" />,
+        text: <ErrorMessage t={tProfessional} tKey="errorDeleteMessage" />,
       },
       successAlertProps: {
-        text: tProfile("successDeleteMessage"),
+        text: tProfessional("successDeleteMessage"),
       },
     }
   );
@@ -167,12 +173,12 @@ export default function ProfessionalRegistrations({
     () => [
       {
         accessorKey: "name",
-        header: tProfile("name"),
+        header: tProfessional("name"),
         cell: info => info.getValue(),
       },
       {
         accessorKey: "member_id",
-        header: tProfile("id"),
+        header: tProfessional("id"),
         cell: info => info.getValue(),
       },
       ...(variant === EntityType.USER
@@ -209,7 +215,7 @@ export default function ProfessionalRegistrations({
           ]
         : []),
     ],
-    [tProfile, tApplication, handleDelete]
+    [tProfessional, tApplication, handleDelete]
   );
   return (
     <>
@@ -230,16 +236,18 @@ export default function ProfessionalRegistrations({
         isEdit={isEditMode}
       />
       <Typography variant="h3" sx={{ mb: 1 }}>
-        {tProfile("resultsTitle")}
+        {tProfessional("resultsTitle")}
       </Typography>
       <Table
         columns={columns}
         data={professionalRegistrations}
         queryState={getProfessionalRegistrationsQueryState}
-        noResultsMessage={tProfile("professionalRegistrationsNoResultsMessage")}
+        noResultsMessage={tProfessional(
+          "professionalRegistrationsNoResultsMessage"
+        )}
         errorMessage={
           <ErrorMessage
-            t={tProfile}
+            t={tProfessional}
             key="professionalRegsitrationsErrorMessage"
           />
         }
@@ -257,8 +265,63 @@ export default function ProfessionalRegistrations({
             setIsModalOpen(true);
           }}
           sx={{ mt: 2 }}>
-          {tProfile("addProfessionalRegistration")}
+          {tProfessional("addProfessionalRegistration")}
         </Button>
+      )}
+
+      {variant === EntityType.CUSTODIAN && (
+        <>
+          <Box
+            sx={{
+              p: 0,
+              my: 2,
+              display: "flex",
+              flexDirection: "column",
+            }}>
+            <Box
+              sx={{
+                p: 0,
+                mt: 3,
+                mb: 1,
+                display: "flex",
+                alignItems: "center",
+              }}>
+              <Icon sx={{ mr: 1 }}>
+                {user.uksa_registered ? (
+                  <VerifyIcon data-testid="AccreditedResearcherIcon" />
+                ) : (
+                  <RejectIcon data-testid="AccreditedResearcherIcon" />
+                )}
+              </Icon>
+              <Typography>
+                {tProfile("accreditedResearcherCheckboxLabel")}
+              </Typography>
+            </Box>
+            {!!user.uksa_registered && (
+              <Link href={UKSA_URL} target="_blank">
+                {tProfile("checkAccreditedResearcher")}
+              </Link>
+            )}
+          </Box>
+
+          <Box
+            sx={{
+              p: 0,
+              mt: 3,
+              mb: 2,
+              display: "flex",
+              alignItems: "center",
+            }}>
+            <Icon sx={{ mr: 1 }}>
+              {user.declaration_signed ? (
+                <VerifyIcon data-testid="UserDeclarationIcon" />
+              ) : (
+                <RejectIcon data-testid="UserDeclarationIcon" />
+              )}
+            </Icon>
+            <Typography>{tProfile("userDeclarationCheckboxLabel")}</Typography>
+          </Box>
+        </>
       )}
     </>
   );

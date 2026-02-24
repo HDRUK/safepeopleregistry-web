@@ -7,6 +7,7 @@ enum EntityType {
   RESEARCHER = "RESEARCHER",
   ORGANISATION = "ORGANISATION",
   CUSTODIAN = "CUSTODIAN",
+  ADMIN = "ADMIN",
 }
 
 export { EntityType, FileType };

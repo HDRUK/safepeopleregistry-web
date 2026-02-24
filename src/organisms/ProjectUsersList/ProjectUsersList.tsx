@@ -1,6 +1,6 @@
 "use client";
 
-import { Status } from "@/consts/application";
+import { DISABLED_USER_STATUS } from "@/consts/projects";
 import { PaginatedQueryHelpers } from "@/hooks/usePaginatedQuery";
 import { KanbanBoardEntityProps } from "@/modules/KanbanBoard";
 import ProjectUsersTable from "@/modules/ProjectUsersTable";
@@ -36,7 +36,7 @@ export default function ProjectUsersList({
   ) => {
     return actions?.({
       data: info.row.original,
-      disabled: [Status.INVITED].includes(
+      disabled: DISABLED_USER_STATUS.includes(
         info.row.original.model_state?.state.slug
       ),
     });

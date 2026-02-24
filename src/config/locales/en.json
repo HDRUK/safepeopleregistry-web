@@ -154,6 +154,7 @@
       "more_org_info_req_escalation_committee": "Escalation to Validation Committee",
       "more_org_info_req_escalation_committee_short": "Escalation",
       "validated": "Validated",
+      "system_approval": "Pending approval",
       "org_validation_declined": "Declined Validation",
       "org_validation_declined_short": "Declined",
       "org_left_project": "Left project",
@@ -508,6 +509,8 @@
     "unsavedAlertTitle": "You have unsaved changes",
     "unsavedAlertConfirmButton": "Leave form",
     "unsavedAlertCancelButton": "Go back",
+    "savingAlertTitle": "Saving changes",
+    "savingAlertText": "Your changes are still being saved. Please wait a moment before leaving this page.",
     "certificationUploadPlaceholder": "Upload certification",
     "leadApplicantEmail": "Email",
     "leadApplicantEmailPlaceholder": "Email",
@@ -1107,6 +1110,7 @@
     "location": "Location",
     "accreditedResearcherCheckboxLabel": "I am a registered Accredited Researcher as published on the UK Statistics Authority website.",
     "userDeclarationCheckboxLabel": "I have signed a User declaration for accessing Digital Economy Act accredited environments.",
+    "checkAccreditedResearcher": "Check Accredited Researcher listing",
     "findOutMore": "Find out more",
     "employmentEducationPublicationRecord": "Employment, education and publication record",
     "orcidDescription": "Enter your ORCID identifier (if you have one) to help Data Custodians identify you.",
@@ -1195,7 +1199,9 @@
     "successDeleteMessage": "Your training entry was successfully deleted",
     "editTrainingCourse": "Edit Training Course",
     "updateTrainingError": "There was an error updating the training course. Please <contactLink>contact support</contactLink> if the problem persists.",
-    "updateTrainingSuccess": "Training course updated successfully"
+    "updateTrainingSuccess": "Training course updated successfully",
+    "cvUploaded": "CV Uploaded",
+    "downloadCv": "Download CV"
   },
   "ProfileCompleteStatus": {
     "profileComplete": "Profile complete",

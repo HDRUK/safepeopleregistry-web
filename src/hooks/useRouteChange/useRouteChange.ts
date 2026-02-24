@@ -3,11 +3,13 @@ import { useEffect } from "react";
 
 interface UseRouteChangeProps {
   canLeave?: boolean;
-  onBlocked: (pathname: string | null) => void;
+  isSubmitting?: boolean;
+  onBlocked: (pathname: string | null, isSubmitting: boolean) => void;
 }
 
 export default function useRouteChange({
   canLeave,
+  isSubmitting = false,
   onBlocked,
 }: UseRouteChangeProps) {
   const router = useRouter();
@@ -21,7 +23,7 @@ export default function useRouteChange({
       if (document.activeElement && !canLeave) {
         e.preventDefault();
 
-        onBlocked(document.activeElement.href);
+        onBlocked(document.activeElement.href, isSubmitting);
       }
     };
 
@@ -34,7 +36,7 @@ export default function useRouteChange({
         link.removeEventListener("click", handleRouteChange);
       });
     };
-  }, [canLeave]);
+  }, [canLeave, isSubmitting]);
 
   return {
     continueTo,

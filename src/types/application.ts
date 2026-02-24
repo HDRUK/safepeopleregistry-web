@@ -61,7 +61,7 @@ interface File {
   id: number;
   name: string;
   path: string;
-  status: keyof typeof FileStatus;
+  status: FileStatus;
   type: keyof typeof FileType;
   created_at: string;
   updated_at: string;
@@ -198,6 +198,7 @@ type User = WithModelState<{
   organisation?: Organisation;
   custodian_id?: number;
   custodian_user_id?: number;
+  custodian_user?: CustodianUser;
   consent_scrape: boolean;
   orc_id: string | null;
   orcid_scanning: boolean;
@@ -221,8 +222,9 @@ type User = WithModelState<{
   status: Status;
   declaration_signed?: boolean;
   uksa_registered?: boolean;
-  rules?: RuleState;
+  rules?: RuleState[];
   t_and_c_agreed?: boolean;
+  invited_by?: User;
 }>;
 interface AddressFields {
   postcode?: string;

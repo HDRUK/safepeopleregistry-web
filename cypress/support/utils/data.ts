@@ -37,7 +37,7 @@ const DEFAULT_CUSTODIAN_USER_FIELDS = {
 const DEFAULT_AFFILIATION_USERS = mockedAffiliation({
   relationship: "Employee",
   organisation: {
-    organisation_name: "Health Data Research UK",
+    organisation_name: "Health Pathways (UK) Limited",
   },
   role: "Manager",
   member_id: memberId,

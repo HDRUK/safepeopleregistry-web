@@ -15,6 +15,7 @@ enum PendingInvite {
 }
 
 enum Status {
+  SYSTEM_APPROVAL = "system_approval",
   EMAIL_SUCCESSFUL = "email_successful",
   EMAIL_FAILED = "email_failed",
   AFFILIATED = "affiliated",

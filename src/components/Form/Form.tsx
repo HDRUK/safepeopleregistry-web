@@ -27,7 +27,7 @@ export interface FormProps<T extends AnyObject>
   children: ReactNode | ((methods: UseFormReturn<T>) => ReactNode);
   autoComplete?: "off";
   error?: ReactNode;
-  onSubmit?: (values: T) => void;
+  onSubmit?: (values: T) => void | Promise<void>;
   sx?: BoxProps["sx"];
   defaultValues?: DefaultValues<T>;
   schema?: yup.ObjectSchema<T>;
@@ -62,16 +62,21 @@ export default function Form<T extends FieldValues>({
   };
 
   const methods = useForm<T>(formOptions);
+
   const { handleSubmit, reset } = methods;
 
   const prevDefaultValues = useRef(defaultValues);
 
   useEffect(() => {
-    if (defaultValues && !deepEqual(defaultValues, prevDefaultValues.current)) {
+    if (!defaultValues || methods.formState.isSubmitting) {
+      return;
+    }
+
+    if (!deepEqual(defaultValues, prevDefaultValues.current)) {
       reset(defaultValues);
       prevDefaultValues.current = defaultValues;
     }
-  }, [defaultValues, reset]);
+  }, [defaultValues, methods.formState.isSubmitting, reset]);
 
   const extendedMethods: ExtendedUseFormReturn<T> = {
     ...methods,
@@ -79,11 +84,14 @@ export default function Form<T extends FieldValues>({
       schema ? isFieldRequired(schema, fieldName as string) : false,
   };
 
-  const handleFormSubmit = (values: T) => {
-    onSubmit(values);
+  const handleFormSubmit = async (values: T) => {
+    // Protect the submit payload from mutation
+    const submitPayload = structuredClone(values);
+
+    await onSubmit(values);
 
     if (shouldResetKeep) {
-      reset(values);
+      reset(submitPayload);
     } else if (shouldReset) {
       reset(defaultValues);
     }

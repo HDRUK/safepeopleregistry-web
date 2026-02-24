@@ -42,7 +42,7 @@ function dateToString(
   date: Date | string | null | undefined,
   formatString: string = "YYYY-MM-DD"
 ) {
-  formatDateToString(date, formatString);
+  return formatDateToString(date, formatString);
 }
 
 function formatShortDate(date: Date | string | null | undefined) {

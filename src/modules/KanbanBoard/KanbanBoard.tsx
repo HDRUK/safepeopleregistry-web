@@ -191,14 +191,21 @@ export default function KanbanBoard<T>({
     handleDragSort(e, items, {
       ...options,
       setState: (state: DndItems<T>) => {
-        setItems(prevState => {
-          return filterDuplicates({
-            ...prevState,
-            ...state,
-          });
-        });
+        const isAllowed = options?.isTransitionAllowed?.(
+          activeData?.containerId,
+          e.over?.id
+        );
 
-        recentlyMovedToNewContainer.current = true;
+        if (isAllowed) {
+          setItems(prevState => {
+            return filterDuplicates({
+              ...prevState,
+              ...state,
+            });
+          });
+
+          recentlyMovedToNewContainer.current = true;
+        }
       },
     });
   };
@@ -308,7 +315,7 @@ export default function KanbanBoard<T>({
                         isDroppable={
                           data?.isDroppable || isDroppableItem?.(data)
                         }
-                        isError={data.isError}
+                        isError={data?.isError}
                         key={`${containerId}${data.id}`}
                         id={data.id}
                         index={findItemIndex(containerId, data.id, items)}>

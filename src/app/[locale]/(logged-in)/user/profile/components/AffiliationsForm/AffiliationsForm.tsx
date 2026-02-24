@@ -19,12 +19,15 @@ import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { getDate } from "@/utils/date";
 import SelectOrganisation from "@/components/SelectOrganisation";
+import { EntityType } from "@/types/api";
 
 export interface AffiliationsFormProps {
   onSubmit: (affiliation: ResearcherAffiliation) => void;
   onClose: () => void;
   queryState: QueryState;
   initialValues?: ResearcherAffiliation;
+  entityId: number;
+  entityType: EntityType;
 }
 
 const NAMESPACE_TRANSLATION = "Profile";
@@ -36,6 +39,8 @@ export default function AffiliationsForm({
   onClose,
   queryState,
   initialValues,
+  entityId,
+  entityType,
 }: AffiliationsFormProps) {
   const tProfile = useTranslations(NAMESPACE_TRANSLATION);
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
@@ -166,11 +171,14 @@ export default function AffiliationsForm({
                     name="organisation_id"
                     renderField={({ onChange, ...fieldProps }) => (
                       <SelectOrganisation
+                        entityId={entityId}
+                        entityType={entityType}
                         {...fieldProps}
                         onChange={e => {
                           setSelectedOrganisationId(e.target.value as number);
                           onChange(e);
                         }}
+                        showNotApprovedText
                       />
                     )}
                     description={
