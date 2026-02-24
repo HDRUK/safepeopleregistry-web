@@ -1,7 +1,8 @@
 import { mockedOrganisation } from "@/mocks/data/organisation";
 import { commonAccessibilityTests, render, screen } from "@/utils/testUtils";
-import { OrganisationsSroDetailsProps } from "./OrganisationsSroDetails";
-import OrganisationsSroDetails from "./OrganisationsSroDetails";
+import OrganisationsSroDetails, {
+  OrganisationsSroDetailsProps,
+} from "./OrganisationsSroDetails";
 
 const organisation = mockedOrganisation();
 
