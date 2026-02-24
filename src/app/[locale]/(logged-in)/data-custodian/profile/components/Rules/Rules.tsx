@@ -15,7 +15,7 @@ import {
   GetCustodianEntityModelResponse,
   putCustodianActiveEntityModelQuery,
 } from "@/services/custodians";
-import { Rule } from "@/types/rules";
+import { Rule, RuleName } from "@/types/rules";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
@@ -72,7 +72,9 @@ export default function Rules() {
   };
 
   const formattedUserRules: Rule[] = useMemo(
-    () => formatRules(userRulesData),
+    () =>
+      // TEMPORARILY FILTER ANY TRAINING RULES
+      formatRules(userRulesData)?.filter(r => r.label !== RuleName.TRAINING),
     [userRulesData]
   );
   const formattedOrgRules: Rule[] = useMemo(
@@ -109,7 +111,16 @@ export default function Rules() {
 
     const payload = {
       configs: [
-        ...createRulePayload(userRulesData, userRules),
+        ...createRulePayload(
+          // TEMPORARILY FILTER ANY TRAINING RULES
+          {
+            ...userRulesData,
+            data: userRulesData?.data?.filter(
+              u => u.name !== RuleName.TRAINING
+            ),
+          },
+          userRules
+        ),
         ...createRulePayload(orgRulesData, orgRules),
       ],
     };
