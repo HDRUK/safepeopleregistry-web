@@ -302,8 +302,7 @@ jobs:
         with:
           path: vendor
           key: e2e-composer-${{ hashFiles('composer.lock') }}
-          restore-keys: e2e-composer-
-          working-directory: safepeopleregistry-api
+          restore-keys: e2e-composer-${{ hashFiles('composer.lock') }}
 
       - name: Install Composer deps
         run: |
