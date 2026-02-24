@@ -278,7 +278,7 @@
     "cancelButton": "Cancel",
     "noDeleteUser": "You cannot delete your own user",
     "organisationsPeople": "Users",
-    "organisationsNameAddress": "Address",
+    "organisationsContactDetails": "Contact Details",
     "organisationsDigitalIdentifiers": "Digital Identifiers",
     "organisationsSectorWebsite": "Sector size & website",
     "organisationsSubsidiaries": "UK subsidiaries",
@@ -1483,6 +1483,12 @@
       "sortByOrganisationName": "Organisation Name",
       "filterByProjectStatus": "Filter by status"
     },
+    "SroDetails": {
+      "sroOfficerContact": "Senior Responsible Officer (SRO) contact information",
+      "sroOfficierContactInfo": "Senior Responsible Officers (SROs), are required to have sufficient seniority and relevant responsibility to nominate Delegates from your Organisation to affiliate your employees or students.",
+      "signedDeclaration": "Signed declaration",
+      "profileLink": "Profile link of signatory"
+    },
     "sroOfficer": "Senior Responsible Officer",
     "subsidiaries": "UK subsidiaries",
     "organisationName": "Organisation name",
@@ -1496,7 +1502,7 @@
     "website": "Organisation website",
     "organisationSize": "Organisation size",
     "projectStatus": "Status",
-    "organisationsNameAddress": "Address",
+    "organisationsContactDetails": "Organisation name and contact details",
     "searchPlaceholder": "Search by Organisation name",
     "notSet": "None"
   },

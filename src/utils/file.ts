@@ -13,6 +13,12 @@ function getUploadedCertification(files: FileResponse[] | undefined) {
     .find(file => file.type === FileType.CERTIFICATION);
 }
 
+function getLatestSRODeclaration(files: FileResponse[] | undefined) {
+  return [...(files || [])]
+    .reverse()
+    .find(file => file.type === FileType.DECLARATION_SRO);
+}
+
 function isFileScanning(file: FileResponse | undefined) {
   return file?.status === FileStatus.PENDING;
 }
@@ -55,6 +61,7 @@ export {
   getFileHref,
   getLatestCV,
   getUploadedCertification,
+  getLatestSRODeclaration,
   isFileScanComplete,
   isFileScanFailed,
   isFileScanning,

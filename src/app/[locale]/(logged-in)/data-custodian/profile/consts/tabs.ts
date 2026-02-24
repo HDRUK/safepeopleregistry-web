@@ -33,7 +33,7 @@ enum UserSubTabs {
 
 enum OrganisationsSubTabs {
   PEOPLE = "people",
-  NAME_ADDRESS = "name_address",
+  CONTACT_DETAILS = "contact_details",
   DIGITAL_IDENTIFIERS = "digital_identifiers",
   SECTOR_WEBSITE = "sector_website",
   DATA_SECURITY_COMPLIANCE = "data_security_compliance",

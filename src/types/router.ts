@@ -32,7 +32,7 @@ interface Routes {
   profileCustodianProjectsSafeOutputs: RouteConfig;
   profileCustodianOrganisations: RouteConfig;
   profileCustodianOrganisationsPeople: RouteConfig;
-  profileCustodianOrganisationsNameAddress: RouteConfig;
+  profileCustodianOrganisationsContactDetails: RouteConfig;
   profileCustodianOrganisationsDigitalIdentifiers: RouteConfig;
   profileCustodianOrganisationsSectorWebsite: RouteConfig;
   profileCustodianOrganisationsDataSecurityCompliance: RouteConfig;

@@ -18,7 +18,6 @@ import {
 import Integrations from "../Integrations";
 import OrganisationsDataSecurityCompliance from "../OrganisationsDataSecurityCompliance";
 import OrganisationsDigitalIdentifiers from "../OrganisationsDigitalIdentifiers";
-import OrganisationsNameAddress from "../OrganisationsNameAddress";
 import OrganisationsPeople from "../OrganisationsPeople";
 import OrganisationsSectorWebsite from "../OrganisationsSectorWebsite";
 import ProjectsSafeData from "../ProjectsSafeData";
@@ -31,6 +30,7 @@ import UserProjects from "../UserProjects";
 import ValidationChecks from "../ValidationChecks";
 import Webhooks from "../Webhooks";
 import ProjectsSafePeople from "../ProjectsSafePeople";
+import OrganisationsContactDetails from "../OrganisationsContactDetails";
 
 interface TabsContentsProps {
   tabId: PageTabs;
@@ -108,8 +108,8 @@ export default function SubTabsContents({
     case OrganisationsSubTabs.PEOPLE:
       content = <OrganisationsPeople />;
       break;
-    case OrganisationsSubTabs.NAME_ADDRESS:
-      content = <OrganisationsNameAddress />;
+    case OrganisationsSubTabs.CONTACT_DETAILS:
+      content = <OrganisationsContactDetails />;
       break;
     case OrganisationsSubTabs.DIGITAL_IDENTIFIERS:
       content = <OrganisationsDigitalIdentifiers />;

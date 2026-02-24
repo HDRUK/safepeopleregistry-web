@@ -4,17 +4,24 @@ import OrganisationsSubsidiariesTable from "@/modules/OrganisationsSubsidiariesT
 import OrganisationsNameAddressDetails from "@/modules/OrganisationsNameAddressDetails";
 import { useTranslations } from "next-intl";
 import { Box } from "@mui/system";
+import OrganisationsSroDetails from "@/modules/OrganisationsSroDetails";
 
 const NAMESPACE_TRANSLATION = "Organisations";
 const NAMESPACE_TRANSLATION_SUBSIDIARIES = "Organisations.Subsidiaries";
 
-export default function OrganisationsNameAddress() {
+export default function OrganisationsContactDetails() {
   const t = useTranslations(NAMESPACE_TRANSLATION);
   const tSubsidiaries = useTranslations(NAMESPACE_TRANSLATION_SUBSIDIARIES);
-  const organisation = useStore(state => state.getCurrentOrganisation());
+
+  const { organisation, projectOrganisation } = useStore(state => ({
+    organisation: state.getCurrentOrganisation(),
+    projectOrganisation: state.getCurrentProjectOrganisation(),
+  }));
+
+  console.log(projectOrganisation);
 
   return (
-    <PageBody heading={t("organisationsNameAddress")}>
+    <PageBody heading={t("organisationsContactDetails")}>
       <PageSection>
         <OrganisationsNameAddressDetails organisationData={organisation} />
       </PageSection>
@@ -30,6 +37,20 @@ export default function OrganisationsNameAddress() {
             data={organisation.subsidiaries || []}
             t={tSubsidiaries}
             isPaginated={false}
+          />
+        </Box>
+      </PageSection>
+      <PageSection>
+        <Box
+          sx={{
+            maxWidth: {
+              lg: "80%",
+
+              gap: 2,
+            },
+          }}>
+          <OrganisationsSroDetails
+            organisation={projectOrganisation.organisation}
           />
         </Box>
       </PageSection>

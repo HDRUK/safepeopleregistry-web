@@ -37,10 +37,10 @@ export default function SubTabsSections({
       ),
     },
     {
-      label: t("organisationsNameAddress"),
-      value: OrganisationsSubTabs.NAME_ADDRESS,
+      label: t("organisationsContactDetails"),
+      value: OrganisationsSubTabs.CONTACT_DETAILS,
       href: injectParamsIntoPath(
-        routes.profileCustodianOrganisationsNameAddress.path,
+        routes.profileCustodianOrganisationsContactDetails.path,
         {
           projectOrganisationId,
         }
