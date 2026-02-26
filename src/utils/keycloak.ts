@@ -31,10 +31,11 @@ const handleLogout = () => {
   window.location.href = getLogoutUrl();
 };
 
-const getRegisterUrl = (selectedUserGroup?: UserGroup | null, extraParams?: object) => {
-
+const getRegisterUrl = (
+  selectedUserGroup?: UserGroup | null,
+  extraParams?: object
+) => {
   const registerUrl = `${keycloakConfig.authServerUrl}/realms/${keycloakConfig.realm}/protocol/openid-connect/registrations`;
-
 
   const params = new URLSearchParams({
     client_id: keycloakConfig.clientId,
@@ -46,7 +47,7 @@ const getRegisterUrl = (selectedUserGroup?: UserGroup | null, extraParams?: obje
 
   if (extraParams) {
     Object.entries(extraParams).forEach(([key, value]) => {
-      if (value != null) {
+      if (value !== null) {
         params.append(key, value);
       }
     });
