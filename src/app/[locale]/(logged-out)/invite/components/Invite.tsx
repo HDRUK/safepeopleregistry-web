@@ -12,6 +12,7 @@ export default function Invite() {
   useEffect(() => {
     const digiIdent = params?.get("digi_ident");
     const inviteCode = params?.get("invite_code");
+    const loginHint = params?.get('anotherg%40jamiebyrne.com')
 
     if (digiIdent) {
       Cookies.set("account_digi_ident", digiIdent);
@@ -21,7 +22,7 @@ export default function Invite() {
       Cookies.set("invite_code", inviteCode);
     }
 
-    router.push(getRegisterUrl());
+    router.push(getRegisterUrl(null, {loginHint}));
   }, [params, router]);
 
   return null;

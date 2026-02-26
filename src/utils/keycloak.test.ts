@@ -1,4 +1,4 @@
-import { handleLogin, handleLogout } from "./keycloak";
+import { getRegisterUrl, handleLogin, handleLogout, handleRegister } from "./keycloak";
 
 describe("Auth functions", () => {
   const originalEnv = process.env;
@@ -33,5 +33,14 @@ describe("Auth functions", () => {
 
     // Verify that window.location.href is set correctly
     expect(window.location.href).toBe(expectedUrl);
+  });
+
+  it("should append extra params (e.g. loginHint) to the register URL", () => {
+    const loginHint = "biscuit";
+
+    const urlString = getRegisterUrl(null, { loginHint });
+    const url = new URL(urlString);
+
+    expect(url.searchParams.get("loginHint")).toBe("biscuit");
   });
 });
