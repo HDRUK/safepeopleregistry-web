@@ -12,7 +12,7 @@ export default function Invite() {
   useEffect(() => {
     const digiIdent = params?.get("digi_ident");
     const inviteCode = params?.get("invite_code");
-    const loginHint = params?.get('anotherg%40jamiebyrne.com')
+    const loginHint = params?.get('login_hint')
 
     if (digiIdent) {
       Cookies.set("account_digi_ident", digiIdent);
