@@ -22,7 +22,7 @@ export default function Invite() {
       Cookies.set("invite_code", inviteCode);
     }
 
-    router.push(getRegisterUrl(null, { loginHint }));
+    router.push(getRegisterUrl(null, { login_hint: loginHint }));
   }, [params, router]);
 
   return null;
