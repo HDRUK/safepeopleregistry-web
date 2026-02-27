@@ -17,6 +17,7 @@ export interface SelectOrganisationProps {
   hasEmpty?: boolean;
   entityType: EntityType;
   entityId: number;
+  organisationsIds?: number[];
   showNotApprovedText?: boolean;
 }
 
@@ -26,6 +27,7 @@ export default function SelectOrganisation({
   entityType,
   entityId,
   showNotApprovedText,
+  organisationsIds,
   ...fieldProps
 }: SelectOrganisationProps & SelectProps) {
   const { data: organisationsData } = useOrganisationsQuery({
@@ -40,7 +42,8 @@ export default function SelectOrganisation({
         .filter(
           (org: Organisation) =>
             org.system_approved ||
-            filterOrganisationsList(org, entityType, entityId)
+            filterOrganisationsList(org, entityType, entityId) ||
+            organisationsIds?.includes(org.id)
         )
         .map((org: Organisation) => (
           <MenuItem value={org.id} key={org.id} id={org.organisation_name}>
