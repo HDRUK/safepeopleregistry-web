@@ -173,6 +173,11 @@ export default function AffiliationsForm({
                       <SelectOrganisation
                         entityId={entityId}
                         entityType={entityType}
+                        organisationsIds={
+                          initialValues?.organisation_id
+                            ? [initialValues.organisation_id]
+                            : []
+                        }
                         {...fieldProps}
                         onChange={e => {
                           setSelectedOrganisationId(e.target.value as number);
