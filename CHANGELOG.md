@@ -1,3 +1,29 @@
+## [1.29.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.28.0...v1.29.0) (2026-02-27)
+
+### ✨ Features
+
+* **GAT-8387:** added release workflow pipeline (#674) ([1658fb6](https://github.com/HDRUK/safepeopleregistry-web/commit/1658fb689a15b5b564ec57642432987ea2049c51)), closes [GAT-8387](GAT-8387)
+* **REGISTRY-1361:** Add CV download to user profile (#663) ([2524f34](https://github.com/HDRUK/safepeopleregistry-web/commit/2524f340f30cffaab2f4d77d874e04456e5ae74b))
+* **REGISTRY-1492:** Display additional details on custodian user page (#664) ([fdeadf1](https://github.com/HDRUK/safepeopleregistry-web/commit/fdeadf1e715c66f8dc2bce715d4d33d7f0013188))
+* **REGISTRY-1924:** show sro details on org contact details (#679) ([20afc12](https://github.com/HDRUK/safepeopleregistry-web/commit/20afc121c50b2337b69d48eb2ef1281e64e5f6ad))
+* **REGISTRY-1954:** board status changes (#659) ([9414c64](https://github.com/HDRUK/safepeopleregistry-web/commit/9414c647ba588c64db54d9a675002f01fbcf47c7))
+* **REGISTRY-2279:** Hide training rules (#668) ([5209a25](https://github.com/HDRUK/safepeopleregistry-web/commit/5209a254976c60c7cee692a2548f2aa71cc99365))
+* **REGISTRY-2406:** filtering of organisations in dropdown (#666) ([544d6fd](https://github.com/HDRUK/safepeopleregistry-web/commit/544d6fd30372daf9012ad68e05b6821e3c10d2c1))
+* **REGISTRY-2425:** new system approved status (#661) ([a58929a](https://github.com/HDRUK/safepeopleregistry-web/commit/a58929a9f2f2949fd789eebf6ccbb7fccbf034a0))
+* **REGISTRY-2452:** add status to boards (#660) ([b6b4fa3](https://github.com/HDRUK/safepeopleregistry-web/commit/b6b4fa3a17903b737558cc9f7ed2013ca3fe92e3))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-0000:** Append login hint to URL (#681) ([de6e803](https://github.com/HDRUK/safepeopleregistry-web/commit/de6e8033e33eca09ce4aecf057a05371d24c6a87))
+* **REGISTRY-0000:** login hint typo (#682) ([c87203e](https://github.com/HDRUK/safepeopleregistry-web/commit/c87203e489d2c7a63198c7165c48b081fb7f56f3))
+* **REGISTRY-0000:** YAML Lint errors (#678) ([bf56abb](https://github.com/HDRUK/safepeopleregistry-web/commit/bf56abb7cce30a030efec06c3737ed75986a3f4c))
+* **REGISTRY-0006:** override orgs (#685) ([f691bf6](https://github.com/HDRUK/safepeopleregistry-web/commit/f691bf6ae2187fd5198db98c97ef30fec4c98e49))
+* **REGISTRY-2268:** Safe data form fixes (#670) ([63bc4ea](https://github.com/HDRUK/safepeopleregistry-web/commit/63bc4eacb86f2fc196a6a381462d4a90d9e81107))
+* **REGISTRY-2332:** verified status (#672) ([a550f79](https://github.com/HDRUK/safepeopleregistry-web/commit/a550f797fefba2b208bf8f4a7477a0692f884d97))
+* **REGISTRY-2423:** column drop disabled state (#671) ([569b8ab](https://github.com/HDRUK/safepeopleregistry-web/commit/569b8abbd840422ce96be3faa587b006c653cd5d))
+* **REGISTRY-2450:** Display org details in header (#675) ([3f3a450](https://github.com/HDRUK/safepeopleregistry-web/commit/3f3a4504aee0de04ee929c358251f92a489614bb))
+* **REGISTRY-2519:** Display modal if user tries changing tab while saving (#667) ([00ce30e](https://github.com/HDRUK/safepeopleregistry-web/commit/00ce30ee05bf59bec7149b7de32ddb911f429269))
+
 ## [1.28.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.27.0...v1.28.0) (2026-02-10)
 
 ### ✨ Features
