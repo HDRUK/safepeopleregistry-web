@@ -106,6 +106,8 @@ global.matchMedia = () => {
   };
 };
 
+global.structuredClone = val => JSON.parse(JSON.stringify(val));
+
 jest.mock("@/utils/auth", () => ({
   ...jest.requireActual("@/utils/auth"),
   getAccessToken: () => ({

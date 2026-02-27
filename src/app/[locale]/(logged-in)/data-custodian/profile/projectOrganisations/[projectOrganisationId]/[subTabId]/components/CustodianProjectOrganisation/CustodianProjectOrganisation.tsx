@@ -15,6 +15,7 @@ import { getCustodianOrganisationValidationLogsQuery } from "@/services/validati
 import { useQuery } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
 import { useEffect } from "react";
+import OrganisationDetailsSlim from "@/modules/OrganisationDetailsSlim";
 import { OrganisationsSubTabs } from "../../../../../consts/tabs";
 import SubTabsContents from "../SubsTabContents";
 import SubTabsSections from "../SubTabSections";
@@ -80,11 +81,21 @@ function CustodianProjectOrganisation({
     if (organisationData?.data) setOrganisation(organisationData.data);
   }, [organisationData]);
 
+  const projectTitle =
+    custodianProjectOrganisation?.data.project_organisation.project.title;
+
   return (
     organisation && (
-      <PageBodyContainer heading={organisation.organisation_name}>
+      <PageBodyContainer heading={projectTitle}>
         <PageColumns>
           <PageColumnBody lg={8}>
+            <OrganisationDetailsSlim
+              organisation={
+                custodianProjectOrganisation?.data.project_organisation
+                  .organisation
+              }
+            />
+
             <SubTabsSections
               projectOrganisationId={projectOrganisationId}
               subTabId={subTabId}

@@ -12,6 +12,7 @@ type ProjectOrganisationsActionsProps<T = CustodianProjectOrganisation> =
     onMoveClick: (id: number, status: string) => void;
     allowedTransitions: string[];
     tStatus: Translations;
+    disabled?: boolean;
   }>;
 
 export default function ProjectOrganisationsActions({
@@ -19,11 +20,11 @@ export default function ProjectOrganisationsActions({
   allowedTransitions,
   data,
   tStatus,
+  disabled,
   ...restProps
 }: ProjectOrganisationsActionsProps) {
   return (
-    <ActionMenu
-      disabled={!data.project_organisation.organisation.system_approved}>
+    <ActionMenu disabled={disabled}>
       {({ handleClose }) => (
         <KanbanBoardActionsMenuItems
           onMoveClick={(id: number, status: string) => {

@@ -20,6 +20,7 @@ export type ProjectUsersActionsProps<T = CustodianProjectUser> =
     onMoveClick: (id: number, status: string) => void;
     allowedTransitions: string[];
     tStatus: Translations;
+    disabled?: boolean;
   }>;
 
 export default function ProjectUsersActions({
@@ -30,6 +31,7 @@ export default function ProjectUsersActions({
   t,
   tStatus,
   allowedTransitions,
+  disabled,
   ...restProps
 }: ProjectUsersActionsProps) {
   const { showConfirm } = useMutateDeleteEntityFromProjectWithConfirmation({
@@ -55,19 +57,22 @@ export default function ProjectUsersActions({
     <ActionMenu>
       {({ handleClose }) => (
         <>
-          <KanbanBoardActionsMenuItems
-            onMoveClick={(id: number, status: string) => {
-              onMoveClick(id, status);
+          {!disabled && (
+            <KanbanBoardActionsMenuItems
+              onMoveClick={(id: number, status: string) => {
+                onMoveClick(id, status);
 
-              handleClose();
-            }}
-            allowedTransitions={allowedTransitions}
-            data={data}
-            t={t}
-            tStatus={tStatus}
-            handleClose={handleClose}
-            {...restProps}
-          />
+                handleClose();
+              }}
+              allowedTransitions={allowedTransitions}
+              data={data}
+              t={t}
+              tStatus={tStatus}
+              handleClose={handleClose}
+              disabled={disabled}
+              {...restProps}
+            />
+          )}
           <ActionMenuItem
             onClick={() => {
               showConfirm(id);

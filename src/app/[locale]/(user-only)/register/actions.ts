@@ -10,13 +10,18 @@ import { User } from "@/types/application";
 import { setAcceptTCs } from "@/utils/register";
 import { cookies } from "next/headers";
 
-async function registerUser() {
-  await postRegister({
-    account_type: UserGroup.USERS,
-    t_and_c_agreed: true,
-  });
+async function registerUser(userGroup: UserGroup) {
+  await postRegister(
+    {
+      account_type: userGroup,
+      t_and_c_agreed: true,
+    },
+    {
+      suppressThrow: true,
+    }
+  );
 
-  await setAcceptTCs(false, UserGroup.USERS);
+  await setAcceptTCs(false, userGroup);
 }
 
 async function registerOrganisation(tokenUser: Partial<User>) {
@@ -32,7 +37,7 @@ async function registerOrganisation(tokenUser: Partial<User>) {
   await setAcceptTCs(false, UserGroup.ORGANISATIONS);
 }
 
-async function registerInvite(unclaimedUser: User) {
+async function registerInvite(unclaimedUser: User, userGroup: UserGroup) {
   const cookieStore = await cookies();
 
   cookieStore.delete("account_type");
@@ -42,6 +47,7 @@ async function registerInvite(unclaimedUser: User) {
 
   if (orgId) {
     await postClaimUser(unclaimedUser.id);
+
     cookieStore.delete("account_digi_ident");
 
     if (!unclaimedUser.is_delegate) {
@@ -50,7 +56,7 @@ async function registerInvite(unclaimedUser: User) {
 
     await setAcceptTCs(false, UserGroup.ORGANISATIONS);
   } else {
-    await registerUser();
+    await registerUser(userGroup);
 
     await setAcceptTCs(false, UserGroup.USERS);
   }

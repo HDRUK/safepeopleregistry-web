@@ -1,5 +1,6 @@
 "use client";
 
+import { DISABLED_USER_STATUS } from "@/consts/projects";
 import { PaginatedQueryHelpers } from "@/hooks/usePaginatedQuery";
 import { KanbanBoardEntityProps } from "@/modules/KanbanBoard";
 import ProjectUsersTable from "@/modules/ProjectUsersTable";
@@ -33,7 +34,12 @@ export default function ProjectUsersList({
   const renderActionMenuCell = (
     info: CellContext<CustodianProjectUser, unknown>
   ) => {
-    return actions?.({ data: info.row.original });
+    return actions?.({
+      data: info.row.original,
+      disabled: DISABLED_USER_STATUS.includes(
+        info.row.original.model_state?.state.slug
+      ),
+    });
   };
 
   const extraColumns: ColumnDef<CustodianProjectUser>[] =

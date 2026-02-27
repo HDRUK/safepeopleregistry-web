@@ -53,6 +53,57 @@ function getSponsor(project: ResearcherProject) {
   return project?.project_has_sponsorships?.[0]?.sponsor;
 }
 
+const getColorForStatus = (status?: Status): string => {
+  if (
+    [
+      Status.PROJECT_APPROVED,
+      Status.PROJECT_IN_PROGRESS,
+      Status.VALIDATION_COMPLETE,
+      Status.VALIDATED,
+      Status.AFFILIATION_APPROVED,
+      Status.ORGANISATION_VALIDATED,
+      Status.REGISTERED,
+      Status.ORGANISATION_REGISTERED,
+      Status.SPONSORSHIP_APPROVED,
+      Status.EMAIL_SUCCESSFUL,
+    ].includes(status!)
+  )
+    return "success";
+
+  if (
+    [
+      Status.PROJECT_DECLINED_APPROVAL,
+      Status.USER_VALIDATION_DECLINED,
+      Status.ORG_VALIDATION_DECLINED,
+      Status.AFFILIATION_REJECTED,
+      Status.ORGANISATION_NOT_VALIDATED,
+      Status.SPONSORSHIP_REJECTED,
+      Status.EMAIL_FAILED,
+    ].includes(status!)
+  )
+    return "error";
+
+  if (
+    [
+      Status.PROJECT_PENDING,
+      Status.VALIDATION_IN_PROGRESS,
+      Status.MORE_USER_INFO_REQ,
+      Status.MORE_USER_INFO_REQ_ESCALATION_MANAGER,
+      Status.MORE_USER_INFO_REQ_ESCALATION_COMITTEE,
+      Status.MORE_ORG_INFO_REQ,
+      Status.MORE_ORG_INFO_REQ_ESCALATION_MANAGER,
+      Status.MORE_ORG_INFO_REQ_ESCALATION_COMMITTEE,
+      Status.PENDING,
+      Status.AFFILIATION_PENDING,
+      Status.SPONSORSHIP_PENDING,
+      Status.AFFILIATION_INFO_REQUIRED,
+    ].includes(status!)
+  )
+    return "warning";
+
+  return "neutral";
+};
+
 function getStatus(slug: string) {
   switch (slug) {
     case Status.SPONSORSHIP_REJECTED:
@@ -187,4 +238,5 @@ export {
   isProduction,
   isSponsorshipStatusApproved,
   parseSystemConfig,
+  getColorForStatus,
 };

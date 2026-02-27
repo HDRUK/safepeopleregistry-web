@@ -19,12 +19,15 @@ import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { getDate } from "@/utils/date";
 import SelectOrganisation from "@/components/SelectOrganisation";
+import { EntityType } from "@/types/api";
 
 export interface AffiliationsFormProps {
   onSubmit: (affiliation: ResearcherAffiliation) => void;
   onClose: () => void;
   queryState: QueryState;
   initialValues?: ResearcherAffiliation;
+  entityId: number;
+  entityType: EntityType;
 }
 
 const NAMESPACE_TRANSLATION = "Profile";
@@ -36,6 +39,8 @@ export default function AffiliationsForm({
   onClose,
   queryState,
   initialValues,
+  entityId,
+  entityType,
 }: AffiliationsFormProps) {
   const tProfile = useTranslations(NAMESPACE_TRANSLATION);
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
@@ -166,11 +171,19 @@ export default function AffiliationsForm({
                     name="organisation_id"
                     renderField={({ onChange, ...fieldProps }) => (
                       <SelectOrganisation
+                        entityId={entityId}
+                        entityType={entityType}
+                        organisationsIds={
+                          initialValues?.organisation_id
+                            ? [initialValues.organisation_id]
+                            : []
+                        }
                         {...fieldProps}
                         onChange={e => {
                           setSelectedOrganisationId(e.target.value as number);
                           onChange(e);
                         }}
+                        showNotApprovedText
                       />
                     )}
                     description={
@@ -218,27 +231,20 @@ export default function AffiliationsForm({
                     <FormControlWrapper
                       name="organisation_name"
                       renderField={fieldProps => <TextField {...fieldProps} />}
-                      description={
-                        <>
-                          <Box mb={2}>
-                            {tProfile("organisationNameSubtitle")}
-                          </Box>
-                          {tProfile.rich("organisationListed", {
-                            link: chunks => (
-                              <Link
-                                component="button"
-                                onClick={e => {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                                  setSelectOrganisation(true);
-                                }}
-                                sx={{ pb: 0.25 }}>
-                                {chunks}
-                              </Link>
-                            ),
-                          })}
-                        </>
-                      }
+                      description={tProfile.rich("organisationListed", {
+                        link: chunks => (
+                          <Link
+                            component="button"
+                            onClick={e => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setSelectOrganisation(true);
+                            }}
+                            sx={{ pb: 0.25 }}>
+                            {chunks}
+                          </Link>
+                        ),
+                      })}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -246,15 +252,20 @@ export default function AffiliationsForm({
                       name="organisation_email"
                       renderField={fieldProps => <TextField {...fieldProps} />}
                       description={
-                        !!initialValues &&
-                        !initialValues?.email && (
-                          <Box sx={{ display: "flex", color: "warning.main" }}>
-                            <WarningIcon />
-                            <Typography>
-                              {tProfile("affiliationsEmailWarningMessage")}
-                            </Typography>
+                        <>
+                          <Box mb={2}>
+                            {tProfile("organisationNameSubtitle")}
                           </Box>
-                        )
+                          {!!initialValues && !initialValues?.email && (
+                            <Box
+                              sx={{ display: "flex", color: "warning.main" }}>
+                              <WarningIcon />
+                              <Typography>
+                                {tProfile("affiliationsEmailWarningMessage")}
+                              </Typography>
+                            </Box>
+                          )}
+                        </>
                       }
                     />
                   </Grid>

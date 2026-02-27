@@ -23,6 +23,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import Results from "@/components/Results";
 import { SEARCH_PAGE_MAX_PER_PAGE } from "@/consts/search";
 import ErrorMessage from "@/components/ErrorMessage";
+import { Status } from "@/consts/application";
 import ProjectOrganisationsList from "../ProjectOrganisationsList";
 import ProjectOrganisationsActions from "./ProjectOrganisationsActions";
 
@@ -124,6 +125,20 @@ export default function ProjectOrganisations({
 
   const updateQueryState = { isError, isSuccess, reset };
 
+  const rewriteTransitions = (
+    props: KanbanBoardHelperProps<CustodianProjectOrganisation>
+  ) => {
+    const { slug } = props.data.model_state.state;
+
+    let allowedTransitions = getAllowedTransitions(slug);
+
+    if ([Status.INVITED, Status.SYSTEM_APPROVAL].includes(slug)) {
+      allowedTransitions = [];
+    }
+
+    return allowedTransitions;
+  };
+
   const commonProps = useMemo(
     () => ({
       data: custodianProjectOrganisations,
@@ -133,19 +148,23 @@ export default function ProjectOrganisations({
       onDragEnd: handleUpdateOrganisation,
       actions: (
         props: KanbanBoardHelperProps<CustodianProjectOrganisation>
-      ) => (
-        <ProjectOrganisationsActions
-          t={t}
-          tStatus={tStatus}
-          onMoveClick={async (id, status) => {
-            handleUpdateOrganisation(id, status);
-          }}
-          allowedTransitions={getAllowedTransitions(
-            props.data.model_state.state.slug
-          )}
-          {...props}
-        />
-      ),
+      ) => {
+        return (
+          <ProjectOrganisationsActions
+            t={t}
+            tStatus={tStatus}
+            onMoveClick={async (id, status) => {
+              handleUpdateOrganisation(id, status);
+            }}
+            allowedTransitions={rewriteTransitions(props)}
+            {...props}
+            disabled={
+              !custodianProjectOrganisations?.project_organisation?.organisation
+                ?.system_approved || props.disabled
+            }
+          />
+        );
+      },
       getAllowedTransitions,
       updateQueryState,
     }),

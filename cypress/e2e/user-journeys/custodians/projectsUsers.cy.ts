@@ -1,7 +1,8 @@
 import { Status } from "@/consts/application";
 import { ROUTES } from "@/consts/router";
 import { mockedCustodianHasProjectUser } from "@/mocks/data/custodian";
-import { logout } from "cypress/support/utils/common";
+import { getName } from "@/utils/application";
+import { dataCy, logout } from "cypress/support/utils/common";
 import { loginCustodian } from "cypress/support/utils/custodian/auth";
 import {
   changeStatusProjectUsers,
@@ -59,16 +60,17 @@ describe("Projects users journey", () => {
   });
 
   it("Cannot manually change from invited", () => {
-    changeStatusProjectUsers({ first_name, last_name }, Status.PENDING);
+    cy.get("tbody")
+      .find("tr")
+      .last()
+      .find(dataCy("action-menu"))
+      .last()
+      .click();
 
-    hasProjectUsers({
-      ...dataProjectUser,
-      model_state: {
-        state: {
-          slug: Status.PENDING,
-        },
-      },
-    });
+    cy.get(".MuiPopover-root")
+      .should("be.visible")
+      .contains(/change status/i)
+      .should("not.exist");
   });
 
   it("Removes a user from the project", () => {

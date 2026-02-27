@@ -28,6 +28,7 @@ import {
   usePaginatedAffiliations,
 } from "@/services/affiliations";
 import { PostAffiliationPayload } from "@/services/affiliations/types";
+import { EntityType } from "@/types/api";
 import { ResearcherAffiliation } from "@/types/application";
 import { QueryState } from "@/types/form";
 import { formatDBDateTime } from "@/utils/date";
@@ -63,9 +64,11 @@ export default function AffiliationsPage({
   const [selectedAffiliation, setSelectedAffiliation] = useState<
     ResearcherAffiliation | undefined
   >(undefined);
-  const routes = useStore(state => state.getApplication().routes);
 
-  const user = useStore(state => state.getUser());
+  const { user, routes } = useStore(state => ({
+    user: state.getUser(),
+    routes: state.getApplication().routes,
+  }));
 
   const {
     data: affiliationsData,
@@ -304,6 +307,8 @@ export default function AffiliationsPage({
                     : tProfile("addAffiliationSelectOrganisationForm")
                 }>
                 <AffiliationsForm
+                  entityId={user.id}
+                  entityType={EntityType.USER}
                   onClose={() => {
                     setOpen(false);
                     setSelectedAffiliation(undefined);

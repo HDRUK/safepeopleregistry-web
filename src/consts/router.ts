@@ -42,8 +42,8 @@ const ROUTES: Routes = {
     path: "/data-custodian/profile/projectOrganisations/{projectOrganisationId}/people",
     permissions: [UserGroup.CUSTODIANS],
   },
-  profileCustodianOrganisationsNameAddress: {
-    path: "/data-custodian/profile/projectOrganisations/{projectOrganisationId}/name_address",
+  profileCustodianOrganisationsContactDetails: {
+    path: "/data-custodian/profile/projectOrganisations/{projectOrganisationId}/contact_details",
     permissions: [UserGroup.CUSTODIANS],
   },
   profileCustodianOrganisationsDigitalIdentifiers: {

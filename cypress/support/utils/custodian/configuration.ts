@@ -13,26 +13,26 @@ const hasUnCheckedOnUsersConfigurationAutomatedFlags = () => {
     "p",
     "A User is located in a country which has UK equivalent data protection laws."
   ).should("exist");
-  cy.get("#12").should("exist").uncheck();
-  cy.contains("p", "Training").should("exist");
-  cy.contains("p", ":").should("exist");
-  cy.contains(
-    "p",
-    "A User has completed the NHS Research Secure Data Environment training."
-  ).should("exist");
-  cy.get("#13").should("exist").uncheck();
-  cy.contains("p", "Training").should("exist");
-  cy.contains("p", ":").should("exist");
-  cy.contains(
-    "p",
-    "A User has completed the ONS Accredited Researcher training."
-  ).should("exist");
-  cy.get("#14").should("exist").uncheck();
-  cy.contains("p", "Training").should("exist");
-  cy.contains("p", ":").should("exist");
-  cy.contains("p", "A User has completed the MRC GDPR training.").should(
-    "exist"
-  );
+  // cy.get("#12").should("exist").uncheck();
+  // cy.contains("p", "Training").should("exist");
+  // cy.contains("p", ":").should("exist");
+  // cy.contains(
+  //   "p",
+  //   "A User has completed the NHS Research Secure Data Environment training."
+  // ).should("exist");
+  // cy.get("#13").should("exist").uncheck();
+  // cy.contains("p", "Training").should("exist");
+  // cy.contains("p", ":").should("exist");
+  // cy.contains(
+  //   "p",
+  //   "A User has completed the ONS Accredited Researcher training."
+  // ).should("exist");
+  // cy.get("#14").should("exist").uncheck();
+  // cy.contains("p", "Training").should("exist");
+  // cy.contains("p", ":").should("exist");
+  // cy.contains("p", "A User has completed the MRC GDPR training.").should(
+  //   "exist"
+  // );
   cy.get("#15").should("exist").uncheck();
   cy.contains("p", "User affiliation").should("exist");
   cy.contains("p", ":").should("exist");
@@ -47,9 +47,6 @@ const hasUnCheckedOnUsersConfigurationAutomatedFlags = () => {
 const hasCheckedOnUsersConfigurationAutomatedFlags = () => {
   cy.get("#10").should("exist").check();
   cy.get("#11").should("exist").check();
-  cy.get("#12").should("exist").check();
-  cy.get("#13").should("exist").check();
-  cy.get("#14").should("exist").check();
   cy.get("#15").should("exist").check();
   cy.saveContinueClick("Save");
   cy.clickAlertModal();

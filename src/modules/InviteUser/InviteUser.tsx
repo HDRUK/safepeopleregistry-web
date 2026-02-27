@@ -2,6 +2,7 @@ import {
   postCustodianInviteUserQuery,
   postOrganisationInviteUserQuery,
 } from "@/services/organisations";
+import { EntityType } from "@/types/api";
 import SaveIcon from "@mui/icons-material/Save";
 import { LoadingButton } from "@mui/lab";
 import { Grid, Link, TextField } from "@mui/material";
@@ -36,6 +37,8 @@ export interface InviteUserFormProps {
   projectRoles?: Partial<Role>[];
   actions?: React.ReactNode;
   combinedSuccess?: boolean;
+  entityId: number;
+  entityType: EntityType;
 }
 
 export default function InviteUser({
@@ -46,6 +49,8 @@ export default function InviteUser({
   enableEmailCheck = true,
   projectRoles,
   combinedSuccess = true,
+  entityId,
+  entityType,
 }: InviteUserFormProps) {
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
   const tUser = useTranslations(NAMESPACE_TRANSLATION_ORGANISATION);
@@ -230,7 +235,12 @@ export default function InviteUser({
                     <FormControlWrapper
                       name="organisation_id"
                       renderField={({ ...fieldProps }) => (
-                        <SelectOrganisation {...fieldProps} />
+                        <SelectOrganisation
+                          entityId={entityId}
+                          entityType={entityType}
+                          {...fieldProps}
+                          showNotApprovedText={entityType === EntityType.USER}
+                        />
                       )}
                       description={tProfile.rich("organisationNotListed", {
                         link: chunks => (
