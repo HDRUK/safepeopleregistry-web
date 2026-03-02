@@ -203,6 +203,16 @@ jobs:
           nohup maildev --smtp=1025 --web=8025 --ip 0.0.0.0 > maildev.log 2>&1 &
           sleep 5
 
+      - name: Generate GitHub App token
+        id: generate-deployment-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.DEPLOY_APP_ID }}
+          private-key: ${{ secrets.DEPLOY_APP_PRIVATE_KEY }}
+          owner: HDRUK
+          repositories: |
+            ${{ github.event.repository.name }}
+        
       - name: Checkout web
         uses: actions/checkout@v4
 
@@ -248,7 +258,7 @@ jobs:
           repository: HDRUK/hdruk-keycloak
           path: hdruk-keycloak
           ref: main
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ steps.generate-deployment-token.outputs.token }}
 
       - name: Build and Start Keycloak
         working-directory: ./hdruk-keycloak
@@ -289,7 +299,7 @@ jobs:
         with:
           repository: HDRUK/safepeopleregistry-api
           path: safepeopleregistry-api
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ steps.generate-deployment-token.outputs.token }}
           ref: ${{ github.event.inputs.api_branch || 'dev' }}
 
       - name: Setup PHP
