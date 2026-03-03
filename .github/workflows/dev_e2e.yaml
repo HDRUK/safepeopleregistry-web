@@ -1,4 +1,4 @@
-# actionlint-disable
+# actionlint-disable empty-workflow
 # name: Cypress Tests
 
 # on:
