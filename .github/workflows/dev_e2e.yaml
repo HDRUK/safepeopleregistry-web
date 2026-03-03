@@ -1,6 +1,6 @@
-# actionlint-disable empty-workflow
+# actionlint-disable
+# This workflow is intentionally kept empty for future E2E tests.
 # name: Cypress Tests
-
 # on:
 #   pull_request:
 #     branches:
