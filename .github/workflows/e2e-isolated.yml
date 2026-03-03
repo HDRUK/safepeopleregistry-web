@@ -212,7 +212,9 @@ jobs:
           owner: HDRUK
           repositories: |
             ${{ github.event.repository.name }}
-        
+            hdruk-keycloak
+            safepeopleregistry-api
+
       - name: Checkout web
         uses: actions/checkout@v4
 
