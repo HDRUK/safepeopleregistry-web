@@ -4,6 +4,7 @@ import StatusList from "@/components/StatusList";
 import { Status } from "@/consts/application";
 import { useStore } from "@/data/store";
 import { getCustodianStatusQuery } from "@/services/custodians";
+import getProjectOrganisationStatusQuery from "@/services/custodians/getProjectOrganisationStatusQuery";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 
@@ -21,18 +22,24 @@ function StatusPanel() {
 
   const projectUserId = projectUser?.id;
   const registryId = projectUser?.registry?.id;
+  const organisationId = projectUser?.affiliation?.organisation_id as number
 
   const { data: status, ...queryState } = useQuery({
     ...getCustodianStatusQuery(custodianId as number, projectUserId as number),
     enabled: !!registryId,
   });
 
+
+  const {data: orgStatus} = useQuery({
+    ...getProjectOrganisationStatusQuery(custodianId, projectUser.project_id, organisationId),
+    enabled: !!organisationId,
+  });
+
   const projectStatus =
     status?.data?.project_status?.state?.slug || Status.NONE;
   const validationStatus =
     status?.data?.validation_state?.state?.slug || Status.NONE;
-  const organisationStatus =
-    status?.data?.organisation_status?.state?.slug || Status.NONE;
+  const organisationStatus = orgStatus?.data?.state?.slug || Status.NONE;
   const affiliationStatus =
     status?.data?.affiliation_status?.state?.slug || Status.NONE;
 
