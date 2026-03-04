@@ -22,16 +22,19 @@ function StatusPanel() {
 
   const projectUserId = projectUser?.id;
   const registryId = projectUser?.registry?.id;
-  const organisationId = projectUser?.affiliation?.organisation_id as number
+  const organisationId = projectUser?.affiliation?.organisation_id as number;
 
   const { data: status, ...queryState } = useQuery({
     ...getCustodianStatusQuery(custodianId as number, projectUserId as number),
     enabled: !!registryId,
   });
 
-
-  const {data: orgStatus} = useQuery({
-    ...getProjectOrganisationStatusQuery(custodianId, projectUser.project_id, organisationId),
+  const { data: orgStatus } = useQuery({
+    ...getProjectOrganisationStatusQuery(
+      custodianId,
+      projectUser.project_id,
+      organisationId
+    ),
     enabled: !!organisationId,
   });
 

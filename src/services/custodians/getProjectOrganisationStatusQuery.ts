@@ -11,9 +11,11 @@ export default function getProjectOrganisationStatusQuery(
       "getProjectOrganisationStatus",
       custodianId,
       projectId,
-      organisationId
+      organisationId,
     ],
     queryFn: () =>
-      getProjectOrganisationStatus(custodianId, projectId, organisationId)
-  } as UseQueryOptions<Awaited<ReturnType<typeof getProjectOrganisationStatus>>>;
+      getProjectOrganisationStatus(custodianId, projectId, organisationId),
+  } as UseQueryOptions<
+    Awaited<ReturnType<typeof getProjectOrganisationStatus>>
+  >;
 }
