@@ -19,6 +19,11 @@ export interface SecurityCompilanceFormData {
   dsptk_ods_code?: string;
   dsptk_expiry_date?: Date;
   dsptk_expiry_evidence?: number;
+  dsptk_date_last_published?: Date;
+  ico_registration_id?: string;
+  ico_date_registered?: Date;
+  ico_expiry_date?: Date;
+  ico_expiry_evidence?: number;
 }
 
 export const getValidation = (t: (key: string) => string) =>
@@ -111,6 +116,23 @@ export const getValidation = (t: (key: string) => string) =>
         then: schema => schema.required(t("dsptkExpiryEvidenceRequired")),
         otherwise: schema => schema.notRequired(),
       }),
+
+    ico_expiry_date: yup
+      .date()
+      .nullable()
+      .when("ico_registration_id", {
+        is: (value: string) => !!value,
+        then: schema => schema.required(t("icoExpiryDateRequired")),
+        otherwise: schema => schema.notRequired(),
+      }),
+    ico_expiry_evidence: yup
+      .number()
+      .nullable()
+      .when("ico_expiry_date", {
+        is: (value: string) => !!value,
+        then: schema => schema.required(t("icoExpiryEvidenceRequired")),
+        otherwise: schema => schema.notRequired(),
+      }),
   });
 
 export const getDefaultValues = (
@@ -128,13 +150,20 @@ export const getDefaultValues = (
   dsptk_ods_code: organisation?.dsptk_ods_code || "",
   dsptk_expiry_date: getDate(organisation?.dsptk_expiry_date),
   dsptk_expiry_evidence: organisation?.dsptk_expiry_evidence?.id,
+  dsptk_date_last_published: getDate(organisation?.dsptk_date_last_published),
+  ico_registration_id: organisation?.ico_registration_id,
+  ico_date_registered: getDate(organisation?.ico_date_registered),
+  ico_expiry_date: getDate(organisation?.ico_expiry_date),
+  ico_expiry_evidence: organisation?.ico_expiry_evidence?.id,
 });
 
 export type Certification = {
   name: string;
   certificationNum: keyof SecurityCompilanceFormData;
   certificationExpiryDate: keyof SecurityCompilanceFormData;
+  certificationRegisteredDate?: keyof SecurityCompilanceFormData;
   certificationEvidence: keyof SecurityCompilanceFormData;
+  certificationDirectoryURL?: string;
 };
 
 export const certificationRows: Certification[] = [
@@ -159,8 +188,19 @@ export const certificationRows: Certification[] = [
   {
     name: "dsptkCertified",
     certificationNum: "dsptk_ods_code",
+    certificationRegisteredDate: "dsptk_date_last_published",
     certificationExpiryDate: "dsptk_expiry_date",
     certificationEvidence: "dsptk_expiry_evidence",
+    certificationDirectoryURL:
+      "https://www.dsptoolkit.nhs.uk/OrganisationSearch/",
+  },
+  {
+    name: "icoRegistration",
+    certificationNum: "ico_registration_id",
+    certificationRegisteredDate: "ico_date_registered",
+    certificationExpiryDate: "ico_expiry_date",
+    certificationEvidence: "ico_expiry_evidence",
+    certificationDirectoryURL: "https://ico.org.uk/ESDWebPages/Entry/",
   },
 ];
 

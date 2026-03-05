@@ -1,8 +1,7 @@
-import React, { ChangeEvent } from "react";
+import { ChangeEvent } from "react";
 import useFileUpload from "@/hooks/useFileUpload";
 import FileLink from "@/components/FileLink";
 import { FileType } from "@/consts/files";
-import { Grid } from "@mui/material";
 import useOrganisationFileUpload from "@/hooks/useOrganisationFileUpload";
 import { useStore } from "@/data/store";
 import { capitaliseFirstLetter } from "@/utils/string";
@@ -49,23 +48,19 @@ const CertificationUploader = ({
   };
 
   return (
-    <Grid container item spacing={3} sx={{ mt: 1 }}>
-      <Grid item xs={4}>
-        <FileLink
-          fileButtonText={file?.name ? t("buttonTextAlt") : t("buttonText")}
-          message={`${FileType.CERTIFICATION}${name.toUpperCase()}`}
-          fileNameText={file?.name}
-          isSizeInvalid={isSizeInvalid}
-          isScanning={isScanning}
-          isScanComplete={isScanComplete}
-          isScanFailed={isScanFailed}
-          isUploading={isUploading}
-          onFileChange={handleFileChange}
-          onDownload={() => downloadFile(file?.id as number)}
-          includeStatus
-        />
-      </Grid>
-    </Grid>
+    <FileLink
+      fileButtonText={file?.name ? t("buttonTextAlt") : t("buttonText")}
+      message={`${FileType.CERTIFICATION}${name.toUpperCase()}`}
+      fileNameText={file?.name}
+      isSizeInvalid={isSizeInvalid}
+      isScanning={isScanning}
+      isScanComplete={isScanComplete}
+      isScanFailed={isScanFailed}
+      isUploading={isUploading}
+      onFileChange={handleFileChange}
+      onDownload={() => downloadFile(file?.id as number)}
+      includeStatus
+    />
   );
 };
 
