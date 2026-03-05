@@ -46,6 +46,7 @@ export default function OrganisationsDigitalIdentifiersDetails({
           content: (
             <Link
               target="_blank"
+              rel="noreferrer"
               href={`https://www.odsdatasearchandexport.nhs.uk/?search=generalorg&query=${organisationData.ods_id}`}>
               {organisationData.ods_id}
             </Link>
