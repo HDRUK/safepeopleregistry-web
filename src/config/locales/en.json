@@ -593,6 +593,8 @@
     "rorId": "ROR ID",
     "rorIdPlaceholder": "ROR ID",
     "rorIdDescription": "Research Organisation ID e.g. <rorLink></rorLink>. To search for your ID <link>go here</link>",
+    "odsId": "ODS ID",
+    "odsIdDescription": "Organisation Data Service ID. To search for your ID, <link>go here</link>",
     "websiteRequiredInvalid": "Website is required",
     "websiteFormatInvalid": "The website must be a valid url. e.g. https://www.example.com",
     "urlFormatInvalid": "The url must be a valid url. e.g. https://www.example.com",

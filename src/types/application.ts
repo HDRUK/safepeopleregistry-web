@@ -310,6 +310,7 @@ type Organisation = OrganisationIdvt &
     sro_profile_uri?: string;
     sro_officer?: User;
     files?: File[];
+    ods_id: string;
   }>;
 
 interface ResearcherEducation {
