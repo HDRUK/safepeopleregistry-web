@@ -132,7 +132,7 @@ export const getDefaultValues = (
   dsptk_ods_code: organisation?.dsptk_ods_code || "",
   dsptk_expiry_date: getDate(organisation?.dsptk_expiry_date),
   dsptk_date_last_published: getDate(organisation?.dsptk_date_last_published),
-  dsptk_status: organisation?.dsptk_status,
+  dsptk_status: organisation?.dsptk_status || "",
   ico_registration_id: organisation?.ico_registration_id,
   ico_date_registered: getDate(organisation?.ico_date_registered),
   ico_expiry_date: getDate(organisation?.ico_expiry_date),
