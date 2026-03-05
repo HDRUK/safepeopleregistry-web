@@ -1,7 +1,4 @@
-import {
-  VALIDATION_CE_CERTIFICATION_NUMBER,
-  VALIDATION_DSPTK_CERTIFICATION_NUMBER,
-} from "@/consts/form";
+import { VALIDATION_CE_CERTIFICATION_NUMBER } from "@/consts/form";
 import yup from "@/config/yup";
 import { Organisation } from "@/types/application";
 import { getDate } from "@/utils/date";
@@ -18,8 +15,8 @@ export interface SecurityCompilanceFormData {
   iso_expiry_evidence?: number;
   dsptk_ods_code?: string;
   dsptk_expiry_date?: Date;
-  dsptk_expiry_evidence?: number;
   dsptk_date_last_published?: Date;
+  dsptk_status?: string;
   ico_registration_id?: string;
   ico_date_registered?: Date;
   ico_expiry_date?: Date;
@@ -93,27 +90,12 @@ export const getValidation = (t: (key: string) => string) =>
         otherwise: schema => schema.notRequired(),
       }),
 
-    dsptk_ods_code: yup
-      .string()
-      .optional()
-      .matches(VALIDATION_DSPTK_CERTIFICATION_NUMBER, {
-        message: t("dsptkOdsCodeInvalid"),
-        excludeEmptyString: true,
-      }),
     dsptk_expiry_date: yup
       .date()
       .nullable()
       .when("dsptk_ods_code", {
         is: (value: string) => !!value,
         then: schema => schema.required(t("dsptkExpiryDateRequired")),
-        otherwise: schema => schema.notRequired(),
-      }),
-    dsptk_expiry_evidence: yup
-      .number()
-      .nullable()
-      .when("dsptk_expiry_date", {
-        is: (value: string) => !!value,
-        then: schema => schema.required(t("dsptkExpiryEvidenceRequired")),
         otherwise: schema => schema.notRequired(),
       }),
 
@@ -149,8 +131,8 @@ export const getDefaultValues = (
   iso_expiry_evidence: organisation?.iso_expiry_evidence?.id,
   dsptk_ods_code: organisation?.dsptk_ods_code || "",
   dsptk_expiry_date: getDate(organisation?.dsptk_expiry_date),
-  dsptk_expiry_evidence: organisation?.dsptk_expiry_evidence?.id,
   dsptk_date_last_published: getDate(organisation?.dsptk_date_last_published),
+  dsptk_status: organisation?.dsptk_status,
   ico_registration_id: organisation?.ico_registration_id,
   ico_date_registered: getDate(organisation?.ico_date_registered),
   ico_expiry_date: getDate(organisation?.ico_expiry_date),
@@ -162,8 +144,9 @@ export type Certification = {
   certificationNum: keyof SecurityCompilanceFormData;
   certificationExpiryDate: keyof SecurityCompilanceFormData;
   certificationRegisteredDate?: keyof SecurityCompilanceFormData;
-  certificationEvidence: keyof SecurityCompilanceFormData;
+  certificationEvidence?: keyof SecurityCompilanceFormData;
   certificationDirectoryURL?: string;
+  certificationStatus?: string;
 };
 
 export const certificationRows: Certification[] = [
@@ -190,9 +173,9 @@ export const certificationRows: Certification[] = [
     certificationNum: "dsptk_ods_code",
     certificationRegisteredDate: "dsptk_date_last_published",
     certificationExpiryDate: "dsptk_expiry_date",
-    certificationEvidence: "dsptk_expiry_evidence",
     certificationDirectoryURL:
       "https://www.dsptoolkit.nhs.uk/OrganisationSearch/",
+    certificationStatus: "dsptk_status",
   },
   {
     name: "icoRegistration",

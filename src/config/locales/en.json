@@ -710,6 +710,7 @@
     "dsptkOdsCodePlaceholder": "e.g. DSPTK-2025-12345",
     "dsptkOdsCodeInvalid": "DSPTK identifier is invalid, it must be in the form, e.g.: DSPTK-2025-12345",
     "dsptkExpiryDate": "Expiry date",
+    "dsptkStatus": "Status",
     "dsptkExpiryDateRequired": "An expiry date for your code needs to be set.",
     "dsptkExpiryEvidenceRequired": "Evidence of your DSPTK certification is required",
     "dsptkOdsCodeDirectoryLink": "You can use your <link>DSPT directory page</link> to fill in the rest.",

@@ -29,7 +29,6 @@ export default function OrganisationsDataSecurityComplianceDetails({
     iso_expiry_evidence,
     dsptk_ods_code,
     dsptk_expiry_date,
-    dsptk_expiry_evidence,
   } = organisationData;
 
   const data = [
@@ -55,7 +54,6 @@ export default function OrganisationsDataSecurityComplianceDetails({
       name: t("dsptkOdsCode"),
       num: dsptk_ods_code,
       expiryDate: dsptk_expiry_date,
-      file: dsptk_expiry_evidence,
     },
   ].filter(({ num }) => !!num);
 

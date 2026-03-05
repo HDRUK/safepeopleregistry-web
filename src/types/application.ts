@@ -301,7 +301,7 @@ type Organisation = OrganisationIdvt &
     dsptk_ods_code: string;
     dsptk_expiry_date: string;
     dsptk_date_last_published: string;
-    dsptk_expiry_evidence: File | null;
+    dsptk_status?: string;
     subsidiaries?: Subsidiary[];
     departments: Department[];
     unclaimed: number;

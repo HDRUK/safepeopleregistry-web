@@ -91,10 +91,23 @@ export default function SecurityCompliance() {
                       <DirectoryLink
                         baseUrl={cert.certificationDirectoryURL}
                         fieldName={cert.certificationNum}
-                        // linkText="ICO directory page"
                       />
                     )}
                   </Grid>
+
+                  {cert.certificationStatus && (
+                    <Grid item xs={3}>
+                      <FormControlWrapper
+                        name={cert.certificationStatus}
+                        renderField={fieldProps => (
+                          <TextField
+                            {...fieldProps}
+                            sx={{ maxWidth: "450px" }}
+                          />
+                        )}
+                      />
+                    </Grid>
+                  )}
 
                   {cert.certificationRegisteredDate && (
                     <Grid item xs={3}>
@@ -124,19 +137,21 @@ export default function SecurityCompliance() {
                     />
                   </Grid>
 
-                  <Grid item xs={3}>
-                    <FormControlWrapper
-                      name={cert.certificationEvidence}
-                      displayLabel={false}
-                      renderField={fieldProps => (
-                        <CertificationUploader
-                          name={cert.name}
-                          value={fieldProps.value}
-                          onChange={fieldProps.onChange}
-                        />
-                      )}
-                    />
-                  </Grid>
+                  {cert.certificationEvidence && (
+                    <Grid item xs={3}>
+                      <FormControlWrapper
+                        name={cert.certificationEvidence}
+                        displayLabel={false}
+                        renderField={fieldProps => (
+                          <CertificationUploader
+                            name={cert.name}
+                            value={fieldProps.value}
+                            onChange={fieldProps.onChange}
+                          />
+                        )}
+                      />
+                    </Grid>
+                  )}
                 </Grid>
               </FormSection>
             ))}
