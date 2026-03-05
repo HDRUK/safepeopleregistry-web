@@ -1479,6 +1479,7 @@
     "DigitalIdentifiers": {
       "companiesHouseNo": "Companies House ID",
       "rorId": "ROR ID",
+      "odsId": "ODS ID",
       "charities": "Charities",
       "organisationUniqueId": "Safe People Registry identifier"
     },
@@ -1504,6 +1505,7 @@
     "address": "Address",
     "companiesHouseNo": "Companies House ID",
     "rorId": "ROR ID",
+    "odsId": "ODS ID",
     "charities": "Charities",
     "organisationUniqueId": "Safe People Registry identifier",
     "sectorName": "Organisation sector",
