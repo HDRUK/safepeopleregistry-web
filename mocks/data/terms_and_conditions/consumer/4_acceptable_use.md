@@ -27,15 +27,3 @@
 ## 4.3 We reserve the right to refuse to accept or cease to use any Input Data (as defined below) supplied by you that we consider contravenes these Terms.
 
 ## 4.4 You must not misuse the Safe People Registry by knowingly introducing viruses, trojans, worms, logic bombs or other material which is malicious or technologically harmful. You must not attempt to gain unauthorised access to the Safe People Registry, the server on which the Safe People Registry is stored or any server, computer or database connected to the Safe People Registry.
-
-## 4.5 You represent and warrant that you meet one of the following:
-
-### 4.5.1 you are accredited under one of the following:
-
-#### 4.5.1.1 [the Digital Economy Act (DEA) 2017;](https://uksa.statisticsauthority.gov.uk/digitaleconomyact-research-statistics/better-access-to-data-for-research-information-for-processors/list-of-digital-economy-act-accredited-processing-environments/) or
-
-#### 4.5.1.2 [the Scottish Safe Haven Charter;](https://www.gov.scot/publications/charter-safe-havens-scotland-principles-standards-scottish-safe-haven-network-support-use-data-enable-research-innovation-scotland/)
-
-### 4.5.2 you are an SDE within the [NSH SDE Network;](https://digital.nhs.uk/data-and-information/research-powered-by-data/sde-network) or
-
-### 4.5.3 your TRE or SDE meets all the mandatory controls listed in the Standard Architecture for Trusted Research Environments (SATRE) available at: [https://satre-specification.readthedocs.io/en/stable/](https://satre-specification.readthedocs.io/en/stable/).
