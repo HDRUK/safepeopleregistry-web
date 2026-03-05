@@ -137,6 +137,14 @@ const legalComponents: Components = {
       </p>
     );
   },
+
+  h4({ node: _node, children, ...rest }) {
+    return (
+      <p style={{ marginLeft: "40px" }} {...rest}>
+        {children}
+      </p>
+    );
+  },
 };
 
 export default function Markdown({
