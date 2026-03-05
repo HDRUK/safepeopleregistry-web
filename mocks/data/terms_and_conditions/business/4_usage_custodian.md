@@ -28,7 +28,7 @@
 
 ## 4.4 As a Data Custodian, you shall identify a main contact who is responsible for your Account and for nominating administrators and approvers. An ‘approver’ is an individual who records any decisions made regarding the Researcher’s ‘safety’ (as defined in the Five Safes Framework) and access to specific projects.
 
-## 4.5 You represent and warrant that:
+## 4.5 You represent and warrant that you meet one of the following:
 
 ### 4.5.1 you are accredited under one of the following:
 

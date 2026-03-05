@@ -1,3 +1,9 @@
+## [1.29.1](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.29.0...v1.29.1) (2026-03-05)
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-2569:** Update t&cs (#692) ([91bc1f2](https://github.com/HDRUK/safepeopleregistry-web/commit/91bc1f23be98f2b4cdb3458449546e3b9bb032fb))
+
 ## [1.29.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.28.0...v1.29.0) (2026-02-27)
 
 ### ✨ Features
