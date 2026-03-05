@@ -38,4 +38,4 @@
 
 ### 4.5.2 you are an SDE within the [NSH SDE Network;](https://digital.nhs.uk/data-and-information/research-powered-by-data/sde-network) or
 
-### 4.5.3 your TRE or SDE meets all the mandatory controls listed in the Standard Architecture for Trusted Research Environments (SATRE) available at: https://satre-specification.readthedocs.io/en/stable/.
+### 4.5.3 your TRE or SDE meets all the mandatory controls listed in the Standard Architecture for Trusted Research Environments (SATRE) available at: [https://satre-specification.readthedocs.io/en/stable/](https://satre-specification.readthedocs.io/en/stable/).
