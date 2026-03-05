@@ -716,7 +716,7 @@
     "dsptkOdsCodeDirectoryLink": "You can use your <link>DSPT directory page</link> to fill in the rest.",
     "dsptkDateLastPublished": "Date published",
     "icoRegistration": "ICO Registration",
-    "icoRegistrationId": "ICO Registration ID",
+    "icoRegistrationId": "ICO Registration Reference",
     "icoDateRegistered": "Date registered",
     "icoExpiryDate": "Expiry date",
     "icoExpiryDateRequired": "An expiry date for your code needs to be set.",
