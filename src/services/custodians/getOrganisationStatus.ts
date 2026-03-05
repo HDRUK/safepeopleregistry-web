@@ -7,7 +7,6 @@ export default async (
   organisationId: number
 ): Promise<ResponseJson<GetOrganisationStatusResponse>> => {
   const response = await getRequest(`/organisations/${organisationId}/status`);
-  console.log(response, "response");
 
   return handleJsonResponse(response);
 };
