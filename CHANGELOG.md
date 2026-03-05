@@ -1,3 +1,9 @@
+## [1.29.2](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.29.1...v1.29.2) (2026-03-05)
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-2569:** t&c tweak (#694) ([36a2a71](https://github.com/HDRUK/safepeopleregistry-web/commit/36a2a718a9dc247e72449ff7df08d993c9ba0c4c))
+
 ## [1.29.1](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.29.0...v1.29.1) (2026-03-05)
 
 ### 🐛 Bug Fixes
