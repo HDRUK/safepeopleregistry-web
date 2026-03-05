@@ -175,7 +175,8 @@ export default function DigitalIdentifiers() {
                         link: chunks => (
                           <Link
                             href="https://www.odsdatasearchandexport.nhs.uk"
-                            target="_blank">
+                            target="_blank"
+                            rel="noreferrer">
                             {chunks}
                           </Link>
                         ),
