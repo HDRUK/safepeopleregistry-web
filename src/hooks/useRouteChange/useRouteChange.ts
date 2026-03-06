@@ -27,12 +27,12 @@ export default function useRouteChange({
       }
     };
 
-    document.querySelectorAll("a").forEach(link => {
+    document.querySelectorAll(`a:not([target="_blank"])`).forEach(link => {
       link.addEventListener("click", handleRouteChange);
     });
 
     return () => {
-      document.querySelectorAll("a").forEach(link => {
+      document.querySelectorAll(`a:not([target="_blank"])`).forEach(link => {
         link.removeEventListener("click", handleRouteChange);
       });
     };

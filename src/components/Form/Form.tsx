@@ -112,7 +112,7 @@ export default function Form<T extends FieldValues>({
           sx={{
             display: "flex",
             flexDirection: "column",
-            gap: 3,
+            gap: 6,
             ...restProps.sx,
           }}>
           {error && (

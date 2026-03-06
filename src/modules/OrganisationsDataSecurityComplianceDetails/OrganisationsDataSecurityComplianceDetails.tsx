@@ -29,7 +29,7 @@ export default function OrganisationsDataSecurityComplianceDetails({
     iso_expiry_evidence,
     dsptk_ods_code,
     dsptk_expiry_date,
-    dsptk_expiry_evidence,
+    dsptk_status,
   } = organisationData;
 
   const data = [
@@ -55,13 +55,13 @@ export default function OrganisationsDataSecurityComplianceDetails({
       name: t("dsptkOdsCode"),
       num: dsptk_ods_code,
       expiryDate: dsptk_expiry_date,
-      file: dsptk_expiry_evidence,
+      status: dsptk_status,
     },
   ].filter(({ num }) => !!num);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 5 }}>
-      {data.map(({ name, num, expiryDate, file }) => (
+      {data.map(({ name, num, expiryDate, status, file }) => (
         <div>
           <Typography variant="h5" sx={{ mb: 1 }}>
             {name}
@@ -73,6 +73,14 @@ export default function OrganisationsDataSecurityComplianceDetails({
               </Typography>
               <Typography>{num}</Typography>
             </div>
+            {status && (
+              <div>
+                <Typography variant="h6" fontSize="1rem">
+                  {t("status")}
+                </Typography>
+                <Typography>{status}</Typography>
+              </div>
+            )}
             {expiryDate && (
               <div>
                 <Typography variant="h6" fontSize="1rem">
