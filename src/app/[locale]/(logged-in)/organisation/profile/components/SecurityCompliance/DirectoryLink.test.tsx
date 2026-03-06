@@ -9,7 +9,7 @@ let lastRichKey: string | null = null;
 jest.mock("next-intl", () => ({
   __esModule: true,
   useTranslations: () => {
-    const t: any = () => "";
+    const t = () => "";
     t.rich = (
       key: string,
       values: { link: (chunks: React.ReactNode) => JSX.Element }
