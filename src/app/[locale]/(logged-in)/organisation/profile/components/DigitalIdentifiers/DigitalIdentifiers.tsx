@@ -11,7 +11,7 @@ import { useStore } from "@/data/store";
 import { PageBody, PageSection } from "@/modules";
 import { Box, Grid, Link, TextField } from "@mui/material";
 import { useTranslations } from "next-intl";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { ROUTES } from "@/consts/router";
 import { useRouter } from "next/navigation";
 import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
@@ -25,6 +25,7 @@ export interface DigitalIdentifiersFormValues {
   companies_house_no: string;
   charities: Charity[];
   ror_id: string;
+  ods_id: string;
 }
 
 const NAMESPACE_TRANSLATION_FORM = "Form";
@@ -91,6 +92,7 @@ export default function DigitalIdentifiers() {
       ),
       isCharity: organisation?.charities && organisation.charities.length > 0,
       ror_id: organisation?.ror_id,
+      ods_id: organisation?.ods_id,
     },
     error: isError && <ErrorMessage t={tProfile} tKey={error} />,
   };
@@ -100,6 +102,7 @@ export default function DigitalIdentifiers() {
       charities: fields.charities,
       companies_house_no: fields.companies_house_no,
       ror_id: fields.ror_id,
+      ods_id: fields.ods_id,
     };
     onSubmit(payload).then(() =>
       router.push(ROUTES.profileOrganisationDetailsSectorSizeAndWebsite.path)
@@ -157,6 +160,23 @@ export default function DigitalIdentifiers() {
                         ),
                         link: chunks => (
                           <Link href="https://ror.org/search" target="_blank">
+                            {chunks}
+                          </Link>
+                        ),
+                      })}
+                    />
+                  </Grid>
+
+                  <Grid item xs={7}>
+                    <FormControlWrapper
+                      name="ods_id"
+                      renderField={fieldProps => <TextField {...fieldProps} />}
+                      description={tForm.rich("odsIdDescription", {
+                        link: chunks => (
+                          <Link
+                            href="https://www.odsdatasearchandexport.nhs.uk"
+                            target="_blank"
+                            rel="noreferrer">
                             {chunks}
                           </Link>
                         ),

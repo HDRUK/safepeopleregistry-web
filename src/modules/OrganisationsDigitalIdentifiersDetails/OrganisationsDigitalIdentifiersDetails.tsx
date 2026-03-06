@@ -41,6 +41,17 @@ export default function OrganisationsDigitalIdentifiersDetails({
             </Link>
           ),
         },
+        {
+          column_id: "ods_id",
+          content: (
+            <Link
+              target="_blank"
+              rel="noreferrer"
+              href={`https://www.odsdatasearchandexport.nhs.uk/?search=generalorg&query=${organisationData.ods_id}`}>
+              {organisationData.ods_id}
+            </Link>
+          ),
+        },
         "",
         {
           column_id: "charities",

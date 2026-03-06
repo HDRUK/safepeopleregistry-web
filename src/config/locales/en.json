@@ -593,6 +593,8 @@
     "rorId": "ROR ID",
     "rorIdPlaceholder": "ROR ID",
     "rorIdDescription": "Research Organisation ID e.g. <rorLink></rorLink>. To search for your ID <link>go here</link>",
+    "odsId": "ODS Code",
+    "odsIdDescription": "Organisation Data Service Code. To search for your Code, <link>go here</link>",
     "websiteRequiredInvalid": "Website is required",
     "websiteFormatInvalid": "The website must be a valid url. e.g. https://www.example.com",
     "urlFormatInvalid": "The url must be a valid url. e.g. https://www.example.com",
@@ -1477,6 +1479,7 @@
     "DigitalIdentifiers": {
       "companiesHouseNo": "Companies House ID",
       "rorId": "ROR ID",
+      "odsId": "ODS Code",
       "charities": "Charities",
       "organisationUniqueId": "Safe People Registry identifier"
     },
@@ -1502,6 +1505,7 @@
     "address": "Address",
     "companiesHouseNo": "Companies House ID",
     "rorId": "ROR ID",
+    "odsId": "ODS Code",
     "charities": "Charities",
     "organisationUniqueId": "Safe People Registry identifier",
     "sectorName": "Organisation sector",
