@@ -22,7 +22,6 @@ import {
 } from "@dnd-kit/sortable";
 import { ComponentType, useEffect, useRef, useState } from "react";
 import { createPortal, unstable_batchedUpdates } from "react-dom";
-import { useDebouncedCallback } from "use-debounce";
 
 import DndItem from "../../components/DndItem";
 import useDroppableSortItems, {
@@ -83,6 +82,7 @@ export interface KanbanBoardProps<T>
   isDisabledItem?: (data: T) => boolean;
   isDroppableItem?: (data: T) => boolean;
   disabledContainers?: string[];
+  rollbackVersion?: number;
 }
 
 export interface KanbanBoardHelperProps<T> {
@@ -108,6 +108,7 @@ export default function KanbanBoard<T>({
   isDisabledItem,
   isDroppableItem,
   disabledContainers,
+  rollbackVersion,
   ...restProps
 }: KanbanBoardProps<T>) {
   const { handleDragSort, handleDragSortEnd, handleDragSortStart, handleMove } =
@@ -124,17 +125,31 @@ export default function KanbanBoard<T>({
   const initialArgs = useRef<DragUpdateEventArgsInitial<T> | null>();
   const { isError } = queryState;
 
-  const activeId = activeData?.item.id;
+  const activeId = activeData?.item?.id;
 
   const recentlyMovedToNewContainer = useRef(false);
   const isSortingContainer = activeId ? containers.includes(activeId) : false;
 
   const [clonedItems, setClonedItems] = useState<DndItems<T> | null>(null);
 
-  const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
+  const sensors = useSensors(
+    useSensor(MouseSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 150,
+        tolerance: 5,
+      },
+    })
+  );
 
   const renderSortableItemDragOverlay = (id: UniqueIdentifier) => {
     const data = findItem(id, items);
+
+    if (!data) return null;
 
     return (
       data && (
@@ -247,22 +262,38 @@ export default function KanbanBoard<T>({
   }, [items]);
 
   useEffect(() => {
-    if (isError && initialArgs.current) {
-      handleMoveClick(
-        initialArgs.current.item,
-        initialArgs.current.containerId,
-        isError
-      );
+    if (!isError) return;
 
-      queryState.reset?.();
+    if (clonedItems) {
+      setItems(clonedItems);
+    } else {
+      setItems(initialData);
     }
-  }, [isError]);
+
+    setActiveData(null);
+    setClonedItems(null);
+    initialArgs.current = null;
+
+    queryState.reset?.();
+  }, [isError, clonedItems, initialData, queryState]);
+
+  useEffect(() => {
+    if (!rollbackVersion) return;
+
+    if (clonedItems) {
+      setItems(clonedItems);
+    } else {
+      setItems(initialData);
+    }
+
+    setActiveData(null);
+    setClonedItems(null);
+    initialArgs.current = null;
+  }, [rollbackVersion]);
 
   useEffect(() => {
     setItems(initialData);
   }, [initialData]);
-
-  const throttledDragOver = useDebouncedCallback(handleDragOver, 100);
 
   return (
     <DndContext
@@ -274,7 +305,7 @@ export default function KanbanBoard<T>({
       }}
       onDragStart={handleDragStart}
       onDragOver={(e: DragOverEvent) => {
-        throttledDragOver(e);
+        handleDragOver(e);
       }}
       onDragEnd={handleDragEnd}
       onDragCancel={handleDragCancel}
@@ -305,7 +336,7 @@ export default function KanbanBoard<T>({
                     height: "100%",
                     width: "236px",
                   }}>
-                  {items[containerId].map(data => {
+                  {(items[containerId] ?? []).map(data => {
                     const itemDisabled =
                       isDisabledItem?.(data) || containerDisabled;
 

@@ -50,6 +50,8 @@ export default function ProjectOrganisations({
     variant !== EntityType.CUSTODIAN
   );
 
+  const [rollbackVersion, setRollbackVersion] = useState(0);
+
   const {
     query: {
       data: custodianProjectOrganisations,
@@ -91,15 +93,19 @@ export default function ProjectOrganisations({
 
   const handleUpdateOrganisation = useCallback(
     async (id: number, status: string) => {
-      await changeValidationStatus({
-        params: {
-          projectOrganisationId: id,
-        },
-        payload: {
-          status,
-          comment: "status change",
-        },
-      });
+      try {
+        await changeValidationStatus({
+          params: {
+            projectOrganisationId: id,
+          },
+          payload: {
+            status,
+            comment: "status change",
+          },
+        });
+      } catch {
+        setRollbackVersion(Date.now());
+      }
     },
     [showListView]
   );
@@ -181,9 +187,8 @@ export default function ProjectOrganisations({
 
   const listComponent = !showListView ? (
     <ProjectOrganisationsBoard
-      options={{
-        isTransitionAllowed,
-      }}
+      options={{ isTransitionAllowed }}
+      rollbackVersion={rollbackVersion}
       {...commonProps}
     />
   ) : (
