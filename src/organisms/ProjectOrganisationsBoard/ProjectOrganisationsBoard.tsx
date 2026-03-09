@@ -18,7 +18,9 @@ import { CustodianProjectOrganisation } from "../../types/application";
 const NAMESPACE_TRANSLATION = "Application.Status";
 
 type ProjectOrganisationsBoardProps<T = CustodianProjectOrganisation> =
-  KanbanBoardEntityProps<T>;
+  KanbanBoardEntityProps<T> & {
+    rollbackVersion?: number;
+  };
 
 export default function ProjectOrganisationsBoard({
   itemsByTransitions,
@@ -27,6 +29,7 @@ export default function ProjectOrganisationsBoard({
   updateQueryState,
   options,
   actions,
+  rollbackVersion,
 }: ProjectOrganisationsBoardProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION);
 
@@ -53,7 +56,7 @@ export default function ProjectOrganisationsBoard({
 
       onMove(data.item.id, data.containerId as string);
     },
-    []
+    [onMove]
   );
 
   function sortByStatus<T>(
@@ -74,11 +77,11 @@ export default function ProjectOrganisationsBoard({
   );
 
   const isDisabledItem = useCallback((data: CustodianProjectOrganisation) => {
-    return !data.project_organisation.organisation.system_approved;
+    return !data?.project_organisation.organisation.system_approved;
   }, []);
 
   const isDroppableItem = useCallback((data: CustodianProjectOrganisation) => {
-    return !!data.project_organisation.organisation.system_approved;
+    return !!data?.project_organisation.organisation.system_approved;
   }, []);
 
   return (
@@ -95,6 +98,7 @@ export default function ProjectOrganisationsBoard({
       isDisabledItem={isDisabledItem}
       isDroppableItem={isDroppableItem}
       disabledContainers={[Status.INVITED, Status.SYSTEM_APPROVAL]}
+      rollbackVersion={rollbackVersion}
     />
   );
 }
