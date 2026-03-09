@@ -158,6 +158,7 @@
       "org_validation_declined": "Declined Validation",
       "org_validation_declined_short": "Declined",
       "org_left_project": "Left project",
+      "org_in_progress": "Account in progress",
       "org_left_project_short": "Left",
       "escalate_validation": "Escalate Validation",
       "none": "None"
