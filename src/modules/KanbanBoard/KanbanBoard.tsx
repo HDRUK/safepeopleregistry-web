@@ -65,6 +65,7 @@ export type KanbanBoardEntityProps<T> = WithRoutes<{
   updateQueryState: QueryState;
   actions?: (props: KanbanBoardHelperProps<T>) => React.ReactNode;
   options?: Partial<UseDroppableSortItemsFnOptions<T>>;
+  rollbackVersion?: number;
 }>;
 
 export interface KanbanBoardProps<T>
@@ -132,19 +133,7 @@ export default function KanbanBoard<T>({
 
   const [clonedItems, setClonedItems] = useState<DndItems<T> | null>(null);
 
-  const sensors = useSensors(
-    useSensor(MouseSensor, {
-      activationConstraint: {
-        distance: 8,
-      },
-    }),
-    useSensor(TouchSensor, {
-      activationConstraint: {
-        delay: 150,
-        tolerance: 5,
-      },
-    })
-  );
+  const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
   const renderSortableItemDragOverlay = (id: UniqueIdentifier) => {
     const data = findItem(id, items);

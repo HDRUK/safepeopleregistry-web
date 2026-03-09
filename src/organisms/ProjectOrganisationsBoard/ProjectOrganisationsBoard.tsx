@@ -18,9 +18,7 @@ import { CustodianProjectOrganisation } from "../../types/application";
 const NAMESPACE_TRANSLATION = "Application.Status";
 
 type ProjectOrganisationsBoardProps<T = CustodianProjectOrganisation> =
-  KanbanBoardEntityProps<T> & {
-    rollbackVersion?: number;
-  };
+  KanbanBoardEntityProps<T>;
 
 export default function ProjectOrganisationsBoard({
   itemsByTransitions,
@@ -53,6 +51,7 @@ export default function ProjectOrganisationsBoard({
       data: DragUpdateEventArgs<CustodianProjectOrganisation>
     ) => {
       if (!data.item || !data.containerId) return;
+      if (data.initial?.containerId === data.containerId) return;
 
       onMove(data.item.id, data.containerId as string);
     },
