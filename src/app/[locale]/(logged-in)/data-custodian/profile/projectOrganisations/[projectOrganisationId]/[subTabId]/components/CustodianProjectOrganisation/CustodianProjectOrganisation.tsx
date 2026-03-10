@@ -16,6 +16,7 @@ import { useQuery } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
 import { useEffect } from "react";
 import OrganisationDetailsSlim from "@/modules/OrganisationDetailsSlim";
+import getOrganisationStatusQuery from "@/services/custodians/getOrganisationStatusQuery";
 import { OrganisationsSubTabs } from "../../../../../consts/tabs";
 import SubTabsContents from "../SubsTabContents";
 import SubTabsSections from "../SubTabSections";
@@ -41,8 +42,12 @@ function CustodianProjectOrganisation({
       projectOrganisationId
     )
   );
+  const orgId =
+    custodianProjectOrganisation?.data?.project_organisation?.organisation_id;
 
-  const { project_organisation: projectOrganisation, model_state: state } =
+  const { data: orgStatus } = useQuery(getOrganisationStatusQuery(orgId));
+
+  const { project_organisation: projectOrganisation } =
     custodianProjectOrganisation?.data || {};
 
   const { data: organisationData, isFetched } = useQuery({
@@ -103,7 +108,9 @@ function CustodianProjectOrganisation({
             <SubTabsContents subTabId={subTabId} />
           </PageColumnBody>
           <PageColumnDetails lg={4}>
-            <StatusList organisationStatus={state?.state.slug || Status.NONE} />
+            <StatusList
+              organisationStatus={orgStatus?.data?.state.slug || Status.NONE}
+            />
             <ActionValidationPanel
               variant={ActionValidationVariants.Organisation}
               queryState={queryState}
