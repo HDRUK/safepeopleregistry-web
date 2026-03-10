@@ -54,6 +54,7 @@ enum Status {
   ORG_VALIDATION_DECLINED = "org_validation_declined",
   USER_LEFT_PROJECT = "user_left_project",
   ORG_LEFT_PROJECT = "org_left_project_short",
+  ORG_IN_PROGRESS = "org_in_progress",
   NONE = "none",
   ORGANISATION_NOT_VALIDATED = "organisation_not_validated",
   ORGANISATION_VALIDATED = "organisation_validated",
