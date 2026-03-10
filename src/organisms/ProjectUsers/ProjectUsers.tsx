@@ -62,6 +62,8 @@ export default function ProjectUsers({
     variant !== EntityType.CUSTODIAN
   );
 
+  const [rollbackVersion, setRollbackVersion] = useState(0);
+
   const [showAddModal, setShowAddModal] = useState(false);
 
   const {
@@ -113,15 +115,19 @@ export default function ProjectUsers({
 
   const handleUpdateSafePeople = useCallback(
     async (id: number, status: string) => {
-      await changeValidationStatus({
-        params: {
-          projectUserId: id,
-        },
-        payload: {
-          status,
-          comment: "status change",
-        },
-      });
+      try {
+        await changeValidationStatus({
+          params: {
+            projectUserId: id,
+          },
+          payload: {
+            status,
+            comment: "status change",
+          },
+        });
+      } catch {
+        setRollbackVersion(Date.now());
+      }
     },
     [showListView]
   );
@@ -198,6 +204,7 @@ export default function ProjectUsers({
       options={{
         isTransitionAllowed,
       }}
+      rollbackVersion={rollbackVersion}
       {...commonProps}
     />
   ) : (

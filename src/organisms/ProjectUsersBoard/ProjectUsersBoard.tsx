@@ -26,6 +26,7 @@ export default function ProjectUsers({
   updateQueryState,
   options,
   actions,
+  rollbackVersion,
 }: ProjectUsersProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION);
 
@@ -43,10 +44,11 @@ export default function ProjectUsers({
   const handleMove = useCallback(
     (_: DragUpdateEvent, data: DragUpdateEventArgs<CustodianProjectUser>) => {
       if (!data.item || !data.containerId) return;
+      if (data.initial?.containerId === data.containerId) return;
 
       onMove(data.item.id, data.containerId as string);
     },
-    []
+    [onMove]
   );
 
   function sortByStatus<T>(
@@ -78,6 +80,7 @@ export default function ProjectUsers({
       options={options}
       queryState={updateQueryState}
       disabledContainers={DISABLED_USER_STATUS}
+      rollbackVersion={rollbackVersion}
     />
   );
 }
