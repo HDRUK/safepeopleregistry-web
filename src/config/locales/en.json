@@ -1473,7 +1473,7 @@
       "id": "ID",
       "expiryDate": "Expiry date",
       "certificate": "Certificate",
-      "downloadEvidence": "Download signed declaration",
+      "downloadEvidence": "Download security certificate",
       "ceCertification": "Cyber Essentials Certified",
       "cePlusCertification": "Cyber Essentials Plus Certified",
       "iso27001Certification": "ISO27001 Accredited",
