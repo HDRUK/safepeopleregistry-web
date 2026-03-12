@@ -1477,7 +1477,9 @@
       "ceCertification": "Cyber Essentials Certified",
       "cePlusCertification": "Cyber Essentials Plus Certified",
       "iso27001Certification": "ISO27001 Accredited",
-      "dsptkOdsCode": "DSPT Certified"
+      "dsptkOdsCode": "DSPT Certified",
+      "status": "Status",
+      "ico": "ICO Registered"
     },
     "NameAddress": {
       "organisationName": "Name",
