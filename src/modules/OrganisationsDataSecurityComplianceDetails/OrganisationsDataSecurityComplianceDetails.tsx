@@ -30,6 +30,9 @@ export default function OrganisationsDataSecurityComplianceDetails({
     dsptk_ods_code,
     dsptk_expiry_date,
     dsptk_status,
+    ico_registration_id,
+    ico_expiry_date,
+    ico_expiry_evidence,
   } = organisationData;
 
   const data = [
@@ -58,6 +61,14 @@ export default function OrganisationsDataSecurityComplianceDetails({
       status: dsptk_status,
       certificationDirectoryURL:
         "https://www.dsptoolkit.nhs.uk/OrganisationSearch/",
+    },
+    {
+      name: t("ico"),
+      num: ico_registration_id,
+      expiryDate: ico_expiry_date,
+      status: dsptk_status,
+      certificationDirectoryURL: "https://ico.org.uk/ESDWebPages/Entry/",
+      file: ico_expiry_evidence,
     },
   ].filter(({ num }) => !!num);
 
