@@ -19,7 +19,7 @@ import { LoadingButton } from "@mui/lab";
 import { Box, Button, Link, Modal, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import { acceptTCs, registerInvite, rejectTCs } from "../../actions";
 import AccountOption from "../AccountOption";
 
@@ -34,7 +34,8 @@ export default function AccountConfirm({ unclaimedUser }: AccountConfirmProps) {
   const t = useTranslations(NAMESPACE_TRANSLATIONS_PROFILE);
   const tTerms = useTranslations(NAMESPACE_TRANSLATION_TERMS_AND_CONDITIONS);
   const router = useRouter();
-  const [isTransitioning, startTransition] = useTransition();
+  const [isLoading, setIsLoading] = useState(false);
+
   const { showAlert, hideAlert } = useAlertModal();
 
   const [custodianModalOpen, setCustodianModalOpen] = useState<boolean>(false);
@@ -54,11 +55,20 @@ export default function AccountConfirm({ unclaimedUser }: AccountConfirmProps) {
   };
 
   const handleRegister = async (user: User) => {
-    startTransition(async () => {
-      await registerInvite(user, userGroup as UserGroup);
+    const path = getProfilePathByEntity(userGroup as UserGroup);
+    console.log(path);
+    setIsLoading(true);
 
-      router.push(getProfilePathByEntity(userGroup as UserGroup));
-    });
+    try {
+      console.log("hii");
+      await registerInvite(user, userGroup as UserGroup);
+      console.log("i hit that lovely action");
+
+      router.push(path);
+    } finally {
+      console.log("did i finish?");
+      setIsLoading(false);
+    }
   };
 
   const handleDeclineTerms = () => {
@@ -80,8 +90,8 @@ export default function AccountConfirm({ unclaimedUser }: AccountConfirmProps) {
 
   const guidanceKey = userGroup?.toLowerCase();
 
-  if (isTransitioning) {
-    return <LoadingWrapper variant="basic" loading={isTransitioning} />;
+  if (isLoading) {
+    return <LoadingWrapper variant="basic" loading={isLoading} />;
   }
 
   return (
@@ -180,7 +190,7 @@ export default function AccountConfirm({ unclaimedUser }: AccountConfirmProps) {
               {unclaimedUser && (
                 <LoadingButton
                   onClick={() => setTermsDisplayed(true)}
-                  disabled={isTransitioning}
+                  disabled={isLoading}
                   variant="contained"
                   sx={{ p: 2, minWidth: 300 }}
                   fullWidth>
@@ -196,10 +206,13 @@ export default function AccountConfirm({ unclaimedUser }: AccountConfirmProps) {
         <TermsAndConditions
           userGroup={userGroup}
           onAccept={async () => {
+            console.log("here 1");
             await acceptTCs(userGroup);
-
+            console.log(unclaimedUser, "unclaimedUser");
             if (unclaimedUser) {
+              console.log("1");
               handleRegister(unclaimedUser);
+              console.log("2");
             } else {
               handleRegisterKeycloak(userGroup);
             }

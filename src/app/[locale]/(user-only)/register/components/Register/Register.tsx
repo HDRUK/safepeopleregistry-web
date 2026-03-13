@@ -15,7 +15,7 @@ interface AccountConfirmProps {
   tokenUser: Partial<User>;
   searchParams: { type?: UserGroup };
 }
-
+//
 export default function Register({
   unclaimedUser,
   tokenUser,
@@ -28,7 +28,7 @@ export default function Register({
 
   useEffect(() => {
     async function completeRegistration() {
-      if (tokenUser && searchParams?.type && !unclaimedUser) {
+      if (autoRegister) {
         const tcs = await getAcceptedTCs(searchParams.type);
 
         if (tcs === "true") {
@@ -48,7 +48,7 @@ export default function Register({
     }
 
     completeRegistration();
-  }, []);
+  }, [autoRegister, router, searchParams.type, tokenUser]);
 
   return (
     <LoadingWrapper variant="basic" loading={isLoading || isRedirecting}>
