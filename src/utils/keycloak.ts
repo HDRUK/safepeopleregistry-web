@@ -57,7 +57,10 @@ const getRegisterUrl = (
 };
 
 const handleRegister = (selectedUserGroup?: UserGroup | null) => {
-  window.location.href = getRegisterUrl(selectedUserGroup);
+  console.log("i hit register");
+  const path = getRegisterUrl(selectedUserGroup);
+  console.log(path);
+  window.location.href = path;
 };
 
 export {

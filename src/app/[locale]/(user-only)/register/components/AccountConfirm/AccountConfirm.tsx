@@ -53,11 +53,14 @@ export default function AccountConfirm({ unclaimedUser }: AccountConfirmProps) {
     setUserGroup(option);
   };
 
-  const handleRegister = async (user: User) => {
+  const handleRegister = (user: User) => {
     startTransition(async () => {
       await registerInvite(user, userGroup as UserGroup);
+      const path = getProfilePathByEntity(userGroup as UserGroup);
+      console.log(path, "path");
+      console.log("I have registrred");
 
-      router.push(getProfilePathByEntity(userGroup as UserGroup));
+      router.push(path);
     });
   };
 
@@ -196,8 +199,9 @@ export default function AccountConfirm({ unclaimedUser }: AccountConfirmProps) {
         <TermsAndConditions
           userGroup={userGroup}
           onAccept={async () => {
+            console.log("here 1");
             await acceptTCs(userGroup);
-
+            console.log(unclaimedUser, "unclaimedUser");
             if (unclaimedUser) {
               handleRegister(unclaimedUser);
             } else {
