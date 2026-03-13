@@ -4,7 +4,7 @@ run-name: ${{ github.actor }} triggered deploy to DEV pipeline
 on:
   push:
     branches:
-      - "develop"
+      - "fix/REGISTRY-2578"
 
 env:
   PROJECT_ID: "${{ secrets.PROJECT_ID }}"
@@ -24,13 +24,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
         with:
-          ref: "develop"
+          ref: "fix/REGISTRY-2578"
 
       - name: Read VERSION file
         id: getversion
         run: |
           sed -n 's/^appVersion:\(.*\)/\1/p' < "chart/soursd-web/Chart.yaml" > "version"
-          echo "version=$(sed 's/.*\"\(.*\)\".*/\1/g' "version")" >> "$GITHUB_OUTPUT" 
+          echo "version=$(sed 's/.*\"\(.*\)\".*/\1/g' "version")" >> "$GITHUB_OUTPUT"
 
       - name: Google Auth
         id: auth
@@ -73,7 +73,7 @@ jobs:
         id: checkout
         uses: actions/checkout@v4
         with:
-          ref: "develop"
+          ref: "fix/REGISTRY-2578"
 
       - name: Google Auth
         id: auth
@@ -87,7 +87,7 @@ jobs:
         id: getversion
         run: |
           sed -n 's/^appVersion:\(.*\)/\1/p' < "chart/soursd-web/Chart.yaml" > "version"
-          echo "version=$(sed 's/.*\"\(.*\)\".*/\1/g' "version")" >> "$GITHUB_OUTPUT" 
+          echo "version=$(sed 's/.*\"\(.*\)\".*/\1/g' "version")" >> "$GITHUB_OUTPUT"
 
       - name: Deploy to Cloud Run
         uses: actions-hub/gcloud@540.0.0
