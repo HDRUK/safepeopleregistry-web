@@ -184,7 +184,7 @@ export default function AccountConfirm({ unclaimedUser }: AccountConfirmProps) {
               {unclaimedUser && (
                 <LoadingButton
                   onClick={() => setTermsDisplayed(true)}
-                  disabled={isTransitioning}
+                  disabled={isLoading}
                   variant="contained"
                   sx={{ p: 2, minWidth: 300 }}
                   fullWidth>
