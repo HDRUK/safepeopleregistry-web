@@ -55,12 +55,18 @@ export default function AccountConfirm({ unclaimedUser }: AccountConfirmProps) {
   };
 
   const handleRegister = async (user: User) => {
+    const path = getProfilePathByEntity(userGroup as UserGroup);
+    console.log(path);
     setIsLoading(true);
 
     try {
+      console.log("hii");
       await registerInvite(user, userGroup as UserGroup);
-      router.push(getProfilePathByEntity(userGroup as UserGroup));
+      console.log("i hit that lovely action");
+
+      router.push(path);
     } finally {
+      console.log("did i finish?");
       setIsLoading(false);
     }
   };
@@ -204,7 +210,9 @@ export default function AccountConfirm({ unclaimedUser }: AccountConfirmProps) {
             await acceptTCs(userGroup);
             console.log(unclaimedUser, "unclaimedUser");
             if (unclaimedUser) {
+              console.log("1");
               handleRegister(unclaimedUser);
+              console.log("2");
             } else {
               handleRegisterKeycloak(userGroup);
             }
