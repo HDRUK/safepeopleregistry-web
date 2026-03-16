@@ -96,7 +96,6 @@ const getColorForStatus = (status?: Status): string => {
       Status.PENDING,
       Status.AFFILIATION_PENDING,
       Status.SPONSORSHIP_PENDING,
-      Status.AFFILIATION_INFO_REQUIRED,
     ].includes(status!)
   )
     return "warning";
