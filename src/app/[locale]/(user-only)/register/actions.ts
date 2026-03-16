@@ -45,24 +45,21 @@ async function registerInvite(unclaimedUser: User, userGroup: UserGroup) {
 
   const orgId = unclaimedUser?.organisation_id ?? null;
 
-  const action = orgId
-    ? (async () => {
-        await postClaimUser(unclaimedUser.id);
+  if (orgId) {
+    await postClaimUser(unclaimedUser.id);
 
-        cookieStore.delete("account_digi_ident");
+    cookieStore.delete("account_digi_ident");
 
-        if (!unclaimedUser.is_delegate) {
-          await putOrganisation(orgId, { unclaimed: 0 });
-        }
+    if (!unclaimedUser.is_delegate) {
+      await putOrganisation(orgId, { unclaimed: 0 });
+    }
 
-        await setAcceptTCs(false, UserGroup.ORGANISATIONS);
-      })()
-    : (async () => {
-        await registerUser(userGroup);
-        await setAcceptTCs(false, UserGroup.USERS);
-      })();
+    await setAcceptTCs(false, UserGroup.ORGANISATIONS);
+  } else {
+    await registerUser(userGroup);
 
-  return await action;
+    await setAcceptTCs(false, UserGroup.USERS);
+  }
 }
 
 async function acceptTCs(userGroup: UserGroup) {
