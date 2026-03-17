@@ -1,19 +1,19 @@
 "use client";
 
-import { DISABLED_USER_STATUS } from "@/consts/projects";
+import { useCallback, useMemo } from "react";
+import { rectSortingStrategy } from "@dnd-kit/sortable";
+import { useTranslations } from "next-intl";
+import { DragUpdateEvent, DragUpdateEventArgs } from "@/types/dnd";
 import KanbanBoardUsersCard, {
   KanbanBoardUsersCardProps,
 } from "@/modules/KanbanBoard/KanbanBoardUsersCard";
-import { DragUpdateEvent, DragUpdateEventArgs } from "@/types/dnd";
-import { rectSortingStrategy } from "@dnd-kit/sortable";
-import { useTranslations } from "next-intl";
-import { useCallback, useMemo } from "react";
+import { DISABLED_USER_STATUS } from "@/consts/projects";
+import { sortStatusArray } from "@/utils/application";
 import KanbanBoard, {
   KanbanBoardEntityProps,
   KanbanBoardHelperProps,
 } from "../../modules/KanbanBoard";
 import { CustodianProjectUser } from "../../types/application";
-import { sortStatusArray } from "@/utils/application";
 
 const NAMESPACE_TRANSLATION = "Application.Status";
 
