@@ -1,6 +1,5 @@
 import { Box, Card, CardProps, Typography } from "@mui/material";
 import { ReactNode } from "react";
-import ChipStatus from "@/components/ChipStatus";
 import Text from "../../components/Text";
 import {
   CustodianProjectOrganisation,
@@ -56,11 +55,6 @@ export default function KanbanBoardOrganisationsCard({
         </Box>
       </Text>
       <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-        <ChipStatus
-          status={organisation.model_state.state.slug}
-          variant="icon"
-        />
-
         <Typography color="success.main" variant="small">
           Number affiliated users: {organisation.affiliations_count || 0}
         </Typography>

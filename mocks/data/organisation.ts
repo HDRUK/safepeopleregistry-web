@@ -10,7 +10,7 @@ import { InviteOrganisationFormValues } from "@/types/form";
 
 const mockedCharity = (charity?: Partial<Charity>) => ({
   name: faker.company.name(),
-  registration_id: faker.string.numeric(8),
+  registration_id: faker.string.numeric(7),
   country: faker.location.country(),
   website: faker.internet.url(),
   ...charity,
