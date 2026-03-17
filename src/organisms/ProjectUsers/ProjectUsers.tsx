@@ -34,9 +34,15 @@ import ProjectsAddUserModal from "../ProjectsAddUserModal";
 import ProjectUsersBoard from "../ProjectUsersBoard";
 import ProjectUsersList from "../ProjectUsersList";
 import ProjectUsersActions from "./ProjectUsersActions";
+import { sortStatusArray } from "@/utils/application";
 
 const NAMESPACE_TRANSLATIONS_PROJECT_USERS = "Projects.Users";
 const NAMESPACE_TRANSLATIONS_STATUS = "Application.Status";
+
+const PROJECT_USER_FILTER_STATES = [
+  Status.AFFILIATION_INFO_REQUIRED,
+  Status.AFFILIATION_EMAIL_VERIFY,
+];
 
 type ProjectUsersListProps = WithPaginatedQueryParms<
   WithRoutes<{
@@ -220,11 +226,16 @@ export default function ProjectUsers({
     />
   );
 
+  const statusFilters = useMemo(
+    () => sortStatusArray(states.concat(PROJECT_USER_FILTER_STATES)),
+    [states]
+  );
+
   return (
     <>
       <PageSection>
         <ProjectUsersFilters
-          statusList={states}
+          statusList={statusFilters}
           includeFilters={
             !showListView
               ? []

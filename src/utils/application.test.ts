@@ -7,7 +7,9 @@ import {
   getAbbreviatedListWithCount,
   getName,
   parseSystemConfig,
+  sortStatusArray,
 } from "./application";
+import { Status } from "@/consts/application";
 
 describe("Application utils", () => {
   describe("parseSystemConfig", () => {
@@ -38,6 +40,44 @@ describe("Application utils", () => {
         count: 1,
         items: ["item1"],
       });
+    });
+  });
+
+  describe("sortStatusArray", () => {
+    it("sorts statuses based on STATUS_ORDER_MAP", () => {
+      const input = [
+        Status.MORE_USER_INFO_REQ,
+        Status.SYSTEM_APPROVAL,
+        Status.AFFILIATION_EMAIL_VERIFY,
+      ];
+
+      const result = sortStatusArray(input);
+
+      expect(result).toEqual([
+        Status.SYSTEM_APPROVAL,
+        Status.AFFILIATION_EMAIL_VERIFY,
+        Status.MORE_USER_INFO_REQ,
+      ]);
+    });
+
+    it("puts unknown statuses at the end", () => {
+      const input = [
+        "UNKNOWN",
+        Status.SYSTEM_APPROVAL,
+        Status.MORE_USER_INFO_REQ,
+      ];
+
+      const result = sortStatusArray(input);
+
+      expect(result).toEqual([
+        Status.SYSTEM_APPROVAL,
+        Status.MORE_USER_INFO_REQ,
+        "UNKNOWN",
+      ]);
+    });
+
+    it("returns empty array when given empty array", () => {
+      expect(sortStatusArray([])).toEqual([]);
     });
   });
 });

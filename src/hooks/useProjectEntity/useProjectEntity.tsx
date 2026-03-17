@@ -9,6 +9,7 @@ import {
   usePaginatedCustodianProjectUsers,
 } from "@/services/custodian_approvals";
 import { EntityType } from "@/types/api";
+import { sortStatusArray } from "@/utils/application";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 
@@ -45,7 +46,7 @@ export default function useProjectEntity({
     () => ({
       helpers,
       query: queryReturn,
-      states: Object.keys(stateWorkflow?.data || {}),
+      states: sortStatusArray(Object.keys(stateWorkflow?.data || {})),
     }),
     [stateWorkflow?.data, queryReturn]
   );

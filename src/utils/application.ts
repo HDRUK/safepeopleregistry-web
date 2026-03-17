@@ -2,6 +2,7 @@ import { GetSystemConfigResponse } from "@/services/system_config/types";
 import { Organisation, ResearcherProject } from "@/types/application";
 import { Status, VALIDATION_SCHEMA_KEY } from "../consts/application";
 import { escapeAndParse } from "./json";
+import { STATUS_ORDER_MAP } from "@/consts/status";
 
 function canUseIdvt(country: string | undefined) {
   return Boolean(
@@ -224,6 +225,14 @@ function getInitials(name: string): string {
     .join("");
 }
 
+function sortStatusArray(statusArray: string[]) {
+  return [...statusArray].sort(
+    (a, b) =>
+      (STATUS_ORDER_MAP.get(a) ?? Number.MAX_SAFE_INTEGER) -
+      (STATUS_ORDER_MAP.get(b) ?? Number.MAX_SAFE_INTEGER)
+  );
+}
+
 export {
   canUseIdvt,
   getAbbreviatedListWithCount,
@@ -238,4 +247,5 @@ export {
   isSponsorshipStatusApproved,
   parseSystemConfig,
   getColorForStatus,
+  sortStatusArray,
 };
