@@ -1,3 +1,4 @@
+import { Status } from "@/consts/application";
 import {
   mockedFormattedSystemConfig,
   mockedSystemConfig,
@@ -9,7 +10,6 @@ import {
   parseSystemConfig,
   sortStatusArray,
 } from "./application";
-import { Status } from "@/consts/application";
 
 describe("Application utils", () => {
   describe("parseSystemConfig", () => {

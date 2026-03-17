@@ -1,8 +1,8 @@
-import { GetSystemConfigResponse } from "@/services/system_config/types";
 import { Organisation, ResearcherProject } from "@/types/application";
+import { GetSystemConfigResponse } from "@/services/system_config/types";
+import { STATUS_ORDER_MAP } from "@/consts/status";
 import { Status, VALIDATION_SCHEMA_KEY } from "../consts/application";
 import { escapeAndParse } from "./json";
-import { STATUS_ORDER_MAP } from "@/consts/status";
 
 function canUseIdvt(country: string | undefined) {
   return Boolean(
