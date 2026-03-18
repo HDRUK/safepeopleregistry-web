@@ -1,5 +1,8 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
+import { sortStatusArray } from "@/utils/application";
 import { DEFAULT_STALE_TIME } from "@/consts/requests";
 import useProjectEntityBoard from "@/hooks/useProjectEntityBoard";
 import {
@@ -9,9 +12,6 @@ import {
   usePaginatedCustodianProjectUsers,
 } from "@/services/custodian_approvals";
 import { EntityType } from "@/types/api";
-import { sortStatusArray } from "@/utils/application";
-import { useQuery } from "@tanstack/react-query";
-import { useMemo } from "react";
 
 type UseProjectEntityProps = {
   usePaginatedQuery: () => ReturnType<

@@ -7,11 +7,11 @@ import {
   putCustodianProjectUserQuery,
   ChangeValidationStatusPayload,
 } from "@/services/custodian_approvals";
-import { getCombinedQueryState } from "@/utils/query";
 import { CustodianProjectUser } from "@/types/application";
 import { Option } from "@/types/common";
-import useQueryAlerts from "../useQueryAlerts";
 import { sortStatusArray } from "@/utils/application";
+import { getCombinedQueryState } from "@/utils/query";
+import useQueryAlerts from "../useQueryAlerts";
 
 type CustodianParams = {
   custodianId: number;

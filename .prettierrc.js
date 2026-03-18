@@ -9,8 +9,6 @@ module.exports = {
   bracketSpacing: true,
   jsxSingleQuote: false,
   bracketSameLine: true,
-  formatOnSave: true,
-  plugins: ["@trivago/prettier-plugin-sort-imports"],
   importOrder: [
     "^react",
     "<THIRD_PARTY_MODULES>",
