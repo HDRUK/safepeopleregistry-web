@@ -120,7 +120,9 @@ export default function KanbanBoard<T>({
       onMove,
     });
   const [items, setItems] = useState<DndItems<T>>(initialData);
-  const [containers] = useState(Object.keys(items) as UniqueIdentifier[]);
+  const [containers] = useState(() =>
+    Object.keys(items).filter(c => !disabledContainers?.includes(c))
+  );
   const [activeData, setActiveData] =
     useState<DragUpdateEventArgsInitial<T> | null>(null);
   const initialArgs = useRef<DragUpdateEventArgsInitial<T> | null>();
