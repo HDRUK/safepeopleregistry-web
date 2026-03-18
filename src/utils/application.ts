@@ -1,5 +1,6 @@
-import { GetSystemConfigResponse } from "@/services/system_config/types";
 import { Organisation, ResearcherProject } from "@/types/application";
+import { GetSystemConfigResponse } from "@/services/system_config/types";
+import { STATUS_ORDER_MAP } from "@/consts/status";
 import { Status, VALIDATION_SCHEMA_KEY } from "../consts/application";
 import { escapeAndParse } from "./json";
 
@@ -96,7 +97,6 @@ const getColorForStatus = (status?: Status): string => {
       Status.PENDING,
       Status.AFFILIATION_PENDING,
       Status.SPONSORSHIP_PENDING,
-      Status.AFFILIATION_INFO_REQUIRED,
     ].includes(status!)
   )
     return "warning";
@@ -225,6 +225,14 @@ function getInitials(name: string): string {
     .join("");
 }
 
+function sortStatusArray(statusArray: string[]) {
+  return [...statusArray].sort(
+    (a, b) =>
+      (STATUS_ORDER_MAP.get(a) ?? Number.MAX_SAFE_INTEGER) -
+      (STATUS_ORDER_MAP.get(b) ?? Number.MAX_SAFE_INTEGER)
+  );
+}
+
 export {
   canUseIdvt,
   getAbbreviatedListWithCount,
@@ -239,4 +247,5 @@ export {
   isSponsorshipStatusApproved,
   parseSystemConfig,
   getColorForStatus,
+  sortStatusArray,
 };

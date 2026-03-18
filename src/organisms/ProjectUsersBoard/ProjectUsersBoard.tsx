@@ -1,14 +1,14 @@
 "use client";
 
-import { DISABLED_USER_STATUS } from "@/consts/projects";
-import { STATUS_ORDER_MAP } from "@/consts/status";
+import { useCallback, useMemo } from "react";
+import { rectSortingStrategy } from "@dnd-kit/sortable";
+import { useTranslations } from "next-intl";
+import { DragUpdateEvent, DragUpdateEventArgs } from "@/types/dnd";
 import KanbanBoardUsersCard, {
   KanbanBoardUsersCardProps,
 } from "@/modules/KanbanBoard/KanbanBoardUsersCard";
-import { DragUpdateEvent, DragUpdateEventArgs } from "@/types/dnd";
-import { rectSortingStrategy } from "@dnd-kit/sortable";
-import { useTranslations } from "next-intl";
-import { useCallback, useMemo } from "react";
+import { DISABLED_USER_STATUS } from "@/consts/projects";
+import { sortStatusArray } from "@/utils/application";
 import KanbanBoard, {
   KanbanBoardEntityProps,
   KanbanBoardHelperProps,
@@ -51,16 +51,10 @@ export default function ProjectUsers({
     [onMove]
   );
 
-  function sortByStatus<T>(
-    input: Record<string | string, T[]>
-  ): Record<string, T[]> {
-    return Object.fromEntries(
-      Object.entries(input).sort(
-        ([a], [b]) =>
-          (STATUS_ORDER_MAP.get(a) ?? Number.MAX_SAFE_INTEGER) -
-          (STATUS_ORDER_MAP.get(b) ?? Number.MAX_SAFE_INTEGER)
-      )
-    );
+  function sortByStatus<T>(input: Record<string, T[]>): Record<string, T[]> {
+    const sortedKeys = sortStatusArray(Object.keys(input));
+
+    return Object.fromEntries(sortedKeys.map(key => [key, input[key]]));
   }
 
   const orderedItems = useMemo(
