@@ -90,7 +90,7 @@ describe("<ProjectsTable />", () => {
       variant: EntityType.ORGANISATION,
     });
 
-    expect(screen.getByText("In progress")).toBeInTheDocument();
+    expect(screen.getByText("In Progress")).toBeInTheDocument();
   });
 
   it("renders the correct values data", () => {

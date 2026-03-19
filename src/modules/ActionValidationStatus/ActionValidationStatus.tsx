@@ -12,6 +12,11 @@ import SelectValidationActionStatus from "../../components/SelectValidationActio
 import yup from "../../config/yup";
 
 const NAMESPACE_TRANSLATION_ACTION_VALIDATION = "ActionValidationPanel";
+const HIDDEN_STATUS_LIST: string[] = [
+  Status.INVITED,
+  Status.PENDING,
+  Status.SYSTEM_APPROVAL,
+];
 
 export interface ActionValidationStatusFormValues {
   status: string;
@@ -63,6 +68,10 @@ const ActionValidationStatus = <TParams,>({
 
   const statusDisabled = disabledStatus.includes(statusSlug);
 
+  const filteredStatusOptions = statusOptions.filter(
+    s => !HIDDEN_STATUS_LIST.includes(s.value)
+  );
+
   return (
     <Box sx={{ p: 2 }}>
       <Form
@@ -76,7 +85,7 @@ const ActionValidationStatus = <TParams,>({
             name="status"
             renderField={fieldProps => (
               <SelectValidationActionStatus
-                options={statusOptions || []}
+                options={filteredStatusOptions || []}
                 isLoading={isLoading}
                 {...fieldProps}
               />
