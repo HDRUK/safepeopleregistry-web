@@ -50,6 +50,7 @@ export default function KanbanBoardOrganisationsCard({
           color: "secondary.main",
           mb: 1,
           fontSize: "1rem",
+          alignItems: "flex-start",
         }}>
         <Box sx={{ flexGrow: 1 }}>
           {renderLinkNameCell(
