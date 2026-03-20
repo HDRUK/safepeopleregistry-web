@@ -377,6 +377,7 @@
     "noResultsMessage": "No members found",
     "homeTitle": "Your outstanding actions",
     "searchProjectUsersPlaceholder": "Search for User, Project Name, Organisation",
+    "affiliatedUsers": "{num, plural, =0 {No affiliated users} one {# affiliated user} other {# affiliated users}}",
     "guidance": {
       "rules": {
         "infoTitle": "Guidance",
