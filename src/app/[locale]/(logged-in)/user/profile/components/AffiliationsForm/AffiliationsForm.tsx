@@ -17,11 +17,10 @@ import { Box, Button, Grid, Link, TextField, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { getDate } from "@/utils/date";
+import { getDate, getDateComparisonFlags } from "@/utils/date";
 import SelectOrganisation from "@/components/SelectOrganisation";
 import { EntityType } from "@/types/api";
 import { UseFormSetValue } from "react-hook-form";
-import {getDateComparisonFlags} from "@/utils/date";
 
 export interface AffiliationsFormProps {
   onSubmit: (affiliation: ResearcherAffiliation) => void;
