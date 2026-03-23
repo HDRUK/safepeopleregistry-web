@@ -17,9 +17,10 @@ import { Box, Button, Grid, Link, TextField, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { getDate } from "@/utils/date";
+import { getDate, getDateComparisonFlags } from "@/utils/date";
 import SelectOrganisation from "@/components/SelectOrganisation";
 import { EntityType } from "@/types/api";
+import { UseFormSetValue } from "react-hook-form";
 
 export interface AffiliationsFormProps {
   onSubmit: (affiliation: ResearcherAffiliation) => void;
@@ -33,7 +34,34 @@ export interface AffiliationsFormProps {
 const NAMESPACE_TRANSLATION = "Profile";
 const NAMESPACE_TRANSLATION_FORM = "Form";
 const NAMESPACE_TRANSLATION_APPLICATION = "Application";
+function FormSyncEffects({
+  fromDate,
+  isCurrent,
+  toDate,
+  setValue,
+}: {
+  fromDate?: string | null;
+  isCurrent: boolean;
+  toDate?: string | null;
+  setValue: UseFormSetValue<ResearcherAffiliation>;
+}) {
+  useEffect(() => {
+    if (!toDate) return;
 
+    const { isFromInFuture, isToInFuture } = getDateComparisonFlags(
+      fromDate,
+      toDate
+    );
+
+    if (isToInFuture && !isFromInFuture && isCurrent !== true) {
+      setValue("current_employer", true, {
+        shouldValidate: true,
+      });
+    }
+  }, [toDate, isCurrent, setValue, fromDate]);
+
+  return null;
+}
 export default function AffiliationsForm({
   onSubmit,
   onClose,
@@ -155,15 +183,17 @@ export default function AffiliationsForm({
       sx={{ mb: 3 }}>
       {({ watch, setValue }) => {
         const isCurrent = watch("current_employer");
-        if (isCurrent) {
-          setValue("to", null, { shouldValidate: true });
-        }
-        if (!selectOrganisation) {
-          setValue("organisation_id", undefined);
-        }
+        const toDate = watch("to");
+        const fromDate = watch("from");
 
         return (
           <>
+            <FormSyncEffects
+              isCurrent={isCurrent}
+              toDate={toDate}
+              fromDate={fromDate}
+              setValue={setValue}
+            />
             <Grid container rowSpacing={3}>
               {selectOrganisation ? (
                 <Grid item xs={12}>
@@ -296,10 +326,7 @@ export default function AffiliationsForm({
                   <Grid item xs={6}>
                     <FormControlWrapper
                       name="to"
-                      disabled={isCurrent}
-                      renderField={fieldProps => (
-                        <DateInput {...fieldProps} disabled={isCurrent} />
-                      )}
+                      renderField={fieldProps => <DateInput {...fieldProps} />}
                     />
                   </Grid>
                 </Grid>
