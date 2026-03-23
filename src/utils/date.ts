@@ -99,7 +99,7 @@ function getDaysSince(date: string) {
 }
 
 export {
-  isDateInFuture,
+  isInFuture,
   getDateComparisonFlags,
   dateToString,
   formatDBDate,
