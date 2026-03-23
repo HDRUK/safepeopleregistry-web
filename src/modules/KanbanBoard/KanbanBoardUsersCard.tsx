@@ -43,6 +43,7 @@ export default function KanbanBoardUsersCard({
         onMouseDown={e => e.stopPropagation()}
         endIcon={actions}
         variant="h6"
+        component="p"
         sx={{
           color: "secondary.main",
           mb: 1.5,
