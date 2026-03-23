@@ -1,6 +1,7 @@
 import { Box, Card, CardProps, Typography } from "@mui/material";
 import { ReactNode } from "react";
 import ChipStatus from "@/components/ChipStatus";
+import theme from "@/theme";
 import Text from "../../components/Text";
 import { CustodianProjectUser, WithRoutes } from "../../types/application";
 import {
@@ -23,13 +24,14 @@ export default function KanbanBoardUsersCard({
 }: KanbanBoardUsersCardProps) {
   const {
     project_has_user,
-    project_has_user: { affiliation, project, role },
+    project_has_user: { affiliation, project },
   } = data;
 
   return (
     <Card
       sx={{
-        p: 2,
+        p: 1,
+        pr: 0.5,
         "> *": {
           fontSize: "0.875rem",
           whiteSpace: "normal",
@@ -41,27 +43,30 @@ export default function KanbanBoardUsersCard({
         onMouseDown={e => e.stopPropagation()}
         endIcon={actions}
         variant="h6"
+        component="p"
         sx={{
           color: "secondary.main",
-          mb: 1,
+          mb: 1.5,
           fontSize: "1rem",
         }}>
         <Box sx={{ flexGrow: 1 }}>
           {renderProjectUserNameCell(project_has_user, routes.name.path)}
         </Box>
       </Text>
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          color: theme.palette[`neutral-500`].main,
+        }}>
+        <Typography>
+          {renderUserOrganisationsNameCell(affiliation?.organisation)}
+        </Typography>
         <ChipStatus
           status={affiliation?.model_state?.state.slug}
           variant="icon"
         />
-        <Typography color="success.main">
-          {renderUserOrganisationsNameCell(affiliation?.organisation)}
-        </Typography>
-        <Typography>
-          {project.title} (id: {project.id})
-        </Typography>
-        <Typography>{role?.name}</Typography>
+        <Typography sx={{ mt: 1 }}>{project.title}</Typography>
       </Box>
     </Card>
   );

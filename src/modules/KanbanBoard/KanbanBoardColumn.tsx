@@ -94,6 +94,7 @@ const KanbanBoardColumn = forwardRef<HTMLDivElement, KanbanBoardColumnProps>(
         }}>
         <Typography
           variant="h6"
+          component="p"
           sx={{
             px: 1,
             my: 1,

@@ -1,5 +1,6 @@
 import { Box, Card, CardProps, Typography } from "@mui/material";
 import { ReactNode } from "react";
+import { useTranslations } from "next-intl";
 import Text from "../../components/Text";
 import {
   CustodianProjectOrganisation,
@@ -13,6 +14,8 @@ export type KanbanBoardOrganisationsCardProps = CardProps &
     actions?: ReactNode;
   }>;
 
+const NAMESPACE_TRANSLATION = "CustodianProfile";
+
 export default function KanbanBoardOrganisationsCard({
   data,
   actions,
@@ -20,6 +23,8 @@ export default function KanbanBoardOrganisationsCard({
   routes,
   ...restProps
 }: KanbanBoardOrganisationsCardProps) {
+  const t = useTranslations(NAMESPACE_TRANSLATION);
+
   const {
     project_organisation: { project, id, organisation },
   } = data;
@@ -27,7 +32,8 @@ export default function KanbanBoardOrganisationsCard({
   return (
     <Card
       sx={{
-        p: 2,
+        p: 1,
+        pr: 0.5,
         "> *": {
           fontSize: "0.875rem",
           whiteSpace: "normal",
@@ -39,6 +45,7 @@ export default function KanbanBoardOrganisationsCard({
         onMouseDown={e => e.stopPropagation()}
         endIcon={actions}
         variant="h6"
+        component="p"
         sx={{
           color: "secondary.main",
           mb: 1,
@@ -56,11 +63,11 @@ export default function KanbanBoardOrganisationsCard({
       </Text>
       <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
         <Typography color="success.main" variant="small">
-          Number affiliated users: {organisation.affiliations_count || 0}
+          {t("affiliatedUsers", {
+            num: organisation.affiliations_count || 0,
+          })}
         </Typography>
-        <Typography variant="small">
-          {project.title} (id: {project.id})
-        </Typography>
+        <Typography variant="small">{project.title}</Typography>
       </Box>
     </Card>
   );
