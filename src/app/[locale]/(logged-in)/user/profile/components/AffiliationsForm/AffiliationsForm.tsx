@@ -48,15 +48,10 @@ function FormSyncEffects({
   useEffect(() => {
     if (!toDate) return;
 
-    const today = new Date();
-    const selectedTo = new Date(toDate);
-
-    const selectedFrom = fromDate ? new Date(fromDate) : null;
-
-    if (Number.isNaN(selectedTo.getTime())) return;
-
-    const isToInFuture = selectedTo > today;
-    const isFromInFuture = selectedFrom ? selectedFrom > today : false;
+    const { isFromInFuture, isToInFuture } = getDateComparisonFlags(
+      fromDate,
+      toDate
+    );
 
     if (isToInFuture && !isFromInFuture && isCurrent !== true) {
       setValue("current_employer", true, {

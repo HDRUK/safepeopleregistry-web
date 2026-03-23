@@ -13,6 +13,18 @@ function isExpired(date: string) {
   return expirationTime.isAfter(dayjs());
 }
 
+function isInFuture(date?: string | Date | null) {
+  if (!date) return false;
+  return dayjs(date).isAfter(dayjs());
+}
+
+function getDateComparisonFlags(from?: string | null, to?: string | null) {
+  return {
+    isFromInFuture: isInFuture(from),
+    isToInFuture: isInFuture(to),
+  };
+}
+
 function formatDisplayTimeDate(date?: string) {
   const djsDate = dayjs(date);
 
@@ -87,6 +99,8 @@ function getDaysSince(date: string) {
 }
 
 export {
+  isDateInFuture,
+  getDateComparisonFlags,
   dateToString,
   formatDBDate,
   formatDBDateTime,
