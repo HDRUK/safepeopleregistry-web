@@ -48,7 +48,7 @@ export default function ActionMenu({
       component="span"
       {...additionalProps}
       data-cy="action-menu"
-      sx={{ display: "flex", alignSelf: "flex-start" }}>
+      sx={{ alignSelf: "flex-start" }}>
       {!trigger && (
         <IconButton
           ref={triggerRef}
