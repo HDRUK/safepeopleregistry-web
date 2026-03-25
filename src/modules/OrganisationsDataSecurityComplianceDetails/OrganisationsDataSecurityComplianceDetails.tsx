@@ -29,7 +29,10 @@ export default function OrganisationsDataSecurityComplianceDetails({
     iso_expiry_evidence,
     dsptk_ods_code,
     dsptk_expiry_date,
-    dsptk_expiry_evidence,
+    dsptk_status,
+    ico_registration_id,
+    ico_expiry_date,
+    ico_expiry_evidence,
   } = organisationData;
 
   const data = [
@@ -55,45 +58,82 @@ export default function OrganisationsDataSecurityComplianceDetails({
       name: t("dsptkOdsCode"),
       num: dsptk_ods_code,
       expiryDate: dsptk_expiry_date,
-      file: dsptk_expiry_evidence,
+      status: dsptk_status,
+      certificationDirectoryURL:
+        "https://www.dsptoolkit.nhs.uk/OrganisationSearch/",
+    },
+    {
+      name: t("ico"),
+      num: ico_registration_id,
+      expiryDate: ico_expiry_date,
+      status: dsptk_status,
+      certificationDirectoryURL: "https://ico.org.uk/ESDWebPages/Entry/",
+      file: ico_expiry_evidence,
     },
   ].filter(({ num }) => !!num);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 5 }}>
-      {data.map(({ name, num, expiryDate, file }) => (
-        <div>
-          <Typography variant="h5" sx={{ mb: 1 }}>
-            {name}
-          </Typography>
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            <div>
-              <Typography variant="h6" fontSize="1rem">
-                {t("id")}
-              </Typography>
-              <Typography>{num}</Typography>
-            </div>
-            {expiryDate && (
+      {data.map(
+        ({
+          name,
+          num,
+          expiryDate,
+          status,
+          file,
+          certificationDirectoryURL,
+        }) => (
+          <div>
+            <Typography variant="h5" sx={{ mb: 1 }}>
+              {name}
+            </Typography>
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
               <div>
                 <Typography variant="h6" fontSize="1rem">
-                  {t("expiryDate")}
+                  {t("id")}
                 </Typography>
-                <Typography>{formatDisplayLongDate(expiryDate)}</Typography>
+
+                {certificationDirectoryURL ? (
+                  <Link
+                    href={`${certificationDirectoryURL}${encodeURIComponent(num)}`}
+                    target="_blank"
+                    rel="noreferrer">
+                    {num}
+                  </Link>
+                ) : (
+                  <Typography>{num}</Typography>
+                )}
               </div>
-            )}
-            {file?.id && (
-              <div>
-                <Typography variant="h6" fontSize="1rem">
-                  {t("certificate")}
-                </Typography>
-                <Link onClick={() => downloadFile(file?.id as number)}>
-                  {t("downloadEvidence")}
-                </Link>
-              </div>
-            )}
-          </Box>
-        </div>
-      ))}
+              {status && (
+                <div>
+                  <Typography variant="h6" fontSize="1rem">
+                    {t("status")}
+                  </Typography>
+                  <Typography>{status}</Typography>
+                </div>
+              )}
+              {expiryDate && (
+                <div>
+                  <Typography variant="h6" fontSize="1rem">
+                    {t("expiryDate")}
+                  </Typography>
+                  <Typography>{formatDisplayLongDate(expiryDate)}</Typography>
+                </div>
+              )}
+              {file?.id && (
+                <div>
+                  <Typography variant="h6" fontSize="1rem">
+                    {t("certificate")}
+                  </Typography>
+                  <Link onClick={() => downloadFile(file?.id as number)}>
+                    {t("downloadEvidence")}
+                  </Link>
+                </div>
+              )}
+            </Box>
+          </div>
+        )
+      )}
     </Box>
   );
 }

@@ -7,10 +7,10 @@ import {
   putCustodianProjectUserQuery,
   ChangeValidationStatusPayload,
 } from "@/services/custodian_approvals";
-import { getCombinedQueryState } from "@/utils/query";
 import { CustodianProjectUser } from "@/types/application";
 import { Option } from "@/types/common";
-import { STATUS_ORDER_MAP } from "@/consts/status";
+import { sortStatusArray } from "@/utils/application";
+import { getCombinedQueryState } from "@/utils/query";
 import useQueryAlerts from "../useQueryAlerts";
 
 type CustodianParams = {
@@ -50,20 +50,14 @@ export const useCustodianProjectUser = ({
     getCustodianProjectUserStatesQuery()
   );
 
-  const statusOptions = useMemo(
-    () =>
-      statusOptionsData?.data
-        ?.map(item => ({
-          value: item,
-          label: tApplication(`Status.${item}`),
-        }))
-        .sort(
-          (a, b) =>
-            (STATUS_ORDER_MAP.get(a.value) ?? Number.MAX_SAFE_INTEGER) -
-            (STATUS_ORDER_MAP.get(b.value) ?? Number.MAX_SAFE_INTEGER)
-        ) || [],
-    [statusOptionsData, tApplication]
-  );
+  const statusOptions = useMemo(() => {
+    const statuses = sortStatusArray(statusOptionsData?.data ?? []);
+
+    return statuses.map(item => ({
+      value: item,
+      label: tApplication(`Status.${item}`),
+    }));
+  }, [statusOptionsData, tApplication]);
 
   const refetch = () => {
     queryClient.refetchQueries({

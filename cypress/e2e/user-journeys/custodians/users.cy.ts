@@ -32,6 +32,7 @@ describe("Projects custodians journey", () => {
   beforeEach(() => {
     loginCustodian();
     cy.visitFirst(ROUTES.profileCustodianUsers.path);
+    cy.contains("button", "Switch to list view").click();
     cy.contains("a", getName(dataProjectInviteUser)).click();
   });
   

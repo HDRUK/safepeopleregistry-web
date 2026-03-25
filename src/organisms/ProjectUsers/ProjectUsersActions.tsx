@@ -55,46 +55,46 @@ export default function ProjectUsersActions({
 
   return (
     <ActionMenu>
-      {({ handleClose }) => (
-        <>
-          {!disabled && (
-            <KanbanBoardActionsMenuItems
-              onMoveClick={(id: number, status: string) => {
-                onMoveClick(id, status);
+      {({ handleClose }) => [
+        !disabled && (
+          <KanbanBoardActionsMenuItems
+            key="kanban-actions"
+            onMoveClick={(id: number, status: string) => {
+              onMoveClick(id, status);
+              handleClose();
+            }}
+            allowedTransitions={allowedTransitions}
+            data={data}
+            t={t}
+            tStatus={tStatus}
+            handleClose={handleClose}
+            disabled={disabled}
+            {...restProps}
+          />
+        ),
+        <ActionMenuItem
+          key="remove-user"
+          onClick={() => {
+            showConfirm(id);
+          }}>
+          {t("removeUserFromProject")}
+        </ActionMenuItem>,
+        <ActionMenuItem
+          key="primary-contact"
+          onClick={async () => {
+            await makePrimaryContactAsync({
+              projectId: project_id,
+              registryId,
+              primaryContact: !primary_contact,
+            });
 
-                handleClose();
-              }}
-              allowedTransitions={allowedTransitions}
-              data={data}
-              t={t}
-              tStatus={tStatus}
-              handleClose={handleClose}
-              disabled={disabled}
-              {...restProps}
-            />
-          )}
-          <ActionMenuItem
-            onClick={() => {
-              showConfirm(id);
-            }}>
-            {t("removeUserFromProject")}
-          </ActionMenuItem>
-          <ActionMenuItem
-            onClick={async () => {
-              await makePrimaryContactAsync({
-                projectId: project_id,
-                registryId,
-                primaryContact: !primary_contact,
-              });
-
-              onPrimaryContactChange();
-            }}>
-            {!primary_contact
-              ? t("makePrimaryContact")
-              : t("removeAsPrimaryContact")}
-          </ActionMenuItem>
-        </>
-      )}
+            onPrimaryContactChange();
+          }}>
+          {!primary_contact
+            ? t("makePrimaryContact")
+            : t("removeAsPrimaryContact")}
+        </ActionMenuItem>,
+      ]}
     </ActionMenu>
   );
 }

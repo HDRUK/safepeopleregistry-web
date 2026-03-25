@@ -8,9 +8,19 @@ jobs:
   check-title:
     runs-on: ubuntu-latest
     steps:
+      - name: Generate GitHub App token
+        id: generate-deployment-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.DEPLOY_APP_ID }}
+          private-key: ${{ secrets.DEPLOY_APP_PRIVATE_KEY }}
+          owner: HDRUK
+          repositories: |
+            ${{ github.event.repository.name }}
+      
       - name: Check PR Title Format
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.generate-deployment-token.outputs.token }}
           PR_TITLE: ${{ github.event.pull_request.title }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           PR_REPO: ${{ github.repository }}
@@ -23,6 +33,7 @@ jobs:
           # Define regex patterns
           RELEASE_PATTERN="^RELEASE: .+$"
           STANDARD_PATTERN="^(feat|fix|chore|docs|style|refactor|test|perf)(!?)(\(REGISTRY-[0-9]+\)|\(GAT-[0-9]+\)): .+$"
+          REVERT_PATTERN="^Revert .+$"
 
           if echo "$TITLE" | grep -E -q "$RELEASE_PATTERN"; then
             echo "✅ PR title is a valid RELEASE PR!"
@@ -32,6 +43,10 @@ jobs:
             echo "✅ PR title is valid!"
 
             COMMENT="🎉 **Great job!** Your PR title follows the correct format. 🚀"
+          elif echo "$TITLE" | grep -E -q "$REVERT_PATTERN"; then
+            echo "✅ PR title is a valid REVERT PR!"
+
+            COMMENT="🎉 **Great job!** Your PR title is a valid revert PR. 👍"
           else
             echo "❌ Invalid PR title format!"
 

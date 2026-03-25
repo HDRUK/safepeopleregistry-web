@@ -1,14 +1,14 @@
 "use client";
 
+import { useCallback, useMemo } from "react";
+import { rectSortingStrategy } from "@dnd-kit/sortable";
+import { useTranslations } from "next-intl";
+import { DragUpdateEvent, DragUpdateEventArgs } from "@/types/dnd";
 import KanbanBoardOrganisationsCard, {
   KanbanBoardOrganisationsCardProps,
 } from "@/modules/KanbanBoard/KanbanBoardOrganisationsCard";
-import { DragUpdateEvent, DragUpdateEventArgs } from "@/types/dnd";
-import { rectSortingStrategy } from "@dnd-kit/sortable";
-import { useTranslations } from "next-intl";
-import { useCallback, useMemo } from "react";
-import { STATUS_ORDER_MAP } from "@/consts/status";
 import { Status } from "@/consts/application";
+import { sortStatusArray } from "@/utils/application";
 import KanbanBoard, {
   KanbanBoardEntityProps,
   KanbanBoardHelperProps,
@@ -27,6 +27,7 @@ export default function ProjectOrganisationsBoard({
   updateQueryState,
   options,
   actions,
+  rollbackVersion,
 }: ProjectOrganisationsBoardProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION);
 
@@ -50,22 +51,17 @@ export default function ProjectOrganisationsBoard({
       data: DragUpdateEventArgs<CustodianProjectOrganisation>
     ) => {
       if (!data.item || !data.containerId) return;
+      if (data.initial?.containerId === data.containerId) return;
 
       onMove(data.item.id, data.containerId as string);
     },
-    []
+    [onMove]
   );
 
-  function sortByStatus<T>(
-    input: Record<string | string, T[]>
-  ): Record<string, T[]> {
-    return Object.fromEntries(
-      Object.entries(input).sort(
-        ([a], [b]) =>
-          (STATUS_ORDER_MAP.get(a) ?? Number.MAX_SAFE_INTEGER) -
-          (STATUS_ORDER_MAP.get(b) ?? Number.MAX_SAFE_INTEGER)
-      )
-    );
+  function sortByStatus<T>(input: Record<string, T[]>): Record<string, T[]> {
+    const sortedKeys = sortStatusArray(Object.keys(input));
+
+    return Object.fromEntries(sortedKeys.map(key => [key, input[key]]));
   }
 
   const orderedItems = useMemo(
@@ -74,11 +70,11 @@ export default function ProjectOrganisationsBoard({
   );
 
   const isDisabledItem = useCallback((data: CustodianProjectOrganisation) => {
-    return !data.project_organisation.organisation.system_approved;
+    return !data?.project_organisation.organisation.system_approved;
   }, []);
 
   const isDroppableItem = useCallback((data: CustodianProjectOrganisation) => {
-    return !!data.project_organisation.organisation.system_approved;
+    return !!data?.project_organisation.organisation.system_approved;
   }, []);
 
   return (
@@ -95,6 +91,7 @@ export default function ProjectOrganisationsBoard({
       isDisabledItem={isDisabledItem}
       isDroppableItem={isDroppableItem}
       disabledContainers={[Status.INVITED, Status.SYSTEM_APPROVAL]}
+      rollbackVersion={rollbackVersion}
     />
   );
 }

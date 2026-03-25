@@ -23,6 +23,7 @@ import {
   getValidation,
   SecurityCompilanceFormData,
 } from "./config/form";
+import DirectoryLink from "./DirectoryLink";
 
 const NAMESPACE_TRANSLATION_FORM = "Form";
 const NAMESPACE_TRANSLATION_PROFILE = "ProfileOrganisation";
@@ -58,6 +59,9 @@ export default function SecurityCompliance() {
       ce_plus_expiry_date: formatDBDate(data.ce_plus_expiry_date),
       iso_expiry_date: formatDBDate(data.iso_expiry_date),
       dsptk_expiry_date: formatDBDate(data.dsptk_expiry_date),
+      dsptk_date_last_published: formatDBDate(data.dsptk_date_last_published),
+      ico_date_registered: formatDBDate(data.dsptk_expiry_date),
+      ico_expiry_date: formatDBDate(data.dsptk_expiry_date),
     } as PutOrganisationPayload;
 
     onSubmit(payload);
@@ -75,39 +79,79 @@ export default function SecurityCompliance() {
           <>
             {certificationRows.map(cert => (
               <FormSection heading={t(cert.name)}>
-                <Grid container rowSpacing={3}>
-                  <Grid container item spacing={3}>
-                    <Grid item xs={6}>
-                      <FormControlWrapper
-                        name={cert.certificationNum}
-                        renderField={fieldProps => (
-                          <TextField {...fieldProps} />
-                        )}
-                      />
-                    </Grid>
-                  </Grid>
-
-                  <Grid container item spacing={3}>
-                    <Grid item xs={3}>
-                      <FormControlWrapper
-                        name={cert.certificationExpiryDate}
-                        renderField={fieldProps => (
-                          <DateInput {...fieldProps} disabled={false} />
-                        )}
-                      />
-                    </Grid>
-                  </Grid>
-                  <FormControlWrapper
-                    name={cert.certificationEvidence}
-                    displayLabel={false}
-                    renderField={fieldProps => (
-                      <CertificationUploader
-                        name={cert.name}
-                        value={fieldProps.value}
-                        onChange={fieldProps.onChange}
+                <Grid container spacing={3} direction="column">
+                  <Grid item xs={6}>
+                    <FormControlWrapper
+                      name={cert.certificationNum}
+                      renderField={fieldProps => (
+                        <TextField {...fieldProps} sx={{ maxWidth: "450px" }} />
+                      )}
+                    />
+                    {cert.certificationDirectoryURL && (
+                      <DirectoryLink
+                        baseUrl={cert.certificationDirectoryURL}
+                        fieldName={cert.certificationNum}
                       />
                     )}
-                  />
+                  </Grid>
+
+                  {cert.certificationStatus && (
+                    <Grid item xs={3}>
+                      <FormControlWrapper
+                        name={cert.certificationStatus}
+                        renderField={fieldProps => (
+                          <TextField
+                            {...fieldProps}
+                            sx={{ maxWidth: "450px" }}
+                          />
+                        )}
+                      />
+                    </Grid>
+                  )}
+
+                  {cert.certificationRegisteredDate && (
+                    <Grid item xs={3}>
+                      <FormControlWrapper
+                        name={cert.certificationRegisteredDate}
+                        renderField={fieldProps => (
+                          <DateInput
+                            {...fieldProps}
+                            disabled={false}
+                            sx={{ maxWidth: "200px" }}
+                          />
+                        )}
+                      />
+                    </Grid>
+                  )}
+
+                  <Grid item xs={3}>
+                    <FormControlWrapper
+                      name={cert.certificationExpiryDate}
+                      renderField={fieldProps => (
+                        <DateInput
+                          {...fieldProps}
+                          disabled={false}
+                          sx={{ maxWidth: "200px" }}
+                        />
+                      )}
+                    />
+                  </Grid>
+
+                  {cert.certificationEvidence && (
+                    <Grid item xs={3}>
+                      <FormControlWrapper
+                        name={cert.certificationEvidence}
+                        displayLabel={false}
+                        renderField={fieldProps => (
+                          <CertificationUploader
+                            name={cert.name}
+                            value={fieldProps.value}
+                            onChange={fieldProps.onChange}
+                          />
+                        )}
+                      />
+                    </Grid>
+                  )}
                 </Grid>
               </FormSection>
             ))}

@@ -1,19 +1,20 @@
 "use client";
 
-import {
-  ProjectAllUser,
-  CustodianProjectUser,
-  WithPaginatedQueryParms,
-  WithRoutes,
-} from "@/types/application";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import ListIcon from "@mui/icons-material/List";
 import ViewColumnIconOutlined from "@mui/icons-material/ViewColumnOutlined";
 import { Button } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  ProjectAllUser,
+  CustodianProjectUser,
+  WithPaginatedQueryParms,
+  WithRoutes,
+} from "@/types/application";
 import { Status } from "@/consts/application";
+import { sortStatusArray } from "@/utils/application";
 import ButtonToggle from "../../components/ButtonToggle";
 import ErrorMessage from "../../components/ErrorMessage";
 import Results from "../../components/Results";
@@ -30,13 +31,18 @@ import {
   usePaginatedCustodianProjectUsers,
 } from "../../services/custodian_approvals";
 import { EntityType } from "../../types/api";
-import ProjectsAddUserModal from "../ProjectsAddUserModal";
 import ProjectUsersBoard from "../ProjectUsersBoard";
 import ProjectUsersList from "../ProjectUsersList";
+import ProjectsAddUserModal from "../ProjectsAddUserModal";
 import ProjectUsersActions from "./ProjectUsersActions";
 
 const NAMESPACE_TRANSLATIONS_PROJECT_USERS = "Projects.Users";
 const NAMESPACE_TRANSLATIONS_STATUS = "Application.Status";
+
+const PROJECT_USER_FILTER_STATES = [
+  Status.AFFILIATION_INFO_REQUIRED,
+  Status.AFFILIATION_EMAIL_VERIFY,
+];
 
 type ProjectUsersListProps = WithPaginatedQueryParms<
   WithRoutes<{
@@ -61,6 +67,8 @@ export default function ProjectUsers({
   const [showListView, setShowListView] = useState(
     variant !== EntityType.CUSTODIAN
   );
+
+  const [rollbackVersion, setRollbackVersion] = useState(0);
 
   const [showAddModal, setShowAddModal] = useState(false);
 
@@ -113,15 +121,19 @@ export default function ProjectUsers({
 
   const handleUpdateSafePeople = useCallback(
     async (id: number, status: string) => {
-      await changeValidationStatus({
-        params: {
-          projectUserId: id,
-        },
-        payload: {
-          status,
-          comment: "status change",
-        },
-      });
+      try {
+        await changeValidationStatus({
+          params: {
+            projectUserId: id,
+          },
+          payload: {
+            status,
+            comment: "status change",
+          },
+        });
+      } catch {
+        setRollbackVersion(Date.now());
+      }
     },
     [showListView]
   );
@@ -198,6 +210,7 @@ export default function ProjectUsers({
       options={{
         isTransitionAllowed,
       }}
+      rollbackVersion={rollbackVersion}
       {...commonProps}
     />
   ) : (
@@ -213,11 +226,16 @@ export default function ProjectUsers({
     />
   );
 
+  const statusFilters = useMemo(
+    () => sortStatusArray(states.concat(PROJECT_USER_FILTER_STATES)),
+    [states]
+  );
+
   return (
     <>
       <PageSection>
         <ProjectUsersFilters
-          statusList={states}
+          statusList={statusFilters}
           includeFilters={
             !showListView
               ? []

@@ -20,7 +20,10 @@ jobs:
       id-token: write
 
     runs-on: ubuntu-latest
-    environment: release
+    strategy:
+      matrix:
+         environment: [preprod, prod]
+    environment: ${{ matrix.environment }}    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6

@@ -300,7 +300,8 @@ type Organisation = OrganisationIdvt &
     dsptk_certified: boolean;
     dsptk_ods_code: string;
     dsptk_expiry_date: string;
-    dsptk_expiry_evidence: File | null;
+    dsptk_date_last_published: string;
+    dsptk_status?: string;
     subsidiaries?: Subsidiary[];
     departments: Department[];
     unclaimed: number;
@@ -310,6 +311,11 @@ type Organisation = OrganisationIdvt &
     sro_profile_uri?: string;
     sro_officer?: User;
     files?: File[];
+    ods_id: string;
+    ico_registration_id: string;
+    ico_date_registered: string;
+    ico_expiry_date: string;
+    ico_expiry_evidence: File | null;
   }>;
 
 interface ResearcherEducation {
