@@ -1,3 +1,27 @@
+## [1.30.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.29.2...v1.30.0) (2026-03-25)
+
+### ✨ Features
+
+* **GAT-5978:** added github authentication (#687) ([e95e605](https://github.com/HDRUK/safepeopleregistry-web/commit/e95e605f5a464a8d5c8d1095bc116309839d8855)), closes [GAT-5978](GAT-5978)
+* **GAT-7958:** updated semantic pipeline for merge back to dev (#713) ([6296cf4](https://github.com/HDRUK/safepeopleregistry-web/commit/6296cf44644467ebacb2421da2a66d166409e8f9)), closes [GAT-7958](GAT-7958)
+* **REGISTRY-2247:** Tidy ICO and DSPT fields (#696) ([a1a7f9a](https://github.com/HDRUK/safepeopleregistry-web/commit/a1a7f9a2a8338fd4234bcc365c22cb4a1534024f))
+* **REGISTRY-2249:** Display DSPT Id to custodian (#703) ([1d97713](https://github.com/HDRUK/safepeopleregistry-web/commit/1d97713200758a0e02fa481a1a7b91405e5616c8))
+* **REGISTRY-2360:** Add Organisation ODS fiel (#695) ([855606f](https://github.com/HDRUK/safepeopleregistry-web/commit/855606f6248ebb612128b63c73687c07471a84d2))
+* **REGISTRY-2582:** Filter any disabled columns from kanban board (#712) ([84232bb](https://github.com/HDRUK/safepeopleregistry-web/commit/84232bbbbd727619240ae157496de8d4e6fd138e))
+* **REGISTRY-2588:** Render 'Affiliation information required' status as grey (#710) ([09146a0](https://github.com/HDRUK/safepeopleregistry-web/commit/09146a07e55a6d55423e4ea0f71df0cfde13e61d))
+* **REGISTRY-2591:** Update Custodian list of validation statuses (#715) ([590d3c5](https://github.com/HDRUK/safepeopleregistry-web/commit/590d3c542694bbbc0d37f8bf5b7285486d702915))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-1668:** organisation status (#699) ([ef2e32d](https://github.com/HDRUK/safepeopleregistry-web/commit/ef2e32d7a1508748e2b485ef7748c7989d3bd6ad))
+* **REGISTRY-1668:** validation status - 2 (#706) ([0f6eb9a](https://github.com/HDRUK/safepeopleregistry-web/commit/0f6eb9a4eeb467448cb187f4df3bd0b9498d5ec0))
+* **REGISTRY-1668:** validation status (#697) ([8c1ef2c](https://github.com/HDRUK/safepeopleregistry-web/commit/8c1ef2cd71ff861f0610141517c9b0ad00772586))
+* **REGISTRY-2423:** Fix kanban board (#698) ([f4450ef](https://github.com/HDRUK/safepeopleregistry-web/commit/f4450ef511da5ba6fcbd1d53df486b7ec8e678c4))
+* **REGISTRY-2524:** Update certificate download text (#700) ([4f6f83d](https://github.com/HDRUK/safepeopleregistry-web/commit/4f6f83d182284d042d311dccd9683a6ff385c71d))
+* **REGISTRY-2566:** Org statuses (#689) ([b1f5a5c](https://github.com/HDRUK/safepeopleregistry-web/commit/b1f5a5cf21dc2c7acc67dffc7b24e07f54d94453))
+* **REGISTRY-2576:** Update charity regex (#708) ([62773ff](https://github.com/HDRUK/safepeopleregistry-web/commit/62773ff74c6da839077adb7aebf5146b97214075))
+* **REGISTRY-2593:** Remove org status from kanban items (#709) ([e63fe34](https://github.com/HDRUK/safepeopleregistry-web/commit/e63fe346105bceaf30adf7f618cf9ec8f86a61c0))
+
 ## [1.29.2](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.29.1...v1.29.2) (2026-03-05)
 
 ### 🐛 Bug Fixes
