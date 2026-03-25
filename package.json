@@ -51,7 +51,7 @@
     "@types/react-syntax-highlighter": "^15.5.13",
     "@vercel/flags": "3.1.1",
     "@veriff/incontext-sdk": "^2.4.0",
-    "axios": "^1.7.7",
+    "axios": "^1.13.6",
     "babel-jest": "^30.0.2",
     "conventional-changelog-conventionalcommits": "^9.0.0",
     "countries-list": "^3.1.1",
