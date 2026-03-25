@@ -7,6 +7,10 @@ const GOOGLE_PLACES_DETAILS_URL =
 const API_KEY = process.env.GOOGLE_MAPS_API_KEY;
 
 export default async function fetchPredictions(input: string) {
+  console.log("IEnjoySundayRoasts");
+  console.log(input, "input)");
+  console.log(API_KEY);
+
   if (!API_KEY) {
     throw new Error(
       "Missing one or more required environment variables: GOOGLE_MAPS_API_KEY"
@@ -36,6 +40,8 @@ export default async function fetchPredictions(input: string) {
 async function fetchAutocomplete(input: string) {
   try {
     const url = `${GOOGLE_PLACES_AUTOCOMPLETE_URL}?input=${encodeURIComponent(input)}&key=${API_KEY}&types=address`;
+    console.log(url, "url");
+
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -45,6 +51,7 @@ async function fetchAutocomplete(input: string) {
     }
 
     const data = await response.json();
+    console.log(data, "<<<<<<<<<<<< data");
     return data;
   } catch (error) {
     console.error("[fetchAutocomplete] Error:", error);

@@ -92,6 +92,7 @@ const GoogleAutocomplete: React.FC<GoogleAutocompleteProps> = ({
       }
       setLoading(true);
       try {
+        console.log("IAmClient <<<<<<");
         const predictions = await fetchPredictions(debouncedInputValue);
         setOptions(
           predictions
