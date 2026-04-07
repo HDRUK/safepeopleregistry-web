@@ -216,17 +216,10 @@ const addNewProject = (project: ResearcherProject) => {
   cy.get("#unique_id").clear().type(project.unique_id);
   cy.get("#title").clear().type(project.title);
 
-  cy.selectValue("#sponsor_id", "Test Organisation, LTD");
-
-  cy.get("#request_category_type").clear().type(project.request_category_type);
   cy.dateSelectValue("start_date", project.start_date);
   cy.dateSelectValue("end_date", project.end_date);
-  cy.get("#lay_summary").clear().type(project.lay_summary);
-  cy.get("#public_benefit").clear().type(project.public_benefit);
-  cy.get("#technical_summary").clear().type(project.technical_summary);
 
-  cy.saveContinueClick("Save");
-  cy.clickAlertModal("Close");
+  cy.saveContinueClick("Create project");
 };
 
 const hasProjectSponsor = () => {
@@ -244,7 +237,6 @@ const hasProject = (project: ResearcherProject) => {
     cy.contains("td", project.title);
     cy.contains("td", formatDisplayLongDate(project.start_date));
     cy.contains("td", formatDisplayLongDate(project.end_date));
-    cy.contains("td", getStatus(project.model_state.state.slug));
   });
 };
 
