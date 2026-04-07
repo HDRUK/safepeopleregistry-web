@@ -10,7 +10,7 @@ import { PutProjectPayload } from "@/services/projects";
 import { useRouter } from "next/navigation";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
 import { Message } from "@/components/Message";
-import AddProjectForm from "../AddProjectForm";
+import AddProjectForm from "../../modules/AddProjectForm";
 
 export interface AddProjectModalProps extends Omit<FormModalProps, "children"> {
   onClose: () => void;

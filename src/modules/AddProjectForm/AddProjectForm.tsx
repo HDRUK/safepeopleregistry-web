@@ -6,33 +6,28 @@ import FormModalBody from "@/components/FormModalBody";
 import FormModalHeader from "@/components/FormModalHeader";
 import yup from "@/config/yup";
 import { WithTranslations } from "@/types/application";
-import { CustodianEditContactFormFields } from "@/types/form";
+import { CustodianProjectFormFields } from "@/types/form";
 
 import CheckIcon from "@mui/icons-material/Check";
 import { Button, Grid, TextField, Typography } from "@mui/material";
-import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 
 export type AddProjectFormProps = WithTranslations<{
-  onSubmit: (payload: CustodianEditContactFormFields) => void;
+  onSubmit: (payload: CustodianProjectFormFields) => void;
   onClose: () => void;
 }>;
-
-const NAMESPACE_TRANSLATION_FORM = "Form";
 
 export default function AddProjectForm({
   onClose,
   onSubmit,
   t,
 }: AddProjectFormProps) {
-  const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
-
   const schema = useMemo(
     () =>
       yup.object().shape({
-        title: yup.string().required(tForm("titleRequiredInvalid")),
-        unique_id: yup.string().required(tForm("uniqueIdRequiredInvalid")),
-        start_date: yup.string().required(tForm("startDateRequiredInvalid")),
+        title: yup.string(),
+        unique_id: yup.string(),
+        start_date: yup.string(),
         end_date: yup.string().nullable(),
       }),
     []

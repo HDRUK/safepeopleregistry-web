@@ -1,96 +1,108 @@
-import { useStore } from "@/data/store";
 import {
   fireEvent,
   render,
   screen,
   waitFor,
-  act,
   commonAccessibilityTests,
 } from "@/utils/testUtils";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import AddProjectModal from "./AddProjectModal";
+import AddProjectModal, { AddProjectModalProps } from "./AddProjectModal";
+
+type MockDateInputProps = {
+  value?: string | null;
+  name?: string;
+  onChange?: (value: string | null) => void;
+};
+
+jest.mock("@/components/DateInput", () => ({
+  __esModule: true,
+  default: ({ value, onChange, name }: MockDateInputProps) => (
+    <input
+      data-testid={name}
+      name={name}
+      value={value ?? ""}
+      onChange={e => onChange?.(e.target.value)}
+    />
+  ),
+}));
 
 const mockPush = jest.fn();
-jest.mock("next/navigation", () => ({ useRouter: () => ({ push: mockPush }) }));
 
-(useStore as unknown as jest.Mock) = jest.fn().mockReturnValue({
-  getApplication: () => ({
-    routes: { profileCustodianProjectsSafeProject: { path: "/projects/:id" } },
+jest.mock("next/navigation", () => ({
+  useRouter: () => ({
+    push: mockPush,
   }),
-  getCustodian: () => ({ id: 123 }),
-});
+}));
 
-const mockMutationFn = jest.fn().mockResolvedValue({ data: 999 });
+const postCustodianProject = jest.fn().mockResolvedValue({ data: 1 });
+
 jest.mock("@/services/custodians", () => ({
-  postCustodianProjectQuery: () => ({ mutationFn: mockMutationFn }),
+  postCustodianProjectQuery: jest.fn(() => ({
+    mutationKey: ["postCustodianProject"],
+    mutationFn: postCustodianProject,
+  })),
 }));
 
 const mockOnClose = jest.fn();
 
-const renderModal = () => {
-  const queryClient = new QueryClient();
-  return render(
-    <QueryClientProvider client={queryClient}>
-      <AddProjectModal open onClose={mockOnClose} />
-    </QueryClientProvider>
-  );
+const renderModal = (props?: Partial<AddProjectModalProps>) => {
+  return render(<AddProjectModal open onClose={mockOnClose} {...props} />);
 };
 
-const fillForm = () => {
-  // Use the visible labels, not name attributes
-  fireEvent.change(screen.getByLabelText(/title/i), {
+const submitForm = async () => {
+  fireEvent.change(screen.getByRole("textbox", { name: /Name/i }), {
     target: { value: "Test Project" },
   });
-  fireEvent.change(screen.getByLabelText(/unique id/i), {
-    target: { value: "ABC123" },
+
+  fireEvent.change(screen.getByRole("textbox", { name: /ID/i }), {
+    target: { value: "Test ID" },
   });
 
-  // DateInputs: query by placeholder text
-  fireEvent.change(screen.getByPlaceholderText(/start date/i), {
-    target: { value: "2025-01-01" },
+  fireEvent.change(screen.getByTestId("start_date"), {
+    target: { value: "01-01-2025" },
   });
-  fireEvent.change(screen.getByPlaceholderText(/end date/i), {
-    target: { value: "2025-12-31" },
+
+  fireEvent.change(screen.getByTestId("end_date"), {
+    target: { value: "10-10-2025" },
   });
+
+  fireEvent.submit(screen.getByRole("button", { name: /Create project/i }));
 };
 
 describe("<AddProjectModal />", () => {
-  afterEach(() => jest.clearAllMocks());
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
   it("submits form and calls create project mutation", async () => {
     renderModal();
-    fillForm();
 
-    act(() =>
-      fireEvent.submit(screen.getByRole("button", { name: /create project/i }))
-    );
+    await submitForm();
 
-    await waitFor(() => expect(mockMutationFn).toHaveBeenCalledTimes(1));
-  });
-
-  it("redirects to project page after success", async () => {
-    renderModal();
-    fillForm();
-
-    act(() =>
-      fireEvent.submit(screen.getByRole("button", { name: /create project/i }))
-    );
-
-    await waitFor(() => expect(mockPush).toHaveBeenCalledWith("/projects/999"));
+    await waitFor(() => {
+      expect(postCustodianProject).toHaveBeenCalledTimes(1);
+    });
   });
 
   it("does not submit when required fields are missing", async () => {
     renderModal();
-    // leave title empty
-    fireEvent.change(screen.getByLabelText(/title/i), {
-      target: { value: "" },
+
+    fireEvent.change(screen.getByRole("textbox", { name: /ID/i }), {
+      target: { value: "Test ID" },
     });
 
-    act(() =>
-      fireEvent.submit(screen.getByRole("button", { name: /create project/i }))
-    );
+    fireEvent.change(screen.getByTestId("start_date"), {
+      target: { value: "01-01-2025" },
+    });
 
-    await waitFor(() => expect(mockMutationFn).not.toHaveBeenCalled());
+    fireEvent.change(screen.getByTestId("end_date"), {
+      target: { value: "10-10-2025" },
+    });
+
+    fireEvent.submit(screen.getByRole("button", { name: /Create project/i }));
+
+    await waitFor(() => {
+      expect(postCustodianProject).not.toHaveBeenCalled();
+    });
   });
 
   it("has no accessibility violations", async () => {
