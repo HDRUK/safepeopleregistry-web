@@ -219,6 +219,21 @@ const addNewProject = (project: ResearcherProject) => {
   cy.dateSelectValue("end_date", project.end_date);
 
   cy.saveContinueClick("Create project");
+
+  cy.selectValue("#sponsor_id", "Test Organisation, LTD");
+
+  cy.get("#request_category_type").clear().type(project.request_category_type);
+
+  cy.get("#lay_summary").clear().type(project.lay_summary);
+  cy.get("#public_benefit").clear().type(project.public_benefit);
+  cy.get("#technical_summary").clear().type(project.technical_summary);
+
+  cy.get('[data-testid="status"] input[type="radio"]')
+    .eq(0)
+    .check({ force: true });
+
+  cy.saveContinueClick("Save");
+  cy.clickAlertModal("Close");
 };
 
 const hasProjectSponsor = () => {
