@@ -31,7 +31,10 @@ export default function AddProjectForm({
     () =>
       yup.object().shape({
         title: yup.string().required(tForm("titleRequiredInvalid")),
-        unique_id: yup.string().required(tForm("uniqueIdRequiredInvalid")),
+        unique_id: yup
+          .string()
+          .required(tForm("uniqueIdRequiredInvalid"))
+          .matches(/^[a-zA-Z0-9]+$/, tForm("uniqueIdMatchInvalid")),
         start_date: yup.string().required(tForm("startDateRequiredInvalid")),
         end_date: yup.string().nullable(),
       }),
