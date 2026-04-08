@@ -54,7 +54,7 @@ const submitForm = async () => {
   });
 
   fireEvent.change(screen.getByRole("textbox", { name: /ID/i }), {
-    target: { value: "Test ID" },
+    target: { value: "Test_ID" },
   });
 
   fireEvent.change(screen.getByTestId("start_date"), {
