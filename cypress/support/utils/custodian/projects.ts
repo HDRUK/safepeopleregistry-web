@@ -204,7 +204,6 @@ const addNewProjectUser = (user: User) => {
 };
 
 const invitesNewSponsor = (invite: InviteOrganisationFormValues) => {
-  cy.contains("button", "Add new project").click();
   cy.contains("button", "Invite to register").click();
 
   inviteOrganisation(invite);
