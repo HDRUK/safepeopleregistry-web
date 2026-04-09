@@ -168,12 +168,33 @@ export default function AffiliationsForm({
     { label: tApplication("student"), value: AffiliationRelationship.STUDENT },
   ];
 
-  const handleSubmit = useCallback((fields: ResearcherAffiliation) => {
-    onSubmit({
-      to: null,
-      ...fields,
-    });
-  }, []);
+  const handleSubmit = useCallback(
+    (fields: ResearcherAffiliation) => {
+      const {
+        organisation_id,
+        organisation_name,
+        organisation_email,
+        ...rest
+      } = fields;
+
+      const payload = selectOrganisation
+        ? {
+            ...rest,
+            organisation_id,
+          }
+        : {
+            ...rest,
+            organisation_name,
+            organisation_email,
+          };
+
+      onSubmit({
+        to: null,
+        ...payload,
+      });
+    },
+    [onSubmit, selectOrganisation]
+  );
 
   return (
     <Form
