@@ -188,8 +188,6 @@ export default function AffiliationsForm({
             organisation_email,
           };
 
-      console.log(payload);
-
       onSubmit({
         to: null,
         ...payload,
