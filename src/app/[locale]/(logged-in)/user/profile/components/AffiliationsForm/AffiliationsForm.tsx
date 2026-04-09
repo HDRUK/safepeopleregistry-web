@@ -96,8 +96,8 @@ export default function AffiliationsForm({
           .date()
           .when("current_employer", {
             is: (value: boolean) => !!value,
-            otherwise: schema => schema.required(tForm("toRequiredInvalid")),
-            then: schema => schema.notRequired(),
+            then: schema => schema.required(tForm("toRequiredInvalid")),
+            otherwise: schema => schema.notRequired(),
           })
           .nullable(),
         organisation_id: selectOrganisation
@@ -135,7 +135,7 @@ export default function AffiliationsForm({
         member_id: initialValues?.member_id || "",
         organisation_id: initialValues?.organisation_id || undefined,
         current_employer:
-          (!!initialValues?.from && !initialValues?.to) || false,
+          (!!initialValues?.from && !!initialValues?.to) || false,
         relationship: initialValues?.relationship || "",
         from: getDate(initialValues?.from) || null,
         to: getDate(initialValues?.to) || null,
@@ -168,12 +168,35 @@ export default function AffiliationsForm({
     { label: tApplication("student"), value: AffiliationRelationship.STUDENT },
   ];
 
-  const handleSubmit = useCallback((fields: ResearcherAffiliation) => {
-    onSubmit({
-      to: null,
-      ...fields,
-    });
-  }, []);
+  const handleSubmit = useCallback(
+    (fields: ResearcherAffiliation) => {
+      const {
+        organisation_id,
+        organisation_name,
+        organisation_email,
+        ...rest
+      } = fields;
+
+      const payload = selectOrganisation
+        ? {
+            ...rest,
+            organisation_id,
+          }
+        : {
+            ...rest,
+            organisation_name,
+            organisation_email,
+          };
+
+      console.log(payload);
+
+      onSubmit({
+        to: null,
+        ...payload,
+      });
+    },
+    [onSubmit, selectOrganisation]
+  );
 
   return (
     <Form
