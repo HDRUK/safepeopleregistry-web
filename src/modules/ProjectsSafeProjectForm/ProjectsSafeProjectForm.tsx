@@ -71,6 +71,7 @@ export default function ProjectsSafeProjectForm({
         }),
         start_date: yup.string().required(tForm("startDateRequiredInvalid")),
         end_date: yup.string().nullable(),
+        latest_approval_date: yup.string(),
         lay_summary: yup.string().optional(),
         public_benefit: yup.string().optional(),
         technical_summary: yup.string().optional(),
@@ -222,6 +223,19 @@ export default function ProjectsSafeProjectForm({
                       <FormControlWrapper
                         t={tForm}
                         name="end_date"
+                        renderField={fieldProps => (
+                          <DateInput {...fieldProps} />
+                        )}
+                      />
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid item xs={12}>
+                  <Grid container columnSpacing={3}>
+                    <Grid item xs={6}>
+                      <FormControlWrapper
+                        t={tForm}
+                        name="latest_approval_date"
                         renderField={fieldProps => (
                           <DateInput {...fieldProps} />
                         )}
