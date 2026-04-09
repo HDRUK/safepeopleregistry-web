@@ -96,8 +96,8 @@ export default function AffiliationsForm({
           .date()
           .when("current_employer", {
             is: (value: boolean) => !!value,
-            then: schema => schema.required(tForm("toRequiredInvalid")),
-            otherwise: schema => schema.notRequired(),
+            otherwise: schema => schema.required(tForm("toRequiredInvalid")),
+            then: schema => schema.notRequired(),
           })
           .nullable(),
         organisation_id: selectOrganisation
