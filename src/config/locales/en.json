@@ -870,7 +870,9 @@
       "technicalSummaryDescription": "A summary of the proposed research, in a manner that is suitable for a specialist reader",
       "otherApprovalCommittees": "Other approval committees",
       "otherApprovalCommitteesPlaceholder": "Approval committee name",
-      "startDateRequiredInvalid": "Start date is required"
+      "startDateRequiredInvalid": "Start date is required",
+      "latestApprovalDate": "Latest approval date",
+      "latestApprovalDateDescription": "The last date the data access request for this project was approved by a data custodian"
     },
     "SafeData": {
       "arrayRemoveButton": "Remove",
@@ -883,7 +885,7 @@
       "oneOffRequest": "One-off request",
       "recurringDataset": "Recurring dataset",
       "releaseDate": "Release / access date",
-      "releaseDateDescription": "The date the data access was granted and active data use/research started",
+      "releaseDateDescription": "The date the data access was first granted to any User on the project, and active data use/research started",
       "legalBasisForDataArticle6": "Lawful condition for provision of data under <link>Article 6</link>",
       "legalBasisForDataArticle6Placeholder": "Lawful condition",
       "datasets": "Linked datasets",

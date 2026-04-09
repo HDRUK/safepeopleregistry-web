@@ -30,6 +30,7 @@ const PAYLOAD_FIELDS = [
   "request_category_type",
   "start_date",
   "end_date",
+  "latest_approval_date",
   "lay_summary",
   "public_benefit",
   "technical_summary",
@@ -66,6 +67,7 @@ export default function ProjectsSafeProject() {
         ...payload,
         start_date: formatDBDateTime(payload.start_date),
         end_date: formatDBDateTime(payload.end_date),
+        latest_approval_date: formatDBDateTime(payload.latest_approval_date),
       },
     });
   };
