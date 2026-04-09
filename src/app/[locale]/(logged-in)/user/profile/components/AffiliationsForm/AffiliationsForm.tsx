@@ -135,7 +135,7 @@ export default function AffiliationsForm({
         member_id: initialValues?.member_id || "",
         organisation_id: initialValues?.organisation_id || undefined,
         current_employer:
-          (!!initialValues?.from && !!initialValues?.to) || false,
+          (!!initialValues?.from && !initialValues?.to) || false,
         relationship: initialValues?.relationship || "",
         from: getDate(initialValues?.from) || null,
         to: getDate(initialValues?.to) || null,
