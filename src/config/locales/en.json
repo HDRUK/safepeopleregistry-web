@@ -273,6 +273,12 @@
       "updateUserDescription": "Update the data below to change the selected team member's details",
       "createUserDescription": "Complete the form below to add a new member to your Safe People Registry team"
     },
+    "AddProject": {
+      "title": "Add a new project",
+      "description": "Enter in the following information to create a project",
+      "submitButton": "Create project",
+      "cancelButton": "Cancel"
+    },
     "SafePeople": {
       "heading": "Safe People",
       "description": "Add a User to start the validation process. You can add existing Safe People Registry Users, or invite new Users to create a Safe People Registry account."
@@ -551,6 +557,11 @@
     "organisationEmailPlaceholder": "Email address",
     "organisationEmailRequired": "Organisation email address is required",
     "emailAddressAtEmployer": "Email address at employer or institute",
+    "uniqueId": "ID",
+    "uniqueIdRequiredInvalid": "ID is required",
+    "uniqueIdMatchInvalid": "Only letters and numbers allowed",
+    "title": "Name",
+    "titleRequiredInvalid": "Project name is required",
     "firstNameRequiredInvalid": "First name is a required field",
     "lastNameRequiredInvalid": "Last name is a required field",
     "permissionsRequiredInvalid": "Permissions is a required field",
@@ -839,6 +850,7 @@
       "uniqueId": "ID",
       "uniqueIdPlaceholder": "ID",
       "uniqueIdRequiredInvalid": "ID is required",
+      "uniqueIdMatchInvalid": "Only letters and numbers allowed",
       "title": "Name",
       "titlePlaceholder": "Project name",
       "titleRequiredInvalid": "Project name is required",

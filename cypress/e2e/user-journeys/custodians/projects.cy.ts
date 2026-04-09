@@ -45,6 +45,8 @@ describe("Projects custodians journey", () => {
   });
 
   it("Invites a sponsor", () => {
+    cy.contains("a", dataProject.title).click();
+
     invitesNewSponsor(invitedSponsor);
 
     hasProjectSponsor();
