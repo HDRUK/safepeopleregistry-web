@@ -1,5 +1,5 @@
 import { ROUTES } from "@/consts/router";
-import { dataCy, logout } from "cypress/support/utils/common";
+import { logout } from "cypress/support/utils/common";
 import { loginCustodian } from "cypress/support/utils/custodian/auth";
 import {
   addNewProject,

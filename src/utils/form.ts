@@ -139,6 +139,7 @@ function createProjectDefaultValues(
     request_category_type: data?.request_category_type || "",
     start_date: data?.start_date || "",
     end_date: data?.end_date || "",
+    latest_approval_date: data?.latest_approval_date || "",
     lay_summary: data?.lay_summary || "",
     public_benefit: data?.public_benefit || "",
     technical_summary: data?.technical_summary || "",

@@ -410,6 +410,7 @@ type ResearcherProject = WithModelState<{
   technical_summary: string;
   start_date: string;
   end_date: string;
+  latest_approval_date: string;
   request_category_type: string;
   other_approval_committees: string;
   affiliate_id: number;

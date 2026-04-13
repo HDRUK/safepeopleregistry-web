@@ -63,6 +63,13 @@ interface CustodianEditContactFormFields {
   permissions: CustodianUserRoles;
 }
 
+interface CustodianProjectFormFields {
+  name: string;
+  unique_id: string;
+  start_date: string;
+  end_date: string;
+}
+
 interface DelegatesFormValues {
   department_name?: string | null;
   delegate_first_name: string;
@@ -97,4 +104,5 @@ export type {
   InviteOrganisationFormValues,
   RegistrationValues,
   EmailChangeFormValues,
+  CustodianProjectFormFields,
 };
