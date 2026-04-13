@@ -341,13 +341,17 @@ export default function AffiliationsForm({
                   <Grid item xs={6}>
                     <FormControlWrapper
                       name="from"
-                      renderField={fieldProps => <DateInput {...fieldProps} />}
+                      renderField={fieldProps => (
+                        <DateInput {...fieldProps} disableFuture />
+                      )}
                     />
                   </Grid>
                   <Grid item xs={6}>
                     <FormControlWrapper
                       name="to"
-                      renderField={fieldProps => <DateInput {...fieldProps} />}
+                      renderField={fieldProps => (
+                        <DateInput {...fieldProps} disablePast />
+                      )}
                     />
                   </Grid>
                 </Grid>
