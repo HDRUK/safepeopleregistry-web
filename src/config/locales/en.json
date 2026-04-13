@@ -885,7 +885,7 @@
       "oneOffRequest": "One-off request",
       "recurringDataset": "Recurring dataset",
       "releaseDate": "Release / access date",
-      "releaseDateDescription": "The date the data access was granted to the first User on the project, and active data use/research first started",
+      "releaseDateDescription": "The date the data access was first granted to the first User on the project, and active data use/research first started",
       "legalBasisForDataArticle6": "Lawful condition for provision of data under <link>Article 6</link>",
       "legalBasisForDataArticle6Placeholder": "Lawful condition",
       "datasets": "Linked datasets",
