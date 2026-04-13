@@ -46,7 +46,7 @@ const DateInput = ({
   };
 
   const handleChange = (
-    date: Date,
+    date: Date | null,
     context: PickerChangeHandlerContext<DateValidationError>
   ) => {
     onChange(parseDate(date), context);
