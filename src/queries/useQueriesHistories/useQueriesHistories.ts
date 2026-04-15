@@ -1,25 +1,18 @@
+import { getAccreditations } from "@/app/actions/accreditations";
+import { getAffiliations } from "@/app/actions/affiliations";
+import { getEducations } from "@/app/actions/educations";
+import { getProfessionalRegistrations } from "@/app/actions/professional_registrations";
+import { getUserValidatedProjects } from "@/app/actions/projects";
+import { getTrainingByRegistryId } from "@/app/actions/trainings";
+import useQueriesCombined from "@/hooks/useQueriesCombined";
+import { getAccreditationsQuery } from "@/services/accreditations";
+import { getAffiliationsQuery } from "@/services/affiliations";
+import { getEducationsQuery } from "@/services/educations";
+import { getProfessionalRegistrationsQuery } from "@/services/professional_registrations";
+import { getUserValidatedProjectsQuery } from "@/services/projects";
+import { getTrainingByRegistryIdQuery } from "@/services/trainings";
+import { QueryOptions } from "@tanstack/react-query";
 import { useMemo } from "react";
-import { QueryOptions } from "../../types/requests";
-import useQueriesCombined from "../../hooks/useQueriesCombined";
-import {
-  getAccreditations,
-  getAccreditationsQuery,
-} from "../../services/accreditations";
-import getAffiliations from "../../app/actions/affiliations/getAffiliations";
-import getAffiliationsQuery from "../../services/affiliations/getAffiliationsQuery";
-import { getEducations, getEducationsQuery } from "../../services/educations";
-import {
-  getProfessionalRegistrations,
-  getProfessionalRegistrationsQuery,
-} from "../../services/professional_registrations";
-import {
-  getUserValidatedProjects,
-  getUserValidatedProjectsQuery,
-} from "../../services/projects";
-import {
-  getTrainingByRegistryId,
-  getTrainingByRegistryIdQuery,
-} from "../../services/trainings";
 
 export interface HistoryCombinedData {
   getEducations: Awaited<ReturnType<typeof getEducations>>;

@@ -3,7 +3,7 @@
 import { EXCLUDE_REDIRECT_URLS, ROUTES } from "@/consts/router";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import getMe from "../app/actions/auth/getMe";
+import getMe from "@/app/actions/auth/getMe";
 import { RouteConfig, Routes } from "../types/router";
 import { getAccessToken } from "./auth";
 import {

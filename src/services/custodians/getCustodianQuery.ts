@@ -1,6 +1,6 @@
+import getCustodian from "@/app/actions/custodians/getCustodian";
 import { QueryOptions } from "@/types/requests";
 import { UseQueryOptions } from "@tanstack/react-query";
-import getCustodian from "../../app/actions/custodians/getCustodian";
 
 export default function getCustodianQuery(
   custodianId: number,

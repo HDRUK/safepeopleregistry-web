@@ -1,6 +1,6 @@
 import { MutateWithArgs, QueryOptions } from "@/types/requests";
 import { UseMutationOptions } from "@tanstack/react-query";
-import postCustodianProject from "../../app/actions/custodians/postCustodianProject";
+import postCustodianProject from "@/app/actions/custodians/postCustodianProject";
 import { PostCustodianProjectPayload } from "./types";
 
 type PostCustodianProjectMutationArgs = MutateWithArgs<
