@@ -1,4 +1,4 @@
-// "use server";
+"use server";
 
 import { ResponseMessageType } from "@/consts/requests";
 import { ResponseEmptyError } from "@/types/query";

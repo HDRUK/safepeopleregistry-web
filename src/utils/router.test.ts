@@ -1,5 +1,5 @@
 import { UserGroup } from "@/consts/user";
-import { needsLoggedInPermissions } from "./router";
+import { needsLoggedInPermissions } from "@/utils/loggedInPermission";
 
 describe("needsLoggedInPermissions", () => {
   it("handles needed permissions", async () => {

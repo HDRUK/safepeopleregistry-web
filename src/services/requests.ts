@@ -1,4 +1,4 @@
-// "use server";
+"use server";
 
 import { QueryPayload } from "@/types/requests";
 import { objectToQuerystring } from "@/utils/requests";
