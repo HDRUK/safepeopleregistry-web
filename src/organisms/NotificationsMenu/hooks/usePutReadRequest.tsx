@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import putReadRequestNotificationQuery from "../../../services/notifications/putReadRequestNotificationQuery";
+import putReadRequestNotificationQuery from "@/services/notifications/putReadRequestNotificationQuery";
 
 const usePutReadRequest = () => {
   return useMutation({

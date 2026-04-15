@@ -18,19 +18,10 @@ import {
   Tooltip,
   Paper,
   useTheme,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  Button,
 } from "@mui/material";
-import CheckIcon from "@mui/icons-material/Check";
-import PendingIcon from "@mui/icons-material/Pending";
 import MarkEmailUnreadIcon from "@mui/icons-material/MarkEmailUnread";
 import { useTranslations } from "next-intl";
 import { Notification } from "../../types/notifications";
-import { formatDBDateTime } from "../../utils/date";
-import { toTitleCase } from "../../utils/string";
 import { formatNotificationType } from "../../utils/notifications";
 import usePutReadRequest from "../NotificationsMenu/hooks/usePutReadRequest";
 
@@ -53,6 +44,7 @@ export default function NotificationModal({
   sx,
   ...restProps
 }: FormModalProps) {
+  console.log(notification);
   const t = useTranslations(NAMESPACE_TRANSLATIONS);
   const theme = useTheme();
   const mobileMediaQuery = theme.breakpoints.down("sm");
@@ -115,7 +107,7 @@ export default function NotificationModal({
             <span>
               {formatNotificationType(notification.type)}
               {" - "}
-              {formatDBDateTime(notification.data.time)}
+              {/* {formatDBDateTime(notification.data.time)} */}
             </span>
           }
         />
@@ -163,33 +155,6 @@ export default function NotificationModal({
             </Box>
           )}
 
-          {Array.isArray(notification.data.actions) && (
-            <List
-              sx={{
-                width: "100%",
-                maxWidth: 360,
-                bgcolor: "background.paper",
-              }}>
-              {notification.data.actions.map(action => (
-                <ListItem>
-                  <ListItemIcon>
-                    {action.completed_at ? (
-                      <CheckIcon color="success" />
-                    ) : (
-                      <PendingIcon />
-                    )}
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={toTitleCase(action.action)}
-                    secondary={
-                      action.completed_at &&
-                      formatDBDateTime(action.completed_at)
-                    }
-                  />
-                </ListItem>
-              ))}
-            </List>
-          )}
           {isDetailsObject ? (
             <TableContainer
               component={Paper}
@@ -251,7 +216,7 @@ export default function NotificationModal({
                   justifyContent: "flex-end",
                   gap: 1,
                 }}>
-                {Object.entries(notification.data.buttonUrls ?? {}).map(
+                {/* {Object.entries(notification.data.buttonUrls ?? {}).map(
                   ([name, id]) => (
                     <Button
                       key={id}
@@ -263,7 +228,7 @@ export default function NotificationModal({
                       {name}
                     </Button>
                   )
-                )}
+                )} */}
               </Box>
             </>
           )}

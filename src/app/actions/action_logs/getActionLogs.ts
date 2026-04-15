@@ -2,8 +2,8 @@
 
 import { ResponseJson, ResponseOptions } from "@/types/requests";
 import { ActionLog, ActionLogEntity } from "@/types/logs";
-import { getRequest } from "../../../services/requests";
-import { handleJsonResponse } from "../../../services/requestHelpers";
+import { getRequest } from "@/services/requests";
+import { handleJsonResponse } from "@/services/requestHelpers";
 
 export default async (
   userId: number,
