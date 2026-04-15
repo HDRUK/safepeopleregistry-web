@@ -11,7 +11,7 @@ jest.mock("@/i18n/routing", () => ({
   })),
 }));
 
-jest.mock("@/services/auth", () => ({
+jest.mock("@/app/actions/auth", () => ({
   postRegister: jest.fn(),
 }));
 

@@ -8,7 +8,7 @@ import { postOrganisationInviteUser } from "@/app/actions/organisations";
 import InviteDelegateForm from "./InviteDelegateForm";
 
 jest.mock("@/data/store");
-jest.mock("@/services/organisations");
+jest.mock("@/app/actions/organisations");
 
 const mockUseStore = useStore as jest.MockedFunction<typeof useStore>;
 const mockPostOrganisationsInviteUser =

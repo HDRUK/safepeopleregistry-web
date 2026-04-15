@@ -13,7 +13,7 @@ import {
 } from "../../utils/testUtils";
 import TrainingForm from "./TrainingForm";
 
-jest.mock("../../services/trainings");
+jest.mock("../../app/actions/trainings");
 
 const mockSetUser = jest.fn();
 

@@ -33,7 +33,7 @@ jest.mock("@/i18n/routing", () => ({
 
 jest.mock("@/data/store");
 
-jest.mock("@/services/auth/getMe", () => ({
+jest.mock("@/app/actions/auth/getMe", () => ({
   __esModule: true,
   default: jest.fn(),
 }));

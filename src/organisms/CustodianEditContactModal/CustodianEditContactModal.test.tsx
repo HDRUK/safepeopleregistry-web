@@ -18,7 +18,7 @@ import CustodianEditContactModal, {
   CustodianEditContactModalProps,
 } from "./CustodianEditContactModal";
 
-jest.mock("@/services/custodian_users");
+jest.mock("@/app/actions/custodian_users");
 jest.mock("@/data/store");
 
 (useStore as unknown as jest.Mock).mockReturnValue(mockedApiPermissions);
