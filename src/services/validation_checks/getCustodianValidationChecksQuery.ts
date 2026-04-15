@@ -1,7 +1,7 @@
 import { QueryOptions } from "@/types/requests";
 import { UseQueryOptions } from "@tanstack/react-query";
 import { SearchParams } from "@/types/query";
-import getCustodianValidationChecks from "./getCustodianValidationChecks";
+import getCustodianValidationChecks from "@/app/actions/validation_checks/getCustodianValidationChecks";
 
 export default function getCustodianValidationChecksQuery(
   custodianId: number,

@@ -1,7 +1,7 @@
 import { MutateWithArgs, QueryOptions } from "@/types/requests";
 import { UseMutationOptions } from "@tanstack/react-query";
-import putSubsidiary from "./putSubsidiary";
 import { PutSubsidiaryPayload } from "./types";
+import putSubsidiary from "@/app/actions/subsidiaries/putSubsidiary";
 
 type PutSubsidiaryMutationArgs = MutateWithArgs<
   { organisationId: number; subsidiaryId: number },

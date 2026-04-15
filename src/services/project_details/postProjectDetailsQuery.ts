@@ -1,7 +1,7 @@
 import { QueryOptions } from "@/types/requests";
 import { UseMutationOptions } from "@tanstack/react-query";
-import postProjectDetails from "./postProjectDetails";
 import { PostProjectDetailsPayload } from "./types";
+import postProjectDetails from "@/app/actions/professional_registrations/postProjectDetails";
 
 export default function postProjectQuery(options?: QueryOptions) {
   return {

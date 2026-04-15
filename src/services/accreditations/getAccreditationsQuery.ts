@@ -1,6 +1,6 @@
 import { QueryOptions } from "@/types/requests";
 import { UseQueryOptions } from "@tanstack/react-query";
-import getAccreditations from "./getAccreditations";
+import getAccreditations from "@/app/actions/accreditations/getAccreditations";
 
 export default function getAccreditationsQuery(
   registryId: number,

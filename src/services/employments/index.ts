@@ -1,5 +1,3 @@
-import getEmployments from "./getEmployments";
-import getEmploymentsQuery from "./getEmploymentsQuery";
-import postEmployments from "./postEmployments";
+import getEmploymentsQuery from "@/services/employments/getEmploymentsQuery";
 
-export { getEmployments, postEmployments, getEmploymentsQuery };
+export { getEmploymentsQuery };

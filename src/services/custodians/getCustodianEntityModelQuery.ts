@@ -1,7 +1,7 @@
 import { QueryOptions } from "@/types/requests";
 import { UseQueryOptions } from "@tanstack/react-query";
+import getCustodianEntityModel from "@/app/actions/custodians/getCustodianEntityModel";
 import { EntityType } from "./types";
-import getCustodianEntityModel from "./getCustodianEntityModel";
 
 export default function getCustodianEntityModelQuery(
   custodianId: number | undefined,

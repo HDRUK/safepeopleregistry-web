@@ -1,7 +1,7 @@
 import { MutationOptions } from "@/types/requests";
 import { UseMutationOptions } from "@tanstack/react-query";
-import deleteCustodianProjectUser from "./deleteCustodianProjectUser";
 import { DeleteCustodianProjectUserPayload } from "./types";
+import deleteCustodianProjectUser from "@/app/actions/custodian_approvals/deleteCustodianProjectUser";
 
 export default function deleteCustodianProjectUserQuery(
   options?: MutationOptions

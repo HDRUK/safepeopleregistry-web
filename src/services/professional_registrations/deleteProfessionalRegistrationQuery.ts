@@ -1,6 +1,6 @@
+import deleteProfessionalRegistration from "@/app/actions/professional_registrations/deleteProfessionalRegistration";
 import { MutationOptions } from "@/types/requests";
 import { UseMutationOptions } from "@tanstack/react-query";
-import deleteProfessionalRegistration from "./deleteProfessionalRegistration";
 
 export default function deleteProfessionalRegistrationQuery(
   options?: MutationOptions

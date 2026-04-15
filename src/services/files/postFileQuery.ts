@@ -1,5 +1,5 @@
+import postFile from "@/app/actions/files/postFile";
 import { FilePayload } from "./types";
-import postFile from "./postFile";
 
 export default function postFileQuery(message: string) {
   return {

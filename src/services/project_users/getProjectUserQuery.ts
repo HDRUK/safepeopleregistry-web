@@ -1,6 +1,6 @@
+import getProjectUser from "@/app/actions/project_users/getProjectUser";
 import { QueryOptions } from "@/types/requests";
 import { UseQueryOptions } from "@tanstack/react-query";
-import getProjectUser from "./getProjectUser";
 
 export default function getProjectUserQuery(
   id: number,

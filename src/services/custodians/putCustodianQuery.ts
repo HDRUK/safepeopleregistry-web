@@ -1,4 +1,4 @@
-import putCustodian from "./putCustodian";
+import putCustodian from "../../app/actions/custodians/putCustodian";
 import { PutCustodianPayload } from "./types";
 
 export default function putCustodianQuery(id?: number) {

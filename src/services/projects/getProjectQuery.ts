@@ -1,6 +1,6 @@
+import getProject from "@/app/actions/projects/getProject";
 import { QueryOptions } from "@/types/requests";
 import { UseQueryOptions } from "@tanstack/react-query";
-import getProject from "./getProject";
 
 export default function getProjectQuery(id: number, options?: QueryOptions) {
   return {

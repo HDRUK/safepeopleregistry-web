@@ -1,13 +1,11 @@
+// "use server";
+
 import { QueryPayload } from "@/types/requests";
 import { objectToQuerystring } from "@/utils/requests";
 import {
   createEmptyErrorResponse,
   getHeadersWithAuthorization,
 } from "./requestHelpers";
-
-function isServer() {
-  return typeof window === "undefined";
-}
 
 async function request<T>(
   method: string,
@@ -40,12 +38,8 @@ async function request<T>(
 
     const hasHostName = url?.match(/^http(s*):\/\//i);
 
-    if (hasHostName) {
-      host = "";
-    } else if (isServer()) {
+    if (!hasHostName) {
       host = `${process.env.NEXT_PUBLIC_API_V1_SERVER_URL}`;
-    } else {
-      host = `${process.env.NEXT_PUBLIC_API_V1_URL}`;
     }
 
     const response = await fetch(`${host}${url}`, {
@@ -109,11 +103,4 @@ async function deleteRequest<T>(
   return response;
 }
 
-export {
-  deleteRequest,
-  getRequest,
-  patchRequest,
-  postRequest,
-  putRequest,
-  isServer,
-};
+export { deleteRequest, getRequest, patchRequest, postRequest, putRequest };

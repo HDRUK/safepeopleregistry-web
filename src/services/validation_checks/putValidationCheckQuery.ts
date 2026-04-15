@@ -1,4 +1,4 @@
-import putValidationCheck from "./putValidationCheck";
+import putValidationCheck from "@/app/actions/validation_checks/putValidationCheck";
 import { PutValidationCheck } from "./types";
 
 export default function putValidationCheckQuery() {

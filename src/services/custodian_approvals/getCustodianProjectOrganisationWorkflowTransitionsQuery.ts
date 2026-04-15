@@ -1,6 +1,6 @@
 import { UseQueryOptions } from "@tanstack/react-query";
-import { QueryOptions } from "../../types/requests";
-import getCustodianProjectOrganisationWorkflowTransitions from "./getCustodianProjectOrganisationWorkflowTransitions";
+import { QueryOptions } from "@/types/requests";
+import getCustodianProjectOrganisationWorkflowTransitions from "@/app/actions/custodian_approvals/getCustodianProjectOrganisationWorkflowTransitions";
 
 export default function getProjectOrganisationWorkflowTransitionsQuery(
   options?: QueryOptions

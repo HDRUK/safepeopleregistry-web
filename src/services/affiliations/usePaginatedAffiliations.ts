@@ -2,7 +2,7 @@ import usePaginatedQuery, {
   PaginatedQueryProps,
 } from "@/hooks/usePaginatedQuery";
 import { omit } from "@/utils/json";
-import getAffiliations from "./getAffiliations";
+import getAffiliations from "@/app/actions/affiliations/getAffiliations";
 import { GetAffiliationsResponse } from "./types";
 
 type GetAffiliationsQuery = Partial<

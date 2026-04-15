@@ -1,4 +1,4 @@
-import putProjectUserPrimaryContact from "./putProjectUserPrimaryContact";
+import putProjectUserPrimaryContact from "@/app/actions/projects/putProjectUserPrimaryContact";
 import { PutPrimaryContactQuery } from "./types";
 
 export default function putProjectUserPrimaryContactQuery() {

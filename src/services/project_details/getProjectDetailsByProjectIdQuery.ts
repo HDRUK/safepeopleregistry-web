@@ -1,6 +1,6 @@
+import getProjectDetails from "@/app/actions/professional_registrations/getProjectDetails";
 import { QueryOptions } from "@/types/requests";
 import { UseQueryOptions } from "@tanstack/react-query";
-import getProjectDetails from "./getProjectDetailsByProjectId";
 
 export default function getProjectDetailsQuery(
   id: number,

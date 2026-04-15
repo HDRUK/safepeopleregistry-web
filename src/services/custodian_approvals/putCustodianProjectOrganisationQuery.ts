@@ -1,4 +1,4 @@
-import putCustodianProjectOrganisation from "./putCustodianProjectOrganisation";
+import putCustodianProjectOrganisation from "@/app/actions/custodian_approvals/putCustodianProjectOrganisation";
 import { ChangeValidationStatusPayload } from "./types";
 
 interface MutationArgs {

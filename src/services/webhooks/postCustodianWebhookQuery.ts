@@ -1,4 +1,4 @@
-import postCustodianWebhook from "./postCustodianWebhook";
+import postCustodianWebhook from "@/app/actions/webhooks/postCustodianWebhook";
 import { PostCustodianWebhookPayload } from "./types";
 
 export default function postCustodianWebhookQuery() {

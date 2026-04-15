@@ -1,6 +1,6 @@
+import getPendingInvites from "@/app/actions/users/getPendingInvites";
 import { QueryOptions, ResponseJson } from "../../types/requests";
 import { createQuery } from "../../utils/query";
-import getPendingInvites from "./getPendingInvites";
 import { PendingInvitesResponse } from "./types";
 
 export default (options?: QueryOptions) =>

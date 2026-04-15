@@ -1,4 +1,4 @@
-import putAffiliation from "./putAffiliation";
+import putAffiliation from "@/app/actions/affiliations/putAffiliation";
 import { PutAffiliationsPayload } from "./types";
 
 export default function putAffiliationQuery() {

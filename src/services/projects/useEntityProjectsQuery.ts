@@ -1,8 +1,10 @@
+import getEntityProjects, {
+  ProjectEntities,
+} from "@/app/actions/projects/getEntityProjects";
 import { SearchDirections } from "@/consts/search";
 import usePaginatedQuery, {
   PaginatedQueryProps,
 } from "@/hooks/usePaginatedQuery";
-import getEntityProjects, { ProjectEntities } from "./getEntityProjects";
 
 interface GetEntityProjectsQuery<T> extends Partial<PaginatedQueryProps<T>> {
   variant: ProjectEntities;

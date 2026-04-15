@@ -1,4 +1,4 @@
-import getCustodianRules from "./getCustodianRules";
+import getCustodianRules from "@/app/actions/rules/getCustodianRules";
 
 export default function getCustodianRulesQuery(id?: number) {
   return {

@@ -1,6 +1,6 @@
 import putCustodianRules, {
   PutCustodianRulesPayload,
-} from "./putCustodianRules";
+} from "@/app/actions/rules/putCustodianRules";
 
 export default function putCustodianRulesQuery(id?: number) {
   return {

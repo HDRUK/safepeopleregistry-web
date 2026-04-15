@@ -1,6 +1,6 @@
+import { getProjectOrganisation } from "@/services/project_organisations";
 import { QueryOptions } from "@/types/requests";
 import { UseQueryOptions } from "@tanstack/react-query";
-import getProjectOrganisation from "./getProjectOrganisation";
 
 export default function getProjectOrganisationQuery(
   id: number,

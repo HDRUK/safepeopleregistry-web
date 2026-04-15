@@ -1,6 +1,6 @@
 import { UseMutationOptions } from "@tanstack/react-query";
 import { MutateWithArgs, MutationOptions } from "@/types/requests";
-import deleteSubsidiary from "./deleteSubsidiary";
+import deleteSubsidiary from "@/app/actions/subsidiaries/deleteSubsidiary";
 
 type DeleteSubsidiaryMutationArgs = MutateWithArgs<
   { organisationId: number; subsidiaryId: number },

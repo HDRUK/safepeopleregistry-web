@@ -1,7 +1,7 @@
 import { MutateWithArgs, QueryOptions } from "@/types/requests";
 import { UseMutationOptions } from "@tanstack/react-query";
+import { putOrganisationApproved } from "@/services/organisations";
 import { PutSystemApprovedPayload } from "./types";
-import putOrganisationApproved from "./putOrganisationApproved";
 
 type PutOrganisationApprovedMutationArgs = MutateWithArgs<
   { organisationId: number },

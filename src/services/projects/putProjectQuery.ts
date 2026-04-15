@@ -1,7 +1,7 @@
 import { MutateWithArgs, QueryOptions } from "@/types/requests";
 import { UseMutationOptions } from "@tanstack/react-query";
-import putProject from "./putProject";
 import { PutProjectPayload } from "./types";
+import putProject from "@/app/actions/projects/putProject";
 
 type PutProjectMutationArgs = MutateWithArgs<{ id: number }, PutProjectPayload>;
 

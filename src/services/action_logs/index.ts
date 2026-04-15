@@ -1,6 +1,4 @@
-import getActionLogs from "./getActionLogs";
-import getActionLogsQuery from "./getActionLogsQuery";
-import putActionLog from "./putActionLog";
-import putActionLogQuery from "./putActionLogQuery";
+import getActionLogsQuery from "@/services/action_logs/getActionLogsQuery";
+import putActionLogQuery from "@/services/action_logs/putActionLogQuery";
 
-export { getActionLogs, getActionLogsQuery, putActionLog, putActionLogQuery };
+export { getActionLogsQuery, putActionLogQuery };

@@ -1,4 +1,4 @@
-import postUserInvite from "./postUserInvite";
+import postUserInvite from "@/app/actions/users/postUserInvite";
 import { PostUserInvitePayload } from "./types";
 
 export default function postUserInviteQuery() {

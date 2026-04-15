@@ -1,6 +1,6 @@
+import getUserValidatedProjects from "@/app/actions/projects/getUserValidatedProjects";
 import { QueryOptions } from "@/types/requests";
 import { UseQueryOptions } from "@tanstack/react-query";
-import getUserValidatedProjects from "./getUserValidatedProjects";
 
 export default function getUserValidatedProjectsQuery(
   registryId: number,

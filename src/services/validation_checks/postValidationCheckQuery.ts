@@ -1,4 +1,4 @@
-import postValidationCheck from "./postValidationCheck";
+import postValidationCheck from "@/app/actions/validation_checks/postValidationCheck";
 import { PostValidationCheck } from "./types";
 
 export default function postValidationCheckQuery(custodianId: number) {

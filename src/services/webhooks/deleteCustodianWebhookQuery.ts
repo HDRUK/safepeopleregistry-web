@@ -1,4 +1,4 @@
-import deleteCustodianWebhook from "./deleteCustodianWebhook";
+import deleteCustodianWebhook from "@/app/actions/webhooks/deleteCustodianWebhook";
 
 export default function deleteCustodianWebhookQuery(custodianId: number) {
   return {

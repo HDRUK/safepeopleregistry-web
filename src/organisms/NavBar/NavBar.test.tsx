@@ -3,7 +3,7 @@ import { mockedJwt } from "@/mocks/data/auth";
 import { mockedUser } from "@/mocks/data/user";
 import theme from "@/theme";
 import { get } from "js-cookie";
-import getMe from "@/services/auth/getMe";
+import getMe from "@/app/actions/auth/getMe";
 import { ResponseJson } from "@/types/requests";
 import { User } from "@/types/application";
 import { handleLogin, handleLogout } from "../../utils/keycloak";

@@ -1,6 +1,6 @@
 import { QueryOptions, ResponseJson } from "@/types/requests";
 import { createMutation } from "@/utils/query";
-import putVerifyEmail from "./putVerifyEmail";
+import putVerifyEmail from "@/app/actions/affiliations/putVerifyEmail";
 import { PutVerifyEmailParams } from "./types";
 
 export default function putVerifyEmailQuery(options?: QueryOptions) {

@@ -5,7 +5,7 @@ import {
   getAccreditations,
   getAccreditationsQuery,
 } from "../../services/accreditations";
-import getAffiliations from "../../services/affiliations/getAffiliations";
+import getAffiliations from "../../app/actions/affiliations/getAffiliations";
 import getAffiliationsQuery from "../../services/affiliations/getAffiliationsQuery";
 import { getEducations, getEducationsQuery } from "../../services/educations";
 import {
