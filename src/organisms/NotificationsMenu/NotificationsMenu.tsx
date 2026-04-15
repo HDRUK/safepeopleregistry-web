@@ -90,7 +90,6 @@ export default function NotificationsMenu() {
   };
 
   const handleViewNotification = (notif: Notification) => {
-    console.log(notif);
     if (!notif.read_at) changeReadStatus(notif.id, NotificationPutType.READ);
     setCurrentNotification(notif);
     setShowNotificationModal(true);
