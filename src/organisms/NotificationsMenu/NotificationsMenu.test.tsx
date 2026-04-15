@@ -20,7 +20,7 @@ jest.mock("@/data/store");
 
 (useStore as unknown as jest.Mock).mockReturnValue(defaultUser);
 
-jest.mock("../../services/notifications/putUserNotification", () => ({
+jest.mock("@/app/actions/notifications/putUserNotification", () => ({
   __esModule: true,
   default: jest.fn(),
 }));

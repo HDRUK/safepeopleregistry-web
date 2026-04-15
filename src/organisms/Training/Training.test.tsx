@@ -24,7 +24,7 @@ const mockPush = jest.fn();
   push: mockPush,
 });
 
-jest.mock("../../services/trainings");
+jest.mock("@/app/actions/trainings");
 jest.mock("@/data/store");
 
 const mockSetUser = jest.fn();

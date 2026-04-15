@@ -10,9 +10,9 @@ import useQueryAlerts from "@/hooks/useQueryAlerts";
 import OrganisationsSubsidiaryEditForm from "@/modules/OrganisationsSubsidiariesEditForm";
 import OrganisationsSubsidiariesTable from "@/modules/OrganisationsSubsidiariesTable";
 import useMutationWithConfirmation from "@/queries/useMutationWithConfirmation";
-import { deleteSubsidiaryQuery } from "@/services/subsidiaries";
 import { Subsidiary } from "@/types/application";
 import Button from "@mui/material/Button";
+import { deleteSubsidiaryQuery } from "@/services/subsidiaries";
 import useMutationUpdateSubsidiary from "../../queries/useMutationUpdateSubsidiary";
 
 const NAMESPACE_TRANSLATION = "Organisations.Subsidiaries";
