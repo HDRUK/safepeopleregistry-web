@@ -1,13 +1,11 @@
 import { UserGroup } from "@/consts/user";
 import { useStore } from "@/data/store";
-import {
-  PostOrganisationInviteUserResponse,
-  postOrganisationInviteUser,
-} from "@/services/organisations";
+import { PostOrganisationInviteUserResponse } from "@/services/organisations";
 import { ResponseJson } from "@/types/requests";
 import { fireEvent, render, screen, waitFor } from "@/utils/testUtils";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import InviteDelegateForm from "./InviteDelegateForm";
+import { postOrganisationInviteUser } from "@/app/actions/organisations";
 
 jest.mock("@/data/store");
 jest.mock("@/services/organisations");

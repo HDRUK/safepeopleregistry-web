@@ -1,11 +1,11 @@
 "use server";
 
-import { UserGroup } from "@/consts/user";
-import { postClaimUser, postRegister } from "@/services/auth";
+import { postRegister, postClaimUser } from "@/app/actions/auth";
 import {
   postOrganisationNewAccount,
   putOrganisation,
-} from "@/services/organisations";
+} from "@/app/actions/organisations";
+import { UserGroup } from "@/consts/user";
 import { User } from "@/types/application";
 import { setAcceptTCs } from "@/utils/register";
 import { cookies } from "next/headers";

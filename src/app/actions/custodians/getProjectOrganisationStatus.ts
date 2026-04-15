@@ -1,6 +1,6 @@
 "use server";
 
-import { GetProjectOrganisationStatusResponse } from "@/services/organisations/getProjectOrganisationStatus";
+import { GetProjectOrganisationStatusResponse } from "@/app/actions/organisations/getProjectOrganisationStatus";
 import { handleJsonResponse } from "@/services/requestHelpers";
 import { getRequest } from "@/services/requests";
 import { ResponseJson } from "@/types/requests";

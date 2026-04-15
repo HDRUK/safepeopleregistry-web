@@ -1,8 +1,8 @@
 import { useRouter } from "@/i18n/routing";
 import { mockedJwt } from "@/mocks/data/auth";
-import { postRegister } from "@/services/auth";
 import { commonAccessibilityTests, render } from "@/utils/testUtils";
 import AccountConfirm from "./AccountConfirm";
+import { postRegister } from "@/app/actions/auth";
 
 jest.mock("@/i18n/routing", () => ({
   useParams: jest.fn(),

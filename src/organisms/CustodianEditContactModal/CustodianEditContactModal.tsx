@@ -1,13 +1,13 @@
+import {
+  postCustodianUser,
+  putCustodianUser,
+  postCustodianUserInvite,
+} from "@/app/actions/custodian_users";
 import FormModal, { FormModalProps } from "@/components/FormModal";
 import { Message } from "@/components/Message";
 import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
 import { useStore } from "@/data/store";
 import CustodianEditContactForm from "@/modules/CustodianEditContactForm";
-import {
-  postCustodianUser,
-  postCustodianUserInvite,
-  putCustodianUser,
-} from "@/services/custodian_users";
 import { CustodianUser } from "@/types/application";
 import { CustodianEditContactFormFields } from "@/types/form";
 import { getName } from "@/utils/application";

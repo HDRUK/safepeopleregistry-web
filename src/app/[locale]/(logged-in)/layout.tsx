@@ -1,7 +1,7 @@
+import getCustodianUser from "@/app/actions/custodian_users/getCustodianUser";
 import { UserGroup } from "@/consts/user";
 import { PageContainer } from "@/modules";
 import Application from "@/organisms/Application";
-import { getCustodianUser } from "@/services/custodian_users";
 import { User } from "@/types/application";
 import redirectApplication from "@/utils/router";
 import { PropsWithChildren } from "react";

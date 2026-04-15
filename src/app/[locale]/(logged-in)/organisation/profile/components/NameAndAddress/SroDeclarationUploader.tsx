@@ -6,7 +6,7 @@ import { Grid } from "@mui/material";
 import useOrganisationFileUpload from "@/hooks/useOrganisationFileUpload";
 import { useStore } from "@/data/store";
 import { useTranslations } from "next-intl";
-import { downloadFile } from "@/services/files";
+import { downloadFile } from "@/app/actions/files";
 
 interface SroDeclarationUploaderProps {
   name: string;
