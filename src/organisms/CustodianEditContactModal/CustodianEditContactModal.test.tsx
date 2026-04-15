@@ -2,11 +2,6 @@ import { useStore } from "@/data/store";
 import { mockedCustodianUser } from "@/mocks/data/custodian";
 import { mockedApiPermissions } from "@/mocks/data/store";
 import {
-  putCustodianUser,
-  postCustodianUser,
-  postCustodianUserInvite,
-} from "@/services/custodian_users";
-import {
   commonAccessibilityTests,
   fireEvent,
   render,
@@ -14,6 +9,11 @@ import {
   waitFor,
 } from "@/utils/testUtils";
 import { mock200Json } from "jest.utils";
+import {
+  postCustodianUser,
+  putCustodianUser,
+  postCustodianUserInvite,
+} from "@/app/actions/custodian_users";
 import CustodianEditContactModal, {
   CustodianEditContactModalProps,
 } from "./CustodianEditContactModal";

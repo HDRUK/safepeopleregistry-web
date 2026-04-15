@@ -2,8 +2,8 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { getRefreshAccessToken } from "@/app/actions/auth/getRefreshAccessToken";
 import { ROUTES } from "../consts/router";
-import { getRefreshAccessToken } from "../services/auth";
 import { User } from "../types/application";
 import { getProfilePathByEntity } from "./entity";
 import { getLoginUrl, getRegisterUrl } from "./keycloak";

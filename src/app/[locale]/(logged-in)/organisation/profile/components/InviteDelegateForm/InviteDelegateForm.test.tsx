@@ -4,8 +4,8 @@ import { PostOrganisationInviteUserResponse } from "@/services/organisations";
 import { ResponseJson } from "@/types/requests";
 import { fireEvent, render, screen, waitFor } from "@/utils/testUtils";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import InviteDelegateForm from "./InviteDelegateForm";
 import { postOrganisationInviteUser } from "@/app/actions/organisations";
+import InviteDelegateForm from "./InviteDelegateForm";
 
 jest.mock("@/data/store");
 jest.mock("@/services/organisations");

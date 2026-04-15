@@ -1,12 +1,12 @@
 import { Organisation } from "@/services/organisations";
 import { Charity, Rule, Sector, Subsidiary } from "@/types/application";
 import { faker } from "@faker-js/faker";
+import { InviteOrganisationFormValues } from "@/types/form";
 import { mockedApproval } from "./approvals";
 import { mockedDepartment } from "./departments";
 import { mockedPermission } from "./permission";
 import { mockedUser } from "./user";
 import { mockedAddress } from "./application";
-import { InviteOrganisationFormValues } from "@/types/form";
 
 const mockedCharity = (charity?: Partial<Charity>) => ({
   name: faker.company.name(),

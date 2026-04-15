@@ -59,7 +59,7 @@ async function handleJsonResponse(
     throw responseError;
   }
 
-  let data: any;
+  let data;
 
   try {
     data = await response.json();

@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import {
   postProfessionalRegistration,
   putProfessionalRegistration,
-} from "../../services/professional_registrations";
+} from "@/app/actions/professional_registrations";
 import {
   PostProfessionalRegistrationPayload,
   PutProfessionalRegistrationPayload,

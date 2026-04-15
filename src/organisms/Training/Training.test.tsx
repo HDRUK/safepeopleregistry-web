@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import {
   getTrainingByRegistryId,
   postTrainings,
-} from "../../services/trainings";
+} from "@/app/actions/trainings";
 import { EntityType } from "../../types/api";
 import {
   act,

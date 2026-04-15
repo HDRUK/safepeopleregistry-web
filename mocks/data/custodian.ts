@@ -9,11 +9,11 @@ import {
   ProjectUser,
 } from "@/types/application";
 import { faker } from "@faker-js/faker";
+import { getName } from "@/utils/application";
+import { InviteCustodianFormValues } from "@/types/form";
 import { mockedOrganisation } from "./organisation";
 import { mockedProject } from "./project";
 import { mockedAffiliation, mockedUser } from "./user";
-import { getName } from "@/utils/application";
-import { InviteCustodianFormValues } from "@/types/form";
 
 const mockedCustodian = (custodian?: Partial<Custodian>): Custodian => ({
   id: 1,

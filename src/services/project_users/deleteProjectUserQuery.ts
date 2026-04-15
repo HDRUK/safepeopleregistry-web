@@ -1,7 +1,7 @@
 import { MutationOptions } from "@/types/requests";
 import { UseMutationOptions } from "@tanstack/react-query";
-import { DeleteProjectUserPayload } from "./types";
 import deleteProjectUser from "@/app/actions/project_users/deleteProjectUser";
+import { DeleteProjectUserPayload } from "./types";
 
 export default function deleteProjectUserQuery(options?: MutationOptions) {
   return {

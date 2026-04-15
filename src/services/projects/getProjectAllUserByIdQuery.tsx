@@ -1,7 +1,7 @@
+import getProjectAllUserByUserId from "@/app/actions/projects/getProjectAllUserByUserId";
 import { createQuery } from "../../utils/query";
 import { QueryOptions, ResponseJson } from "../../types/requests";
 import { ProjectAllUserResponse } from "./types";
-import getProjectAllUserByUserId from "@/app/actions/projects/getProjectAllUserByUserId";
 
 export default (projectId: number, userId: number, options?: QueryOptions) =>
   createQuery<ResponseJson<ProjectAllUserResponse>>(

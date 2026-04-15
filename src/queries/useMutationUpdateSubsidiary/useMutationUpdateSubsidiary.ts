@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { Subsidiary } from "@/types/application";
-import { postSubsidiary, putSubsidiary } from "../../services/subsidiaries";
+import postSubsidiary from "@/app/actions/subsidiaries/postSubsidiary";
 
 type UpdateSubsidiary = Subsidiary | Partial<Subsidiary>;
 

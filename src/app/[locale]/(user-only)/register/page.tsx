@@ -4,9 +4,9 @@ import { PageBody } from "@/modules";
 import { getDecodedAccessToken } from "@/utils/auth";
 import { redirectProfile } from "@/utils/router";
 import { cookies } from "next/headers";
-import Register from "./components/Register";
 import { getMeUnclaimed } from "@/app/actions/auth";
 import { getPendingInvite, putEmailByInvite } from "@/app/actions/users";
+import Register from "./components/Register";
 
 async function Page({ searchParams }: { searchParams: { type?: UserGroup } }) {
   await redirectProfile();

@@ -1,7 +1,7 @@
 import { MutationOptions } from "@/types/requests";
 import { UseMutationOptions } from "@tanstack/react-query";
-import { DeleteProjectOrganisationPayload } from "./types";
 import deleteProjectOrganisation from "@/app/actions/project_organisations/deleteProjectOrganisation";
+import { DeleteProjectOrganisationPayload } from "./types";
 
 export default function deleteProjectOrganisationQuery(
   options?: MutationOptions

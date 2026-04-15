@@ -1,6 +1,6 @@
+import { getOrganisationStats } from "@/app/actions/organisations";
 import { ResponseJson } from "../../types/requests";
 import useQueriesCombined from "../../hooks/useQueriesCombined";
-import getOrganisationStats from "../../services/organisations/getOrganisationStats";
 
 export default function useOrganisationStats(organisationId: number) {
   const queries = [

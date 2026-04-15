@@ -6,12 +6,12 @@ import Link from "@mui/material/Link";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import { getProjectAllUserByUserId } from "@/app/actions/projects";
 import FormModal, { FormModalProps } from "../../components/FormModal";
 import Text from "../../components/Text";
 import useQueryAlerts from "../../hooks/useQueryAlerts";
 import ProjectsAddUserForm from "../../modules/ProjectsAddUserForm";
 import {
-  getProjectAllUserByUserId,
   putProjectUsersQuery,
   useGetProjectAllUsers,
 } from "../../services/projects";

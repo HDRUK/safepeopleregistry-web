@@ -4,6 +4,7 @@ import { EXCLUDE_REDIRECT_URLS, ROUTES } from "@/consts/router";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import getMe from "@/app/actions/auth/getMe";
+import { needsLoggedInPermissions } from "@/utils/loggedInPermission";
 import { getAccessToken } from "./auth";
 import {
   getHomepageRedirectPath,
@@ -14,7 +15,6 @@ import {
   isInPath,
   redirectToPath,
 } from "./redirects";
-import { needsLoggedInPermissions } from "@/utils/loggedInPermission";
 
 async function getPathServerSide(): Promise<string | null> {
   const head = headers();
