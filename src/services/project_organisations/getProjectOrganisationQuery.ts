@@ -1,4 +1,4 @@
-import { getProjectOrganisation } from "@/services/project_organisations";
+import { getProjectOrganisation } from "@/app/actions/project_organisations";
 import { QueryOptions } from "@/types/requests";
 import { UseQueryOptions } from "@tanstack/react-query";
 

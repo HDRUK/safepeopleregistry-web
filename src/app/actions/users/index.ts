@@ -1,30 +1,28 @@
-import getUser from "../../app/actions/users/getUser";
-import getByIdUser from "../../app/actions/users/getUserById";
-import getUsers from "../../app/actions/users/getUsers";
-import postPermissions from "../../app/actions/users/postPermissions";
-import postUsers from "../../app/actions/users/postUsers";
-import postUserInvite from "../../app/actions/users/postUserInvite";
-import putUser from "../../app/actions/users/putUser";
-import usePaginatedUserProjects from "../../app/actions/users/usePaginatedUserProjects";
-import getPendingInvite from "../../app/actions/users/getPendingInvite";
-import putEmailByInvite from "../../app/actions/users/putEmailByInvite";
-import getPendingInvites from "../../app/actions/users/getPendingInvites";
-import postResendInvite from "../../app/actions/users/postResendInvite";
-import postResendInviteByOrganisation from "../../app/actions/users/postResendInviteByOrganisation";
-import putChangeEmail from "../../app/actions/users/putChangeEmail";
+import postPermissions from "@/app/actions/organisations/postPermissions";
+import getPendingInvite from "@/app/actions/users/getPendingInvite";
+import getPendingInvites from "@/app/actions/users/getPendingInvites";
+import getUser from "@/app/actions/users/getUser";
+import getUserById from "@/app/actions/users/getUserById";
+import getUsers from "@/app/actions/users/getUsers";
+import postResendInvite from "@/app/actions/users/postResendInvite";
+import postResendInviteByOrganisation from "@/app/actions/users/postResendInviteByOrganisation";
+import postUserInvite from "@/app/actions/users/postUserInvite";
+import postUsers from "@/app/actions/users/postUsers";
+import putChangeEmail from "@/app/actions/users/putChangeEmail";
+import putEmailByInvite from "@/app/actions/users/putEmailByInvite";
+import putUser from "@/app/actions/users/putUser";
 
 export {
   putChangeEmail,
   getPendingInvites,
   getPendingInvite,
   getUser,
-  getByIdUser,
+  getUserById,
   getUsers,
   postPermissions,
   postUsers,
   postUserInvite,
   putUser,
-  usePaginatedUserProjects,
   putEmailByInvite,
   postResendInvite,
   postResendInviteByOrganisation,

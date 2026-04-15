@@ -1,7 +1,7 @@
-import putVerifyEmail from "@/services/affiliations/putVerifyEmail";
 import { responseToQueryState } from "@/utils/query";
 import AffiliationsPage from "../components/AffiliationsPage";
 import { PageTabs } from "../consts/tabs";
+import { putVerifyEmail } from "@/app/actions/affiliations";
 
 interface PageProps {
   searchParams?: {
