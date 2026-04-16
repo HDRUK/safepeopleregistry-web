@@ -1,4 +1,4 @@
-import getRules from "./getRules";
+import getRules from "@/app/actions/rules/getRules";
 
 export default function getCustodianRulesQuery() {
   return {

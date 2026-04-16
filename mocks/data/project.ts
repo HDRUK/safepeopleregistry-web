@@ -1,9 +1,9 @@
 import { RequestFrequency } from "@/consts/projects";
 import { ResearcherProject, type ProjectDetails } from "@/types/application";
 import { faker } from "@faker-js/faker";
+import { Status } from "@/consts/application";
 import { mockedCustodianHasProjectUser } from "./custodian";
 import { mockedOrganisation } from "./organisation";
-import { Status } from "@/consts/application";
 
 const mockedProject = (
   project?: Partial<ResearcherProject>

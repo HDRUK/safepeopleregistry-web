@@ -2,7 +2,7 @@ import { SearchDirections } from "@/consts/search";
 import usePaginatedQuery, {
   PaginatedQueryProps,
 } from "@/hooks/usePaginatedQuery";
-import getOrganisations from "./getOrganisations";
+import getOrganisations from "@/app/actions/organisations/getOrganisations";
 import { OrganisationsResponse } from "./types";
 
 interface GetEntityOrganisationsQuery<T = OrganisationsResponse>

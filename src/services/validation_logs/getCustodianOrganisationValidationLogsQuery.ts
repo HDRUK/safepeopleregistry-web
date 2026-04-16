@@ -1,6 +1,6 @@
 import { QueryOptions } from "@/types/requests";
 import { UseQueryOptions } from "@tanstack/react-query";
-import getCustodianOrganisationValidationLogs from "./getCustodianOrganisationValidationLogs";
+import getCustodianOrganisationValidationLogs from "@/app/actions/validation_logs/getCustodianOrganisationValidationLogs";
 
 export default function getCustodianOrganisationValidationLogsQuery(
   custodianId: number,

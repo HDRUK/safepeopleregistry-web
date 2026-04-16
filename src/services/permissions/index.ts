@@ -1,6 +1,5 @@
-import getPermissions from "./getPermissions";
 import getPermissionsQuery from "./getPermissionsQuery";
 
-export { getPermissions, getPermissionsQuery };
+export { getPermissionsQuery };
 
 export type * from "./types";

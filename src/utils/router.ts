@@ -3,8 +3,8 @@
 import { EXCLUDE_REDIRECT_URLS, ROUTES } from "@/consts/router";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import getMe from "../services/auth/getMe";
-import { RouteConfig, Routes } from "../types/router";
+import getMe from "@/app/actions/auth/getMe";
+import { needsLoggedInPermissions } from "@/utils/loggedInPermission";
 import { getAccessToken } from "./auth";
 import {
   getHomepageRedirectPath,
@@ -16,18 +16,8 @@ import {
   redirectToPath,
 } from "./redirects";
 
-function needsLoggedInPermissions(routes: Routes, pathname: string | null) {
-  if (!pathname) return false;
-
-  return Object.keys(routes).some((key: string) => {
-    const route: RouteConfig = routes[key as keyof Routes];
-
-    return pathname.includes(route.path, 0) && route.permissions;
-  });
-}
-
 async function getPathServerSide(): Promise<string | null> {
-  const head = await headers();
+  const head = headers();
   return head.get("x-current-path");
 }
 
@@ -87,4 +77,4 @@ export default async function redirectApplication() {
   return null;
 }
 
-export { getPathServerSide, needsLoggedInPermissions, redirectProfile };
+export { getPathServerSide, redirectProfile };

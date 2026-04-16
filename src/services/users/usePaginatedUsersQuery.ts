@@ -1,7 +1,7 @@
 import usePaginatedQuery, {
   PaginatedQueryProps,
 } from "@/hooks/usePaginatedQuery";
-import getUsers from "./getUsers";
+import getUsers from "@/app/actions/users/getUsers";
 import { UsersResponse } from "./types";
 
 interface GetEntityUsersQuery<T = UsersResponse>

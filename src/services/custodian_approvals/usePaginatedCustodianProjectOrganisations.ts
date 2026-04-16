@@ -3,7 +3,7 @@ import usePaginatedQuery, {
   PaginatedQueryProps,
 } from "@/hooks/usePaginatedQuery";
 import { omit } from "@/utils/json";
-import getCustodianProjectOrganisations from "./getCustodianProjectOrganisations";
+import getCustodianProjectOrganisations from "@/app/actions/custodian_approvals/getCustodianProjectOrganisations";
 import { GetCustodianProjectOrganisationsResponse } from "./types";
 
 type GetCustodiansUserProjectsQuery = Partial<

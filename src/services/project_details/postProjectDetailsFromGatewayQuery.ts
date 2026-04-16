@@ -1,6 +1,6 @@
 import { MutationOptions } from "@/types/requests";
 import { UseMutationOptions } from "@tanstack/react-query";
-import postProjectDetailsFromGateway from "./postProjectDetailsFromGateway";
+import postProjectDetailsFromGateway from "@/app/actions/professional_registrations/postProjectDetailsFromGateway";
 import { PostProjectDetailsFromGatewayPayload } from "./types";
 
 export default function postProjectDetailsFromGatewayQuery(

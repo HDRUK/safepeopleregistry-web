@@ -1,4 +1,4 @@
-import postCustodianInviteUser from "./postCustodianInviteUser";
+import postCustodianInviteUser from "@/app/actions/organisations/postCustodianInviteUser";
 import { PostOrganisationInviteUserPayload } from "./types";
 
 export default function postCustodianInviteUserQuery() {

@@ -1,4 +1,4 @@
-import putTrainings from "./putTrainings";
+import putTrainings from "@/app/actions/trainings/putTrainings";
 import { PutTrainingsPayload } from "./types";
 
 export default function putTrainingsQuery(id: number) {

@@ -1,6 +1,6 @@
+import getTrainingByRegistryId from "@/app/actions/trainings/getTrainingByRegistryId";
 import { QueryOptions } from "@/types/requests";
 import { UseQueryOptions } from "@tanstack/react-query";
-import getTrainingByRegistryId from "./getTrainingByRegistryId";
 
 export default function getTrainingQuery(
   registryId: number,

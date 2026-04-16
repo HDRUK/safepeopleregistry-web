@@ -1,6 +1,6 @@
+import getProfessionalRegistrations from "@/app/actions/professional_registrations/getProfessionalRegistrations";
 import { QueryOptions } from "@/types/requests";
 import { UseQueryOptions } from "@tanstack/react-query";
-import getProfessionalRegistrations from "./getProfessionalRegistrations";
 
 export default function getProfessionalRegistrationsQuery(
   registry_id: number,

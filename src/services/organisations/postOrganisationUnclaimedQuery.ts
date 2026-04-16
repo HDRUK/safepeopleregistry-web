@@ -1,4 +1,4 @@
-import postOrganisationUnclaimed from "./postOrganisationUnclaimed";
+import postOrganisationUnclaimed from "@/app/actions/organisations/postOrganisationUnclaimed";
 import { PostOrganisationUnclaimedPayload } from "./types";
 
 export default function postOrganisationUnclaimedQuery() {

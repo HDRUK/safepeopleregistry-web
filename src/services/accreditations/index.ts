@@ -1,4 +1,3 @@
-import getAccreditations from "./getAccreditations";
-import getAccreditationsQuery from "./getAccreditationsQuery";
+import getAccreditationsQuery from "@/services/accreditations/getAccreditationsQuery";
 
-export { getAccreditations, getAccreditationsQuery };
+export { getAccreditationsQuery };

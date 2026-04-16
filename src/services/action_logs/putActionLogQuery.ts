@@ -1,5 +1,5 @@
+import putActionLog from "@/app/actions/action_logs/putActionLog";
 import { QueryOptions } from "@/types/requests";
-import putActionLog from "./putActionLog";
 
 export default function putActionLogQuery(options?: QueryOptions) {
   return {

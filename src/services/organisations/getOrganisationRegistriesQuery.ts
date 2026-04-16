@@ -1,4 +1,4 @@
-import getOrganisationRegistries from "./getOrganisationRegistries";
+import getOrganisationRegistries from "@/app/actions/organisations/getOrganisationRegistries";
 
 export default function getOrganisationRegistriesQuery(organisationId: number) {
   return {

@@ -1,6 +1,6 @@
 import { QueryOptions, ResponseJson } from "@/types/requests";
 import { createMutation } from "@/utils/query";
-import putEmailByInvite from "./putEmailByInvite";
+import putEmailByInvite from "@/app/actions/users/putEmailByInvite";
 import { PutEmailByInvitePayload, PutEmailByInviteParams } from "./types";
 
 export default function putEmailByInviteQuery(options?: QueryOptions) {

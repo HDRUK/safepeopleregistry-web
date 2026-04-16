@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
-import getNotificationsQuery from "../../../services/notifications/getNotificationsQuery";
+import getNotificationsQuery from "@/services/notifications/getNotificationsQuery";
 
 const useGetNotifcations = (userId: number) => {
   return useInfiniteQuery(getNotificationsQuery(userId));

@@ -1,6 +1,6 @@
 import { useRouter } from "@/i18n/routing";
+import { getProjects } from "@/app/actions/projects";
 import { act, renderHook, waitFor } from "../../utils/testUtils";
-import { getProjects } from "../../services/projects";
 import { ProjectsResponse } from "../../services/projects/types";
 import usePaginatedQuery, { PaginatedQueryReturn } from "./usePaginatedQuery";
 

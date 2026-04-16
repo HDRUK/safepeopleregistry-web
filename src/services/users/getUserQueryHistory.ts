@@ -1,5 +1,5 @@
 import { USER_HISTORY_PER_PAGE } from "@/consts/history";
-import getUserHistory from "@/services/users/getUserHistory";
+import getUserHistory from "@/app/actions/users/getUserHistory";
 
 export default function getUserHistoryQuery(userId: number) {
   return {

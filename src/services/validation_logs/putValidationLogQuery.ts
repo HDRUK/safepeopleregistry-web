@@ -1,4 +1,4 @@
-import putValidationLog from "./putValidationLog";
+import putValidationLog from "@/app/actions/validation_logs/putValidationLog";
 import { ValidationLogAction } from "./types";
 
 export default function putValidationLogQuery(logId: number) {

@@ -1,5 +1,6 @@
 import { useStore } from "@/data/store";
 import { mockedUser } from "@/mocks/data/user";
+import { putUserNotification } from "@/app/actions/notifications";
 import {
   screen,
   render,
@@ -9,7 +10,6 @@ import {
 } from "../../utils/testUtils";
 import { NotificationPutType } from "../../services/notifications/types";
 import { NOTIFICATIONS_PER_PAGE } from "../../consts/notifications";
-import putUserNotification from "../../services/notifications/putUserNotification";
 import NotificationsMenu from "./NotificationsMenu";
 
 const defaultUser = mockedUser({
@@ -20,7 +20,7 @@ jest.mock("@/data/store");
 
 (useStore as unknown as jest.Mock).mockReturnValue(defaultUser);
 
-jest.mock("../../services/notifications/putUserNotification", () => ({
+jest.mock("@/app/actions/notifications/putUserNotification", () => ({
   __esModule: true,
   default: jest.fn(),
 }));

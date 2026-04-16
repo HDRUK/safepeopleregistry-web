@@ -1,8 +1,8 @@
 import { RegistrationValues } from "@/types/form";
+import { ROUTES } from "@/consts/router";
 import { dataCy, signout } from "../common";
 import { actionMessage } from "../mail";
 import { EMAIL_REGISTER_VERIFICATION_LABEL } from "../data";
-import { ROUTES } from "@/consts/router";
 
 function checkTermsAndConditionsContent(
   label: string | RegExp,

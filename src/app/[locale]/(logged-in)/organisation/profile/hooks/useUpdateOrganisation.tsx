@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  putOrganisation,
   PutOrganisationPayload,
   getOrganisationQuery,
 } from "@/services/organisations";
@@ -9,6 +8,7 @@ import { useTranslations } from "next-intl";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useStore } from "@/data/store";
 import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
+import { putOrganisation } from "@/app/actions/organisations";
 
 interface UseUpdateOrganisationProps {
   id: string | number | undefined;

@@ -1,5 +1,5 @@
+import { getUsers } from "@/app/actions/users";
 import { useQuery } from "@tanstack/react-query";
-import { getUsers } from "@/services/users";
 
 const useEmailExists = (email: string) => {
   return useQuery({

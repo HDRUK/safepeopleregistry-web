@@ -1,5 +1,5 @@
+import putProfessionalRegistration from "@/app/actions/professional_registrations/putProfessionalRegistration";
 import { ResearcherProfessionalRegistration } from "@/types/application";
-import putProfessionalRegistration from "./putProfessionalRegistration";
 
 export default function putProfessionalRegistrationQuery(registryId: number) {
   return {

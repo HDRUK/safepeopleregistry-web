@@ -1,4 +1,4 @@
-import putCustodianActiveEntityModel from "./putCustodianActiveEntityModel";
+import putCustodianActiveEntityModel from "@/app/actions/custodians/putCustodianActiveEntityModel";
 import { PutCustodianActiveEntityModelPayload } from "./types";
 
 export default function putCustodianActiveEntityModelQuery(

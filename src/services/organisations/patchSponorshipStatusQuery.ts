@@ -1,6 +1,6 @@
 import { QueryOptions, ResponseJson } from "@/types/requests";
 import { createMutation } from "@/utils/query";
-import patchSponsorshipStatus from "./patchSponorshipStatus";
+import patchSponsorshipStatus from "@/app/actions/organisations/patchSponsorshipStatus";
 import {
   PatchSponsorshipStatusParams,
   PatchSponsorshipStatusPayload,

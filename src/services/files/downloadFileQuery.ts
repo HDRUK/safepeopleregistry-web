@@ -1,4 +1,4 @@
-import downloadFile from "./downloadFile";
+import downloadFile from "@/app/actions/files/downloadFile";
 
 export default function downloadFileQuery(id: number | undefined) {
   return {

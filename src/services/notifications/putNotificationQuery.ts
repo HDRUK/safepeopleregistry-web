@@ -1,4 +1,4 @@
-import putUserNotification from "./putUserNotification";
+import putUserNotification from "@/app/actions/notifications/putUserNotification";
 import { NotificationPutType } from "./types";
 
 export default function putNotificationQuery(userId: number) {

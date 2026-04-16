@@ -1,4 +1,4 @@
-import putRegistryHasAffiliation from "./putRegistryHasAffiliation";
+import putRegistryHasAffiliation from "@/app/actions/affiliations/putRegistryHasAffiliation";
 import { AffiliationStatus } from "./types";
 
 export default function putRegistryHasAffiliationQuery() {

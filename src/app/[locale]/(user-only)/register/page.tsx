@@ -1,11 +1,11 @@
 import { PendingInvite } from "@/consts/application";
 import { UserGroup } from "@/consts/user";
 import { PageBody } from "@/modules";
-import { getMeUnclaimed } from "@/services/auth";
-import { getPendingInvite, putEmailByInvite } from "@/services/users";
 import { getDecodedAccessToken } from "@/utils/auth";
 import { redirectProfile } from "@/utils/router";
 import { cookies } from "next/headers";
+import { getMeUnclaimed } from "@/app/actions/auth";
+import { getPendingInvite, putEmailByInvite } from "@/app/actions/users";
 import Register from "./components/Register";
 
 async function Page({ searchParams }: { searchParams: { type?: UserGroup } }) {

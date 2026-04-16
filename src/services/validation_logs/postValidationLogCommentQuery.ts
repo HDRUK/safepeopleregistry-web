@@ -1,4 +1,4 @@
-import postValidationLogComment from "./postValidationLogComment";
+import postValidationLogComment from "@/app/actions/validation_logs/postValidationLogComment";
 import { PostValidationLogCommentPayload } from "./types";
 
 export default function postValidationLogCommentQuery() {

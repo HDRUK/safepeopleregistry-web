@@ -1,5 +1,5 @@
+import postTrainings from "@/app/actions/trainings/postTrainings";
 import { PostTrainingsPayload } from "./types";
-import postTrainings from "./postTrainings";
 
 export default function postTrainingsQuery(registryId: number) {
   return {

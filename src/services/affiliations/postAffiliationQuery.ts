@@ -1,5 +1,5 @@
 import { User } from "@/types/application";
-import postAffiliation from "./postAffiliation";
+import postAffiliation from "@/app/actions/affiliations/postAffiliation";
 import { PostAffiliationPayload } from "./types";
 
 export default function postAffiliationQuery(user: User) {

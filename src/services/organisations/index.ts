@@ -1,51 +1,23 @@
-import getOrganisations from "./getOrganisations";
-import getOrganisation from "./getOrganisation";
-import getOrganisationQuery from "./getOrganisationQuery";
-import getOrganisationIdvt from "./getOrganisationIdvt";
-import postPermissions from "./postPermissions";
-import putOrganisation from "./putOrganisation";
-import postOrganisationInviteUser from "./postOrganisationInviteUser";
-import postOrganisationInviteUserQuery from "./postOrganisationInviteUserQuery";
-import postCustodianInviteUser from "./postCustodianInviteUser";
-import postCustodianInviteUserQuery from "./postCustodianInviteUserQuery";
-import getOrganisationUsers from "./getOrganisationUsers";
-import getOrganisationDelegates from "./getOrganisationDelegates";
-import getOrganisationDelegatesQuery from "./getOrganisationDelegatesQuery";
-import postOrganisationUnclaimed from "./postOrganisationUnclaimed";
-import postOrganisationUnclaimedQuery from "./postOrganisationUnclaimedQuery";
-import postOrganisationInvite from "./postOrganisationInvite";
-import postOrganisationInviteQuery from "./postOrganisationInviteQuery";
-import useOrganisationsQuery from "./useOrganisationsQuery";
-import getOrganisationRegistries from "./getOrganisationRegistries";
-import getOrganisationRegistriesQuery from "./getOrganisationRegistriesQuery";
-import postOrganisationNewAccount from "./postOrganisationNewAccount";
-import putOrganisationApprovedQuery from "./putOrganisationApprovedQuery";
-import putOrganisationApproved from "./putOrganisationApproved";
-import usePagedSponsoredProjectsQuery from "./usePagedSponsoredProjectsQuery";
+import getOrganisationDelegatesQuery from "@/services/organisations/getOrganisationDelegatesQuery";
+import getOrganisationQuery from "@/services/organisations/getOrganisationQuery";
+import getOrganisationRegistriesQuery from "@/services/organisations/getOrganisationRegistriesQuery";
+import postCustodianInviteUserQuery from "@/services/organisations/postCustodianInviteUserQuery";
+import postOrganisationInviteQuery from "@/services/organisations/postOrganisationInviteQuery";
+import postOrganisationInviteUserQuery from "@/services/organisations/postOrganisationInviteUserQuery";
+import postOrganisationUnclaimedQuery from "@/services/organisations/postOrganisationUnclaimedQuery";
+import putOrganisationApprovedQuery from "@/services/organisations/putOrganisationApprovedQuery";
+import useOrganisationsQuery from "@/services/organisations/useOrganisationsQuery";
+import usePagedSponsoredProjectsQuery from "@/services/organisations/usePagedSponsoredProjectsQuery";
 
 export {
   putOrganisationApprovedQuery,
-  putOrganisationApproved,
-  getOrganisations,
-  getOrganisation,
   getOrganisationQuery,
-  postPermissions,
-  getOrganisationIdvt,
-  putOrganisation,
-  postOrganisationInviteUser,
   postOrganisationInviteUserQuery,
-  getOrganisationUsers,
-  getOrganisationDelegates,
   getOrganisationDelegatesQuery,
-  getOrganisationRegistries,
   getOrganisationRegistriesQuery,
   postOrganisationUnclaimedQuery,
-  postOrganisationNewAccount,
-  postOrganisationUnclaimed,
-  postOrganisationInvite,
   postOrganisationInviteQuery,
   useOrganisationsQuery,
-  postCustodianInviteUser,
   postCustodianInviteUserQuery,
   usePagedSponsoredProjectsQuery,
 };

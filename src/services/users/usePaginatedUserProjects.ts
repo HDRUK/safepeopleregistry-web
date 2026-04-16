@@ -3,7 +3,7 @@ import usePaginatedQuery, {
   PaginatedQueryProps,
 } from "@/hooks/usePaginatedQuery";
 import { omit } from "@/utils/json";
-import getUserProjects from "./getUserProjects";
+import getUserProjects from "@/app/actions/users/getUserProjects";
 import { GetUserProjectsResponse } from "./types";
 
 type GetUserProjectsQuery = Partial<

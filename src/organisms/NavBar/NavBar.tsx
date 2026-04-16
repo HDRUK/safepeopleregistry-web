@@ -3,7 +3,7 @@
 import { ROUTES } from "@/consts/router";
 import { useStore } from "@/data/store";
 import { Link } from "@/i18n/routing";
-import getMe from "@/services/auth/getMe";
+import getMe from "@/app/actions/auth/getMe";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   Box,

@@ -1,30 +1,23 @@
+import { getAffiliationsWorkflowTransitions } from "@/app/actions/affiliations";
+import { getCustodian } from "@/app/actions/custodians";
+import { getOrganisation } from "@/app/actions/organisations";
+import { getPermissions } from "@/app/actions/permissions";
+import { getProjectRoles } from "@/app/actions/project_roles";
+import { getSectors } from "@/app/actions/sectors";
+import { getSystemConfig } from "@/app/actions/system_config";
+import { getUser } from "@/app/actions/users";
+import useQueriesCombined from "@/hooks/useQueriesCombined";
+import { getAffiliationsWorkflowTransitionsQuery } from "@/services/affiliations";
+import { getCustodianQuery } from "@/services/custodians";
+import { getOrganisationQuery } from "@/services/organisations";
+import { getPermissionsQuery } from "@/services/permissions";
+import { getProjectRolesQuery } from "@/services/project_roles";
+import { getSectorsQuery } from "@/services/sectors";
+import { getSystemConfigQuery } from "@/services/system_config";
+import { getUserQuery } from "@/services/users";
+import { User } from "@/types/application";
+import { QueryOptions } from "@tanstack/react-query";
 import { useMemo } from "react";
-import useQueriesCombined from "../../hooks/useQueriesCombined";
-import {
-  getAffiliationsWorkflowTransitions,
-  getAffiliationsWorkflowTransitionsQuery,
-} from "../../services/affiliations";
-import { getCustodian, getCustodianQuery } from "../../services/custodians";
-import {
-  getOrganisation,
-  getOrganisationQuery,
-} from "../../services/organisations";
-
-import {
-  getPermissions,
-  getPermissionsQuery,
-} from "../../services/permissions";
-import { getProjectRoles } from "../../services/project_roles";
-import getProjectRolesQuery from "../../services/project_roles/getProjectRolesQuery";
-import { getSectors, getSectorsQuery } from "../../services/sectors";
-import {
-  getSystemConfig,
-  getSystemConfigQuery,
-} from "../../services/system_config";
-import { getUser } from "../../services/users";
-import getUserQuery from "../../services/users/getUserQuery";
-import { User } from "../../types/application";
-import { QueryOptions } from "../../types/requests";
 
 interface UseApplicationDependenciesProps {
   user?: User;

@@ -1,6 +1,6 @@
+import deleteTrainings from "@/app/actions/trainings/deleteTrainings";
 import { MutationOptions } from "@/types/requests";
 import { UseMutationOptions } from "@tanstack/react-query";
-import deleteTrainings from "./deleteTrainings";
 
 export default function deleteTrainingsQuery(options?: MutationOptions) {
   return {
