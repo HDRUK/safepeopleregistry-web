@@ -54,7 +54,12 @@ export default function ProjectsSafePeople() {
         setPage={setPage}
         isPaginated
         variant={EntityType.USER}
-        includeColumns={["name", "projectRole", "organisationName"]}
+        includeColumns={[
+          "name",
+          "projectRole",
+          "organisationName",
+          "organisationStatus",
+        ]}
         extraColumns={extraColumns}
         routes={{
           name: route,

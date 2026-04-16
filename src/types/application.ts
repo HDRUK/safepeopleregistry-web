@@ -486,6 +486,7 @@ interface Project {
   title: string;
   start_date: string;
   end_date: string;
+  project_has_organisations: ProjectHasOrganisations[];
 }
 
 interface ProjectUser {
@@ -500,6 +501,12 @@ interface ProjectUser {
   registry: Registry;
   custodian_has_project_user?: CustodianProjectUser;
 }
+
+type ProjectHasOrganisations = {
+  custodian_has_project_organisation?:
+    | CustodianProjectOrganisation[]
+    | undefined;
+};
 
 type CustodianProjectUser = WithModelState<{
   id: number;

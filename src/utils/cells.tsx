@@ -178,6 +178,15 @@ function renderOrganisationsNameCell(values: Organisation | Organisation[]) {
   return names;
 }
 
+function renderOrganisationsStatusCell(values: Organisation | Organisation[]) {
+  let orgStatus;
+
+  orgStatus =
+    values?.custodian_has_project_organisation?.[0]?.model_state?.state.slug;
+
+  return <ChipStatus status={orgStatus} />;
+}
+
 function renderFileDownloadLink(files: File[], type: FileType) {
   const file = (files || []).find(file => file.type === type);
 
@@ -240,6 +249,7 @@ export {
   renderLinkNameCell,
   renderListNameCell,
   renderOrganisationsNameCell,
+  renderOrganisationsStatusCell,
   renderOrganisationValidatedCell,
   renderProjectNameCell,
   renderProjectsNameCell,
