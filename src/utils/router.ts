@@ -17,7 +17,7 @@ import {
 } from "./redirects";
 
 async function getPathServerSide(): Promise<string | null> {
-  const head = headers();
+  const head = await headers();
   return head.get("x-current-path");
 }
 
