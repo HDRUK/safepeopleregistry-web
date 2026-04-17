@@ -15,6 +15,7 @@ import remarkGfm from "remark-gfm";
 import FormControlDescription from "../FormControlDescription";
 import PageHeading from "../PageHeading";
 import { getLinkAction } from "../../utils/markdown";
+import theme from "@/theme";
 
 interface MarkdownProps {
   children: string;
@@ -107,7 +108,15 @@ const defaultComponents: Components = {
     }
 
     return (
-      <Link href={href} {...props} target="blank" rel="noreferrer">
+      <Link
+        href={href}
+        {...props}
+        target="blank"
+        rel="noreferrer"
+        style={{
+          textDecoration: "underline",
+          color: theme.palette.neutralPink.contrastText,
+        }}>
         {children}
       </Link>
     );
