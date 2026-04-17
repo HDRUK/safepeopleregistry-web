@@ -23,6 +23,7 @@ import {
 import useOrganisationInvite from "@/queries/useOrganisationInvite";
 import {
   deleteAffiliationQuery,
+  getAffiliationResendVerificationQuery,
   postAffiliationQuery,
   putAffiliationQuery,
   usePaginatedAffiliations,
@@ -87,6 +88,10 @@ export default function AffiliationsPage({
 
   const { mutateAsync: deleteAffiliation, ...restDeleteState } = useMutation(
     deleteAffiliationQuery()
+  );
+
+  const { mutateAsync: resendVerification, ...resendQueryState } = useMutation(
+    getAffiliationResendVerificationQuery()
   );
 
   const {
@@ -167,6 +172,15 @@ export default function AffiliationsPage({
     enabled: !!verifiedOrganisationName,
   });
 
+  useQueryAlerts(resendQueryState, {
+    successAlertProps: {
+      text: tProfile("resendAffiliationSuccess"),
+    },
+    errorAlertProps: {
+      text: tProfile("resendAffiliationError"),
+    },
+  });
+
   const showConfirmDelete = useQueryConfirmAlerts(restDeleteState, {
     onSuccess: () => refetch(),
     confirmAlertProps: {
@@ -195,10 +209,17 @@ export default function AffiliationsPage({
     });
   };
 
+  const handleResendAffiliationEmail = async (
+    affiliation: ResearcherAffiliation
+  ) => {
+    await resendVerification(affiliation.id);
+  };
+
   const renderActionMenuCell = useCallback(
     (info: CellContext<ResearcherAffiliation, unknown>) => {
       const affiliation = info.row.original;
       const status = affiliation.registryAffiliationState;
+      const affiliationStatus = affiliation.model_state.state.slug;
       return (
         <ActionMenu>
           <ActionMenuItem
@@ -210,7 +231,7 @@ export default function AffiliationsPage({
             icon={<CreateOutlinedIcon sx={{ color: "secondary.main" }} />}>
             {tProfile("viewOrEdit")}
           </ActionMenuItem>
-          {status === Status.AFFILIATION_INVITED && (
+          {status === Status.AFFILIATION_EMAIL_VERIFY && (
             <ActionMenuItem
               disabled={inviteQueryState.isLoading}
               onClick={() => {
@@ -228,6 +249,25 @@ export default function AffiliationsPage({
               {tProfile("reinviteOrganisation")}
             </ActionMenuItem>
           )}
+          {affiliationStatus === Status.AFFILIATION_EMAIL_VERIFY &&
+            !affiliation.organisation.unclaimed && (
+              <ActionMenuItem
+                disabled={inviteQueryState.isLoading}
+                onClick={() => {
+                  setSelectedAffiliation(affiliation);
+                  handleResendAffiliationEmail(affiliation);
+                }}
+                sx={{ color: "secondary.main" }}
+                icon={
+                  inviteQueryState.isLoading ? (
+                    <CircularProgress size={20} />
+                  ) : (
+                    <EmailIcon sx={{ color: "secondary.main" }} />
+                  )
+                }>
+                {tProfile("resendVerification")}
+              </ActionMenuItem>
+            )}
           <ActionMenuItem
             onClick={() => showConfirmDelete(affiliation.id)}
             sx={{ color: "error.main" }}

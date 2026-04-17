@@ -1,4 +1,5 @@
 import deleteAffiliationQuery from "@/services/affiliations/deleteAffiliationQuery";
+import getAffiliationResendVerificationQuery from "@/services/affiliations/getAffiliationResendVerificationQuery";
 import getAffiliationsQuery from "@/services/affiliations/getAffiliationsQuery";
 import getAffiliationsWorkflowTransitionsQuery from "@/services/affiliations/getAffiliationsWorkflowTransitionsQuery";
 import getOrganisationAffiliationQuery from "@/services/affiliations/getOrganisationAffiliationQuery";
@@ -16,4 +17,5 @@ export {
   putRegistryHasAffiliationQuery,
   usePaginatedAffiliations,
   getAffiliationsWorkflowTransitionsQuery,
+  getAffiliationResendVerificationQuery,
 };
