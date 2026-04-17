@@ -111,7 +111,7 @@ const defaultComponents: Components = {
       <Link
         href={href}
         {...props}
-        target="blank"
+        target="_blank"
         rel="noreferrer"
         style={{
           textDecoration: "underline",
