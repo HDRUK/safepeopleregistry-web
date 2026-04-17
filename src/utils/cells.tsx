@@ -185,8 +185,7 @@ function renderOrganisationsStatusCell(values: ProjectUser) {
     org => org.organisation_id === affiliationOrgId
   );
 
-  let orgStatus;
-  orgStatus =
+  const orgStatus =
     projectOrg?.[0]?.custodian_has_project_organisation?.[0].model_state.state
       .slug;
 
