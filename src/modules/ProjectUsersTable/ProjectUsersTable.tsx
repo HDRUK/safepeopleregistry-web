@@ -79,12 +79,9 @@ export default function ProjectUsersTable({
       }),
       createDefaultColumn("organisationStatus", {
         accessorFn: row =>
-          getProjectUser(row).project?.project_has_organisations[0],
+          getProjectUser(row).project?.project_has_organisations?.[0],
         cell: info =>
-          renderOrganisationsStatusCell(
-            getProjectUser(info.row.original).project
-              .project_has_organisations[0]
-          ),
+          renderOrganisationsStatusCell(getProjectUser(info.row.original)),
       }),
       createDefaultColumn("affiliationStatus", {
         accessorFn: row =>

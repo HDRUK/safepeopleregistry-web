@@ -223,6 +223,14 @@ export default function ProjectUsers({
       isPaginated
       variant={variant}
       t={t}
+      includeColumns={[
+        "name",
+        "projectRole",
+        "projectName",
+        "organisationName",
+        "affiliationStatus",
+        "status",
+      ]}
     />
   );
 

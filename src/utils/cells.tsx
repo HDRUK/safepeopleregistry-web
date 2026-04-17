@@ -178,11 +178,17 @@ function renderOrganisationsNameCell(values: Organisation | Organisation[]) {
   return names;
 }
 
-function renderOrganisationsStatusCell(values: Organisation | Organisation[]) {
-  let orgStatus;
+function renderOrganisationsStatusCell(values: ProjectUser) {
+  const affiliationOrgId = values.affiliation.organisation_id;
 
+  const projectOrg = values.project?.project_has_organisations?.filter(
+    org => org.organisation_id === affiliationOrgId
+  );
+
+  let orgStatus;
   orgStatus =
-    values?.custodian_has_project_organisation?.[0]?.model_state?.state.slug;
+    projectOrg?.[0]?.custodian_has_project_organisation?.[0].model_state.state
+      .slug;
 
   return <ChipStatus status={orgStatus} />;
 }

@@ -51,7 +51,7 @@ export default function SubPageProjects({ params, projectData }: PageProps) {
           </PageColumnBody>
           <PageColumnDetails lg={4}>
             <StatusList
-              projectStatus={project?.model_state.state.slug}
+              projectStatus={project?.model_state?.state?.slug}
               validationStatus={
                 project?.custodian_has_project_user?.[0].model_state.state.slug
               }
