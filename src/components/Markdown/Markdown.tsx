@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import ReactMarkdown, { Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
+import theme from "@/theme";
 import FormControlDescription from "../FormControlDescription";
 import PageHeading from "../PageHeading";
 import { getLinkAction } from "../../utils/markdown";
@@ -107,7 +108,15 @@ const defaultComponents: Components = {
     }
 
     return (
-      <Link href={href} {...props}>
+      <Link
+        href={href}
+        {...props}
+        target="_blank"
+        rel="noreferrer"
+        style={{
+          textDecoration: "underline",
+          color: theme.palette.neutralPink.contrastText,
+        }}>
         {children}
       </Link>
     );
