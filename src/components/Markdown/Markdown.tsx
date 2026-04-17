@@ -12,10 +12,10 @@ import {
 } from "@mui/material";
 import ReactMarkdown, { Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
+import theme from "@/theme";
 import FormControlDescription from "../FormControlDescription";
 import PageHeading from "../PageHeading";
 import { getLinkAction } from "../../utils/markdown";
-import theme from "@/theme";
 
 interface MarkdownProps {
   children: string;
