@@ -1,4 +1,6 @@
-const withNextIntl = require("next-intl/plugin")();
+const createNextIntlPlugin = require("next-intl/plugin");
+
+const withNextIntl = createNextIntlPlugin("./src/i18n.ts");
 
 /** @type {import('next').NextConfig} */
 
@@ -26,8 +28,8 @@ const nextConfig = withNextIntl({
         permanent: true,
       },
       {
-        source: '/:locale/homepage',
-        destination: '/:locale',
+        source: "/:locale/homepage",
+        destination: "/:locale",
         permanent: true,
       },
     ];
@@ -78,7 +80,7 @@ const nextConfig = withNextIntl({
       {
         source: "/:locale/organisation/profile/projects/:id",
         destination: `/:locale/organisation/profile/projects/:id/safe-project`,
-      }
+      },
     ];
   },
   webpack: (config, { isServer }) => {

@@ -73,7 +73,7 @@
     "maildev": "^2.2.1",
     "motion": "^11.11.17",
     "next": "^14.2.35",
-    "next-intl": "^3.10.0",
+    "next-intl": "^4.9.1",
     "pretty-bytes": "^6.1.1",
     "react": "^18",
     "react-dom": "^18.3.1",
