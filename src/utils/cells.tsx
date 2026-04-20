@@ -178,6 +178,20 @@ function renderOrganisationsNameCell(values: Organisation | Organisation[]) {
   return names;
 }
 
+function renderOrganisationsStatusCell(values: ProjectUser) {
+  const affiliationOrgId = values.affiliation.organisation_id;
+
+  const projectOrg = values.project?.project_has_organisations?.filter(
+    org => org.organisation_id === affiliationOrgId
+  );
+
+  const orgStatus =
+    projectOrg?.[0]?.custodian_has_project_organisation?.[0].model_state.state
+      .slug;
+
+  return <ChipStatus status={orgStatus} />;
+}
+
 function renderFileDownloadLink(files: File[], type: FileType) {
   const file = (files || []).find(file => file.type === type);
 
@@ -240,6 +254,7 @@ export {
   renderLinkNameCell,
   renderListNameCell,
   renderOrganisationsNameCell,
+  renderOrganisationsStatusCell,
   renderOrganisationValidatedCell,
   renderProjectNameCell,
   renderProjectsNameCell,

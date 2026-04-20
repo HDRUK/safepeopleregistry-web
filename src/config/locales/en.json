@@ -1585,7 +1585,8 @@
       "requestAddNewMemberButton": "Request member is affiliated",
       "noResultsMessageProject": "It looks like there are no users associated with this project. You can add a new member by clicking the button above.",
       "noResultsMessage": "It looks like there are no users for any projects. Navigate to a project and under 'Safe People' where you have the ability to add a user to a project.",
-      "errorMessage": "Couldn't get the users for this project. Please try again or <contactLink>contact support</contactLink> if the problem persists."
+      "errorMessage": "Couldn't get the users for this project. Please try again or <contactLink>contact support</contactLink> if the problem persists.",
+      "organisationStatus": "Organisation status"
     },
     "Organisations": {
       "cancel": "Cancel",
