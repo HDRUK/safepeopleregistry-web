@@ -63,7 +63,12 @@ export default function ProjectsSafeDataForm({
         dataset_linkage_description: yup.string(),
         data_minimisation: yup.string(),
         data_use_description: yup.string(),
-        access_date: yup.date().nullable(),
+        access_date: yup
+          .date()
+          .nullable()
+          .transform((value, originalValue) =>
+            originalValue === "" ? null : value
+          ),
       }),
     [t]
   );
