@@ -6,7 +6,11 @@ async function setAcceptTCs(value: boolean, userGroup: string) {
   const cookieStore = await cookies();
 
   if (value) {
-    cookieStore.set(`accepted_tcs_${userGroup}`, "true");
+    cookieStore.set(`accepted_tcs_${userGroup}`, "true", {
+      secure: true,
+      httpOnly: true,
+      sameSite: "lax",
+    });
   } else {
     cookieStore.delete(`accepted_tcs_${userGroup}`);
   }
