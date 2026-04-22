@@ -8,9 +8,9 @@ interface PageProps {
   };
 }
 
-function OrganisationUserPage({
-  params: { id: userId, subSubTabId },
-}: PageProps) {
+async function OrganisationUserPage({ params }: PageProps) {
+  const { id: userId, subSubTabId } = await params;
+
   return <OrganisationUser userId={userId} subSubTabId={subSubTabId} />;
 }
 

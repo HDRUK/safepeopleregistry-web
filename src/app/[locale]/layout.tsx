@@ -38,8 +38,10 @@ type RootLayoutProps = PropsWithChildren<{
 
 export default async function RootLayout({
   children,
-  params: { locale },
+  params,
 }: RootLayoutProps) {
+  const { locale } = await params;
+
   if (!locales[locale]) notFound();
 
   const messages = await getMessages();

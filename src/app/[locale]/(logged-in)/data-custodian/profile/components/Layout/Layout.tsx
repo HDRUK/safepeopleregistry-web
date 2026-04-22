@@ -9,7 +9,9 @@ interface LayoutProps {
   };
 }
 
-async function Layout({ children, params: { tabId } }: LayoutProps) {
+async function Layout({ children, params }: LayoutProps) {
+  const { tabId } = await params;
+
   return (
     <>
       <TabsSections tabId={tabId} />

@@ -9,7 +9,8 @@ import { getProfilePathByEntity } from "./entity";
 import { getLoginUrl, getRegisterUrl } from "./keycloak";
 
 async function redirectToPath(redirectUrl: string, pathname?: string) {
-  const locale = await cookies().get("NEXT_LOCALE")?.value;
+  const cookieStore = await cookies();
+  const locale = cookieStore.get("NEXT_LOCALE")?.value;
 
   if (
     (pathname && redirectUrl && !isInPath(redirectUrl, pathname)) ||

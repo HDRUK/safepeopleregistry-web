@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 import { COOKIE_OPTIONS } from "@/consts/cookies";
 
 export async function POST() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const refreshToken = cookieStore.get("refresh_token")?.value;
 
   if (!refreshToken) {
