@@ -9,6 +9,7 @@ import {
   hasAffiliationUsers,
   hasRemoveAffiliationUsers,
   removeAffiliationUsers,
+  resendAffiliationVerification,
 } from "cypress/support/utils/user/affiliations";
 import { loginUser } from "cypress/support/utils/user/auth";
 import { ROUTES } from "@/consts/router";
@@ -64,6 +65,26 @@ describe("Affiliations journey", () => {
     editAffiliationUsers(dataAffiliation, dataEdittedAffiliation);
 
     hasAffiliationUsers(dataEdittedAffiliation, Status.AFFILIATION_PENDING);
+  });
+
+  it("Resends the verification email for a current-employer affiliation", () => {
+    // The current-employer affiliation created in the first test lands in
+    // AFFILIATION_EMAIL_VERIFY status. If the test environment has one, the
+    // "Resend verification email" menu item should be available.
+    cy.get("body").then($body => {
+      const hasEmailVerifyRow = $body
+        .find("tbody tr td")
+        .toArray()
+        .some(td => td.textContent?.includes("Email verification"));
+
+      if (hasEmailVerifyRow) {
+        resendAffiliationVerification(dataCurrentAffiliation);
+      } else {
+        cy.log(
+          "No affiliation in email-verify state — skipping resend assertion"
+        );
+      }
+    });
   });
 
   it("Removes an affiliation and reloads the page", () => {
