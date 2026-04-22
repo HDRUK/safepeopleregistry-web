@@ -17,6 +17,8 @@ describe("Custodian webhooks journey", () => {
     loginCustodian();
 
     cy.visitFirst(ROUTES.profileCustodianConfigurationWebhooks.path);
+
+    cy.waitForLoadingToFinish();
   });
 
   after(() => {

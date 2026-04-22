@@ -29,6 +29,8 @@ describe("Training journey", () => {
     loginUser();
 
     cy.visitFirst(ROUTES.profileResearcherTraining.path);
+
+    cy.waitForLoadingToFinish();
   });
 
   after(() => {

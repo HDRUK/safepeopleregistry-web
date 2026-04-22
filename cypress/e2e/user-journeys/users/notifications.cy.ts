@@ -12,7 +12,9 @@ describe("Notifications journey", () => {
   beforeEach(() => {
     loginUser();
 
-    cy.visitFirst(ROUTES.profileResearcherHome.path);
+    cy.visitFirst(ROUTES.profileResearcherAffiliations.path);
+
+    cy.waitForLoadingToFinish();
   });
 
   after(() => {
