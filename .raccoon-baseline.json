@@ -1,0 +1,210 @@
+{
+  "version": 1,
+  "timestamp": "2026-04-23T06:25:05.261Z",
+  "overallScore": 67,
+  "overallCeiling": 96,
+  "dimensions": [
+    {
+      "dimension": "readability",
+      "score": 56,
+      "ceiling": 100
+    },
+    {
+      "dimension": "maintainability",
+      "score": 83,
+      "ceiling": 98
+    },
+    {
+      "dimension": "extensibility",
+      "score": 80,
+      "ceiling": 100
+    },
+    {
+      "dimension": "test_coverage",
+      "score": 50,
+      "ceiling": 91
+    },
+    {
+      "dimension": "security",
+      "score": 78,
+      "ceiling": 100
+    },
+    {
+      "dimension": "performance",
+      "score": 53,
+      "ceiling": 96
+    },
+    {
+      "dimension": "documentation",
+      "score": 39,
+      "ceiling": 95
+    },
+    {
+      "dimension": "architecture",
+      "score": 85,
+      "ceiling": 87
+    }
+  ],
+  "checks": [
+    {
+      "id": "nextjs-react/eslint-config",
+      "score": 20,
+      "maxScore": 100,
+      "evidenceCount": 0
+    },
+    {
+      "id": "nextjs-react/component-size",
+      "score": 91,
+      "maxScore": 100,
+      "evidenceCount": 28
+    },
+    {
+      "id": "nextjs-react/typescript",
+      "score": 100,
+      "maxScore": 100,
+      "evidenceCount": 0
+    },
+    {
+      "id": "nextjs-react/custom-hooks",
+      "score": 49,
+      "maxScore": 80,
+      "evidenceCount": 0
+    },
+    {
+      "id": "nextjs-react/prop-types",
+      "score": 72,
+      "maxScore": 100,
+      "evidenceCount": 10
+    },
+    {
+      "id": "nextjs-react/duplicate-code",
+      "score": 87,
+      "maxScore": 100,
+      "evidenceCount": 10
+    },
+    {
+      "id": "nextjs-react/file-structure",
+      "score": 100,
+      "maxScore": 100,
+      "evidenceCount": 0
+    },
+    {
+      "id": "nextjs-react/env-var-usage",
+      "score": 70,
+      "maxScore": 100,
+      "evidenceCount": 0
+    },
+    {
+      "id": "nextjs-react/api-abstraction",
+      "score": 50,
+      "maxScore": 100,
+      "evidenceCount": 5
+    },
+    {
+      "id": "nextjs-react/test-framework",
+      "score": 100,
+      "maxScore": 100,
+      "evidenceCount": 0
+    },
+    {
+      "id": "nextjs-react/test-file-ratio",
+      "score": 10,
+      "maxScore": 80,
+      "evidenceCount": 10
+    },
+    {
+      "id": "nextjs-react/assertion-density",
+      "score": 80,
+      "maxScore": 100,
+      "evidenceCount": 2
+    },
+    {
+      "id": "nextjs-react/coverage-config",
+      "score": 60,
+      "maxScore": 100,
+      "evidenceCount": 0
+    },
+    {
+      "id": "nextjs-react/xss-risk",
+      "score": 80,
+      "maxScore": 100,
+      "evidenceCount": 1
+    },
+    {
+      "id": "nextjs-react/eval-usage",
+      "score": 100,
+      "maxScore": 100,
+      "evidenceCount": 0
+    },
+    {
+      "id": "nextjs-react/hardcoded-secrets",
+      "score": 100,
+      "maxScore": 100,
+      "evidenceCount": 0
+    },
+    {
+      "id": "nextjs-react/security-headers",
+      "score": 0,
+      "maxScore": 100,
+      "evidenceCount": 5
+    },
+    {
+      "id": "nextjs-react/next-image",
+      "score": 0,
+      "maxScore": 100,
+      "evidenceCount": 1
+    },
+    {
+      "id": "nextjs-react/code-splitting",
+      "score": 93,
+      "maxScore": 100,
+      "evidenceCount": 0
+    },
+    {
+      "id": "nextjs-react/memoization",
+      "score": 80,
+      "maxScore": 80,
+      "evidenceCount": 0
+    },
+    {
+      "id": "nextjs-react/readme",
+      "score": 44,
+      "maxScore": 100,
+      "evidenceCount": 0
+    },
+    {
+      "id": "nextjs-react/jsdoc-coverage",
+      "score": 7,
+      "maxScore": 80,
+      "evidenceCount": 10
+    },
+    {
+      "id": "nextjs-react/storybook",
+      "score": 60,
+      "maxScore": 100,
+      "evidenceCount": 0
+    },
+    {
+      "id": "nextjs-react/router-consistency",
+      "score": 100,
+      "maxScore": 100,
+      "evidenceCount": 0
+    },
+    {
+      "id": "nextjs-react/api-routes",
+      "score": 70,
+      "maxScore": 80,
+      "evidenceCount": 0
+    },
+    {
+      "id": "nextjs-react/server-client-separation",
+      "score": 80,
+      "maxScore": 80,
+      "evidenceCount": 0
+    }
+  ],
+  "earnedAchievements": [
+    "solid-architecture"
+  ],
+  "consecutiveImprovements": 1
+}

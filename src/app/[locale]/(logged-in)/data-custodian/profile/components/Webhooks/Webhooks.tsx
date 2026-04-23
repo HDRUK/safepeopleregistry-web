@@ -210,7 +210,10 @@ export default function Webhooks() {
                                 name={`webhooks.${index}.receiver_url`}
                                 placeholder={tForm("name")}
                                 renderField={fieldProps => (
-                                  <TextField {...fieldProps} id={fieldProps.name} />
+                                  <TextField
+                                    {...fieldProps}
+                                    id={fieldProps.name}
+                                  />
                                 )}
                               />
                             </Grid>
