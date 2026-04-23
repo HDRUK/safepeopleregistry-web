@@ -31,11 +31,11 @@ function SubPage({ params }: PageProps) {
   return (
     <PageBodyContainer heading={t(toCamelCase(`${params.tabId}Title`))}>
       <PageColumns>
-        <PageColumnBody lg={8}>
+        <PageColumnBody size={{ lg: 8 }}>
           <SubTabsSections {...params} />
           <SubTabsContents {...params} />
         </PageColumnBody>
-        <PageColumnDetails lg={4}>
+        <PageColumnDetails size={{ lg: 4 }}>
           <PageGuidance
             profile="organisation"
             {...params}

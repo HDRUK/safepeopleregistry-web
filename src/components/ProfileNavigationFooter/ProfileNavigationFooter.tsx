@@ -36,7 +36,7 @@ export default function ProfileNavigationFooter({
       : tProfile("submitButton");
 
   return (
-    <Grid container spacing={2} alignItems="center">
+    <Grid container spacing={2} alignItems="center" sx={{ width: "100%" }}>
       <Grid size={{ xs: 3 }}>
         {previousHref && (
           <Button

@@ -141,7 +141,7 @@ export default function Identity() {
   return (
     <PageBodyContainer heading={t("identityTitle")}>
       <PageColumns>
-        <PageColumnBody lg={8}>
+        <PageColumnBody size={{ lg: 8 }}>
           <PageBody>
             <PageSection heading={t("identityForm")}>
               <Form
@@ -272,7 +272,7 @@ export default function Identity() {
             </PageSection>
           </PageBody>
         </PageColumnBody>
-        <PageColumnDetails lg={4}>
+        <PageColumnDetails size={{ lg: 4 }}>
           <Guidance
             {...mockedPersonalDetailsGuidanceProps}
             isCollapsible={false}

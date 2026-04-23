@@ -138,7 +138,7 @@ export default function Experience() {
   return (
     <PageBodyContainer heading={tProfile("experienceTitle")}>
       <PageColumns>
-        <PageColumnBody lg={8}>
+        <PageColumnBody size={{ lg: 8 }}>
           <PageBody>
             <PageSection
               heading={tProfile("employmentEducationPublicationRecord")}>
@@ -210,7 +210,7 @@ export default function Experience() {
             </PageSection>
           </PageBody>
         </PageColumnBody>
-        <PageColumnDetails lg={4}>
+        <PageColumnDetails size={{ lg: 4 }}>
           <Guidance
             {...mockedUserExperienceGuidanceProps}
             isCollapsible={false}

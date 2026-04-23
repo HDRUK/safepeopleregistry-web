@@ -1,7 +1,7 @@
 import { Status } from "@/consts/application";
 import { UseCustodianProjectOrganisationResult } from "@/hooks/useCustodianProjectOrganisation/useCustodianProjectOrganisation";
 import { UseCustodianProjectUserResult } from "@/hooks/useCustodianProjectUser/useCustodianProjectUser";
-import { TextareaAutosize } from "@mui/base/TextareaAutosize";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { LoadingButton } from "@mui/lab";
 import { Box, Grid } from "@mui/material";
 import { useTranslations } from "next-intl";

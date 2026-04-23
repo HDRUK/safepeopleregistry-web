@@ -88,7 +88,7 @@ export default function ProjectsSafeDataForm({
             createNewRow={() => ({ value: "" })}
             tKey={NAMESPACE_TRANSLATION}
             renderField={(_, index, removeButton) => (
-              <Grid container spacing={2}>
+              <Grid container spacing={2} sx={{ width: "100%" }}>
                 <Grid size={{ xs: 5 }}>
                   <FormControlWrapper
                     displayLabel={false}

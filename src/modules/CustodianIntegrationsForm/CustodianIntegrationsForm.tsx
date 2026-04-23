@@ -63,7 +63,7 @@ export default function CustodianIntegrationsForms({
               </Typography>
             </Grid>
           </Grid>
-          <Grid container spacing={3}>
+          <Grid container spacing={3} size={{ xs: 12 }}>
             <Grid size={{ xs: 6 }}>
               <FormControlWrapper
                 t={t}
@@ -72,7 +72,7 @@ export default function CustodianIntegrationsForms({
               />
             </Grid>
           </Grid>
-          <Grid container spacing={3}>
+          <Grid container spacing={3} size={{ xs: 12 }}>
             <Grid size={{ xs: 6 }}>
               <FormControlWrapper
                 t={t}

@@ -13,7 +13,13 @@ export default function FormActions({
 }: FormActionsProps) {
   return (
     <Box
-      sx={{ mt: 2, display: "flex", justifyContent: "space-between", ...sx }}
+      sx={{
+        mt: 2,
+        width: "100%",
+        display: "flex",
+        justifyContent: "space-between",
+        ...sx,
+      }}
       {...restProps}>
       {children}
     </Box>

@@ -62,7 +62,7 @@ export default function ProjectsSafeOutputsForm({
             addButtonLabel={tApplication("addLink")}
             createNewRow={() => ""}
             renderField={(_, index, removeButton) => (
-              <Grid container spacing={2}>
+              <Grid container spacing={2} sx={{ width: "100%" }}>
                 <Grid size={{ xs: 5 }}>
                   <FormControlWrapper
                     displayLabel={false}

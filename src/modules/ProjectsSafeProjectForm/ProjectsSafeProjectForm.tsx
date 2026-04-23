@@ -111,9 +111,7 @@ export default function ProjectsSafeProjectForm({
         return (
           <Grid container columnSpacing={8}>
             <Grid
-              item
-              md={8}
-              xs={12}
+              size={{ xs: 12, md: 8 }}
               order={{
                 md: 1,
                 xs: 2,
@@ -321,9 +319,7 @@ export default function ProjectsSafeProjectForm({
               </FormActions>
             </Grid>
             <Grid
-              item
-              md={4}
-              xs={12}
+              size={{ xs: 12, md: 4 }}
               order={{
                 md: 2,
                 xs: 1,
