@@ -10,8 +10,6 @@ import {
   saveWebhooks,
 } from "cypress/support/utils/custodian/webhooks";
 
-const webhookUrl = `https://hooks.${faker.internet.domainName()}/webhook`;
-
 describe("Custodian webhooks journey", () => {
   beforeEach(() => {
     loginCustodian();
@@ -36,6 +34,8 @@ describe("Custodian webhooks journey", () => {
   });
 
   it("Adds a webhook", () => {
+    const webhookUrl = `https://hooks.${faker.internet.domainName()}/webhook`;
+
     cy.get('input[name^="webhooks"]')
       .filter('[name$="receiver_url"]')
       .then($inputs => {
@@ -53,10 +53,28 @@ describe("Custodian webhooks journey", () => {
     cy.waitForLoadingToFinish();
 
     hasWebhook({ receiver_url: webhookUrl });
+
+    removeWebhookRow({ receiver_url: webhookUrl });
+    saveWebhooks();
   });
 
   it("Removes a webhook", () => {
-    hasWebhook({ receiver_url: webhookUrl });
+    const webhookUrl = `https://hooks.${faker.internet.domainName()}/webhook`;
+
+    cy.get('input[name^="webhooks"]')
+      .filter('[name$="receiver_url"]')
+      .then($inputs => {
+        if ($inputs.first().val() === "") {
+          fillFirstWebhookRow({ receiver_url: webhookUrl });
+        } else {
+          addWebhookRow({ receiver_url: webhookUrl });
+        }
+      });
+
+    saveWebhooks();
+
+    cy.visitFirst(ROUTES.profileCustodianConfigurationWebhooks.path);
+    cy.waitForLoadingToFinish();
 
     removeWebhookRow({ receiver_url: webhookUrl });
 

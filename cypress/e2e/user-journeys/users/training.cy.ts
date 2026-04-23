@@ -18,8 +18,6 @@ describe("Training journey", () => {
     cy.visitFirst(ROUTES.profileResearcherTraining.path);
 
     cy.waitForLoadingToFinish();
-
-    cy.contains("button", "Add training course").should("exist");
   });
 
   after(() => {

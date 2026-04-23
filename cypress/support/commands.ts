@@ -56,22 +56,32 @@ Cypress.Commands.add("logAxeViolations", violations => {
 Cypress.Commands.add("login", (email: string, password: string) => {
   const args = { email, password };
 
-  cy.session(args, () => {
-    cy.origin(
-      Cypress.env("keycloakBaseUrl"),
-      { args },
-      ({ email, password }) => {
-        const { getKeycloakLoginPath } = Cypress.require("./utils/auth");
+  cy.session(
+    args,
+    () => {
+      cy.origin(
+        Cypress.env("keycloakBaseUrl"),
+        { args },
+        ({ email, password }) => {
+          const { getKeycloakLoginPath } = Cypress.require("./utils/auth");
 
-        cy.visit(getKeycloakLoginPath());
+          cy.visit(getKeycloakLoginPath());
 
-        cy.get("[id=username]").type(email);
-        cy.get("[id=password]").type(password);
+          cy.get("[id=username]").type(email);
+          cy.get("[id=password]").type(password);
 
-        cy.get("#kc-login").click();
-      }
-    );
-  });
+          cy.get("#kc-login").click();
+        }
+      );
+
+      cy.getCookie("access_token").should("exist");
+    },
+    {
+      validate() {
+        cy.getCookie("access_token").should("exist");
+      },
+    }
+  );
 });
 
 Cypress.Commands.add("dataCy", (value: string) => {
