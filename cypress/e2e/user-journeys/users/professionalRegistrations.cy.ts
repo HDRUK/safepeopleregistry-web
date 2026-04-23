@@ -28,6 +28,8 @@ describe("Professional registrations journey", () => {
     cy.visitFirst(ROUTES.profileResearcherTraining.path);
 
     cy.waitForLoadingToFinish();
+
+    cy.contains("button", "Add professional membership").should("exist");
   });
 
   after(() => {

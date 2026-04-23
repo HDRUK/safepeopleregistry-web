@@ -12,15 +12,18 @@ Cypress.Commands.add("checkA11yPage", () => {
   }, true);
 });
 Cypress.Commands.add("waitForLoadingToFinish", () => {
-  cy.get("body").then($body => {
-    const spinner = $body.find('[role="progressbar"]');
+  const checkSpinner = () => {
+    cy.get("body").then($body => {
+      if ($body.find('[role="progressbar"]').length > 0) {
+        cy.get('[role="progressbar"]').should("not.exist");
+      }
+    });
+  };
 
-    if (spinner.length > 0) {
-      return cy.get('[role="progressbar"]').should("not.exist");
-    }
-
-    return;
-  });
+  // First pass: catches spinners already present on snapshot
+  checkSpinner();
+  // Second pass: catches spinners that appear after React hydration
+  checkSpinner();
 });
 Cypress.Commands.add("logAxeViolations", violations => {
   cy.task(
