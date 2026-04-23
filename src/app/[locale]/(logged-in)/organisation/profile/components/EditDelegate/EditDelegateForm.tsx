@@ -57,21 +57,21 @@ export default function EditDelegateForm({
             container
             rowSpacing={3}
             sx={{ width: "70%", justifyContent: "flex-start" }}>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <FormControlWrapper
                 name="first_name"
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <FormControlWrapper
                 name="last_name"
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <FormControlWrapper
                 name="department_id"
                 renderField={fieldProps => (

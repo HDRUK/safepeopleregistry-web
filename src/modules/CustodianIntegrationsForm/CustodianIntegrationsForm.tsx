@@ -50,8 +50,8 @@ export default function CustodianIntegrationsForms({
       {...restProps}>
       <>
         <Grid container spacing={3}>
-          <Grid container item spacing={3}>
-            <Grid item xs={6}>
+          <Grid container spacing={3}>
+            <Grid size={{ xs: 6 }}>
               <Image
                 src="/images/logos/gateway-main.svg"
                 width={228}
@@ -63,8 +63,8 @@ export default function CustodianIntegrationsForms({
               </Typography>
             </Grid>
           </Grid>
-          <Grid container item spacing={3}>
-            <Grid item xs={6}>
+          <Grid container spacing={3}>
+            <Grid size={{ xs: 6 }}>
               <FormControlWrapper
                 t={t}
                 name="gateway_app_id"
@@ -72,8 +72,8 @@ export default function CustodianIntegrationsForms({
               />
             </Grid>
           </Grid>
-          <Grid container item spacing={3}>
-            <Grid item xs={6}>
+          <Grid container spacing={3}>
+            <Grid size={{ xs: 6 }}>
               <FormControlWrapper
                 t={t}
                 name="gateway_client_id"

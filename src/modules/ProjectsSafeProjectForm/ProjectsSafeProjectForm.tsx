@@ -119,14 +119,14 @@ export default function ProjectsSafeProjectForm({
                 xs: 2,
               }}>
               <Grid container rowSpacing={3} mb={5}>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <FormControlWrapper
                     name="unique_id"
                     t={tForm}
                     renderField={fieldProps => <TextField {...fieldProps} />}
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <FormControlWrapper
                     name="title"
                     t={tForm}
@@ -134,7 +134,7 @@ export default function ProjectsSafeProjectForm({
                   />
                 </Grid>
                 {isSponsorship && (
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <FormControlWrapper
                       name="sponsor_id"
                       labelProps={{
@@ -204,16 +204,16 @@ export default function ProjectsSafeProjectForm({
                     />
                   </Grid>
                 )}
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <FormControlWrapper
                     name="request_category_type"
                     t={tForm}
                     renderField={fieldProps => <TextField {...fieldProps} />}
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <Grid container columnSpacing={3}>
-                    <Grid item xs={6}>
+                    <Grid size={{ xs: 6 }}>
                       <FormControlWrapper
                         t={tForm}
                         name="start_date"
@@ -222,7 +222,7 @@ export default function ProjectsSafeProjectForm({
                         )}
                       />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid size={{ xs: 6 }}>
                       <FormControlWrapper
                         t={tForm}
                         name="end_date"
@@ -233,9 +233,9 @@ export default function ProjectsSafeProjectForm({
                     </Grid>
                   </Grid>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <Grid container columnSpacing={3}>
-                    <Grid item xs={6}>
+                    <Grid size={{ xs: 6 }}>
                       <FormControlWrapper
                         t={tForm}
                         name="latest_approval_date"
@@ -246,7 +246,7 @@ export default function ProjectsSafeProjectForm({
                     </Grid>
                   </Grid>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <FormControlWrapper
                     name="lay_summary"
                     t={tForm}
@@ -260,7 +260,7 @@ export default function ProjectsSafeProjectForm({
                     )}
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <FormControlWrapper
                     name="public_benefit"
                     t={tForm}
@@ -274,7 +274,7 @@ export default function ProjectsSafeProjectForm({
                     )}
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <FormControlWrapper
                     name="technical_summary"
                     t={tForm}
@@ -288,7 +288,7 @@ export default function ProjectsSafeProjectForm({
                     )}
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <FormFieldArray
                     tKey={NAMESPACE_TRANSLATION_FORM}
                     name="other_approval_committees"
@@ -296,7 +296,7 @@ export default function ProjectsSafeProjectForm({
                     createNewRow={() => ""}
                     renderField={(_, index, removeButton) => (
                       <Grid container spacing={2}>
-                        <Grid item xs={5}>
+                        <Grid size={{ xs: 5 }}>
                           <FormControlWrapper
                             displayLabel={false}
                             placeholder={tForm(

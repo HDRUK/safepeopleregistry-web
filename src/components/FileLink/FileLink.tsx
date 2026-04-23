@@ -89,9 +89,9 @@ export default function FileLink({
   );
 
   return (
-    <Grid container item spacing={0}>
-      <Grid container item>
-        <Grid item xs={10}>
+    <Grid container spacing={0}>
+      <Grid container>
+        <Grid size={{ xs: 10 }}>
           <LoadingButton
             color="primary"
             variant="outlined"
@@ -103,7 +103,7 @@ export default function FileLink({
           </LoadingButton>
         </Grid>
       </Grid>
-      <Grid item xs={12}>
+      <Grid size={{ xs: 12 }}>
         {fileNameText && (
           /* eslint-disable jsx-a11y/anchor-is-valid */
           <Link

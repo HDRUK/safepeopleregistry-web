@@ -56,7 +56,7 @@ export default function ProjectSafeSettingsForm({
       {...restProps}
       autoComplete="off">
       <Grid container rowSpacing={3}>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <FormControlWrapper
             fullWidth
             name="access_type"
@@ -82,7 +82,7 @@ export default function ProjectSafeSettingsForm({
             )}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <FormControlWrapper
             name="data_privacy"
             t={tForm}

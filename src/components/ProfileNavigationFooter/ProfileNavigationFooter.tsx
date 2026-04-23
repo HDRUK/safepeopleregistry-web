@@ -37,7 +37,7 @@ export default function ProfileNavigationFooter({
 
   return (
     <Grid container spacing={2} alignItems="center">
-      <Grid item xs={3}>
+      <Grid size={{ xs: 3 }}>
         {previousHref && (
           <Button
             href={previousHref}
@@ -49,7 +49,7 @@ export default function ProfileNavigationFooter({
           </Button>
         )}
       </Grid>
-      <Grid item xs={6}>
+      <Grid size={{ xs: 6 }}>
         {nextStepText && (
           <Box
             sx={{
@@ -68,7 +68,9 @@ export default function ProfileNavigationFooter({
           </Box>
         )}
       </Grid>
-      <Grid item xs={3} sx={{ display: "flex", justifyContent: "flex-end" }}>
+      <Grid
+        size={{ xs: 3 }}
+        sx={{ display: "flex", justifyContent: "flex-end" }}>
         {!nextHref ? (
           <ButtonSave
             isLoading={isLoading}

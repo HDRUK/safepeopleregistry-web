@@ -116,7 +116,7 @@ export default function Form<T extends FieldValues>({
             ...restProps.sx,
           }}>
           {error && (
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <Message severity="error" sx={{ mb: 3 }}>
                 {error}
               </Message>

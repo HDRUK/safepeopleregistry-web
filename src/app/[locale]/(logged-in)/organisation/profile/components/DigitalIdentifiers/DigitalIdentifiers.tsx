@@ -127,7 +127,7 @@ export default function DigitalIdentifiers() {
             return (
               <>
                 <Grid container rowSpacing={3}>
-                  <Grid item xs={7}>
+                  <Grid size={{ xs: 7 }}>
                     <FormControlWrapper
                       name="companies_house_no"
                       renderField={fieldProps => <TextField {...fieldProps} />}
@@ -146,7 +146,7 @@ export default function DigitalIdentifiers() {
                     />
                   </Grid>
 
-                  <Grid item xs={7}>
+                  <Grid size={{ xs: 7 }}>
                     <FormControlWrapper
                       name="ror_id"
                       renderField={fieldProps => <TextField {...fieldProps} />}
@@ -167,7 +167,7 @@ export default function DigitalIdentifiers() {
                     />
                   </Grid>
 
-                  <Grid item xs={7}>
+                  <Grid size={{ xs: 7 }}>
                     <FormControlWrapper
                       name="ods_id"
                       renderField={fieldProps => <TextField {...fieldProps} />}
@@ -184,7 +184,7 @@ export default function DigitalIdentifiers() {
                     />
                   </Grid>
 
-                  <Grid item xs={7}>
+                  <Grid size={{ xs: 7 }}>
                     <FormControlCheckbox
                       label={tForm("isCharity")}
                       name="isCharity"
@@ -193,7 +193,7 @@ export default function DigitalIdentifiers() {
                   </Grid>
 
                   {watch("isCharity") && (
-                    <Grid item xs={12}>
+                    <Grid size={{ xs: 12 }}>
                       <FormFieldArray<FormData>
                         name="charities"
                         initialRowCount={1}
@@ -206,7 +206,7 @@ export default function DigitalIdentifiers() {
                         addButtonLabel={tForm("addAnotherCharity")}
                         renderField={(field, index, removeButton) => (
                           <Grid container columnSpacing={3} key={field.id}>
-                            <Grid item xs={5}>
+                            <Grid size={{ xs: 5 }}>
                               <FormControlWrapper
                                 fullWidth
                                 sx={{
@@ -225,7 +225,7 @@ export default function DigitalIdentifiers() {
                                 )}
                               />
                             </Grid>
-                            <Grid item xs={5.5}>
+                            <Grid size={{ xs: 5.5 }}>
                               <FormControlWrapper
                                 displayLabel
                                 fullWidth

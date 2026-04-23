@@ -80,7 +80,7 @@ export default function SecurityCompliance() {
             {certificationRows.map(cert => (
               <FormSection heading={t(cert.name)}>
                 <Grid container spacing={3} direction="column">
-                  <Grid item xs={6}>
+                  <Grid size={{ xs: 6 }}>
                     <FormControlWrapper
                       name={cert.certificationNum}
                       renderField={fieldProps => (
@@ -96,7 +96,7 @@ export default function SecurityCompliance() {
                   </Grid>
 
                   {cert.certificationStatus && (
-                    <Grid item xs={3}>
+                    <Grid size={{ xs: 3 }}>
                       <FormControlWrapper
                         name={cert.certificationStatus}
                         renderField={fieldProps => (
@@ -110,7 +110,7 @@ export default function SecurityCompliance() {
                   )}
 
                   {cert.certificationRegisteredDate && (
-                    <Grid item xs={3}>
+                    <Grid size={{ xs: 3 }}>
                       <FormControlWrapper
                         name={cert.certificationRegisteredDate}
                         renderField={fieldProps => (
@@ -124,7 +124,7 @@ export default function SecurityCompliance() {
                     </Grid>
                   )}
 
-                  <Grid item xs={3}>
+                  <Grid size={{ xs: 3 }}>
                     <FormControlWrapper
                       name={cert.certificationExpiryDate}
                       renderField={fieldProps => (
@@ -138,7 +138,7 @@ export default function SecurityCompliance() {
                   </Grid>
 
                   {cert.certificationEvidence && (
-                    <Grid item xs={3}>
+                    <Grid size={{ xs: 3 }}>
                       <FormControlWrapper
                         name={cert.certificationEvidence}
                         displayLabel={false}

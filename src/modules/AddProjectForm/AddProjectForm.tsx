@@ -64,25 +64,25 @@ export default function AddProjectForm({
         </FormModalHeader>
         <FormModalBody>
           <Grid container spacing={3}>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <FormControlWrapper
                 name="title"
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <FormControlWrapper
                 name="unique_id"
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid size={{ xs: 6 }}>
               <FormControlWrapper
                 name="start_date"
                 renderField={fieldProps => <DateInput {...fieldProps} />}
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid size={{ xs: 6 }}>
               <FormControlWrapper
                 name="end_date"
                 renderField={fieldProps => <DateInput {...fieldProps} />}

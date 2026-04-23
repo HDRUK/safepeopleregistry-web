@@ -79,7 +79,7 @@ const ActionValidationStatus = <TParams,>({
         schema={schema}
         onSubmit={handleSubmit}
         {...formOptions}>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <FormControl
             disabled={disabled || statusDisabled}
             name="status"
@@ -92,7 +92,7 @@ const ActionValidationStatus = <TParams,>({
             )}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <FormControl
             name="comment"
             renderField={fieldProps => (
@@ -110,7 +110,7 @@ const ActionValidationStatus = <TParams,>({
         </Grid>
         {/* note: to be implemented in the future to upload some sort of evidence?
         <Grid container item spacing={3} sx={{ mt: 1 }}>
-          <Grid item xs={4}>
+          <Grid  size={{xs:4}}>
             <FileLink
               fileButtonText={file?.name || "Select files"}
               fileNameText={file?.name}
@@ -120,7 +120,7 @@ const ActionValidationStatus = <TParams,>({
           </Grid>
         </Grid>
         */}
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <LoadingButton
             disabled={disabled}
             loading={isLoading}

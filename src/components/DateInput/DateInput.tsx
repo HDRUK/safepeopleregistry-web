@@ -7,7 +7,7 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { DatePicker } from "@mui/x-date-pickers";
 import type { DatePickerProps } from "@mui/x-date-pickers";
 import { useLocale } from "next-intl";
-import { enGB } from "date-fns/locale/en-GB";
+import enGB from "date-fns/locale/en-GB";
 import dayjs from "dayjs";
 import IconClose from "@mui/icons-material/Close";
 import IconButton from "../IconButton";

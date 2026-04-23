@@ -189,13 +189,13 @@ export default function NameAndAddress() {
                   br: () => <br />,
                 })}>
                 <Grid container rowSpacing={3}>
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <FormControlWrapper
                       name="organisation_name"
                       renderField={fieldProps => <TextField {...fieldProps} />}
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <FormControlWrapper
                       name="address"
                       displayPlaceholder={false}
@@ -216,37 +216,37 @@ export default function NameAndAddress() {
                       )}
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <FormControlWrapper
                       name="address_1"
                       renderField={fieldProps => <TextField {...fieldProps} />}
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <FormControlWrapper
                       name="address_2"
                       renderField={fieldProps => <TextField {...fieldProps} />}
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <FormControlWrapper
                       name="town"
                       renderField={fieldProps => <TextField {...fieldProps} />}
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <FormControlWrapper
                       name="county"
                       renderField={fieldProps => <TextField {...fieldProps} />}
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <FormControlWrapper
                       name="country"
                       renderField={fieldProps => <TextField {...fieldProps} />}
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <FormControlWrapper
                       name="postcode"
                       renderField={fieldProps => (
@@ -265,7 +265,7 @@ export default function NameAndAddress() {
               <SroDeclaration />
 
               <Grid container rowSpacing={3}>
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <FormControlWrapper
                     name="sro_profile_uri"
                     renderField={fieldProps => <TextField {...fieldProps} />}

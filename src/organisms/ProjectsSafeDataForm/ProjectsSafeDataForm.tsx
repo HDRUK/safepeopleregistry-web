@@ -80,7 +80,7 @@ export default function ProjectsSafeDataForm({
       {...formOptions}
       {...restProps}>
       <Grid container spacing={3}>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <FormFieldArray<FormData>
             name="datasets"
             initialRowCount={1}
@@ -89,7 +89,7 @@ export default function ProjectsSafeDataForm({
             tKey={NAMESPACE_TRANSLATION}
             renderField={(_, index, removeButton) => (
               <Grid container spacing={2}>
-                <Grid item xs={5}>
+                <Grid size={{ xs: 5 }}>
                   <FormControlWrapper
                     displayLabel={false}
                     labelMd={0}
@@ -108,7 +108,7 @@ export default function ProjectsSafeDataForm({
             )}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <FormControlWrapper
             name="data_sensitivity_level"
             t={t}
@@ -126,7 +126,7 @@ export default function ProjectsSafeDataForm({
             )}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <FormControlWrapper
             name="legal_basis_for_data_article6"
             t={t}
@@ -141,7 +141,7 @@ export default function ProjectsSafeDataForm({
             renderField={props => <TextField {...props} fullWidth />}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <FormControlCheckbox
             name="duty_of_confidentiality"
             t={t}
@@ -156,13 +156,13 @@ export default function ProjectsSafeDataForm({
             })}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <FormControlCheckbox
             name="national_data_optout"
             label={t("nationalDataOptOut")}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <FormControlWrapper
             name="request_frequency"
             t={t}
@@ -185,7 +185,7 @@ export default function ProjectsSafeDataForm({
             )}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <FormControlWrapper
             name="dataset_linkage_description"
             t={t}
@@ -195,7 +195,7 @@ export default function ProjectsSafeDataForm({
             )}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <FormControlWrapper
             name="data_minimisation"
             t={t}
@@ -205,7 +205,7 @@ export default function ProjectsSafeDataForm({
             )}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <FormControlWrapper
             name="data_use_description"
             t={t}
@@ -215,7 +215,7 @@ export default function ProjectsSafeDataForm({
             )}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <FormControlWrapper
             name="access_date"
             label={t("releaseDate")}
