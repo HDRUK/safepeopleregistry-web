@@ -1,6 +1,6 @@
 "use client";
 
-import { Status } from "@/consts/application";
+import { PendingInvite, Status } from "@/consts/application";
 import { Link } from "@/i18n/routing";
 import { getName, injectParamsIntoPath } from "@/utils/application";
 import WarningAmberOutlinedIcon from "@mui/icons-material/WarningAmberOutlined";
@@ -49,10 +49,10 @@ function renderAffiliationDateRangeCell<T extends ResearcherAffiliation>(
   );
 }
 
-const renderRegistered = (unclaimed: boolean) => {
+const renderRegistered = (status: PendingInvite) => {
   return (
     <Typography>
-      {unclaimed ? (
+      {status === PendingInvite.PENDING ? (
         <ChipStatus status={Status.INVITED} />
       ) : (
         <ChipStatus status={Status.REGISTERED} />

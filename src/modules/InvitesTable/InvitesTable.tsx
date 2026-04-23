@@ -42,7 +42,7 @@ export default function InvitesTable({
         cell: info => formatDisplayLongDate(info.getValue()),
       }),
       createDefaultColumn("status", {
-        accessorKey: "user.unclaimed",
+        accessorKey: "status",
         cell: info => renderRegistered(info.getValue()),
       }),
     ];
