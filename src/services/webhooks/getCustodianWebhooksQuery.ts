@@ -19,6 +19,7 @@ export default function getCustodianWebhooksQuery(
         },
         ...options?.responseOptions,
       }),
+    enabled: !!custodianId,
     ...options,
   } as UseQueryOptions<Awaited<ReturnType<typeof getCustodianWebhooks>>>;
 }

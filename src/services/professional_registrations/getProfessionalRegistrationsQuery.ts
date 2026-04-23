@@ -19,6 +19,7 @@ export default function getProfessionalRegistrationsQuery(
         },
         ...options?.responseOptions,
       }),
+    enabled: !!registry_id,
     ...options,
   } as UseQueryOptions<
     Awaited<ReturnType<typeof getProfessionalRegistrations>>

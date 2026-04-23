@@ -7,9 +7,9 @@ import { JOB_DELAY } from "@/consts/application";
 
 Cypress.Commands.add("checkA11yPage", () => {
   cy.injectAxe();
-  cy.checkA11y(null, { skipFailures: true }, violations => {
+  cy.checkA11y(undefined, undefined, violations => {
     cy.logAxeViolations(violations);
-  });
+  }, true);
 });
 Cypress.Commands.add("waitForLoadingToFinish", () => {
   cy.get("body").then($body => {

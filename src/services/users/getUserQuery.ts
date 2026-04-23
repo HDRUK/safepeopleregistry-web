@@ -12,6 +12,7 @@ export default function getUserQuery(userId: number, options?: QueryOptions) {
         },
         ...options?.responseOptions,
       }),
+    enabled: !!userId,
     ...options,
   } as UseQueryOptions<Awaited<ReturnType<typeof getUser>>>;
 }

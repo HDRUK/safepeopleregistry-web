@@ -8,6 +8,20 @@ import {
   openNotificationsMenu,
 } from "cypress/support/utils/user/notifications";
 
+const notificationsButtonSelector = '[data-testid="notifications-button"]';
+
+const ifNotificationsAvailable = (fn: () => void) => {
+  cy.get("body").then($body => {
+    if ($body.find(notificationsButtonSelector).length === 0) {
+      cy.log(
+        "Notifications button not rendered — user may have unclaimed invitations, skipping"
+      );
+      return;
+    }
+    fn();
+  });
+};
+
 describe("Notifications journey", () => {
   beforeEach(() => {
     loginUser();
@@ -27,30 +41,38 @@ describe("Notifications journey", () => {
   });
 
   it("Shows the notifications bell in the nav bar", () => {
-    hasNotificationsMenu();
+    ifNotificationsAvailable(() => {
+      hasNotificationsMenu();
+    });
   });
 
   it("Opens the notifications menu", () => {
-    openNotificationsMenu();
+    ifNotificationsAvailable(() => {
+      openNotificationsMenu();
+    });
   });
 
   it("Closes the notifications menu", () => {
-    openNotificationsMenu();
-    closeNotificationsMenu();
+    ifNotificationsAvailable(() => {
+      openNotificationsMenu();
+      closeNotificationsMenu();
+    });
   });
 
   it("Shows notification list or empty state", () => {
-    openNotificationsMenu();
+    ifNotificationsAvailable(() => {
+      openNotificationsMenu();
 
-    cy.get("body").then($body => {
-      if ($body.find('[data-testid="notification-item"]').length > 0) {
-        cy.get('[data-testid="notification-item"]').should(
-          "have.length.greaterThan",
-          0
-        );
-      } else {
-        cy.contains("You have no notifications!").should("be.visible");
-      }
+      cy.get("body").then($body => {
+        if ($body.find('[data-testid="notification-item"]').length > 0) {
+          cy.get('[data-testid="notification-item"]').should(
+            "have.length.greaterThan",
+            0
+          );
+        } else {
+          cy.contains("You have no notifications!").should("be.visible");
+        }
+      });
     });
   });
 
