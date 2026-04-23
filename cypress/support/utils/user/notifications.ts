@@ -24,7 +24,7 @@ const openFirstNotification = () => {
 
 const closeNotificationsMenu = () => {
   cy.get("body").click(0, 0);
-  cy.get('[data-testid="notifications-menu"]').should("not.be.visible");
+  cy.get('[data-testid="notifications-menu"]').should("not.exist");
 };
 
 export {

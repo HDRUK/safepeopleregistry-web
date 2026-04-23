@@ -228,6 +228,7 @@ export default function ProjectUsers({
         "projectRole",
         "projectName",
         "organisationName",
+        "organisationStatus",
         "affiliationStatus",
         "status",
       ]}

@@ -16,9 +16,7 @@ Cypress.Commands.add("waitForLoadingToFinish", () => {
     const spinner = $body.find('[role="progressbar"]');
 
     if (spinner.length > 0) {
-      return cy
-        .get('[role="progressbar"]', { timeout: 20000 })
-        .should("not.exist");
+      return cy.get('[role="progressbar"]').should("not.exist");
     }
 
     return;
