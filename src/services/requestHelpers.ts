@@ -1,8 +1,12 @@
 "use server";
 
-import { ResponseMessageType } from "@/consts/requests";
+import {
+  handleResponseError,
+  createEmptyErrorJson,
+  handleDataError,
+} from "@/services/requestHelpersUtils";
 import { ResponseEmptyError } from "@/types/query";
-import { ResponseJson, ResponseOptions } from "@/types/requests";
+import { ResponseOptions } from "@/types/requests";
 import { getAccessToken } from "@/utils/auth";
 
 async function getHeadersWithAuthorization(headers?: HeadersInit) {
@@ -12,41 +16,6 @@ async function getHeadersWithAuthorization(headers?: HeadersInit) {
     ...headers,
     ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
   };
-}
-
-function handleResponseError(
-  response: Response | ResponseEmptyError,
-  options?: ResponseOptions
-): Error | null {
-  if (!response?.ok) {
-    if (!options) {
-      return new Error(`${response?.status}Error`);
-    }
-
-    const statusKey = String(response.status) as keyof ResponseOptions;
-    const errorEntry = options[statusKey];
-
-    const message =
-      typeof errorEntry === "object" && errorEntry?.message
-        ? errorEntry?.message
-        : options.error?.message;
-
-    return new Error(message);
-  }
-
-  return null;
-}
-
-function handleDataError<T>(data: ResponseJson<T>, options?: ResponseOptions) {
-  if (
-    data.message &&
-    data.message !== ResponseMessageType.SUCCESS &&
-    !options?.suppressThrow
-  ) {
-    return new Error(options?.error?.message || "responseError");
-  }
-
-  return null;
 }
 
 async function handleJsonResponse(
@@ -80,13 +49,6 @@ async function handleJsonResponse(
   };
 }
 
-function createEmptyErrorJson() {
-  return {
-    message: "failed",
-    data: null,
-  };
-}
-
 async function createEmptyErrorResponse(
   status: number = 500
 ): Promise<ResponseEmptyError> {
@@ -101,5 +63,4 @@ export {
   createEmptyErrorResponse,
   getHeadersWithAuthorization,
   handleJsonResponse,
-  handleResponseError,
 };

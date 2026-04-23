@@ -3,12 +3,12 @@
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { AugmentedColorPaletteOptions, Theme } from "@mui/material";
 import { TableCellProps } from "@mui/material/TableCell";
-import grey from "@mui/material/colors/grey";
 import { createTheme, darken } from "@mui/material/styles";
 import { createBreakpoints } from "@mui/system";
 import { Roboto } from "next/font/google";
 import { PALETTE_THEME_PURPLE_BLUE } from "./config/theme";
 import { colorToRgba, getAugmentedColor, isLightMode } from "./utils/theme";
+import { grey } from "@mui/material/colors";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
