@@ -11,19 +11,6 @@ import {
   removeTraining,
 } from "cypress/support/utils/user/training";
 
-const dataTraining = mockedTraining({
-  provider: faker.company.name(),
-  training_name: faker.lorem.words(3),
-  awarded_at: "2024-01-15",
-  expires_at: "2028-01-15",
-});
-
-const dataEditedTraining = {
-  ...dataTraining,
-  provider: faker.company.name(),
-  training_name: faker.lorem.words(3),
-};
-
 describe("Training journey", () => {
   beforeEach(() => {
     loginUser();
@@ -31,6 +18,8 @@ describe("Training journey", () => {
     cy.visitFirst(ROUTES.profileResearcherTraining.path);
 
     cy.waitForLoadingToFinish();
+
+    cy.contains("button", "Add training course").should("exist");
   });
 
   after(() => {
@@ -43,6 +32,13 @@ describe("Training journey", () => {
   });
 
   it("Adds a training course", () => {
+    const dataTraining = mockedTraining({
+      provider: faker.company.name(),
+      training_name: faker.lorem.words(3),
+      awarded_at: "2024-01-15",
+      expires_at: "2028-01-15",
+    });
+
     addTraining(dataTraining);
 
     cy.clickAlertModal("Close");
@@ -51,6 +47,22 @@ describe("Training journey", () => {
   });
 
   it("Edits a training course", () => {
+    const dataTraining = mockedTraining({
+      provider: faker.company.name(),
+      training_name: faker.lorem.words(3),
+      awarded_at: "2024-01-15",
+      expires_at: "2028-01-15",
+    });
+
+    const dataEditedTraining = {
+      ...dataTraining,
+      provider: faker.company.name(),
+      training_name: faker.lorem.words(3),
+    };
+
+    addTraining(dataTraining);
+    cy.clickAlertModal("Close");
+
     editTraining(dataTraining, dataEditedTraining);
 
     cy.clickAlertModal("Close");
@@ -59,8 +71,18 @@ describe("Training journey", () => {
   });
 
   it("Removes a training course", () => {
-    removeTraining(dataEditedTraining);
+    const dataTraining = mockedTraining({
+      provider: faker.company.name(),
+      training_name: faker.lorem.words(3),
+      awarded_at: "2024-01-15",
+      expires_at: "2028-01-15",
+    });
 
-    hasRemovedTraining(dataEditedTraining);
+    addTraining(dataTraining);
+    cy.clickAlertModal("Close");
+
+    removeTraining(dataTraining);
+
+    hasRemovedTraining(dataTraining);
   });
 });

@@ -11,16 +11,6 @@ import {
   removeProfessionalRegistration,
 } from "cypress/support/utils/user/professionalRegistrations";
 
-const dataRegistration = mockedProfessionalRegistration({
-  name: faker.company.name(),
-  member_id: faker.string.alphanumeric(8).toUpperCase(),
-});
-
-const dataEditedRegistration = {
-  ...dataRegistration,
-  member_id: faker.string.alphanumeric(8).toUpperCase(),
-};
-
 describe("Professional registrations journey", () => {
   beforeEach(() => {
     loginUser();
@@ -42,6 +32,11 @@ describe("Professional registrations journey", () => {
   });
 
   it("Adds a professional membership", () => {
+    const dataRegistration = mockedProfessionalRegistration({
+      name: faker.company.name(),
+      member_id: faker.string.alphanumeric(8).toUpperCase(),
+    });
+
     addProfessionalRegistration(dataRegistration);
 
     cy.clickAlertModal("Close");
@@ -50,6 +45,19 @@ describe("Professional registrations journey", () => {
   });
 
   it("Edits a professional membership", () => {
+    const dataRegistration = mockedProfessionalRegistration({
+      name: faker.company.name(),
+      member_id: faker.string.alphanumeric(8).toUpperCase(),
+    });
+
+    const dataEditedRegistration = {
+      ...dataRegistration,
+      member_id: faker.string.alphanumeric(8).toUpperCase(),
+    };
+
+    addProfessionalRegistration(dataRegistration);
+    cy.clickAlertModal("Close");
+
     editProfessionalRegistration(dataRegistration, dataEditedRegistration);
 
     cy.clickAlertModal("Close");
@@ -58,8 +66,16 @@ describe("Professional registrations journey", () => {
   });
 
   it("Removes a professional membership", () => {
-    removeProfessionalRegistration(dataEditedRegistration);
+    const dataRegistration = mockedProfessionalRegistration({
+      name: faker.company.name(),
+      member_id: faker.string.alphanumeric(8).toUpperCase(),
+    });
 
-    hasRemovedProfessionalRegistration(dataEditedRegistration);
+    addProfessionalRegistration(dataRegistration);
+    cy.clickAlertModal("Close");
+
+    removeProfessionalRegistration(dataRegistration);
+
+    hasRemovedProfessionalRegistration(dataRegistration);
   });
 });
