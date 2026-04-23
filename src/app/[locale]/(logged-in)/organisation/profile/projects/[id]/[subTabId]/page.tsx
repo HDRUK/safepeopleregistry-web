@@ -1,6 +1,5 @@
+import ProjectsSubPageDisplay from "@/app/[locale]/(logged-in)/organisation/profile/components/ProjectsSubPageDisplay";
 import { ProjectsSubTabs } from "../../../consts/tabs";
-import ProjectsSubPageDisplay from "@/components/ProjectsSubPageDisplay";
-
 interface SubPageProjectsProps {
   params: {
     subTabId: ProjectsSubTabs;

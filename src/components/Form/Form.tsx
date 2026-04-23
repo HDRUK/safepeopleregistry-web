@@ -17,6 +17,7 @@ import yup from "../../config/yup";
 import FormCanLeave from "../FormCanLeave";
 import FormModal, { FormModalProps } from "../FormModal";
 import { Message } from "../Message";
+import { FormHelperContext } from "@/components/Form/FormHelperContext";
 
 export type ExtendedUseFormReturn<T extends FieldValues> = UseFormReturn<T> & {
   isFieldRequired: (fieldName: keyof T) => boolean;
@@ -78,12 +79,6 @@ export default function Form<T extends FieldValues>({
     }
   }, [defaultValues, methods.formState.isSubmitting, reset]);
 
-  const extendedMethods: ExtendedUseFormReturn<T> = {
-    ...methods,
-    isFieldRequired: (fieldName: keyof T): boolean =>
-      schema ? isFieldRequired(schema, fieldName as string) : false,
-  };
-
   const handleFormSubmit = async (values: T) => {
     // Protect the submit payload from mutation
     const submitPayload = structuredClone(values);
@@ -98,35 +93,39 @@ export default function Form<T extends FieldValues>({
   };
 
   const form = (
-    <FormProvider {...extendedMethods}>
-      <FormCanLeave canLeave={canLeave}>
-        <Box
-          component="form"
-          onSubmit={event => {
-            event.preventDefault();
-            handleSubmit(handleFormSubmit)(event);
-            event.stopPropagation();
-          }}
-          autoComplete="off"
-          {...restProps}
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 6,
-            ...restProps.sx,
-          }}>
-          {error && (
-            <Grid size={{ xs: 12 }}>
-              <Message severity="error" sx={{ mb: 3 }}>
-                {error}
-              </Message>
-            </Grid>
-          )}
-          {typeof children === "function"
-            ? children(extendedMethods)
-            : children}
-        </Box>
-      </FormCanLeave>
+    <FormProvider {...methods}>
+      <FormHelperContext.Provider
+        value={{
+          isFieldRequired: fieldName =>
+            schema ? isFieldRequired(schema, fieldName) : false,
+        }}>
+        <FormCanLeave canLeave={canLeave}>
+          <Box
+            component="form"
+            onSubmit={event => {
+              event.preventDefault();
+              handleSubmit(handleFormSubmit)(event);
+              event.stopPropagation();
+            }}
+            autoComplete="off"
+            {...restProps}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 6,
+              ...restProps.sx,
+            }}>
+            {error && (
+              <Grid size={{ xs: 12 }}>
+                <Message severity="error" sx={{ mb: 3 }}>
+                  {error}
+                </Message>
+              </Grid>
+            )}
+            {typeof children === "function" ? children(methods) : children}
+          </Box>
+        </FormCanLeave>
+      </FormHelperContext.Provider>
     </FormProvider>
   );
 

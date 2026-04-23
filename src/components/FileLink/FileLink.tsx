@@ -90,18 +90,19 @@ export default function FileLink({
 
   return (
     <Grid container spacing={0}>
-      <Grid container>
-        <Grid size={{ xs: 10 }}>
-          <LoadingButton
-            color="primary"
-            variant="outlined"
-            data-testid="upload-file"
-            onClick={handleFileSelectorOpen}
-            startIcon={<UploadIcon />}
-            loading={isUploading && !isScanning}>
-            {fileButtonText}
-          </LoadingButton>
-        </Grid>
+      <Grid size={{ xs: 10 }}>
+        <LoadingButton
+          color="primary"
+          variant="outlined"
+          data-testid="upload-file"
+          onClick={handleFileSelectorOpen}
+          startIcon={<UploadIcon />}
+          loading={isUploading && !isScanning}
+          sx={{
+            whiteSpace: "nowrap",
+          }}>
+          {fileButtonText}
+        </LoadingButton>
       </Grid>
       <Grid size={{ xs: 12 }}>
         {fileNameText && (

@@ -1,4 +1,4 @@
-import ProjectsSubPageDisplay from "@/components/ProjectsSubPageDisplay";
+import ProjectsSubPageDisplay from "@/app/[locale]/(logged-in)/data-custodian/profile/components/ProjectsSubPageDisplay";
 import { ProjectsSubTabs } from "../../../consts/tabs";
 
 interface SubPageProjectsProps {

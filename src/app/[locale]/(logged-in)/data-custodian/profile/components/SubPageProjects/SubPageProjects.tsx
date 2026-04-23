@@ -14,6 +14,7 @@ interface PageProps {
 }
 
 export default function SubPageProjects({ params, projectData }: PageProps) {
+  const { subTabId, id } = params;
   const tabId = PageTabs.PROJECTS;
 
   const [project, setProject] = useStore(state => [
@@ -28,9 +29,9 @@ export default function SubPageProjects({ params, projectData }: PageProps) {
   }, [projectData]);
 
   return (
-    project?.id === Number(params?.id) && (
+    project?.id === Number(id) && (
       <PageBodyContainer heading={project.title}>
-        <SubTabsContents tabId={tabId} {...params} />
+        <SubTabsContents tabId={tabId} subTabId={subTabId} id={id} />
       </PageBodyContainer>
     )
   );
