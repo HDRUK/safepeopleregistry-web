@@ -8,8 +8,10 @@ import Table, { TableProps } from "../../components/Table";
 import { Organisation } from "../../types/application";
 import { renderLinkNameCell, renderUserNameCell } from "../../utils/cells";
 
-interface OrganisationsProjectsTableProps
-  extends Omit<TableProps<Organisation>, "columns"> {
+interface OrganisationsProjectsTableProps extends Omit<
+  TableProps<Organisation>,
+  "columns"
+> {
   columns?: TableProps<Organisation>["columns"];
   tKey?: string;
 }

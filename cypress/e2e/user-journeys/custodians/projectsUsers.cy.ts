@@ -1,13 +1,9 @@
-import { Status } from "@/consts/application";
 import { ROUTES } from "@/consts/router";
 import { mockedCustodianHasProjectUser } from "@/mocks/data/custodian";
-import { getName } from "@/utils/application";
 import { dataCy, logout } from "cypress/support/utils/common";
 import { loginCustodian } from "cypress/support/utils/custodian/auth";
 import {
-  changeStatusProjectUsers,
   goToProjectUsersList,
-  hasProjectUsers,
   inviteNewProjectUser,
   removeFromProjectUsers,
 } from "cypress/support/utils/custodian/projects";

@@ -19,8 +19,9 @@ export interface DelegatesFormValues {
   department_id: number;
 }
 
-export interface EditDelegateFormProps
-  extends WithMutationState<FormProps<DelegatesFormValues>> {
+export interface EditDelegateFormProps extends WithMutationState<
+  FormProps<DelegatesFormValues>
+> {
   onClose?: () => void;
 }
 

@@ -4,8 +4,9 @@ import usePaginatedQuery, {
 import getPendingInvitesQuery from "./getPendingInvitesQuery";
 import { PendingInvitesResponse } from "./types";
 
-interface GetEntityUsersQuery<T = PendingInvitesResponse>
-  extends Partial<PaginatedQueryProps<T>> {}
+interface GetEntityUsersQuery<T = PendingInvitesResponse> extends Partial<
+  PaginatedQueryProps<T>
+> {}
 
 export default function usePaginatedPendingInvitesQuery({
   queryKeyBase,

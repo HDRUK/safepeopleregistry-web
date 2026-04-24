@@ -18,15 +18,14 @@ export enum OrganisationsFilterKeys {
   STATUS = "status",
 }
 
-export interface OrganisationsFilterProps
-  extends Pick<
-    PaginatedQueryReturn<Organisation>,
-    | "updateQueryParams"
-    | "resetQueryParams"
-    | "handleSortToggle"
-    | "handleFieldToggle"
-    | "queryParams"
-  > {
+export interface OrganisationsFilterProps extends Pick<
+  PaginatedQueryReturn<Organisation>,
+  | "updateQueryParams"
+  | "resetQueryParams"
+  | "handleSortToggle"
+  | "handleFieldToggle"
+  | "queryParams"
+> {
   includeFilters?: OrganisationsFilterKeys[];
 }
 

@@ -30,7 +30,7 @@ export default function useUserInvite({
         await mutateUserInvite(payload);
 
         onSuccess();
-      } catch (_) {
+      } catch () {
         onError();
       }
     },

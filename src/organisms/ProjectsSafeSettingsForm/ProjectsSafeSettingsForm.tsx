@@ -18,8 +18,10 @@ import { ProjectDetails } from "../../types/application";
 import { MutationState } from "../../types/form";
 import { injectParamsIntoPath } from "../../utils/application";
 
-export interface ProjectsSafeSettingsFormProps
-  extends Omit<FormProps<ProjectDetails>, "children"> {
+export interface ProjectsSafeSettingsFormProps extends Omit<
+  FormProps<ProjectDetails>,
+  "children"
+> {
   projectId?: number;
   mutateState?: MutationState;
 }

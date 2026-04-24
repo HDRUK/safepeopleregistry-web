@@ -21,8 +21,10 @@ import FormControlDescription from "../FormControlDescription";
 import { ExtendedUseFormReturn } from "@/components/Form";
 import { useFormHelper } from "@/components/Form/FormHelperContext";
 
-export interface FormControlProps
-  extends Omit<FormControlLabelProps, "control" | "label"> {
+export interface FormControlProps extends Omit<
+  FormControlLabelProps,
+  "control" | "label"
+> {
   renderField: (fieldProps: FieldValues & { error?: boolean }) => ReactNode;
   name: string;
   subtitle?: ReactNode;

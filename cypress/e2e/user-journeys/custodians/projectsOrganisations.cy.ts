@@ -1,11 +1,8 @@
-import { Status } from "@/consts/application";
 import { ROUTES } from "@/consts/router";
 import { dataCy, logout } from "cypress/support/utils/common";
 import { loginCustodian } from "cypress/support/utils/custodian/auth";
 import {
-  changeStatusProjectOrganisations,
   goToProjectUsersList,
-  hasProjectOrganisations,
   inviteNewProjectUser,
   removeFromProjectUsers,
 } from "cypress/support/utils/custodian/projects";

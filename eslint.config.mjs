@@ -1,11 +1,11 @@
-import next from "eslint-config-next";
 import tsParser from "@typescript-eslint/parser";
 import tseslint from "@typescript-eslint/eslint-plugin";
 import unusedImports from "eslint-plugin-unused-imports";
 import prettier from "eslint-plugin-prettier";
+import nextTs from "eslint-config-next/typescript";
 
 export default [
-  ...next(),
+  ...nextTs,
 
   {
     ignores: ["node_modules/**", ".next/**", "coverage/**"],
@@ -33,6 +33,8 @@ export default [
         {
           argsIgnorePattern: "^_",
           varsIgnorePattern: "^_",
+          caughtErrorsIgnorePattern: "^_",
+          destructuredArrayIgnorePattern: "^_",
         },
       ],
       "@typescript-eslint/no-explicit-any": "error",

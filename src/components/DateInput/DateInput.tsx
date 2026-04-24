@@ -12,8 +12,10 @@ import dayjs from "dayjs";
 import IconClose from "@mui/icons-material/Close";
 import IconButton from "../IconButton";
 
-export interface DateInputProps
-  extends Omit<DatePickerProps<Date>, "onChange"> {
+export interface DateInputProps extends Omit<
+  DatePickerProps<Date>,
+  "onChange"
+> {
   id?: string;
   label?: string;
   format?: string;

@@ -5,8 +5,9 @@ import usePaginatedQuery, {
 import getOrganisations from "@/app/actions/organisations/getOrganisations";
 import { OrganisationsResponse } from "./types";
 
-interface GetEntityOrganisationsQuery<T = OrganisationsResponse>
-  extends Partial<PaginatedQueryProps<T>> {}
+interface GetEntityOrganisationsQuery<
+  T = OrganisationsResponse,
+> extends Partial<PaginatedQueryProps<T>> {}
 
 export default function useOrganisationsQuery({
   queryKeyBase,

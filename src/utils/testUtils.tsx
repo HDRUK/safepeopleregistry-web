@@ -64,12 +64,11 @@ const Wrapper = ({ children }: { children: ReactNode }) => {
   );
 };
 
-interface OptionProps
-  extends RenderOptions<
-    typeof import("@testing-library/dom/types/queries"),
-    HTMLElement,
-    HTMLElement
-  > {
+interface OptionProps extends RenderOptions<
+  typeof import("@testing-library/dom/types/queries"),
+  HTMLElement,
+  HTMLElement
+> {
   wrapperProps: Record<string, unknown>;
 }
 
@@ -95,13 +94,12 @@ const customRender = (
   };
 };
 
-interface OptionHookProps<P = unknown>
-  extends RenderHookOptions<
-    P,
-    typeof import("@testing-library/dom/types/queries"),
-    HTMLElement,
-    HTMLElement
-  > {
+interface OptionHookProps<P = unknown> extends RenderHookOptions<
+  P,
+  typeof import("@testing-library/dom/types/queries"),
+  HTMLElement,
+  HTMLElement
+> {
   wrapperProps?: Record<string, unknown>;
 }
 

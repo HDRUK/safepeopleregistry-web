@@ -2,7 +2,6 @@ import { DelegatesFormValues } from "@/types/form";
 import { getName } from "@/utils/application";
 import { formatDisplayShortDate } from "@/utils/date";
 import { DEFAULT_DEPARTMENT } from "../data";
-import { dataCy } from "../common";
 
 const getDelegateName = (data: DelegatesFormValues) => {
   const { delegate_first_name, delegate_last_name } = data;

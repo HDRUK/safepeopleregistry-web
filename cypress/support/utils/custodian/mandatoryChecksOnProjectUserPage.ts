@@ -1,5 +1,3 @@
-import { dataCy } from "../common";
-
 const checkMandatoryCustodianTrainingTestingChecksAddMoreIformationCancelButton =
   () => {
     cy.verifyMandatoryTrainingCardTitleExists(
