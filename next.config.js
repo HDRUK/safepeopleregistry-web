@@ -97,10 +97,6 @@ const nextConfig = withNextIntl({
       };
     }
 
-    config.module.rules.push({
-      test: /\.md$/,
-      type: "asset/source",
-    });
 
     return config;
   },
