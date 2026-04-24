@@ -27,8 +27,13 @@ const defineMatchMedia = (width: number) => {
     writable: true,
     value: <T,>(query: T) => ({
       matches: mediaQuery.match(query, { width }),
+      media: query,
+      onchange: null,
       addListener: () => {},
       removeListener: () => {},
+      addEventListener: () => {},
+      removeEventListener: () => {},
+      dispatchEvent: () => {},
     }),
   });
 };
