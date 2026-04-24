@@ -108,7 +108,6 @@ const checkMandatoryCustodianTrainingTestingChecksFailCancelButton = () => {
     cy.verifyMandatoryTrainingCardTitleExists(
       "Mandatory training has been completed"
     );
-    const comment = "Mandatory Custodian Training Testing";
     if ($el.find('button:contains("Change Decision")').length) {
       cy.wrap($el).contains("button", "Change Decision").click();
     } else {
@@ -123,7 +122,6 @@ const checkMandatoryCustodianTrainingTestingChecksFail = () => {
     cy.verifyMandatoryTrainingCardTitleExists(
       "Mandatory training has been completed"
     );
-    const comment = "Mandatory Custodian Training Testing";
     if ($el.find('button:contains("Change Decision")').length) {
       cy.wrap($el).contains("button", "Change Decision").click();
       cy.contains("button", "Fail").should("exist").click();

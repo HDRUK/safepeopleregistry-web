@@ -106,7 +106,6 @@ export default function FileLink({
       </Grid>
       <Grid size={{ xs: 12 }}>
         {fileNameText && (
-          /* eslint-disable jsx-a11y/anchor-is-valid */
           <Link
             data-testid="download-file"
             variant="body2"

@@ -6,9 +6,14 @@ import nextTs from "eslint-config-next/typescript";
 
 export default [
   ...nextTs,
-
   {
-    ignores: ["node_modules/**", ".next/**", "coverage/**"],
+    ignores: [
+      "node_modules/**",
+      ".next/**",
+      "coverage/**",
+      "scripts/**",
+      "**/*.js",
+    ],
   },
 
   {
@@ -39,8 +44,7 @@ export default [
       ],
       "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/no-non-null-assertion": "off",
-
-      "react/no-unstable-nested-components": "warn",
+      "@typescript-eslint/no-empty-object-type": "off",
 
       "no-console": "off",
       "no-param-reassign": "off",
@@ -52,6 +56,20 @@ export default [
           endOfLine: "auto",
         },
       ],
+    },
+  },
+  {
+    files: [
+      "cypress/**/*.ts",
+      "**/*.d.ts",
+      "*.config.ts",
+      ".storybook/**/*.ts",
+      "*.setup.tsx",
+    ],
+    rules: {
+      "@typescript-eslint/no-namespace": "off",
+      "@typescript-eslint/no-require-imports": "off",
+      "@typescript-eslint/no-explicit-any": "off",
     },
   },
 ];

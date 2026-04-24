@@ -34,7 +34,6 @@ const SkeletonCheckboxList = ({
   return (
     <>
       {widths.map(({ primary, secondary }, index) => (
-        // eslint-disable-next-line react/no-array-index-key
         <StyledListItem key={`item-${index}`}>
           <Skeleton variant="rectangular" width={20} height={20} />
           <StyledListItemText

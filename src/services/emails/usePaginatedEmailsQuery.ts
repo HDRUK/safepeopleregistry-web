@@ -4,9 +4,9 @@ import usePaginatedQuery, {
 import getEmailsQuery from "./getEmailsQuery";
 import { EmailsResponse } from "./types";
 
-interface GetPaginatedEmailsQuery<T = EmailsResponse> extends Partial<
+type GetPaginatedEmailsQuery<T = EmailsResponse> = Partial<
   PaginatedQueryProps<T>
-> {}
+>;
 
 export default function usePaginatedEmailsQuery({
   queryKeyBase,

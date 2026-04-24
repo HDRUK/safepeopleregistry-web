@@ -40,7 +40,6 @@ import { ResponseMessageType } from "./src/consts/requests";
 import { MessageChannel } from "worker_threads";
 
 if (typeof global.MessageChannel === "undefined") {
-  // @ts-ignore
   global.MessageChannel =
     MessageChannel as unknown as typeof global.MessageChannel;
 }
