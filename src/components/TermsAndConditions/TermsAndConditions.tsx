@@ -1,5 +1,5 @@
 import { UserGroup } from "@/consts/user";
-import {descriptionContent} from "@/mocks/data/terms_and_conditions/description";
+import { descriptionContent } from "@/mocks/data/terms_and_conditions/description";
 import {
   mockedTermsAndConditionsBusiness,
   mockedTermsAndConditionsConsumer,

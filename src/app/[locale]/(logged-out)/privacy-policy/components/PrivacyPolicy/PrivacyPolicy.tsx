@@ -3,7 +3,6 @@ import { PageBody, PageBodyContainer, PageSection } from "@/modules";
 import InfoPageWrapper from "../../../components/InfoPageWrapper";
 
 export default function PrivaryPolicy() {
-
   const privacyPolicyContent = `# HDR UK Safe People Registry Privacy Notice
 
 ## Purpose of this policy

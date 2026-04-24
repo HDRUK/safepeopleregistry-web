@@ -2,9 +2,7 @@ import Markdown from "@/components/Markdown";
 import { PageBody, PageBodyContainer, PageSection } from "@/modules";
 import InfoPageWrapper from "../../../components/InfoPageWrapper";
 
-
 export default function CookiePolicy() {
-
   const cookiePolicyContent = `# Safe People Registry Cookie Notice
 
 This cookie policy contains information on who we are and how we use cookies of our website. This should be read in conjunction with our [Privacy Policy](https://healthdatagateway.org/en/about/privacy-policy) which details how and why we collect and use personal data.

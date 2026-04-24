@@ -1,6 +1,6 @@
 import Markdown from "@/components/Markdown";
 import PageHeading from "@/components/PageHeading";
-import {descriptionContent} from "@/mocks/data/terms_and_conditions/description";
+import { descriptionContent } from "@/mocks/data/terms_and_conditions/description";
 import {
   mockedTermsAndConditionsBusiness,
   mockedTermsAndConditionsConsumer,
