@@ -138,7 +138,7 @@ env:
   CYPRESS_MAILDEV_HOST: "localhost"
   CYPRESS_MAILDEV_SMTP_PORT: "1025"
   CYPRESS_MAILDEV_API_PORT: "8025"
-  CYPRESS_BASE_URL: "http://localhost:3000/en"
+  CYPRESS_BASE_URL: "http://localhost:3000/en/"
   CYPRESS_USER_EMAIL: "test.user+user@safepeopleregistry.com"
   CYPRESS_ORGANISATION_EMAIL: "test.user+organisation@safepeopleregistry.com"
   CYPRESS_UNAPPROVED_ORGANISATION_EMAIL: "test.user+organisation@safepeopleregistry.com"
