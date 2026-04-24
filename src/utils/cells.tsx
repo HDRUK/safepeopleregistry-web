@@ -51,13 +51,13 @@ function renderAffiliationDateRangeCell<T extends ResearcherAffiliation>(
 
 const renderRegistered = (unclaimed: boolean) => {
   return (
-    <Typography>
+    <>
       {unclaimed ? (
         <ChipStatus status={Status.INVITED} />
       ) : (
         <ChipStatus status={Status.REGISTERED} />
       )}
-    </Typography>
+    </>
   );
 };
 
