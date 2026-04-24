@@ -314,7 +314,7 @@ const theme = createTheme(
           body,
           .swal2-title {
             line-height: 140%;
-           
+            white-space: pre-line;
           }
           ul {
             margin: 4px 0;
