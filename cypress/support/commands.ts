@@ -262,6 +262,7 @@ Cypress.Commands.add("solveGoogleReCAPTCHA", () => {
       .should("be.visible")
       .click();
   });
+  cy.wait(1000);
 });
 
 Cypress.Commands.add("clickUntilFound", (selector, action, assertions) => {

@@ -6,7 +6,7 @@ const hasUnCheckedOnUsersConfigurationManualChecks = () => {
     cy.contains("a", "Manual checks").click();
   });
   cy.get("#1").should("exist").uncheck();
-  cy.contains("p", "Mandatory training has been completed").should("exist");
+  cy.contains("span", "Mandatory training has been completed").should("exist");
   cy.get('[data-cy="action-menu"]')
     .find('button[type="button"]')
     .should("exist");
@@ -98,9 +98,10 @@ const hasUnCheckedOnOrganisationConfigurationManualChecks = () => {
     cy.contains("a", "Manual checks").click();
   });
   cy.get("#3").should("exist").uncheck();
-  cy.contains("p", "Is the Organisation aligned with the SDE network?").should(
-    "exist"
-  );
+  cy.contains(
+    "span",
+    "Is the Organisation aligned with the SDE network?"
+  ).should("exist");
   cy.get('[data-cy="action-menu"]')
     .find('button[type="button"]')
     .should("exist");

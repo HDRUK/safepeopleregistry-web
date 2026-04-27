@@ -73,7 +73,7 @@ function registerKeycloak(user: {
   cy.get("#password").clear().type(user.password);
   cy.get("#password-confirm").clear().type(user.password_confirm);
 
-  // cy.solveGoogleReCAPTCHA();
+  cy.solveGoogleReCAPTCHA();
 
   cy.contains("button", "Register").click();
 
