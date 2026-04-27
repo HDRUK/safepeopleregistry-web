@@ -5,6 +5,9 @@ const hasUnCheckedOnUsersConfigurationManualChecks = () => {
   cy.get(dataCy("sub-tabs-navigation")).within(() => {
     cy.contains("a", "Manual checks").click();
   });
+  cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
+    timeout: 20000,
+  });
   cy.get("#1").should("exist").uncheck();
   cy.contains("span", "Mandatory training has been completed").should("exist");
   cy.get('[data-cy="action-menu"]')
@@ -21,6 +24,9 @@ const hasCheckedOnUsersConfigurationManualChecks = () => {
   cy.get(dataCy("sub-tabs-navigation")).within(() => {
     cy.contains("a", "Manual checks").click();
   });
+  cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
+    timeout: 20000,
+  });
   cy.get("#1").should("exist").check();
   cy.get("#2").should("exist").check();
 };
@@ -28,6 +34,9 @@ const hasCheckedOnUsersConfigurationManualChecks = () => {
 const addManualChecksForUsersConfigurationManualChecks = (title: string) => {
   cy.get(dataCy("sub-tabs-navigation")).within(() => {
     cy.contains("a", "Manual checks").click();
+  });
+  cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
+    timeout: 20000,
   });
 
   cy.contains("button", "Add manual check").click();
@@ -58,6 +67,9 @@ const hasCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualCheck
 const hasEditManualChecksForUsersConfigurationManualChecks = () => {
   cy.get(dataCy("sub-tabs-navigation")).within(() => {
     cy.contains("a", "Manual checks").click();
+  });
+  cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
+    timeout: 20000,
   });
   const text = "Mandatory Custodian Training Testing";
   cy.get('[data-cy="action-menu"]').eq(0).should("exist").click();
@@ -97,6 +109,9 @@ const hasUnCheckedOnOrganisationConfigurationManualChecks = () => {
   cy.get(dataCy("sub-tabs-navigation")).within(() => {
     cy.contains("a", "Manual checks").click();
   });
+  cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
+    timeout: 20000,
+  });
   cy.get("#3").should("exist").uncheck();
   cy.contains(
     "span",
@@ -119,6 +134,9 @@ const hasCheckedOnOrganisationConfigurationManualChecks = () => {
   cy.get(dataCy("sub-tabs-navigation")).within(() => {
     cy.contains("a", "Manual checks").click();
   });
+  cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
+    timeout: 20000,
+  });
   cy.get("#3").should("exist").check();
   cy.get("#4").should("exist").check();
 };
@@ -126,6 +144,9 @@ const hasCheckedOnOrganisationConfigurationManualChecks = () => {
 const hasAddManualChecksForOrganisationConfigurationManualChecks = () => {
   cy.get(dataCy("sub-tabs-navigation")).within(() => {
     cy.contains("a", "Manual checks").click();
+  });
+  cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
+    timeout: 20000,
   });
   const text = "Mandatory Custodian Training";
   cy.contains("h6", "Organisation")
@@ -166,6 +187,9 @@ const hasEditManualChecksForOrganisationConfigurationManualChecks = () => {
   cy.get(dataCy("sub-tabs-navigation")).within(() => {
     cy.contains("a", "Manual checks").click();
   });
+  cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
+    timeout: 20000,
+  });
   const text = "Is the Organisation aligned with the SDE network? Testing";
   cy.get('[data-cy="action-menu"]').eq(4).should("exist").click();
   cy.contains('li[role="menuitem"]', "Edit").should("exist").click();
@@ -203,6 +227,9 @@ const hasEditCloseIconTakesBackToTheManaulChecksPageForOrganisationConfiguration
 const hasAddManualChecksForUsersConfigurationManualChecks = () => {
   cy.get(dataCy("sub-tabs-navigation")).within(() => {
     cy.contains("a", "Manual checks").click();
+  });
+  cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
+    timeout: 20000,
   });
   const text = faker.string.sample(20);
 

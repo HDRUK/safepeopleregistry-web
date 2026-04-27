@@ -24,6 +24,10 @@ describe("Projects custodians journey", () => {
   beforeEach(() => {
     loginCustodian();
     cy.visitFirst(ROUTES.profileCustodianConfiguration.path);
+    cy.waitForLoadingToFinish();
+    cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
+      timeout: 20000,
+    });
   });
 
   after(() => {

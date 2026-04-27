@@ -34,7 +34,7 @@ const SkeletonCheckboxList = ({
   return (
     <>
       {widths.map(({ primary, secondary }, index) => (
-        <StyledListItem key={`item-${index}`}>
+        <StyledListItem key={`item-${index}`} data-cy="skeleton-checkboxlist">
           <Skeleton variant="rectangular" width={20} height={20} />
           <StyledListItemText
             primary={<Skeleton width={primary} height={25} />}
