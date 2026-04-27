@@ -44,7 +44,6 @@ const createBoxStyles = <T extends { color?: AugmentedColorPaletteOptions }>(
 const createTabStyles = (theme: Theme) => {
   return {
     textTransform: "none",
-    fontWeight: "bold",
     fontSize: theme.typography.small.fontSize,
     padding: "4px 8px",
     minHeight: "36px",
