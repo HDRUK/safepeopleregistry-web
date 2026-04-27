@@ -1,5 +1,3 @@
-"use client";
-
 import CustodianProjectOrganisation from "./components/CustodianProjectOrganisation";
 
 interface PageProps {

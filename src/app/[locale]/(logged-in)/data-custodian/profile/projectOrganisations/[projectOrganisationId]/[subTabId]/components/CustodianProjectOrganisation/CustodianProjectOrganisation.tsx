@@ -1,3 +1,5 @@
+"use client"
+
 import StatusList from "@/components/StatusList";
 import { Status } from "@/consts/application";
 import { useStore } from "@/data/store";
