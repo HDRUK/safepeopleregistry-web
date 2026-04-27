@@ -34,7 +34,7 @@ describe("Custodian mandatory checks for user", () => {
     goToProjectUsersList();
     inviteNewProjectUser(dataProjectInviteUser);
 
-    cy.visitFirst(ROUTES.profileCustodianConfigurationValidationChecks.path);
+    cy.visitFirst(ROUTES.profileCustodianConfiguration.path);
 
     addManualChecksForUsersConfigurationManualChecks(DEFAULT_TRAINING_TITLE);
   });
