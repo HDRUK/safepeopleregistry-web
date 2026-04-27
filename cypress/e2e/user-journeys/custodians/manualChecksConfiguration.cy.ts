@@ -23,9 +23,7 @@ import {
 describe("Projects custodians journey", () => {
   beforeEach(() => {
     loginCustodian();
-    cy.visitFirst(
-      `${ROUTES.profileCustodianConfiguration.path}/validation-checks`
-    );
+    cy.visitFirst(ROUTES.profileCustodianConfigurationValidationChecks.path);
   });
 
   after(() => {
