@@ -119,7 +119,9 @@ const renderProjectUserNameCell = (data: ProjectUser, route: string) => {
   } = data;
 
   return (
-    <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+    <Box
+      sx={{ display: "flex", gap: 1, alignItems: "center" }}
+      component="span">
       {renderUserNameCell(user, route, {
         projectUserId: id,
         userId: user.id,

@@ -49,7 +49,7 @@ export default function KanbanBoardUsersCard({
           mb: 1.5,
           fontSize: "1rem",
         }}>
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1 }} component="span">
           {renderProjectUserNameCell(project_has_user, routes.name.path)}
         </Box>
       </Text>
