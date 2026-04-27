@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import StatusList from "@/components/StatusList";
 import { Status } from "@/consts/application";
