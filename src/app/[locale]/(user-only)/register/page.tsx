@@ -8,7 +8,8 @@ import { getMeUnclaimed } from "@/app/actions/auth";
 import { getPendingInvite, putEmailByInvite } from "@/app/actions/users";
 import Register from "./components/Register";
 
-async function Page({ searchParams }: { searchParams: { type?: UserGroup } }) {
+async function Page({ searchParams }: { searchParams: Promise<{ type?: UserGroup }> }) {
+  const params = await searchParams
   await redirectProfile();
 
   const accessToken = await getDecodedAccessToken();
@@ -57,7 +58,7 @@ async function Page({ searchParams }: { searchParams: { type?: UserGroup } }) {
       <Register
         tokenUser={partialUser}
         unclaimedUser={unclaimedUser}
-        searchParams={searchParams}
+        searchParams={params}
       />
     </PageBody>
   );

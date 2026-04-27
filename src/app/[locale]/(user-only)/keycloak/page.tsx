@@ -4,16 +4,17 @@ import KeycloakRedirect from "./components/KeycloakRedirect";
 export default async function Page({
   searchParams,
 }: {
-  searchParams: {
+  searchParams: Promise<{
     redirect_path: string;
-  };
+  }>;
 }) {
   const loggedIn = await isLoggedIn();
+  const params = await searchParams
 
   return (
     <KeycloakRedirect
       loggedIn={loggedIn}
-      redirect_uri={searchParams.redirect_path}
+      redirect_uri={params.redirect_path}
     />
   );
 }
