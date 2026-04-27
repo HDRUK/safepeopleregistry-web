@@ -54,6 +54,8 @@ const createTabStyles = (theme: Theme) => {
     "&:hover": {
       backgroundColor: getHoverColor(theme),
     },
+    color: theme.palette.textPrimary.main,
+    opacity: 1,
 
     "&.Mui-selected": {
       backgroundColor: "white",
