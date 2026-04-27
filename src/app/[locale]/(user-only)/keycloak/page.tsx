@@ -9,12 +9,9 @@ export default async function Page({
   }>;
 }) {
   const loggedIn = await isLoggedIn();
-  const params = await searchParams
+  const params = await searchParams;
 
   return (
-    <KeycloakRedirect
-      loggedIn={loggedIn}
-      redirect_uri={params.redirect_path}
-    />
+    <KeycloakRedirect loggedIn={loggedIn} redirect_uri={params.redirect_path} />
   );
 }
