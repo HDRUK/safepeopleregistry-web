@@ -37,6 +37,12 @@ import {
 } from "./mocks/data/user";
 import { mockedValidationComment } from "./mocks/data/validation_log";
 import { ResponseMessageType } from "./src/consts/requests";
+import { MessageChannel } from "worker_threads";
+
+if (typeof global.MessageChannel === "undefined") {
+  global.MessageChannel =
+    MessageChannel as unknown as typeof global.MessageChannel;
+}
 
 const nextRouterMock = require("next-router-mock");
 
@@ -98,13 +104,24 @@ jest.mock("@/data/store", () => ({
   useStore: jest.fn(),
 }));
 
-global.matchMedia = () => {
-  return {
-    matches: false,
-    addListener: () => {},
-    removeListener: () => {},
-  };
-};
+Object.defineProperty(window, "matchMedia", {
+  writable: true,
+  configurable: true,
+  value: (query: string) => {
+    const mql = {
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    };
+
+    return mql;
+  },
+});
 
 global.structuredClone = val => JSON.parse(JSON.stringify(val));
 

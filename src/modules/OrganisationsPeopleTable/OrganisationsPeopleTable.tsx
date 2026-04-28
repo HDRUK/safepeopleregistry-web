@@ -14,8 +14,10 @@ export type OrganisationsPeopleTableColumns =
   | "affiliationEmail"
   | "affiliationStatus";
 
-export interface OrganisationsPeopleTableProps
-  extends ModuleTables<User, OrganisationsPeopleTableColumns> {
+export interface OrganisationsPeopleTableProps extends ModuleTables<
+  User,
+  OrganisationsPeopleTableColumns
+> {
   routes?: {
     name: RouteConfig;
   };

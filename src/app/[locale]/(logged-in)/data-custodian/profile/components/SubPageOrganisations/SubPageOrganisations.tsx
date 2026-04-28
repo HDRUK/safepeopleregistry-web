@@ -51,11 +51,11 @@ export default function SubPageOrganisations({
     organisation && (
       <PageBodyContainer heading={organisation.organisation_name}>
         <PageColumns>
-          <PageColumnBody lg={8}>
+          <PageColumnBody size={{ lg: 8 }}>
             <SubTabsSections id={organisation.id} tabId={tabId} {...params} />
             <SubTabsContents tabId={tabId} {...params} />
           </PageColumnBody>
-          <PageColumnDetails lg={4}>
+          <PageColumnDetails size={{ lg: 4 }}>
             <ActionValidationPanel
               variant={ActionValidationVariants.Organisation}
               queryState={queryState}

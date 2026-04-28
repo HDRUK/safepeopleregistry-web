@@ -4,8 +4,9 @@ import usePaginatedQuery, {
 import getProjectAllUsers from "@/app/actions/projects/getProjectAllUsers";
 import { ProjectAllUsersResponse } from "./types";
 
-interface GetPaginatedUsersQuery<T = ProjectAllUsersResponse>
-  extends Partial<PaginatedQueryProps<T>> {}
+type GetPaginatedUsersQuery<T = ProjectAllUsersResponse> = Partial<
+  PaginatedQueryProps<T>
+>;
 
 export default function useGetProjectAllUsers(
   projectId: number,

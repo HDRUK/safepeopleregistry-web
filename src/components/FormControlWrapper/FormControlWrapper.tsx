@@ -17,11 +17,14 @@ import {
   FieldValues,
   useFormContext,
 } from "react-hook-form";
-import { ExtendedUseFormReturn } from "../Form";
 import FormControlDescription from "../FormControlDescription";
+import { ExtendedUseFormReturn } from "@/components/Form";
+import { useFormHelper } from "@/components/Form/FormHelperContext";
 
-export interface FormControlProps
-  extends Omit<FormControlLabelProps, "control" | "label"> {
+export interface FormControlProps extends Omit<
+  FormControlLabelProps,
+  "control" | "label"
+> {
   renderField: (fieldProps: FieldValues & { error?: boolean }) => ReactNode;
   name: string;
   subtitle?: ReactNode;
@@ -67,7 +70,7 @@ export default function FormControlWrapper({
   const context = useFormContext() as ExtendedUseFormReturn<FieldValues>;
   const effectiveControl = control || context.control;
 
-  const { isFieldRequired } = context;
+  const { isFieldRequired } = useFormHelper();
   const isRequired = isFieldRequired?.(name);
 
   const isHorizontal = labelPosition === "left" || labelPosition === "right";

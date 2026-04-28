@@ -8,7 +8,9 @@ interface PageProps {
   };
 }
 
-function Page({ params: { tabId } }: PageProps) {
+async function Page({ params }: PageProps) {
+  const { tabId } = await params;
+
   return (
     <PageBodyContainer>
       <TabsContents tabId={tabId} />

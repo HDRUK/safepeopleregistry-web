@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  AugmentedColorPaletteOptions,
-  BoxProps,
-  useTheme,
-} from "@mui/material";
+import { AugmentedColorPaletteOptions, BoxProps } from "@mui/material";
 import { StyledMask } from "./Mask.styles";
 
 export interface QuoteProps extends Omit<BoxProps, "outlined"> {
@@ -18,15 +14,8 @@ export default function Mask({
   color = "primary",
   ...restProps
 }: QuoteProps) {
-  const theme = useTheme();
-
   return (
-    <StyledMask
-      {...restProps}
-      width={size}
-      height={size}
-      color={color}
-      theme={theme}>
+    <StyledMask {...restProps} width={size} height={size} color={color}>
       <div>{children}</div>
     </StyledMask>
   );

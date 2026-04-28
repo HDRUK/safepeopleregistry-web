@@ -51,7 +51,7 @@ export default function KanbanBoardOrganisationsCard({
           mb: 1,
           fontSize: "1rem",
         }}>
-        <Box sx={{ flexGrow: 1 }}>
+        <Box sx={{ flexGrow: 1 }} component="span">
           {renderLinkNameCell(
             organisation.organisation_name,
             routes.name.path,

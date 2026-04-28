@@ -7,7 +7,9 @@ interface UserAdminPageProps {
   };
 }
 
-function UserAdminPage({ params: { subTabId } }: UserAdminPageProps) {
+async function UserAdminPage({ params }: UserAdminPageProps) {
+  const { subTabId } = await params;
+
   return (
     <SubPage
       params={{

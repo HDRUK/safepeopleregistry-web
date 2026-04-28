@@ -20,8 +20,9 @@ export type OrganisationUsersTableColumns =
   | "inviteSent"
   | "actions";
 
-export interface OrganisationUsersTableProps
-  extends WithRoutes<ModuleTables<User, OrganisationUsersTableColumns>> {
+export interface OrganisationUsersTableProps extends WithRoutes<
+  ModuleTables<User, OrganisationUsersTableColumns>
+> {
   onRemove: (id: number) => void;
 }
 

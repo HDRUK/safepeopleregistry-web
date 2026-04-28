@@ -332,7 +332,7 @@ export default function AffiliationsPage({
   return (
     <PageBodyContainer heading={tProfile("affiliationsTitle")}>
       <PageColumns>
-        <PageColumnBody lg={8}>
+        <PageColumnBody size={{ lg: 8 }}>
           <PageBody>
             <PageSection>
               <FormModal
@@ -393,7 +393,7 @@ export default function AffiliationsPage({
             />
           </PageBody>
         </PageColumnBody>
-        <PageColumnDetails lg={4}>
+        <PageColumnDetails size={{ lg: 4 }}>
           <Guidance
             {...mockedResearcherAffiliationsGuidance}
             isCollapsible={false}

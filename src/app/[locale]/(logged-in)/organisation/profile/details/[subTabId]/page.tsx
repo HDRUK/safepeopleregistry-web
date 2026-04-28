@@ -7,7 +7,9 @@ interface DetailsPageProps {
   };
 }
 
-function DetailsPage({ params: { subTabId } }: DetailsPageProps) {
+async function DetailsPage({ params }: DetailsPageProps) {
+  const { subTabId } = await params;
+
   return (
     <SubPage
       params={{

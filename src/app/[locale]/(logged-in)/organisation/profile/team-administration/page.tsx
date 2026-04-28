@@ -16,10 +16,10 @@ function TeamPage() {
   return (
     <PageBodyContainer heading={t("teamAdminTitle")}>
       <PageColumns>
-        <PageColumnBody lg={8}>
+        <PageColumnBody size={{ lg: 8 }}>
           <Delegates />
         </PageColumnBody>
-        <PageColumnDetails lg={4}>
+        <PageColumnDetails size={{ lg: 4 }}>
           <PageGuidance
             profile="organisation"
             tabId={PageTabs.TEAM_ADMINISTRATION}
