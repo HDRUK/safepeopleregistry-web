@@ -1,5 +1,6 @@
 "use server";
 
+import { isProduction } from "@/utils/application";
 import { cookies } from "next/headers";
 
 async function setAcceptTCs(value: boolean, userGroup: string) {
@@ -7,7 +8,7 @@ async function setAcceptTCs(value: boolean, userGroup: string) {
 
   if (value) {
     cookieStore.set(`accepted_tcs_${userGroup}`, "true", {
-      secure: true,
+      secure: isProduction(),
       httpOnly: true,
       sameSite: "lax",
     });
