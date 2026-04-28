@@ -59,6 +59,9 @@ const hasCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualCheck
     cy.get(dataCy("sub-tabs-navigation")).within(() => {
       cy.contains("a", "Manual checks").click();
     });
+    cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
+      timeout: 20000,
+    });
     cy.contains("button", "Add manual check").should("exist").click();
     cy.get('[data-testid="CloseIcon"]').should("exist").click();
     cy.contains("a", "Manual checks").should("exist");
@@ -98,6 +101,9 @@ const hasEditCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualC
   () => {
     cy.get(dataCy("sub-tabs-navigation")).within(() => {
       cy.contains("a", "Manual checks").click();
+    });
+    cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
+      timeout: 20000,
     });
     cy.get('[data-cy="action-menu"]').eq(0).should("exist").click();
     cy.contains('li[role="menuitem"]', "Edit").should("exist").click();
@@ -177,6 +183,9 @@ const hasCloseIconTakesBackToTheManaulChecksPageForOrganisationConfigurationManu
   () => {
     cy.get(dataCy("sub-tabs-navigation")).within(() => {
       cy.contains("a", "Manual checks").click();
+    });
+    cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
+      timeout: 20000,
     });
     cy.contains("button", "Add manual check").should("exist").click();
     cy.get('[data-testid="CloseIcon"]').should("exist").click();
