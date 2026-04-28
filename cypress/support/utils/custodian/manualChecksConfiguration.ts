@@ -66,6 +66,8 @@ const hasCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualCheck
 
     cy.contains("button", "Add manual check").click();
 
+    cy.wait(1000);
+
     cy.get('[data-testid="form-modal"]')
       .should("be.visible")
       .within(() => {
@@ -117,6 +119,8 @@ const hasEditCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualC
 
     cy.get('[data-cy="action-menu"]').eq(0).click();
     cy.contains('li[role="menuitem"]', "Edit").click();
+
+    cy.wait(1000);
 
     cy.get('[data-testid="form-modal"]')
       .should("be.visible")
@@ -210,6 +214,8 @@ const hasCloseIconTakesBackToTheManaulChecksPageForOrganisationConfigurationManu
 
     cy.contains("button", "Add manual check").click();
 
+    cy.wait(1000);
+
     cy.get('[data-testid="form-modal"]')
       .should("be.visible")
       .within(() => {
@@ -264,6 +270,8 @@ const hasEditCloseIconTakesBackToTheManaulChecksPageForOrganisationConfiguration
 
     cy.get('[data-cy="action-menu"]').eq(4).click();
     cy.contains('li[role="menuitem"]', "Edit").click();
+
+    cy.wait(1000);
 
     cy.get('[data-testid="form-modal"]')
       .should("be.visible")
