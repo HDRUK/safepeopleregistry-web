@@ -300,9 +300,6 @@ const theme = createTheme(
         },
       },
       MuiModal: {
-        defaultProps: {
-          outline: false,
-        },
         styleOverrides: {
           root: ({ ownerState }) => createMuiModalStyles(ownerState),
         },

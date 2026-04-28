@@ -63,7 +63,7 @@ const hasCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualCheck
       timeout: 20000,
     });
     cy.contains("button", "Add manual check").should("exist").click();
-    cy.get('[data-testid="CloseIcon"]').should("exist").click();
+    cy.get('[data-testid="CloseIcon"]').closest("button").click();
     cy.contains("a", "Manual checks").should("exist");
   };
 
@@ -107,7 +107,7 @@ const hasEditCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualC
     });
     cy.get('[data-cy="action-menu"]').eq(0).should("exist").click();
     cy.contains('li[role="menuitem"]', "Edit").should("exist").click();
-    cy.get('[data-testid="CloseIcon"]').should("exist").click();
+    cy.get('[data-testid="CloseIcon"]').closest("button").click();
     cy.contains("a", "Manual checks").should("exist");
   };
 
@@ -188,7 +188,7 @@ const hasCloseIconTakesBackToTheManaulChecksPageForOrganisationConfigurationManu
       timeout: 20000,
     });
     cy.contains("button", "Add manual check").should("exist").click();
-    cy.get('[data-testid="CloseIcon"]').should("exist").click();
+    cy.get('[data-testid="CloseIcon"]').closest("button").click();
     cy.contains("a", "Manual checks").should("exist");
   };
 
@@ -229,7 +229,7 @@ const hasEditCloseIconTakesBackToTheManaulChecksPageForOrganisationConfiguration
     });
     cy.get('[data-cy="action-menu"]').eq(4).should("exist").click();
     cy.contains('li[role="menuitem"]', "Edit").should("exist").click();
-    cy.get('[data-testid="CloseIcon"]').should("exist").click();
+    cy.get('[data-testid="CloseIcon"]').closest("button").click();
     cy.contains("a", "Manual checks").should("exist");
   };
 
