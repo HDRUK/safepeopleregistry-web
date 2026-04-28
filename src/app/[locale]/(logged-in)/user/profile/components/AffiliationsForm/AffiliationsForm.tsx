@@ -217,7 +217,7 @@ export default function AffiliationsForm({
             />
             <Grid container rowSpacing={3}>
               {selectOrganisation ? (
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <FormControlWrapper
                     name="organisation_id"
                     renderField={({ onChange, ...fieldProps }) => (
@@ -278,7 +278,7 @@ export default function AffiliationsForm({
                 </Grid>
               ) : (
                 <>
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <FormControlWrapper
                       name="organisation_name"
                       renderField={fieldProps => <TextField {...fieldProps} />}
@@ -298,7 +298,7 @@ export default function AffiliationsForm({
                       })}
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <FormControlWrapper
                       name="organisation_email"
                       renderField={fieldProps => <TextField {...fieldProps} />}
@@ -324,7 +324,7 @@ export default function AffiliationsForm({
               )}
 
               {useDepartment && (
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <FormControlWrapper
                     name="department"
                     renderField={fieldProps => (
@@ -336,9 +336,9 @@ export default function AffiliationsForm({
                   />
                 </Grid>
               )}
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <Grid container columnSpacing={3}>
-                  <Grid item xs={6}>
+                  <Grid size={{ xs: 6 }}>
                     <FormControlWrapper
                       name="from"
                       renderField={fieldProps => (
@@ -346,7 +346,7 @@ export default function AffiliationsForm({
                       )}
                     />
                   </Grid>
-                  <Grid item xs={6}>
+                  <Grid size={{ xs: 6 }}>
                     <FormControlWrapper
                       name="to"
                       renderField={fieldProps => (
@@ -356,13 +356,13 @@ export default function AffiliationsForm({
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <FormControlCheckbox
                   name="current_employer"
                   label={tForm("currentEmployer")}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <FormControlWrapper
                   name="relationship"
                   renderField={fieldProps => (
@@ -373,13 +373,13 @@ export default function AffiliationsForm({
                   )}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <FormControlWrapper
                   name="role"
                   renderField={fieldProps => <TextField {...fieldProps} />}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <FormControlWrapper
                   description={tProfile("memberIdDescription")}
                   name="member_id"
@@ -387,7 +387,7 @@ export default function AffiliationsForm({
                 />
               </Grid>
               {isCurrent && (
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <FormControlWrapper
                     name="email"
                     label={tForm("emailAddressAtEmployer")}

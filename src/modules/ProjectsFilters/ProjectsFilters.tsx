@@ -19,15 +19,14 @@ export enum ProjectsFiltersKeys {
   STATUS = "status",
 }
 
-export interface ProjectsFiltersProps
-  extends Pick<
-    PaginatedQueryReturn<ResearcherProject>,
-    | "updateQueryParams"
-    | "resetQueryParams"
-    | "handleSortToggle"
-    | "handleFieldToggle"
-    | "queryParams"
-  > {
+export interface ProjectsFiltersProps extends Pick<
+  PaginatedQueryReturn<ResearcherProject>,
+  | "updateQueryParams"
+  | "resetQueryParams"
+  | "handleSortToggle"
+  | "handleFieldToggle"
+  | "queryParams"
+> {
   includeFilters?: ProjectsFiltersKeys[];
 }
 

@@ -30,7 +30,11 @@ export default function SectionHeading({
             <div>{actions}</div>
           </Box>
         )}
-        {description && <Typography variant="body1">{description}</Typography>}
+        {description && (
+          <Typography variant="body1" component="div">
+            {description}
+          </Typography>
+        )}
       </Box>
     )
   );

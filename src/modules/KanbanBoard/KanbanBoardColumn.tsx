@@ -105,7 +105,9 @@ const KanbanBoardColumn = forwardRef<HTMLDivElement, KanbanBoardColumnProps>(
                 color: "#000",
               }),
           }}>
-          <Box sx={{ flexGrow: 1 }}>{heading}</Box>
+          <Box sx={{ flexGrow: 1 }} component="span">
+            {heading}
+          </Box>
           {disabled && <LockOutlinedIcon />}
         </Typography>
         <Box

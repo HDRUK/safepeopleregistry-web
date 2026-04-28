@@ -1,4 +1,3 @@
-import ContactLink from "@/components/ContactLink";
 import Ol from "@/components/Ol";
 import { Typography } from "@mui/material";
 import { ReactNode } from "react";

@@ -1,4 +1,4 @@
-import "@mui/material/styles/createPalette";
+import "@mui/material/styles";
 
 type KeysMatching<T, V> = {
   [K in keyof T]-?: T[K] extends V ? K : never;
@@ -36,7 +36,7 @@ declare module "@mui/material/styles" {
   }
 }
 
-declare module "@mui/material/styles/createPalette" {
+declare module "@mui/material/styles" {
   interface CustomPalette {
     white: string;
     inactive: SimplePaletteColorOptions;
@@ -65,21 +65,21 @@ declare module "@mui/material/styles/createPalette" {
 
 declare module "@mui/material/CircularProgress" {
   type AugmentedColorPaletteOptions =
-    import("@mui/material/styles/createPalette").AugmentedColorPaletteOptions;
+    import("@mui/material/styles").AugmentedColorPaletteOptions;
 
   interface CircularProgressPropsColorOverrides extends ColorOverrides {}
 }
 
 declare module "@mui/material/Chip" {
   type AugmentedColorPaletteOptions =
-    import("@mui/material/styles/createPalette").AugmentedColorPaletteOptions;
+    import("@mui/material/styles").AugmentedColorPaletteOptions;
 
   interface ChipPropsColorOverrides extends ColorOverrides {}
 }
 
 declare module "@mui/material/Card" {
   type AugmentedColorPaletteOptions =
-    import("@mui/material/styles/createPalette").AugmentedColorPaletteOptions;
+    import("@mui/material/styles").AugmentedColorPaletteOptions;
 
   interface CustomCardProps {
     color?: AugmentedColorPaletteOptions;
@@ -89,7 +89,7 @@ declare module "@mui/material/Card" {
 
 declare module "@mui/material/Paper" {
   type AugmentedColorPaletteOptions =
-    import("@mui/material/styles/createPalette").AugmentedColorPaletteOptions;
+    import("@mui/material/styles").AugmentedColorPaletteOptions;
 
   interface CustomPaperProps {
     color?: AugmentedColorPaletteOptions;
@@ -99,7 +99,7 @@ declare module "@mui/material/Paper" {
 
 declare module "@mui/material/IconButton" {
   type AugmentedColorPaletteOptions =
-    import("@mui/material/styles/createPalette").AugmentedColorPaletteOptions;
+    import("@mui/material/styles").AugmentedColorPaletteOptions;
 
   interface IconButtonPropsColorOverrides extends ColorOverrides {}
 
@@ -111,7 +111,7 @@ declare module "@mui/material/IconButton" {
 
 declare module "@mui/material/Divider" {
   type AugmentedColorPaletteOptions =
-    import("@mui/material/styles/createPalette").AugmentedColorPaletteOptions;
+    import("@mui/material/styles").AugmentedColorPaletteOptions;
 
   interface CustomDividerProps {
     orientation?: "vertical" | "horizontal";
@@ -123,7 +123,7 @@ declare module "@mui/material/Divider" {
 
 declare module "@mui/material/Switch" {
   type AugmentedColorPaletteOptions =
-    import("@mui/material/styles/createPalette").AugmentedColorPaletteOptions;
+    import("@mui/material/styles").AugmentedColorPaletteOptions;
 
   interface CustomSwitchProps {
     color?: AugmentedColorPaletteOptions;
@@ -133,7 +133,7 @@ declare module "@mui/material/Switch" {
 
 declare module "@mui/material/Stepper" {
   type AugmentedColorPaletteOptions =
-    import("@mui/material/styles/createPalette").AugmentedColorPaletteOptions;
+    import("@mui/material/styles").AugmentedColorPaletteOptions;
 
   interface CustomStepperProps {
     color?: AugmentedColorPaletteOptions;

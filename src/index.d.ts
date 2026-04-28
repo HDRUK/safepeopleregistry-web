@@ -3,8 +3,8 @@ interface CustomMatchers<R = unknown> {
 }
 
 declare namespace jest {
-  interface Expect extends CustomMatchers {}
-  interface Matchers<R> extends CustomMatchers<R> {}
+  type Expect = CustomMatchers;
+  type Matchers<R> = CustomMatchers<R>;
 }
 
 declare global {

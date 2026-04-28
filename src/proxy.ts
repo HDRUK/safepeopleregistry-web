@@ -1,7 +1,7 @@
 import createIntlMiddleware from "next-intl/middleware";
 import { type NextRequest } from "next/server";
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const handleI18nRouting = createIntlMiddleware({
     locales: ["en"],
     defaultLocale: "en",

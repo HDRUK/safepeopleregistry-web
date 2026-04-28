@@ -1,10 +1,11 @@
-const withNextIntl = require("next-intl/plugin")();
+const createNextIntlPlugin = require("next-intl/plugin");
+
+const withNextIntl = createNextIntlPlugin("./src/i18n.ts");
 
 /** @type {import('next').NextConfig} */
 
 const nextConfig = withNextIntl({
   reactStrictMode: true,
-  swcMinify: true,
   env: {
     API_V1_URL: process.env.NEXT_PUBLIC_API_V1_URL,
   },
@@ -96,10 +97,6 @@ const nextConfig = withNextIntl({
       };
     }
 
-    config.module.rules.push({
-      test: /\.md$/,
-      type: "asset/source",
-    });
 
     return config;
   },

@@ -7,8 +7,12 @@ interface Option {
   value: string;
 }
 
-export interface AutocompleteInputProps
-  extends AutocompleteProps<Option, false, false, false> {
+export interface AutocompleteInputProps extends AutocompleteProps<
+  Option,
+  false,
+  false,
+  false
+> {
   placeholder?: string;
 }
 const AutocompleteInput = ({

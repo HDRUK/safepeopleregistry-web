@@ -30,7 +30,7 @@ export default function AddressForm({ name }: AddressFormProps) {
 
   return (
     <>
-      <Grid item xs={12}>
+      <Grid size={{ xs: 12 }}>
         <FormControlWrapper
           name={name}
           renderField={fieldProps => (
@@ -50,7 +50,7 @@ export default function AddressForm({ name }: AddressFormProps) {
           )}
         />
       </Grid>
-      <Grid item xs={12}>
+      <Grid size={{ xs: 12 }}>
         <FormControlWrapper
           name={`${name}.address_1`}
           label={t("address1")}
@@ -59,7 +59,7 @@ export default function AddressForm({ name }: AddressFormProps) {
           )}
         />
       </Grid>
-      <Grid item xs={12}>
+      <Grid size={{ xs: 12 }}>
         <FormControlWrapper
           name={`${name}.address_2`}
           label={t("address2")}
@@ -68,21 +68,21 @@ export default function AddressForm({ name }: AddressFormProps) {
           )}
         />
       </Grid>
-      <Grid item xs={12}>
+      <Grid size={{ xs: 12 }}>
         <FormControlWrapper
           name={`${name}.town`}
           label={t("town")}
           renderField={fieldProps => <TextField {...fieldProps} />}
         />
       </Grid>
-      <Grid item xs={12}>
+      <Grid size={{ xs: 12 }}>
         <FormControlWrapper
           name={`${name}.county`}
           label={t("county")}
           renderField={fieldProps => <TextField {...fieldProps} />}
         />
       </Grid>
-      <Grid item xs={12}>
+      <Grid size={{ xs: 12 }}>
         <FormControlWrapper
           name={`${name}.country`}
           label={t("country")}
@@ -96,7 +96,7 @@ export default function AddressForm({ name }: AddressFormProps) {
           )}
         />
       </Grid>
-      <Grid item xs={12}>
+      <Grid size={{ xs: 12 }}>
         <FormControlWrapper
           displayPlaceholder={false}
           name={`${name}.postcode`}

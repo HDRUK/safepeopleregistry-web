@@ -93,7 +93,7 @@ export default function Trainings() {
       <Form {...formOptions} onSubmit={handleSubmit} key={userData?.data?.id}>
         <PageBodyContainer heading={tProfile("trainingTitle")}>
           <PageColumns>
-            <PageColumnBody lg={8}>
+            <PageColumnBody size={{ lg: 8 }}>
               <PageBody heading={tProfile("trainingAndAccreditations")}>
                 <PageSection>
                   <Training
@@ -155,7 +155,7 @@ export default function Trainings() {
                 </Box>
               </PageBody>
             </PageColumnBody>
-            <PageColumnDetails lg={4}>
+            <PageColumnDetails size={{ lg: 4 }}>
               <Guidance
                 {...mockedUserTrainingGuidanceProps}
                 isCollapsible={false}

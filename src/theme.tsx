@@ -3,12 +3,12 @@
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { AugmentedColorPaletteOptions, Theme } from "@mui/material";
 import { TableCellProps } from "@mui/material/TableCell";
-import grey from "@mui/material/colors/grey";
 import { createTheme, darken } from "@mui/material/styles";
 import { createBreakpoints } from "@mui/system";
 import { Roboto } from "next/font/google";
 import { PALETTE_THEME_PURPLE_BLUE } from "./config/theme";
 import { colorToRgba, getAugmentedColor, isLightMode } from "./utils/theme";
+import { grey } from "@mui/material/colors";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -44,7 +44,6 @@ const createBoxStyles = <T extends { color?: AugmentedColorPaletteOptions }>(
 const createTabStyles = (theme: Theme) => {
   return {
     textTransform: "none",
-    fontWeight: "bold",
     fontSize: theme.typography.small.fontSize,
     padding: "4px 8px",
     minHeight: "36px",
@@ -54,6 +53,8 @@ const createTabStyles = (theme: Theme) => {
     "&:hover": {
       backgroundColor: getHoverColor(theme),
     },
+    color: theme.palette.textPrimary.main,
+    opacity: 1,
 
     "&.Mui-selected": {
       backgroundColor: "white",
@@ -299,9 +300,6 @@ const theme = createTheme(
         },
       },
       MuiModal: {
-        defaultProps: {
-          outline: false,
-        },
         styleOverrides: {
           root: ({ ownerState }) => createMuiModalStyles(ownerState),
         },
@@ -314,7 +312,7 @@ const theme = createTheme(
           body,
           .swal2-title {
             line-height: 140%;
-           
+            white-space: pre-line;
           }
           ul {
             margin: 4px 0;

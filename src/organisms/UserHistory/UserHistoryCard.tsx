@@ -68,14 +68,14 @@ export const UserHistoryCard = ({ history }: { history: UserHistorys }) => {
     <Card sx={{ boxShadow: 1, borderRadius: 1 }}>
       <CardContent>
         <Grid container gap={1}>
-          <Grid item xs="auto">
+          <Grid size={{ xs: "auto" }}>
             <MaskLabel
               initials={getInitials(userName)}
               size="medium"
               sx={{ justifyContent: "flex-start", mx: 1 }}
             />
           </Grid>
-          <Grid item xs={11} sx={{ color: "text.secondary" }}>
+          <Grid size={{ xs: 11 }} sx={{ color: "text.secondary" }}>
             <Typography variant="small">
               {formatDisplayTimeDate(created_at)}
             </Typography>

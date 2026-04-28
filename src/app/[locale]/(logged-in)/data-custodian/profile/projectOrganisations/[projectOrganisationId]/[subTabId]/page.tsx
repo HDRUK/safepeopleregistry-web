@@ -1,5 +1,3 @@
-"use client";
-
 import CustodianProjectOrganisation from "./components/CustodianProjectOrganisation";
 
 interface PageProps {
@@ -10,9 +8,9 @@ interface PageProps {
   };
 }
 
-function CustodianProjectOrganisationsPage({
-  params: { projectOrganisationId, subTabId },
-}: PageProps) {
+async function CustodianProjectOrganisationsPage({ params }: PageProps) {
+  const { projectOrganisationId, subTabId } = await params;
+
   return (
     <CustodianProjectOrganisation
       projectOrganisationId={projectOrganisationId}

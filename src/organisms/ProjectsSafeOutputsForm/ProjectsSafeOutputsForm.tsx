@@ -18,8 +18,10 @@ export interface ProjectsSafeOutputsFormFieldValues {
   research_outputs: string[];
 }
 
-export interface ProjectsSafeOutputsFormProps
-  extends Omit<FormProps<ProjectDetails>, "children"> {
+export interface ProjectsSafeOutputsFormProps extends Omit<
+  FormProps<ProjectDetails>,
+  "children"
+> {
   projectId?: number;
   mutateState?: MutationState;
 }
@@ -55,15 +57,15 @@ export default function ProjectsSafeOutputsForm({
   return (
     <Form schema={schema} {...formOptions} {...restProps} autoComplete="off">
       <Grid container rowSpacing={3}>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <FormFieldArray
             tKey={NAMESPACE_TRANSLATION_FORM}
             name="research_outputs"
             addButtonLabel={tApplication("addLink")}
             createNewRow={() => ""}
             renderField={(_, index, removeButton) => (
-              <Grid container spacing={2}>
-                <Grid item xs={5}>
+              <Grid container spacing={2} sx={{ width: "100%" }}>
+                <Grid size={{ xs: 5 }}>
                   <FormControlWrapper
                     displayLabel={false}
                     name={`research_outputs.${index}`}
@@ -71,14 +73,12 @@ export default function ProjectsSafeOutputsForm({
                     renderField={fieldProps => <TextField {...fieldProps} />}
                   />
                 </Grid>
-                <Grid item xs={1}>
-                  {removeButton}
-                </Grid>
+                <Grid size={{ xs: 1 }}>{removeButton}</Grid>
               </Grid>
             )}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <FormControlWrapper
             name="data_assets"
             t={tForm}

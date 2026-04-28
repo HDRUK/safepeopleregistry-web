@@ -138,7 +138,7 @@ export default function Experience() {
   return (
     <PageBodyContainer heading={tProfile("experienceTitle")}>
       <PageColumns>
-        <PageColumnBody lg={8}>
+        <PageColumnBody size={{ lg: 8 }}>
           <PageBody>
             <PageSection
               heading={tProfile("employmentEducationPublicationRecord")}>
@@ -151,7 +151,7 @@ export default function Experience() {
                 <>
                   <FormSection description={tProfile("orcidDescription")}>
                     <Grid container spacing={3}>
-                      <Grid item xs={12}>
+                      <Grid size={{ xs: 12 }}>
                         <FormControl
                           name="orc_id"
                           label="ORCID"
@@ -173,7 +173,7 @@ export default function Experience() {
                       {tProfile("cvUpload")}
                     </Typography>
                     <Grid container spacing={3}>
-                      <Grid item xs={12}>
+                      <Grid size={{ xs: 12 }}>
                         <FileUploadDetails
                           fileButtonText={tProfile("cvUpload")}
                           fileHref={getFileHref(latestCV?.name)}
@@ -189,7 +189,7 @@ export default function Experience() {
                         />
                       </Grid>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid size={{ xs: 12 }}>
                       <Typography
                         variant="subtitle2"
                         sx={{ color: "textSecondary.main", pt: 1 }}>
@@ -210,7 +210,7 @@ export default function Experience() {
             </PageSection>
           </PageBody>
         </PageColumnBody>
-        <PageColumnDetails lg={4}>
+        <PageColumnDetails size={{ lg: 4 }}>
           <Guidance
             {...mockedUserExperienceGuidanceProps}
             isCollapsible={false}

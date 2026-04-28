@@ -141,7 +141,7 @@ export default function Identity() {
   return (
     <PageBodyContainer heading={t("identityTitle")}>
       <PageColumns>
-        <PageColumnBody lg={8}>
+        <PageColumnBody size={{ lg: 8 }}>
           <PageBody>
             <PageSection heading={t("identityForm")}>
               <Form
@@ -153,7 +153,7 @@ export default function Identity() {
                 <>
                   <FormSection>
                     <Grid container rowSpacing={3}>
-                      <Grid item xs={12}>
+                      <Grid size={{ xs: 12 }}>
                         <FormControlWrapper
                           name="first_name"
                           renderField={fieldProps => (
@@ -161,7 +161,7 @@ export default function Identity() {
                           )}
                         />
                       </Grid>
-                      <Grid item xs={12}>
+                      <Grid size={{ xs: 12 }}>
                         <FormControlWrapper
                           name="last_name"
                           renderField={fieldProps => (
@@ -169,7 +169,7 @@ export default function Identity() {
                           )}
                         />
                       </Grid>
-                      <Grid item xs={12}>
+                      <Grid size={{ xs: 12 }}>
                         <FormControlWrapper
                           name="personal_email"
                           renderField={fieldProps => (
@@ -211,7 +211,7 @@ export default function Identity() {
                           })}
                         />
                       </Grid>
-                      <Grid item xs={12}>
+                      <Grid size={{ xs: 12 }}>
                         <FormControlWrapper
                           name="location"
                           description={t("locationDescription")}
@@ -230,8 +230,8 @@ export default function Identity() {
                   {canUseIdvt(formOptions.defaultValues.location) && (
                     <FormSection heading={t("idvtCheckSection")}>
                       <Grid container spacing={3}>
-                        <Grid container item spacing={3}>
-                          <Grid item xs={8}>
+                        <Grid container spacing={3}>
+                          <Grid size={{ xs: 8 }}>
                             {idvt_success ? (
                               <Text startIcon={<CheckCircle color="success" />}>
                                 {t("idvtCheckComplete")}
@@ -272,7 +272,7 @@ export default function Identity() {
             </PageSection>
           </PageBody>
         </PageColumnBody>
-        <PageColumnDetails lg={4}>
+        <PageColumnDetails size={{ lg: 4 }}>
           <Guidance
             {...mockedPersonalDetailsGuidanceProps}
             isCollapsible={false}

@@ -8,6 +8,7 @@ import {
   screen,
 } from "../../utils/testUtils";
 import AddressForm from "./AddressForm";
+import { FormHelperContext } from "@/components/Form/FormHelperContext";
 
 const Wrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const methods = useForm();
@@ -18,7 +19,12 @@ describe("AddressForm", () => {
   const renderAddressForm = () =>
     render(
       <Wrapper>
-        <AddressForm name="address" />
+        <FormHelperContext.Provider
+          value={{
+            isFieldRequired: () => false,
+          }}>
+          <AddressForm name="address" />
+        </FormHelperContext.Provider>
       </Wrapper>
     );
 

@@ -33,6 +33,7 @@ export default function SubTabs({
           component={Link}
           iconPosition="start"
           sx={{ fontWeight: 400, fontSize: "14px", mb: 2 }}
+          key={label}
         />
       ))}
     </Tabs>

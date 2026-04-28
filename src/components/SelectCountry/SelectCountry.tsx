@@ -2,11 +2,10 @@ import { Autocomplete, AutocompleteProps, TextField } from "@mui/material";
 import { Option } from "../../types/common";
 import { getCountryOptions } from "../../utils/countries";
 
-interface SelectCountryProps
-  extends Omit<
-    AutocompleteProps<Option, false, false, false>,
-    "renderInput" | "options" | "getOptionLabel" | "value" | "onChange"
-  > {
+interface SelectCountryProps extends Omit<
+  AutocompleteProps<Option, false, false, false>,
+  "renderInput" | "options" | "getOptionLabel" | "value" | "onChange"
+> {
   value: string;
   onChange: (value: string) => void;
   useCountryCode: boolean;

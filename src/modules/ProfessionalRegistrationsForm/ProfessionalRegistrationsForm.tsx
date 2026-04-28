@@ -58,14 +58,14 @@ export default function ProfessionalRegistrationsForm({
       shouldReset={!isEdit}>
       <FormSection>
         <Grid container rowSpacing={3}>
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <FormControlWrapper
               name="name"
               tNamespace={NAMESPACE_TRANSLATION_PROFILE}
               renderField={fieldProps => <TextField {...fieldProps} />}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <FormControlWrapper
               name="member_id"
               tNamespace={NAMESPACE_TRANSLATION_PROFILE}

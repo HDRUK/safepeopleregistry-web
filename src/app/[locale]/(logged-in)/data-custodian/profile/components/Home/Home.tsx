@@ -31,7 +31,7 @@ export default function Home({ custodian }: HomeProps) {
   return (
     <PageBodyContainer heading={t("home")}>
       <PageColumns>
-        <PageColumnBody lg={8}>
+        <PageColumnBody size={{ lg: 8 }}>
           <PageSection>
             <Typography sx={{ mb: 4 }}>{t("homeIntro")}</Typography>
             <ActionLogs
@@ -42,7 +42,7 @@ export default function Home({ custodian }: HomeProps) {
             />
           </PageSection>
         </PageColumnBody>
-        <PageColumnDetails lg={4}>
+        <PageColumnDetails size={{ lg: 4 }}>
           <SoursdCard
             name={custodian.name}
             status={custodian.model_state?.state.slug}

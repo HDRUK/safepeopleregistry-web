@@ -5,10 +5,10 @@ import { NextResponse } from "next/server";
 import { COOKIE_OPTIONS } from "@/consts/cookies";
 
 export async function GET(req: Request) {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const { searchParams } = new URL(req.url);
   const code = searchParams.get("code");
-  const accountType = searchParams.get("state");
+  const redirectPath = cookieStore.get("redirectPath") ?? { value: "/" };
 
   cookieStore.delete("redirectPath");
 
@@ -29,7 +29,7 @@ export async function GET(req: Request) {
         client_id: keycloak.clientId,
         client_secret: keycloak.clientSecret,
         code,
-        redirect_uri: keycloak.redirectUriRegister,
+        redirect_uri: keycloak.redirectUriLogin,
       }),
       { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
     );
@@ -47,16 +47,13 @@ export async function GET(req: Request) {
       maxAge: refresh_expires_in,
     });
 
-    const baseUrl = `${process.env.NEXT_PUBLIC_LOCAL_ENV}/en/register`;
-    const url = accountType
-      ? `${baseUrl}?type=${encodeURIComponent(accountType)}`
-      : baseUrl;
-
-    return NextResponse.redirect(encodeURI(url));
+    return NextResponse.redirect(
+      encodeURI(`${process.env.NEXT_PUBLIC_LOCAL_ENV}${redirectPath.value}`)
+    );
   } catch (e) {
     console.error(e);
 
-    const errorType = encodeURIComponent("register");
+    const errorType = encodeURIComponent("login");
 
     return NextResponse.redirect(
       encodeURI(

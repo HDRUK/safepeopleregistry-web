@@ -1,2 +1,1 @@
-
-export default 'mocked markdown content';
+export default "mocked markdown content";

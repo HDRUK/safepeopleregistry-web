@@ -4,47 +4,55 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { COOKIE_OPTIONS } from "@/consts/cookies";
 
-export async function POST() {
-  const cookieStore = cookies();
-  const refreshToken = cookieStore.get("refresh_token")?.value;
+export async function GET(req: Request) {
+  const cookieStore = await cookies();
+  const { searchParams } = new URL(req.url);
+  const code = searchParams.get("code");
+  const accountType = searchParams.get("state");
 
-  if (!refreshToken) {
+  cookieStore.delete("redirectPath");
+
+  if (!code) {
     return NextResponse.json(
-      { error: "Refresh token missing" },
-      { status: 401 }
+      { error: "Authorization code is missing" },
+      { status: 400 }
     );
   }
 
   const tokenUrl = `${keycloak.authServerUrl}/realms/${keycloak.realm}/protocol/openid-connect/token`;
+
   try {
     const response = await axios.post(
       tokenUrl,
       new URLSearchParams({
-        grant_type: "refresh_token",
+        grant_type: "authorization_code",
         client_id: keycloak.clientId,
         client_secret: keycloak.clientSecret,
-        refresh_token: refreshToken,
+        code,
+        redirect_uri: keycloak.redirectUriRegister,
       }),
       { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
     );
 
-    const {
-      access_token,
-      refresh_token: newRefreshToken,
-      expires_in,
-      refresh_expires_in,
-    } = response.data;
+    const { access_token, refresh_token, expires_in, refresh_expires_in } =
+      response.data;
 
     cookieStore.set("access_token", access_token, {
       ...COOKIE_OPTIONS,
       maxAge: expires_in,
     });
 
-    cookieStore.set("refresh_token", newRefreshToken, {
+    cookieStore.set("refresh_token", refresh_token, {
       ...COOKIE_OPTIONS,
       maxAge: refresh_expires_in,
     });
-    return NextResponse.json({ access_token });
+
+    const baseUrl = `${process.env.NEXT_PUBLIC_LOCAL_ENV}/en/register`;
+    const url = accountType
+      ? `${baseUrl}?type=${encodeURIComponent(accountType)}`
+      : baseUrl;
+
+    return NextResponse.redirect(encodeURI(url));
   } catch (e) {
     console.error(e);
 

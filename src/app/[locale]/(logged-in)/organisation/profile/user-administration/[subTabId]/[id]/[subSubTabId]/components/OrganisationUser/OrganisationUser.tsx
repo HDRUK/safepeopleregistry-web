@@ -88,7 +88,7 @@ function OrganisationUser({ userId, subSubTabId }: OrganisationUserProps) {
     user && (
       <PageBodyContainer heading={t("heading")}>
         <PageColumns>
-          <PageColumnBody lg={8}>
+          <PageColumnBody size={{ lg: 8 }}>
             <UserDetails
               user={user}
               organisation={organisation}
@@ -102,7 +102,7 @@ function OrganisationUser({ userId, subSubTabId }: OrganisationUserProps) {
               />
             </PageBody>
           </PageColumnBody>
-          <PageColumnDetails lg={4}>
+          <PageColumnDetails size={{ lg: 4 }}>
             <StatusList
               affiliationStatus={affiliation?.model_state.state.slug}
             />
