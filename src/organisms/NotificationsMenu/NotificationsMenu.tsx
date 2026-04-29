@@ -189,7 +189,7 @@ export default function NotificationsMenu() {
           notifications.map(notif => (
             <StyledMenuItem
               key={notif.id}
-              data-testid="notification-item"
+              aria-label={"Notification"}
               onClick={() => handleViewNotification(notif)}
               className={notif.read_at ? "read" : "unread"}>
               <Typography

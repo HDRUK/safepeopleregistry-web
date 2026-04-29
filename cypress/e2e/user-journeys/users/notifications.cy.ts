@@ -64,8 +64,8 @@ describe("Notifications journey", () => {
       openNotificationsMenu();
 
       cy.get("body").then($body => {
-        if ($body.find('[data-testid="notification-item"]').length > 0) {
-          cy.get('[data-testid="notification-item"]').should(
+        if ($body.find('[aria-label="Notification"]').length > 0) {
+          cy.get('[aria-label="Notification"]').should(
             "have.length.greaterThan",
             0
           );
