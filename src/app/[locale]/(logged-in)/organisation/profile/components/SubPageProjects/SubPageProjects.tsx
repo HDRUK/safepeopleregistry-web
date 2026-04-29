@@ -84,6 +84,10 @@ export default function SubPageProjects({ params, projectData }: PageProps) {
             <StatusList
               projectStatus={project?.model_state.state.slug}
               sponsorshipStatus={isSponsorship && sponsorshipStatus}
+              organisationStatus={
+                project?.custodian_has_project_organisation?.[0].model_state
+                  .state.slug
+              }
             />
             {isSponsorship && sponsorshipStatus && (
               <Box sx={{ mb: 2 }}>
