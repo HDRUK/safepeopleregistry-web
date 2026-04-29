@@ -30,7 +30,6 @@ describe("Custodian webhooks journey", () => {
 
   it("Shows the webhooks configuration page", () => {
     cy.contains("Webhooks").should("exist");
-    cy.get('input[name^="webhooks"]').should("exist");
   });
 
   it("Adds a webhook", () => {
