@@ -35,7 +35,7 @@ describe("Custodian webhooks journey", () => {
   it.only("Adds a webhook", () => {
     const webhookUrl = `https://hooks.${faker.internet.domainName()}/webhook`;
     cy.waitForLoadingToFinish();
-    cy.contains("button", "Add").then(($btn) => {
+    cy.contains("button", "Add").then($btn => {
       if ($btn.length) {
         cy.wrap($btn).click();
       }
