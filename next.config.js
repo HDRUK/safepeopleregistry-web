@@ -97,7 +97,6 @@ const nextConfig = withNextIntl({
       };
     }
 
-
     return config;
   },
   typescript: {
@@ -106,6 +105,11 @@ const nextConfig = withNextIntl({
     // your project has type errors.
     // !! WARN !!
     ignoreBuildErrors: true,
+  },
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
   },
 });
 
