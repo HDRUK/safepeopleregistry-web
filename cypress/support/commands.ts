@@ -136,15 +136,17 @@ Cypress.Commands.add("getLatestRowOfResults", () => {
 
       cy.wrap($row).parents('div[data-cy="results"]').first().as("resultsDiv");
 
-      cy.get("@resultsDiv")
-        .find("nav button.MuiPaginationItem-page")
-        .then($buttons => {
-          if ($buttons.length > 1) {
-            cy.wrap($buttons.last()).click();
-          } else {
-            cy.log("Only one page button, skipping click");
-          }
-        });
+      cy.get("@resultsDiv").then($div => {
+        const $buttons = $div.find("nav button.MuiPaginationItem-page");
+
+        if ($buttons.length > 1) {
+          cy.wrap($buttons.last()).click();
+        } else if ($buttons.length === 1) {
+          cy.log("Only one page button, skipping click");
+        } else {
+          cy.log("No pagination buttons found, skipping");
+        }
+      });
     });
 });
 

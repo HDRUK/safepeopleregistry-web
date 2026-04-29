@@ -30,7 +30,6 @@ const editTraining = (
   training: ResearcherTraining,
   updated: Partial<ResearcherTraining>
 ) => {
-  cy.getLatestRowOfResults();
   cy.getResultsActionMenu(training.training_name).click();
 
   cy.actionMenuClick("View or edit");
