@@ -32,12 +32,12 @@ describe("Projects organisations journey", () => {
 
   after(() => {
     loginCustodian();
-
     goToProjectUsersList();
 
     const { first_name, last_name } = dataProjectInviteUser;
-
     removeFromProjectUsers({ first_name, last_name });
+
+    logout();
   });
 
   beforeEach(() => {
@@ -46,10 +46,6 @@ describe("Projects organisations journey", () => {
     cy.visitFirst(ROUTES.profileCustodianOrganisations.path);
 
     cy.contains("button", "Switch to list view").click();
-  });
-
-  after(() => {
-    logout();
   });
 
   it("Cannot change the status of an organisation", () => {
