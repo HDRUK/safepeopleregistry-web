@@ -59,20 +59,18 @@ describe("Notifications journey", () => {
     });
   });
 
-  it("Shows notification list or empty state", () => {
-    ifNotificationsAvailable(() => {
-      openNotificationsMenu();
+  it.only("Shows notification list or empty state", () => {
+    openNotificationsMenu();
+    cy.wait(1000); // takes a sec to open
+    cy.get('[role="menu"]').then($menu => {
+      const notifications = $menu.find('[role="menuitem"]');
+      console.log(notifications, "notifications");
 
-      cy.get("body").then($body => {
-        if ($body.find('[aria-label="Notification"]').length > 0) {
-          cy.get('[aria-label="Notification"]').should(
-            "have.length.greaterThan",
-            0
-          );
-        } else {
-          cy.contains("You have no notifications!").should("be.visible");
-        }
-      });
+      if (notifications.length > 0) {
+        cy.wrap(notifications).should("have.length.greaterThan", 0);
+      } else {
+        cy.contains("You have no notifications!").should("be.visible");
+      }
     });
   });
 

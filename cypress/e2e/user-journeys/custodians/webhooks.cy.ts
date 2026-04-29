@@ -34,6 +34,7 @@ describe("Custodian webhooks journey", () => {
 
   it("Adds a webhook", () => {
     const webhookUrl = `https://hooks.${faker.internet.domainName()}/webhook`;
+    cy.waitForLoadingToFinish();
 
     cy.get('input[name^="webhooks"]')
       .filter('[name$="receiver_url"]')
