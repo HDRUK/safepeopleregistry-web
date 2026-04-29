@@ -14,10 +14,7 @@ const hasNoNotifications = () => {
 
 const hasNotificationItems = () => {
   openNotificationsMenu();
-  cy.get('[data-testid="notification-item"]').should(
-    "have.length.greaterThan",
-    0
-  );
+  cy.get('[role="menuitem"]').should("have.length.greaterThan", 0);
 };
 
 const openFirstNotification = () => {
