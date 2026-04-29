@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Box,
   Link,
@@ -96,7 +98,11 @@ const defaultComponents: Components = {
     );
   },
   p({ children }) {
-    return <Typography mb={2}>{children}</Typography>;
+    return (
+      <Typography mb={2} component="span">
+        {children}
+      </Typography>
+    );
   },
   a({ children, href, ...props }) {
     if (href?.startsWith("#button-")) {

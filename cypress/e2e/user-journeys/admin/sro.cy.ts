@@ -26,7 +26,7 @@ describe("SRO journey", () => {
     after(() => {
       logout();
     });
-    it('should have no detectable accessibility violations on load', () => {
+    it("should have no detectable accessibility violations on load", () => {
       cy.waitForLoadingToFinish();
       cy.checkA11yPage();
     });

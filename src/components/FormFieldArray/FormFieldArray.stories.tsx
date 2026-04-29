@@ -106,7 +106,7 @@ const FormFieldArrayWithDefaultsProvider = () => {
           addButtonLabel="Add another charity"
           renderField={(field, index, removeButton) => (
             <Grid container columnSpacing={3}>
-              <Grid item xs={5}>
+              <Grid size={{ xs: 5 }}>
                 <FormControlWrapper
                   fullWidth
                   sx={{
@@ -124,7 +124,7 @@ const FormFieldArrayWithDefaultsProvider = () => {
                   )}
                 />
               </Grid>
-              <Grid item xs={5}>
+              <Grid size={{ xs: 5 }}>
                 <FormControlWrapper
                   displayLabel
                   fullWidth
@@ -132,7 +132,7 @@ const FormFieldArrayWithDefaultsProvider = () => {
                   renderField={fieldProps => <TextField {...fieldProps} />}
                 />
               </Grid>
-              <Grid item xs={1}>
+              <Grid size={{ xs: 1 }}>
                 <Box
                   sx={{
                     height: "100%",

@@ -7,14 +7,17 @@ import getMe from "@/app/actions/auth/getMe";
 import { needsLoggedInPermissions } from "@/utils/loggedInPermission";
 import { getAccessToken } from "./auth";
 import {
-  getHomepageRedirectPath,
-  getProfileRedirectPath,
   getRefreshTokenRedirectPath,
-  getRegisterRedirectPath,
   getSeverErrorRedirectPath,
-  isInPath,
   redirectToPath,
 } from "./redirects";
+import {
+  getProfileRedirectPath,
+  isInPath,
+  getRegisterRedirectPath,
+  getHomepageRedirectPath,
+} from "@/utils/redirect-utils";
+import { getLocale } from "next-intl/server";
 
 async function getPathServerSide(): Promise<string | null> {
   const head = await headers();
@@ -61,17 +64,23 @@ export default async function redirectApplication() {
       } else if (response.status === 401) {
         redirectUrl = await getRefreshTokenRedirectPath();
       } else if (response.status === 404) {
-        redirectUrl = await getRegisterRedirectPath();
+        redirectUrl = getRegisterRedirectPath();
       } else if (response.status === 500) {
         redirectUrl = await getSeverErrorRedirectPath(accessToken, pathname);
       }
 
-      if (redirectUrl) await redirectToPath(redirectUrl, pathname);
+      if (redirectUrl) {
+        await redirectToPath(redirectUrl, pathname);
+      }
 
       return me;
     }
 
-    await redirectToPath(getHomepageRedirectPath(), pathname);
+    const locale = await getLocale();
+
+    if (pathname !== `/${locale}` || pathname !== "/en") {
+      await redirectToPath(getHomepageRedirectPath(), pathname);
+    }
   }
 
   return null;

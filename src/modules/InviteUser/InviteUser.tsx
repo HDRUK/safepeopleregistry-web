@@ -199,19 +199,19 @@ export default function InviteUser({
         <>
           <FormSection subtitle={tUser("inviteUserTitle")}>
             <Grid container rowSpacing={3}>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <FormControlWrapper
                   name="first_name"
                   renderField={fieldProps => <TextField {...fieldProps} />}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <FormControlWrapper
                   name="last_name"
                   renderField={fieldProps => <TextField {...fieldProps} />}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <FormControlWrapper
                   name="email"
                   renderField={fieldProps => <TextField {...fieldProps} />}
@@ -219,7 +219,7 @@ export default function InviteUser({
               </Grid>
 
               {projectRoles && (
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <FormControlWrapper
                     name="role"
                     renderField={fieldProps => (
@@ -231,7 +231,7 @@ export default function InviteUser({
 
               {!initialOrganisationId &&
                 (selectOrganisation ? (
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <FormControlWrapper
                       name="organisation_id"
                       renderField={({ ...fieldProps }) => (
@@ -260,7 +260,7 @@ export default function InviteUser({
                   </Grid>
                 ) : (
                   <>
-                    <Grid item xs={12}>
+                    <Grid size={{ xs: 12 }}>
                       <FormControlWrapper
                         name="organisation_name"
                         renderField={fieldProps => (
@@ -282,7 +282,7 @@ export default function InviteUser({
                         })}
                       />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid size={{ xs: 12 }}>
                       <FormControlWrapper
                         name="organisation_email"
                         renderField={fieldProps => (

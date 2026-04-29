@@ -191,7 +191,7 @@ export default function Webhooks() {
               return (
                 <>
                   <Grid container rowSpacing={3}>
-                    <Grid item xs={12}>
+                    <Grid size={{ xs: 12 }}>
                       <FormFieldArray<WebhookFormData>
                         name="webhooks"
                         displayLabel={false}
@@ -201,7 +201,7 @@ export default function Webhooks() {
                         })}
                         renderField={(field, index, removeButton) => (
                           <Grid container spacing={2} key={field.receiver_url}>
-                            <Grid item xs={5}>
+                            <Grid size={{ xs: 5 }}>
                               <FormControlWrapper
                                 label="Receiver URL"
                                 required
@@ -217,7 +217,7 @@ export default function Webhooks() {
                                 )}
                               />
                             </Grid>
-                            <Grid item xs={5.5}>
+                            <Grid size={{ xs: 5.5 }}>
                               <FormControlWrapper
                                 label="Event Trigger"
                                 required

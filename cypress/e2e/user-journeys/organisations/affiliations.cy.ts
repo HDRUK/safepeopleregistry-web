@@ -40,18 +40,21 @@ describe("Affiliations journey", () => {
   after(() => {
     logout();
   });
-  it('should have no detectable accessibility violations on load', () => {
-      cy.waitForLoadingToFinish();
-      cy.checkA11yPage();
-    });
+  it("should have no detectable accessibility violations on load", () => {
+    cy.waitForLoadingToFinish();
+    cy.checkA11yPage();
+  });
   it("Adds an affiliation", () => {
     addAffiliationOrganisations(dataUser);
 
-    hasAffiliationOrganisations({...dataAffiliation, model_state: {
-    state: {
-      slug: Status.INVITED,
-    },
-  }, });
+    hasAffiliationOrganisations({
+      ...dataAffiliation,
+      model_state: {
+        state: {
+          slug: Status.INVITED,
+        },
+      },
+    });
   });
 
   it("Approves an affiliation", () => {

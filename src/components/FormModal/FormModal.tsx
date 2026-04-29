@@ -81,7 +81,9 @@ export default function FormModal({
           {isDismissable && onClose && (
             <Box sx={{ position: "absolute", top: 5, right: 5 }}>
               <span>
-                <IconButton onClick={e => onClose(e, "escapeKeyDown")}>
+                <IconButton
+                  onClick={e => onClose(e, "escapeKeyDown")}
+                  aria-label="Close">
                   <CloseIcon />
                 </IconButton>
               </span>

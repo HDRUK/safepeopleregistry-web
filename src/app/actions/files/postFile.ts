@@ -1,7 +1,7 @@
 "use server";
 
 import { FilePayload, FileResponse } from "@/services/files";
-import { handleResponseError } from "@/services/requestHelpers";
+import { handleResponseError } from "@/services/requestHelpersUtils";
 import { postRequest } from "@/services/requests";
 import { ResponseOptions, ResponseJson } from "@/types/requests";
 

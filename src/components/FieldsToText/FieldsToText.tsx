@@ -37,7 +37,13 @@ export default function FieldsToText<T>({
 
   const renderItems = (items: string | string[] | undefined) => {
     if (Array.isArray(items)) {
-      return <ul>{items?.map((value: string) => <li>{value}</li>)}</ul>;
+      return (
+        <ul>
+          {items?.map((value: string) => (
+            <li>{value}</li>
+          ))}
+        </ul>
+      );
     }
 
     return items || <Message severity="warning">{t("notSet")}</Message>;

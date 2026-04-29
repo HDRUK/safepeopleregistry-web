@@ -162,10 +162,12 @@ Cypress.Commands.add("getResultsActionMenu", (value: string) => {
 Cypress.Commands.add(
   "clickAlertModal",
   (text: string = "OK", title: string = "Success") => {
-    cy.get(dataCy("alert-modal"))
-      .should("be.visible")
+    cy.wait(500);
+    cy.get(dataCy("alert-modal"), { timeout: 10000 })
+      .filter(":visible")
+      .should("have.length", 1)
       .within(() => {
-        cy.get(dataCy("alert-modal-heading")).contains(title);
+        cy.contains(dataCy("alert-modal-heading"), title).should("be.visible");
         cy.contains("button", text).click();
       });
   }
@@ -273,6 +275,7 @@ Cypress.Commands.add("solveGoogleReCAPTCHA", () => {
       .should("be.visible")
       .click();
   });
+  cy.wait(1000);
 });
 
 Cypress.Commands.add("clickUntilFound", (selector, action, assertions) => {

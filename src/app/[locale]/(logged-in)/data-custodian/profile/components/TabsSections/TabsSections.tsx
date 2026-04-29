@@ -29,7 +29,8 @@ export default function TabsSections({ tabId }: TabsSectionsProps) {
         role="navigation"
         indicatorColor="secondary"
         textColor="inherit"
-        allowScrollButtonsMobile>
+        allowScrollButtonsMobile
+        scrollButtons={false}>
         <Tab
           icon={<HomeOutlinedIcon />}
           label={t("home")}

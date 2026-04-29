@@ -26,7 +26,7 @@ const Home = () => {
   return (
     <PageBodyContainer heading={tProfile("homeTitle")}>
       <PageColumns>
-        <PageColumnBody lg={8}>
+        <PageColumnBody size={{ lg: 8 }}>
           <PageBody>
             <PageSection>
               <ActionLogs
@@ -44,7 +44,7 @@ const Home = () => {
             </PageSection>
           </PageBody>
         </PageColumnBody>
-        <PageColumnDetails lg={4}>
+        <PageColumnDetails size={{ lg: 4 }}>
           <SoursdCard
             name={organisation.organisation_name}
             status={organisation.model_state?.state.slug}

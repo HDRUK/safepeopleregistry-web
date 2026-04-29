@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <PageBodyContainer heading={tProfile("homeTitle")}>
       <PageColumns>
-        <PageColumnBody lg={8}>
+        <PageColumnBody size={{ lg: 8 }}>
           <ActionLogs
             variant="user"
             panelProps={{
@@ -32,7 +32,7 @@ export default function Home() {
             }}
           />
         </PageColumnBody>
-        <PageColumnDetails lg={4}>
+        <PageColumnDetails size={{ lg: 4 }}>
           <SoursdCard
             name={getName(user)}
             status={user?.model_state?.state.slug}

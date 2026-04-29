@@ -12,5 +12,5 @@ export default async (
     `${process.env.NEXT_PUBLIC_API_SERVER_URL}/auth/me`
   );
 
-  return handleJsonResponse(response, options);
+  return await handleJsonResponse(response, options);
 };

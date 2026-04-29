@@ -92,19 +92,19 @@ export default function CustodianEditContactForm({
         </FormModalHeader>
         <FormModalBody>
           <Grid container rowSpacing={3}>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <FormControlWrapper
                 name="first_name"
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <FormControlWrapper
                 name="last_name"
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <FormControlWrapper
                 name="email"
                 renderField={fieldProps => <TextField {...fieldProps} />}

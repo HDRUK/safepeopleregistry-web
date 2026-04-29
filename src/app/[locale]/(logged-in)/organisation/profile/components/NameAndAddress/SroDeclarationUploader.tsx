@@ -51,7 +51,7 @@ const SroDeclarationUploader = ({
 
   return (
     <Grid container spacing={3} sx={{ mt: 1 }}>
-      <Grid item xs={5}>
+      <Grid size={{ xs: 5 }}>
         <FileLink
           fileButtonText={file?.name ? t("buttonTextAlt") : t("buttonText")}
           message={`${FileType.CERTIFICATION}${name.toUpperCase()}`}

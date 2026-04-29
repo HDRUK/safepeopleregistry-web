@@ -93,7 +93,7 @@ export default function SectorSizeAndWebsite() {
           {...formOptions}
           key={organisation?.id}>
           <Grid container rowSpacing={3}>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <FormControlWrapper
                 name="sector_id"
                 description={tOrgProfile(
@@ -114,7 +114,7 @@ export default function SectorSizeAndWebsite() {
                 )}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <FormControlWrapper
                 name="organisation_size"
                 displayPlaceholder={false}
@@ -133,7 +133,7 @@ export default function SectorSizeAndWebsite() {
                 )}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <FormControlWrapper
                 name="website"
                 renderField={fieldProps => <TextField {...fieldProps} />}

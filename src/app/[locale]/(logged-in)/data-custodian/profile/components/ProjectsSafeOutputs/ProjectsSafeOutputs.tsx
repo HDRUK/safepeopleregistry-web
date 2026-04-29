@@ -64,7 +64,7 @@ export default function ProjectsSafeOutputs() {
 
   return (
     <PageColumns>
-      <PageColumnBody lg={8}>
+      <PageColumnBody size={{ lg: 8 }}>
         <SubTabsSections
           tabId={PageTabs.PROJECTS}
           subTabId={ProjectsSubTabs.SAFE_OUTPUTS}
@@ -90,7 +90,7 @@ export default function ProjectsSafeOutputs() {
           </PageSection>
         </PageBody>
       </PageColumnBody>
-      <PageColumnDetails lg={4}>
+      <PageColumnDetails size={{ lg: 4 }}>
         <Guidance
           {...mockedCustodianSafeProjectGuidanceProps}
           isCollapsible={false}

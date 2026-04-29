@@ -60,7 +60,7 @@ export default function InviteCustodianForm({
           <FormSection subtitle={tCustodian("inviteCustodianTitle")}>
             <Grid container rowSpacing={3}>
               {formFields.map((name: string) => (
-                <Grid item xs={12} key={name}>
+                <Grid size={{ xs: 12 }} key={name}>
                   <FormControlWrapper
                     name={name}
                     renderField={fieldProps => <TextField {...fieldProps} />}

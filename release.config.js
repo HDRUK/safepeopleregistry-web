@@ -1,106 +1,79 @@
 module.exports = {
+  branches: ["main"],
 
-    branches: ["main"],
+  plugins: [
+    "@semantic-release/commit-analyzer",
 
-    plugins: [
+    [
+      "@semantic-release/release-notes-generator",
 
-      "@semantic-release/commit-analyzer",
+      {
+        preset: "conventionalcommits",
 
-      [
+        presetConfig: {
+          types: [
+            { type: "feat", section: "✨ Features" },
 
-        "@semantic-release/release-notes-generator",
+            { type: "fix", section: "🐛 Bug Fixes" },
 
-        {
+            { type: "perf", section: "⚡ Performance Improvements" },
 
-          preset: "conventionalcommits",
+            { type: "docs", section: "📖 Documentation", hidden: false },
 
-          presetConfig: {
-
-            types: [
-
-              { type: "feat", section: "✨ Features" },
-
-              { type: "fix", section: "🐛 Bug Fixes" },
-
-              { type: "perf", section: "⚡ Performance Improvements" },
-
-              { type: "docs", section: "📖 Documentation", hidden: false },
-
-              { type: "chore", section: "🔧 Maintenance", hidden: true },
-
-            ],
-
-            issuePrefixes: ["GAT", "TPD", "OS"], // Jira prefixes
-
-            issueUrlFormat: process.env.JIRA_URL + "{{prefix}}{{id}}"
-
-          }
-
-        }
-
-      ],
-
-      [
-
-        "@semantic-release/changelog",
-
-        {
-
-          changelogFile: "CHANGELOG.md",
-
-        }
-
-      ],
-
-      [
-
-        "@semantic-release/github",
-
-        {
-
-          successComment: false,
-
-          failComment: false,
-
-        }
-
-      ],
-
-      [
-
-        "@semantic-release/exec",
-
-        {
-
-          prepareCmd: "node updateVersions.js ${nextRelease.version} && git add chart/soursd-web/Chart.yaml package.json"
-
-        }
-
-      ],
-
-      [
-
-        "@semantic-release/git",
-
-        {
-
-          assets: [
-
-            "package.json",
-
-            "package-lock.json",
-
-            "CHANGELOG.md",
-
-            "chart/soursd-web/Chart.yaml"
-
+            { type: "chore", section: "🔧 Maintenance", hidden: true },
           ],
-          message: "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
-          pushArgs: ["--force"]
-        }
 
-      ]
+          issuePrefixes: ["GAT", "TPD", "OS"], // Jira prefixes
 
-    ]
+          issueUrlFormat: process.env.JIRA_URL + "{{prefix}}{{id}}",
+        },
+      },
+    ],
 
-  };
+    [
+      "@semantic-release/changelog",
+
+      {
+        changelogFile: "CHANGELOG.md",
+      },
+    ],
+
+    [
+      "@semantic-release/github",
+
+      {
+        successComment: false,
+
+        failComment: false,
+      },
+    ],
+
+    [
+      "@semantic-release/exec",
+
+      {
+        prepareCmd:
+          "node updateVersions.js ${nextRelease.version} && git add chart/soursd-web/Chart.yaml package.json",
+      },
+    ],
+
+    [
+      "@semantic-release/git",
+
+      {
+        assets: [
+          "package.json",
+
+          "package-lock.json",
+
+          "CHANGELOG.md",
+
+          "chart/soursd-web/Chart.yaml",
+        ],
+        message:
+          "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
+        pushArgs: ["--force"],
+      },
+    ],
+  ],
+};

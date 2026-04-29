@@ -24,14 +24,10 @@ export enum InvitesFiltersKeys {
   DATE_SENT = "invite_sent_at[]__and",
 }
 
-export interface InvitesFiltersProps
-  extends Pick<
-    PaginatedQueryReturn<ResearcherProject>,
-    | "updateQueryParams"
-    | "handleSortToggle"
-    | "handleFieldToggle"
-    | "queryParams"
-  > {
+export interface InvitesFiltersProps extends Pick<
+  PaginatedQueryReturn<ResearcherProject>,
+  "updateQueryParams" | "handleSortToggle" | "handleFieldToggle" | "queryParams"
+> {
   includeFilters?: InvitesFiltersKeys[];
 }
 
