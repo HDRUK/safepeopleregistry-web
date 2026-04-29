@@ -86,8 +86,8 @@ export default defineConfig({
     viewportWidth: 1920,
     viewportHeight: 1080,
     numTestsKeptInMemory: 20,
-    video: false,
-    videosFolder: "cypress/videos",
+    // video: true,
+    // videosFolder: "cypress/videos",
     specPattern: [
       "cypress/e2e/user-journeys/admin/features.cy.ts",
       "cypress/e2e/user-journeys/admin/users.cy.ts",
@@ -108,6 +108,13 @@ export default defineConfig({
       "cypress/e2e/user-journeys/custodians/mandatoryChecksOnProjectUserPage.cy.ts",
       "cypress/e2e/user-journeys/custodians/manualChecksConfiguration.cy.ts",
       "cypress/e2e/user-journeys/users/projects.cy.ts",
+
+      "cypress/e2e/user-journeys/users/training.cy.ts",
+      "cypress/e2e/user-journeys/users/professionalRegistrations.cy.ts",
+      "cypress/e2e/user-journeys/users/notifications.cy.ts",
+      "cypress/e2e/user-journeys/organisations/subsidiaries.cy.ts",
+      "cypress/e2e/user-journeys/custodians/webhooks.cy.ts",
+
       "cypress/e2e/user-journeys/admin/inviteCustodian.cy.ts",
       "cypress/e2e/user-journeys/admin/inviteOrganisation.cy.ts",
       "cypress/e2e/user-journeys/admin/inviteUser.cy.ts",

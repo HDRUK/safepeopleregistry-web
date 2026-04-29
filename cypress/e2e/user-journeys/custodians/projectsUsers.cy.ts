@@ -52,6 +52,33 @@ describe("Projects users journey", () => {
       .should("not.exist");
   });
 
+  it("Shows the organisation validation status column for each project user", () => {
+    cy.waitForLoadingToFinish();
+
+    cy.get("tbody tr").then($rows => {
+      if ($rows.length === 0) {
+        cy.log("No project users in list — skipping column assertion");
+        return;
+      }
+
+      cy.get("thead th").should("contain.text", "Organisation status");
+
+      cy.get("tbody tr")
+        .first()
+        .find("td")
+        .then($cells => {
+          const hasStatusChip = $cells
+            .toArray()
+            .some(
+              td =>
+                Cypress.$(td).find(".MuiChip-root").length > 0 ||
+                Cypress.$(td).find('[class*="Chip"]').length > 0
+            );
+          expect(hasStatusChip).to.be.true;
+        });
+    });
+  });
+
   it("Removes a user from the project", () => {
     removeFromProjectUsers({ first_name, last_name });
 

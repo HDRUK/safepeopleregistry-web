@@ -210,7 +210,10 @@ export default function Webhooks() {
                                 name={`webhooks.${index}.receiver_url`}
                                 placeholder={tForm("name")}
                                 renderField={fieldProps => (
-                                  <TextField {...fieldProps} />
+                                  <TextField
+                                    {...fieldProps}
+                                    id={fieldProps.name}
+                                  />
                                 )}
                               />
                             </Grid>
@@ -226,10 +229,12 @@ export default function Webhooks() {
                                   <Box sx={{ display: "flex" }}>
                                     <Select
                                       {...fieldProps}
+                                      id={fieldProps.name}
                                       inputProps={{
                                         "aria-label": tForm(
                                           "webhookEventAriaLabel"
                                         ),
+                                        id: `${fieldProps.name}-input`,
                                       }}>
                                       {webhookEventTriggers?.data.map(
                                         ({ name, id }) => (

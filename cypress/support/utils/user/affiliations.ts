@@ -102,10 +102,20 @@ const hasRemoveAffiliationUsers = (affiliation: ResearcherAffiliation) => {
   cy.getResultsRow().contains("td", affiliation.member_id).should("not.exist");
 };
 
+const resendAffiliationVerification = (affiliation: ResearcherAffiliation) => {
+  cy.getLatestRowOfResults();
+  cy.getResultsActionMenu(affiliation.member_id).click();
+
+  cy.actionMenuClick("Resend verification email");
+
+  cy.clickAlertModal("Close");
+};
+
 export {
   addAffiliationUsers,
   editAffiliationUsers,
   hasAffiliationUsers,
   hasRemoveAffiliationUsers,
   removeAffiliationUsers,
+  resendAffiliationVerification,
 };
