@@ -7,9 +7,14 @@ import { JOB_DELAY } from "@/consts/application";
 
 Cypress.Commands.add("checkA11yPage", () => {
   cy.injectAxe();
-  cy.checkA11y(undefined, undefined, violations => {
-    cy.logAxeViolations(violations);
-  }, true);
+  cy.checkA11y(
+    undefined,
+    undefined,
+    violations => {
+      cy.logAxeViolations(violations);
+    },
+    true
+  );
 });
 Cypress.Commands.add("waitForLoadingToFinish", () => {
   const checkSpinner = () => {

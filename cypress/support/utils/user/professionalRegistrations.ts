@@ -60,9 +60,7 @@ const removeProfessionalRegistration = (
 const hasRemovedProfessionalRegistration = (
   registration: ResearcherProfessionalRegistration
 ) => {
-  cy.getResultsRow()
-    .contains("td", registration.member_id)
-    .should("not.exist");
+  cy.getResultsRow().contains("td", registration.member_id).should("not.exist");
 };
 
 export {
