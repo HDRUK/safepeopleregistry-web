@@ -317,6 +317,7 @@ const theme = createTheme(
           ul {
             margin: 4px 0;
             padding-left: 20px;
+            white-space: initial;
           }
       `,
       },
