@@ -59,24 +59,18 @@ const DelegateTable = ({
 
   const columns: ColumnDef<User>[] = [
     {
-      accessorKey: "name",
-      header: "Full Name",
+      id: "name",
+      header: "Delegate Name",
       cell: info => getName(info.row.original),
     },
     {
-      accessorKey: "department",
+      id: "department",
       header: "Department",
-      cell: info => info?.row?.original?.departments?.[0]?.name,
+      cell: info => info.row.original.departments?.[0]?.name,
     },
     {
-      accessorKey: "created_at",
-      header: "Invited On",
-      cell: info => formatShortDate(info.getValue() as string),
-    },
-    {
-      accessorKey: "unclaimed",
-      header: "Account created",
-      cell: renderAccountCreated,
+      accessorKey: "email",
+      header: "Professional email",
     },
     {
       accessorKey: "invite_status",
@@ -84,8 +78,13 @@ const DelegateTable = ({
       cell: info => renderAccountStatus(info.getValue() as string),
     },
     {
-      accessorKey: "actions",
-      header: "Actions",
+      accessorKey: "created_at",
+      header: "Invited On",
+      cell: info => formatShortDate(info.getValue() as string),
+    },
+    {
+      id: "actions",
+      header: "",
       cell: renderActions,
     },
   ];
