@@ -1935,7 +1935,7 @@
     "confident_cost_for_projects_will_be_met": "Are we confident costs would be met and profits realised for future projects?"
   },
   "AdministrativeContacts": {
-    "name": "Name",
+    "name": "Team member",
     "email": "Email",
     "role": "Role",
     "createdAt": "Created at",

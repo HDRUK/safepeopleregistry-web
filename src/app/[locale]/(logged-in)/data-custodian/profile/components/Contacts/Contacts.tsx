@@ -168,7 +168,7 @@ export default function Contacts() {
             additionalColumns={[
               {
                 accessorKey: "action",
-                header: "Actions",
+                header: "",
                 cell: renderActionMenuCell,
               },
             ]}
