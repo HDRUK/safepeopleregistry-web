@@ -5,6 +5,7 @@ import { CustodianUser } from "../../types/application";
 import { renderUserNameCell } from "../../utils/cells";
 import { formatDisplayLongDate } from "../../utils/date";
 import { toCamelCase } from "../../utils/string";
+import ChipStatus from "@/components/ChipStatus";
 
 interface AdministrativeContactsProps extends TableProps<CustodianUser> {
   tKey?: string;
@@ -37,6 +38,13 @@ export default function AdministrativeContacts({
       cell: info => {
         return t(toCamelCase(info.getValue()?.[0]?.permission?.name));
       },
+    },
+    {
+      accessorKey: "invite_status",
+      header: t("accountStatus"),
+      cell: info => (
+        <ChipStatus status={(info.getValue() as string)?.toLowerCase()} />
+      ),
     },
     {
       accessorKey: "created_at",

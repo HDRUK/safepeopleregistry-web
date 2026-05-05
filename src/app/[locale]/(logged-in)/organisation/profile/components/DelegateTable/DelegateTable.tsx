@@ -9,7 +9,6 @@ import { User } from "@/types/application";
 import { ResponseJson } from "@/types/requests";
 import { getName } from "@/utils/application";
 import { formatShortDate } from "@/utils/date";
-import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import { Box, Button } from "@mui/material";
 import { UseQueryResult } from "@tanstack/react-query";
 import { CellContext, ColumnDef } from "@tanstack/react-table";
@@ -17,6 +16,8 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import EditDelegate from "../EditDelegate";
 import InviteDelegateForm from "../InviteDelegateForm";
+import ChipStatus from "@/components/ChipStatus";
+import { Status } from "@/consts/application";
 
 const NAMESPACE_TRANSLATION_PROFILE = "ProfileOrganisation";
 
@@ -30,12 +31,11 @@ const DelegateTable = ({
 
   const [openInviteModal, setOpenInviteModal] = useState<boolean>(false);
 
-  const renderAccountCreated = (info: CellContext<User, unknown>) =>
-    info.getValue() ? null : (
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <TaskAltIcon color="success" />
-      </Box>
-    );
+  const renderAccountStatus = (accountStatus?: string) => (
+    <Box sx={{ display: "flex", justifyContent: "center" }}>
+      <ChipStatus status={accountStatus?.toLowerCase() as Status} />
+    </Box>
+  );
 
   const renderActions = (info: CellContext<User, unknown>) => (
     <ActionMenu>
@@ -51,14 +51,23 @@ const DelegateTable = ({
 
   const columns: ColumnDef<User>[] = [
     {
-      accessorKey: "name",
-      header: "Full Name",
+      id: "name",
+      header: "Delegate Name",
       cell: info => getName(info.row.original),
     },
     {
-      accessorKey: "department",
+      id: "department",
       header: "Department",
-      cell: info => info?.row?.original?.departments?.[0]?.name,
+      cell: info => info.row.original.departments?.[0]?.name,
+    },
+    {
+      accessorKey: "email",
+      header: "Professional email",
+    },
+    {
+      accessorKey: "invite_status",
+      header: "Account status",
+      cell: info => renderAccountStatus(info.getValue() as string),
     },
     {
       accessorKey: "created_at",
@@ -66,14 +75,8 @@ const DelegateTable = ({
       cell: info => formatShortDate(info.getValue() as string),
     },
     {
-      accessorKey: "unclaimed",
-      header: "Account created",
-      cell: renderAccountCreated,
-    },
-
-    {
-      accessorKey: "actions",
-      header: "Actions",
+      id: "actions",
+      header: "",
       cell: renderActions,
     },
   ];
