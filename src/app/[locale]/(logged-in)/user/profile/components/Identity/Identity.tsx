@@ -45,6 +45,7 @@ export interface IdentityFormValues {
 const NAMESPACE_TRANSLATION_FORM = "Form";
 const NAMESPACE_TRANSLATION = "Users.Identity";
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";
+const LOCATION_FIELD = "location";
 
 export default function Identity() {
   const queryClient = useQueryClient();
@@ -150,119 +151,126 @@ export default function Identity() {
                 canLeave
                 key={user?.id}
                 {...formOptions}>
-                <>
-                  <FormSection>
-                    <Grid container rowSpacing={3}>
-                      <Grid size={{ xs: 12 }}>
-                        <FormControlWrapper
-                          name="first_name"
-                          renderField={fieldProps => (
-                            <TextField {...fieldProps} />
-                          )}
-                        />
-                      </Grid>
-                      <Grid size={{ xs: 12 }}>
-                        <FormControlWrapper
-                          name="last_name"
-                          renderField={fieldProps => (
-                            <TextField {...fieldProps} />
-                          )}
-                        />
-                      </Grid>
-                      <Grid size={{ xs: 12 }}>
-                        <FormControlWrapper
-                          name="personal_email"
-                          renderField={fieldProps => (
-                            <Box sx={{ display: "flex", gap: 2 }}>
-                              <TextField
-                                {...fieldProps}
-                                sx={{ width: "500px" }}
-                                disabled
-                              />
-                              <Link
-                                component="button"
-                                onClick={e => {
-                                  e.preventDefault();
-                                  setShowChangeEmail(true);
-                                }}>
-                                Change email
-                              </Link>
-                              <EmailChangeModal
-                                open={showChangeEmail}
-                                onClose={() => {
-                                  setShowChangeEmail(false);
-                                }}
-                                onSuccess={() => {
-                                  setShowChangeEmail(false);
-                                }}
-                                onUpdated={(email: string) => {
-                                  setUser({
-                                    ...user,
-                                    email,
-                                  });
-                                }}
-                                defaultEmail={fieldProps.value}
-                                userId={user.id}
-                              />
-                            </Box>
-                          )}
-                          description={t.rich("emailDescription", {
-                            bold: chunks => <strong>{chunks}</strong>,
-                          })}
-                        />
-                      </Grid>
-                      <Grid size={{ xs: 12 }}>
-                        <FormControlWrapper
-                          name="location"
-                          description={t("locationDescription")}
-                          renderField={({ value, onChange, ...rest }) => (
-                            <SelectCountry
-                              useCountryCode={false}
-                              value={value}
-                              onChange={onChange}
-                              {...rest}
+                {({ watch }) => {
+                  const location = watch(LOCATION_FIELD);
+
+                  return (
+                    <>
+                      <FormSection>
+                        <Grid container rowSpacing={3}>
+                          <Grid size={{ xs: 12 }}>
+                            <FormControlWrapper
+                              name="first_name"
+                              renderField={fieldProps => (
+                                <TextField {...fieldProps} />
+                              )}
                             />
-                          )}
-                        />
-                      </Grid>
-                    </Grid>
-                  </FormSection>
-                  {canUseIdvt(formOptions.defaultValues.location) && (
-                    <FormSection heading={t("idvtCheckSection")}>
-                      <Grid container spacing={3}>
-                        <Grid container spacing={3}>
-                          <Grid size={{ xs: 8 }}>
-                            {idvt_success ? (
-                              <Text startIcon={<CheckCircle color="success" />}>
-                                {t("idvtCheckComplete")}
-                              </Text>
-                            ) : (
-                              <>
-                                <Button
-                                  sx={{ mb: 1 }}
-                                  variant="outlined"
-                                  onClick={() => setShowModal(true)}>
-                                  {idvt_started_at
-                                    ? t("idvtCheckButtonRestart")
-                                    : t("idvtCheckButtonStart")}
-                                </Button>
-                                <Markdown variant="subtitle">
-                                  {t("idvtCheckDescription")}
-                                </Markdown>
-                              </>
-                            )}
+                          </Grid>
+                          <Grid size={{ xs: 12 }}>
+                            <FormControlWrapper
+                              name="last_name"
+                              renderField={fieldProps => (
+                                <TextField {...fieldProps} />
+                              )}
+                            />
+                          </Grid>
+                          <Grid size={{ xs: 12 }}>
+                            <FormControlWrapper
+                              name="personal_email"
+                              renderField={fieldProps => (
+                                <Box sx={{ display: "flex", gap: 2 }}>
+                                  <TextField
+                                    {...fieldProps}
+                                    sx={{ width: "500px" }}
+                                    disabled
+                                  />
+                                  <Link
+                                    component="button"
+                                    onClick={e => {
+                                      e.preventDefault();
+                                      setShowChangeEmail(true);
+                                    }}>
+                                    Change email
+                                  </Link>
+                                  <EmailChangeModal
+                                    open={showChangeEmail}
+                                    onClose={() => {
+                                      setShowChangeEmail(false);
+                                    }}
+                                    onSuccess={() => {
+                                      setShowChangeEmail(false);
+                                    }}
+                                    onUpdated={(email: string) => {
+                                      setUser({
+                                        ...user,
+                                        email,
+                                      });
+                                    }}
+                                    defaultEmail={fieldProps.value}
+                                    userId={user.id}
+                                  />
+                                </Box>
+                              )}
+                              description={t.rich("emailDescription", {
+                                bold: chunks => <strong>{chunks}</strong>,
+                              })}
+                            />
+                          </Grid>
+                          <Grid size={{ xs: 12 }}>
+                            <FormControlWrapper
+                              name="location"
+                              description={t("locationDescription")}
+                              renderField={({ value, onChange, ...rest }) => (
+                                <SelectCountry
+                                  useCountryCode={false}
+                                  value={value}
+                                  onChange={onChange}
+                                  {...rest}
+                                />
+                              )}
+                            />
                           </Grid>
                         </Grid>
-                      </Grid>
-                    </FormSection>
-                  )}
-                  <FormActions>
-                    <ProfileNavigationFooter
-                      nextStepText={tProfile("experience")}
-                      isLoading={updateUser.isPending}
-                    />
-                  </FormActions>
-                </>
+                      </FormSection>
+                      {canUseIdvt(location) && (
+                        <FormSection heading={t("idvtCheckSection")}>
+                          <Grid container spacing={3}>
+                            <Grid container spacing={3}>
+                              <Grid size={{ xs: 8 }}>
+                                {idvt_success ? (
+                                  <Text
+                                    startIcon={<CheckCircle color="success" />}>
+                                    {t("idvtCheckComplete")}
+                                  </Text>
+                                ) : (
+                                  <>
+                                    <Button
+                                      sx={{ mb: 1 }}
+                                      variant="outlined"
+                                      onClick={() => setShowModal(true)}>
+                                      {idvt_started_at
+                                        ? t("idvtCheckButtonRestart")
+                                        : t("idvtCheckButtonStart")}
+                                    </Button>
+                                    <Markdown variant="subtitle">
+                                      {t("idvtCheckDescription")}
+                                    </Markdown>
+                                  </>
+                                )}
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                        </FormSection>
+                      )}
+                      <FormActions>
+                        <ProfileNavigationFooter
+                          nextStepText={tProfile("experience")}
+                          isLoading={updateUser.isPending}
+                        />
+                      </FormActions>
+                    </>
+                  );
+                }}
               </Form>
               <VeriffTermsAndConditions
                 open={showModal}
