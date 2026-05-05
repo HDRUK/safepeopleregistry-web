@@ -9,7 +9,6 @@ import { User } from "@/types/application";
 import { ResponseJson } from "@/types/requests";
 import { getName } from "@/utils/application";
 import { formatShortDate } from "@/utils/date";
-import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import { Box, Button } from "@mui/material";
 import { UseQueryResult } from "@tanstack/react-query";
 import { CellContext, ColumnDef } from "@tanstack/react-table";
@@ -31,13 +30,6 @@ const DelegateTable = ({
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
 
   const [openInviteModal, setOpenInviteModal] = useState<boolean>(false);
-
-  const renderAccountCreated = (info: CellContext<User, unknown>) =>
-    info.getValue() ? null : (
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <TaskAltIcon color="success" />
-      </Box>
-    );
 
   const renderAccountStatus = (accountStatus?: string) => (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
