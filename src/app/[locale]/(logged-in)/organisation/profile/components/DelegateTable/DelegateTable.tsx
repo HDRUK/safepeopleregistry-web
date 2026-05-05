@@ -17,6 +17,8 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import EditDelegate from "../EditDelegate";
 import InviteDelegateForm from "../InviteDelegateForm";
+import ChipStatus from "@/components/ChipStatus";
+import { Status } from "@/consts/application";
 
 const NAMESPACE_TRANSLATION_PROFILE = "ProfileOrganisation";
 
@@ -36,6 +38,12 @@ const DelegateTable = ({
         <TaskAltIcon color="success" />
       </Box>
     );
+
+  const renderAccountStatus = (accountStatus?: string) => (
+    <Box sx={{ display: "flex", justifyContent: "center" }}>
+      <ChipStatus status={accountStatus?.toLowerCase() as Status} />
+    </Box>
+  );
 
   const renderActions = (info: CellContext<User, unknown>) => (
     <ActionMenu>
@@ -70,7 +78,11 @@ const DelegateTable = ({
       header: "Account created",
       cell: renderAccountCreated,
     },
-
+    {
+      accessorKey: "invite_status",
+      header: "Account status",
+      cell: info => renderAccountStatus(info.getValue() as string),
+    },
     {
       accessorKey: "actions",
       header: "Actions",

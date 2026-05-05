@@ -1939,6 +1939,7 @@
     "email": "Email",
     "role": "Role",
     "createdAt": "Created at",
+    "accountStatus": "Account status",
     "CUSTODIAN_APPROVER": "Approver",
     "CUSTODIAN_ADMIN": "Admin"
   },
