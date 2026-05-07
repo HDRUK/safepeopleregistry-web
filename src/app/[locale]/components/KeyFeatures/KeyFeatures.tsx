@@ -14,6 +14,7 @@ import { ButtonVariant } from "@/organisms/NavBar/NavBar";
 import { useTranslations } from "next-intl";
 
 const NAMESPACE_TRANSLATIONS = "Homepage";
+const YOUTUBE_MAX_WIDTH = 854;
 
 export default function KeyFeatures() {
   const t = useTranslations(NAMESPACE_TRANSLATIONS);
@@ -45,7 +46,7 @@ export default function KeyFeatures() {
           mt: 2,
           mb: 3,
           width: "100%",
-          maxWidth: 854,
+          maxWidth: YOUTUBE_MAX_WIDTH,
           mx: "auto",
           aspectRatio: "16 / 9",
         }}>
