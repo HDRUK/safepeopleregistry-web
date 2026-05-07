@@ -18,16 +18,17 @@ import PageCenter from "@/modules/PageCenter";
 
 const NAMESPACE_TRANSLATIONS = "Homepage";
 const ICON_SIZE = 60;
+const USAGE_HEADING_ID = "homepage-usage-title";
 
 export default function SoursdUsages() {
   const t = useTranslations(NAMESPACE_TRANSLATIONS);
 
   return (
-    <StyledOuterContent>
+    <StyledOuterContent aria-labelledby={USAGE_HEADING_ID}>
       <PageCenter>
         <StyledContainer>
           <StyledContent>
-            <Typography variant="h4" mb={2}>
+            <Typography variant="h4" mb={2} id={USAGE_HEADING_ID}>
               {t("usageInfo")}
             </Typography>
 

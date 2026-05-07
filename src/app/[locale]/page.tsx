@@ -11,15 +11,9 @@ export default async function Page() {
     <>
       <Header />
       <main>
-        <section>
-          <SoursdInfo />
-        </section>
-        <section>
-          <Support />
-        </section>
-        <section>
-          <SoursdUsages />
-        </section>
+        <SoursdInfo />
+        <Support />
+        <SoursdUsages />
       </main>
       <Footer />
     </>

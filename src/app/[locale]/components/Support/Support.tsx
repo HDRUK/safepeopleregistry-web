@@ -7,6 +7,7 @@ import PageCenter from "@/modules/PageCenter";
 import SupportCard from "@/app/[locale]/components/Support/SupportCard";
 
 const NAMESPACE_TRANSLATIONS = "Homepage";
+const SUPPORT_HEADING_ID = "homepage-support-title";
 
 export default async function Support() {
   const t = await getTranslations(NAMESPACE_TRANSLATIONS);
@@ -39,8 +40,11 @@ export default async function Support() {
   ];
 
   return (
-    <Box sx={styledContent}>
-      <Typography variant="h3" sx={{ mb: "24px" }}>
+    <Box
+      sx={styledContent}
+      component="section"
+      aria-labelledby={SUPPORT_HEADING_ID}>
+      <Typography variant="h3" sx={{ mb: "24px" }} id={SUPPORT_HEADING_ID}>
         {t("supportTitle")}
       </Typography>
       <PageCenter>

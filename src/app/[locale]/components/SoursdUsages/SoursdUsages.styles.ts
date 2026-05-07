@@ -1,7 +1,7 @@
 import { Box, styled } from "@mui/material";
 import { motion } from "motion/react";
 
-const StyledOuterContent = styled("div")(({ theme }) => ({
+const StyledOuterContent = styled("section")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
