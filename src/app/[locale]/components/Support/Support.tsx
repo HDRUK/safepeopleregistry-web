@@ -5,6 +5,7 @@ import { styledContent, styledGrid } from "./Support.styles";
 import { getTranslations } from "next-intl/server";
 import PageCenter from "@/modules/PageCenter";
 import SupportCard from "@/app/[locale]/components/Support/SupportCard";
+import dataCustodianSupport from "public/images/homepage/DataCustodianSupport.png";
 
 const NAMESPACE_TRANSLATIONS = "Homepage";
 const SUPPORT_HEADING_ID = "homepage-support-title";
@@ -30,7 +31,7 @@ export default async function Support() {
       }),
     },
     {
-      src: organisationSupport,
+      src: dataCustodianSupport,
       alt: "Data Custodian support",
       title: t("supportCustodians"),
       info: t.rich("supportCustodiansInfo", {
