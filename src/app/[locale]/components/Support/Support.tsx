@@ -1,70 +1,66 @@
-"use client";
-
-import { Typography, Button } from "@mui/material";
-import dataCustodianSupport from "public/images/homepage/DataCustodianSupport.png";
+import { Box, Typography } from "@mui/material";
 import organisationSupport from "public/images/homepage/OrganisationSupport.png";
 import userSupport from "public/images/homepage/UserSupport.png";
+import { styledContent, styledGrid } from "./Support.styles";
+import { getTranslations } from "next-intl/server";
+import PageCenter from "@/modules/PageCenter";
+import SupportCard from "@/app/[locale]/components/Support/SupportCard";
+import dataCustodianSupport from "public/images/homepage/DataCustodianSupport.png";
 
-import Image from "next/image";
+const NAMESPACE_TRANSLATIONS = "Homepage";
+const SUPPORT_HEADING_ID = "homepage-support-title";
 
-import { StyledContent, StyledContainer, StyledFlex } from "./Support.styles";
+export default async function Support() {
+  const t = await getTranslations(NAMESPACE_TRANSLATIONS);
 
-export default function Support() {
+  const supportCards = [
+    {
+      src: userSupport,
+      alt: "User support",
+      title: t("supportUsers"),
+      info: t.rich("supportUsersInfo", {
+        bold: chunks => <strong>{chunks}</strong>,
+      }),
+    },
+    {
+      src: organisationSupport,
+      alt: "Organisation support",
+      title: t("supportOrganisations"),
+      info: t.rich("supportOrganisationsInfo", {
+        bold: chunks => <strong>{chunks}</strong>,
+      }),
+    },
+    {
+      src: dataCustodianSupport,
+      alt: "Data Custodian support",
+      title: t("supportCustodians"),
+      info: t.rich("supportCustodiansInfo", {
+        bold: chunks => <strong>{chunks}</strong>,
+      }),
+    },
+  ];
+
   return (
-    <StyledContent>
-      <Typography variant="h3" sx={{ mb: "24px" }}>
-        Support
+    <Box
+      sx={styledContent}
+      component="section"
+      aria-labelledby={SUPPORT_HEADING_ID}>
+      <Typography variant="h3" sx={{ mb: "24px" }} id={SUPPORT_HEADING_ID}>
+        {t("supportTitle")}
       </Typography>
-      <StyledFlex width="100%">
-        <StyledContainer>
-          <Image
-            src={userSupport}
-            alt="User support"
-            width={0}
-            height={0}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            style={{ width: "100%", height: "auto" }}
-          />
-          <Button
-            variant="outlined"
-            href="/support#users"
-            sx={{ padding: "16px", my: "12px", fontSize: "small" }}>
-            Individual Users
-          </Button>
-        </StyledContainer>
-        <StyledContainer>
-          <Image
-            src={organisationSupport}
-            alt="Organisation support"
-            width={0}
-            height={0}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            style={{ width: "100%", height: "auto" }}
-          />
-          <Button
-            variant="outlined"
-            href="/support#organisations"
-            sx={{ padding: "16px", my: "12px", fontSize: "small" }}>
-            Organisations
-          </Button>
-        </StyledContainer>
-        <StyledContainer>
-          <Image
-            src={dataCustodianSupport}
-            alt="Data Custodian support"
-            width={0}
-            height={0}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            style={{ width: "100%", height: "auto" }}
-          />
-          <Button
-            variant="outlined"
-            href="/support#custodians"
-            sx={{ padding: "16px", my: "12px", fontSize: "small" }}>
-            Data Custodians
-          </Button>
-        </StyledContainer>
-      </StyledFlex>
-    </StyledContent>
+      <PageCenter>
+        <Box sx={styledGrid}>
+          {supportCards.map(card => (
+            <SupportCard
+              key={card.alt}
+              src={card.src}
+              alt={card.alt}
+              title={card.title}
+              info={card.info}
+            />
+          ))}
+        </Box>
+      </PageCenter>
+    </Box>
   );
 }

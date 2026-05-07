@@ -1,5 +1,6 @@
 "use client";
 
+import HowToRegOutlinedIcon from "@mui/icons-material/HowToRegOutlined";
 import { ROUTES } from "@/consts/router";
 import { useStore } from "@/data/store";
 import { Link } from "@/i18n/routing";
@@ -50,6 +51,7 @@ interface ButtonProps {
   onClick?: (e: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => void;
   href?: string;
   "data-cy"?: string;
+  startIcon?: React.ReactNode;
 }
 
 function renderButtons(
@@ -161,6 +163,20 @@ export default function NavBar({ loggedIn }: NavBarProps) {
     },
   ];
   const right_buttons: ButtonProps[] = [
+    ...(loggedIn
+      ? []
+      : [
+          {
+            color: ButtonColor.Primary,
+            variant: ButtonVariant.Contained,
+            text: t("registerButton"),
+            startIcon: <HowToRegOutlinedIcon />,
+            onClick: (e: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
+              e.preventDefault();
+              router.push(ROUTES.register.path);
+            },
+          },
+        ]),
     {
       color: ButtonColor.Primary,
       variant: ButtonVariant.Outlined,
@@ -176,19 +192,6 @@ export default function NavBar({ loggedIn }: NavBarProps) {
         }
       },
     },
-    ...(loggedIn
-      ? []
-      : [
-          {
-            color: ButtonColor.Primary,
-            variant: ButtonVariant.Contained,
-            text: t("registerButton"),
-            onClick: (e: MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
-              e.preventDefault();
-              router.push(ROUTES.register.path);
-            },
-          },
-        ]),
   ];
 
   return (
