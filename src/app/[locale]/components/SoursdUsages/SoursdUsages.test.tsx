@@ -15,15 +15,11 @@ jest.mock("next-intl", () => ({
     return map[key] ?? key;
   },
 }));
-jest.mock("motion/react", () => ({
-  motion: {
-    div: ({ children }: any) => <div>{children}</div>,
-  },
-}));
 
 jest.mock("@/utils/framer", () => ({
   framerFadeIn: {},
 }));
+
 jest.mock("@mui/icons-material/FastForwardOutlined", () => () => (
   <svg data-testid="icon-fast" />
 ));
