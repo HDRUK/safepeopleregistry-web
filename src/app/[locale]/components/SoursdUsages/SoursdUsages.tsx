@@ -27,7 +27,7 @@ export default function SoursdUsages() {
       <PageCenter>
         <StyledContainer>
           <StyledContent>
-            <Typography variant="h4" component="h3" mb={2}>
+            <Typography variant="h4" mb={2}>
               {t("usageInfo")}
             </Typography>
 
