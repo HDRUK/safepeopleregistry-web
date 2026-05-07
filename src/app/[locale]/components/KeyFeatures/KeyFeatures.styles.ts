@@ -1,57 +1,39 @@
 import { styled } from "@mui/material";
-import theme from "@/theme";
 
-const StyledContent = styled("div")`
-  background: linear-gradient(180deg, #f6ebf8, #ffffff 100%);
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  padding: 24px;
-  width: auto;
-  color: ${theme.palette.homepageKeyFeatures.contrastText};
-`;
+const StyledContent = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  paddingTop: theme.spacing(3),
+  paddingBottom: theme.spacing(3),
+  width: "auto",
+  color: theme.palette.homepageKeyFeatures.contrastText,
+}));
 
-const Flex = `
-  justify-content: space-around;
-  text-align: left;
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: 24px;
-  padding: 0px;
-  margin-bottom: 12px;
-  margin-top: 24px;
-`;
+const StyledSectionFlex = styled("section")(({ theme }) => ({
+  display: "flex",
+  justifyContent: "space-between",
+  gap: theme.spacing(3),
+  flexWrap: "nowrap",
+  marginBottom: theme.spacing(2),
 
-const StyledSectionFlex = styled("section")`
-  ${Flex}
-`;
-const StyledFlex = styled("div")`
-  ${Flex}
-`;
-const Container = `
-  background: #ffffff;
-  display: flex;
-  flex-direction: column;
-  padding: 24px;
-  margin-bottom: 12px;
-  box-shadow: 0px 0px 8px rgb(0 0 0 / 5%);
-  min-height: 240px;
-  max-width: 400px;
-`;
-const StyledArticleContainer = styled("article")`
-  ${Container}
-`;
+  [theme.breakpoints.down("md")]: {
+    flexWrap: "wrap",
+  },
+}));
 
-const StyledContainer = styled("div")`
-  ${Container}
-`;
+const StyledArticleContainer = styled("article")(({ theme }) => ({
+  display: "flex",
+  padding: theme.spacing(3),
+  flexDirection: "column",
+  alignItems: "flex-start",
+  gap: theme.spacing(1.5),
+  gridRow: "1 / span 1",
+  gridColumn: "1 / span 1",
+  justifySelf: "stretch",
+  borderRadius: theme.spacing(1.5),
+  background: theme.palette.common.white,
+}));
 
-export {
-  StyledContent,
-  StyledFlex,
-  StyledContainer,
-  StyledArticleContainer,
-  StyledSectionFlex,
-};
+export { StyledContent, StyledArticleContainer, StyledSectionFlex };

@@ -1,10 +1,9 @@
 "use client";
 
-import { Box, Typography } from "@mui/material";
-import { mockedSoursdHomepageUsages } from "@/mocks/data/cms";
+import { Typography } from "@mui/material";
 import FastForwardOutlinedIcon from "@mui/icons-material/FastForwardOutlined";
-import GppGoodOutlinedIcon from "@mui/icons-material/GppGoodOutlined";
-import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import RepeatOneIcon from "@mui/icons-material/RepeatOne";
+import ChecklistIcon from "@mui/icons-material/Checklist";
 import { framerFadeIn } from "@/utils/framer";
 import {
   StyledOuterContent,
@@ -13,90 +12,52 @@ import {
   StyledFlex,
   StyledBox,
 } from "./SoursdUsages.styles";
+import { useTranslations } from "next-intl";
+import KeyFeatures from "@/app/[locale]/components/KeyFeatures";
+import PageCenter from "@/modules/PageCenter";
+
+const NAMESPACE_TRANSLATIONS = "Homepage";
+const ICON_SIZE = 60;
 
 export default function SoursdUsages() {
+  const t = useTranslations(NAMESPACE_TRANSLATIONS);
+
   return (
     <StyledOuterContent>
-      <StyledContainer>
-        <StyledContent>
-          {mockedSoursdHomepageUsages.infoHeader}
-          <StyledFlex>
-            <StyledBox
-              {...framerFadeIn}
-              transition={{ ...framerFadeIn.transition, delay: 0 }}>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  width: "100%",
-                  alignItems: "center",
-                }}>
-                <TrendingUpIcon color="white" style={{ fontSize: "70px" }} />
-                <Typography
-                  variant="h4"
-                  align="center"
-                  sx={{
-                    fontWeight: "500",
-                    marginLeft: "24px",
-                    textAlign: "left",
-                  }}>
-                  Accelerate ‘Safe People’ data access
+      <PageCenter>
+        <StyledContainer>
+          <StyledContent>
+            <Typography variant="h4" component="h3" mb={2}>
+              {t("usageInfo")}
+            </Typography>
+
+            <StyledFlex>
+              <StyledBox
+                {...framerFadeIn}
+                transition={{ ...framerFadeIn.transition, delay: 0 }}>
+                <FastForwardOutlinedIcon sx={{ fontSize: ICON_SIZE }} />
+                <Typography variant="h5">
+                  {t("accelerateValidation")}
                 </Typography>
-              </Box>
-            </StyledBox>
-            <StyledBox
-              {...framerFadeIn}
-              transition={{ ...framerFadeIn.transition, delay: 0.5 }}>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  width: "100%",
-                  alignItems: "center",
-                }}>
-                <FastForwardOutlinedIcon
-                  color="white"
-                  style={{ fontSize: "70px" }}
-                />
-                <Typography
-                  variant="h4"
-                  sx={{
-                    fontWeight: "500",
-                    marginLeft: "24px",
-                    textAlign: "left",
-                  }}>
-                  Reduce duplication of effort for Users and Organisations
-                </Typography>
-              </Box>
-            </StyledBox>
-            <StyledBox
-              {...framerFadeIn}
-              transition={{ ...framerFadeIn.transition, delay: 1 }}>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  width: "100%",
-                  alignItems: "center",
-                }}>
-                <GppGoodOutlinedIcon
-                  color="white"
-                  style={{ fontSize: "70px" }}
-                />
-                <Typography
-                  variant="h4"
-                  sx={{
-                    fontWeight: "500",
-                    marginLeft: "24px",
-                    textAlign: "left",
-                  }}>
-                  Enable shared intelligence across Data Custodians
-                </Typography>
-              </Box>
-            </StyledBox>
-          </StyledFlex>
-        </StyledContent>
-      </StyledContainer>
+              </StyledBox>
+              <StyledBox
+                {...framerFadeIn}
+                transition={{ ...framerFadeIn.transition, delay: 0.5 }}>
+                <RepeatOneIcon sx={{ fontSize: ICON_SIZE }} />
+                <Typography variant="h5">{t("preventDuplication")}</Typography>
+              </StyledBox>
+              <StyledBox
+                {...framerFadeIn}
+                transition={{ ...framerFadeIn.transition, delay: 1 }}>
+                <ChecklistIcon sx={{ fontSize: ICON_SIZE }} />
+                <Typography variant="h5">{t("easilyTrack")}</Typography>
+              </StyledBox>
+            </StyledFlex>
+          </StyledContent>
+        </StyledContainer>
+
+        <KeyFeatures />
+      </PageCenter>
     </StyledOuterContent>
   );
 }

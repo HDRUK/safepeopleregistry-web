@@ -1,21 +1,28 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
 import SoursdInfo from "./SoursdInfo";
 
-// Mocking the styles module
-jest.mock("./SoursdInfo.styles", () => ({
-  StyledContent: ({ children }: { children: React.ReactNode }) => (
-    <div data-testid="styled-content">{children}</div>
-  ),
+// Mock next-intl
+jest.mock("next-intl/server", () => ({
+  getTranslations: async () => {
+    return (key: string) => {
+      const translations: Record<string, string> = {
+        infoTitle: "Safe People Registry",
+        info: "Mocked homepage info",
+      };
+
+      return translations[key];
+    };
+  },
 }));
 
 describe("SoursdInfo Component", () => {
-  it("renders the mocked homepage info", () => {
-    render(<SoursdInfo />);
+  it("renders the mocked homepage info", async () => {
+    const Component = await SoursdInfo();
 
-    // Assert the mocked info is displayed
-    expect(screen.getByTestId("styled-content")).toHaveTextContent(
-      "Safe People RegistryA platform to enable ‘Safe People’ decision making"
-    );
+    render(Component);
+
+    expect(screen.getByText("Safe People Registry")).toBeInTheDocument();
+
+    expect(screen.getByText("Mocked homepage info")).toBeInTheDocument();
   });
 });
