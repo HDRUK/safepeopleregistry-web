@@ -1,11 +1,11 @@
 import postValidationCheck from "@/app/actions/validation_checks/postValidationCheck";
 import { PostValidationCheck } from "./types";
 
-export default function postValidationCheckQuery(custodianId: number) {
+export default function postValidationCheckQuery() {
   return {
     mutationKey: ["putValidationCheckQuery"],
     mutationFn: (payload: PostValidationCheck) =>
-      postValidationCheck(custodianId, payload, {
+      postValidationCheck(payload, {
         error: {
           message: "postValidationCheckQueryError",
         },
