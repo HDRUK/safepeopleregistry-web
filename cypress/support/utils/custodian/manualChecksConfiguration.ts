@@ -39,8 +39,7 @@ const addManualChecksForUsersConfigurationManualChecks = (title: string) => {
     timeout: 20000,
   });
   cy.contains("button", "Add manual check").click();
-  cy.get('#text', { timeout: 20000 })
-  .should('not.be.disabled');
+  cy.get("#text", { timeout: 20000 }).should("not.be.disabled");
   cy.get("#text").type(title);
   cy.saveFormClick("Save");
 };
