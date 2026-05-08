@@ -38,8 +38,9 @@ const addManualChecksForUsersConfigurationManualChecks = (title: string) => {
   cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
     timeout: 20000,
   });
-
   cy.contains("button", "Add manual check").click();
+  cy.get('#text', { timeout: 20000 })
+  .should('not.be.disabled');
   cy.get("#text").type(title);
   cy.saveFormClick("Save");
 };
