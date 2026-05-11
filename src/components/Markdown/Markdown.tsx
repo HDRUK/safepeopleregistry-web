@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Box,
   Link,
@@ -12,6 +14,7 @@ import {
 } from "@mui/material";
 import ReactMarkdown, { Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
+import theme from "@/theme";
 import FormControlDescription from "../FormControlDescription";
 import PageHeading from "../PageHeading";
 import { getLinkAction } from "../../utils/markdown";
@@ -95,7 +98,11 @@ const defaultComponents: Components = {
     );
   },
   p({ children }) {
-    return <Typography mb={2}>{children}</Typography>;
+    return (
+      <Typography mb={2} component="span">
+        {children}
+      </Typography>
+    );
   },
   a({ children, href, ...props }) {
     if (href?.startsWith("#button-")) {
@@ -107,7 +114,15 @@ const defaultComponents: Components = {
     }
 
     return (
-      <Link href={href} {...props}>
+      <Link
+        href={href}
+        {...props}
+        target="_blank"
+        rel="noreferrer"
+        style={{
+          textDecoration: "underline",
+          color: theme.palette.neutralPink.contrastText,
+        }}>
         {children}
       </Link>
     );

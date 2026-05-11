@@ -1,5 +1,5 @@
+import { getMe } from "@/app/actions/auth";
 import { useQuery } from "@tanstack/react-query";
-import { getMe } from "../../services/auth";
 
 export default function useMe() {
   const query = useQuery({

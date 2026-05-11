@@ -89,7 +89,7 @@ export default function OrganisationsSubsidiaryEditForm({
         container
         rowSpacing={3}
         sx={{ width: "100%", justifyContent: "flex-start" }}>
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <FormControl
             name="name"
             renderField={fieldProps => <TextField {...fieldProps} />}
@@ -98,7 +98,7 @@ export default function OrganisationsSubsidiaryEditForm({
 
         <AddressForm name="address" />
 
-        <Grid item xs={12}>
+        <Grid size={{ xs: 12 }}>
           <FormControl
             name="website"
             renderField={fieldProps => <TextField {...fieldProps} />}

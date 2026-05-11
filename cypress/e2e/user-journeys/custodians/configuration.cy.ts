@@ -1,7 +1,12 @@
 import { ROUTES } from "@/consts/router";
 import { logout } from "cypress/support/utils/common";
 import { loginCustodian } from "cypress/support/utils/custodian/auth";
-import { hasCheckedOnOrganisationConfigurationAutomatedFlags, hasCheckedOnUsersConfigurationAutomatedFlags, hasUnCheckedOnOrganisationConfigurationAutomatedFlags, hasUnCheckedOnUsersConfigurationAutomatedFlags } from "cypress/support/utils/custodian/configuration";
+import {
+  hasCheckedOnOrganisationConfigurationAutomatedFlags,
+  hasCheckedOnUsersConfigurationAutomatedFlags,
+  hasUnCheckedOnOrganisationConfigurationAutomatedFlags,
+  hasUnCheckedOnUsersConfigurationAutomatedFlags,
+} from "cypress/support/utils/custodian/configuration";
 
 describe("Projects custodians journey", () => {
   beforeEach(() => {
@@ -12,10 +17,10 @@ describe("Projects custodians journey", () => {
   after(() => {
     logout();
   });
-  it('should have no detectable accessibility violations on load', () => {
-      cy.waitForLoadingToFinish();
-      cy.checkA11yPage();
-    });
+  it("should have no detectable accessibility violations on load", () => {
+    cy.waitForLoadingToFinish();
+    cy.checkA11yPage();
+  });
 
   it("Has UnChecked On Users Configuration Automated Flags", () => {
     hasUnCheckedOnUsersConfigurationAutomatedFlags();
@@ -33,4 +38,3 @@ describe("Projects custodians journey", () => {
     hasCheckedOnOrganisationConfigurationAutomatedFlags();
   });
 });
-

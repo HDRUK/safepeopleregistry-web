@@ -24,7 +24,7 @@ export default function FeaturesContent() {
     <InfoPageWrapper>
       <PageBodyContainer heading={mockedFeatures.infoTitle}>
         <PageColumns>
-          <PageColumnBody lg={8}>
+          <PageColumnBody size={{ lg: 8 }}>
             <PageSection fontSize={18}>
               <Markdown>{mockedFeatures.info}</Markdown>
             </PageSection>
@@ -59,7 +59,7 @@ export default function FeaturesContent() {
               <Text fontWeight="bold">{mockedFeatures.footer}</Text>
             </PageSection>
           </PageColumnBody>
-          <PageColumnDetails lg={4}>
+          <PageColumnDetails size={{ lg: 4 }}>
             <PageSection
               sx={{
                 backgroundColor: "neutralPink.main",

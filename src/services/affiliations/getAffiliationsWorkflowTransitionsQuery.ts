@@ -1,7 +1,7 @@
 import { QueryOptions } from "@/types/requests";
 import { UseQueryOptions } from "@tanstack/react-query";
-import getAffiliations from "./getAffiliations";
-import getAffiliationsWorkflowTransitions from "./getAffiliationsWorkflowTransitions";
+import getAffiliationsWorkflowTransitions from "@/app/actions/affiliations/getAffiliationsWorkflowTransitions";
+import getAffiliations from "@/app/actions/affiliations/getAffiliations";
 
 export default function getAffiliationsQuery(options?: QueryOptions) {
   return {

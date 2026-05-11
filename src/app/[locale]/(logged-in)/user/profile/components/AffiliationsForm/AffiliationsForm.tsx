@@ -17,9 +17,10 @@ import { Box, Button, Grid, Link, TextField, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { getDate } from "@/utils/date";
+import { getDate, getDateComparisonFlags } from "@/utils/date";
 import SelectOrganisation from "@/components/SelectOrganisation";
 import { EntityType } from "@/types/api";
+import { UseFormSetValue } from "react-hook-form";
 
 export interface AffiliationsFormProps {
   onSubmit: (affiliation: ResearcherAffiliation) => void;
@@ -33,7 +34,34 @@ export interface AffiliationsFormProps {
 const NAMESPACE_TRANSLATION = "Profile";
 const NAMESPACE_TRANSLATION_FORM = "Form";
 const NAMESPACE_TRANSLATION_APPLICATION = "Application";
+function FormSyncEffects({
+  fromDate,
+  isCurrent,
+  toDate,
+  setValue,
+}: {
+  fromDate?: string | null;
+  isCurrent: boolean;
+  toDate?: string | null;
+  setValue: UseFormSetValue<ResearcherAffiliation>;
+}) {
+  useEffect(() => {
+    if (!toDate) return;
 
+    const { isFromInFuture, isToInFuture } = getDateComparisonFlags(
+      fromDate,
+      toDate
+    );
+
+    if (isToInFuture && !isFromInFuture && isCurrent !== true) {
+      setValue("current_employer", true, {
+        shouldValidate: true,
+      });
+    }
+  }, [toDate, isCurrent, setValue, fromDate]);
+
+  return null;
+}
 export default function AffiliationsForm({
   onSubmit,
   onClose,
@@ -140,12 +168,33 @@ export default function AffiliationsForm({
     { label: tApplication("student"), value: AffiliationRelationship.STUDENT },
   ];
 
-  const handleSubmit = useCallback((fields: ResearcherAffiliation) => {
-    onSubmit({
-      to: null,
-      ...fields,
-    });
-  }, []);
+  const handleSubmit = useCallback(
+    (fields: ResearcherAffiliation) => {
+      const {
+        organisation_id,
+        organisation_name,
+        organisation_email,
+        ...rest
+      } = fields;
+
+      const payload = selectOrganisation
+        ? {
+            ...rest,
+            organisation_id,
+          }
+        : {
+            ...rest,
+            organisation_name,
+            organisation_email,
+          };
+
+      onSubmit({
+        to: null,
+        ...payload,
+      });
+    },
+    [onSubmit, selectOrganisation]
+  );
 
   return (
     <Form
@@ -155,18 +204,20 @@ export default function AffiliationsForm({
       sx={{ mb: 3 }}>
       {({ watch, setValue }) => {
         const isCurrent = watch("current_employer");
-        if (isCurrent) {
-          setValue("to", null, { shouldValidate: true });
-        }
-        if (!selectOrganisation) {
-          setValue("organisation_id", undefined);
-        }
+        const toDate = watch("to");
+        const fromDate = watch("from");
 
         return (
           <>
+            <FormSyncEffects
+              isCurrent={isCurrent}
+              toDate={toDate}
+              fromDate={fromDate}
+              setValue={setValue}
+            />
             <Grid container rowSpacing={3}>
               {selectOrganisation ? (
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <FormControlWrapper
                     name="organisation_id"
                     renderField={({ onChange, ...fieldProps }) => (
@@ -227,7 +278,7 @@ export default function AffiliationsForm({
                 </Grid>
               ) : (
                 <>
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <FormControlWrapper
                       name="organisation_name"
                       renderField={fieldProps => <TextField {...fieldProps} />}
@@ -247,7 +298,7 @@ export default function AffiliationsForm({
                       })}
                     />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <FormControlWrapper
                       name="organisation_email"
                       renderField={fieldProps => <TextField {...fieldProps} />}
@@ -273,7 +324,7 @@ export default function AffiliationsForm({
               )}
 
               {useDepartment && (
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <FormControlWrapper
                     name="department"
                     renderField={fieldProps => (
@@ -285,32 +336,33 @@ export default function AffiliationsForm({
                   />
                 </Grid>
               )}
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <Grid container columnSpacing={3}>
-                  <Grid item xs={6}>
+                  <Grid size={{ xs: 6 }}>
                     <FormControlWrapper
                       name="from"
-                      renderField={fieldProps => <DateInput {...fieldProps} />}
+                      renderField={fieldProps => (
+                        <DateInput {...fieldProps} disableFuture />
+                      )}
                     />
                   </Grid>
-                  <Grid item xs={6}>
+                  <Grid size={{ xs: 6 }}>
                     <FormControlWrapper
                       name="to"
-                      disabled={isCurrent}
                       renderField={fieldProps => (
-                        <DateInput {...fieldProps} disabled={isCurrent} />
+                        <DateInput {...fieldProps} disablePast />
                       )}
                     />
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <FormControlCheckbox
                   name="current_employer"
                   label={tForm("currentEmployer")}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <FormControlWrapper
                   name="relationship"
                   renderField={fieldProps => (
@@ -321,13 +373,13 @@ export default function AffiliationsForm({
                   )}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <FormControlWrapper
                   name="role"
                   renderField={fieldProps => <TextField {...fieldProps} />}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <FormControlWrapper
                   description={tProfile("memberIdDescription")}
                   name="member_id"
@@ -335,7 +387,7 @@ export default function AffiliationsForm({
                 />
               </Grid>
               {isCurrent && (
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <FormControlWrapper
                     name="email"
                     label={tForm("emailAddressAtEmployer")}

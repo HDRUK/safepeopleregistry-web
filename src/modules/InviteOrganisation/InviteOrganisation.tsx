@@ -54,13 +54,13 @@ export default function InviteOrganisationForm({
         <>
           <FormSection>
             <Grid container rowSpacing={3}>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <FormControlWrapper
                   name="organisation_name"
                   renderField={fieldProps => <TextField {...fieldProps} />}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <FormControlWrapper
                   name="lead_applicant_email"
                   renderField={fieldProps => <TextField {...fieldProps} />}

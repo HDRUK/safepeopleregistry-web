@@ -7,7 +7,7 @@ export default function PageColumnDetails({
   ...restProps
 }: PageColumnDetailsProps) {
   return (
-    <Grid item xs={12} lg={3} pb={3} {...restProps}>
+    <Grid size={{ xs: 12, lg: 3 }} pb={3} {...restProps}>
       {children}
     </Grid>
   );

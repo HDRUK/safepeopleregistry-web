@@ -11,6 +11,8 @@ import { mockedProject, mockedProjectDetails } from "@/mocks/data/project";
 import {
   mockedAffiliation,
   mockedInvitedUser,
+  mockedProfessionalRegistration,
+  mockedTraining,
   mockedUser,
 } from "@/mocks/data/user";
 import { faker } from "@faker-js/faker";
@@ -117,6 +119,18 @@ const DEFAULT_PROJECT_INVITE_USERS = mockedInvitedUser({
   organisation_id: DEFAULT_ORGANISATION_NAME,
 });
 
+const DEFAULT_TRAINING = mockedTraining({
+  provider: "Health Research Authority",
+  training_name: "Data Protection Fundamentals",
+  awarded_at: "2024-01-15",
+  expires_at: "2028-01-15",
+});
+
+const DEFAULT_PROFESSIONAL_REGISTRATION = mockedProfessionalRegistration({
+  name: "Health and Care Professions Council",
+  member_id: "HCPC-TEST-001",
+});
+
 const DEFAULT_PASSWORD = "Password1234!";
 
 const DEFAULT_SRO_FIELDS_ORGANISATIONS = {
@@ -155,6 +169,8 @@ const DEFAULT_USER = {
 
 export {
   DEFAULT_AFFILIATION_USERS,
+  DEFAULT_TRAINING,
+  DEFAULT_PROFESSIONAL_REGISTRATION,
   DEFAULT_FROM_DATE,
   DEFAULT_TO_DATE,
   DEFAULT_INVITE_USERS,

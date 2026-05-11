@@ -1,6 +1,6 @@
+import getMe from "@/app/actions/auth/getMe";
 import { QueryOptions } from "@/types/requests";
 import { UseQueryOptions } from "@tanstack/react-query";
-import getMe from "./getMe";
 
 export default function getMeQuery(options?: QueryOptions) {
   return {

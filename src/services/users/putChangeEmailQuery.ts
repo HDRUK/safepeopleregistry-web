@@ -1,6 +1,6 @@
 import { MutationOptions, ResponseJson } from "@/types/requests";
 import { createMutation } from "@/utils/query";
-import putChangeEmail from "./putChangeEmail";
+import putChangeEmail from "@/app/actions/users/putChangeEmail";
 import { PutChangeEmailParams, PutChangeEmailPayload } from "./types";
 
 export default function putChangeEmailQuery(options?: MutationOptions) {

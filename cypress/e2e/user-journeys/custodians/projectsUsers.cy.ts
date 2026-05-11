@@ -1,37 +1,16 @@
-import { Status } from "@/consts/application";
 import { ROUTES } from "@/consts/router";
-import { mockedCustodianHasProjectUser } from "@/mocks/data/custodian";
-import { getName } from "@/utils/application";
 import { dataCy, logout } from "cypress/support/utils/common";
 import { loginCustodian } from "cypress/support/utils/custodian/auth";
 import {
-  changeStatusProjectUsers,
   goToProjectUsersList,
-  hasProjectUsers,
   inviteNewProjectUser,
   removeFromProjectUsers,
 } from "cypress/support/utils/custodian/projects";
-import {
-  DEFAULT_PROJECT_INVITE_USERS,
-  DEFAULT_PROJECT_USERS_CUSTODIANS,
-} from "cypress/support/utils/data";
+import { DEFAULT_PROJECT_INVITE_USERS } from "cypress/support/utils/data";
 
 const dataProjectInviteUser = DEFAULT_PROJECT_INVITE_USERS;
 
 const { first_name, last_name } = dataProjectInviteUser;
-
-const dataProjectUser = mockedCustodianHasProjectUser({
-  ...DEFAULT_PROJECT_USERS_CUSTODIANS,
-  project_has_user: {
-    ...DEFAULT_PROJECT_USERS_CUSTODIANS.project_has_user,
-    registry: {
-      user: {
-        first_name,
-        last_name,
-      },
-    },
-  },
-});
 
 describe("Projects users journey", () => {
   after(() => {
@@ -71,6 +50,33 @@ describe("Projects users journey", () => {
       .should("be.visible")
       .contains(/change status/i)
       .should("not.exist");
+  });
+
+  it("Shows the organisation validation status column for each project user", () => {
+    cy.waitForLoadingToFinish();
+
+    cy.get("tbody tr").then($rows => {
+      if ($rows.length === 0) {
+        cy.log("No project users in list — skipping column assertion");
+        return;
+      }
+
+      cy.get("thead th").should("contain.text", "Organisation status");
+
+      cy.get("tbody tr")
+        .first()
+        .find("td")
+        .then($cells => {
+          const hasStatusChip = $cells
+            .toArray()
+            .some(
+              td =>
+                Cypress.$(td).find(".MuiChip-root").length > 0 ||
+                Cypress.$(td).find('[class*="Chip"]').length > 0
+            );
+          expect(hasStatusChip).to.be.true;
+        });
+    });
   });
 
   it("Removes a user from the project", () => {

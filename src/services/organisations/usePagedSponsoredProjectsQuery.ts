@@ -1,11 +1,12 @@
 import usePaginatedQuery, {
   PaginatedQueryProps,
 } from "@/hooks/usePaginatedQuery";
-import getSponsoredProjects from "./getSponsoredProjects";
+import getSponsoredProjects from "@/app/actions/organisations/getSponsoredProjects";
 import { GetProjectsResponse } from "./types";
 
-interface PagedSponsoredProjectsQuery<T = GetProjectsResponse>
-  extends Partial<PaginatedQueryProps<T>> {}
+type PagedSponsoredProjectsQuery<T = GetProjectsResponse> = Partial<
+  PaginatedQueryProps<T>
+>;
 
 export default function usePagedSponsoredProjectsQuery(
   id: number,

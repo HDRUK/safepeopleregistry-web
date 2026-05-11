@@ -1,6 +1,6 @@
+import getFeatures from "@/app/actions/feature_flags/getFeatures";
 import { SearchDirections } from "@/consts/search";
 import usePaginatedQuery from "@/hooks/usePaginatedQuery";
-import getFeatures from "./getFeatures";
 
 interface GetFeatureFlagsQuery {}
 export default function useFeatureFlagsQuery({

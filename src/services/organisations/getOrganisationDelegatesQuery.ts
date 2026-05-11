@@ -1,4 +1,4 @@
-import getOrganisationDelegates from "./getOrganisationDelegates";
+import getOrganisationDelegates from "@/app/actions/organisations/getOrganisationDelegates";
 
 export default function getOrganisationDelegatesQuery(
   organisationId: number,

@@ -2,8 +2,9 @@ import { useStore } from "@/data/store";
 import useQueryConfirmAlerts from "@/hooks/useQueryConfirmAlerts";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
+import { putUser } from "@/app/actions/users";
 import { TrashIcon } from "../../consts/icons";
-import { PutUserPayload, putUser } from "../../services/users";
+import { PutUserPayload } from "../../services/users";
 import { User } from "../../types/application";
 import { ActionMenuItem } from "../ActionMenu";
 

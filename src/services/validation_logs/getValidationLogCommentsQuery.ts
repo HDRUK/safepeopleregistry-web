@@ -1,6 +1,6 @@
 import { QueryOptions } from "@/types/requests";
 import { UseQueryOptions } from "@tanstack/react-query";
-import getValidationLogComments from "./getValidationLogComments";
+import getValidationLogComments from "@/app/actions/validation_logs/getValidationLogComments";
 
 export default function getValidationLogCommentsQuery(
   validationLogId: number,

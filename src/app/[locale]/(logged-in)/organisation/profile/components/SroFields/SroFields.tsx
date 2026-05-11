@@ -26,21 +26,21 @@ export default function SroFields() {
           heading={t("keyContactFormTitle")}
           description={<Markdown>{t("keyContactFormDescription")}</Markdown>}>
           <Grid container rowSpacing={3}>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <FormControlWrapper
                 name="first_name"
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <FormControlWrapper
                 name="last_name"
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <FormControlWrapper
                 name="department"
                 renderField={fieldProps => (
@@ -54,13 +54,13 @@ export default function SroFields() {
                 )}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <FormControlWrapper
                 name="role"
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <FormControlWrapper
                 name="email"
                 renderField={fieldProps => <TextField {...fieldProps} />}

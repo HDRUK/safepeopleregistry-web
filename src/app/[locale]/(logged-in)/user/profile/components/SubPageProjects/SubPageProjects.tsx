@@ -45,13 +45,13 @@ export default function SubPageProjects({ params, projectData }: PageProps) {
       <PageBodyContainer
         heading={`${projectData.title} (${projectData.unique_id})`}>
         <PageColumns>
-          <PageColumnBody lg={8}>
+          <PageColumnBody size={{ lg: 8 }}>
             <SubTabsSections id={project.id} tabId={tabId} {...params} />
             <SubTabsContents tabId={tabId} {...params} />
           </PageColumnBody>
-          <PageColumnDetails lg={4}>
+          <PageColumnDetails size={{ lg: 4 }}>
             <StatusList
-              projectStatus={project?.model_state.state.slug}
+              projectStatus={project?.model_state?.state?.slug}
               validationStatus={
                 project?.custodian_has_project_user?.[0].model_state.state.slug
               }

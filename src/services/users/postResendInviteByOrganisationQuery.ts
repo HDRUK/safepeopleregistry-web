@@ -1,4 +1,4 @@
-import postResendInviteByOrganisation from "./postResendInviteByOrganisation";
+import postResendInviteByOrganisation from "@/app/actions/users/postResendInviteByOrganisation";
 
 export default function postResendInviteQuery() {
   return {

@@ -1,4 +1,4 @@
-import postCustodian from "./postCustodian";
+import postCustodian from "@/app/actions/custodians/postCustodian";
 import { PostCustodianPayload } from "./types";
 
 export default function postCustodianQuery() {

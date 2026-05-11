@@ -14,7 +14,7 @@ import {
   isTestFeatureUserAdmin,
 } from "@/flags";
 import BannerMessage from "@/modules/BannerMessage";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import { Box } from "@mui/system";
 import { GoogleTagManager } from "@next/third-parties/google";
@@ -38,8 +38,10 @@ type RootLayoutProps = PropsWithChildren<{
 
 export default async function RootLayout({
   children,
-  params: { locale },
+  params,
 }: RootLayoutProps) {
+  const { locale } = await params;
+
   if (!locales[locale]) notFound();
 
   const messages = await getMessages();
@@ -63,12 +65,13 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       {gtmId && <GoogleTagManager gtmId={gtmId} />}
-      <Box
-        component="body"
-        className={inter.className}
-        sx={{ background: "#f2f2f2" }}>
-        <IntlClientProvider locale={locale} messages={messages}>
-          <AppRouterCacheProvider options={{ enableCssLayer: true }}>
+
+      <IntlClientProvider locale={locale} messages={messages}>
+        <AppRouterCacheProvider options={{ enableCssLayer: true }}>
+          <Box
+            component="body"
+            className={inter.className}
+            sx={{ background: "#f2f2f2" }}>
             <ReactQueryClientProvider>
               <ThemeRegistry>
                 <FeatureProvider features={features}>
@@ -86,9 +89,10 @@ export default async function RootLayout({
                 </FeatureProvider>
               </ThemeRegistry>
             </ReactQueryClientProvider>
-          </AppRouterCacheProvider>
-        </IntlClientProvider>
-      </Box>
+          </Box>
+        </AppRouterCacheProvider>
+      </IntlClientProvider>
+
       <RegistryGlobals version={version} features={features} />
     </html>
   );

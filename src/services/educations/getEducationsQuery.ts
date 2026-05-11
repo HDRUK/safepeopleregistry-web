@@ -1,6 +1,6 @@
+import getEducations from "@/app/actions/educations/getEducations";
 import { QueryOptions } from "@/types/requests";
 import { UseQueryOptions } from "@tanstack/react-query";
-import getEducations from "./getEducations";
 
 export default function getEducationsQuery(
   registryId: number,

@@ -22,14 +22,10 @@ export enum EmailsFiltersKeys {
   DATE_TRIED = "updated_at[]__and",
 }
 
-export interface EmailsFiltersProps
-  extends Pick<
-    PaginatedQueryReturn<ResearcherProject>,
-    | "updateQueryParams"
-    | "handleSortToggle"
-    | "handleFieldToggle"
-    | "queryParams"
-  > {
+export interface EmailsFiltersProps extends Pick<
+  PaginatedQueryReturn<ResearcherProject>,
+  "updateQueryParams" | "handleSortToggle" | "handleFieldToggle" | "queryParams"
+> {
   includeFilters?: EmailsFiltersKeys[];
 }
 

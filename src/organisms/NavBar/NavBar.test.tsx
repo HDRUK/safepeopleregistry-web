@@ -3,7 +3,7 @@ import { mockedJwt } from "@/mocks/data/auth";
 import { mockedUser } from "@/mocks/data/user";
 import theme from "@/theme";
 import { get } from "js-cookie";
-import getMe from "@/services/auth/getMe";
+import getMe from "@/app/actions/auth/getMe";
 import { ResponseJson } from "@/types/requests";
 import { User } from "@/types/application";
 import { handleLogin, handleLogout } from "../../utils/keycloak";
@@ -33,7 +33,7 @@ jest.mock("@/i18n/routing", () => ({
 
 jest.mock("@/data/store");
 
-jest.mock("@/services/auth/getMe", () => ({
+jest.mock("@/app/actions/auth/getMe", () => ({
   __esModule: true,
   default: jest.fn(),
 }));

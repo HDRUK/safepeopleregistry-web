@@ -1,19 +1,11 @@
-import postProfessionalRegistrationQuery from "./postProfessionalRegistrationQuery";
-import postProfessionalRegistration from "./postProfessionalRegistration";
-import getProfessionalRegistrations from "./getProfessionalRegistrations";
-import getProfessionalRegistrationsQuery from "./getProfessionalRegistrationsQuery";
-import putProfessionalRegistrationQuery from "./putProfessionalRegistrationQuery";
-import putProfessionalRegistration from "./putProfessionalRegistration";
-import deleteProfessionalRegistration from "./deleteProfessionalRegistration";
-import deleteProfessionalRegistrationQuery from "./deleteProfessionalRegistrationQuery";
+import deleteProfessionalRegistrationQuery from "@/services/professional_registrations/deleteProfessionalRegistrationQuery";
+import getProfessionalRegistrationsQuery from "@/services/professional_registrations/getProfessionalRegistrationsQuery";
+import postProfessionalRegistrationQuery from "@/services/professional_registrations/postProfessionalRegistrationQuery";
+import putProfessionalRegistrationQuery from "@/services/professional_registrations/putProfessionalRegistrationQuery";
 
 export {
   postProfessionalRegistrationQuery,
-  postProfessionalRegistration,
-  getProfessionalRegistrations,
   getProfessionalRegistrationsQuery,
   putProfessionalRegistrationQuery,
-  putProfessionalRegistration,
-  deleteProfessionalRegistration,
   deleteProfessionalRegistrationQuery,
 };

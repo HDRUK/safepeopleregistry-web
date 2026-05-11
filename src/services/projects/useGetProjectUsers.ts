@@ -2,11 +2,12 @@ import { SearchDirections } from "@/consts/search";
 import usePaginatedQuery, {
   PaginatedQueryProps,
 } from "@/hooks/usePaginatedQuery";
-import getProjectUsers from "./getProjectUsers";
+import getProjectUsers from "@/app/actions/projects/getProjectUsers";
 import { ProjectUsersResponse } from "./types";
 
-interface GetPaginatedCustodianProjectUsersQuery<T = ProjectUsersResponse>
-  extends Partial<PaginatedQueryProps<T>> {}
+type GetPaginatedCustodianProjectUsersQuery<T = ProjectUsersResponse> = Partial<
+  PaginatedQueryProps<T>
+>;
 
 export default function useGetProjectUsers(
   projectId: number,

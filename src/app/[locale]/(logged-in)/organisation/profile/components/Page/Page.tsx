@@ -9,7 +9,9 @@ interface PageProps {
   pageTitle?: string;
 }
 
-function Page({ params: { tabId }, pageTitle }: PageProps) {
+async function Page({ params, pageTitle }: PageProps) {
+  const { tabId } = await params;
+
   return (
     <PageBodyContainer heading={pageTitle ?? ""}>
       <TabsContents tabId={tabId} />

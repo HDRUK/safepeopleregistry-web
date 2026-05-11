@@ -1,6 +1,6 @@
 import { QueryOptions } from "@/types/requests";
 import { UseQueryOptions } from "@tanstack/react-query";
-import getCustodianProjectUserStates from "./getCustodianProjectUserStates";
+import getCustodianProjectUserStates from "@/app/actions/custodian_approvals/getCustodianProjectUserStates";
 
 export default function getCustodianProjectUserStatesQuery(
   options?: QueryOptions

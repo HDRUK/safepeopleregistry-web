@@ -6,7 +6,7 @@ import { Grid } from "@mui/material";
 import useOrganisationFileUpload from "@/hooks/useOrganisationFileUpload";
 import { useStore } from "@/data/store";
 import { useTranslations } from "next-intl";
-import { downloadFile } from "@/services/files";
+import { downloadFile } from "@/app/actions/files";
 
 interface SroDeclarationUploaderProps {
   name: string;
@@ -51,7 +51,7 @@ const SroDeclarationUploader = ({
 
   return (
     <Grid container spacing={3} sx={{ mt: 1 }}>
-      <Grid item xs={5}>
+      <Grid size={{ xs: 5 }}>
         <FileLink
           fileButtonText={file?.name ? t("buttonTextAlt") : t("buttonText")}
           message={`${FileType.CERTIFICATION}${name.toUpperCase()}`}

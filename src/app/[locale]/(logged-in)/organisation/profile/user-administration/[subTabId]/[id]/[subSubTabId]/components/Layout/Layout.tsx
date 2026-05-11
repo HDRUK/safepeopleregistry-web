@@ -10,7 +10,9 @@ interface LayoutProps {
   };
 }
 
-function Layout({ children, params: { id, subSubTabId } }: LayoutProps) {
+async function Layout({ children, params }: LayoutProps) {
+  const { id, subSubTabId } = await params;
+
   return (
     <>
       <SubTabSections userId={id} subTabId={subSubTabId} />

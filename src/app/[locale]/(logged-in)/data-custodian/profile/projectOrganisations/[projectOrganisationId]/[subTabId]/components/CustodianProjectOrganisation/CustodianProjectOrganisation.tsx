@@ -1,3 +1,5 @@
+"use client";
+
 import StatusList from "@/components/StatusList";
 import { Status } from "@/consts/application";
 import { useStore } from "@/data/store";
@@ -88,7 +90,7 @@ function CustodianProjectOrganisation({
     organisation && (
       <PageBodyContainer heading={projectTitle}>
         <PageColumns>
-          <PageColumnBody lg={8}>
+          <PageColumnBody size={{ lg: 8 }}>
             <OrganisationDetailsSlim
               organisation={
                 custodianProjectOrganisation?.data.project_organisation
@@ -102,7 +104,7 @@ function CustodianProjectOrganisation({
             />
             <SubTabsContents subTabId={subTabId} />
           </PageColumnBody>
-          <PageColumnDetails lg={4}>
+          <PageColumnDetails size={{ lg: 4 }}>
             <StatusList organisationStatus={state?.state.slug || Status.NONE} />
             <ActionValidationPanel
               variant={ActionValidationVariants.Organisation}

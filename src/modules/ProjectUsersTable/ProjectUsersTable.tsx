@@ -11,6 +11,7 @@ import {
 } from "../../types/application";
 import {
   renderOrganisationsNameCell,
+  renderOrganisationsStatusCell,
   renderProjectUserNameCell,
   renderStatusCell,
 } from "../../utils/cells";
@@ -20,6 +21,7 @@ export type ProjectUsersTableColumns =
   | "projectRole"
   | "projectName"
   | "organisationName"
+  | "organisationStatus"
   | "status"
   | "affiliationStatus";
 
@@ -39,6 +41,7 @@ export default function ProjectUsersTable({
     "projectRole",
     "projectName",
     "organisationName",
+    "organisationStatus",
     "status",
     "affiliationStatus",
   ],
@@ -73,6 +76,11 @@ export default function ProjectUsersTable({
           renderOrganisationsNameCell(
             getProjectUser(info.row.original).affiliation.organisation
           ),
+      }),
+      createDefaultColumn("organisationStatus", {
+        accessorFn: row => getProjectUser(row),
+        cell: info =>
+          renderOrganisationsStatusCell(getProjectUser(info.row.original)),
       }),
       createDefaultColumn("affiliationStatus", {
         accessorFn: row =>

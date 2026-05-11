@@ -1,6 +1,6 @@
+import getEmails from "@/app/actions/emails/getEmails";
 import { Paged, QueryOptions, ResponseJson } from "../../types/requests";
 import { createQuery } from "../../utils/query";
-import getEmails from "./getEmails";
 import { EmailsResponse } from "./types";
 
 export default (options?: QueryOptions) =>

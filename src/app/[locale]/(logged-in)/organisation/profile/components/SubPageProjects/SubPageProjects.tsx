@@ -69,21 +69,25 @@ export default function SubPageProjects({ params, projectData }: PageProps) {
 
   const sponsorshipStatus =
     project?.project_has_sponsorships?.[0]
-      ?.custodian_has_project_has_sponsorship?.[0]?.model_state?.state.slug;
+      ?.custodian_has_project_has_sponsorship?.[0]?.model_state?.state?.slug;
 
   return (
     project && (
       <PageBodyContainer
         heading={`${projectData.title} (${projectData.unique_id})`}>
         <PageColumns>
-          <PageColumnBody lg={8}>
+          <PageColumnBody size={{ lg: 8 }}>
             <SubTabsSections id={project.id} tabId={tabId} {...params} />
             <SubTabsContents tabId={tabId} {...params} />
           </PageColumnBody>
-          <PageColumnDetails lg={4}>
+          <PageColumnDetails size={{ lg: 4 }}>
             <StatusList
-              projectStatus={project?.model_state.state.slug}
+              projectStatus={project?.model_state?.state?.slug}
               sponsorshipStatus={isSponsorship && sponsorshipStatus}
+              organisationStatus={
+                project?.custodian_has_project_organisation?.[0]?.model_state
+                  ?.state?.slug
+              }
             />
             {isSponsorship && sponsorshipStatus && (
               <Box sx={{ mb: 2 }}>

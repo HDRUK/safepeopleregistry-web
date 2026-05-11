@@ -21,6 +21,7 @@ const customJestConfig = {
   testEnvironment: "jsdom",
   verbose: false,
   moduleNameMapper: {
+    "^@/app/(.*)$": "<rootDir>/src/app/$1",
     "^@/mocks/(.*)$": "<rootDir>/mocks/$1",
     "^@/queries/(.*)$": "<rootDir>/src/queries/$1",
     "^@/services/(.*)$": "<rootDir>/src/services/$1",

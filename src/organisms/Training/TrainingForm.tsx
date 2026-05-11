@@ -164,35 +164,35 @@ export default function TrainingForm({
       {...formOptions}
       key={user?.id}>
       <Grid container rowSpacing={3}>
-        <Grid item xs={12} key="provider">
+        <Grid size={{ xs: 12 }} key="provider">
           <FormControl
             name="provider"
             label={tForm("provider")}
             renderField={props => <TextField {...props} />}
           />
         </Grid>
-        <Grid item xs={12} key="training_name">
+        <Grid size={{ xs: 12 }} key="training_name">
           <FormControl
             name="training_name"
             label={tForm("trainingName")}
             renderField={props => <TextField {...props} />}
           />
         </Grid>
-        <Grid item xs={7} key="awarded_at">
+        <Grid size={{ xs: 7 }} key="awarded_at">
           <FormControl
             name="awarded_at"
             label={tForm("awardedAt")}
             renderField={props => <DateInput {...props} />}
           />
         </Grid>
-        <Grid item xs={7} key="expires_at">
+        <Grid size={{ xs: 7 }} key="expires_at">
           <FormControl
             name="expires_at"
             label={tForm("expiresAt")}
             renderField={props => <DateInput {...props} />}
           />
         </Grid>
-        <Grid item xs={12} key="certification_upload">
+        <Grid size={{ xs: 12 }} key="certification_upload">
           <FormControl
             name="certification_upload"
             label={tForm("certificationUpload")}

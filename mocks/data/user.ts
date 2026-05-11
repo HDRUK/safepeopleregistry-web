@@ -11,11 +11,11 @@ import {
   User,
 } from "@/types/application";
 import { faker } from "@faker-js/faker";
+import { InviteUserFormValues } from "@/types/form";
 import { mockedApproval } from "./approvals";
 import { mockedDepartment } from "./departments";
 import { mockedFile } from "./file";
 import { mockedPermission } from "./permission";
-import { InviteUserFormValues } from "@/types/form";
 
 const mockedPendingInvite = (pendingInvite?: Partial<PendingInvite>) => ({
   id: faker.number.int(),

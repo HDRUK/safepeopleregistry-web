@@ -11,15 +11,13 @@ import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useCallback, useMemo } from "react";
 import Form from "@/components/Form";
-import {
-  PostOrganisationInviteUserPayload,
-  postOrganisationInviteUser,
-} from "@/services/organisations";
+import { PostOrganisationInviteUserPayload } from "@/services/organisations";
 import { EMAIL_TEMPLATE } from "@/consts/application";
 import SelectDepartments from "@/components/SelectDepartments";
 import { UserGroup } from "@/consts/user";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
 import { DelegatesFormValues } from "@/types/form";
+import { postOrganisationInviteUser } from "@/app/actions/organisations";
 
 export interface InvitedDelegatesFormProps {
   onSuccess: () => void;
@@ -121,21 +119,21 @@ export default function InviteDelegateForm({
             container
             rowSpacing={3}
             sx={{ width: "70%", justifyContent: "flex-start" }}>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <FormControlWrapper
                 name="delegate_first_name"
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <FormControlWrapper
                 name="delegate_last_name"
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <FormControlWrapper
                 name="department_name"
                 renderField={fieldProps => (
@@ -150,13 +148,13 @@ export default function InviteDelegateForm({
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <FormControlWrapper
                 name="delegate_job_title"
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={{ xs: 12 }}>
               <FormControlWrapper
                 name="delegate_email"
                 renderField={fieldProps => <TextField {...fieldProps} />}

@@ -1,5 +1,5 @@
 import { Box, Button } from "@mui/material";
-import { TextareaAutosize } from "@mui/base/TextareaAutosize";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { LoadingButton } from "@mui/lab";
 import { useTranslations } from "next-intl";
 import { VerifyIcon, RejectIcon } from "../../consts/icons";

@@ -2,11 +2,12 @@ import { SearchDirections } from "@/consts/search";
 import usePaginatedQuery, {
   PaginatedQueryProps,
 } from "@/hooks/usePaginatedQuery";
-import getOrganisations from "./getOrganisations";
+import getOrganisations from "@/app/actions/organisations/getOrganisations";
 import { OrganisationsResponse } from "./types";
 
-interface GetEntityOrganisationsQuery<T = OrganisationsResponse>
-  extends Partial<PaginatedQueryProps<T>> {}
+type GetEntityOrganisationsQuery<T = OrganisationsResponse> = Partial<
+  PaginatedQueryProps<T>
+>;
 
 export default function useOrganisationsQuery({
   queryKeyBase,

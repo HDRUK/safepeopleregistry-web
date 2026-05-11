@@ -1,6 +1,6 @@
+import getCustodianStatus from "@/app/actions/custodians/getCustodianStatus";
 import { QueryOptions } from "@/types/requests";
 import { UseQueryOptions } from "@tanstack/react-query";
-import getCustodianStatus from "./getCustodianStatus";
 
 export default function getCustodianStatusQuery(
   custodianId: number | undefined,

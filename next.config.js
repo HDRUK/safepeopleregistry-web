@@ -1,10 +1,11 @@
-const withNextIntl = require("next-intl/plugin")();
+const createNextIntlPlugin = require("next-intl/plugin");
+
+const withNextIntl = createNextIntlPlugin("./src/i18n.ts");
 
 /** @type {import('next').NextConfig} */
 
 const nextConfig = withNextIntl({
   reactStrictMode: true,
-  swcMinify: true,
   env: {
     API_V1_URL: process.env.NEXT_PUBLIC_API_V1_URL,
   },
@@ -26,8 +27,8 @@ const nextConfig = withNextIntl({
         permanent: true,
       },
       {
-        source: '/:locale/homepage',
-        destination: '/:locale',
+        source: "/:locale/homepage",
+        destination: "/:locale",
         permanent: true,
       },
     ];
@@ -78,7 +79,7 @@ const nextConfig = withNextIntl({
       {
         source: "/:locale/organisation/profile/projects/:id",
         destination: `/:locale/organisation/profile/projects/:id/safe-project`,
-      }
+      },
     ];
   },
   webpack: (config, { isServer }) => {
@@ -96,11 +97,6 @@ const nextConfig = withNextIntl({
       };
     }
 
-    config.module.rules.push({
-      test: /\.md$/,
-      type: "asset/source",
-    });
-
     return config;
   },
   typescript: {
@@ -109,6 +105,11 @@ const nextConfig = withNextIntl({
     // your project has type errors.
     // !! WARN !!
     ignoreBuildErrors: true,
+  },
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
   },
 });
 

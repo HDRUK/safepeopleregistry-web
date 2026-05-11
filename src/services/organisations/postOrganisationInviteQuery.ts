@@ -1,4 +1,4 @@
-import postOrganisationInvite from "./postOrganisationInvite";
+import postOrganisationInvite from "@/app/actions/organisations/postOrganisationInvite";
 
 export default function postOrganisationInviteQuery() {
   return {

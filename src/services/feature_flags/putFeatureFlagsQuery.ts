@@ -1,6 +1,6 @@
+import putFeatureFlags from "@/app/actions/feature_flags/putFeatureFlags";
 import { MutateWithArgs, QueryOptions } from "@/types/requests";
 import { UseMutationOptions } from "@tanstack/react-query";
-import putFeatureFlags from "./putFeatureFlags";
 
 type PutFeatureFlagsQuerydMutationArgs = MutateWithArgs<
   { id: number },

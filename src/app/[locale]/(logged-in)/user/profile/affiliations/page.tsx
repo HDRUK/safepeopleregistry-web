@@ -1,16 +1,16 @@
-import putVerifyEmail from "@/services/affiliations/putVerifyEmail";
 import { responseToQueryState } from "@/utils/query";
+import { putVerifyEmail } from "@/app/actions/affiliations";
 import AffiliationsPage from "../components/AffiliationsPage";
 import { PageTabs } from "../consts/tabs";
 
 interface PageProps {
-  searchParams?: {
+  searchParams?: Promise<{
     verify?: string;
-  };
+  }>;
 }
 
 async function Page({ searchParams }: PageProps) {
-  const verify = searchParams?.verify;
+  const verify = (await searchParams)?.verify;
 
   const queryState = verify
     ? responseToQueryState(

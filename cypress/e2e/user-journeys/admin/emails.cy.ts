@@ -1,4 +1,3 @@
-import { JOB_DELAY } from "@/consts/application";
 import { ROUTES } from "@/consts/router";
 import { mockedInvitedUser } from "@/mocks/data/user";
 import { formatDisplayLongDate } from "@/utils/date";

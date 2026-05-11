@@ -7,7 +7,9 @@ interface ConfigurationPageProps {
   };
 }
 
-function ConfigurationPage({ params: { subTabId } }: ConfigurationPageProps) {
+async function ConfigurationPage({ params }: ConfigurationPageProps) {
+  const { subTabId } = await params;
+
   return (
     <SubPage
       params={{

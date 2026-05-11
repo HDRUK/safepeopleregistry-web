@@ -1,14 +1,19 @@
 import { PendingInvite } from "@/consts/application";
 import { UserGroup } from "@/consts/user";
 import { PageBody } from "@/modules";
-import { getMeUnclaimed } from "@/services/auth";
-import { getPendingInvite, putEmailByInvite } from "@/services/users";
 import { getDecodedAccessToken } from "@/utils/auth";
 import { redirectProfile } from "@/utils/router";
 import { cookies } from "next/headers";
+import { getMeUnclaimed } from "@/app/actions/auth";
+import { getPendingInvite, putEmailByInvite } from "@/app/actions/users";
 import Register from "./components/Register";
 
-async function Page({ searchParams }: { searchParams: { type?: UserGroup } }) {
+async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ type?: UserGroup }>;
+}) {
+  const params = await searchParams;
   await redirectProfile();
 
   const accessToken = await getDecodedAccessToken();
@@ -57,7 +62,7 @@ async function Page({ searchParams }: { searchParams: { type?: UserGroup } }) {
       <Register
         tokenUser={partialUser}
         unclaimedUser={unclaimedUser}
-        searchParams={searchParams}
+        searchParams={params}
       />
     </PageBody>
   );

@@ -1,4 +1,4 @@
-import postResendInvite from "./postResendInvite";
+import postResendInvite from "@/app/actions/users/postResendInvite";
 
 export default function postResendInviteQuery() {
   return {

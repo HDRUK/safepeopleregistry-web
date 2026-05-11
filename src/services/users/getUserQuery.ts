@@ -1,6 +1,6 @@
 import { QueryOptions } from "@/types/requests";
 import { UseQueryOptions } from "@tanstack/react-query";
-import getUser from "./getUser";
+import getUser from "@/app/actions/users/getUser";
 
 export default function getUserQuery(userId: number, options?: QueryOptions) {
   return {
@@ -12,6 +12,7 @@ export default function getUserQuery(userId: number, options?: QueryOptions) {
         },
         ...options?.responseOptions,
       }),
+    enabled: !!userId,
     ...options,
   } as UseQueryOptions<Awaited<ReturnType<typeof getUser>>>;
 }

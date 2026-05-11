@@ -6,7 +6,7 @@ import useOrganisationFileUpload from "@/hooks/useOrganisationFileUpload";
 import { useStore } from "@/data/store";
 import { capitaliseFirstLetter } from "@/utils/string";
 import { useTranslations } from "next-intl";
-import { downloadFile } from "@/services/files";
+import { downloadFile } from "@/app/actions/files";
 
 interface CertificationUploaderProps {
   name: string;

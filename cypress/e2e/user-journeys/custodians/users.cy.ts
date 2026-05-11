@@ -35,7 +35,7 @@ describe("Projects custodians journey", () => {
     cy.contains("button", "Switch to list view").click();
     cy.contains("a", getName(dataProjectInviteUser)).click();
   });
-  
+
   before(() => {
     loginCustodian();
     goToProjectUsersList();

@@ -9,6 +9,7 @@ import { Grid, Link, TextField } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
+import { getUsers } from "@/app/actions/users";
 import Form from "../../components/Form";
 import FormActions from "../../components/FormActions";
 import FormControlWrapper from "../../components/FormControlWrapper";
@@ -19,7 +20,6 @@ import yup from "../../config/yup";
 import { MAX_FORM_WIDTH } from "../../consts/form";
 import useQueryAlerts from "../../hooks/useQueryAlerts";
 import useOrganisationInvite from "../../queries/useOrganisationInvite";
-import { getUsers } from "../../services/users";
 import { Role } from "../../types/application";
 import { InviteUserFormValues } from "../../types/form";
 import { getCombinedQueryState } from "../../utils/query";
@@ -199,19 +199,19 @@ export default function InviteUser({
         <>
           <FormSection subtitle={tUser("inviteUserTitle")}>
             <Grid container rowSpacing={3}>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <FormControlWrapper
                   name="first_name"
                   renderField={fieldProps => <TextField {...fieldProps} />}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <FormControlWrapper
                   name="last_name"
                   renderField={fieldProps => <TextField {...fieldProps} />}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <FormControlWrapper
                   name="email"
                   renderField={fieldProps => <TextField {...fieldProps} />}
@@ -219,7 +219,7 @@ export default function InviteUser({
               </Grid>
 
               {projectRoles && (
-                <Grid item xs={12}>
+                <Grid size={{ xs: 12 }}>
                   <FormControlWrapper
                     name="role"
                     renderField={fieldProps => (
@@ -231,7 +231,7 @@ export default function InviteUser({
 
               {!initialOrganisationId &&
                 (selectOrganisation ? (
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <FormControlWrapper
                       name="organisation_id"
                       renderField={({ ...fieldProps }) => (
@@ -260,7 +260,7 @@ export default function InviteUser({
                   </Grid>
                 ) : (
                   <>
-                    <Grid item xs={12}>
+                    <Grid size={{ xs: 12 }}>
                       <FormControlWrapper
                         name="organisation_name"
                         renderField={fieldProps => (
@@ -282,7 +282,7 @@ export default function InviteUser({
                         })}
                       />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid size={{ xs: 12 }}>
                       <FormControlWrapper
                         name="organisation_email"
                         renderField={fieldProps => (

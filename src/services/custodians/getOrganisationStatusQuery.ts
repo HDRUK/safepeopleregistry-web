@@ -1,5 +1,5 @@
 import { UseQueryOptions } from "@tanstack/react-query";
-import getOrganisationStatus from "./getOrganisationStatus";
+import getOrganisationStatus from "@/app/actions/custodians/getOrganisationStatus";
 
 export default function getOrganisationStatusQuery(organisationId: number) {
   return {

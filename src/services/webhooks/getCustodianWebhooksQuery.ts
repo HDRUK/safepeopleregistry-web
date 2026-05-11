@@ -1,6 +1,6 @@
 import { QueryOptions } from "@/types/requests";
 import { UseQueryOptions } from "@tanstack/react-query";
-import getCustodianWebhooks from "./getCustodianWebhooks";
+import getCustodianWebhooks from "@/app/actions/webhooks/getCustodianWebhooks";
 
 export default function getCustodianWebhooksQuery(
   custodianId: number,
@@ -19,6 +19,7 @@ export default function getCustodianWebhooksQuery(
         },
         ...options?.responseOptions,
       }),
+    enabled: !!custodianId,
     ...options,
   } as UseQueryOptions<Awaited<ReturnType<typeof getCustodianWebhooks>>>;
 }

@@ -1,4 +1,4 @@
-import postStartVeriff from "./postStartVeriff";
+import postStartVeriff from "@/app/actions/veriff/postStartVeriff";
 import { PostStartVeriffPayload } from "./types";
 
 export default function postStartVeriffQuery() {

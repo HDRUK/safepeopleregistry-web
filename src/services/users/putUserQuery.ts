@@ -1,4 +1,4 @@
-import putUser from "./putUser";
+import putUser from "@/app/actions/users/putUser";
 import { PutUserPayload } from "./types";
 
 export default function putUserQuery(userId: number) {

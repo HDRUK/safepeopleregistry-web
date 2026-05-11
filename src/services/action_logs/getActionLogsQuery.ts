@@ -1,7 +1,7 @@
 import { QueryOptions } from "@/types/requests";
 import { UseQueryOptions } from "@tanstack/react-query";
 import { ActionLogEntity } from "@/types/logs";
-import getActionLogs from "./getActionLogs";
+import getActionLogs from "@/app/actions/action_logs/getActionLogs";
 
 export default function getActionLogsQuery(
   id: number,

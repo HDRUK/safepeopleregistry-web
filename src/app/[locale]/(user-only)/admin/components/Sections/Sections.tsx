@@ -76,7 +76,9 @@ export default function Sections() {
   return (
     <>
       {sections.map(({ name, component }) => (
-        <Accordion data-cy={`data-${name}-invite`}>
+        <Accordion
+          data-cy={`data-${name}-invite`}
+          slotProps={{ heading: { component: "h2" } }}>
           <AccordionSummary
             id={`data-${name}-invite`}
             aria-controls={`data-${name}-invite-content`}

@@ -1,6 +1,6 @@
 import { QueryOptions } from "@/types/requests";
 import { UseQueryOptions } from "@tanstack/react-query";
-import getUsers from "./getUsers";
+import getUsers from "@/app/actions/users/getUsers";
 
 export default function getUsersQuery(options?: QueryOptions) {
   return {

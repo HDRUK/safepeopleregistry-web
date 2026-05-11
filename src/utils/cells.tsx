@@ -51,13 +51,13 @@ function renderAffiliationDateRangeCell<T extends ResearcherAffiliation>(
 
 const renderRegistered = (unclaimed: boolean) => {
   return (
-    <Typography>
+    <>
       {unclaimed ? (
         <ChipStatus status={Status.INVITED} />
       ) : (
         <ChipStatus status={Status.REGISTERED} />
       )}
-    </Typography>
+    </>
   );
 };
 
@@ -119,7 +119,9 @@ const renderProjectUserNameCell = (data: ProjectUser, route: string) => {
   } = data;
 
   return (
-    <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+    <Box
+      sx={{ display: "flex", gap: 1, alignItems: "center" }}
+      component="span">
       {renderUserNameCell(user, route, {
         projectUserId: id,
         userId: user.id,
@@ -176,6 +178,20 @@ function renderOrganisationsNameCell(values: Organisation | Organisation[]) {
   }
 
   return names;
+}
+
+function renderOrganisationsStatusCell(values: ProjectUser) {
+  const affiliationOrgId = values.affiliation.organisation_id;
+
+  const projectOrg = values.project?.project_has_organisations?.filter(
+    org => org.organisation_id === affiliationOrgId
+  );
+
+  const orgStatus =
+    projectOrg?.[0]?.custodian_has_project_organisation?.[0].model_state.state
+      .slug;
+
+  return <ChipStatus status={orgStatus} />;
 }
 
 function renderFileDownloadLink(files: File[], type: FileType) {
@@ -240,6 +256,7 @@ export {
   renderLinkNameCell,
   renderListNameCell,
   renderOrganisationsNameCell,
+  renderOrganisationsStatusCell,
   renderOrganisationValidatedCell,
   renderProjectNameCell,
   renderProjectsNameCell,

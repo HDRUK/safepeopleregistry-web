@@ -34,17 +34,17 @@ const BasicFormModal = ({ open }: FormModalProps) => {
       </FormModalHeader>
       <FormModalBody>
         <Grid container rowSpacing={2}>
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <FormControlWrapper label="First name">
               <TextField id="firstName" />
             </FormControlWrapper>
           </Grid>
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <FormControlWrapper label="Last name">
               <TextField id="lastName" />
             </FormControlWrapper>
           </Grid>
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <FormControlWrapper label="Email">
               <TextField id="Email" />
             </FormControlWrapper>

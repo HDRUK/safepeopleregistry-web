@@ -273,6 +273,12 @@
       "updateUserDescription": "Update the data below to change the selected team member's details",
       "createUserDescription": "Complete the form below to add a new member to your Safe People Registry team"
     },
+    "AddProject": {
+      "title": "Add a new project",
+      "description": "Enter in the following information to create a project",
+      "submitButton": "Create project",
+      "cancelButton": "Cancel"
+    },
     "SafePeople": {
       "heading": "Safe People",
       "description": "Add a User to start the validation process. You can add existing Safe People Registry Users, or invite new Users to create a Safe People Registry account."
@@ -377,14 +383,15 @@
     "noResultsMessage": "No members found",
     "homeTitle": "Your outstanding actions",
     "searchProjectUsersPlaceholder": "Search for User, Project Name, Organisation",
+    "affiliatedUsers": "{num, plural, =0 {No affiliated users} one {# affiliated user} other {# affiliated users}}",
     "guidance": {
       "rules": {
         "infoTitle": "Guidance",
-        "info": "The Safe People Registry does not make any decisions as to the final outcomes of which Users or Organisations are validated (considered \"safe\"). That decision remains with each Data Custodian.\n\nYou can still record a User or Organisation as validated to work on a particular project, even if the User/Organisation is flagged as not meeting one of the criteria.\n\n---\n\nHow does IDVT work?\n\nIDVT tests an individual against the following criteria:\n\n1. Valid government issued identification. (Fraud)\n2. Likeness check against ID. (Identity)\n3. Liveness check. (Identity)\n4. Sanctions. (Anti-Money Laundering - AML)\n\n **Note:** IDVT can currently only be performed by Users residing in the UK.\n\nThis feature is one of many supplied as part of Safe People Registry. You do not need to use them all!"
+        "info": "The Safe People Registry does not make any decisions as to the final outcomes of which Users or Organisations are validated (considered \"safe\"). That decision remains with each Data Custodian.\n\nYou can still record a User or Organisation as validated to work on a particular project, even if the User/Organisation is flagged as not meeting one of the criteria.\n\nWe encourage consulting the [Guidance for TREs assessing safe people and organisations](https://zenodo.org/records/15114755) for community agreed standards in validation.\n\n---\n\nHow does IDVT work?\n\nIDVT tests an individual against the following criteria:\n\n1. Valid government issued identification. (Fraud)\n2. Likeness check against ID. (Identity)\n3. Liveness check. (Identity)\n4. Sanctions. (Anti-Money Laundering - AML)\n\n **Note:** IDVT can currently only be performed by Users residing in the UK.\n\nThis feature is one of many supplied as part of Safe People Registry. You do not need to use them all!"
       },
       "validation-checks": {
         "infoTitle": "Guidance",
-        "info": "These Manual Checks will appear alongside each User and Organisation profile during the validation process. You will be able to navigate between different tabs for the User (Affiliations, Projects, Identify, Training, Automated Flags) and for the Organisation (Users, Address, Digital identifiers, Sector size, Data security compliance) to perform each of these checks manually.\n\nYou will always have the option to ultimately record a User or Organisation as validated without following these checks. These checks are a tool for recording decisions only."
+        "info": "These Manual Checks will appear alongside each User and Organisation profile during the validation process. You will be able to navigate between different tabs for the User (Affiliations, Projects, Identify, Training, Automated Flags) and for the Organisation (Users, Address, Digital identifiers, Sector size, Data security compliance) to perform each of these checks manually.\n\nYou will always have the option to ultimately record a User or Organisation as validated without following these checks. These checks are a tool for recording decisions only.\n\nWe encourage consulting the [Guidance for TREs assessing safe people and organisations](https://zenodo.org/records/15114755) for community agreed standards in validation."
       },
       "webhooks": {
         "infoTitle": "Guidance",
@@ -550,6 +557,11 @@
     "organisationEmailPlaceholder": "Email address",
     "organisationEmailRequired": "Organisation email address is required",
     "emailAddressAtEmployer": "Email address at employer or institute",
+    "uniqueId": "ID",
+    "uniqueIdRequiredInvalid": "ID is required",
+    "uniqueIdMatchInvalid": "Only letters and numbers allowed",
+    "title": "Name",
+    "titleRequiredInvalid": "Project name is required",
     "firstNameRequiredInvalid": "First name is a required field",
     "lastNameRequiredInvalid": "Last name is a required field",
     "permissionsRequiredInvalid": "Permissions is a required field",
@@ -838,6 +850,7 @@
       "uniqueId": "ID",
       "uniqueIdPlaceholder": "ID",
       "uniqueIdRequiredInvalid": "ID is required",
+      "uniqueIdMatchInvalid": "Only letters and numbers allowed",
       "title": "Name",
       "titlePlaceholder": "Project name",
       "titleRequiredInvalid": "Project name is required",
@@ -857,7 +870,9 @@
       "technicalSummaryDescription": "A summary of the proposed research, in a manner that is suitable for a specialist reader",
       "otherApprovalCommittees": "Other approval committees",
       "otherApprovalCommitteesPlaceholder": "Approval committee name",
-      "startDateRequiredInvalid": "Start date is required"
+      "startDateRequiredInvalid": "Start date is required",
+      "latestApprovalDate": "Latest approval date",
+      "latestApprovalDateDescription": "The last date the data access request for this project was approved by a data custodian"
     },
     "SafeData": {
       "arrayRemoveButton": "Remove",
@@ -870,7 +885,7 @@
       "oneOffRequest": "One-off request",
       "recurringDataset": "Recurring dataset",
       "releaseDate": "Release / access date",
-      "releaseDateDescription": "The date the data access was granted and active data use/research started",
+      "releaseDateDescription": "The date the data access was first granted to the first User on the project, and active data use/research first started",
       "legalBasisForDataArticle6": "Lawful condition for provision of data under <link>Article 6</link>",
       "legalBasisForDataArticle6Placeholder": "Lawful condition",
       "datasets": "Linked datasets",
@@ -1147,7 +1162,10 @@
     "viewOrEdit": "View or edit",
     "delete": "Delete",
     "reinviteOrganisation": "Resend invitiation",
+    "resendVerification": "Resend verification email",
     "resendInviteSuccess": "An invite has been sent to the organisation again!",
+    "resendAffiliationSuccess": "A verification email has been sent again!",
+    "resendAffiliationError": "Failed to resend verification email. Please try again",
     "missingOrcIdMessage": "There’s some missing information from your ORCID that we need you to complete",
     "affiliationOrganisationWarningMessage": "Please complete this field as we couldn’t match the information. Sometimes the identifier of an Organisation within an ORCID profile does not exactly match the identifier of an Organisation registered within Safe People Registry therefore please select an Organisation from the dropdown box. If the Organisation is not listed, please <link> invite them here </link>",
     "affiliationsEmailWarningMessage": "Please complete this field as we couldn’t match the information.",
@@ -1567,7 +1585,8 @@
       "requestAddNewMemberButton": "Request member is affiliated",
       "noResultsMessageProject": "It looks like there are no users associated with this project. You can add a new member by clicking the button above.",
       "noResultsMessage": "It looks like there are no users for any projects. Navigate to a project and under 'Safe People' where you have the ability to add a user to a project.",
-      "errorMessage": "Couldn't get the users for this project. Please try again or <contactLink>contact support</contactLink> if the problem persists."
+      "errorMessage": "Couldn't get the users for this project. Please try again or <contactLink>contact support</contactLink> if the problem persists.",
+      "organisationStatus": "Organisation status"
     },
     "Organisations": {
       "cancel": "Cancel",

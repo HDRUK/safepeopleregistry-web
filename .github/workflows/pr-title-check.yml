@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Generate GitHub App token
+        if: ${{ github.actor != 'dependabot[bot]' }}
         id: generate-deployment-token
         uses: actions/create-github-app-token@v2
         with:
@@ -19,6 +20,7 @@ jobs:
             ${{ github.event.repository.name }}
       
       - name: Check PR Title Format
+        if: ${{ github.actor != 'dependabot[bot]' }}
         env:
           GITHUB_TOKEN: ${{ steps.generate-deployment-token.outputs.token }}
           PR_TITLE: ${{ github.event.pull_request.title }}

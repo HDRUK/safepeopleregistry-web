@@ -7,22 +7,28 @@ import { JOB_DELAY } from "@/consts/application";
 
 Cypress.Commands.add("checkA11yPage", () => {
   cy.injectAxe();
-  cy.checkA11y(null, { skipFailures: true }, violations => {
-    cy.logAxeViolations(violations);
-  });
+  cy.checkA11y(
+    undefined,
+    undefined,
+    violations => {
+      cy.logAxeViolations(violations);
+    },
+    true
+  );
 });
 Cypress.Commands.add("waitForLoadingToFinish", () => {
-  cy.get("body").then($body => {
-    const spinner = $body.find('[role="progressbar"]');
+  const checkSpinner = () => {
+    cy.get("body").then($body => {
+      if ($body.find('[role="progressbar"]').length > 0) {
+        cy.get('[role="progressbar"]').should("not.exist");
+      }
+    });
+  };
 
-    if (spinner.length > 0) {
-      return cy
-        .get('[role="progressbar"]', { timeout: 20000 })
-        .should("not.exist");
-    }
-
-    return;
-  });
+  // First pass: catches spinners already present on snapshot
+  checkSpinner();
+  // Second pass: catches spinners that appear after React hydration
+  checkSpinner();
 });
 Cypress.Commands.add("logAxeViolations", violations => {
   cy.task(
@@ -55,22 +61,32 @@ Cypress.Commands.add("logAxeViolations", violations => {
 Cypress.Commands.add("login", (email: string, password: string) => {
   const args = { email, password };
 
-  cy.session(args, () => {
-    cy.origin(
-      Cypress.env("keycloakBaseUrl"),
-      { args },
-      ({ email, password }) => {
-        const { getKeycloakLoginPath } = Cypress.require("./utils/auth");
+  cy.session(
+    args,
+    () => {
+      cy.origin(
+        Cypress.env("keycloakBaseUrl"),
+        { args },
+        ({ email, password }) => {
+          const { getKeycloakLoginPath } = Cypress.require("./utils/auth");
 
-        cy.visit(getKeycloakLoginPath());
+          cy.visit(getKeycloakLoginPath());
 
-        cy.get("[id=username]").type(email);
-        cy.get("[id=password]").type(password);
+          cy.get("[id=username]").type(email);
+          cy.get("[id=password]").type(password);
 
-        cy.get("#kc-login").click();
-      }
-    );
-  });
+          cy.get("#kc-login").click();
+        }
+      );
+
+      cy.getCookie("access_token").should("exist");
+    },
+    {
+      validate() {
+        cy.getCookie("access_token").should("exist");
+      },
+    }
+  );
 });
 
 Cypress.Commands.add("dataCy", (value: string) => {
@@ -120,15 +136,17 @@ Cypress.Commands.add("getLatestRowOfResults", () => {
 
       cy.wrap($row).parents('div[data-cy="results"]').first().as("resultsDiv");
 
-      cy.get("@resultsDiv")
-        .find("nav button.MuiPaginationItem-page")
-        .then($buttons => {
-          if ($buttons.length > 1) {
-            cy.wrap($buttons.last()).click();
-          } else {
-            cy.log("Only one page button, skipping click");
-          }
-        });
+      cy.get("@resultsDiv").then($div => {
+        const $buttons = $div.find("nav button.MuiPaginationItem-page");
+
+        if ($buttons.length > 1) {
+          cy.wrap($buttons.last()).click();
+        } else if ($buttons.length === 1) {
+          cy.log("Only one page button, skipping click");
+        } else {
+          cy.log("No pagination buttons found, skipping");
+        }
+      });
     });
 });
 
@@ -151,10 +169,12 @@ Cypress.Commands.add("getResultsActionMenu", (value: string) => {
 Cypress.Commands.add(
   "clickAlertModal",
   (text: string = "OK", title: string = "Success") => {
-    cy.get(dataCy("alert-modal"))
-      .should("be.visible")
+    cy.wait(500);
+    cy.get(dataCy("alert-modal"), { timeout: 10000 })
+      .filter(":visible")
+      .should("have.length", 1)
       .within(() => {
-        cy.get(dataCy("alert-modal-heading")).contains(title);
+        cy.contains(dataCy("alert-modal-heading"), title).should("be.visible");
         cy.contains("button", text).click();
       });
   }
@@ -262,6 +282,7 @@ Cypress.Commands.add("solveGoogleReCAPTCHA", () => {
       .should("be.visible")
       .click();
   });
+  cy.wait(1000);
 });
 
 Cypress.Commands.add("clickUntilFound", (selector, action, assertions) => {

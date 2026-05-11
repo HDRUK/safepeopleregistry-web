@@ -108,7 +108,7 @@ function CustodianProjectUser({
           </>
         }>
         <PageColumns>
-          <PageColumnBody lg={8}>
+          <PageColumnBody size={{ lg: 8 }}>
             <UserDetails projectUser={projectUser} />
 
             <SubTabsSections
@@ -119,7 +119,7 @@ function CustodianProjectUser({
               <SubTabsContents registryId={registry.id} subTabId={subTabId} />
             </PageBody>
           </PageColumnBody>
-          <PageColumnDetails lg={4}>
+          <PageColumnDetails size={{ lg: 4 }}>
             <StatusPanel variant={ActionValidationVariants.ProjectUser} />
             <ActionValidationPanel
               variant={ActionValidationVariants.ProjectUser}

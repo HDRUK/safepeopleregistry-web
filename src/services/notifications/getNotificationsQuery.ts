@@ -1,5 +1,5 @@
+import getNotifications from "@/app/actions/notifications/getNotifications";
 import { NOTIFICATIONS_PER_PAGE } from "@/consts/notifications";
-import getNotifications from "./getNotifications";
 
 export default function getNotificationsQuery(userId: number) {
   return {

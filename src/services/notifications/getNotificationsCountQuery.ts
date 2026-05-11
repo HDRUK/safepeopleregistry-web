@@ -1,4 +1,4 @@
-import getNotificationsCounts from "./getNotificationsCounts";
+import getNotificationsCounts from "@/app/actions/notifications/getNotificationsCounts";
 
 export default function getNotificationsCountsQuery(userId: number) {
   return {

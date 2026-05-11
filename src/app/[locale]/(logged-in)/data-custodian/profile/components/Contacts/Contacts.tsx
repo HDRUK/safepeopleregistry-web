@@ -1,3 +1,4 @@
+import { deleteCustodianUser } from "@/app/actions/custodian_users";
 import Markdown from "@/components/Markdown";
 import { AddIcon } from "@/consts/icons";
 import { useStore } from "@/data/store";
@@ -6,7 +7,6 @@ import { PageBody, PageBodyContainer, PageSection } from "@/modules";
 import AdministrativeContacts from "@/modules/AdministrativeContacts";
 import SearchBar from "@/modules/SearchBar";
 import CustodianEditContactModal from "@/organisms/CustodianEditContactModal";
-import { deleteCustodianUser } from "@/services/custodian_users";
 import { usePaginatedCustodianUsers } from "@/services/custodians";
 import { CustodianUser } from "@/types/application";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";

@@ -1,6 +1,6 @@
 import { Box, Link, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { downloadFile } from "../../services/files";
+import { downloadFile } from "@/app/actions/files";
 import { Organisation } from "../../types/application";
 import { formatDisplayLongDate } from "../../utils/date";
 

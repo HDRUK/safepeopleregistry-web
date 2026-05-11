@@ -30,6 +30,7 @@ const PAYLOAD_FIELDS = [
   "request_category_type",
   "start_date",
   "end_date",
+  "latest_approval_date",
   "lay_summary",
   "public_benefit",
   "technical_summary",
@@ -66,6 +67,7 @@ export default function ProjectsSafeProject() {
         ...payload,
         start_date: formatDBDateTime(payload.start_date),
         end_date: formatDBDateTime(payload.end_date),
+        latest_approval_date: formatDBDateTime(payload.latest_approval_date),
       },
     });
   };
@@ -81,7 +83,7 @@ export default function ProjectsSafeProject() {
 
   return (
     <PageColumns>
-      <PageColumnBody lg={8}>
+      <PageColumnBody size={{ lg: 8 }}>
         <SubTabsSections
           tabId={PageTabs.PROJECTS}
           subTabId={ProjectsSubTabs.SAFE_PROJECT}
@@ -105,7 +107,7 @@ export default function ProjectsSafeProject() {
           />
         </PageBody>
       </PageColumnBody>
-      <PageColumnDetails lg={4}>
+      <PageColumnDetails size={{ lg: 4 }}>
         <Guidance
           {...mockedCustodianSafeProjectGuidanceProps}
           isCollapsible={false}
