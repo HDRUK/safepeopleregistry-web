@@ -1,3 +1,29 @@
+## [1.31.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.30.0...v1.31.0) (2026-05-11)
+
+### ✨ Features
+
+* **REGISTRY-2373:** Add latest approval date (#737) ([fe623c2](https://github.com/HDRUK/safepeopleregistry-web/commit/fe623c2dfecde54fd127ec5c9f1b5529e1385b56))
+* **REGISTRY-2594:** Add new project modal (#733) ([d4ace3b](https://github.com/HDRUK/safepeopleregistry-web/commit/d4ace3b5bf25da440a19f1c81f026dcf0348dd57))
+* **REGISTRY-2594:** Tidy kanban cards (#719) ([84eea4c](https://github.com/HDRUK/safepeopleregistry-web/commit/84eea4cfc6ebca5c51311043f864bb3d4ea3d92f))
+* **REGISTRY-2632:** add past/future date prop (#741) ([f990a88](https://github.com/HDRUK/safepeopleregistry-web/commit/f990a8891a520cc984de103964ee691cc9d848d2))
+* **REGISTRY-2647:** Move to server actions (#743) ([cf1e312](https://github.com/HDRUK/safepeopleregistry-web/commit/cf1e31258a7a89490ab22680e9e591375539a358))
+* **REGISTRY-2660:** Add file to public folder (#735) ([68c5609](https://github.com/HDRUK/safepeopleregistry-web/commit/68c560905355aeb600b2e28b2725a739727be0bb))
+* **REGISTRY-2672:** update copy (#747) ([39c6240](https://github.com/HDRUK/safepeopleregistry-web/commit/39c62408b4e892047af98378aed2b67cff46c75f))
+* **REGISTRY-2674:** Add a resend verification email option (#746) ([8e9122a](https://github.com/HDRUK/safepeopleregistry-web/commit/8e9122a20e576663248231f603b60985733901b3))
+* **REGISTRY-2682:** User should see the Organisation validation status  (#749) ([9cab354](https://github.com/HDRUK/safepeopleregistry-web/commit/9cab3542a8d6431e3b72514a889cfb450158bf56))
+* **REGISTRY-2697:** Add org status (#756) ([1e6db5c](https://github.com/HDRUK/safepeopleregistry-web/commit/1e6db5ca224ea2bdc20901935e8a33476e329458))
+* **REGISTRY-2737:** copy update (#740) ([c26babe](https://github.com/HDRUK/safepeopleregistry-web/commit/c26babe0249f408211182c2e57f4f7ae35537dd8))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-0000:** bump next-intl from 3.25.3 to 4.9.1 (#738) ([2f0d12f](https://github.com/HDRUK/safepeopleregistry-web/commit/2f0d12f55d41fca888ba9893c49ddf8703595e89))
+* **REGISTRY-0000:** fix dependabot prs (#748) ([a4bc99d](https://github.com/HDRUK/safepeopleregistry-web/commit/a4bc99d386ef329c12ce646354ad152554444339))
+* **REGISTRY-0000:** revert next-intl update (#752) ([2bef0c1](https://github.com/HDRUK/safepeopleregistry-web/commit/2bef0c1199fd2c8afdd7bf004f379f84813f9be5))
+* **REGISTRY-2517:** Allow date in future (#722) ([6c1052e](https://github.com/HDRUK/safepeopleregistry-web/commit/6c1052ecbb0feb32e94389132df294e7b939a32a))
+* **REGISTRY-2568:** allow empty access_date (#750) ([3519f2d](https://github.com/HDRUK/safepeopleregistry-web/commit/3519f2db84d76d242565bb417fa040919750e7f0))
+* **REGISTRY-2629:** correct cookie (#753) ([a71e898](https://github.com/HDRUK/safepeopleregistry-web/commit/a71e8985795e52b2c083f162c693167161d86b84))
+* **REGISTRY-2652:** correct affiliation payload (#736) ([d51cbd0](https://github.com/HDRUK/safepeopleregistry-web/commit/d51cbd0e3bfec52891519f0a3872869b4518f20d))
+
 ## [1.30.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.29.2...v1.30.0) (2026-03-25)
 
 ### ✨ Features
