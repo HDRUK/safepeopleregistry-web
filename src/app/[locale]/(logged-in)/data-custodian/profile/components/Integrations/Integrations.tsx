@@ -73,10 +73,10 @@ export default function Integrations() {
           </CustodianIntegrationsForm>
         ) : (
           <>
-            <Typography variant="subtitle2">{t("gatewayAppId")}</Typography>
+            <Typography variant="subtitle1">{t("gatewayAppId")}</Typography>
             <Typography>{custodian?.gateway_app_id}</Typography>
 
-            <Typography variant="subtitle2" sx={{ mt: 2 }}>
+            <Typography variant="subtitle1" sx={{ mt: 2 }}>
               {t("gatewayClientId")}
             </Typography>
             <Typography>{custodian?.gateway_client_id}</Typography>
