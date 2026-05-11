@@ -3,9 +3,11 @@ import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
 import { ROUTES } from "@/consts/router";
 import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
 import { useStore } from "@/data/store";
+import useIsCustodianAdmin from "@/hooks/useIsCustodianAdmin";
 import { PageBody, PageSection } from "@/modules";
 import CustodianIntegrationsForm from "@/modules/CustodianIntegrationsForm";
 import { putCustodianQuery } from "@/services/custodians";
+import { Typography } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
@@ -24,6 +26,8 @@ export default function Integrations() {
   const { custodian } = useStore(state => ({
     custodian: state.getCustodian(),
   }));
+
+  const isAdmin = useIsCustodianAdmin();
 
   const { mutateAsync: updateCustodian, ...restMutationState } = useMutation(
     putCustodianQuery(custodian?.id)
@@ -53,19 +57,31 @@ export default function Integrations() {
   return (
     <PageBody>
       <PageSection heading={t("configurationIntegrations")}>
-        <CustodianIntegrationsForm
-          t={t}
-          mutateState={restMutationState}
-          custodian={custodian}
-          defaultValues={defaultValues}
-          onSubmit={handleSubmit}>
-          <FormActions>
-            <ProfileNavigationFooter
-              previousHref={ROUTES.profileCustodianConfigurationWebhooks.path}
-              isLoading={restMutationState.isPending}
-            />
-          </FormActions>
-        </CustodianIntegrationsForm>
+        {isAdmin ? (
+          <CustodianIntegrationsForm
+            t={t}
+            mutateState={restMutationState}
+            custodian={custodian}
+            defaultValues={defaultValues}
+            onSubmit={handleSubmit}>
+            <FormActions>
+              <ProfileNavigationFooter
+                previousHref={ROUTES.profileCustodianConfigurationWebhooks.path}
+                isLoading={restMutationState.isPending}
+              />
+            </FormActions>
+          </CustodianIntegrationsForm>
+        ) : (
+          <>
+            <Typography variant="subtitle2">{t("gatewayAppId")}</Typography>
+            <Typography>{custodian?.gateway_app_id}</Typography>
+
+            <Typography variant="subtitle2" sx={{ mt: 2 }}>
+              {t("gatewayClientId")}
+            </Typography>
+            <Typography>{custodian?.gateway_client_id}</Typography>
+          </>
+        )}
       </PageSection>
     </PageBody>
   );
