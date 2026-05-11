@@ -18,6 +18,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import AddNewValidationCheck from "../AddNewValidationCheck";
+import useIsCustodianAdmin from "@/hooks/useIsCustodianAdmin";
 
 const NAMESPACE_TRANSLATION = "ValidationChecks";
 
@@ -29,6 +30,8 @@ export enum AppliesTo {
 export default function ValidationChecks() {
   const t = useTranslations(NAMESPACE_TRANSLATION);
   const custodianId = useStore(store => store?.getCustodian()?.id);
+  const isAdmin = useIsCustodianAdmin();
+
   const { showAlert, hideAlert } = useAlertModal();
   const [userChecks, setUserChecks] = useState<boolean[]>([]);
   const [orgChecks, setOrgChecks] = useState<boolean[]>([]);
@@ -206,37 +209,53 @@ export default function ValidationChecks() {
       <Form onSubmit={handleSubmit} {...formOptions}>
         <CheckboxList
           isLoading={isLoading}
-          items={formattedUserChecks}
+          items={
+            isAdmin
+              ? formattedUserChecks
+              : formattedUserChecks.filter(check => check.active)
+          }
           title={t("userChecksTitle")}
           checked={userChecks}
           setChecked={setUserChecks}
           onEdit={onEdit}
           onEditTitle={t("userEditTitle")}
           rightButton={
-            <AddNewValidationCheck
-              title={t("userAddTitle")}
-              onSubmit={handleAddNewUserCheck}
-            />
+            isAdmin && (
+              <AddNewValidationCheck
+                title={t("userAddTitle")}
+                onSubmit={handleAddNewUserCheck}
+              />
+            )
           }
+          readOnly={!isAdmin}
         />
         <CheckboxList
           isLoading={isLoading}
-          items={formattedOrganisationChecks}
+          items={
+            isAdmin
+              ? formattedOrganisationChecks
+              : formattedOrganisationChecks.filter(check => check.active)
+          }
           title={t("organisationChecksTitle")}
           checked={orgChecks}
           setChecked={setOrgChecks}
           onEdit={onEdit}
           onEditTitle={t("orgEditTitle")}
           rightButton={
-            <AddNewValidationCheck
-              title={t("userAddTitle")}
-              onSubmit={handleAddOrganisationCheck}
-            />
+            isAdmin && (
+              <AddNewValidationCheck
+                title={t("userAddTitle")}
+                onSubmit={handleAddOrganisationCheck}
+              />
+            )
           }
+          readOnly={!isAdmin}
         />
-        <FormActions>
-          <ButtonSave isLoading={isLoading} />
-        </FormActions>
+        {isAdmin && (
+          <FormActions>
+            <ButtonSave isLoading={isLoading} />
+          </FormActions>
+        )}
       </Form>
     </PageBody>
   );

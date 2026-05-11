@@ -2,6 +2,7 @@ import { deleteCustodianUser } from "@/app/actions/custodian_users";
 import Markdown from "@/components/Markdown";
 import { AddIcon } from "@/consts/icons";
 import { useStore } from "@/data/store";
+import useIsCustodianAdmin from "@/hooks/useIsCustodianAdmin";
 import useQueryConfirmAlerts from "@/hooks/useQueryConfirmAlerts";
 import { PageBody, PageBodyContainer, PageSection } from "@/modules";
 import AdministrativeContacts from "@/modules/AdministrativeContacts";
@@ -29,6 +30,8 @@ export default function Contacts() {
     custodian: state.getCustodian(),
     user: state.getUser(),
   }));
+
+  const isAdmin = useIsCustodianAdmin();
 
   const {
     data,
@@ -144,34 +147,40 @@ export default function Contacts() {
                 placeholder={t("searchPlaceholder")}
               />
             </Box>
-            <Button
-              startIcon={<AddIcon />}
-              variant="contained"
-              onClick={() => {
-                if (custodian?.id) {
-                  setModalProps({
-                    open: true,
-                    user: {
-                      first_name: "",
-                      last_name: "",
-                      email: "",
-                      custodian_id: custodian?.id,
-                    },
-                  });
-                }
-              }}>
-              {t("addNewUser")}
-            </Button>
+            {isAdmin && (
+              <Button
+                startIcon={<AddIcon />}
+                variant="contained"
+                onClick={() => {
+                  if (custodian?.id) {
+                    setModalProps({
+                      open: true,
+                      user: {
+                        first_name: "",
+                        last_name: "",
+                        email: "",
+                        custodian_id: custodian?.id,
+                      },
+                    });
+                  }
+                }}>
+                {t("addNewUser")}
+              </Button>
+            )}
           </Box>
           <AdministrativeContacts
             data={data || []}
-            additionalColumns={[
-              {
-                accessorKey: "action",
-                header: "Actions",
-                cell: renderActionMenuCell,
-              },
-            ]}
+            additionalColumns={
+              isAdmin
+                ? [
+                    {
+                      accessorKey: "action",
+                      header: "Actions",
+                      cell: renderActionMenuCell,
+                    },
+                  ]
+                : []
+            }
             total={total}
             last_page={last_page}
             page={page}

@@ -4,6 +4,10 @@ import { HeadingLevel } from "@/consts/header";
 import { Rule } from "../../types/rules";
 import CheckboxItem from "../CheckboxItem";
 import SkeletonCheckboxList from "./Skeleton";
+import {
+  StyledListItem,
+  StyledListItemText,
+} from "@/components/CheckboxList/CheckboxList.styles";
 
 interface CheckboxListType {
   items: Rule[];
@@ -15,6 +19,7 @@ interface CheckboxListType {
   onEditTitle?: string;
   rightButton?: React.ReactNode;
   headingComponent?: HeadingLevel;
+  readOnly?: boolean;
 }
 
 const CheckboxList = ({
@@ -27,6 +32,7 @@ const CheckboxList = ({
   onEditTitle,
   rightButton,
   headingComponent,
+  readOnly,
 }: CheckboxListType) => {
   const handleChange =
     (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,9 +59,23 @@ const CheckboxList = ({
         </Typography>
         {rightButton && <Box>{rightButton}</Box>}
       </Box>
-      <List sx={{ bgcolor: "#f2f2f2", padding: 1, borderRadius: 1 }}>
+      <List
+        sx={
+          readOnly ? {} : { bgcolor: "#f2f2f2", padding: 1, borderRadius: 1 }
+        }>
         {isLoading ? (
           <SkeletonCheckboxList isLoading={isLoading} n={items?.length || 4} />
+        ) : readOnly ? (
+          items
+            .filter(item => item.active)
+            .map(rule => (
+              <StyledListItem key={rule.id}>
+                <StyledListItemText
+                  primary={rule.label && <Typography>{rule.label}:</Typography>}
+                  secondary={rule.text}
+                />
+              </StyledListItem>
+            ))
         ) : (
           items.map((rule, index) => (
             <CheckboxItem
