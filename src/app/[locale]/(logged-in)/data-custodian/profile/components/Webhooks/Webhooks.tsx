@@ -288,13 +288,13 @@ export default function Webhooks() {
               {webhooksData?.data.map(webhook => (
                 <Grid container rowSpacing={3} key={webhook.id}>
                   <Grid size={{ xs: 5 }}>
-                    <Typography fontWeight="bold">
+                    <Typography variant="subtitle1">
                       {t("receiverUrl")}
                     </Typography>
                     <Typography>{webhook.url}</Typography>
                   </Grid>
                   <Grid size={{ xs: 5.5 }}>
-                    <Typography fontWeight="bold">
+                    <Typography variant="subtitle1">
                       {t("eventTrigger")}
                     </Typography>
                     <Typography>{webhook.event_trigger.name}</Typography>
