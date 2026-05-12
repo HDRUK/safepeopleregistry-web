@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, useTheme } from "@mui/material";
 import HowToRegOutlinedIcon from "@mui/icons-material/HowToRegOutlined";
 import { getLoginUrl } from "@/utils/keycloak";
 import { ROUTES } from "@/consts/router";
@@ -18,6 +18,7 @@ const YOUTUBE_MAX_WIDTH = 854;
 
 export default function KeyFeatures() {
   const t = useTranslations(NAMESPACE_TRANSLATIONS);
+  const theme = useTheme();
 
   return (
     <StyledContent>
@@ -81,7 +82,14 @@ export default function KeyFeatures() {
           <Typography variant="h4">{t("registerNow")}</Typography>
         </Button>
         <Typography>
-          {t("or")} <Link href={getLoginUrl()}>{t("signIn")}</Link>
+          {t("or")}{" "}
+          <Link
+            style={{
+              color: theme.palette.primary.main,
+            }}
+            href={getLoginUrl()}>
+            {t("signIn")}
+          </Link>
         </Typography>
       </Box>
     </StyledContent>
