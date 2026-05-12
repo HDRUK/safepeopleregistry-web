@@ -20,7 +20,13 @@ Cypress.Commands.add("waitForLoadingToFinish", () => {
   const checkSpinner = () => {
     cy.get("body").then($body => {
       if ($body.find('[role="progressbar"]').length > 0) {
-        cy.get('[role="progressbar"]').should("not.exist");
+        cy.get('[role="progressbar"]', { timeout: 20000 }).should("not.exist");
+      }
+
+      if ($body.find('[data-cy="skeleton-checkboxlist"]').length > 0) {
+        cy.get('[data-cy="skeleton-checkboxlist"]', {
+          timeout: 20000,
+        }).should("not.exist");
       }
     });
   };

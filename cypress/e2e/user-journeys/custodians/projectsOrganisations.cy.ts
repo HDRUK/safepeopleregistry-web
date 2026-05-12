@@ -17,6 +17,7 @@ describe("Projects organisations journey AXE", () => {
     goToProjectUsersList();
 
     cy.waitForLoadingToFinish();
+    cy.wait(2000);
     cy.checkA11yPage();
   });
 });
@@ -49,12 +50,18 @@ describe("Projects organisations journey", () => {
   });
 
   it("Cannot change the status of an organisation", () => {
-    cy.get("tbody")
-      .find("tr")
+    cy.waitForLoadingToFinish();
+
+    cy.get("tbody tr")
       .last()
-      .find(dataCy("action-menu"))
-      .last()
-      .click();
+      .within(() => {
+        cy.get(dataCy("action-menu"))
+          .should("be.visible")
+          .and("not.be.disabled")
+          .click();
+      });
+
+    cy.wait(500);
 
     cy.get(".MuiPopover-root").should("not.exist");
   });

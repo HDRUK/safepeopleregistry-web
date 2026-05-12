@@ -21,13 +21,24 @@ const goToProjectUsersList = (projectTitle: string = DEFAULT_PROJECT_NAME) => {
   cy.visitFirst(ROUTES.profileCustodianProjects.path);
   cy.waitForLoadingToFinish();
 
-  cy.contains("a", projectTitle).click();
+  cy.contains("a", projectTitle).should("be.visible").click();
   cy.waitForLoadingToFinish();
 
-  cy.contains("a", "Safe People").click();
+  cy.contains("a", "Safe People").should("be.visible").click();
   cy.waitForLoadingToFinish();
 
-  cy.contains("button", "Switch to list view").click();
+  cy.url().should("include", "safe-people");
+
+  cy.waitForLoadingToFinish();
+
+  cy.contains("button", "Switch to list view")
+    .should("be.visible")
+    .and("not.be.disabled")
+    .click();
+
+  cy.waitForLoadingToFinish();
+
+  cy.contains("button", "Switch to board view").should("exist");
 };
 
 const changeStatusProjectEntities = (status: Status) => {
