@@ -8,12 +8,14 @@ import { PageBody, PageBodyContainer, PageSection } from "@/modules";
 import AdministrativeContacts from "@/modules/AdministrativeContacts";
 import SearchBar from "@/modules/SearchBar";
 import CustodianEditContactModal from "@/organisms/CustodianEditContactModal";
+import { getCustodianUserQuery } from "@/services/custodian_users";
 import { usePaginatedCustodianUsers } from "@/services/custodians";
 import { CustodianUser } from "@/types/application";
+import { isCustodianAdministrator } from "@/utils/custodian";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import { Box, Button, IconButton, Tooltip } from "@mui/material";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { CellContext } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import { useCallback, useState } from "react";
@@ -26,9 +28,10 @@ export default function Contacts() {
     open: boolean;
     user?: Partial<CustodianUser>;
   } | null>();
-  const { custodian, user } = useStore(state => ({
+  const { custodian, user, permissions } = useStore(state => ({
     custodian: state.getCustodian(),
     user: state.getUser(),
+    permissions: state.config.permissions,
   }));
 
   const isAdmin = useIsCustodianAdmin();
@@ -124,8 +127,41 @@ export default function Contacts() {
     refetch();
   }, []);
 
+  const { data: getCustodianUserQueryData } = useQuery({
+    ...getCustodianUserQuery(user?.custodian_user_id as number),
+    enabled: !!user?.custodian_user_id,
+  });
+
+  console.log(
+    getCustodianUserQueryData?.data &&
+      !!isCustodianAdministrator(getCustodianUserQueryData.data, permissions)
+  );
+
   return (
     <PageBodyContainer heading={t("contactsHeading")}>
+      {/* DEBUG */}
+      <>
+        <p>
+          {JSON.stringify(
+            permissions.filter(p => p.name === "CUSTODIAN_ADMIN")
+          )}
+        </p>
+        <p>
+          getCustodianUserQueryData -{" "}
+          {JSON.stringify(getCustodianUserQueryData)}
+        </p>
+        <p>
+          is admin -{" "}
+          {isCustodianAdministrator(
+            getCustodianUserQueryData?.data,
+            permissions
+          )
+            ? "true"
+            : "false"}
+        </p>
+        <p>custodian_user_id-{user?.custodian_user_id}</p>
+      </>
+
       <PageBody>
         <PageSection
           description={<Markdown>{t("contactsListDescription")}</Markdown>}>
