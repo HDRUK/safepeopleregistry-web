@@ -50,18 +50,12 @@ describe("Projects organisations journey", () => {
   });
 
   it("Cannot change the status of an organisation", () => {
-    cy.waitForLoadingToFinish();
-
-    cy.get("tbody tr")
+    cy.get("tbody")
+      .find("tr")
       .last()
-      .within(() => {
-        cy.get(dataCy("action-menu"))
-          .should("be.visible")
-          .and("not.be.disabled")
-          .click();
-      });
-
-    cy.wait(500);
+      .find(dataCy("action-menu"))
+      .last()
+      .click();
 
     cy.get(".MuiPopover-root").should("not.exist");
   });

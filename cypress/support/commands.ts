@@ -191,7 +191,7 @@ Cypress.Commands.add("actionMenuClick", (text: string) => {
 });
 
 Cypress.Commands.add("buttonClick", (text: string) => {
-  cy.get("button").contains(text).click();
+  cy.contains("button", text).should("be.visible").click();
 });
 
 Cypress.Commands.add("checkboxClick", (id: string) => {
