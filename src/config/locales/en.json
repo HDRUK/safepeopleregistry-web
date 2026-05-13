@@ -640,6 +640,7 @@
     "organisationSizeAriaLabel": " Organisation Size",
     "organisationSize": "Organisation Size",
     "organisationNameAriaLabel": "Select organisation",
+    "organisationSizeRequiredInvalid": "Organisation size is required",
     "departmentNameAriaLabel": "Select department",
     "toggleOtpPasscodeAriaLabel": "Toggle passcode visibility",
     "togglePasswordAriaLabel": "Toggle password visibility",
