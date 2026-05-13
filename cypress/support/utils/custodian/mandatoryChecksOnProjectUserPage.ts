@@ -3,13 +3,16 @@ const checkMandatoryCustodianTrainingTestingChecksAddMoreIformationCancelButton 
     cy.verifyMandatoryTrainingCardTitleExists(
       "Mandatory training has been completed"
     );
-    cy.contains("button", "…").should("exist").click();
-    cy.document()
-      .find(".MuiPopover-root:visible")
+
+    cy.contains("button", "…").should("be.visible").click();
+
+    cy.get(".MuiPopover-root")
+      .should("be.visible")
       .within(() => {
-        cy.contains("Add more information").click();
+        cy.contains("Add more information").should("be.visible").click();
       });
-    cy.contains("button", "Cancel").should("exist").click();
+
+    cy.contains("button", "Cancel").should("be.visible").click();
   };
 
 const checkMandatoryCustodianTrainingTestingChecksAddMoreInformation = () => {
