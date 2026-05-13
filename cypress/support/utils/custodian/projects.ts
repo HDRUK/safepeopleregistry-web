@@ -24,7 +24,9 @@ const goToProjectUsersList = (projectTitle: string = DEFAULT_PROJECT_NAME) => {
   cy.contains("a", projectTitle).should("be.visible").click();
   cy.waitForLoadingToFinish();
   cy.contains("a", "Safe People").should("be.visible").click();
+  cy.waitForLoadingToFinish();
   cy.contains("button", "Switch to list view").should("be.visible").click();
+  cy.waitForLoadingToFinish();
 };
 
 const changeStatusProjectEntities = (status: Status) => {
@@ -179,11 +181,14 @@ const inviteNewProjectUser = (invite: InviteUserFormValues) => {
   cy.wait("@saveProjectUser");
 
   cy.wait(2000);
+  cy.waitForLoadingToFinish();
 
   cy.saveContinueClick("Save");
 
   cy.clickAlertModal("Close");
   cy.wait("@saveProjectUser");
+
+  cy.waitForLoadingToFinish();
 
   // Observers haven't complete when refresh is called
   // cy.saveFormClick();
