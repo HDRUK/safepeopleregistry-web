@@ -1,8 +1,6 @@
 const checkMandatoryCustodianTrainingTestingChecksAddMoreIformationCancelButton =
   () => {
-    cy.verifyMandatoryTrainingCardTitleExists(
-      "Mandatory training has been completed"
-    );
+    cy.verifyMandatoryTrainingCardTitleExists("Mandatory Custodian Training");
 
     cy.contains("button", "…").should("be.visible").click();
 
@@ -16,9 +14,7 @@ const checkMandatoryCustodianTrainingTestingChecksAddMoreIformationCancelButton 
   };
 
 const checkMandatoryCustodianTrainingTestingChecksAddMoreInformation = () => {
-  cy.verifyMandatoryTrainingCardTitleExists(
-    "Mandatory training has been completed"
-  );
+  cy.verifyMandatoryTrainingCardTitleExists("Mandatory Custodian Training");
   cy.contains("button", "…").should("exist").click();
   cy.document()
     .find(".MuiPopover-root:visible")
@@ -33,17 +29,13 @@ const checkMandatoryCustodianTrainingTestingChecksAddMoreInformation = () => {
 };
 
 const checkMandatoryCustodianTrainingTestingChecksPassCancelButton = () => {
-  cy.verifyMandatoryTrainingCardTitleExists(
-    "Mandatory training has been completed"
-  );
+  cy.verifyMandatoryTrainingCardTitleExists("Mandatory Custodian Training");
   cy.contains("button", "Pass").click();
   cy.contains("button", "Cancel").should("exist").click();
 };
 
 const checkMandatoryCustodianTrainingTestingChecksPass = () => {
-  cy.verifyMandatoryTrainingCardTitleExists(
-    "Mandatory training has been completed"
-  );
+  cy.verifyMandatoryTrainingCardTitleExists("Mandatory Custodian Training");
   cy.contains("button", "Pass").should("exist").click();
   cy.contains("label", "Add any further comment").should("exist");
   const text = "Mandatory Custodian Training Testing";
@@ -55,9 +47,7 @@ const checkMandatoryCustodianTrainingTestingChecksPass = () => {
 
 const checkMandatoryCustodianTrainingTestingChecksPassChangeDecision = () => {
   cy.get(".MuiPaper-root").then($el => {
-    cy.verifyMandatoryTrainingCardTitleExists(
-      "Mandatory training has been completed"
-    );
+    cy.verifyMandatoryTrainingCardTitleExists("Mandatory Custodian Training");
     if ($el.find('button:contains("Pass")').length) {
       cy.contains("button", "Pass").should("exist").click();
       const text = "Mandatory Custodian Training Testing";
@@ -79,12 +69,10 @@ const checkMandatoryCustodianTrainingTestingChecksPassChangeDecision = () => {
 };
 
 const checkMandatoryCustodianTrainingTestingChecksPassViewLessViewAll = () => {
-  cy.contains("h5", "Mandatory training has been completed")
+  cy.contains("h5", "Mandatory Custodian Training")
     .closest(".MuiPaper-root")
     .within($el => {
-      cy.contains("h5", "Mandatory training has been completed").should(
-        "exist"
-      );
+      cy.contains("h5", "Mandatory Custodian Training").should("exist");
       const comment = "Mandatory Custodian Training Testing";
       const passCount = 3;
       for (let i = 0; i < passCount; i++) {
@@ -108,9 +96,7 @@ const checkMandatoryCustodianTrainingTestingChecksPassViewLessViewAll = () => {
 
 const checkMandatoryCustodianTrainingTestingChecksFailCancelButton = () => {
   cy.get(".MuiPaper-root").then($el => {
-    cy.verifyMandatoryTrainingCardTitleExists(
-      "Mandatory training has been completed"
-    );
+    cy.verifyMandatoryTrainingCardTitleExists("Mandatory Custodian Training");
     if ($el.find('button:contains("Change Decision")').length) {
       cy.wrap($el).contains("button", "Change Decision").click();
     } else {
@@ -122,9 +108,7 @@ const checkMandatoryCustodianTrainingTestingChecksFailCancelButton = () => {
 
 const checkMandatoryCustodianTrainingTestingChecksFail = () => {
   cy.get(".MuiPaper-root").then($el => {
-    cy.verifyMandatoryTrainingCardTitleExists(
-      "Mandatory training has been completed"
-    );
+    cy.verifyMandatoryTrainingCardTitleExists("Mandatory Custodian Training");
     if ($el.find('button:contains("Change Decision")').length) {
       cy.wrap($el).contains("button", "Change Decision").click();
       cy.contains("button", "Fail").should("exist").click();
@@ -150,9 +134,7 @@ const checkMandatoryCustodianTrainingTestingChecksFail = () => {
 
 const checkMandatoryCustodianTrainingTestingChecksFailChangeDecision = () => {
   cy.get(".MuiPaper-root").then($el => {
-    cy.verifyMandatoryTrainingCardTitleExists(
-      "Mandatory training has been completed"
-    );
+    cy.verifyMandatoryTrainingCardTitleExists("Mandatory Custodian Training");
     if ($el.find('button:contains("Fail")').length) {
       cy.contains("button", "Fail").should("exist").click();
       const text = "Mandatory Custodian Training Testing";
@@ -174,12 +156,10 @@ const checkMandatoryCustodianTrainingTestingChecksFailChangeDecision = () => {
 };
 
 const checkMandatoryCustodianTrainingTestingChecksFailViewLessViewAll = () => {
-  cy.contains("h5", "Mandatory training has been completed")
+  cy.contains("h5", "Mandatory Custodian Training")
     .closest(".MuiPaper-root")
     .within($el => {
-      cy.contains("h5", "Mandatory training has been completed").should(
-        "exist"
-      );
+      cy.contains("h5", "Mandatory Custodian Training").should("exist");
       const comment = "Mandatory Custodian Training Testing";
       const passCount = 3;
       for (let i = 0; i < passCount; i++) {
