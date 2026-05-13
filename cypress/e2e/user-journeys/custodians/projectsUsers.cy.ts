@@ -82,6 +82,6 @@ describe("Projects users journey", () => {
   it("Removes a user from the project", () => {
     removeFromProjectUsers({ first_name, last_name });
 
-    cy.getResultsRow().should("not.exist");
+    cy.contains(`${first_name} ${last_name}`).should("not.exist");
   });
 });
