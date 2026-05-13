@@ -1,8 +1,8 @@
 "use client";
 
 import { Tabs, Tab, TabsProps } from "@mui/material";
-import { Link } from "@/i18n/routing";
 import { Option } from "../../types/common";
+import Link from "next/link";
 
 interface SubTabsProps extends TabsProps {
   current: string | null;
