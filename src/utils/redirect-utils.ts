@@ -10,12 +10,20 @@ function getHomepageRedirectPath() {
   return ROUTES.homepage.path;
 }
 
+function removeLocalePrefix(pathname: string) {
+  return pathname.replace(/^\/[a-z]{2}(?=\/|$)/, "") || "/";
+}
+
 function isInPath(pathname: string, pathToCompare: string | string[]) {
+  const normalisedPathname = removeLocalePrefix(pathname);
+
   if (Array.isArray(pathToCompare)) {
-    return pathToCompare.some(item => item.includes(pathname));
+    return pathToCompare.some(item =>
+      removeLocalePrefix(item).includes(normalisedPathname)
+    );
   }
 
-  return pathToCompare.includes(pathname);
+  return removeLocalePrefix(pathToCompare).includes(normalisedPathname);
 }
 
 const getProfileRedirectPath = (user: User) => {
@@ -29,4 +37,5 @@ export {
   getRegisterRedirectPath,
   isInPath,
   getProfileRedirectPath,
+  removeLocalePrefix,
 };
