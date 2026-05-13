@@ -19,14 +19,11 @@ import { inviteOrganisation } from "../admin/invite";
 
 const goToProjectUsersList = (projectTitle: string = DEFAULT_PROJECT_NAME) => {
   cy.visitFirst(ROUTES.profileCustodianProjects.path);
-  cy.waitForLoadingToFinish();
 
   cy.contains("a", projectTitle).should("be.visible").click();
-  cy.waitForLoadingToFinish();
   cy.contains("a", "Safe People").should("be.visible").click();
-  cy.waitForLoadingToFinish();
+  cy.url().should("include", "safe-people");
   cy.contains("button", "Switch to list view").should("be.visible").click();
-  cy.waitForLoadingToFinish();
 };
 
 const changeStatusProjectEntities = (status: Status) => {

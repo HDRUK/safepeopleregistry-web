@@ -5,6 +5,20 @@ import { Result } from "axe-core";
 import "cypress-axe";
 import { JOB_DELAY } from "@/consts/application";
 
+let pendingPostRequests = 0;
+
+beforeEach(() => {
+  pendingPostRequests = 0;
+
+  cy.intercept({ method: "POST", url: "*" }, req => {
+    pendingPostRequests += 1;
+
+    req.on("response", () => {
+      pendingPostRequests = Math.max(pendingPostRequests - 1, 0);
+    });
+  });
+});
+
 Cypress.Commands.add("checkA11yPage", () => {
   cy.injectAxe();
   cy.checkA11y(
@@ -29,6 +43,10 @@ Cypress.Commands.add("waitForLoadingToFinish", () => {
   checkSpinner();
   // Second pass: catches spinners that appear after React hydration
   checkSpinner();
+
+  cy.wrap(null).should(() => {
+    expect(pendingPostRequests, "pending POST requests").to.eq(0);
+  });
 });
 Cypress.Commands.add("logAxeViolations", violations => {
   cy.task(
