@@ -130,6 +130,7 @@ const checkMandatoryCustodianTrainingTestingChecksFail = () => {
     }
   });
 };
+//
 
 const checkMandatoryCustodianTrainingTestingChecksFailChangeDecision = () => {
   cy.get(".MuiPaper-root").then($el => {
