@@ -17,17 +17,28 @@ function removeLocalePrefix(pathname: string) {
 function isInPath(pathname: string, pathToCompare: string | string[]) {
   const normalisedPathname = removeLocalePrefix(pathname);
 
+  const matches = (path: string) => {
+    const normalisedPath = removeLocalePrefix(path);
+
+    // homepage should only match homepage
+    if (normalisedPathname === "/") {
+      return normalisedPath === "/";
+    }
+
+    return normalisedPath.includes(normalisedPathname);
+  };
+
   if (Array.isArray(pathToCompare)) {
-    return pathToCompare.some(item =>
-      removeLocalePrefix(item).includes(normalisedPathname)
-    );
+    return pathToCompare.some(matches);
   }
 
-  return removeLocalePrefix(pathToCompare).includes(normalisedPathname);
+  return matches(pathToCompare);
 }
 
 const getProfileRedirectPath = (user: User) => {
   const redirectPath = getProfilePathByEntity(user);
+
+  console.log("REDIRECT PATH");
 
   return redirectPath;
 };

@@ -4,20 +4,7 @@ import { dataCy } from "./utils/common";
 import { Result } from "axe-core";
 import "cypress-axe";
 import { JOB_DELAY } from "@/consts/application";
-
-let pendingPostRequests = 0;
-
-beforeEach(() => {
-  pendingPostRequests = 0;
-
-  cy.intercept({ method: "POST", url: "*" }, req => {
-    pendingPostRequests += 1;
-
-    req.on("response", () => {
-      pendingPostRequests = Math.max(pendingPostRequests - 1, 0);
-    });
-  });
-});
+import "cypress-network-idle";
 
 Cypress.Commands.add("checkA11yPage", () => {
   cy.injectAxe();
@@ -44,10 +31,9 @@ Cypress.Commands.add("waitForLoadingToFinish", () => {
   // Second pass: catches spinners that appear after React hydration
   checkSpinner();
 
-  cy.wrap(null).should(() => {
-    expect(pendingPostRequests, "pending POST requests").to.eq(0);
-  });
+  cy.waitForNetworkIdle(1000);
 });
+
 Cypress.Commands.add("logAxeViolations", violations => {
   cy.task(
     "log",
