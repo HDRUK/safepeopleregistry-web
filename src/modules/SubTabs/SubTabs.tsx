@@ -2,7 +2,7 @@
 
 import { Tabs, Tab, TabsProps } from "@mui/material";
 import { Option } from "../../types/common";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 
 interface SubTabsProps extends TabsProps {
   current: string | null;
