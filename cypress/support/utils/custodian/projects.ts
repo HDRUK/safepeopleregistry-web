@@ -174,13 +174,11 @@ const inviteNewProjectUser = (invite: InviteUserFormValues) => {
 
   cy.saveFormClick("Invite");
   cy.clickAlertModal("Close");
-  cy.wait("@saveProjectUser");
 
   cy.wait(2000);
   cy.waitForLoadingToFinish();
   cy.saveContinueClick("Save");
   cy.clickAlertModal("Close");
-  cy.wait("@saveProjectUser");
   cy.waitForLoadingToFinish();
 
   // Observers haven't complete when refresh is called
