@@ -108,6 +108,7 @@
       "pending": "Pending Validation",
       "pending_short": "Pending",
       "completed": "Completed",
+      "complete": "Completed",
       "approved": "Approved",
       "undefined": "None",
       "null": "None",

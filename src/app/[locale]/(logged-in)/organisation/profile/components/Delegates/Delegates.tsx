@@ -31,9 +31,6 @@ export default function Delegates() {
   return (
     <LoadingWrapper variant="basic" loading={queryState.isLoading}>
       <PageBody
-        heading={
-          user?.is_delegate === 0 ? null : tProfile("delegatesAdminTitle")
-        }
         description={
           <Markdown>
             {user?.is_delegate === 0
