@@ -62,6 +62,9 @@ const PALETTE_THEME_PURPLE_BLUE = {
       ...typography.caption,
       fontSize: "0.79rem",
     },
+    subtitle1: {
+      ...headingStyles,
+    },
   },
   palette: {
     primary: createColor("#BE37A3"),

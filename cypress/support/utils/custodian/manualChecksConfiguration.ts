@@ -32,15 +32,23 @@ const hasCheckedOnUsersConfigurationManualChecks = () => {
 };
 
 const addManualChecksForUsersConfigurationManualChecks = (title: string) => {
-  cy.get(dataCy("sub-tabs-navigation")).within(() => {
-    cy.contains("a", "Manual checks").click();
-  });
-  cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
-    timeout: 20000,
-  });
-  cy.contains("button", "Add manual check").click();
-  cy.get("#text", { timeout: 20000 }).should("not.be.disabled");
-  cy.get("#text").type(title);
+  cy.contains('[data-cy="sub-tabs-navigation"] a', "Manual checks")
+    .should("be.visible")
+    .click();
+  cy.contains('[data-cy="skeleton-checkboxlist"]', { timeout: 20000 }).should(
+    "not.exist"
+  );
+  cy.contains("button", "Add manual check")
+    .should("be.visible")
+    .and("not.be.disabled")
+    .click();
+  cy.get("#text", { timeout: 20000 })
+    .should("exist")
+    .should("be.visible")
+    .and("not.be.disabled")
+    .click()
+    .clear()
+    .type(title);
   cy.saveFormClick("Save");
 };
 

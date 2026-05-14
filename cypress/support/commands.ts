@@ -4,6 +4,7 @@ import { dataCy } from "./utils/common";
 import { Result } from "axe-core";
 import "cypress-axe";
 import { JOB_DELAY } from "@/consts/application";
+import "cypress-network-idle";
 
 Cypress.Commands.add("checkA11yPage", () => {
   cy.injectAxe();
@@ -20,7 +21,7 @@ Cypress.Commands.add("waitForLoadingToFinish", () => {
   const checkSpinner = () => {
     cy.get("body").then($body => {
       if ($body.find('[role="progressbar"]').length > 0) {
-        cy.get('[role="progressbar"]').should("not.exist");
+        cy.get('[role="progressbar"]', { timeout: 20000 }).should("not.exist");
       }
     });
   };
@@ -29,6 +30,8 @@ Cypress.Commands.add("waitForLoadingToFinish", () => {
   checkSpinner();
   // Second pass: catches spinners that appear after React hydration
   checkSpinner();
+
+  cy.waitForNetworkIdle(1000);
 });
 Cypress.Commands.add("logAxeViolations", violations => {
   cy.task(
@@ -185,7 +188,7 @@ Cypress.Commands.add("actionMenuClick", (text: string) => {
 });
 
 Cypress.Commands.add("buttonClick", (text: string) => {
-  cy.get("button").contains(text).click();
+  cy.contains("button", text).should("be.visible").click();
 });
 
 Cypress.Commands.add("checkboxClick", (id: string) => {

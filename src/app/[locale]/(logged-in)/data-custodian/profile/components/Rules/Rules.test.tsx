@@ -4,11 +4,13 @@ import { mockedCustodian } from "@/mocks/data/custodian";
 import { EntityModelTypes } from "@/consts/custodian";
 import { mockUseStore } from "jest.setup";
 import Rules from "./Rules";
+import useIsCustodianAdmin from "@/hooks/useIsCustodianAdmin";
 
 jest.mock("@tanstack/react-query");
 jest.mock("@/data/store", () => ({
   useStore: jest.fn(() => ({})),
 }));
+jest.mock("@/hooks/useIsCustodianAdmin");
 
 describe("<Rules />", () => {
   beforeEach(() => {
@@ -34,6 +36,8 @@ describe("<Rules />", () => {
   };
 
   beforeEach(() => {
+    (useIsCustodianAdmin as jest.Mock).mockReturnValue(true);
+
     (useQuery as jest.Mock).mockImplementation(queryConfig => {
       const { queryKey } = queryConfig;
 

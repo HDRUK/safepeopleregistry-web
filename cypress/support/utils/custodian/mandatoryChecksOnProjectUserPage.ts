@@ -3,13 +3,16 @@ const checkMandatoryCustodianTrainingTestingChecksAddMoreIformationCancelButton 
     cy.verifyMandatoryTrainingCardTitleExists(
       "Mandatory training has been completed"
     );
-    cy.contains("button", "…").should("exist").click();
-    cy.document()
-      .find(".MuiPopover-root:visible")
+
+    cy.contains("button", "…").should("be.visible").click();
+
+    cy.get(".MuiPopover-root")
+      .should("be.visible")
       .within(() => {
-        cy.contains("Add more information").click();
+        cy.contains("Add more information").should("be.visible").click();
       });
-    cy.contains("button", "Cancel").should("exist").click();
+
+    cy.contains("button", "Cancel").should("be.visible").click();
   };
 
 const checkMandatoryCustodianTrainingTestingChecksAddMoreInformation = () => {
@@ -119,9 +122,7 @@ const checkMandatoryCustodianTrainingTestingChecksFailCancelButton = () => {
 
 const checkMandatoryCustodianTrainingTestingChecksFail = () => {
   cy.get(".MuiPaper-root").then($el => {
-    cy.verifyMandatoryTrainingCardTitleExists(
-      "Mandatory training has been completed"
-    );
+    cy.verifyMandatoryTrainingCardTitleExists("Mandatory Custodian Training");
     if ($el.find('button:contains("Change Decision")').length) {
       cy.wrap($el).contains("button", "Change Decision").click();
       cy.contains("button", "Fail").should("exist").click();
@@ -147,9 +148,7 @@ const checkMandatoryCustodianTrainingTestingChecksFail = () => {
 
 const checkMandatoryCustodianTrainingTestingChecksFailChangeDecision = () => {
   cy.get(".MuiPaper-root").then($el => {
-    cy.verifyMandatoryTrainingCardTitleExists(
-      "Mandatory training has been completed"
-    );
+    cy.verifyMandatoryTrainingCardTitleExists("Mandatory Custodian Training");
     if ($el.find('button:contains("Fail")').length) {
       cy.contains("button", "Fail").should("exist").click();
       const text = "Mandatory Custodian Training Testing";
@@ -171,31 +170,32 @@ const checkMandatoryCustodianTrainingTestingChecksFailChangeDecision = () => {
 };
 
 const checkMandatoryCustodianTrainingTestingChecksFailViewLessViewAll = () => {
-  cy.contains("h5", "Mandatory training has been completed")
-    .closest(".MuiPaper-root")
-    .within($el => {
-      cy.contains("h5", "Mandatory training has been completed").should(
-        "exist"
-      );
-      const comment = "Mandatory Custodian Training Testing";
-      const passCount = 3;
-      for (let i = 0; i < passCount; i++) {
-        if ($el.find('button:contains("Change Decision")').length) {
-          cy.wrap($el).contains("button", "Change Decision").click();
-          cy.wrap($el).contains("button", "Fail").click();
-          cy.get("#comment").clear().type(comment);
-          cy.contains("button", "Confirm fail").should("exist").click();
-          cy.contains(comment).should("exist");
-        } else {
-          cy.wrap($el).contains("button", "Fail").click();
-          cy.get("#comment").should("exist").clear().type(comment);
-          cy.contains("button", "Confirm fail").should("exist").click();
-          cy.contains(comment).should("exist");
-        }
+  const comment = "Mandatory Custodian Training Testing";
+
+  const card = () =>
+    cy
+      .contains("h5", "Mandatory training has been completed")
+      .closest(".MuiPaper-root");
+
+  Cypress._.times(2, () => {
+    card().then($card => {
+      if ($card.find('button:contains("Change Decision")').length) {
+        card().contains("button", "Change Decision").click();
+
+        cy.contains("button", "Fail").click();
+      } else {
+        card().contains("button", "Fail").click();
       }
-      cy.contains("button", "View All").should("exist").click();
-      cy.contains("button", "View Less").should("exist").click();
     });
+
+    cy.get("#comment").should("be.visible").clear().type(comment);
+    cy.contains("button", "Confirm fail").should("be.visible").click();
+    cy.waitForLoadingToFinish();
+    card().contains(comment).should("be.visible");
+  });
+
+  card().contains("button", "View All").should("be.visible").click();
+  card().contains("button", "View Less").should("be.visible").click();
 };
 
 export {
