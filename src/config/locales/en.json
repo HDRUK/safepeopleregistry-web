@@ -1603,11 +1603,6 @@
       "noResultsMessage": "It looks like there are no organisations for any projects.",
       "errorMessage": "Couldn't get the users for this project. Please try again or <contactLink>contact support</contactLink> if the problem persists."
     },
-    "Status": {
-      "approved": "Approved",
-      "pending": "Pending",
-      "completed": "Completed"
-    },
     "projectHasSponsorships": "Sponsor",
     "sponsoredProjectsTitle": "Sponsored Projects",
     "ownProjectsTitle": "Projects directly associated with organisation",
