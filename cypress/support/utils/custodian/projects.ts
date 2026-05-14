@@ -159,8 +159,6 @@ const hasProjectUsers = (project: CustodianProjectUser) => {
 };
 
 const inviteNewProjectUser = (invite: InviteUserFormValues) => {
-  cy.intercept("POST", "**/safe-people*").as("saveProjectUser");
-
   cy.contains("button", "Add a new member").click();
 
   cy.contains(
@@ -175,18 +173,14 @@ const inviteNewProjectUser = (invite: InviteUserFormValues) => {
   cy.selectValue("#organisation_id", invite.organisation_id);
 
   cy.saveFormClick("Invite");
-
   cy.clickAlertModal("Close");
   cy.wait("@saveProjectUser");
 
   cy.wait(2000);
   cy.waitForLoadingToFinish();
-
   cy.saveContinueClick("Save");
-
   cy.clickAlertModal("Close");
   cy.wait("@saveProjectUser");
-
   cy.waitForLoadingToFinish();
 
   // Observers haven't complete when refresh is called

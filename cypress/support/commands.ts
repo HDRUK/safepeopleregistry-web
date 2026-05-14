@@ -33,7 +33,6 @@ Cypress.Commands.add("waitForLoadingToFinish", () => {
 
   cy.waitForNetworkIdle(1000);
 });
-
 Cypress.Commands.add("logAxeViolations", violations => {
   cy.task(
     "log",

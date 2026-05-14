@@ -17,7 +17,6 @@ describe("Projects organisations journey AXE", () => {
     goToProjectUsersList();
 
     cy.waitForLoadingToFinish();
-    cy.wait(2000);
     cy.checkA11yPage();
   });
 });
