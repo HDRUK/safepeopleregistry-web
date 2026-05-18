@@ -139,29 +139,6 @@ export default function Contacts() {
 
   return (
     <PageBodyContainer heading={t("contactsHeading")}>
-      {/* DEBUG */}
-      <>
-        <p>
-          {JSON.stringify(
-            permissions.filter(p => p.name === "CUSTODIAN_ADMIN")
-          )}
-        </p>
-        <p>
-          getCustodianUserQueryData -{" "}
-          {JSON.stringify(getCustodianUserQueryData)}
-        </p>
-        <p>
-          is admin -{" "}
-          {isCustodianAdministrator(
-            getCustodianUserQueryData?.data,
-            permissions
-          )
-            ? "true"
-            : "false"}
-        </p>
-        <p>custodian_user_id-{user?.custodian_user_id}</p>
-      </>
-
       <PageBody>
         <PageSection
           description={<Markdown>{t("contactsListDescription")}</Markdown>}>
