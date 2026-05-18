@@ -86,7 +86,7 @@ export default function DigitalIdentifiers() {
 
   const formOptions = {
     defaultValues: {
-      companies_house_no: organisation?.companies_house_no || '',
+      companies_house_no: organisation?.companies_house_no || "",
       charities: organisation?.charities.map(
         ({ country, registration_id }) => ({ country, registration_id })
       ),
