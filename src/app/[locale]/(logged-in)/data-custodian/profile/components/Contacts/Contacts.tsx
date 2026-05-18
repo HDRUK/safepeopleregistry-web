@@ -11,7 +11,6 @@ import CustodianEditContactModal from "@/organisms/CustodianEditContactModal";
 import { getCustodianUserQuery } from "@/services/custodian_users";
 import { usePaginatedCustodianUsers } from "@/services/custodians";
 import { CustodianUser } from "@/types/application";
-import { isCustodianAdministrator } from "@/utils/custodian";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import { Box, Button, IconButton, Tooltip } from "@mui/material";
@@ -131,11 +130,6 @@ export default function Contacts() {
     ...getCustodianUserQuery(user?.custodian_user_id as number),
     enabled: !!user?.custodian_user_id,
   });
-
-  console.log(
-    getCustodianUserQueryData?.data &&
-      !!isCustodianAdministrator(getCustodianUserQueryData.data, permissions)
-  );
 
   return (
     <PageBodyContainer heading={t("contactsHeading")}>
