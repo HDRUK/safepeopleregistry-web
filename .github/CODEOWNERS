@@ -11,50 +11,16 @@
 # ====================
 # CI / DevOps
 # ====================
-.github/                        @HDRUK/tech-team-devops @HDRUK/tech-team-backend
+.github/                        @HDRUK/tech-team-devops @HDRUK/tech-team-frontend @HDRUK/tech-team-backend
 docker-compose*.yml             @HDRUK/tech-team-devops
 Dockerfile*                     @HDRUK/tech-team-devops
 .env.example                    @HDRUK/tech-team-devops
 
 # ====================
-# App Core
-# ====================
-app/Http/Controllers/           @HDRUK/tech-team-backend
-app/Http/Middleware/            @HDRUK/tech-team-backend
-app/Http/Requests/              @HDRUK/tech-team-backend
-app/Models/                     @HDRUK/tech-team-backend
-app/Services/                   @HDRUK/tech-team-backend
-app/Repositories/               @HDRUK/tech-team-backend
-app/Providers/                  @HDRUK/tech-team-backend
-
-# ====================
-# Routes
-# ====================
-routes/                         @HDRUK/tech-team-backend
-
-# ====================
-# Database
-# ====================
-database/migrations/            @HDRUK/tech-team-backend @HDRUK/tech-team-devops
-database/seeders/               @HDRUK/tech-team-backend
-database/factories/             @HDRUK/tech-team-backend
-
-# ====================
-# Configuration
-# ====================
-config/                         @HDRUK/tech-team-backend @HDRUK/tech-team-devops
-
-# ====================
-# Tests
-# ====================
-tests/                          @HDRUK/tech-team-backend
-
-# ====================
 # Dependencies
 # ====================
-composer.json                   @HDRUK/tech-team-backend @HDRUK/tech-team-devops
-composer.lock                   @HDRUK/tech-team-backend @HDRUK/tech-team-devops
-package.json                    @HDRUK/tech-team-backend @HDRUK/tech-team-devops
+package.json                    @HDRUK/tech-team-frontend @HDRUK/tech-team-devops
+package-lock.json               @HDRUK/tech-team-frontend @HDRUK/tech-team-devops
 
 # ====================
 # Docs
