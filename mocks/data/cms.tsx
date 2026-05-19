@@ -677,3 +677,7 @@ export const mockedCookiePolicy = {
 export const mockedPrivacyPolicy = {
   infoTitle: "Privacy Policy",
 };
+
+export const mockedGlossary = {
+  infoTitle: "Glossary",
+}
