@@ -1,15 +1,16 @@
 import { screen } from "@testing-library/react";
-import { useTranslations } from "next-intl";
 import { render } from "@/utils/testUtils";
 import KeyFeatures from "./KeyFeatures";
 
-jest.mock("next-intl", () => ({
-  useTranslations: jest.fn(),
+jest.mock("next-intl/server", () => ({
+  getTranslations: jest.fn(),
 }));
+
+import { getTranslations } from "next-intl/server";
 
 describe("KeyFeatures Component", () => {
   beforeEach(() => {
-    (useTranslations as jest.Mock).mockReturnValue((key: string) => {
+    (getTranslations as jest.Mock).mockResolvedValue((key: string) => {
       const map: Record<string, string> = {
         keyFeature1Title: "User and Organisation Registers",
         keyFeature1Info: "Feature 1 description",
@@ -17,20 +18,19 @@ describe("KeyFeatures Component", () => {
         keyFeature2Info: "Feature 2 description",
         keyFeature3Title: "Multiple authentication routes",
         keyFeature3Info: "Feature 3 description",
-        registerNow: "Register now",
-        or: "or",
-        signIn: "Sign in",
       };
 
       return map[key] ?? key;
     });
   });
 
-  it("renders the main headings", () => {
-    render(<KeyFeatures />);
+  it("renders the main headings", async () => {
+    render(await KeyFeatures());
 
     expect(
-      screen.getByRole("heading", { name: /User and Organisation Registers/i })
+      screen.getByRole("heading", {
+        name: /User and Organisation Registers/i,
+      })
     ).toBeInTheDocument();
 
     expect(
@@ -40,12 +40,14 @@ describe("KeyFeatures Component", () => {
     ).toBeInTheDocument();
 
     expect(
-      screen.getByRole("heading", { name: /Multiple authentication routes/i })
+      screen.getByRole("heading", {
+        name: /Multiple authentication routes/i,
+      })
     ).toBeInTheDocument();
   });
 
-  it("renders all feature descriptions", () => {
-    render(<KeyFeatures />);
+  it("renders all feature descriptions", async () => {
+    render(await KeyFeatures());
 
     expect(screen.getByText("Feature 1 description")).toBeInTheDocument();
     expect(screen.getByText("Feature 2 description")).toBeInTheDocument();

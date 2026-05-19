@@ -1,9 +1,22 @@
 "use client";
 
 import * as React from "react";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import CssBaseline from "@mui/material/CssBaseline";
-import { ThemeProvider } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import theme from "@/theme";
+
+const clientTheme = createTheme(theme, {
+  components: {
+    MuiAlert: {
+      defaultProps: {
+        iconMapping: {
+          warning: <ErrorOutlineIcon />,
+        },
+      },
+    },
+  },
+});
 
 export default function ThemeRegistry({
   children,
@@ -11,7 +24,7 @@ export default function ThemeRegistry({
   children: React.ReactNode;
 }) {
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={clientTheme}>
       <CssBaseline />
       {children}
     </ThemeProvider>
