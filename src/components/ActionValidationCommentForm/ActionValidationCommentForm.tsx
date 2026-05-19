@@ -2,6 +2,7 @@ import { Box, Button } from "@mui/material";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { LoadingButton } from "@mui/lab";
 import { useTranslations } from "next-intl";
+import { useMemo } from "react";
 import { VerifyIcon, RejectIcon } from "../../consts/icons";
 import yup from "../../config/yup";
 import { ValidationLogAction } from "../../services/validation_logs/types";
@@ -29,18 +30,25 @@ export default function ActionValidationCommentForm({
 }: ActionValidationCommentFormProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION_FORM);
 
-  const schema = yup.object().shape({
-    comment:
-      selectedAction === ValidationLogAction.PASS
-        ? yup.string()
-        : yup.string().required(),
-  });
+  const schema = useMemo(
+    () =>
+      yup.object().shape({
+        comment:
+          selectedAction === ValidationLogAction.PASS
+            ? yup.string()
+            : yup.string().required(),
+      }),
+    [selectedAction]
+  );
 
-  const formOptions = {
-    defaultValues: {
-      comment: "",
-    },
-  };
+  const formOptions = useMemo(
+    () => ({
+      defaultValues: {
+        comment: "",
+      },
+    }),
+    []
+  );
 
   return (
     <Form onSubmit={onSubmit} schema={schema} {...formOptions}>

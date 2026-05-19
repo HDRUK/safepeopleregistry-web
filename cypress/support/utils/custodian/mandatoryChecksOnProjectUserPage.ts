@@ -27,7 +27,7 @@ const checkMandatoryCustodianTrainingTestingChecksAddMoreInformation = () => {
     });
   cy.contains("label", "Add any further comment").should("exist");
   const text = "Add more information Testing";
-  cy.get("#comment").should("exist").type(text);
+  cy.get("#comment").should("be.visible").click().type(text);
   cy.contains("button", "Add information").should("exist").click();
   cy.contains(text).should("exist");
 };
@@ -47,7 +47,7 @@ const checkMandatoryCustodianTrainingTestingChecksPass = () => {
   cy.contains("button", "Pass").should("exist").click();
   cy.contains("label", "Add any further comment").should("exist");
   const text = "Mandatory Custodian Training Testing";
-  cy.get("#comment").should("exist").type(text);
+  cy.get("#comment").should("be.visible").click().type(text);
   cy.contains("button", "Confirm pass").should("exist").click();
   cy.contains("span", "Passed").should("exist");
   cy.contains(text).should("exist");
@@ -61,7 +61,7 @@ const checkMandatoryCustodianTrainingTestingChecksPassChangeDecision = () => {
     if ($el.find('button:contains("Pass")').length) {
       cy.contains("button", "Pass").should("exist").click();
       const text = "Mandatory Custodian Training Testing";
-      cy.get("#comment").should("exist").type(text);
+      cy.get("#comment").should("be.visible").click().type(text);
       cy.contains("button", "Confirm pass").should("exist").click();
       cy.contains(text).should("exist");
       cy.contains("button", "Change Decision").should("exist").click();
@@ -70,7 +70,7 @@ const checkMandatoryCustodianTrainingTestingChecksPassChangeDecision = () => {
       cy.contains("button", "Change Decision").should("exist").click();
       cy.contains("button", "Pass").should("exist").click();
       const text = "Mandatory Custodian Training Testing";
-      cy.get("#comment").should("exist").type(text);
+      cy.get("#comment").should("be.visible").click().type(text);
       cy.contains("button", "Confirm pass").should("exist").click();
       cy.contains(text).should("exist");
     }
@@ -91,12 +91,12 @@ const checkMandatoryCustodianTrainingTestingChecksPassViewLessViewAll = () => {
         if ($el.find('button:contains("Change Decision")').length) {
           cy.wrap($el).contains("button", "Change Decision").click();
           cy.wrap($el).contains("button", "Pass").click();
-          cy.get("#comment").clear().type(comment);
+          cy.get("#comment").should("be.visible").click().clear().type(comment);
           cy.contains("button", "Confirm pass").should("exist").click();
           cy.contains(comment).should("exist");
         } else {
           cy.wrap($el).contains("button", "Pass").click();
-          cy.get("#comment").should("exist").clear().type(comment);
+          cy.get("#comment").should("be.visible").click().clear().type(comment);
           cy.contains("button", "Confirm pass").should("exist").click();
           cy.contains(comment).should("exist");
         }
@@ -128,7 +128,7 @@ const checkMandatoryCustodianTrainingTestingChecksFail = () => {
       cy.contains("button", "Fail").should("exist").click();
       cy.contains("label", "Add any further comment").should("exist");
       const text = "Mandatory Custodian Training Testing";
-      cy.get("#comment").should("exist").type(text);
+      cy.get("#comment").should("be.visible").click().type(text);
       cy.contains("button", "Confirm fail").should("exist").click();
       cy.contains("span", "Failed").should("exist");
       cy.contains(text).should("exist");
@@ -138,7 +138,7 @@ const checkMandatoryCustodianTrainingTestingChecksFail = () => {
       cy.contains("button", "Fail").should("exist").click();
       cy.contains("label", "Add any further comment").should("exist");
       const text = "Mandatory Custodian Training Testing";
-      cy.get("#comment").should("exist").type(text);
+      cy.get("#comment").should("be.visible").click().type(text);
       cy.contains("button", "Confirm fail").should("exist").click();
       cy.contains("span", "Failed").should("exist");
       cy.contains(text).should("exist");
@@ -152,7 +152,7 @@ const checkMandatoryCustodianTrainingTestingChecksFailChangeDecision = () => {
     if ($el.find('button:contains("Fail")').length) {
       cy.contains("button", "Fail").should("exist").click();
       const text = "Mandatory Custodian Training Testing";
-      cy.get("#comment").should("exist").type(text);
+      cy.get("#comment").should("be.visible").click().type(text);
       cy.contains("button", "Confirm fail").should("exist").click();
       cy.contains(text).should("exist");
       cy.contains("button", "Change Decision").should("exist").click();
@@ -161,7 +161,7 @@ const checkMandatoryCustodianTrainingTestingChecksFailChangeDecision = () => {
       cy.contains("button", "Change Decision").should("exist").click();
       cy.contains("button", "Fail").should("exist").click();
       const text = "Mandatory Custodian Training Testing";
-      cy.get("#comment").should("exist").type(text);
+      cy.get("#comment").should("be.visible").click().type(text);
       cy.contains("button", "Confirm fail").should("exist").click();
       cy.contains(text).should("exist");
     }
@@ -188,7 +188,7 @@ const checkMandatoryCustodianTrainingTestingChecksFailViewLessViewAll = () => {
       }
     });
 
-    cy.get("#comment").should("be.visible").clear().type(comment);
+    cy.get("#comment").should("be.visible").click().clear().type(comment);
     cy.contains("button", "Confirm fail").should("be.visible").click();
     cy.waitForLoadingToFinish();
     card().contains(comment).should("be.visible");
