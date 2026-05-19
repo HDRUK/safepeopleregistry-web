@@ -2078,7 +2078,7 @@
     "infoUsersItems": {
       "saveTime": {
         "title": "Save time and reduce duplication",
-        "body": "Create your profile once and share it with multiple Data Custodians for multiple projects."
+        "body": "Create your profile once and share it with multiple Data Custodians. No need to repeat the same steps for every project."
       },
       "fastSetup": {
         "title": "Fast setup",
@@ -2098,7 +2098,7 @@
       },
       "builtToMove": {
         "title": "Built to move with you",
-        "body": "Your profile stays with you, even when you move between Organisations, making it easy to keep your information up to date."
+        "body": "Your profile stays with you, even when you move between organisations or institutions, making it easy to keep your information up to date."
       }
     },
     "subheadingOrganisations": "Create a profile & affiliate Users",
@@ -2118,10 +2118,10 @@
       },
       "automaticUpdates": {
         "title": "Smart notifications",
-        "body": "If a User leaves your Organisation, all relevant Data Custodians are informed, keeping everyone up to date."
+        "body": "If you record when a User leaves your Organisation, all relevant Data Custodians are informed, keeping everyone up to date."
       },
       "builtToMove": {
-        "title": "Sponsorship",
+        "title": "Sponsorships",
         "body": "In the health and care data field, you can optionally sponsor projects by recording formal oversight of research."
       }
     },
@@ -2147,6 +2147,10 @@
       "builtToMove": {
         "title": "Shared intelligence",
         "body": "See which other Data Custodians and projects a User is involved with to help inform your decisions."
+      },
+      "flexibleFeatures": {
+        "title": "Flexible optional features",
+        "body": "Choose to enable features like Single Sign-on for access, project approval recording, or automatic publishing of project details to a public data use register. Whatever works best for you!"
       }
     },
     "videoIntro": "Take a deeper dive into the products with our demos",
