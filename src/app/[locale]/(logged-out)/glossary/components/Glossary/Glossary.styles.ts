@@ -12,7 +12,7 @@ const LetterNavigationContainer = styled("div")(({ theme }) => ({
   justifyContent: "center",
   alignItems: "center",
   borderRadius: "12px",
-  backgroundColor: theme.palette.lightGrey,
+  backgroundColor: theme.palette.lightGrey.main,
 }));
 
 const LetterNavigationItem = styled("div")(({ theme }) => ({
@@ -45,7 +45,7 @@ const TermContainer = styled("div")(() => ({
 }));
 
 const LetterHeading = styled(Typography)(({ theme }) => ({
-  color: theme.palette.textPrimary,
+  color: theme.palette.textPrimary.main,
   fontFamily: theme.typography.fontFamily,
   fontSize: theme.typography.h1.fontSize,
   fontStyle: theme.typography.h1.fontStyle,
@@ -55,7 +55,7 @@ const LetterHeading = styled(Typography)(({ theme }) => ({
 
 const Term = styled(Typography)(({ theme }) => ({
   flex: "1 0 0",
-  color: theme.palette.textPrimary,
+  color: theme.palette.textPrimary.main,
   fontFamily: theme.typography.fontFamily,
   fontSize: theme.typography.h6.fontSize,
   fontStyle: theme.typography.h6.fontStyle,
@@ -65,7 +65,7 @@ const Term = styled(Typography)(({ theme }) => ({
 
 const Definition = styled(Typography)(({ theme }) => ({
   width: "900px",
-  color: theme.palette.darkGrey,
+  color: theme.palette.darkGrey.main,
   fontFamily: theme.typography.fontFamily,
   fontSize: theme.typography.paragraph.fontSize,
   fontStyle: theme.typography.paragraph.fontStyle,
