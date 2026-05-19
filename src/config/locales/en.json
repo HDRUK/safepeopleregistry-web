@@ -108,6 +108,7 @@
       "pending": "Pending Validation",
       "pending_short": "Pending",
       "completed": "Completed",
+      "complete": "Completed",
       "approved": "Approved",
       "undefined": "None",
       "null": "None",
@@ -384,6 +385,8 @@
     "homeTitle": "Your outstanding actions",
     "searchProjectUsersPlaceholder": "Search for User, Project Name, Organisation",
     "affiliatedUsers": "{num, plural, =0 {No affiliated users} one {# affiliated user} other {# affiliated users}}",
+    "receiverUrl": "Receiver URL",
+    "eventTrigger": "Event Trigger",
     "guidance": {
       "rules": {
         "infoTitle": "Guidance",

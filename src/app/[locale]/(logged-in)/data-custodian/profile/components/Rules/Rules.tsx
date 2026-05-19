@@ -8,6 +8,7 @@ import { HeadingLevel } from "@/consts/header";
 import { DEFAULT_STALE_TIME } from "@/consts/requests";
 import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
 import { useStore } from "@/data/store";
+import useIsCustodianAdmin from "@/hooks/useIsCustodianAdmin";
 import { mockedConfigurationRulesDescription } from "@/mocks/data/cms";
 import { PageBody } from "@/modules";
 import {
@@ -30,6 +31,8 @@ export default function Rules() {
   const [userRules, setUserRules] = useState<boolean[]>([]);
   const [orgRules, setOrgRules] = useState<boolean[]>([]);
   const custodian = useStore(state => state.getCustodian());
+
+  const isAdmin = useIsCustodianAdmin();
 
   const { data: userRulesData, isLoading: isLoadingUserRules } = useQuery(
     getCustodianEntityModelQuery(
@@ -159,6 +162,7 @@ export default function Rules() {
           title={t("userRulesTitle")}
           checked={userRules}
           setChecked={setUserRules}
+          readOnly={!isAdmin}
         />
         <CheckboxList
           headingComponent={HeadingLevel.H4}
@@ -167,10 +171,13 @@ export default function Rules() {
           title={t("organisationRulesTitle")}
           checked={orgRules}
           setChecked={setOrgRules}
+          readOnly={!isAdmin}
         />
-        <FormActions sx={{ justifyContent: "flex-end" }}>
-          <ButtonSave isLoading={isPending} />
-        </FormActions>
+        {isAdmin && (
+          <FormActions sx={{ justifyContent: "flex-end" }}>
+            <ButtonSave isLoading={isPending} />
+          </FormActions>
+        )}
       </Form>
     </PageBody>
   );

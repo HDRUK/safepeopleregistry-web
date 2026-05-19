@@ -10,6 +10,7 @@ import { mockedCustodian } from "@/mocks/data/custodian";
 import { getRandomString } from "@/utils/string";
 import { mockUseStore } from "jest.setup";
 import Integrations from "./Integrations";
+import useIsCustodianAdmin from "@/hooks/useIsCustodianAdmin";
 
 const gatewayAppId = getRandomString(40);
 const gatewayClientId = getRandomString(40);
@@ -17,6 +18,7 @@ const gatewayClientId = getRandomString(40);
 jest.mock("@tanstack/react-query", () => ({
   useMutation: jest.fn(),
 }));
+jest.mock("@/hooks/useIsCustodianAdmin");
 
 function getAllInputs() {
   return [/Application ID/, /Client ID/];
@@ -26,6 +28,8 @@ describe("<Integrations />", () => {
   const mockMutateAsync = jest.fn().mockResolvedValue({ success: true });
 
   beforeEach(() => {
+    (useIsCustodianAdmin as jest.Mock).mockReturnValue(true);
+
     mockUseStore({
       getCustodian: () =>
         mockedCustodian({

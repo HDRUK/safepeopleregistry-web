@@ -45,7 +45,9 @@ describe("Custodian mandatory checks for user", () => {
     cy.visitFirst(ROUTES.profileCustodianUsers.path);
     cy.buttonClick("Switch to list view");
 
-    cy.contains("a", getName(dataProjectInviteUser)).click();
+    cy.contains("a", getName(dataProjectInviteUser))
+      .should("be.visible")
+      .click();
   });
 
   after(() => {

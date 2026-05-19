@@ -2,6 +2,7 @@ import { render, screen, waitFor } from "@/utils/testUtils";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { mockedCustodian } from "@/mocks/data/custodian";
 import Webhooks from "./Webhooks";
+import useIsCustodianAdmin from "@/hooks/useIsCustodianAdmin";
 
 // Mock the dependencies
 jest.mock("@tanstack/react-query");
@@ -12,12 +13,31 @@ jest.mock("@/data/store", () => ({
     },
   })),
 }));
+jest.mock("@/hooks/useIsCustodianAdmin");
 
 describe("<Webhooks />", () => {
   const mockWebhooksData = {
     data: [
-      { id: 1, url: "https://example.com/webhook1", webhook_event: 1 },
-      { id: 2, url: "https://example.com/webhook2", webhook_event: 2 },
+      {
+        id: 1,
+        url: "https://example.com/webhook1",
+        webhook_event: 1,
+        event_trigger: {
+          id: 1,
+          name: "user-left-project",
+          description: "",
+        },
+      },
+      {
+        id: 2,
+        url: "https://example.com/webhook2",
+        webhook_event: 2,
+        event_trigger: {
+          id: 2,
+          name: "user-left-project",
+          description: "",
+        },
+      },
     ],
   };
 
@@ -29,6 +49,8 @@ describe("<Webhooks />", () => {
   };
 
   beforeEach(() => {
+    (useIsCustodianAdmin as jest.Mock).mockReturnValue(true);
+
     (useQuery as jest.Mock).mockImplementation(queryConfig => {
       if (
         typeof queryConfig === "object" &&

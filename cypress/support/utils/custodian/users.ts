@@ -6,10 +6,11 @@ import { dataCy } from "../common";
 import { DEFAULT_ORGANISATION_NAME, DEFAULT_PROJECT_NAME } from "../data";
 
 const hasAffiliationsTabCustodianUser = () => {
-  cy.get(dataCy("sub-tabs-navigation")).within(() => {
-    cy.contains("a", "Affiliations").click();
-  });
-  cy.contains("h2", "Affiliations").should("exist");
+  cy.contains('[data-cy="sub-tabs-navigation"] a', "Affiliations")
+    .should("be.visible")
+    .click();
+
+  cy.contains("h2", "Affiliations").should("be.visible");
 
   const row = cy.getResultsRowByValue(DEFAULT_ORGANISATION_NAME);
 
@@ -78,10 +79,11 @@ const hasAutomatedFlagsTabCustodianUser = () => {
 };
 
 const hasHistoryTabCustodianUser = () => {
-  cy.get(dataCy("sub-tabs-navigation")).within(() => {
-    cy.contains("a", "History").click();
-  });
-  cy.contains("h2", "History").should("exist");
+  cy.contains('[data-cy="sub-tabs-navigation"] a', "History")
+    .should("be.visible")
+    .click();
+
+  cy.contains("h2", "History").should("be.visible");
 };
 
 export {
