@@ -161,6 +161,12 @@ export default function NavBar({ loggedIn }: NavBarProps) {
       text: t("helpButton"),
       href: "/support",
     },
+    {
+      color: ButtonColor.Inherit,
+      variant: ButtonVariant.Text,
+      text: t("glossaryButton"),
+      href: "/glossary",
+    },
   ];
   const right_buttons: ButtonProps[] = [
     ...(loggedIn
