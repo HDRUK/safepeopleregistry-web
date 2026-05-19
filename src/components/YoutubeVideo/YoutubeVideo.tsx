@@ -1,13 +1,14 @@
 import { Box } from "@mui/system";
 
 const YOUTUBE_MAX_WIDTH = 854;
+const DEFAULT_YOUTUBE_VIDEO_ID = "kYLO_7gtBRo?si=sfXW1gOBlgS-5Str";
 
 interface YoutubeVideoProps {
   videoId?: string;
 }
 
 export default function YoutubeVideo({
-  videoId = "kYLO_7gtBRo?si=sfXW1gOBlgS-5Str",
+  videoId = DEFAULT_YOUTUBE_VIDEO_ID,
 }: YoutubeVideoProps) {
   return (
     <Box
