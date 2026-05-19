@@ -20,17 +20,6 @@ const bodyStyles = {
   letterSpacing: "-1%",
 };
 
-export const paletteTokens = {
-  neutralPink: {
-    light: "#F6EBF8",
-    dark: "#F6DFF1",
-    main: "#F6DFF1",
-  },
-  common: {
-    white: "#fff",
-  },
-};
-
 const PALETTE_THEME_PURPLE_BLUE = {
   typography: {
     fontFamily: `"Inter", "Roboto", "Helvetica", "Arial", sans-serif`,
@@ -95,11 +84,11 @@ const PALETTE_THEME_PURPLE_BLUE = {
     "success-200": createColor("#CCDDD9"),
     "success-700": createColor("#0F8071"),
     inactive: createColor(grey["300"]),
-    white: paletteTokens.common.white,
+    white: "#fff",
     neutralPink: {
-      light: paletteTokens.neutralPink.light,
-      dark: paletteTokens.neutralPink.dark,
-      main: paletteTokens.neutralPink.main,
+      light: "#F6EBF8",
+      dark: "#F6DFF1",
+      main: "#F6DFF1",
       contrastText: "#000",
     },
     neutralGrey: {
