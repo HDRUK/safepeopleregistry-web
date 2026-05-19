@@ -10,7 +10,9 @@ interface ColorOverrides {
   neutralGrey: true;
   textSecondary: true;
   textPrimary: true;
+  lightGrey: true;
   midGrey: true;
+  darkGrey: true;
   clear: true;
   homepageKeyFeatures: true;
   homepageUsage: true;
@@ -22,6 +24,7 @@ declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
     small: true;
     tiny: true;
+    paragraph: true;
   }
 }
 
@@ -29,10 +32,12 @@ declare module "@mui/material/styles" {
   interface TypographyVariantsOptions {
     small?: React.CSSProperties;
     tiny?: React.CSSProperties;
+    paragraph?: React.CSSProperties;
   }
   interface TypographyVariants {
     small: React.CSSProperties;
     tiny: React.CSSProperties;
+    paragraph: React.CSSProperties;
   }
 }
 
@@ -44,7 +49,9 @@ declare module "@mui/material/styles" {
     neutralGrey: SimplePaletteColorOptions;
     textSecondary: SimplePaletteColorOptions;
     textPrimary: SimplePaletteColorOptions;
+    lightGrey: SimplePaletteColorOptions;
     midGrey: SimplePaletteColorOptions;
+    darkGrey: SimplePaletteColorOptions;
     clear: SimplePaletteColorOptions;
     homepageKeyFeatures: SimplePaletteColorOptions;
     homepageUsage: SimplePaletteColorOptions;
