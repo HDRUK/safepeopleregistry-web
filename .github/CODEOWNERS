@@ -6,7 +6,7 @@
 # ====================
 # Default — catch-all
 # ====================
-*                               @HDRUK/tech-team-backend
+*                               @HDRUK/tech-team-frontend
 
 # ====================
 # CI / DevOps
@@ -25,6 +25,6 @@ package-lock.json               @HDRUK/tech-team-frontend @HDRUK/tech-team-devop
 # ====================
 # Docs
 # ====================
-README.md                       @HDRUK/tech-team-backend
-docs/                           @HDRUK/tech-team-backend
-*.md                            @HDRUK/tech-team-backend
+README.md                       @HDRUK/tech-team-frontend
+docs/                           @HDRUK/tech-team-frontend
+*.md                            @HDRUK/tech-team-frontend
