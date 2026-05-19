@@ -16,8 +16,8 @@ import {
   PageColumns,
   PageSection,
 } from "@/modules";
-import InfoPageWrapper from "../../../components/InfoPageWrapper";
-import FeatureBox from "../../../components/FeatureBox";
+import InfoPageWrapper from "@/app/[locale]/(logged-out)/components/InfoPageWrapper";
+import { FeatureBox } from "@/components/FeatureBox";
 
 export default function AboutContent() {
   return (

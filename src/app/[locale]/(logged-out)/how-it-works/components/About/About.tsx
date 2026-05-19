@@ -5,10 +5,10 @@ import {
   PageColumns,
   PageSection,
 } from "@/modules";
-import InfoPageWrapper from "../../../components/InfoPageWrapper";
 import { getTranslations } from "next-intl/server";
 import { Typography } from "@mui/material";
 import Image from "next/image";
+import InfoPageWrapper from "@/app/[locale]/(logged-out)/components/InfoPageWrapper";
 
 const NAMESPACE_TRANSLATIONS = "HowItWorks";
 

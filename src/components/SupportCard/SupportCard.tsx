@@ -1,4 +1,5 @@
 import { styledContainer } from "@/app/[locale]/components/Support/Support.styles";
+import theme from "@/theme";
 import { Box, Typography, TypographyProps } from "@mui/material";
 import { StaticImageData } from "next/image";
 import { ReactNode } from "react";
@@ -34,7 +35,7 @@ export default function SupportCard({
         alt={alt}
         width={0}
         height={0}
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        sizes={`(max-width: ${theme.breakpoints.values.sm}px) 100vw, (max-width: ${theme.breakpoints.values.lg}px) 50vw, 33vw`}
         style={{ width: "100%", height: "auto" }}
       />
       <Typography

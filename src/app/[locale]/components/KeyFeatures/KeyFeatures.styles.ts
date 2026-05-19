@@ -1,4 +1,4 @@
-import { paletteTokens } from "@/config/theme";
+import { PALETTE_THEME_PURPLE_BLUE } from "@/config/theme";
 import { SxProps, Theme } from "@mui/material";
 
 export const contentSx: SxProps<Theme> = {
@@ -44,5 +44,5 @@ export const outerContentSx: SxProps<Theme> = {
   alignItems: "center",
   pt: 3,
   pb: 3,
-  background: `linear-gradient(175deg, ${paletteTokens.neutralPink.light} 4.17%, ${paletteTokens.common.white} 71.09%)`,
+  background: `linear-gradient(175deg, ${PALETTE_THEME_PURPLE_BLUE.palette.neutralPink.light} 4.17%, ${PALETTE_THEME_PURPLE_BLUE.palette.white} 71.09%)`,
 };

@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/routing";
+import theme from "@/theme";
 import { Grid, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Box } from "@mui/material";
 import { getTranslations } from "next-intl/server";
 
 export interface InfoHeroProps {
@@ -23,7 +24,7 @@ export default async function InfoHero({ translationPath }: InfoHeroProps) {
         gap: 6,
         alignSelf: "stretch",
         borderRadius: 3,
-        background: "#F1F1F1",
+        background: theme.palette["neutral-50"].main,
       }}>
       <Grid container spacing={4}>
         <Grid size={{ xs: 12, lg: 4 }}>
