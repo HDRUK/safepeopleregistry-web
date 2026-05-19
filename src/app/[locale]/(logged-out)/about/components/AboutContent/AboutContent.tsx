@@ -19,7 +19,7 @@ import {
 import InfoPageWrapper from "../../../components/InfoPageWrapper";
 import FeatureBox from "../../../components/FeatureBox";
 
-export default function FeaturesContent() {
+export default function AboutContent() {
   return (
     <InfoPageWrapper>
       <PageBodyContainer heading={mockedAbout.infoTitle}>
