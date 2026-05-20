@@ -9,6 +9,7 @@ import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import ExternalLink from "@/components/ExternalLink";
+import theme from "@/theme";
 
 const NAMESPACE_TRANSLATIONS = "About";
 
@@ -69,8 +70,9 @@ export default async function AboutContent() {
             <Image
               src="/images/about/five-safes.png"
               alt={t("backgroundImageAlt")}
-              width={672}
-              height={300}
+              width={0}
+              height={0}
+              sizes={`(max-width: ${theme.breakpoints.values.lg}px) 100vw, 33vw`}
               style={{ width: "100%", height: "auto" }}
             />
           </PageColumnDetails>
@@ -81,8 +83,9 @@ export default async function AboutContent() {
             <Image
               src="/images/about/history.png"
               alt={t("historyImageAlt")}
-              width={480}
-              height={270}
+              width={0}
+              height={0}
+              sizes={`(max-width: ${theme.breakpoints.values.lg}px) 100vw, 33vw`}
               style={{ width: "100%", height: "auto" }}
             />
           </PageColumnDetails>
