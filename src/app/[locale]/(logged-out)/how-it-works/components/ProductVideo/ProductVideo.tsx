@@ -13,7 +13,7 @@ const styledContent: SxProps<Theme> = {
   justifyContent: "center",
   alignItems: "center",
   p: 3,
-  width: "auto",
+  width: "100%",
   color: "common.black",
 };
 
