@@ -1,14 +1,12 @@
-import { Footer, Header } from "@/modules";
-import CookiePolicy from "./components/Glossary";
+import { Footer, Header, PageContainer } from "@/modules";
+import Glossary from "./components/Glossary";
 
 export default function Page() {
   return (
     <>
-      <Header />
-      <main>
-        <CookiePolicy />
-      </main>
-      <Footer />
+      <PageContainer>
+        <Glossary />
+      </PageContainer>
     </>
   );
 }

@@ -1,12 +1,9 @@
 import theme from "@/theme";
-import { styled, Link, Typography } from "@mui/material";
-
-const GlossaryContainer = styled("div")(({ theme }) => ({
-  backgroundColor: theme.palette.white,
-}));
+import { styled } from "@mui/material";
 
 const LetterNavigationContainer = styled("div")(({ theme }) => ({
   display: "flex",
+  flexWrap: "wrap",
   gap: theme.spacing("10px"),
   padding: "12px",
   justifyContent: "center",
@@ -15,21 +12,7 @@ const LetterNavigationContainer = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.lightGrey.main,
 }));
 
-const LetterNavigationItem = styled("div")(({ theme }) => ({
-  color: theme.palette.textSecondary,
-  fontFamily: theme.typography.fontFamily,
-  fontSize: theme.typography.h2.fontSize,
-  fontStyle: theme.typography.h2.fontStyle,
-  fontWeight: theme.typography.h2.fontWeight,
-  lineHeight: theme.typography.h2.lineHeight,
-}));
-
-const HighlightedLetter = styled(Link)(({ theme }) => ({
-  textDecoration: "none",
-  color: theme.palette.primary.main,
-}));
-
-const TermSection = styled("div")(() => ({
+const TermContainer = styled("div")(({ theme }) => ({
   display: "flex",
   paddingBottom: "48px",
   flexDirection: "column",
@@ -37,50 +20,26 @@ const TermSection = styled("div")(() => ({
   gap: theme.spacing("48px"),
 }));
 
-const TermContainer = styled("div")(() => ({
+export const HighlightedLetterStyles = {
+  textDecoration: "none",
+  color: theme.palette.primary.main,
+};
+export const TermSectionStyles = {
   display: "flex",
   flexDirection: "column",
   alignItems: "flex-start",
-  gap: theme.spacing("12px"),
-}));
+  gap: 4,
+};
 
-const LetterHeading = styled(Typography)(({ theme }) => ({
-  color: theme.palette.textPrimary.main,
-  fontFamily: theme.typography.fontFamily,
-  fontSize: theme.typography.h1.fontSize,
-  fontStyle: theme.typography.h1.fontStyle,
-  fontWeight: theme.typography.h1.fontWeight,
-  lineHeight: theme.typography.h1.lineHeight,
-}));
-
-const Term = styled(Typography)(({ theme }) => ({
+export const TermStyles = {
   flex: "1 0 0",
   color: theme.palette.textPrimary.main,
-  fontFamily: theme.typography.fontFamily,
-  fontSize: theme.typography.h6.fontSize,
-  fontStyle: theme.typography.h6.fontStyle,
-  fontWeight: theme.typography.h6.fontWeight,
-  lineHeight: theme.typography.h6.lineHeight,
-}));
+};
 
-const Definition = styled(Typography)(({ theme }) => ({
-  width: "900px",
-  color: theme.palette.darkGrey.main,
-  fontFamily: theme.typography.fontFamily,
+export const DefinitionStyles = {
   fontSize: theme.typography.paragraph.fontSize,
-  fontStyle: theme.typography.paragraph.fontStyle,
   fontWeight: theme.typography.paragraph.fontWeight,
   lineHeight: theme.typography.paragraph.lineHeight,
-}));
-
-export {
-  GlossaryContainer,
-  LetterNavigationContainer,
-  LetterNavigationItem,
-  HighlightedLetter,
-  TermSection,
-  TermContainer,
-  LetterHeading,
-  Term,
-  Definition,
 };
+
+export { LetterNavigationContainer, TermContainer };

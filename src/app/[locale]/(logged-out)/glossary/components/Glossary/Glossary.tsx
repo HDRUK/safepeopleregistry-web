@@ -3,20 +3,19 @@
 import { Box } from "@mui/system";
 import InfoPageWrapper from "../../../components/InfoPageWrapper";
 import { PageBodyContainer, PageColumnBody, PageColumns } from "@/modules";
-import { mockedGlossary } from "@/mocks/data/cms";
+// import { getTranslations } from "next-intl/server";
 import { useState } from "react";
-import { Typography } from "@mui/material";
+import { Link, Typography } from "@mui/material";
 import {
-  GlossaryContainer,
   LetterNavigationContainer,
-  LetterNavigationItem,
-  HighlightedLetter,
-  TermSection,
+  HighlightedLetterStyles,
+  DefinitionStyles,
+  TermStyles,
   TermContainer,
-  LetterHeading,
-  Term,
-  Definition,
+  TermSectionStyles,
 } from "./Glossary.styles";
+
+// const NAMESPACE_TRANSLATIONS = "Homepage";
 
 const glossaryTerms = [
   {
@@ -174,53 +173,59 @@ const activeLetters = glossaryTerms.map(term => term.letter);
 
 export default function Glossary() {
   const [selectedLetter, setSelectedLetter] = useState<string | null>(null);
+  // const t = getTranslations(NAMESPACE_TRANSLATIONS);
 
   return (
-    <GlossaryContainer>
-      <InfoPageWrapper>
-        <PageBodyContainer heading={mockedGlossary.infoTitle}>
-          <PageColumns>
-            <PageColumnBody size={{ lg: 8 }}>
-              <LetterNavigationContainer>
-                {allLetters.map(letter => {
-                  const isActive = activeLetters.includes(letter);
-                  const isSelected = selectedLetter === letter;
-                  return isActive ? (
-                    <LetterNavigationItem
+    <InfoPageWrapper>
+      <PageBodyContainer heading={"Glossary"}>
+        <PageColumns>
+          <PageColumnBody size={{ lg: 8 }}>
+            <LetterNavigationContainer>
+              {allLetters.map(letter => {
+                const isActive = activeLetters.includes(letter);
+                const isSelected = selectedLetter === letter;
+                return isActive ? (
+                  <Link
+                    href={`#glossary-${letter}`}
+                    sx={{ HighlightedLetterStyles }}>
+                    <Typography
                       key={letter}
                       onClick={() =>
                         setSelectedLetter(isSelected ? null : letter)
-                      }>
-                      <HighlightedLetter href={`#glossary-${letter}`}>
-                        {letter}
-                      </HighlightedLetter>
-                    </LetterNavigationItem>
-                  ) : (
-                    <LetterNavigationItem key={letter}>
+                      }
+                      variant="h2">
                       {letter}
-                    </LetterNavigationItem>
-                  );
-                })}
-              </LetterNavigationContainer>
-            </PageColumnBody>
-            <PageColumnBody size={{ lg: 8 }}>
-              {glossaryTerms.map(section => (
-                <TermSection
-                  key={section.letter}
-                  id={`glossary-${section.letter}`}>
-                  <LetterHeading>{section.letter}</LetterHeading>
-                  {section.terms.map((item, i) => (
-                    <TermContainer key={item.term}>
-                      <Term>{item.term}</Term>
-                      <Definition>{item.definition}</Definition>
-                    </TermContainer>
-                  ))}
-                </TermSection>
-              ))}
-            </PageColumnBody>
-          </PageColumns>
-        </PageBodyContainer>
-      </InfoPageWrapper>
-    </GlossaryContainer>
+                    </Typography>
+                  </Link>
+                ) : (
+                  <Typography key={letter} variant="h2">
+                    {letter}
+                  </Typography>
+                );
+              })}
+            </LetterNavigationContainer>
+          </PageColumnBody>
+          <PageColumnBody size={{ lg: 8 }}>
+            {glossaryTerms.map(section => (
+              <TermContainer
+                key={section.letter}
+                id={`glossary-${section.letter}`}>
+                <Typography variant="h1">{section.letter}</Typography>
+                {section.terms.map((item, i) => (
+                  <Box key={item.term} sx={TermSectionStyles}>
+                    <Typography sx={TermStyles} variant="h6">
+                      {item.term}
+                    </Typography>
+                    <Typography sx={DefinitionStyles}>
+                      {item.definition}
+                    </Typography>
+                  </Box>
+                ))}
+              </TermContainer>
+            ))}
+          </PageColumnBody>
+        </PageColumns>
+      </PageBodyContainer>
+    </InfoPageWrapper>
   );
 }

@@ -6,7 +6,7 @@ jest.mock("next-intl/server", () => ({
   getTranslations: async () => {
     return (key: string) => {
       const translations: Record<string, string> = {
-        infoTitle: "Glossary",
+        title: "Glossary",
       };
 
       return translations[key];
