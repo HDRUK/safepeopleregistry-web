@@ -1,20 +1,6 @@
 import { Box, styled } from "@mui/material";
 import { motion } from "motion/react";
 
-const StyledOuterContent = styled("section")(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-  paddingTop: theme.spacing(3),
-  paddingBottom: theme.spacing(3),
-  background: `linear-gradient(
-    175deg,
-    ${theme.palette.neutralPink.light} 4.17%,
-    ${theme.palette.white} 71.09%
-  )`,
-}));
-
 const StyledContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
@@ -49,10 +35,4 @@ const StyledBox = styled(motion.div)(({ theme }) => ({
   alignItems: "center",
 }));
 
-export {
-  StyledOuterContent,
-  StyledContent,
-  StyledContainer,
-  StyledFlex,
-  StyledBox,
-};
+export { StyledContent, StyledContainer, StyledFlex, StyledBox };

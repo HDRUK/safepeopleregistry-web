@@ -4,7 +4,7 @@ import userSupport from "public/images/homepage/UserSupport.png";
 import { styledContent, styledGrid } from "./Support.styles";
 import { getTranslations } from "next-intl/server";
 import PageCenter from "@/modules/PageCenter";
-import SupportCard from "@/app/[locale]/components/Support/SupportCard";
+import SupportCard from "@/components/SupportCard";
 import dataCustodianSupport from "public/images/homepage/DataCustodianSupport.png";
 
 const NAMESPACE_TRANSLATIONS = "Homepage";
