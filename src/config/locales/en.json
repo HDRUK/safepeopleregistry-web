@@ -1935,10 +1935,11 @@
     "confident_cost_for_projects_will_be_met": "Are we confident costs would be met and profits realised for future projects?"
   },
   "AdministrativeContacts": {
-    "name": "Name",
+    "name": "Team member",
     "email": "Email",
     "role": "Role",
     "createdAt": "Created at",
+    "accountStatus": "Account status",
     "CUSTODIAN_APPROVER": "Approver",
     "CUSTODIAN_ADMIN": "Admin"
   },
@@ -2035,5 +2036,29 @@
     "text": "Text",
     "textRequired": "Text is required"
   },
-  "Services": {}
+  "Services": {},
+  "Homepage": {
+    "infoTitle": "Safe People Registry",
+    "info": "A platform to enable ‘safe people’ decision making",
+    "supportTitle": "The Safe People Registry is a single solution for secure, scalable ‘safe people’ validation.",
+    "supportUsers": "Users",
+    "supportUsersInfo": "<bold>Create a single profile</bold>\n so you can be validated for data access",
+    "supportOrganisations": "Organisations",
+    "supportOrganisationsInfo": "<bold>Create a profile & affiliate Users</bold>\n so you can track who’s working on what",
+    "supportCustodians": "Data Custodians",
+    "supportCustodiansInfo": "<bold>Validate Users & Organisations</bold>\n so you can grant access to the right people",
+    "usageInfo": "With the Safe People Registry, you can:",
+    "accelerateValidation": "Accelerate ‘safe people’ validation",
+    "preventDuplication": "Prevent work duplication",
+    "easilyTrack": "Easily track decisions",
+    "keyFeature1Title": "One profile for multiple decisions",
+    "keyFeature1Info": "Users and their Organisations can create standardised profiles that make it easier for Data Custodians to validate the safety of a User applying for access to sensitive data.",
+    "keyFeature2Title": "Free, secure, & community-focused",
+    "keyFeature2Info": "Co-created with Users, Organisations and Data Custodians, the Safe People Registry is an open-source platform that evolves with your needs - get involved and share your thoughts!",
+    "keyFeature3Title": "Easy customisations",
+    "keyFeature3Info": "Data Custodians can define their own criteria for rapid validation of Users and Organisations, with customisable features like automated flags and manual checklists.",
+    "registerNow": "Register now",
+    "or": "or",
+    "signIn": "sign in here"
+  }
 }

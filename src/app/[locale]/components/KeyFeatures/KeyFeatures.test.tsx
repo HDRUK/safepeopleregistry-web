@@ -9,61 +9,46 @@ jest.mock("next-intl", () => ({
 
 describe("KeyFeatures Component", () => {
   beforeEach(() => {
-    const mockT = jest.fn().mockReturnValue("TEST");
-    (useTranslations as jest.Mock).mockReturnValue(mockT);
+    (useTranslations as jest.Mock).mockReturnValue((key: string) => {
+      const map: Record<string, string> = {
+        keyFeature1Title: "User and Organisation Registers",
+        keyFeature1Info: "Feature 1 description",
+        keyFeature2Title: "Visibility across Data Custodians",
+        keyFeature2Info: "Feature 2 description",
+        keyFeature3Title: "Multiple authentication routes",
+        keyFeature3Info: "Feature 3 description",
+        registerNow: "Register now",
+        or: "or",
+        signIn: "Sign in",
+      };
+
+      return map[key] ?? key;
+    });
   });
 
   it("renders the main headings", () => {
     render(<KeyFeatures />);
 
-    // Check the main heading
-    expect(
-      screen.getByRole("heading", { name: /Key Features/i })
-    ).toBeInTheDocument();
-
-    // Check the subheading
-    expect(
-      screen.getByText(
-        /Capabilities for Users, Organisations, and Data Custodians/i
-      )
-    ).toBeInTheDocument();
-  });
-
-  it("renders all cards", () => {
-    render(<KeyFeatures />);
-
-    // Check the first item
     expect(
       screen.getByRole("heading", { name: /User and Organisation Registers/i })
     ).toBeInTheDocument();
-    expect(
-      screen.queryAllByText(
-        /A platform for Users \(researchers, analysts, innovators, students, and others who access sensitive data\) and Organisations to create profiles and share relevant information for Data Custodians to assess if a person is ‘Safe’./i
-      )[0]
-    ).toBeInTheDocument();
 
-    // Check the second item
     expect(
       screen.getByRole("heading", {
         name: /Visibility across Data Custodians/i,
       })
     ).toBeInTheDocument();
-    expect(
-      screen.queryAllByText(
-        /A platform for Users \(researchers, analysts, innovators, students, and others who access sensitive data\) and Organisations to create profiles and share relevant information for Data Custodians to assess if a person is ‘Safe’./i
-      )[0]
-    ).toBeInTheDocument();
 
-    // Check the third item
     expect(
-      screen.getByRole("heading", {
-        name: /Multiple authentication routes/i,
-      })
+      screen.getByRole("heading", { name: /Multiple authentication routes/i })
     ).toBeInTheDocument();
-    expect(
-      screen.queryAllByText(
-        /A platform for Users \(researchers, analysts, innovators, students, and others who access sensitive data\) and Organisations to create profiles and share relevant information for Data Custodians to assess if a person is ‘Safe’./i
-      )[0]
-    ).toBeInTheDocument();
+  });
+
+  it("renders all feature descriptions", () => {
+    render(<KeyFeatures />);
+
+    expect(screen.getByText("Feature 1 description")).toBeInTheDocument();
+    expect(screen.getByText("Feature 2 description")).toBeInTheDocument();
+    expect(screen.getByText("Feature 3 description")).toBeInTheDocument();
   });
 });

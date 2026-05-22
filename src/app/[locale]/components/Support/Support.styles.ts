@@ -1,30 +1,30 @@
-import { styled } from "@mui/material";
+import { SxProps, Theme } from "@mui/material";
 
-const StyledContent = styled("div")`
-  background: #ffffff;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  padding: 24px;
-  width: auto;
-  color: black;
-`;
+const styledContent: SxProps<Theme> = {
+  backgroundColor: "common.white",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  p: 3,
+  width: "auto",
+  color: "common.black",
+};
 
-const StyledFlex = styled("div")`
-  justify-content: space-around;
-  text-align: center;
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: 24px;
-`;
+const styledGrid: SxProps<Theme> = {
+  display: "grid",
+  gridTemplateColumns: {
+    xs: "1fr",
+    md: "repeat(3, 1fr)",
+  },
+  gap: 3,
+};
 
-const StyledContainer = styled("div")`
-  background: #ffffff;
-  display: flex;
-  flex-direction: column;
-  padding: 12px;
-`;
+const styledContainer: SxProps<Theme> = {
+  backgroundColor: "common.white",
+  display: "flex",
+  flexDirection: "column",
+  p: 1.5,
+};
 
-export { StyledContent, StyledFlex, StyledContainer };
+export { styledContent, styledGrid, styledContainer };

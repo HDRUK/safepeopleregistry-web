@@ -1,37 +1,59 @@
 import { render, screen } from "@testing-library/react";
 import Support from "./Support";
 
+// Mock next-intl
+jest.mock("next-intl/server", () => ({
+  getTranslations: async () => {
+    const translations: Record<string, string> = {
+      supportTitle: "Support",
+      supportUsers: "Users",
+      supportOrganisations: "Organisations",
+      supportCustodians: "Data Custodians",
+      supportUsersInfo: "User info",
+      supportOrganisationsInfo: "Organisation info",
+      supportCustodiansInfo: "Custodian info",
+    };
+
+    const t = (key: string) => translations[key];
+
+    t.rich = (key: string) => translations[key];
+
+    return t;
+  },
+}));
+
 describe("Support Component", () => {
-  it("renders the Support heading", () => {
-    render(<Support />);
-    const heading = screen.getByRole("heading", { name: /support/i });
-    expect(heading).toBeInTheDocument();
+  it("renders the support heading", async () => {
+    const Component = await Support();
+
+    render(Component);
+
+    expect(
+      screen.getByRole("heading", { name: /support/i })
+    ).toBeInTheDocument();
   });
 
-  it("renders all buttons with correct text", () => {
-    render(<Support />);
-    const individualLink = screen.getByRole("link", {
-      name: /individual users/i,
-    });
-    const organisationLink = screen.getByRole("link", {
-      name: /organisations/i,
-    });
-    const custodianLink = screen.getByRole("link", {
-      name: /data custodians/i,
-    });
+  it("renders all support sections", async () => {
+    const Component = await Support();
 
-    expect(individualLink).toBeInTheDocument();
-    expect(organisationLink).toBeInTheDocument();
-    expect(custodianLink).toBeInTheDocument();
+    render(Component);
+
+    expect(screen.getByText("Users")).toBeInTheDocument();
+
+    expect(screen.getByText("Organisations")).toBeInTheDocument();
+
+    expect(screen.getByText("Data Custodians")).toBeInTheDocument();
   });
 
-  it("ensures buttons have correct styling", () => {
-    render(<Support />);
-    const custodianLink = screen.getByRole("link", {
-      name: /data custodians/i,
-    });
+  it("renders all support images", async () => {
+    const Component = await Support();
 
-    // Mocked test to check the primary button style
-    expect(custodianLink).toHaveClass("MuiButton-outlinedPrimary"); // Check for Material-UI styles
+    render(Component);
+
+    expect(screen.getByAltText("User support")).toBeInTheDocument();
+
+    expect(screen.getByAltText("Organisation support")).toBeInTheDocument();
+
+    expect(screen.getByAltText("Data Custodian support")).toBeInTheDocument();
   });
 });

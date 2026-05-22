@@ -62,7 +62,7 @@ export default function ValidationChecks() {
     useMutation(putValidationCheckQuery());
 
   const { mutateAsync: createValidationCheck, ...mutateStateCreateCheck } =
-    useMutation(postValidationCheckQuery(custodianId as number));
+    useMutation(postValidationCheckQuery());
 
   const refetch = useCallback(async () => {
     queryStateProjectUser.refetch();

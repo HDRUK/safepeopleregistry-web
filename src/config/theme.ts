@@ -35,14 +35,17 @@ const PALETTE_THEME_PURPLE_BLUE = {
     h3: {
       ...headingStyles,
       fontSize: "1.602rem",
+      fontWeight: 500,
     },
     h4: {
       ...headingStyles,
       fontSize: "1.424rem",
+      fontWeight: 500,
     },
     h5: {
       ...headingStyles,
       fontSize: "1.266rem",
+      fontWeight: 500,
     },
     h6: {
       ...headingStyles,
@@ -80,7 +83,7 @@ const PALETTE_THEME_PURPLE_BLUE = {
     inactive: createColor(grey["300"]),
     white: "#fff",
     neutralPink: {
-      light: "#F6DFF1",
+      light: "#F6EBF8",
       dark: "#F6DFF1",
       main: "#F6DFF1",
       contrastText: "#000",
@@ -96,7 +99,7 @@ const PALETTE_THEME_PURPLE_BLUE = {
     "neutral-100": createColor("#E1E1E1"),
     "neutral-400": createColor("#7C7C7C"),
     textPrimary: createColor("#1E1E1E"),
-    textSecondary: createColor("#585754"),
+    textSecondary: createColor("#5B5B5B"),
     textPrimaryLink: createColor("#1E1E1E"),
     midGrey: createColor("#687078"),
     clear: createColor("#fff"),
