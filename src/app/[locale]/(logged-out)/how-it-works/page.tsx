@@ -3,14 +3,17 @@ import Personas from "@/app/[locale]/(logged-out)/how-it-works/components/Person
 import ProductVideo from "@/app/[locale]/(logged-out)/how-it-works/components/ProductVideo";
 import About from "@/app/[locale]/(logged-out)/how-it-works/components/About";
 import InfoHero from "@/components/InfoHero";
+import InfoPageWrapper from "@/app/[locale]/(logged-out)/components/InfoPageWrapper";
 
 export default function Page() {
   return (
     <PageContainer>
-      <About />
-      <Personas />
-      <ProductVideo />
-      <InfoHero translationPath="HowItWorks.InfoHero" />
+      <InfoPageWrapper>
+        <About />
+        <Personas />
+        <ProductVideo />
+        <InfoHero translationPath="HowItWorks.InfoHero" />
+      </InfoPageWrapper>
     </PageContainer>
   );
 }

@@ -2064,7 +2064,32 @@
     "keyFeature3Info": "Data Custodians can define their own criteria for rapid validation of Users and Organisations, with customisable features like automated flags and manual checklists.",
     "registerNow": "Register now",
     "or": "or",
-    "signIn": "sign in here"
+    "signIn": "sign in here",
+    "getStartedLabel": "Get started"
+  },
+  "About": {
+    "infoTitle": "About",
+    "mission": "Our mission is to enable Users, Organisations and Data Custodians to collaborate efficiently, saving time and supporting secure data access while upholding the highest standards of security and compliance.",
+    "backgroundTitle": "Background",
+    "backgroundParagraph1": "Research can transform lives, but often requires the use of highly sensitive information, which must only be accessed by accredited researchers, in secure environments, and for projects that benefit the public. These principles are captured under the <fiveSafesLink>Five Safes Framework</fiveSafesLink> which guide the responsible use of sensitive data in research.",
+    "backgroundParagraph2": "The Safe People Registry is a secure software solution designed to standardise and simplify researcher validation for secure data access – the ‘safe people’ principle. It is maintained and supported by Health Data Research UK’s <techLink>Technology Team</techLink>, but is not health-data specific.",
+    "backgroundImageAlt": "Five Safes Framework diagram showing Safe projects, Safe settings, Safe people, Safe data, and Safe outputs.",
+    "historyTitle": "Our history",
+    "historyParagraph1": "This Safe People Registry began early in 2022, sparked by growing conversations across the landscape about how to efficiently assess responsible access to health data for research purposes.",
+    "historyParagraph2": "It quickly became clear that challenges were not healthcare-specific. We opened the conversation to others with sensitive data, from economics to education. We realised that there was no standard system, guidance, or tool for ‘safe people’ validations. In response, we engaged in a multi-pronged approach:",
+    "historyItem1": "Listening closely to the needs of data users and access approvers",
+    "historyItem2": "Mapping existing processes",
+    "historyItem3": "Supporting the development of guidance (see key references below)",
+    "historyOutro": "The result is the Safe People Registry: A flexible and practical tool designed to simplify ‘safe people’ validations and support consistent, confident decision making, even as needs and policies evolve over time.",
+    "historyImageAlt": "Collage of people working collaboratively on research and data.",
+    "openAccessTitle": "Open access and open to listen",
+    "openAccessText": "We provide this platform free as part of our <openAccessLink>commitment to open access</openAccessLink>. We want everything we build to make it easier for you as Users, Organisations, and Data Custodians. This includes getting your thoughts to inform our design decisions and testing early versions of the product with you so we can stay informed and smoothen your experience. If you’d like to get involved then we’d love you to <getInvolvedLink>get involved</getInvolvedLink>.",
+    "keyReferencesTitle": "Key references",
+    "keyReference1": "Guidance for TREs assessing safe people and organisations",
+    "keyReference2": "Data use register standard",
+    "keyReference3": "Data Access Agreement",
+    "keyReference4": "Data Access Request",
+    "keyReference5": "Data Access Transparency standards"
   },
   "HowItWorks": {
     "infoTitle": "How it works",
@@ -2158,5 +2183,8 @@
       "title": "The Safe People Registry is <bold>secure</bold>, <bold>supported</bold>, <bold>open-source</bold> and <bold>free</bold>",
       "content": "We co-created the Safe People Registry with Users, Organisations and Data Custodians to make ‘safe people’ validation faster, easier, and more secure.\n\nLed by Health Data Research UK’s (HDR UK) <techLink>Technology Team</techLink> (though not health-data specific), the Safe People Registry is a free, open-source platform designed for long-term use and built with collaboration at its core.\n\nThe Safe People Registry continues to evolve in response to your needs. <helpLink>Help us develop further!</helpLink>"
     }
+  },
+  "Common": {
+    "opensInNewTab": "(opens in a new tab)"
   }
 }
