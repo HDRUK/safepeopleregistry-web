@@ -42,7 +42,6 @@ async function getSeverErrorRedirectPath(
   pathname: string
 ) {
   const cookieStore = await cookies();
-  console.log(accessToken, "<----<<<");
   if (!accessToken) {
     cookieStore.set("redirectPath", pathname ?? "/", { path: "/" });
   }

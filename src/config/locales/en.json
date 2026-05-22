@@ -1372,6 +1372,7 @@
     "homeButton": "Home",
     "myAccountButton": "My Account",
     "aboutButton": "About",
+    "howItWorksButton": "How it works",
     "featuresButton": "Features",
     "resourcesButton": "Resources",
     "contactButton": "Contact",
@@ -2067,5 +2068,97 @@
   },
   "Glossary": {
     "title": "Glossary"
+  "HowItWorks": {
+    "infoTitle": "How it works",
+    "intro": "‘Safe people’ validation is a key step in ensuring secure access to sensitive data. The Safe People Registry is a secure platform designed to facilitate this validation process.\n\n Our mission is to enable Users, Organisations and Data Custodians to collaborate efficiently, saving time and supporting secure data access while upholding the highest standards of security and compliance.",
+    "keyImageAlt": "Illustration of a secure digital registry with a user access icon and connected network nodes.",
+    "headingUsers": "Users",
+    "headingOrganisations": "Organisations",
+    "headingCustodians": "Data Custodians",
+    "subheadingUsers": "Create a single profile",
+    "infoUsers": "A User (researcher, innovator, analyst, engineer, etc.) creates and manages one profile that supports access to sensitive data across Data Custodians.",
+    "infoUsersItems": {
+      "saveTime": {
+        "title": "Save time and reduce duplication",
+        "body": "Create your profile once and share it with multiple Data Custodians. No need to repeat the same steps for every project."
+      },
+      "fastSetup": {
+        "title": "Fast setup",
+        "body": "Connect your profile using familiar tools like ORCiD to speed up the process."
+      },
+      "multipleOrganisations": {
+        "title": "Multiple Organisations",
+        "body": "You can work or study with multiple Organisations, and easily track which affiliation is used for which project."
+      },
+      "keepEverything": {
+        "title": "Keep everything in one place",
+        "body": "Track your validation status and training credentials centrally."
+      },
+      "automaticUpdates": {
+        "title": "Automatic updates",
+        "body": "Get notified when your validation status changes or when training certificates are about to expire."
+      },
+      "builtToMove": {
+        "title": "Built to move with you",
+        "body": "Your profile stays with you, even when you move between organisations or institutions, making it easy to keep your information up to date."
+      }
+    },
+    "subheadingOrganisations": "Create a profile & affiliate Users",
+    "infoOrganisations": "Organisations employ or educate Users working on sensitive data projects. Organisations affiliate and track their Users with smart, secure management.",
+    "infoOrganisationItems": {
+      "saveTime": {
+        "title": "Affiliate once",
+        "body": "Affiliate Users quickly and confidently. No need to repeat the process for each new project or data access request."
+      },
+      "fastSetup": {
+        "title": "Save time and reduce duplication",
+        "body": "Create your profile once and share it with multiple Data Custodians. No need to repeat the same steps for every project."
+      },
+      "multipleOrganisations": {
+        "title": "Full visibility",
+        "body": "Track affiliated Users in one place. See who they are, what projects they’re working on, and which Data Custodians they’re connected with."
+      },
+      "automaticUpdates": {
+        "title": "Smart notifications",
+        "body": "If you record when a User leaves your Organisation, all relevant Data Custodians are informed, keeping everyone up to date."
+      },
+      "builtToMove": {
+        "title": "Sponsorships",
+        "body": "In the health and care data field, you can optionally sponsor projects by recording formal oversight of research."
+      }
+    },
+    "subheadingCustodians": "Validate Users & Organisations ",
+    "infoCustodians": "Data Custodians make informed decisions about granting access to sensitive data faster, easier, and while ensuring compliance.",
+    "infoCustodianItems": {
+      "saveTime": {
+        "title": "Easy tracking",
+        "body": "Keep all ‘safe people’ validation information, decisions and statuses in one secure place."
+      },
+      "fastSetup": {
+        "title": "Team-wide visibility",
+        "body": "Share validation decisions, comments, and supporting information across your team, making it easier to collaborate on tasks and maintain."
+      },
+      "multipleOrganisations": {
+        "title": "Automation",
+        "body": "Set minimum validation requirements and let the platform automatically flag missing information, saving time and helping you stay aligned to your data governance policies."
+      },
+      "automaticUpdates": {
+        "title": "Smart notifications",
+        "body": "Receive alerts when a User changes Organisation, updates their profile, completes training, or when a project ends."
+      },
+      "builtToMove": {
+        "title": "Shared intelligence",
+        "body": "See which other Data Custodians and projects a User is involved with to help inform your decisions."
+      },
+      "flexibleFeatures": {
+        "title": "Flexible optional features",
+        "body": "Choose to enable features like Single Sign-on for access, project approval recording, or automatic publishing of project details to a public data use register. Whatever works best for you!"
+      }
+    },
+    "videoIntro": "Take a deeper dive into the products with our demos",
+    "InfoHero": {
+      "title": "The Safe People Registry is <bold>secure</bold>, <bold>supported</bold>, <bold>open-source</bold> and <bold>free</bold>",
+      "content": "We co-created the Safe People Registry with Users, Organisations and Data Custodians to make ‘safe people’ validation faster, easier, and more secure.\n\nLed by Health Data Research UK’s (HDR UK) <techLink>Technology Team</techLink> (though not health-data specific), the Safe People Registry is a free, open-source platform designed for long-term use and built with collaboration at its core.\n\nThe Safe People Registry continues to evolve in response to your needs. <helpLink>Help us develop further!</helpLink>"
+    }
   }
 }
