@@ -1,29 +1,29 @@
 import theme from "@/theme";
-import { styled } from "@mui/material";
 
-const LetterNavigationContainer = styled("div")(({ theme }) => ({
+export const LetterNavigationContainerStyles = {
   display: "flex",
   flexWrap: "wrap",
-  gap: theme.spacing("10px"),
+  gap: 1.25,
   padding: "12px",
   justifyContent: "center",
   alignItems: "center",
   borderRadius: "12px",
   backgroundColor: theme.palette.lightGrey.main,
-}));
+};
 
-const TermContainer = styled("div")(({ theme }) => ({
+export const TermContainerStyles = {
   display: "flex",
   paddingBottom: "48px",
   flexDirection: "column",
   alignItems: "flex-start",
-  gap: theme.spacing("48px"),
-}));
+  gap: 6,
+};
 
 export const HighlightedLetterStyles = {
   textDecoration: "none",
   color: theme.palette.primary.main,
 };
+
 export const TermSectionStyles = {
   display: "flex",
   flexDirection: "column",
@@ -41,5 +41,3 @@ export const DefinitionStyles = {
   fontWeight: theme.typography.paragraph.fontWeight,
   lineHeight: theme.typography.paragraph.lineHeight,
 };
-
-export { LetterNavigationContainer, TermContainer };

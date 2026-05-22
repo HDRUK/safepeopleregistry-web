@@ -1,21 +1,11 @@
-"use client";
-
-import { Box } from "@mui/system";
 import InfoPageWrapper from "../../../components/InfoPageWrapper";
 import { PageBodyContainer, PageColumnBody, PageColumns } from "@/modules";
-// import { getTranslations } from "next-intl/server";
-import { useState } from "react";
-import { Link, Typography } from "@mui/material";
-import {
-  LetterNavigationContainer,
-  HighlightedLetterStyles,
-  DefinitionStyles,
-  TermStyles,
-  TermContainer,
-  TermSectionStyles,
-} from "./Glossary.styles";
+import { getTranslations } from "next-intl/server";
 
-// const NAMESPACE_TRANSLATIONS = "Homepage";
+import GlossaryNavigation from "./GlossaryNavigation";
+import GlossaryTerms from "./GlossaryTerms";
+
+const NAMESPACE_TRANSLATIONS = "Glossary";
 
 const glossaryTerms = [
   {
@@ -141,88 +131,18 @@ const glossaryTerms = [
   },
 ];
 
-const allLetters = [
-  "A",
-  "B",
-  "C",
-  "D",
-  "E",
-  "F",
-  "G",
-  "H",
-  "I",
-  "J",
-  "K",
-  "L",
-  "M",
-  "N",
-  "O",
-  "P",
-  "Q",
-  "R",
-  "S",
-  "T",
-  "U",
-  "V",
-  "W",
-  "X",
-  "Y",
-  "Z",
-];
-const activeLetters = glossaryTerms.map(term => term.letter);
-
-export default function Glossary() {
-  const [selectedLetter, setSelectedLetter] = useState<string | null>(null);
-  // const t = getTranslations(NAMESPACE_TRANSLATIONS);
+export default async function Glossary() {
+  const t = await getTranslations(NAMESPACE_TRANSLATIONS);
 
   return (
     <InfoPageWrapper>
-      <PageBodyContainer heading={"Glossary"}>
+      <PageBodyContainer heading={t("title")}>
         <PageColumns>
           <PageColumnBody size={{ lg: 8 }}>
-            <LetterNavigationContainer>
-              {allLetters.map(letter => {
-                const isActive = activeLetters.includes(letter);
-                const isSelected = selectedLetter === letter;
-                return isActive ? (
-                  <Link
-                    href={`#glossary-${letter}`}
-                    sx={{ HighlightedLetterStyles }}>
-                    <Typography
-                      key={letter}
-                      onClick={() =>
-                        setSelectedLetter(isSelected ? null : letter)
-                      }
-                      variant="h2">
-                      {letter}
-                    </Typography>
-                  </Link>
-                ) : (
-                  <Typography key={letter} variant="h2">
-                    {letter}
-                  </Typography>
-                );
-              })}
-            </LetterNavigationContainer>
+            <GlossaryNavigation glossaryTerms={glossaryTerms} />
           </PageColumnBody>
           <PageColumnBody size={{ lg: 8 }}>
-            {glossaryTerms.map(section => (
-              <TermContainer
-                key={section.letter}
-                id={`glossary-${section.letter}`}>
-                <Typography variant="h1">{section.letter}</Typography>
-                {section.terms.map((item, i) => (
-                  <Box key={item.term} sx={TermSectionStyles}>
-                    <Typography sx={TermStyles} variant="h6">
-                      {item.term}
-                    </Typography>
-                    <Typography sx={DefinitionStyles}>
-                      {item.definition}
-                    </Typography>
-                  </Box>
-                ))}
-              </TermContainer>
-            ))}
+            <GlossaryTerms glossaryTerms={glossaryTerms} />
           </PageColumnBody>
         </PageColumns>
       </PageBodyContainer>
