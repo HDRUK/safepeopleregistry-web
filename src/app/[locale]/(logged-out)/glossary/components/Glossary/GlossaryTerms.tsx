@@ -17,7 +17,7 @@ export default function GlossaryTerms({ glossaryTerms }: GlossaryContentProps) {
           id={`glossary-${section.letter}`}
           sx={TermContainerStyles}>
           <Typography variant="h1">{section.letter}</Typography>
-          {section.terms.map((item, i) => (
+          {section.terms.map(item => (
             <Box key={item.term} sx={TermSectionStyles}>
               <Typography sx={TermStyles} variant="h6">
                 {item.term}
