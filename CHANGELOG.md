@@ -1,3 +1,16 @@
+## [1.32.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.31.0...v1.32.0) (2026-05-22)
+
+### ✨ Features
+
+* **REGISTRY-1843:** Update homepage (#761) ([1e10679](https://github.com/HDRUK/safepeopleregistry-web/commit/1e10679a89b071abe61cff30190d1abfad170139))
+* **REGISTRY-2161:** Show account status in team tables (#759) ([001ff24](https://github.com/HDRUK/safepeopleregistry-web/commit/001ff24c715a73dcaed4d83efae180af67c9f0e1))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-2670:** display idvt when location is uk (#760) ([839144b](https://github.com/HDRUK/safepeopleregistry-web/commit/839144b39fa4b0dfffbc8c3d4258d89b7709f459))
+* **REGISTRY-2670:** Fix list styling (#758) ([8d5e0ef](https://github.com/HDRUK/safepeopleregistry-web/commit/8d5e0ef44dbff08dbd6bdc11ae007cbee62c2a25))
+* **REGISTRY-2687:** remove custodian id (#764) ([51111cc](https://github.com/HDRUK/safepeopleregistry-web/commit/51111cc7ac533aae853c59708819a55c97554904))
+
 ## [1.31.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.30.0...v1.31.0) (2026-05-11)
 
 ### ✨ Features
