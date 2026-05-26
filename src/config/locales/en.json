@@ -2109,7 +2109,7 @@
       },
       "secureDataEnvironment": {
         "term": "Secure Data Environment (SDE)",
-        "definition": "Are similar to TREs. One example is the NHS (https://digital.nhs.uk/services/secure-data-environment-service). 'The Secure Data Environment (SDE) is a secure data and research analysis platform. It is part of an interoperable NHS Research Secure Data Environment network.'"
+        "definition": "Are similar to TREs. One example is the <nhsLink>NHS</nhsLink>. 'The Secure Data Environment (SDE) is a secure data and research analysis platform. It is part of an interoperable NHS Research Secure Data Environment network.'"
       },
       "seniorResponsibleOfficer": {
         "term": "Senior Responsible Officer (SRO)",

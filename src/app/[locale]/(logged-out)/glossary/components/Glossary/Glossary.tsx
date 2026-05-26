@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 
 import GlossaryNavigation from "./GlossaryNavigation";
 import GlossaryTerms from "./GlossaryTerms";
+import Link from "next/link";
 
 const NAMESPACE_TRANSLATIONS = "Glossary";
 
@@ -59,11 +60,29 @@ export default async function Glossary() {
       terms: [
         {
           term: t("letterS.safeHaven.term"),
-          definition: t("letterS.safeHaven.definition"),
+          definition: t.rich("letterS.safeHaven.definition", {
+            safeHavenLink: chunks => (
+              <Link
+                href="https://www.safehavens.org.uk"
+                target="_blank"
+                rel="noopener noreferrer">
+                {chunks}
+              </Link>
+            ),
+          }),
         },
         {
           term: t("letterS.secureDataEnvironment.term"),
-          definition: t("letterS.secureDataEnvironment.definition"),
+          definition: t.rich("letterS.secureDataEnvironment.definition", {
+            nhsLink: chunks => (
+              <Link
+                href="https://digital.nhs.uk/services/secure-data-environment-service"
+                target="_blank"
+                rel="noopener noreferrer">
+                {chunks}
+              </Link>
+            ),
+          }),
         },
         {
           term: t("letterS.seniorResponsibleOfficer.term"),
