@@ -9,7 +9,7 @@ const hasUnCheckedOnUsersConfigurationManualChecks = () => {
     timeout: 20000,
   });
   cy.get("#1").should("exist").uncheck();
-  cy.contains("span", "Mandatory training has been completed").should("exist");
+  cy.contains("span", "Mandatory Custodian Training").should("exist");
   cy.get('[data-cy="action-menu"]')
     .find('button[type="button"]')
     .should("exist");
@@ -234,7 +234,7 @@ const hasEditManualChecksForOrganisationConfigurationManualChecks = () => {
   cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
     timeout: 20000,
   });
-  const text = "Is the Organisation aligned with the SDE network? Testing";
+  const text = "Is the Organisation aligned with the SDE network?";
   cy.get('[data-cy="action-menu"]').eq(4).should("exist").click();
   cy.contains('li[role="menuitem"]', "Edit").should("exist").click();
   cy.contains("h3", "Edit Organisation manual check").should("exist");

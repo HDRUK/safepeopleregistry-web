@@ -457,6 +457,39 @@ const theme = createTheme(
           },
         },
       },
+      MuiAccordion: {
+        defaultProps: {
+          elevation: 0,
+        },
+        styleOverrides: {
+          root: ({ theme }) => ({
+            marginBottom: theme.spacing(4),
+            "&::before": { display: "none" },
+            "&.Mui-expanded": {
+              marginTop: 0,
+              marginBottom: theme.spacing(4),
+            },
+          }),
+        },
+      },
+      MuiAccordionSummary: {
+        styleOverrides: {
+          root: {
+            padding: 0,
+            "&.Mui-expanded": { minHeight: "auto" },
+          },
+          content: ({ theme }) => ({
+            "&.Mui-expanded": { margin: `${theme.spacing(1.5)} 0` },
+          }),
+        },
+      },
+      MuiAccordionDetails: {
+        styleOverrides: {
+          root: {
+            padding: 0,
+          },
+        },
+      },
       MuiPopover: {
         defaultProps: {
           slotProps: {

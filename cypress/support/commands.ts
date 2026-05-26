@@ -266,7 +266,7 @@ Cypress.Commands.add(
 
 Cypress.Commands.add(
   "verifyMandatoryTrainingCardTitleExists",
-  (text: string = "Mandatory training has been completed") => {
+  (text: string = "Mandatory Custodian Training") => {
     cy.contains("h5", text)
       .closest(".MuiPaper-root")
       .within($el => {
