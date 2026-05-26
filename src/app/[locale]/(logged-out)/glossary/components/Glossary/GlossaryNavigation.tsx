@@ -53,12 +53,11 @@ export default function GlossaryNavigation({
           <Link
             key={letter}
             href={`#glossary-${letter}`}
-            sx={highlightedLetterStyles}>
-            <Typography
-              onClick={() => setSelectedLetter(isSelected ? "" : letter)}
-              variant="h2">
-              {letter}
-            </Typography>
+            sx={highlightedLetterStyles}
+            onClick={() => setSelectedLetter(isSelected ? "" : letter)}
+            variant="h2"
+            component="a">
+            {letter}
           </Link>
         ) : (
           <Typography key={letter} variant="h2">

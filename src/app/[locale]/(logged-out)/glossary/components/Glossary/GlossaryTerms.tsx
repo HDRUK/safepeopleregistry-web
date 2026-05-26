@@ -19,7 +19,7 @@ export default function GlossaryTerms({ glossaryTerms }: GlossaryContentProps) {
           <Typography variant="h1">{section.letter}</Typography>
           {section.terms.map(item => (
             <Box key={item.term} sx={termSectionStyles}>
-              <Typography sx={termStyles} variant="h6">
+              <Typography sx={termStyles} variant="h6" component="h2">
                 {item.term}
               </Typography>
               <Typography>{item.definition}</Typography>
