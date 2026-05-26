@@ -10,7 +10,6 @@ interface ColorOverrides {
   neutralGrey: true;
   textSecondary: true;
   textPrimary: true;
-  lightGrey: true;
   midGrey: true;
   darkGrey: true;
   clear: true;
@@ -49,7 +48,6 @@ declare module "@mui/material/styles" {
     neutralGrey: SimplePaletteColorOptions;
     textSecondary: SimplePaletteColorOptions;
     textPrimary: SimplePaletteColorOptions;
-    lightGrey: SimplePaletteColorOptions;
     midGrey: SimplePaletteColorOptions;
     darkGrey: SimplePaletteColorOptions;
     clear: SimplePaletteColorOptions;

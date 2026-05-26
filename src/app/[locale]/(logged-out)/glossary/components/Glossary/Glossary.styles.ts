@@ -1,43 +1,37 @@
 import theme from "@/theme";
 
-export const LetterNavigationContainerStyles = {
+export const letterNavigationContainerStyles = {
   display: "flex",
   flexWrap: "wrap",
   gap: 1.25,
-  padding: "12px",
+  padding: theme.spacing(1.5),
   justifyContent: "center",
   alignItems: "center",
-  borderRadius: "12px",
-  backgroundColor: theme.palette.lightGrey.main,
+  borderRadius: theme.spacing(1.5),
+  backgroundColor: theme.palette["neutral-50"].main,
 };
 
-export const TermContainerStyles = {
+export const termContainerStyles = {
   display: "flex",
-  paddingBottom: "48px",
+  paddingBottom: theme.spacing(6),
   flexDirection: "column",
   alignItems: "flex-start",
   gap: 6,
 };
 
-export const HighlightedLetterStyles = {
+export const highlightedLetterStyles = {
   textDecoration: "none",
   color: theme.palette.primary.main,
 };
 
-export const TermSectionStyles = {
+export const termSectionStyles = {
   display: "flex",
   flexDirection: "column",
   alignItems: "flex-start",
   gap: 4,
 };
 
-export const TermStyles = {
-  flex: "1 0 0",
+export const termStyles = {
+  flexGrow: 1,
   color: theme.palette.textPrimary.main,
-};
-
-export const DefinitionStyles = {
-  fontSize: theme.typography.paragraph.fontSize,
-  fontWeight: theme.typography.paragraph.fontWeight,
-  lineHeight: theme.typography.paragraph.lineHeight,
 };

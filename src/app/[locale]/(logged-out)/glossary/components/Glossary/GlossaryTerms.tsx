@@ -1,12 +1,12 @@
 "use client";
+
+import { GlossaryContentProps } from "./Glossary.types";
 import { Typography, Box } from "@mui/material";
 import {
-  TermSectionStyles,
-  TermStyles,
-  DefinitionStyles,
-  TermContainerStyles,
+  termSectionStyles,
+  termStyles,
+  termContainerStyles,
 } from "./Glossary.styles";
-import { GlossaryContentProps } from "./Glossary.types";
 
 export default function GlossaryTerms({ glossaryTerms }: GlossaryContentProps) {
   return (
@@ -15,14 +15,14 @@ export default function GlossaryTerms({ glossaryTerms }: GlossaryContentProps) {
         <Box
           key={section.letter}
           id={`glossary-${section.letter}`}
-          sx={TermContainerStyles}>
+          sx={termContainerStyles}>
           <Typography variant="h1">{section.letter}</Typography>
           {section.terms.map(item => (
-            <Box key={item.term} sx={TermSectionStyles}>
-              <Typography sx={TermStyles} variant="h6">
+            <Box key={item.term} sx={termSectionStyles}>
+              <Typography sx={termStyles} variant="h6">
                 {item.term}
               </Typography>
-              <Typography sx={DefinitionStyles}>{item.definition}</Typography>
+              <Typography>{item.definition}</Typography>
             </Box>
           ))}
         </Box>

@@ -27,13 +27,10 @@ const PALETTE_THEME_PURPLE_BLUE = {
     h1: {
       ...headingStyles,
       fontSize: "2.027rem",
-      fontWeight: 700,
-      lineHeight: "2.835rem",
     },
     h2: {
       ...headingStyles,
       fontSize: "1.802rem",
-      lineHeight: "2.522rem",
       fontWeight: 600,
     },
     h3: {
@@ -55,7 +52,6 @@ const PALETTE_THEME_PURPLE_BLUE = {
       ...headingStyles,
       fontSize: "1.125rem",
       fontWeight: 500,
-      lineHeight: "1.575rem",
     },
     body: bodyStyles,
     small: {
@@ -70,13 +66,6 @@ const PALETTE_THEME_PURPLE_BLUE = {
     },
     subtitle1: {
       ...headingStyles,
-    },
-    paragraph: {
-      ...headingStyles,
-      fontSize: "1rem",
-      fontWeight: 400,
-      lineHeight: "1.4rem",
-      fontStyle: "normal",
     },
   },
   palette: {
@@ -117,7 +106,6 @@ const PALETTE_THEME_PURPLE_BLUE = {
     textPrimary: createColor("#1E1E1E"),
     textSecondary: createColor("#5B5B5B"),
     textPrimaryLink: createColor("#1E1E1E"),
-    lightGrey: createColor("#F1F1F1"),
     midGrey: createColor("#687078"),
     darkGrey: createColor("#2C2C2C"),
     clear: createColor("#fff"),

@@ -3,10 +3,8 @@ import Glossary from "./components/Glossary";
 
 export default function Page() {
   return (
-    <>
-      <PageContainer>
-        <Glossary />
-      </PageContainer>
-    </>
+    <PageContainer>
+      <Glossary />
+    </PageContainer>
   );
 }
