@@ -37,7 +37,7 @@ const ALL_LETTERS = [
   "Z",
 ];
 
-export default function GlossaryContent({
+export default function GlossaryNavigation({
   glossaryTerms,
 }: GlossaryContentProps) {
   const activeLetters = glossaryTerms.map(term => term.letter);
@@ -53,7 +53,7 @@ export default function GlossaryContent({
           <Link
             key={letter}
             href={`#glossary-${letter}`}
-            sx={{ highlightedLetterStyles }}>
+            sx={highlightedLetterStyles}>
             <Typography
               onClick={() => setSelectedLetter(isSelected ? "" : letter)}
               variant="h2">
