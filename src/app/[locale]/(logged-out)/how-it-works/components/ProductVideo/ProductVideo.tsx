@@ -28,7 +28,7 @@ export default async function ProductVideo() {
       <Typography variant="h5" id={VIDEO_HEADING_ID} component="h2">
         {t("videoIntro")}
       </Typography>
-      <YoutubeVideo />
+      <YoutubeVideo videoId="videoseries?list=PLBI5k9SgYrItRrYeOpErLZ2yuQ4xvoUgM" />
       <AuthButtons />
     </Box>
   );
