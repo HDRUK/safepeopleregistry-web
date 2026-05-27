@@ -16,9 +16,9 @@ const NAMESPACE_TRANSLATIONS = "About";
 const FIVE_SAFES_LINK =
   "https://www.hdruk.ac.uk/access-to-health-data/trusted-research-environments/";
 const TECH_TEAM_LINK = "https://healthdatagateway.org/en/about/meet-the-team";
-const OPEN_ACCESS_LINK =
-  "https://www.hdruk.ac.uk/about-us/policies/open-access-statement/";
-const GET_INVOLVED_LINK = "#";
+const PAN_UK_LINK =
+  "https://ukhealthdata.org/trust-and-transparency/data-access-and-governance/";
+const UK_TRE_LINK = "https://www.uktre.org/en/latest/";
 
 const SECTION_IDS = {
   background: "about-background-heading",
@@ -95,7 +95,24 @@ export default async function AboutContent() {
             </Typography>
             <PageSection>
               <Typography mb={2}>{t("historyParagraph1")}</Typography>
-              <Typography mb={1}>{t("historyParagraph2")}</Typography>
+              <Typography mb={1}>
+                {t.rich("historyParagraph2", {
+                  panUkLink: chunks => (
+                    <ExternalLink
+                      href={PAN_UK_LINK}
+                      sx={{ color: "primary.main" }}>
+                      {chunks}
+                    </ExternalLink>
+                  ),
+                  ukTreLink: chunks => (
+                    <ExternalLink
+                      href={UK_TRE_LINK}
+                      sx={{ color: "primary.main" }}>
+                      {chunks}
+                    </ExternalLink>
+                  ),
+                })}
+              </Typography>
               <ul>
                 <li>
                   <Typography>{t("historyItem1")}</Typography>
@@ -111,32 +128,6 @@ export default async function AboutContent() {
             </PageSection>
           </PageColumnBody>
         </PageColumns>
-
-        <PageSection
-          component="section"
-          aria-labelledby={SECTION_IDS.openAccess}>
-          <Typography variant="h2" id={SECTION_IDS.openAccess} gutterBottom>
-            {t("openAccessTitle")}
-          </Typography>
-          <Typography>
-            {t.rich("openAccessText", {
-              openAccessLink: chunks => (
-                <ExternalLink
-                  href={OPEN_ACCESS_LINK}
-                  sx={{ color: "primary.main" }}>
-                  {chunks}
-                </ExternalLink>
-              ),
-              getInvolvedLink: chunks => (
-                <ExternalLink
-                  href={GET_INVOLVED_LINK}
-                  sx={{ color: "primary.main" }}>
-                  {chunks}
-                </ExternalLink>
-              ),
-            })}
-          </Typography>
-        </PageSection>
       </Box>
     </PageBodyContainer>
   );
