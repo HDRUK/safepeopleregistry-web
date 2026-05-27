@@ -4,12 +4,12 @@ run-name:  ${{ github.actor }} triggered deploy to DEV pipeline
 on:
   push:
     branches:
-      - develop
+      - dev
 
 jobs:
   setup:
     runs-on: ubuntu-latest
-    environment: develop
+    environment: dev
     outputs:
       docker_build_args: ${{ steps.args.outputs.docker_build_args }}
     steps:
@@ -45,7 +45,7 @@ jobs:
     uses: HDRUK/github-actions-templates/.github/workflows/docker-build.yaml@main
     with:
       chart_path: chart/soursd-web/Chart.yaml
-      environment: develop
+      environment: dev
       docker_build_args: ${{ needs.setup.outputs.docker_build_args }}
     secrets: inherit
 
@@ -53,7 +53,7 @@ jobs:
     needs: build
     uses: HDRUK/github-actions-templates/.github/workflows/deploy-release.yml@main
     with:
-      env: develop
+      env: dev
       chart_path: chart/soursd-web/Chart.yaml
-      git_ref: develop
+      git_ref: dev
     secrets: inherit
