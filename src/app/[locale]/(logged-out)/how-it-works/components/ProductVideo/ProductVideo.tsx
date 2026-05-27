@@ -5,6 +5,7 @@ import { getTranslations } from "next-intl/server";
 
 const NAMESPACE_TRANSLATIONS = "HowItWorks";
 const VIDEO_HEADING_ID = "demo-video-title";
+const YOUTUBE_VIDEO_ID = "videoseries?list=PLBI5k9SgYrItRrYeOpErLZ2yuQ4xvoUgM";
 
 const styledContent: SxProps<Theme> = {
   backgroundColor: "common.white",
@@ -28,7 +29,7 @@ export default async function ProductVideo() {
       <Typography variant="h5" id={VIDEO_HEADING_ID} component="h2">
         {t("videoIntro")}
       </Typography>
-      <YoutubeVideo videoId="videoseries?list=PLBI5k9SgYrItRrYeOpErLZ2yuQ4xvoUgM" />
+      <YoutubeVideo videoId={YOUTUBE_VIDEO_ID} />
       <AuthButtons />
     </Box>
   );
