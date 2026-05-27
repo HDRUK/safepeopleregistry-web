@@ -1,6 +1,7 @@
 "use server";
 
 import ExternalLink from "@/components/ExternalLink";
+import links from "@/consts/links";
 import { PageBodyContainer } from "@/modules";
 import { Typography } from "@mui/material";
 import { getTranslations } from "next-intl/server";
@@ -65,19 +66,13 @@ export default async function FAQContent() {
   const richRenderers = {
     bold: (chunks: ReactNode) => <strong>{chunks}</strong>,
     explainerVideo: (chunks: ReactNode) => (
-      <ExternalLink href="https://www.youtube.com/watch?v=kYLO_7gtBRo&feature=youtu.be">
-        {chunks}
-      </ExternalLink>
+      <ExternalLink href={links.faq.explainerVideo}>{chunks}</ExternalLink>
     ),
     hdrLink: (chunks: ReactNode) => (
-      <ExternalLink href="https://healthdatagateway.org/en">
-        {chunks}
-      </ExternalLink>
+      <ExternalLink href={links.faq.hdr}>{chunks}</ExternalLink>
     ),
     dataTransparency: (chunks: ReactNode) => (
-      <ExternalLink href="https://zenodo.org/records/8262453">
-        {chunks}
-      </ExternalLink>
+      <ExternalLink href={links.faq.dataTransparency}>{chunks}</ExternalLink>
     ),
   };
 

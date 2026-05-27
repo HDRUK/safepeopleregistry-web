@@ -51,7 +51,7 @@ export default async function AboutContent() {
                 {t.rich("backgroundParagraph2", {
                   techLink: chunks => (
                     <ExternalLink
-                      href={links.about.techTeam}
+                      href={links.common.techTeam}
                       sx={{ color: "primary.main" }}>
                       {chunks}
                     </ExternalLink>
