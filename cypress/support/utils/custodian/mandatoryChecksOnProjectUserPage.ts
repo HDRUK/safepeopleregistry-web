@@ -69,10 +69,12 @@ const checkMandatoryCustodianTrainingTestingChecksPassChangeDecision = () => {
 };
 
 const checkMandatoryCustodianTrainingTestingChecksPassViewLessViewAll = () => {
-  cy.contains("h5", "Mandatory Custodian Training")
+  cy.contains("h5", "Affiliations tab: No conflicts of interest")
     .closest(".MuiPaper-root")
     .within($el => {
-      cy.verifyMandatoryTrainingCardTitleExists();
+      cy.contains("h5", "Affiliations tab: No conflicts of interest").should(
+        "exist"
+      );
       const comment = "Mandatory Custodian Training Testing";
       const passCount = 3;
       for (let i = 0; i < passCount; i++) {
@@ -160,7 +162,7 @@ const checkMandatoryCustodianTrainingTestingChecksFailViewLessViewAll = () => {
 
   const card = () =>
     cy
-      .contains("h5", "Mandatory Custodian Training Testing")
+      .contains("h5", "Affiliations tab: No conflicts of interest")
       .closest(".MuiPaper-root");
 
   Cypress._.times(2, () => {
