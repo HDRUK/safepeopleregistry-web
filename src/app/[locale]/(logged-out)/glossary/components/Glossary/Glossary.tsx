@@ -63,7 +63,7 @@ export default async function Glossary() {
           definition: t.rich("letterS.safeHaven.definition", {
             safeHavenLink: chunks => (
               <Link
-                href="https://www.safehavens.org.uk"
+                href="https://healthdatagateway.org/en/data-custodian-network/1"
                 target="_blank"
                 rel="noopener noreferrer">
                 {chunks}

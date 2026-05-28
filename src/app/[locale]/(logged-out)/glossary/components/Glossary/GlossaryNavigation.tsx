@@ -42,19 +42,15 @@ export default function GlossaryNavigation({
 }: GlossaryContentProps) {
   const activeLetters = glossaryTerms.map(term => term.letter);
 
-  const [selectedLetter, setSelectedLetter] = useState<string>("");
-
   return (
     <Box sx={letterNavigationContainerStyles}>
       {ALL_LETTERS.map(letter => {
         const isActive = activeLetters.includes(letter);
-        const isSelected = selectedLetter === letter;
         return isActive ? (
           <Link
             key={letter}
             href={`#glossary-${letter}`}
             sx={highlightedLetterStyles}
-            onClick={() => setSelectedLetter(isSelected ? "" : letter)}
             variant="h2"
             component="a">
             {letter}

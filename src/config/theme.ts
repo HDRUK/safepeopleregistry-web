@@ -31,7 +31,6 @@ const PALETTE_THEME_PURPLE_BLUE = {
     h2: {
       ...headingStyles,
       fontSize: "1.802rem",
-      fontWeight: 600,
     },
     h3: {
       ...headingStyles,
@@ -51,7 +50,6 @@ const PALETTE_THEME_PURPLE_BLUE = {
     h6: {
       ...headingStyles,
       fontSize: "1.125rem",
-      fontWeight: 500,
     },
     body: bodyStyles,
     small: {
@@ -104,10 +102,9 @@ const PALETTE_THEME_PURPLE_BLUE = {
     "neutral-100": createColor("#E1E1E1"),
     "neutral-400": createColor("#7C7C7C"),
     textPrimary: createColor("#1E1E1E"),
-    textSecondary: createColor("#5B5B5B"),
+    textSecondary: createColor("#2C2C2C"),
     textPrimaryLink: createColor("#1E1E1E"),
     midGrey: createColor("#687078"),
-    darkGrey: createColor("#2C2C2C"),
     clear: createColor("#fff"),
     homepageKeyFeatures: {
       textSecondary: "#585754",
