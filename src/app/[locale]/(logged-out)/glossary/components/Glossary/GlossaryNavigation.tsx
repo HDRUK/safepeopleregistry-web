@@ -6,7 +6,6 @@ import {
   highlightedLetterStyles,
   letterNavigationContainerStyles,
 } from "./Glossary.styles";
-import { useState } from "react";
 
 const ALL_LETTERS = [
   "A",
