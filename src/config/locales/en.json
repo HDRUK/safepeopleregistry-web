@@ -2177,6 +2177,83 @@
     "registryStopSupportedQ": "What happens if the Safe People Registry stop being supported?",
     "registryStopSupportedA": "This is highly unlikely to happen, as we have long term funding as an institute to support the system. Nevertheless, there is no vendor lock-in. You can use the API to pull out all your information, and detailed assistance for how to do this will be supplied if ever the service had to shut down, or if you wish to change systems due to your own preferences."
   },
+  "Glossary": {
+    "title": "Glossary",
+    "letterA": {
+      "administrator": {
+        "term": "Administrator",
+        "definition": "An individual who configures a Data Custodian’s settings in the Safe People Registry and can add Approvers."
+      },
+      "affliation": {
+        "term": "Affiliation",
+        "definition": "In the Safe People Registry, this is the formal process where an Organisation confirms that:\n• There is a verified link (e.g. employment contract, honorary contract, or student enrolment) between the User and Organisation.\n• The Safe People Registry User profile accurately matches the employee or student.\n• The Organisation approves the User to access sensitive data.\n• The User’s organisational email matches their official email address within the Organisation."
+      },
+      "approval": {
+        "term": "Approval",
+        "definition": "The decision by a Data Custodian that a project meets all necessary safety and compliance requirements, allowing them to share the requested sensitive data."
+      },
+      "approver": {
+        "term": "Approver",
+        "definition": "An individual who can review and approve User/Organisations validations and record project approvals."
+      }
+    },
+    "letterD": {
+      "dataCustodian": {
+        "term": "Data Custodian",
+        "definition": "In the Safe People Registry, a Data Custodian is an organisation that hosts and controls a Trusted Research Environment (TRE), Secure Data Environment (SDE), Safe Haven, or a team providing access to a research dataset.\n\nData Custodians are responsible for nominating Administrators to manage their Safe People Registry settings and input Data Custodian-specific information. They also nominate Approvers to make ‘safe people’ validation decisions based on information provided by Users and Organisations."
+      },
+      "delegates": {
+        "term": "Delegates",
+        "definition": "Individuals from an Organisation, appointed by the SRO, who can affiliate Users with the Organisation but cannot make changes to the Organisation’s profile."
+      }
+    },
+    "letterO": {
+      "organisation": {
+        "term": "Organisation",
+        "definition": "This is the university, institution, commercial research organisation, administrative body or other organisation that a User belongs to. An Organisation is ultimately responsible for the behaviour of their User requesting access to data from a Data Custodian."
+      }
+    },
+    "letterS": {
+      "safeHaven": {
+        "term": "Safe Haven",
+        "definition": "Are similar to TREs. One example is the <safeHavenLink>Scottish Safe Haven Network</safeHavenLink>."
+      },
+      "secureDataEnvironment": {
+        "term": "Secure Data Environment (SDE)",
+        "definition": "Are similar to TREs. One example is the <nhsLink>NHS</nhsLink>. 'The Secure Data Environment (SDE) is a secure data and research analysis platform. It is part of an interoperable NHS Research Secure Data Environment network.'"
+      },
+      "seniorResponsibleOfficer": {
+        "term": "Senior Responsible Officer (SRO)",
+        "definition": "The person within an Organisation who creates and manages its Safe People Registry profile. The SRO can also appoint other administrative delegates."
+      },
+      "sponsorship": {
+        "term": "Sponsorship",
+        "definition": "The formal process where an Organisation takes legal responsibility for a project."
+      }
+    },
+    "letterT": {
+      "trustedResearchEnvironment": {
+        "term": "Trusted Research Environment (TRE)",
+        "definition": "A secure digital platform that enables researchers and innovators to access sensitive data in a way that protects privacy and maintains public trust. TREs are designed to ensure that data is used safely, ethically, and legally, typically by providing controlled access, audit trails, and governance frameworks."
+      }
+    },
+    "letterU": {
+      "user": {
+        "term": "User",
+        "definition": "A User may be an employee, student, or hold an honorary contract with an Organisation. In the Safe People Registry, Users create a profile containing details about their identity, research experience, training, and accreditations, and can request affiliation from their Organisation. This information is used by Data Custodians to validate their ‘safe people’ status. Each User account is linked to a unique identifier, allowing it to remain with the individual even if they change Organisations."
+      }
+    },
+    "letterV": {
+      "validatedUser": {
+        "term": "Validated User",
+        "definition": "This is equivalent to the “Approved Researcher” (as defined in the standard DAA and the Safe People Guidance). A User accesses and uses the data in a TRE/SDE/Safe Haven for Approved Project(s)."
+      },
+      "validation": {
+        "term": "Validation",
+        "definition": "The process by which a Data Custodian confirms that a User or Organisation meets the required criteria for being considered ‘safe’."
+      }
+    }
+  },
   "HowItWorks": {
     "infoTitle": "How it works",
     "intro": "‘Safe people’ validation is a key step in ensuring secure access to sensitive data. The Safe People Registry is a secure platform designed to facilitate this validation process.\n\n Our mission is to enable Users, Organisations and Data Custodians to collaborate efficiently, saving time and supporting secure data access while upholding the highest standards of security and compliance.",

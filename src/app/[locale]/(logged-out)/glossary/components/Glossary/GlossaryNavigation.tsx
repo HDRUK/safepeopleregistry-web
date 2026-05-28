@@ -1,0 +1,65 @@
+"use client";
+
+import { GlossaryContentProps } from "./Glossary.types";
+import { Typography, Link, Box } from "@mui/material";
+import {
+  highlightedLetterStyles,
+  letterNavigationContainerStyles,
+} from "./Glossary.styles";
+
+const ALL_LETTERS = [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
+];
+
+export default function GlossaryNavigation({
+  glossaryTerms,
+}: GlossaryContentProps) {
+  const activeLetters = glossaryTerms.map(term => term.letter);
+
+  return (
+    <Box sx={letterNavigationContainerStyles}>
+      {ALL_LETTERS.map(letter => {
+        const isActive = activeLetters.includes(letter);
+        return isActive ? (
+          <Link
+            key={letter}
+            href={`#glossary-${letter}`}
+            sx={highlightedLetterStyles}
+            variant="h2"
+            component="a">
+            {letter}
+          </Link>
+        ) : (
+          <Typography key={letter} variant="h2" component="a">
+            {letter}
+          </Typography>
+        );
+      })}
+    </Box>
+  );
+}
