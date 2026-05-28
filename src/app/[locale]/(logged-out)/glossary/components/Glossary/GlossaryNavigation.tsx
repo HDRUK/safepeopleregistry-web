@@ -55,7 +55,7 @@ export default function GlossaryNavigation({
             {letter}
           </Link>
         ) : (
-          <Typography key={letter} variant="h2">
+          <Typography key={letter} variant="h2" component="a">
             {letter}
           </Typography>
         );
