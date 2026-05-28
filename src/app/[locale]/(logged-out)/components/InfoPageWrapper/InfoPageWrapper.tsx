@@ -12,8 +12,8 @@ function InfoPageWrapper({ children }: { children: React.ReactNode }) {
           md: "12px",
         },
         paddingBottom: "48px",
-      }}
-      component="section">
+        gap: 6,
+      }}>
       {children}
     </Box>
   );

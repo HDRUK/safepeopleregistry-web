@@ -50,7 +50,6 @@ const custodianItems = [
   "multipleOrganisations",
   "automaticUpdates",
   "builtToMove",
-  "flexibleFeatures",
 ];
 
 export default async function Personas() {

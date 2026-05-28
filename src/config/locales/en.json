@@ -2064,7 +2064,118 @@
     "keyFeature3Info": "Data Custodians can define their own criteria for rapid validation of Users and Organisations, with customisable features like automated flags and manual checklists.",
     "registerNow": "Register now",
     "or": "or",
-    "signIn": "sign in here"
+    "signIn": "sign in here",
+    "getStartedLabel": "Get started"
+  },
+  "About": {
+    "infoTitle": "About",
+    "mission": "Our mission is to enable Users, Organisations and Data Custodians to collaborate efficiently, saving time and supporting secure data access while upholding the highest standards of security and compliance.",
+    "backgroundTitle": "Background",
+    "backgroundParagraph1": "Research can transform lives, but often requires the use of highly sensitive information, which must only be accessed by accredited researchers, in secure environments, and for projects that benefit the public. These principles are captured under the <fiveSafesLink>Five Safes Framework</fiveSafesLink> which guide the responsible use of sensitive data in research.",
+    "backgroundParagraph2": "The Safe People Registry is a secure software solution designed to standardise and simplify researcher validation for secure data access – the ‘safe people’ principle. It is maintained and supported by Health Data Research UK’s <techLink>Technology Team</techLink>, but is not health-data specific.",
+    "backgroundImageAlt": "Five Safes Framework diagram showing Safe projects, Safe settings, Safe people, Safe data, and Safe outputs.",
+    "historyTitle": "Our history",
+    "historyParagraph1": "This Safe People Registry began early in 2022, sparked by growing conversations across the landscape about how to efficiently assess responsible access to health data for research purposes.",
+    "historyParagraph2": "It quickly became clear that challenges were not healthcare-specific. We opened the conversation to others with sensitive data, from economics to education. We realised that there was no standard system, guidance, or tool for ‘safe people’ validations. In response, we engaged in a multi-pronged approach:",
+    "historyItem1": "Listening closely to the needs of data users and access approvers",
+    "historyItem2": "Mapping existing processes",
+    "historyItem3": "Supporting the development of guidance (see key references below)",
+    "historyOutro": "The result is the Safe People Registry: A flexible and practical tool designed to simplify ‘safe people’ validations and support consistent, confident decision making, even as needs and policies evolve over time.",
+    "historyImageAlt": "Collage of people working collaboratively on research and data.",
+    "openAccessTitle": "Open access and open to listen",
+    "openAccessText": "We provide this platform free as part of our <openAccessLink>commitment to open access</openAccessLink>. We want everything we build to make it easier for you as Users, Organisations, and Data Custodians. This includes getting your thoughts to inform our design decisions and testing early versions of the product with you so we can stay informed and smoothen your experience. If you’d like to get involved then we’d love you to <getInvolvedLink>get involved</getInvolvedLink>.",
+    "keyReferencesTitle": "Key references",
+    "keyReference1": "Guidance for TREs assessing safe people and organisations",
+    "keyReference2": "Data use register standard",
+    "keyReference3": "Data Access Agreement",
+    "keyReference4": "Data Access Request",
+    "keyReference5": "Data Access Transparency standards"
+  },
+  "FAQ": {
+    "infoTitle": "Frequently Asked Questions",
+    "mission": "Our mission is to enable Users, Organisations and Data Custodians to collaborate efficiently, saving time and supporting secure data access while upholding the highest standards of security and compliance.",
+    "sectionSelectorTitle": "Jump to section",
+    "general-section-text": "General FAQs",
+    "users-section-text": "Users",
+    "organisations-section-text": "Organisations",
+    "custodians-section-text": "Data Custodians",
+    "howSecureQ": "How does the Safe People Registry keep personal information secure?",
+    "howSecureA": "The Safe People Registry does not, itself, host any of the secure data from the Data Custodians. All datasets remain with the Data Custodians. The Safe People Registry does collect personal information in the profiles of Users and Organisations, which can be seen when added to projects by Data Custodians. \nThe security in our system ensures that specific User and Organisation details remain strictly viewable by those who administer those individual accounts and the Data Custodians. Researchers must approve/deny access to their Safe People Registry data should a Data Custodian wish to implement software measures within their own systems. These requests will only ever come from known Data Custodian’s within the Safe People Registry, and all API access enforces signed requests/responses to ensure data isn’t tampered with in transit. \nThe security in our system ensures that specific User and Organisation details remain strictly viewable by those who administer those individual accounts and the Data Custodians. Researchers must approve/deny access to their Safe People Registry data should a Data Custodian wish to implement software measures within their own systems. These requests will only ever come from known Data Custodian’s within the Safe People Registry, and all API access enforces signed requests/responses to ensure data isn’t tampered with in transit.",
+    "multipleOrgQ": "Can I be associated with more than one Organisation?",
+    "multipleOrgA": "Can I be associated with more than one Organisation?",
+    "howKeepPersonalInfoSecureQ": "How does the Safe People Registry keep personal information secure?",
+    "howKeepPersonalInfoSecureA": [
+      "The Safe People Registry does not, itself, host any of the secure data from the Data Custodians. All datasets remain with the Data Custodians. The Safe People Registry does collect personal information in the profiles of Users and Organisations, which can be seen when added to projects by Data Custodians. The security in our system ensures that specific User and Organisation details remain strictly viewable by the account owners themselves, their Organisations, and the Data Custodians.",
+      "Users must approve/deny access to their Safe People Registry data should a Data Custodian wish to implement software measures within their own systems. These requests will only ever come from known Data Custodian’s within the Safe People Registry, and all API access enforces signed requests/responses to ensure data isn’t tampered with in transit.",
+      "<bold>Penetration testing</bold>: We have automated vulnerability testing weekly, which feed immediately into our development cycle."
+    ],
+    "orgValidationSafeSettingQ": "How does Organisation validation in the Safe People Registry relate to the ‘safe setting’ in the Five Safe framework?",
+    "orgValidationSafeSettingA": "In the Safe People Registry, Organisation validation if performed by the Data Custodian, and confirms that an organisation is legitimate and has sufficient security accreditation for its Users (staff, students) to access sensitive data. The ‘safe setting’ in the Five Safes framework refers to the technical and security controls of the environment where data is accessed, such as cybersecurity protections and data handling policies. Sometimes, that environment is managed by the User’s Organisation - necessitating Organisation validation. But increasingly, data stays within a secure platform managed by the Data Custodian, and Users access it remotely.",
+    "healthDataResearchOnlyQ": "Since Health Data Research UK developed this tool, is it only for health data research?",
+    "healthDataResearchOnlyA": "Not at all. The Safe People Registry is designed to work with any type of data. While it was developed by Health Data Research UK, we collaborated with experts from a range of fields, including health, education, social science, economics, and more, to ensure it’s flexible and widely applicable.",
+    "orgAddedRegistryQ": "How does an Organisation get added to the Safe People Registry?",
+    "orgAddedRegistryA": "A Senior Responsible Officer (SRO) from the Organisation creates a profile in the Safe People Registry and uploads the necessary documents (including signed approval from their Organisation that the SRO has the relevant authority to undertake the role). Once submitted, each Data Custodian can review the information and decide whether they recognise the Organisation as ‘safe’.",
+    "validationApprovalAffiliationDiffQ": "What’s the difference between ‘validation’, ‘approval’, and ‘affiliation’?",
+    "validationApprovalAffiliationDiffA": [
+      "<bold>Validation:</bold> A Data Custodian confirms that a User or Organisation meets their requirements to be considered ‘safe’.",
+      "<bold>Approval:</bold> A Data Custodian records that approval has been given for a specific project. Project approval processes take place outside of the Safe People Registry often by a Data Governance Approval Committee. The Safe People Registry enables a Data Custodian to record a project approval.",
+      "<bold>Affiliation:</bold> An Organisation takes legal responsibility for a User, often as their employer or sponsor."
+    ],
+    "whoUploadsProjectInfoQ": "Who is responsible for uploading project information?",
+    "whoUploadsProjectInfoA": "The Data Custodian uploads project details using information gathered from processes outside the Safe People Registry, such as data access requests. Once a project is created, the Data Custodian can then add Users to the project.",
+    "validationGrantAccessQ": "Does validation on the Safe People Registry automatically grant me access?",
+    "validationGrantAccessA": "No. The Safe People Registry is used by Data Custodians to record validation decisions only. It does not automatically grant access to data. Projects must be provided separately and recorded as approved by the Data Custodian. A project could potentially be recorded as approved by a Data Custodian, but an individual User not validated to work on the project.",
+    "projectApprovedUserValidatedQ": "Can a project be recorded as approved without a User being validated? Or can a User be validated without the project being recorded as approved?",
+    "projectApprovedUserValidatedA": "Yes, both are possible! The Safe People Registry keeps track of these decisions separately. Some Data Custodians review and record approvals on projects and validations of Users one after the other, while others do both at the same time. Our platform is flexible to support either approach.",
+    "learnMoreSafePeopleQ": "Where can I learn more about ‘safe people’ validations and the concepts that underpin this system?",
+    "learnMoreSafePeopleA": "You can find helpful information and important resources in the ‘key references’ section on our About page and the <explainerVideo>explainer video</explainerVideo>.",
+    "multiOrganisationQ": "Can I be associated with more than one Organisation?",
+    "multiOrganisationA": "Yes! You can be linked to multiple organisations in the system, making it easy to manage your roles across different teams.",
+    "personalEmailLoginQ": "Why do I need to login with my personal email?",
+    "personalEmailLoginA": "Using your personal email lets you keep your Safe People Registry profile no matter which Organisation you work with. When you join or change Organisations, you simply link your professional email to your profile to complete the affiliation process.",
+    "userSaveTimeQ": "How does the Safe People Registry save me time?",
+    "userSaveTimeA": "The Safe People Registry stores your ‘safe people’ credentials in one secure, standard profile. This means when you apply to access sensitive data, Data Custodians can quickly verify your details, speeding up the whole process. Some additional time-saving benefits include: ORCiD integration, automatic notifications, and optional identity verification done once.",
+    "linkHRSystemsQ": "Can we link the Safe People Registry to our internal HR systems?",
+    "linkHRSystemsA": "Yes! The Safe People Registry can connect with your internal HR systems, by using automated API links.",
+    "sroRoleQ": "What is the role of the Senior Responsible Officer?",
+    "sroRoleA": "The SRO is responsible for setting up the Organisation’s record and making sure all the information stays accurate and up to date.",
+    "sroDelegateQ": "Can the SRO delegate affiliations to someone else?",
+    "sroDelegateA": "Yes. Once setting up the Organisation’s profile, the SRO can appoint trusted Organisational administrators (termed <bold>Delegates</bold> in the Safe People Registry) who can manage User affiliations on their behalf.",
+    "orgSeeProjectsBeforeApprovalQ": "Can Organisations see projects they are associated with before the projects are recorded as approved?",
+    "orgSeeProjectsBeforeApprovalA": "Yes! The Organisation can also see in real time if/when the Data Custodian records project approval.",
+    "orgVerifiedQ": "How are Organisations verified to use the Safe People Registry?",
+    "orgVerifiedA": "The Organisation creates their profile and fills in important information like their SRO details, as well as submitting a signed SRO declaration. This is checked by members of the Safe People Registry Team (which usually takes <1 week), before full Organisation access is granted.",
+    "registryMakeDecisionsQ": "Does the Safe People Registry make decisions?",
+    "registryMakeDecisionsA": "No. The Safe People Registry does not decide whether a project is approved or whether a User or Organisation is validated. All decisions are made solely by the Data Custodian responsible for the data.",
+    "automatedFlagsManualChecksQ": "Why are there both automated flags and manual checks? How do they relate to the validation process?",
+    "automatedFlagsManualChecksA": [
+      "The Safe People Registry itself doesn’t decide whether someone is a ‘safe’ User. That decision is always made by a person. To help with this, Data Custodians can use a manual checklist to review each criterion, marking pass or fail and adding comments as needed.",
+      "Automated flags speed up the process by highlighting certain information automatically, such as a User’s location or whether they have completed specific training. These flags don’t make the decision for you, they simply make it quicker and easier to review the relevant details during validation."
+    ],
+    "registryDataAccessAppsQ": "How does the Safe People Registry interact with data access applications, such as the submission of a data access request?",
+    "registryDataAccessAppsA": "The ‘safe people’ validation check can happen at the same time as a data access request. By using the Safe People Registry, you can speed things up, for example, by including a Safe People Registry ID field in your data access request form (or the equivalent process used by your Data Custodian). If you use the <hdrLink>Health Data Research Gateway</hdrLink>, there are built-in integrations to make this even easier.",
+    "usersAddedProjectsQ": "How do Users get added to projects?",
+    "usersAddedProjectsA": "Only Data Custodians can add Users to projects. If your Organisation needs you to be added, they can make a request to the Data Custodian on your behalf. Users cannot add themselves to projects.",
+    "auditLogsManagedQ": "How are audit logs managed?",
+    "auditLogsManagedA": "The Safe People Registry keeps a record of all User actions for security and transparency. Data Custodians can view logs showing any updates to User profiles, as well as changes in their affiliation made by their Organisation.",
+    "delegateProjectTasksQ": "Can I delegate project approvals and validation tasks to other staff members in my organisation?",
+    "delegateProjectTasksA": [
+      "Yes. You can add colleagues as Team Members in your Data Custodian profile. They can be assigned as:",
+      "Administrators: able to update your profile settings and configurations",
+      "Approvers: able to review and record approval of projects, and validate Users or Organisations."
+    ],
+    "fillFiveSafesQ": "Do I need to fill in all ‘Five Safes’ details for every project?",
+    "fillFiveSafesA": "No. To get started, you only need to add a project title and summary before you can begin adding Users. however, the additional project information fields are there to match the UK Health Data Research Alliance’s <dataTransparency>Data Access Transparency standards</dataTransparency>. Completing these fields will allow you to automatically create a public-facing Data Use Register without extra work.",
+    "custodianSaveTimeQ": "How does the Safe People Registry save me time?",
+    "custodianSaveTimeA": [
+      "The Safe People Registry keeps all the key information, validations, and decisions about a User’s or Organisation’s ‘safeness’ in one secure, central place. This means fewer emails, less chasing, and faster validations. Some additional benefits include:",
+      "User and Organisation profiles in a clear, standard format",
+      "Automatic generation of a public Data Use Register, instantly generated from project information",
+      "Notifications for validations status changes and expiring training certificates",
+      "Automatic flags to make validations quick and easy"
+    ],
+    "registryStopSupportedQ": "What happens if the Safe People Registry stop being supported?",
+    "registryStopSupportedA": "This is highly unlikely to happen, as we have long term funding as an institute to support the system. Nevertheless, there is no vendor lock-in. You can use the API to pull out all your information, and detailed assistance for how to do this will be supplied if ever the service had to shut down, or if you wish to change systems due to your own preferences."
   },
   "Glossary": {
     "title": "Glossary",
@@ -2235,5 +2346,8 @@
       "title": "The Safe People Registry is <bold>secure</bold>, <bold>supported</bold>, <bold>open-source</bold> and <bold>free</bold>",
       "content": "We co-created the Safe People Registry with Users, Organisations and Data Custodians to make ‘safe people’ validation faster, easier, and more secure.\n\nLed by Health Data Research UK’s (HDR UK) <techLink>Technology Team</techLink> (though not health-data specific), the Safe People Registry is a free, open-source platform designed for long-term use and built with collaboration at its core.\n\nThe Safe People Registry continues to evolve in response to your needs. <helpLink>Help us develop further!</helpLink>"
     }
+  },
+  "Common": {
+    "opensInNewTab": "(opens in a new tab)"
   }
 }

@@ -3,13 +3,13 @@ run-name: ${{ github.actor }} triggered quality check pipeline
 on:
   push:
     branches:
-      - develop
+      - dev
       - staging
       - main
   pull_request:
     branches:
       - main
-      - develop
+      - dev
 
 env:
   SLACK_WEBHOOK_URL: '${{ secrets.SLACK_WEBHOOK_URL}}'
@@ -21,8 +21,8 @@ jobs:
     runs-on: ubuntu-latest    
     environment: |-
       ${{
-         github.ref_name == 'develop' && 'develop'
-      || github.base_ref == 'develop' && 'develop'
+         github.ref_name == 'dev' && 'dev'
+      || github.base_ref == 'dev' && 'dev'
       ||                             'release'
       }}
 
