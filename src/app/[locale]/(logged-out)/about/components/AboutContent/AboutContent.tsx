@@ -9,16 +9,10 @@ import { Box, Typography } from "@mui/material";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import ExternalLink from "@/components/ExternalLink";
+import links from "@/consts/links";
 import theme from "@/theme";
 
 const NAMESPACE_TRANSLATIONS = "About";
-
-const FIVE_SAFES_LINK =
-  "https://www.hdruk.ac.uk/access-to-health-data/trusted-research-environments/";
-const TECH_TEAM_LINK = "https://healthdatagateway.org/en/about/meet-the-team";
-const OPEN_ACCESS_LINK =
-  "https://www.hdruk.ac.uk/about-us/policies/open-access-statement/";
-const GET_INVOLVED_LINK = "#";
 
 const SECTION_IDS = {
   background: "about-background-heading",
@@ -46,7 +40,7 @@ export default async function AboutContent() {
                 {t.rich("backgroundParagraph1", {
                   fiveSafesLink: chunks => (
                     <ExternalLink
-                      href={FIVE_SAFES_LINK}
+                      href={links.about.fiveSafes}
                       sx={{ color: "primary.main" }}>
                       {chunks}
                     </ExternalLink>
@@ -57,7 +51,7 @@ export default async function AboutContent() {
                 {t.rich("backgroundParagraph2", {
                   techLink: chunks => (
                     <ExternalLink
-                      href={TECH_TEAM_LINK}
+                      href={links.common.techTeam}
                       sx={{ color: "primary.main" }}>
                       {chunks}
                     </ExternalLink>
@@ -95,7 +89,24 @@ export default async function AboutContent() {
             </Typography>
             <PageSection>
               <Typography mb={2}>{t("historyParagraph1")}</Typography>
-              <Typography mb={1}>{t("historyParagraph2")}</Typography>
+              <Typography mb={1}>
+                {t.rich("historyParagraph2", {
+                  panUkLink: chunks => (
+                    <ExternalLink
+                      href={links.about.panUk}
+                      sx={{ color: "primary.main" }}>
+                      {chunks}
+                    </ExternalLink>
+                  ),
+                  ukTreLink: chunks => (
+                    <ExternalLink
+                      href={links.about.ukTre}
+                      sx={{ color: "primary.main" }}>
+                      {chunks}
+                    </ExternalLink>
+                  ),
+                })}
+              </Typography>
               <ul>
                 <li>
                   <Typography>{t("historyItem1")}</Typography>
@@ -111,32 +122,6 @@ export default async function AboutContent() {
             </PageSection>
           </PageColumnBody>
         </PageColumns>
-
-        <PageSection
-          component="section"
-          aria-labelledby={SECTION_IDS.openAccess}>
-          <Typography variant="h2" id={SECTION_IDS.openAccess} gutterBottom>
-            {t("openAccessTitle")}
-          </Typography>
-          <Typography>
-            {t.rich("openAccessText", {
-              openAccessLink: chunks => (
-                <ExternalLink
-                  href={OPEN_ACCESS_LINK}
-                  sx={{ color: "primary.main" }}>
-                  {chunks}
-                </ExternalLink>
-              ),
-              getInvolvedLink: chunks => (
-                <ExternalLink
-                  href={GET_INVOLVED_LINK}
-                  sx={{ color: "primary.main" }}>
-                  {chunks}
-                </ExternalLink>
-              ),
-            })}
-          </Typography>
-        </PageSection>
       </Box>
     </PageBodyContainer>
   );

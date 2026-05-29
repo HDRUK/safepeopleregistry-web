@@ -102,7 +102,7 @@ const PALETTE_THEME_PURPLE_BLUE = {
     "neutral-100": createColor("#E1E1E1"),
     "neutral-400": createColor("#7C7C7C"),
     textPrimary: createColor("#1E1E1E"),
-    textSecondary: createColor("#5B5B5B"),
+    textSecondary: createColor("#2C2C2C"),
     textPrimaryLink: createColor("#1E1E1E"),
     midGrey: createColor("#687078"),
     clear: createColor("#fff"),

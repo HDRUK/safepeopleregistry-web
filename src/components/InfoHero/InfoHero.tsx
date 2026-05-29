@@ -1,4 +1,5 @@
 import { Link } from "@/i18n/routing";
+import links from "@/consts/links";
 import theme from "@/theme";
 import { Grid, Typography } from "@mui/material";
 import { Box } from "@mui/material";
@@ -7,9 +8,6 @@ import { getTranslations } from "next-intl/server";
 export interface InfoHeroProps {
   translationPath: string;
 }
-
-const TECH_HREF = "https://healthdatagateway.org/en/about/meet-the-team";
-const HELP_HREF = "#";
 
 export default async function InfoHero({ translationPath }: InfoHeroProps) {
   const t = await getTranslations(translationPath);
@@ -43,11 +41,14 @@ export default async function InfoHero({ translationPath }: InfoHeroProps) {
             }}>
             {t.rich("content", {
               techLink: chunks => (
-                <Link target="_blank" rel="noreferrer" href={TECH_HREF}>
+                <Link
+                  target="_blank"
+                  rel="noreferrer"
+                  href={links.common.techTeam}>
                   {chunks}
                 </Link>
               ),
-              helpLink: chunks => <Link href={HELP_HREF}>{chunks}</Link>,
+              helpLink: chunks => <Link href="#">{chunks}</Link>,
             })}
           </Typography>
         </Grid>
