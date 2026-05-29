@@ -20,9 +20,12 @@ import { inviteOrganisation } from "../admin/invite";
 const goToProjectUsersList = (projectTitle: string = DEFAULT_PROJECT_NAME) => {
   cy.visitFirst(ROUTES.profileCustodianProjects.path);
 
-  cy.contains("a", projectTitle).click();
-  cy.contains("a", "Safe People").click();
-  cy.contains("button", "Switch to list view").click();
+  cy.waitForLoadingToFinish();
+
+  cy.contains("a", projectTitle).should("be.visible").click();
+  cy.contains("a", "Safe People").should("be.visible").click();
+  cy.url().should("include", "safe-people");
+  cy.contains("button", "Switch to list view").should("be.visible").click();
 };
 
 const changeStatusProjectEntities = (status: Status) => {
@@ -173,9 +176,10 @@ const inviteNewProjectUser = (invite: InviteUserFormValues) => {
   cy.clickAlertModal("Close");
 
   cy.wait(2000);
-
+  cy.waitForLoadingToFinish();
   cy.saveContinueClick("Save");
   cy.clickAlertModal("Close");
+  cy.waitForLoadingToFinish();
 
   // Observers haven't complete when refresh is called
   // cy.saveFormClick();

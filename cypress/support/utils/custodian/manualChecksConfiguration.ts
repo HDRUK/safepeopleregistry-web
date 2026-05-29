@@ -9,12 +9,17 @@ const hasUnCheckedOnUsersConfigurationManualChecks = () => {
     timeout: 20000,
   });
   cy.get("#1").should("exist").uncheck();
-  cy.contains("span", "Mandatory training has been completed").should("exist");
+  cy.contains("span", "Contact details tab: Verify SRO identity").should(
+    "exist"
+  );
   cy.get('[data-cy="action-menu"]')
     .find('button[type="button"]')
     .should("exist");
   cy.get("#2").should("exist").uncheck();
-  cy.contains("p", "The organisation has confirmed the user").should("exist");
+  cy.contains(
+    "p",
+    "Contact details tab: Location meets project & policy requirements"
+  ).should("exist");
   cy.get('[data-cy="action-menu"]')
     .find('button[type="button"]')
     .should("exist");
@@ -32,15 +37,25 @@ const hasCheckedOnUsersConfigurationManualChecks = () => {
 };
 
 const addManualChecksForUsersConfigurationManualChecks = (title: string) => {
-  cy.get(dataCy("sub-tabs-navigation")).within(() => {
-    cy.contains("a", "Manual checks").click();
-  });
-  cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
-    timeout: 20000,
-  });
-  cy.contains("button", "Add manual check").click();
-  cy.get("#text", { timeout: 20000 }).should("not.be.disabled");
-  cy.get("#text").type(title);
+  cy.contains('[data-cy="sub-tabs-navigation"] a', "Manual checks")
+    .should("be.visible")
+    .click();
+  cy.waitForLoadingToFinish();
+  cy.contains('[data-cy="skeleton-checkboxlist"]', { timeout: 20000 }).should(
+    "not.exist"
+  );
+  cy.contains("button", "Add manual check")
+    .should("be.visible")
+    .and("not.be.disabled")
+    .click();
+
+  cy.get("#text", { timeout: 20000 })
+    .should("exist")
+    .should("be.visible")
+    .and("not.be.disabled")
+    .click()
+    .clear()
+    .type(title);
   cy.saveFormClick("Save");
 };
 
@@ -135,17 +150,16 @@ const hasUnCheckedOnOrganisationConfigurationManualChecks = () => {
     timeout: 20000,
   });
   cy.get("#3").should("exist").uncheck();
-  cy.contains(
-    "span",
-    "Is the Organisation aligned with the SDE network?"
-  ).should("exist");
+  cy.contains("span", "Contact details tab: Verify SRO identity").should(
+    "exist"
+  );
   cy.get('[data-cy="action-menu"]')
     .find('button[type="button"]')
     .should("exist");
   cy.get("#4").should("exist").uncheck();
   cy.contains(
     "p",
-    "Are we confident costs would be met and profits realised for future projects?"
+    "Digital identifiers tab: Check validity & type (Public, Private, etc.)"
   ).should("exist");
   cy.get('[data-cy="action-menu"]')
     .find('button[type="button"]')
@@ -226,8 +240,12 @@ const hasEditManualChecksForOrganisationConfigurationManualChecks = () => {
   cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
     timeout: 20000,
   });
-  const text = "Is the Organisation aligned with the SDE network? Testing";
-  cy.get('[data-cy="action-menu"]').eq(4).should("exist").click();
+  const text = "Contact details tab: Verify SRO identity";
+  cy.contains("p", "Contact details tab: Verify SRO identity")
+    .closest("li")
+    .find('[data-cy="action-menu"]')
+    .should("exist")
+    .click();
   cy.contains('li[role="menuitem"]', "Edit").should("exist").click();
   cy.contains("h3", "Edit Organisation manual check").should("exist");
   cy.contains("label", "Description").should("exist");

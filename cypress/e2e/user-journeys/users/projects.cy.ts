@@ -22,11 +22,15 @@ describe("Projects", () => {
 
     cy.visitFirst(ROUTES.profileCustodianProjects.path);
 
+    cy.waitForLoadingToFinish();
+
     addNewProject(dataProject);
 
-    cy.contains("a", "Safe People").click();
+    cy.contains("a", "Safe People").should("be.visible").click();
 
     addNewProjectUser(DEFAULT_USER);
+
+    cy.waitForLoadingToFinish();
 
     cy.clickAlertModal("Close");
   });
@@ -35,7 +39,8 @@ describe("Projects", () => {
     loginUser();
 
     cy.visitFirst(ROUTES.profileResearcherProjects.path);
-    cy.contains("a", dataProject.title).click();
+    cy.waitForLoadingToFinish();
+    cy.contains("a", dataProject.title).should("be.visible").click();
   });
 
   after(() => {

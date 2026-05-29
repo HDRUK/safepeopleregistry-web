@@ -11,6 +11,7 @@ import { DEFAULT_STALE_TIME } from "@/consts/requests";
 import { ROUTES } from "@/consts/router";
 import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
 import { useStore } from "@/data/store";
+import useIsCustodianAdmin from "@/hooks/useIsCustodianAdmin";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
 import { mockedWebhookDescription } from "@/mocks/data/cms";
 import { PageBody, PageSection } from "@/modules";
@@ -22,7 +23,14 @@ import {
 } from "@/services/webhooks/index";
 import { Webhook } from "@/services/webhooks/types";
 import { getCombinedQueryState } from "@/utils/query";
-import { Box, Grid, MenuItem, Select, TextField } from "@mui/material";
+import {
+  Box,
+  Grid,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
@@ -47,6 +55,8 @@ export default function Webhooks() {
   const { custodian } = useStore(state => ({
     custodian: state.config.custodian,
   }));
+
+  const isAdmin = useIsCustodianAdmin();
 
   const {
     data: webhooksData,
@@ -176,99 +186,124 @@ export default function Webhooks() {
     <PageBody>
       <LoadingWrapper variant="basic" loading={isWebhooksLoading}>
         <PageSection heading={t("configurationWebhooks")}>
-          <Form<WebhookFormData>
-            schema={schema}
-            defaultValues={defaultValues}
-            onSubmit={handleSubmit}
-            shouldResetKeep
-            key={`${custodian?.id}-${webhooksData ? "webhooks" : "loading"}`}>
-            {({ watch }) => {
-              const watchedWebhooks = watch("webhooks");
-              const isFormChanged =
-                JSON.stringify(watchedWebhooks) !==
-                JSON.stringify(defaultValues.webhooks);
+          {isAdmin ? (
+            <Form<WebhookFormData>
+              schema={schema}
+              defaultValues={defaultValues}
+              onSubmit={handleSubmit}
+              shouldResetKeep
+              key={`${custodian?.id}-${webhooksData ? "webhooks" : "loading"}`}>
+              {({ watch }) => {
+                const watchedWebhooks = watch("webhooks");
+                const isFormChanged =
+                  JSON.stringify(watchedWebhooks) !==
+                  JSON.stringify(defaultValues.webhooks);
 
-              return (
-                <>
-                  <Grid container rowSpacing={3}>
-                    <Grid size={{ xs: 12 }}>
-                      <FormFieldArray<WebhookFormData>
-                        name="webhooks"
-                        displayLabel={false}
-                        createNewRow={() => ({
-                          receiver_url: "",
-                          event_trigger: 1,
-                        })}
-                        renderField={(field, index, removeButton) => (
-                          <Grid container spacing={2} key={field.receiver_url}>
-                            <Grid size={{ xs: 5 }}>
-                              <FormControlWrapper
-                                label="Receiver URL"
-                                required
-                                labelMd={0}
-                                contentMd={12}
-                                name={`webhooks.${index}.receiver_url`}
-                                placeholder={tForm("name")}
-                                renderField={fieldProps => (
-                                  <TextField
-                                    {...fieldProps}
-                                    id={fieldProps.name}
-                                  />
-                                )}
-                              />
-                            </Grid>
-                            <Grid size={{ xs: 5.5 }}>
-                              <FormControlWrapper
-                                label="Event Trigger"
-                                required
-                                labelMd={0}
-                                contentMd={12}
-                                name={`webhooks.${index}.event_trigger`}
-                                placeholder={tForm("name")}
-                                renderField={fieldProps => (
-                                  <Box sx={{ display: "flex" }}>
-                                    <Select
+                return (
+                  <>
+                    <Grid container rowSpacing={3}>
+                      <Grid size={{ xs: 12 }}>
+                        <FormFieldArray<WebhookFormData>
+                          name="webhooks"
+                          displayLabel={false}
+                          createNewRow={() => ({
+                            receiver_url: "",
+                            event_trigger: 1,
+                          })}
+                          renderField={(field, index, removeButton) => (
+                            <Grid
+                              container
+                              spacing={2}
+                              key={field.receiver_url}>
+                              <Grid size={{ xs: 5 }}>
+                                <FormControlWrapper
+                                  label={t("receiverUrl")}
+                                  required
+                                  labelMd={0}
+                                  contentMd={12}
+                                  name={`webhooks.${index}.receiver_url`}
+                                  placeholder={tForm("name")}
+                                  renderField={fieldProps => (
+                                    <TextField
                                       {...fieldProps}
                                       id={fieldProps.name}
-                                      inputProps={{
-                                        "aria-label": tForm(
-                                          "webhookEventAriaLabel"
-                                        ),
-                                        id: `${fieldProps.name}-input`,
-                                      }}>
-                                      {webhookEventTriggers?.data.map(
-                                        ({ name, id }) => (
-                                          <MenuItem value={id} key={id}>
-                                            {name}
-                                          </MenuItem>
-                                        )
-                                      )}
-                                    </Select>
-                                    {removeButton}
-                                  </Box>
-                                )}
-                              />
+                                    />
+                                  )}
+                                />
+                              </Grid>
+                              <Grid size={{ xs: 5.5 }}>
+                                <FormControlWrapper
+                                  label={t("eventTrigger")}
+                                  required
+                                  labelMd={0}
+                                  contentMd={12}
+                                  name={`webhooks.${index}.event_trigger`}
+                                  placeholder={tForm("name")}
+                                  renderField={fieldProps => (
+                                    <Box sx={{ display: "flex" }}>
+                                      <Select
+                                        {...fieldProps}
+                                        id={fieldProps.name}
+                                        inputProps={{
+                                          "aria-label": tForm(
+                                            "webhookEventAriaLabel"
+                                          ),
+                                          id: `${fieldProps.name}-input`,
+                                        }}>
+                                        {webhookEventTriggers?.data.map(
+                                          ({ name, id }) => (
+                                            <MenuItem value={id} key={id}>
+                                              {name}
+                                            </MenuItem>
+                                          )
+                                        )}
+                                      </Select>
+                                      {removeButton}
+                                    </Box>
+                                  )}
+                                />
+                              </Grid>
                             </Grid>
-                          </Grid>
-                        )}
-                      />
+                          )}
+                        />
+                      </Grid>
                     </Grid>
+                    <Box>{mockedWebhookDescription}</Box>
+                    <FormActions>
+                      <ProfileNavigationFooter
+                        previousHref={
+                          ROUTES.profileOrganisationDetailsSectorSizeAndWebsite
+                            .path
+                        }
+                        isLoading={isPostLoading || isDeleteLoading}
+                        isDisabled={!isFormChanged}
+                      />
+                    </FormActions>
+                  </>
+                );
+              }}
+            </Form>
+          ) : (
+            <Box>
+              {webhooksData?.data.map(webhook => (
+                <Grid container rowSpacing={3} key={webhook.id}>
+                  <Grid size={{ xs: 5 }}>
+                    <Typography variant="subtitle1">
+                      {t("receiverUrl")}
+                    </Typography>
+                    <Typography>{webhook.url}</Typography>
                   </Grid>
-                  <Box>{mockedWebhookDescription}</Box>
-                  <FormActions>
-                    <ProfileNavigationFooter
-                      previousHref={
-                        ROUTES.profileOrganisationDetailsSectorSizeAndWebsite
-                          .path
-                      }
-                      isLoading={isPostLoading || isDeleteLoading}
-                      isDisabled={!isFormChanged}
-                    />
-                  </FormActions>
-                </>
-              );
-            }}
-          </Form>
+                  <Grid size={{ xs: 5.5 }}>
+                    <Typography variant="subtitle1">
+                      {t("eventTrigger")}
+                    </Typography>
+                    <Typography>{webhook.event_trigger.name}</Typography>
+                  </Grid>
+                </Grid>
+              ))}
+              <Box sx={{ mt: 4 }}>{mockedWebhookDescription}</Box>
+            </Box>
+          )}
         </PageSection>
       </LoadingWrapper>
     </PageBody>

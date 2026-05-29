@@ -132,7 +132,7 @@ function ActionValidationPanel({
     <LoadingWrapper variant="basic" loading={queryState?.isLoading || false}>
       <ActionsPanel heading={t("title")}>
         {logs
-          .filter(log => log.validation_check.enabled) // move to BE?
+          .filter(log => log.validation_check?.enabled) // move to BE?
           .map(log => (
             <ActionsPanelValidationCheck
               key={log.id}

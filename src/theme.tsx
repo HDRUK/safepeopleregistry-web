@@ -1,6 +1,4 @@
-"use client";
-
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+import "@mui/lab/themeAugmentation";
 import { AugmentedColorPaletteOptions, Theme } from "@mui/material";
 import { TableCellProps } from "@mui/material/TableCell";
 import { createTheme, darken } from "@mui/material/styles";
@@ -342,13 +340,6 @@ const theme = createTheme(
           variant: "contained",
         },
       },
-      MuiAlert: {
-        defaultProps: {
-          iconMapping: {
-            warning: <ErrorOutlineIcon />,
-          },
-        },
-      },
       MuiToolbar: {
         styleOverrides: {
           root: {
@@ -463,6 +454,39 @@ const theme = createTheme(
             ":hover": {
               textDecoration: "underline",
             },
+          },
+        },
+      },
+      MuiAccordion: {
+        defaultProps: {
+          elevation: 0,
+        },
+        styleOverrides: {
+          root: ({ theme }) => ({
+            marginBottom: theme.spacing(4),
+            "&::before": { display: "none" },
+            "&.Mui-expanded": {
+              marginTop: 0,
+              marginBottom: theme.spacing(4),
+            },
+          }),
+        },
+      },
+      MuiAccordionSummary: {
+        styleOverrides: {
+          root: {
+            padding: 0,
+            "&.Mui-expanded": { minHeight: "auto" },
+          },
+          content: ({ theme }) => ({
+            "&.Mui-expanded": { margin: `${theme.spacing(1.5)} 0` },
+          }),
+        },
+      },
+      MuiAccordionDetails: {
+        styleOverrides: {
+          root: {
+            padding: 0,
           },
         },
       },

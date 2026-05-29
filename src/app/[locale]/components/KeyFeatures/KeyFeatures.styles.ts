@@ -1,39 +1,48 @@
-import { styled } from "@mui/material";
+import { PALETTE_THEME_PURPLE_BLUE } from "@/config/theme";
+import { SxProps, Theme } from "@mui/material";
 
-const StyledContent = styled("div")(({ theme }) => ({
+export const contentSx: SxProps<Theme> = {
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-  paddingTop: theme.spacing(3),
-  paddingBottom: theme.spacing(3),
+  pt: 3,
+  pb: 3,
   width: "auto",
-  color: theme.palette.homepageKeyFeatures.contrastText,
-}));
+  color: "homepageKeyFeatures.contrastText",
+};
 
-const StyledSectionFlex = styled("section")(({ theme }) => ({
+export const sectionFlexSx: SxProps<Theme> = {
   display: "flex",
   justifyContent: "space-between",
-  gap: theme.spacing(3),
+  gap: 3,
   flexWrap: "nowrap",
-  marginBottom: theme.spacing(2),
+  mb: 2,
 
-  [theme.breakpoints.down("md")]: {
+  "@media (max-width:900px)": {
     flexWrap: "wrap",
   },
-}));
+};
 
-const StyledArticleContainer = styled("article")(({ theme }) => ({
+export const articleContainerSx: SxProps<Theme> = {
   display: "flex",
-  padding: theme.spacing(3),
+  p: 3,
   flexDirection: "column",
   alignItems: "flex-start",
-  gap: theme.spacing(1.5),
+  gap: 1.5,
   gridRow: "1 / span 1",
   gridColumn: "1 / span 1",
   justifySelf: "stretch",
-  borderRadius: theme.spacing(1.5),
-  background: theme.palette.common.white,
-}));
+  borderRadius: 1.5,
+  backgroundColor: "common.white",
+};
 
-export { StyledContent, StyledArticleContainer, StyledSectionFlex };
+export const outerContentSx: SxProps<Theme> = {
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  pt: 3,
+  pb: 3,
+  background: `linear-gradient(175deg, ${PALETTE_THEME_PURPLE_BLUE.palette.neutralPink.light} 4.17%, ${PALETTE_THEME_PURPLE_BLUE.palette.white} 71.09%)`,
+};

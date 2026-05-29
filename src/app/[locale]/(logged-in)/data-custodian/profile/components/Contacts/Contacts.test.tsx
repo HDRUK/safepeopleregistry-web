@@ -1,5 +1,6 @@
 import { render, screen, fireEvent, within, waitFor } from "@/utils/testUtils";
 import Contacts from "./Contacts";
+import useIsCustodianAdmin from "@/hooks/useIsCustodianAdmin";
 
 const mockMutateAsync = jest.fn();
 
@@ -9,6 +10,7 @@ jest.mock("@tanstack/react-query", () => ({
     mutateAsync: payload => mockMutateAsync(payload),
   })),
 }));
+jest.mock("@/hooks/useIsCustodianAdmin");
 
 const setupShowModal = () => {
   const rendered = render(<Contacts />);
@@ -20,6 +22,10 @@ const setupShowModal = () => {
 };
 
 describe("Contacts", () => {
+  beforeEach(() => {
+    (useIsCustodianAdmin as jest.Mock).mockReturnValue(true);
+  });
+
   afterEach(() => {
     jest.clearAllMocks();
   });

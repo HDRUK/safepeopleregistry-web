@@ -140,6 +140,12 @@ export default function NavBar({ loggedIn }: NavBarProps) {
     {
       color: ButtonColor.Inherit,
       variant: ButtonVariant.Text,
+      text: t("howItWorksButton"),
+      href: "/how-it-works",
+    },
+    {
+      color: ButtonColor.Inherit,
+      variant: ButtonVariant.Text,
       text: t("aboutButton"),
       href: "/about",
     },

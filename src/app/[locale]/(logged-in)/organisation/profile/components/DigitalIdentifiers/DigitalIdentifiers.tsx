@@ -52,7 +52,7 @@ export default function DigitalIdentifiers() {
   const schema = useMemo(
     () =>
       yup.object().shape({
-        companies_house_no: yup.string(),
+        companies_house_no: yup.string().nullable(),
         isCharity: yup.boolean(),
         charities: yup.array().when("isCharity", {
           is: true,
@@ -86,7 +86,7 @@ export default function DigitalIdentifiers() {
 
   const formOptions = {
     defaultValues: {
-      companies_house_no: organisation?.companies_house_no,
+      companies_house_no: organisation?.companies_house_no || "",
       charities: organisation?.charities.map(
         ({ country, registration_id }) => ({ country, registration_id })
       ),

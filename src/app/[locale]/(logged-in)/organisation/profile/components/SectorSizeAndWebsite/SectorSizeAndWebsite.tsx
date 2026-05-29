@@ -57,7 +57,9 @@ export default function SectorSizeAndWebsite() {
           .string()
           .required(tForm("websiteRequiredInvalid"))
           .matches(VALIDATION_URL, tForm("websiteFormatInvalid")),
-        organisation_size: yup.number(),
+        organisation_size: yup
+          .number()
+          .required(tForm("organisationSizeRequiredInvalid")),
       }),
     []
   );
