@@ -6,9 +6,10 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import RecordVoiceOverOutlinedIcon from "@mui/icons-material/RecordVoiceOverOutlined";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import ActionCard from "@/components/ActionCard";
-import { useStore } from "@/data/store";
 import { UserGroup } from "@/consts/user";
 import links from "@/consts/links";
+import { getMeQuery } from "@/services/auth";
+import { useQuery } from "@tanstack/react-query";
 
 const NAMESPACE_TRANSLATIONS = "GetInvolved";
 
@@ -69,7 +70,10 @@ const resolveHref = (hrefs: CardHrefs, userGroup?: UserGroup): string => {
 
 export default function GetInvolvedCards() {
   const t = useTranslations(NAMESPACE_TRANSLATIONS);
-  const userGroup = useStore(store => store.getUser()?.user_group);
+  const { data: meResponse } = useQuery(
+    getMeQuery({ responseOptions: { suppressThrow: true } })
+  );
+  const userGroup = meResponse?.data?.user_group;
 
   return (
     <Grid container spacing={2}>

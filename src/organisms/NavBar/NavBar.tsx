@@ -116,10 +116,8 @@ export default function NavBar({ loggedIn }: NavBarProps) {
   );
 
   useEffect(() => {
-    if (meResponse?.status === 404) {
-      if (storedUser) setUser(undefined);
-    } else if (meResponse?.data) {
-      setUser(meResponse.data);
+    if (meResponse?.status === 404 && storedUser) {
+      setUser(undefined);
     }
   }, [meResponse]);
 

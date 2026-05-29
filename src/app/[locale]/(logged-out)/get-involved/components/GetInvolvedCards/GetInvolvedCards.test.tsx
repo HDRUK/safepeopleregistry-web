@@ -1,11 +1,25 @@
 import { commonAccessibilityTests, render, screen } from "@/utils/testUtils";
 import { UserGroup } from "@/consts/user";
 import links from "@/consts/links";
+import { useQuery } from "@tanstack/react-query";
 import GetInvolvedCards from "./GetInvolvedCards";
 
-jest.mock("@/data/store");
+jest.mock("@tanstack/react-query", () => ({
+  useQuery: jest.fn(),
+}));
+
+const mockUseQuery = useQuery as jest.MockedFunction<typeof useQuery>;
+
+const mockMe = (userGroup?: UserGroup) =>
+  mockUseQuery.mockReturnValue({
+    data: userGroup ? { status: 200, data: { user_group: userGroup } } : null,
+  } as never);
 
 describe("<GetInvolvedCards />", () => {
+  beforeEach(() => {
+    mockMe();
+  });
+
   it("renders all three cards", () => {
     render(<GetInvolvedCards />);
     expect(
@@ -19,21 +33,17 @@ describe("<GetInvolvedCards />", () => {
     ).toBeInTheDocument();
   });
 
-  it("uses loggedOut hrefs when no user is in the store", () => {
-    mockUseStore({ config: { user: undefined } } as never);
+  it("uses loggedOut hrefs when no user is returned", () => {
     render(<GetInvolvedCards />);
 
-    const anchorElements = screen.getAllByRole("link");
-    const hrefs = anchorElements.map(l => l.getAttribute("href"));
+    const hrefs = screen.getAllByRole("link").map(l => l.getAttribute("href"));
     expect(hrefs).toContain(links.getInvolved.mailingList);
     expect(hrefs).toContain(links.getInvolved.survey);
     expect(hrefs).toContain(links.getInvolved.feedback);
   });
 
   it("uses user-group-specific href for the feedback card when user is USERS", () => {
-    mockUseStore({
-      config: { user: { user_group: UserGroup.USERS } },
-    } as never);
+    mockMe(UserGroup.USERS);
     render(<GetInvolvedCards />);
 
     const feedbackLink = screen
@@ -43,9 +53,7 @@ describe("<GetInvolvedCards />", () => {
   });
 
   it("uses custodian-specific href for the feedback card when user is CUSTODIANS", () => {
-    mockUseStore({
-      config: { user: { user_group: UserGroup.CUSTODIANS } },
-    } as never);
+    mockMe(UserGroup.CUSTODIANS);
     render(<GetInvolvedCards />);
 
     const custodianLink = screen
