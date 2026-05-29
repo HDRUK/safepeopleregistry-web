@@ -786,7 +786,7 @@
     "inviteUserConflict": "The email for this user has already been invited or already has an account!",
     "roleRequiredInvalid": "Role is required",
     "fromRequiredInvalid": "From date is required",
-    "toRequiredInvalid": "To date is required",
+    "toRequiredInvalid": "Either enter an end date or check the box below to confirm you are currently in this role",
     "rorInvalid": "ROR ID is not in the correct format",
     "toMustBeAfterFrom": "To date must be after from date",
     "isCurrent": "Current Role?",
