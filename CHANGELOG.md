@@ -1,3 +1,10 @@
+## [1.34.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.33.0...v1.34.0) (2026-05-29)
+
+### ✨ Features
+
+* **REGISTRY-1846:** Update about page content (#793) ([d7dced0](https://github.com/HDRUK/safepeopleregistry-web/commit/d7dced0c3048ef37de717ab5e59c1ce5d7cf8050))
+* **REGISTRY-1849:** Glossary (#782) ([4472607](https://github.com/HDRUK/safepeopleregistry-web/commit/4472607975e4d60b32cc08b9381679168a2ea6f6)), closes [Glossary](undefinedossary)
+
 ## [1.33.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.32.0...v1.33.0) (2026-05-29)
 
 ### ✨ Features
