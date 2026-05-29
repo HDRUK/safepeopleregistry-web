@@ -89,6 +89,7 @@ interface Routes {
   profileOrganisationProjectsSafeSettings: RouteConfig;
   profileOrganisationProjectsSafeOutputs: RouteConfig;
   profileAdmin: RouteConfig;
+  getInvolved: RouteConfig;
 }
 
 export type { RoutePermissions, RouteConfig, Routes, RouteParams };

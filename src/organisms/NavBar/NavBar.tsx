@@ -4,7 +4,6 @@ import HowToRegOutlinedIcon from "@mui/icons-material/HowToRegOutlined";
 import { ROUTES } from "@/consts/router";
 import { useStore } from "@/data/store";
 import { Link } from "@/i18n/routing";
-import getMe from "@/app/actions/auth/getMe";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   Box,
@@ -21,12 +20,13 @@ import { MouseEvent, useEffect, useState } from "react";
 import HorizontalDrawer from "../../components/HorizontalDrawer";
 import MaskLabel from "../../components/MaskLabel";
 import SoursdLogo from "../../components/SoursdLogo";
-import { CONTACT_MAIL_ADDRESS } from "../../config/contacts";
 import PageCenter from "../../modules/PageCenter";
 import { getInitials, getName } from "../../utils/application";
 import { handleLogin, handleLogout } from "../../utils/keycloak";
 import NotificationsMenu from "../NotificationsMenu";
 import { StyledContainer, StyledHeader } from "./NavBar.styles";
+import { getMeQuery } from "@/services/auth";
+import { useQuery } from "@tanstack/react-query";
 
 const NAMESPACE_TRANSLATIONS_NAVBAR = "NavBar";
 
@@ -111,18 +111,17 @@ export default function NavBar({ loggedIn }: NavBarProps) {
 
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
 
-  useEffect(() => {
-    const checkUserAndReset = async () => {
-      const response = await getMe({
-        suppressThrow: true,
-      });
+  const { data: meResponse } = useQuery(
+    getMeQuery({ responseOptions: { suppressThrow: true } })
+  );
 
-      if (response.status === 404 && storedUser) {
-        setUser(undefined);
-      }
-    };
-    checkUserAndReset();
-  }, []);
+  useEffect(() => {
+    if (meResponse?.status === 404) {
+      if (storedUser) setUser(undefined);
+    } else if (meResponse?.data) {
+      setUser(meResponse.data);
+    }
+  }, [meResponse]);
 
   useEffect(() => {
     if (isDesktop && isDrawerOpen) {
@@ -152,20 +151,8 @@ export default function NavBar({ loggedIn }: NavBarProps) {
     {
       color: ButtonColor.Inherit,
       variant: ButtonVariant.Text,
-      text: t("featuresButton"),
-      href: "/features",
-    },
-    {
-      color: ButtonColor.Inherit,
-      variant: ButtonVariant.Text,
-      text: t("contactButton"),
-      href: `mailto:${CONTACT_MAIL_ADDRESS}`,
-    },
-    {
-      color: ButtonColor.Inherit,
-      variant: ButtonVariant.Text,
-      text: t("helpButton"),
-      href: "/support",
+      text: t("getInvolvedButton"),
+      href: "/get-involved",
     },
   ];
   const right_buttons: ButtonProps[] = [

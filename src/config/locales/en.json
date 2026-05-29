@@ -1381,7 +1381,8 @@
     "registerButton": "Register",
     "ariaOpenMobileMenu": "open mobile menu",
     "ariaCloseMobileMenu": "close mobile menu",
-    "signOutButton": "Sign Out"
+    "signOutButton": "Sign Out",
+    "getInvolvedButton": "Get involved"
   },
   "Register": {
     "title": "What would you like to do?",
@@ -2272,5 +2273,27 @@
   },
   "Common": {
     "opensInNewTab": "(opens in a new tab)"
+  },
+  "GetInvolved": {
+    "infoTitle": "Get involved",
+    "intro1": "The Safe People Registry was created in collaboration with Data Custodians, Organisations, and Users from across the UK's sensitive data community. From the very beginning, we've believed in the power of open-source development and community-driven innovation.",
+    "intro2": "We welcome everyone, whether you're already using the Safe People Registry or just curious about it, to get involved, share ideas, and help shape its future.",
+    "intro3": "Here's how you can get involved:",
+    "mailingListTitle": "Join our mailing list",
+    "mailingListDescription": "Hear about our latest features, events, & user testing invitations!",
+    "mailingListButton": "Join",
+    "feedbackTitle": "Share your feedback!",
+    "feedbackDescription": "Have an idea? Want to comment on or help with our roadmap?",
+    "feedbackButton": "Share your feedback",
+    "testFeatureTitle": "Test our latest feature",
+    "testFeatureDescription": "We're working on how our Notifications system functions.",
+    "surveyTitle": "Vote on your favourite features",
+    "surveyDescription": "Tell us your priorities by filling in our roadmap survey.",
+    "surveyButton": "Take survey",
+    "acknowledgementTitle": "Acknowledgement to key groups who have already been instrumental in the co-creation of our software:",
+    "acknowledgementItem1": "Alliance members including members of the Pan-UK Data Governance Steering Group",
+    "acknowledgementItem2": "Representatives from the NHS Data for Research and Development Programme and NHS Research Secure Data Environment Network",
+    "acknowledgementItem3": "Representatives from the UK Trusted Research Environment Community",
+    "acknowledgementItem4": "Representatives from the HDR UK Public Advisory Board"
   }
 }
