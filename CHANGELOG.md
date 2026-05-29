@@ -1,3 +1,25 @@
+## [1.33.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.32.0...v1.33.0) (2026-05-29)
+
+### ✨ Features
+
+* **REGISTRY-1843:** homepage link colour (#769) ([f9ba570](https://github.com/HDRUK/safepeopleregistry-web/commit/f9ba570814fd8660d8041baa0d193fb50b1adb3e))
+* **REGISTRY-1845:** Add how it works page (#778) ([7d3b158](https://github.com/HDRUK/safepeopleregistry-web/commit/7d3b158a7229742b9336092bae3d0e993ce13e4b))
+* **REGISTRY-1846:** 🤖 Create About page (#781) ([f889381](https://github.com/HDRUK/safepeopleregistry-web/commit/f889381341a58ddbc516232624026484497229ce))
+* **REGISTRY-1848:** Add FAQ page  (#785) ([cbc76a0](https://github.com/HDRUK/safepeopleregistry-web/commit/cbc76a0c6ecd847693497ddb494f0de229515f72))
+* **REGISTRY-2744:** Add non admin view (#768) ([484589f](https://github.com/HDRUK/safepeopleregistry-web/commit/484589f3fce53a26c1c5aae76c8bd1da133a1e8f))
+* **REGISTRY-2775:** how it works page tweaks (#789) ([7a8ab88](https://github.com/HDRUK/safepeopleregistry-web/commit/7a8ab88ac3593591961e663453589f342366230a))
+
+### 🐛 Bug Fixes
+
+* **GAT-1234:** updated the branch for workflows (#790) ([fc99e92](https://github.com/HDRUK/safepeopleregistry-web/commit/fc99e9286203425863da8efc4c66cc3396a002e3)), closes [GAT-1234](undefinedGAT-1234)
+* **GAT-8809:** updated secret arguments in the pipelines (#780) ([c41bbe2](https://github.com/HDRUK/safepeopleregistry-web/commit/c41bbe206987eb38680d4aa5a05a677566894a1b)), closes [GAT-8809](undefinedGAT-8809)
+* **GAT-8809:** updated workflows to use reusable pipelines (#775) ([6cc79a4](https://github.com/HDRUK/safepeopleregistry-web/commit/6cc79a40c12a158148244265eb86fe88836862c6)), closes [GAT-8809](undefinedGAT-8809)
+* **REGISTRY-0000:** remove debug logging (#777) ([aa94472](https://github.com/HDRUK/safepeopleregistry-web/commit/aa94472eec0befcc08023143bd683f44eb48672a))
+* **REGISTRY-2754:** Add required asterisk to Organisation/Organisation Size field (#770) ([0207060](https://github.com/HDRUK/safepeopleregistry-web/commit/0207060544e50e1f5701caae118f4e032ffff660))
+* **REGISTRY-2758:** Fix weird render on Organisation / Team (#774) ([54dfcc6](https://github.com/HDRUK/safepeopleregistry-web/commit/54dfcc6a57b185f07b20c0df9d7a98fdbe2b4f49))
+* **REGISTRY-2771:** Handle null companies_house_no field while ensuring field remains controlled. (#776) ([e62dcac](https://github.com/HDRUK/safepeopleregistry-web/commit/e62dcac7a0a549d95b219117d70848aa5c52e9fe))
+* **REGISTRY-2787:** Fixes loading clash in FE causing custodian user … (#792) ([5476988](https://github.com/HDRUK/safepeopleregistry-web/commit/5476988da23c1c873903fa4dad84974e21e9e7eb))
+
 ## [1.32.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.31.0...v1.32.0) (2026-05-22)
 
 ### ✨ Features
