@@ -219,11 +219,13 @@ export default function NavBar({ loggedIn }: NavBarProps) {
                 gap: 1,
                 flexGrow: 1,
               }}>
-              <SoursdLogo
-                variant="titled"
-                direction="horizontal"
-                sx={{ mr: 4 }}
-              />
+              <Link href="/">
+                <SoursdLogo
+                  variant="titled"
+                  direction="horizontal"
+                  sx={{ mr: 4 }}
+                />
+              </Link>
               {renderButtons(left_buttons)}
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
