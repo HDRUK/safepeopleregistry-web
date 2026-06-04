@@ -4,7 +4,7 @@ const dataCy = (value: string) => {
   return `[data-cy="${value}"]`;
 };
 
-function getModalByHeader(header) {
+function getModalByHeader(header: string) {
   return cy
     .get('div[role="presentation"]')
     .filter(`:has(div:contains("${header}"))`)
@@ -39,18 +39,33 @@ const signout = () => {
 const PROFILE_REDIRECT_TIMEOUT = 120_000; // BE can be slow to process registration
 
 const shouldBeUserProfile = () => {
+  cy.url({ timeout: PROFILE_REDIRECT_TIMEOUT }).should(
+    "include",
+    "/user/profile"
+  );
+  cy.waitForLoadingToFinish();
   cy.contains("Add your personal details", {
     timeout: PROFILE_REDIRECT_TIMEOUT,
   }).should("exist");
 };
 
 const shouldBeOrganisationProfile = () => {
+  cy.url({ timeout: PROFILE_REDIRECT_TIMEOUT }).should(
+    "include",
+    "/organisation/profile"
+  );
+  cy.waitForLoadingToFinish();
   cy.contains("Complete your Organisation name & address", {
     timeout: PROFILE_REDIRECT_TIMEOUT,
   }).should("exist");
 };
 
 const shouldBeCustodianProfile = () => {
+  cy.url({ timeout: PROFILE_REDIRECT_TIMEOUT }).should(
+    "include",
+    "/data-custodian/profile"
+  );
+  cy.waitForLoadingToFinish();
   cy.contains("Complete your configuration", {
     timeout: PROFILE_REDIRECT_TIMEOUT,
   }).should("exist");
