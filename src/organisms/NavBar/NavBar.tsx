@@ -21,7 +21,6 @@ import { MouseEvent, useEffect, useState } from "react";
 import HorizontalDrawer from "../../components/HorizontalDrawer";
 import MaskLabel from "../../components/MaskLabel";
 import SoursdLogo from "../../components/SoursdLogo";
-import { CONTACT_MAIL_ADDRESS } from "../../config/contacts";
 import PageCenter from "../../modules/PageCenter";
 import { getInitials, getName } from "../../utils/application";
 import { handleLogin, handleLogout } from "../../utils/keycloak";
@@ -152,20 +151,8 @@ export default function NavBar({ loggedIn }: NavBarProps) {
     {
       color: ButtonColor.Inherit,
       variant: ButtonVariant.Text,
-      text: t("featuresButton"),
-      href: "/features",
-    },
-    {
-      color: ButtonColor.Inherit,
-      variant: ButtonVariant.Text,
-      text: t("contactButton"),
-      href: `mailto:${CONTACT_MAIL_ADDRESS}`,
-    },
-    {
-      color: ButtonColor.Inherit,
-      variant: ButtonVariant.Text,
-      text: t("helpButton"),
-      href: "/support",
+      text: t("getInvolvedButton"),
+      href: "/get-involved",
     },
   ];
   const right_buttons: ButtonProps[] = [

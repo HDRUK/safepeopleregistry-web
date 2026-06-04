@@ -4,7 +4,7 @@ const dataCy = (value: string) => {
   return `[data-cy="${value}"]`;
 };
 
-function getModalByHeader(header) {
+function getModalByHeader(header: string) {
   return cy
     .get('div[role="presentation"]')
     .filter(`:has(div:contains("${header}"))`)

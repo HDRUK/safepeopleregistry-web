@@ -41,7 +41,7 @@ jest.mock("@/app/actions/auth/getMe", () => ({
 const mockGetMe = getMe as jest.MockedFunction<typeof getMe>;
 const mockUseStore = useStore as jest.MockedFunction<typeof useStore>;
 
-const linksText = ["Home", "About", "Features", "Contact", "Help"];
+const linksText = ["Home", "How it works", "About", "Get involved"];
 
 const renderMobileMenuTest = () => {
   defineMatchMedia(theme.breakpoints.values.xs);

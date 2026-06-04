@@ -14,6 +14,9 @@ const ROUTES: Routes = {
   about: {
     path: "/about",
   },
+  getInvolved: {
+    path: "/get-involved",
+  },
   profileCustodian: {
     path: "/data-custodian/profile",
     permissions: [UserGroup.CUSTODIANS],
