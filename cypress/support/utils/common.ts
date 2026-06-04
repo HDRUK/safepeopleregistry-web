@@ -44,8 +44,6 @@ const shouldBeUserProfile = () => {
     "/user/profile"
   );
   cy.waitForLoadingToFinish();
-  cy.reload();
-  cy.waitForLoadingToFinish();
   cy.contains("Add your personal details", {
     timeout: PROFILE_REDIRECT_TIMEOUT,
   }).should("exist");
@@ -57,8 +55,6 @@ const shouldBeOrganisationProfile = () => {
     "/organisation/profile"
   );
   cy.waitForLoadingToFinish();
-  cy.reload();
-  cy.waitForLoadingToFinish();
   cy.contains("Complete your Organisation name & address", {
     timeout: PROFILE_REDIRECT_TIMEOUT,
   }).should("exist");
@@ -69,8 +65,6 @@ const shouldBeCustodianProfile = () => {
     "include",
     "/data-custodian/profile"
   );
-  cy.waitForLoadingToFinish();
-  cy.reload();
   cy.waitForLoadingToFinish();
   cy.contains("Complete your configuration", {
     timeout: PROFILE_REDIRECT_TIMEOUT,

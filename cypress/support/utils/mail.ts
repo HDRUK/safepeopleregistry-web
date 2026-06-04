@@ -1,4 +1,4 @@
-const EMAIL_POLL_INTERVAL = 15_000;
+const EMAIL_POLL_INTERVAL = 3_000;
 const EMAIL_POLL_TIMEOUT = 900_000; // 15 minutes — BE email delivery can be slow
 
 function actionMessage(
