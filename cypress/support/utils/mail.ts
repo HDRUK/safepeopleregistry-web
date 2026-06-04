@@ -1,40 +1,42 @@
 const EMAIL_POLL_INTERVAL = 15_000;
 const EMAIL_POLL_TIMEOUT = 900_000; // 15 minutes — BE email delivery can be slow
 
-function pollForEmail(
-  address: string,
-  elapsed = 0
-): Cypress.Chainable<{ id: string }> {
-  return cy.maildevGetMessageBySentTo(address).then(email => {
-    if (email) {
-      return cy.wrap(email as { id: string });
-    }
-    if (elapsed >= EMAIL_POLL_TIMEOUT) {
-      throw new Error(
-        `Email to ${address} not received within ${EMAIL_POLL_TIMEOUT / 60_000} minutes`
-      );
-    }
-    return cy
-      .wait(EMAIL_POLL_INTERVAL)
-      .then(() => pollForEmail(address, elapsed + EMAIL_POLL_INTERVAL));
-  });
-}
-
 function actionMessage(
   label: string | RegExp,
   options: {
     to: string;
   }
 ) {
-  pollForEmail(options.to).then(email => {
-    cy.maildevVisitMessageById(email.id);
+  let foundEmail: { id: string } | null = null;
+  let elapsed = 0;
 
-    cy.contains("a", label)
-      .invoke("attr", "href")
-      .then(href => {
-        cy.visit(href);
-      });
-  });
+  function poll(): Cypress.Chainable {
+    return cy.maildevGetMessageBySentTo(options.to).then(email => {
+      if (email) {
+        foundEmail = email as { id: string };
+        return;
+      }
+      if (elapsed >= EMAIL_POLL_TIMEOUT) {
+        throw new Error(
+          `Email to ${options.to} not received within ${EMAIL_POLL_TIMEOUT / 60_000} minutes`
+        );
+      }
+      elapsed += EMAIL_POLL_INTERVAL;
+      return cy.wait(EMAIL_POLL_INTERVAL).then(poll);
+    });
+  }
+
+  cy.wrap(null)
+    .then(poll)
+    .then(() => {
+      cy.maildevVisitMessageById(foundEmail!.id);
+
+      cy.contains("a", label)
+        .invoke("attr", "href")
+        .then(href => {
+          cy.visit(href as string);
+        });
+    });
 }
 
 export { actionMessage };
