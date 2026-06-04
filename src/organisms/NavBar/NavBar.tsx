@@ -4,6 +4,7 @@ import HowToRegOutlinedIcon from "@mui/icons-material/HowToRegOutlined";
 import { ROUTES } from "@/consts/router";
 import { useStore } from "@/data/store";
 import { Link } from "@/i18n/routing";
+import getMe from "@/app/actions/auth/getMe";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   Box,
@@ -25,8 +26,6 @@ import { getInitials, getName } from "../../utils/application";
 import { handleLogin, handleLogout } from "../../utils/keycloak";
 import NotificationsMenu from "../NotificationsMenu";
 import { StyledContainer, StyledHeader } from "./NavBar.styles";
-import { getMeQuery } from "@/services/auth";
-import { useQuery } from "@tanstack/react-query";
 
 const NAMESPACE_TRANSLATIONS_NAVBAR = "NavBar";
 
@@ -111,15 +110,18 @@ export default function NavBar({ loggedIn }: NavBarProps) {
 
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
 
-  const { data: meResponse } = useQuery(
-    getMeQuery({ responseOptions: { suppressThrow: true } })
-  );
-
   useEffect(() => {
-    if (meResponse?.status === 404 && storedUser) {
-      setUser(undefined);
-    }
-  }, [meResponse]);
+    const checkUserAndReset = async () => {
+      const response = await getMe({
+        suppressThrow: true,
+      });
+
+      if (response.status === 404 && storedUser) {
+        setUser(undefined);
+      }
+    };
+    checkUserAndReset();
+  }, []);
 
   useEffect(() => {
     if (isDesktop && isDrawerOpen) {
