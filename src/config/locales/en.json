@@ -1382,7 +1382,13 @@
     "ariaOpenMobileMenu": "open mobile menu",
     "ariaCloseMobileMenu": "close mobile menu",
     "signOutButton": "Sign Out",
-    "getInvolvedButton": "Get involved"
+    "getInvolvedButton": "Get involved",
+    "getSupportButton": "Get support",
+    "supportReadFAQs": "Read the FAQs",
+    "supportViewGlossary": "View the Glossary",
+    "supportGetInvolved": "Get involved",
+    "supportAskTeam": "Ask the team (new tab)",
+    "supportContactUs": "Contact us"
   },
   "Register": {
     "title": "What would you like to do?",
@@ -2372,5 +2378,22 @@
     "acknowledgementItem2": "Representatives from the NHS Data for Research and Development Programme and NHS Research Secure Data Environment Network",
     "acknowledgementItem3": "Representatives from the UK Trusted Research Environment Community",
     "acknowledgementItem4": "Representatives from the HDR UK Public Advisory Board"
+  },
+  "ContactUs": {
+    "infoTitle": "Contact us",
+    "intro1": "We'd love to hear from you!",
+    "intro2": "Whether you have a question, spot a bug, or want to share your ideas, we’re here to help.",
+    "questionTitle": "Have a question?",
+    "questionDescription": "You may also find our FAQs section helpful.",
+    "questionButton": "Go to our FAQs",
+    "helpTitle": "Ask for help",
+    "helpDescription": "Something not working as you expect, or a frustrating experience? We want to help.",
+    "helpButton": "Share your feedback",
+    "getInvolvedTitle": "Get involved",
+    "getInvolvedDescription": "Be part of the conversation and help shape the future of the Safe People Registry. You can hear about events, take part in user testing, and get early updates on new features.",
+    "getInvolvedButton": "Get involved",
+    "emailTitle": "Email us",
+    "emailDescription": "Finally, you can always email us at <emailLink>enquiries@safepeopleregistry.org</emailLink> if you have thoughts not covered by the above!",
+    "emailButton": "Email us"
   }
 }

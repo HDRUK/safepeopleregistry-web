@@ -1,14 +1,20 @@
 import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import ExternalLink from "@/components/ExternalLink";
+import Link from "next/link";
 
 interface ActionCardProps {
   icon: React.ReactNode;
   title: string;
-  description: string;
+  description: React.ReactNode;
   href: string;
   ctaLabel: string;
 }
+
+const isExternalHref = (href: string) =>
+  href.startsWith("http://") ||
+  href.startsWith("https://") ||
+  href.startsWith("mailto:");
 
 export default function ActionCard({
   icon,
@@ -17,6 +23,8 @@ export default function ActionCard({
   href,
   ctaLabel,
 }: ActionCardProps) {
+  const external = isExternalHref(href);
+
   return (
     <Card
       elevation={0}
@@ -46,11 +54,11 @@ export default function ActionCard({
         <Typography sx={{ flexGrow: 1 }}>{description}</Typography>
         <Box>
           <Button
-            component={ExternalLink}
+            component={external ? ExternalLink : Link}
             href={href}
             variant="outlined"
             size="small"
-            endIcon={<OpenInNewIcon />}>
+            {...(external && { endIcon: <OpenInNewIcon /> })}>
             {ctaLabel}
           </Button>
         </Box>
