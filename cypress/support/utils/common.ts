@@ -36,16 +36,24 @@ const signout = () => {
   cy.get("#kc-logout").if().click();
 };
 
+const PROFILE_REDIRECT_TIMEOUT = 120_000; // BE can be slow to process registration
+
 const shouldBeUserProfile = () => {
-  cy.contains("Add your personal details").should("exist");
+  cy.contains("Add your personal details", {
+    timeout: PROFILE_REDIRECT_TIMEOUT,
+  }).should("exist");
 };
 
 const shouldBeOrganisationProfile = () => {
-  cy.contains("Complete your Organisation name & address").should("exist");
+  cy.contains("Complete your Organisation name & address", {
+    timeout: PROFILE_REDIRECT_TIMEOUT,
+  }).should("exist");
 };
 
 const shouldBeCustodianProfile = () => {
-  cy.contains("Complete your configuration").should("exist");
+  cy.contains("Complete your configuration", {
+    timeout: PROFILE_REDIRECT_TIMEOUT,
+  }).should("exist");
 };
 
 export {
