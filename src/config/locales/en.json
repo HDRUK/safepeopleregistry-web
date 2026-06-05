@@ -2066,13 +2066,15 @@
     "keyFeature1Title": "One profile for multiple decisions",
     "keyFeature1Info": "Users and their Organisations can create standardised profiles that make it easier for Data Custodians to validate the safety of a User applying for access to sensitive data.",
     "keyFeature2Title": "Free, secure, & community-focused",
-    "keyFeature2Info": "Co-created with Users, Organisations and Data Custodians, the Safe People Registry is an open-source platform that evolves with your needs - get involved and share your thoughts!",
+    "keyFeature2Info": "Co-created with Users, Organisations and Data Custodians, the Safe People Registry is an open-source platform that evolves with your needs - <link>share your thoughts</link>!",
     "keyFeature3Title": "Easy customisations",
     "keyFeature3Info": "Data Custodians can define their own criteria for rapid validation of Users and Organisations, with customisable features like automated flags and manual checklists.",
     "registerNow": "Register now",
     "or": "or",
     "signIn": "sign in here",
-    "getStartedLabel": "Get started"
+    "getStartedLabel": "Get started",
+    "openAccessTitle": "Open access and open to listen",
+    "openAccessContent": "We provide this platform free as part of our <openAccessLink>commitment to open access</openAccessLink>. We want everything we build to make it easier for you as Users, Organisations, and Data Custodians. This includes getting your thoughts to inform our design decisions and testing early versions of the product with you so we can stay informed and smoothen your experience. If you'd like to get involved then we'd love you to <getInvolvedLink>get involved</getInvolvedLink>."
   },
   "About": {
     "infoTitle": "About",
@@ -2355,7 +2357,10 @@
     }
   },
   "Common": {
-    "opensInNewTab": "(opens in a new tab)"
+    "opensInNewTab": "(opens in a new tab)",
+    "moreQuestionsTitle": "More questions?",
+    "moreQuestionsAskTeam": "Ask the team",
+    "moreQuestionsFAQ": "Frequently asked questions"
   },
   "GetInvolved": {
     "infoTitle": "Get involved",

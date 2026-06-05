@@ -1,3 +1,5 @@
+import { ROUTES } from "@/consts/router";
+import { Link } from "@/i18n/routing";
 import { Box, Typography } from "@mui/material";
 import {
   articleContainerSx,
@@ -24,7 +26,15 @@ export default async function KeyFeatures() {
           <Typography variant="h5" component="h6">
             {t("keyFeature2Title")}
           </Typography>
-          <Typography color="text.secondary">{t("keyFeature2Info")}</Typography>
+          <Typography
+            color="text.secondary"
+            sx={{ "& a": { color: "primary.main" } }}>
+            {t.rich("keyFeature2Info", {
+              link: chunks => (
+                <Link href={ROUTES.getInvolved.path}>{chunks}</Link>
+              ),
+            })}
+          </Typography>
         </Box>
         <Box component="article" sx={articleContainerSx}>
           <Typography variant="h5" component="h6">

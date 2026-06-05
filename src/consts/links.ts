@@ -1,6 +1,8 @@
 const links = {
   common: {
     techTeam: "https://healthdatagateway.org/en/about/meet-the-team",
+    openAccessStatement:
+      "https://www.hdruk.ac.uk/about-us/policies/open-access-statement/",
   },
   about: {
     fiveSafes:

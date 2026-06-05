@@ -1,4 +1,4 @@
-import { PageContainer } from "@/modules";
+import { MoreQuestions, PageContainer } from "@/modules";
 import Personas from "@/app/[locale]/(logged-out)/how-it-works/components/Personas";
 import ProductVideo from "@/app/[locale]/(logged-out)/how-it-works/components/ProductVideo";
 import About from "@/app/[locale]/(logged-out)/how-it-works/components/About";
@@ -13,6 +13,7 @@ export default function Page() {
         <Personas />
         <ProductVideo />
         <InfoHero translationPath="HowItWorks.InfoHero" />
+        <MoreQuestions />
       </InfoPageWrapper>
     </PageContainer>
   );
