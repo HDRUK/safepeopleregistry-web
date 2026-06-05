@@ -77,7 +77,7 @@ describe("Register organisation journey", () => {
 
   it("Registers the organisation", () => {
     cy.on("uncaught:exception", err => {
-      cy.log(`Registration error (suppressed): ${err.message}`);
+      console.error(`Registration error (suppressed): ${err.message}`);
       return false;
     });
 
