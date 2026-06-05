@@ -94,7 +94,7 @@ interface StoreState {
   getCurrentOrganisation: () => Organisation;
   setCurrentOrganisation: (organisation: Organisation) => void;
   getUser: () => User | undefined;
-  setUser: (user: User) => void;
+  setUser: (user: User | undefined) => void;
   getSectors: () => Sector[];
   setSectors: (sectors: Sector[]) => void;
   getPermissions: () => Permission[];
@@ -185,7 +185,7 @@ const storeMethods = (set: StoreSet, get: StoreGet) => ({
   getCurrentProjectOrganisation: () => {
     return get().current.projectOrganisation;
   },
-  setUser: (user: User) =>
+  setUser: (user: User | undefined) =>
     set(
       produce(state => {
         state.config.user = user;

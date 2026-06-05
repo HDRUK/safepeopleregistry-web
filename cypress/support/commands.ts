@@ -308,10 +308,19 @@ Cypress.Commands.add("clickUntilFound", (selector, action, assertions) => {
   clickUntilFound();
 });
 
+Cypress.Commands.add("clickSubTab", (label: string) => {
+  cy.contains('[data-cy="sub-tabs-navigation"] a', label)
+    .should("be.visible")
+    .invoke("attr", "href")
+    .then(href => cy.visitFirst((href as string).replace(/^\/[a-z-]+\//, "/")));
+  cy.waitForLoadingToFinish();
+});
+
 declare global {
   namespace Cypress {
     interface Chainable {
       login: (email: string, password: string) => void;
+      clickSubTab: (label: string) => void;
       dataCy: (value: string) => string;
       visitFirst: (path: string) => void;
       getResultsRow: (

@@ -6,10 +6,7 @@ import { dataCy } from "../common";
 import { DEFAULT_ORGANISATION_NAME, DEFAULT_PROJECT_NAME } from "../data";
 
 const hasAffiliationsTabCustodianUser = () => {
-  cy.contains('[data-cy="sub-tabs-navigation"] a', "Affiliations")
-    .should("be.visible")
-    .click();
-
+  cy.clickSubTab("Affiliations");
   cy.contains("h2", "Affiliations").should("be.visible");
 
   const row = cy.getResultsRowByValue(DEFAULT_ORGANISATION_NAME);
@@ -24,9 +21,7 @@ const hasAffiliationsTabCustodianUser = () => {
 };
 
 const hasProjectsTabCustodianUser = () => {
-  cy.get(dataCy("sub-tabs-navigation")).within(() => {
-    cy.contains("a", "Projects").click();
-  });
+  cy.clickSubTab("Projects");
   cy.contains("h2", "Projects").should("exist");
 
   const row = cy.getResultsRowByValue(DEFAULT_PROJECT_NAME);
@@ -53,9 +48,7 @@ const hasIdentityTabCustodianUser = (user: User) => {
 };
 
 const hasTrainingandAccreditationsTabCustodianUser = () => {
-  cy.get(dataCy("sub-tabs-navigation")).within(() => {
-    cy.contains("a", "Training and Accreditations").click();
-  });
+  cy.clickSubTab("Training and Accreditations");
   cy.contains("h2", "Training and Accreditations").should("exist");
   cy.contains("h3", "Training history").should("exist");
   cy.contains("h3", "Professional membership history").should("exist");
@@ -72,17 +65,12 @@ const hasTrainingandAccreditationsTabCustodianUser = () => {
 };
 
 const hasAutomatedFlagsTabCustodianUser = () => {
-  cy.get(dataCy("sub-tabs-navigation")).within(() => {
-    cy.contains("a", "Automated Flags").click();
-  });
+  cy.clickSubTab("Automated Flags");
   cy.contains("h2", "Automated Flags").should("exist");
 };
 
 const hasHistoryTabCustodianUser = () => {
-  cy.contains('[data-cy="sub-tabs-navigation"] a', "History")
-    .should("be.visible")
-    .click();
-
+  cy.clickSubTab("History");
   cy.contains("h2", "History").should("be.visible");
 };
 

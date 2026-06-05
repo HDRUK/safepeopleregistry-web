@@ -20,6 +20,18 @@ const links = {
     hdr: "https://healthdatagateway.org/en",
     dataTransparency: "https://zenodo.org/records/8262453",
   },
+  getInvolved: {
+    mailingList: "https://share.hsforms.com/1RqFpu2GERR6XrSJrM40g5w505u4",
+    feedback: "https://forms.cloud.microsoft/e/BgqaCxcH30",
+    survey:
+      "https://hdruk.atlassian.net/servicedesk/customer/portal/7/group/83/create/177?customfield_10752=11728",
+    surveyUser:
+      "https://hdruk.atlassian.net/servicedesk/customer/portal/7/group/83/create/177?customfield_10752=11728&customfield_10223=10397",
+    surveyCustodian:
+      "https://hdruk.atlassian.net/servicedesk/customer/portal/7/group/83/create/177?customfield_10752=11728&customfield_10223=10394",
+    surveyOrganisation:
+      "https://hdruk.atlassian.net/servicedesk/customer/portal/7/group/83/create/177?customfield_10752=11728&customfield_10223=12025",
+  },
 } as const;
 
 export default links;
