@@ -40,6 +40,11 @@ function getRandomString(length: number = 40) {
   return result;
 }
 
+const isExternalHref = (href: string) =>
+  href.startsWith("http://") ||
+  href.startsWith("https://") ||
+  href.startsWith("mailto:");
+
 export {
   capitaliseFirstLetter,
   toTitleCase,
@@ -47,4 +52,5 @@ export {
   anyIncludes,
   getRandomString,
   toSentenceCase,
+  isExternalHref,
 };
