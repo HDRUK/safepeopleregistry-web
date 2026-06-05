@@ -2,6 +2,7 @@ import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import ExternalLink from "@/components/ExternalLink";
 import Link from "next/link";
+import { isExternalHref } from "@/utils/string";
 
 interface ActionCardProps {
   icon: React.ReactNode;
@@ -10,11 +11,6 @@ interface ActionCardProps {
   href: string;
   ctaLabel: string;
 }
-
-const isExternalHref = (href: string) =>
-  href.startsWith("http://") ||
-  href.startsWith("https://") ||
-  href.startsWith("mailto:");
 
 export default function ActionCard({
   icon,
