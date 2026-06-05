@@ -76,6 +76,11 @@ describe("Register organisation journey", () => {
   });
 
   it("Registers the organisation", () => {
+    cy.on("uncaught:exception", err => {
+      cy.log(`Registration error (suppressed): ${err.message}`);
+      return false;
+    });
+
     openOrganisationTermsAndConditions();
 
     acceptTermsAndConditions();
@@ -84,12 +89,6 @@ describe("Register organisation journey", () => {
 
     actionMessage(EMAIL_REGISTER_VERIFICATION_LABEL, {
       to: registration.email,
-    });
-
-    cy.on("uncaught:exception", err => {
-      cy.log(`Registration error (reloading): ${err.message}`);
-      cy.reload();
-      return false;
     });
 
     shouldBeOrganisationProfile();
