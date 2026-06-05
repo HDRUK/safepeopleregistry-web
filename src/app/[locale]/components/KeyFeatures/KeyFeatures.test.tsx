@@ -10,18 +10,17 @@ import { getTranslations } from "next-intl/server";
 
 describe("KeyFeatures Component", () => {
   beforeEach(() => {
-    (getTranslations as jest.Mock).mockResolvedValue((key: string) => {
-      const map: Record<string, string> = {
-        keyFeature1Title: "User and Organisation Registers",
-        keyFeature1Info: "Feature 1 description",
-        keyFeature2Title: "Visibility across Data Custodians",
-        keyFeature2Info: "Feature 2 description",
-        keyFeature3Title: "Multiple authentication routes",
-        keyFeature3Info: "Feature 3 description",
-      };
-
-      return map[key] ?? key;
-    });
+    const map: Record<string, string> = {
+      keyFeature1Title: "User and Organisation Registers",
+      keyFeature1Info: "Feature 1 description",
+      keyFeature2Title: "Visibility across Data Custodians",
+      keyFeature2Info: "Feature 2 description",
+      keyFeature3Title: "Multiple authentication routes",
+      keyFeature3Info: "Feature 3 description",
+    };
+    const t = (key: string) => map[key] ?? key;
+    t.rich = (key: string) => map[key] ?? key;
+    (getTranslations as jest.Mock).mockResolvedValue(t);
   });
 
   it("renders the main headings", async () => {
