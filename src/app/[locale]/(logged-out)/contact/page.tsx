@@ -1,11 +1,12 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
+import { SITE_NAME } from "@/utils/metadata";
 import { PageContainer } from "@/modules";
 import InfoPageWrapper from "@/app/[locale]/(logged-out)/components/InfoPageWrapper";
 import ContactContent from "./components/ContactContent";
 
 export const metadata: Metadata = {
-  title: "Contact us | Safe People Registry",
-  description: "Get in touch with the Safe People Registry team.",
+  title: `Contact us | ${SITE_NAME}`,
+  description: "Get in touch with the Safe People Registry team",
 };
 
 export default function Page() {
