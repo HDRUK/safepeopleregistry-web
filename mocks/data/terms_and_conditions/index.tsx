@@ -186,32 +186,4 @@ export const mockedTermsAndConditionsConsumer = {
       </Markdown>
     ),
   },
-  // thirdParty: {
-  //   content: (
-  //     <Markdown variant="legal">
-  //       {safePeopleRegistryConsumerTermsSection11}
-  //     </Markdown>
-  //   ),
-  // },
-  // other: {
-  //   content: (
-  //     <Markdown variant="legal">
-  //       {safePeopleRegistryConsumerTermsSection12}
-  //     </Markdown>
-  //   ),
-  // },
-  // law: {
-  //   content: (
-  //     <Markdown variant="legal">
-  //       {safePeopleRegistryConsumerTermsSection13}
-  //     </Markdown>
-  //   ),
-  // },
-  // contact: {
-  //   content: (
-  //     <Markdown variant="legal">
-  //       {safePeopleRegistryConsumerTermsSection14}
-  //     </Markdown>
-  //   ),
-  // },
 };
