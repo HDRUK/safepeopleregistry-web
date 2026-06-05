@@ -1,4 +1,6 @@
-export const safePeopleRegistryConsumerTermsSection1 = `# 1. UNDERSTANDING THESE TERMS OF USE
+export const safePeopleRegistryConsumerTermsSection1 = ` # PART 1 - BUSINESS USERS
+
+# 1. UNDERSTANDING THESE TERMS OF USE
 
 ## 1.1 These terms of use (the “Terms”) describe how you may access and use the Safe People Registry. By accepting these Terms as part of the Account (defined below) registration process, you acknowledge and agree to these Terms. If you do not agree to any of these Terms, you must not use the Safe People Registry.
 
@@ -297,13 +299,13 @@ or
 
 ## 6.39 Should you have any reasons for a complaint, we will endeavour to resolve the issue and avoid any re-occurrence in the future.
 
-## 6.40 You can contact us by clicking here or by using the following details:
+## 6.40 You can contact us by clicking [here](mailto:enquiries@safepeopleregistry.org) or by using the following details:
 Email address: enquires@safepeopleregistry.org
 `;
 
-export const safePeopleRegistryConsumerTermsSection7 = `# 7. OUR LIABILITY
+export const safePeopleRegistryConsumerTermsSection7 = ` # PART 2 - CONSUMERS
 
-# UNDERSTANDING THESE TERMS OF USE
+# 7. UNDERSTANDING THESE TERMS OF USE
 
 ## 7.1 These terms of use (the "Terms") describe how you may access and use the Safe People Registry. By accepting these Terms as part of the Account registration process, you acknowledge and agree to these Terms. If you do not agree to any of these Terms you must not use the Safe People Registry.
 
@@ -317,7 +319,7 @@ export const safePeopleRegistryConsumerTermsSection7 = `# 7. OUR LIABILITY
 
 ## 7.6 We will only use your personal data through the Safe People Registry in accordance with our privacy policy (available https://safepeopleregistry.org/en/privacy-policy)
 `;
-export const safePeopleRegistryConsumerTermsSection8 = `# 8. USE OF THE SAFE PEOPLE REGISTRY
+export const safePeopleRegistryConsumerTermsSection8 = `# 8. USE OF THE SAFE PEOPLE REGISTRY BY RESEARCHERS
 
 ## 8.1 Provided you comply with these Terms, you may access and use the Safe People Registry for the following purposes:
 
@@ -514,7 +516,7 @@ or
 
 ## 10.36 Should you have any reasons for a complaint, we will endeavour to resolve the issue and avoid any re-occurrence in the future.
 
-## 10.37 You can contact us by clicking here or by using the following details:
+## 10.37 You can contact us by clicking [here](mailto:enquiries@safepeopleregistry.org) or by using the following details:
 Email address: enquiries@safepeopleregistry.org
 
 Terms last updated April 2026
