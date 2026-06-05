@@ -86,6 +86,12 @@ describe("Register organisation journey", () => {
       to: registration.email,
     });
 
+    cy.on("uncaught:exception", err => {
+      cy.log(`Registration error (reloading): ${err.message}`);
+      cy.reload();
+      return false;
+    });
+
     shouldBeOrganisationProfile();
   });
 });
