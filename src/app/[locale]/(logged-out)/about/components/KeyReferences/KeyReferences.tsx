@@ -15,7 +15,7 @@ export default async function KeyReferences() {
     <PageSection
       component="section"
       aria-labelledby={KEY_REFERENCES_HEADING_ID}
-      sx={{ my: 6, width: "100%" }}>
+      sx={{ my: 2, width: "100%" }}>
       <Typography variant="h2" id={KEY_REFERENCES_HEADING_ID} gutterBottom>
         {t("keyReferencesTitle")}
       </Typography>

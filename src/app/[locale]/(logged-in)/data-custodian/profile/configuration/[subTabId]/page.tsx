@@ -1,5 +1,13 @@
+import type { Metadata } from "next";
+import { SITE_NAME } from "@/utils/metadata";
 import SubPage from "../../components/SubPage";
 import { ConfigurationSubTabs, PageTabs } from "../../consts/tabs";
+
+export const metadata: Metadata = {
+  title: `Configuration | ${SITE_NAME}`,
+  description:
+    "Manage your data custodian configuration and platform settings on Safe People Registry.",
+};
 
 interface ConfigurationPageProps {
   params: {

@@ -1,5 +1,6 @@
 import { Link } from "@/i18n/routing";
 import links from "@/consts/links";
+import { ROUTES } from "@/consts/router";
 import theme from "@/theme";
 import { Grid, Typography } from "@mui/material";
 import { Box } from "@mui/material";
@@ -18,7 +19,6 @@ export default async function InfoHero({ translationPath }: InfoHeroProps) {
         display: "flex",
         alignItems: "flex-start",
         padding: 3,
-        mb: 6,
         gap: 6,
         alignSelf: "stretch",
         borderRadius: 3,
@@ -48,7 +48,9 @@ export default async function InfoHero({ translationPath }: InfoHeroProps) {
                   {chunks}
                 </Link>
               ),
-              helpLink: chunks => <Link href="#">{chunks}</Link>,
+              helpLink: chunks => (
+                <Link href={ROUTES.getInvolved.path}>{chunks}</Link>
+              ),
             })}
           </Typography>
         </Grid>

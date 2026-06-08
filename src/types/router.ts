@@ -19,6 +19,10 @@ interface Routes {
   register: RouteConfig;
   homepage: RouteConfig;
   about: RouteConfig;
+  faq: RouteConfig;
+  glossary: RouteConfig;
+  contact: RouteConfig;
+  getInvolved: RouteConfig;
   usersCustodian: RouteConfig;
   profileCustodian: RouteConfig;
   profileCustodianUserById: RouteConfig;
@@ -89,7 +93,6 @@ interface Routes {
   profileOrganisationProjectsSafeSettings: RouteConfig;
   profileOrganisationProjectsSafeOutputs: RouteConfig;
   profileAdmin: RouteConfig;
-  getInvolved: RouteConfig;
 }
 
 export type { RoutePermissions, RouteConfig, Routes, RouteParams };

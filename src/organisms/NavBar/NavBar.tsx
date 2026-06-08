@@ -25,6 +25,7 @@ import PageCenter from "../../modules/PageCenter";
 import { getInitials, getName } from "../../utils/application";
 import { handleLogin, handleLogout } from "../../utils/keycloak";
 import NotificationsMenu from "../NotificationsMenu";
+import SupportMenu from "../SupportMenu/SupportMenu";
 import { StyledContainer, StyledHeader } from "./NavBar.styles";
 
 const NAMESPACE_TRANSLATIONS_NAVBAR = "NavBar";
@@ -152,7 +153,7 @@ export default function NavBar({ loggedIn }: NavBarProps) {
       color: ButtonColor.Inherit,
       variant: ButtonVariant.Text,
       text: t("getInvolvedButton"),
-      href: "/get-involved",
+      href: ROUTES.getInvolved.path,
     },
   ];
   const right_buttons: ButtonProps[] = [
@@ -216,7 +217,6 @@ export default function NavBar({ loggedIn }: NavBarProps) {
               {renderButtons(left_buttons)}
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-              {renderButtons(right_buttons)}
               {storedUser?.unclaimed === 0 && <NotificationsMenu />}
               {storedUser?.unclaimed === 0 && (
                 <MaskLabel
@@ -225,6 +225,8 @@ export default function NavBar({ loggedIn }: NavBarProps) {
                   size="small"
                 />
               )}
+              {renderButtons(right_buttons)}
+              <SupportMenu />
             </Box>
           </StyledHeader>
         </PageCenter>
@@ -281,6 +283,9 @@ export default function NavBar({ loggedIn }: NavBarProps) {
                 <NotificationsMenu />{" "}
               </MenuItem>
             )}
+            <MenuItem sx={{ "&:hover": { backgroundColor: "transparent" } }}>
+              <SupportMenu />
+            </MenuItem>
           </MenuList>
         </HorizontalDrawer>
       </Box>
