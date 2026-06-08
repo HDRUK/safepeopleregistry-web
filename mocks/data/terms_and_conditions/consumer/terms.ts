@@ -331,7 +331,7 @@ export const safePeopleRegistryConsumerTermsSection8 = `# 8. USE OF THE SAFE PEO
 
 ### 8.1.4 to view any validation decisions made by Data Custodians in your Account based on the data that you have provided; and
 
-###8.1.5 to view projects you have been associated with by a Data Custodian, (collectively, the “Researcher Permitted Purpose”).
+### 8.1.5 to view projects you have been associated with by a Data Custodian, (collectively, the “Researcher Permitted Purpose”).
 
 ## 8.2 We grant you a non-exclusive, non-transferable, right (without the right to grant sub-licences) to use and access the Safe People Registry solely for the Researcher Permitted Purpose.
 
