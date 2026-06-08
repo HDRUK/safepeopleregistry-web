@@ -21,11 +21,11 @@ import { MouseEvent, useEffect, useState } from "react";
 import HorizontalDrawer from "../../components/HorizontalDrawer";
 import MaskLabel from "../../components/MaskLabel";
 import SoursdLogo from "../../components/SoursdLogo";
-import { CONTACT_MAIL_ADDRESS } from "../../config/contacts";
 import PageCenter from "../../modules/PageCenter";
 import { getInitials, getName } from "../../utils/application";
 import { handleLogin, handleLogout } from "../../utils/keycloak";
 import NotificationsMenu from "../NotificationsMenu";
+import SupportMenu from "../SupportMenu/SupportMenu";
 import { StyledContainer, StyledHeader } from "./NavBar.styles";
 
 const NAMESPACE_TRANSLATIONS_NAVBAR = "NavBar";
@@ -152,20 +152,8 @@ export default function NavBar({ loggedIn }: NavBarProps) {
     {
       color: ButtonColor.Inherit,
       variant: ButtonVariant.Text,
-      text: t("featuresButton"),
-      href: "/features",
-    },
-    {
-      color: ButtonColor.Inherit,
-      variant: ButtonVariant.Text,
-      text: t("contactButton"),
-      href: `mailto:${CONTACT_MAIL_ADDRESS}`,
-    },
-    {
-      color: ButtonColor.Inherit,
-      variant: ButtonVariant.Text,
-      text: t("helpButton"),
-      href: "/support",
+      text: t("getInvolvedButton"),
+      href: ROUTES.getInvolved.path,
     },
   ];
   const right_buttons: ButtonProps[] = [
@@ -227,7 +215,6 @@ export default function NavBar({ loggedIn }: NavBarProps) {
               {renderButtons(left_buttons)}
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-              {renderButtons(right_buttons)}
               {storedUser?.unclaimed === 0 && <NotificationsMenu />}
               {storedUser?.unclaimed === 0 && (
                 <MaskLabel
@@ -236,6 +223,8 @@ export default function NavBar({ loggedIn }: NavBarProps) {
                   size="small"
                 />
               )}
+              {renderButtons(right_buttons)}
+              <SupportMenu />
             </Box>
           </StyledHeader>
         </PageCenter>
@@ -292,6 +281,9 @@ export default function NavBar({ loggedIn }: NavBarProps) {
                 <NotificationsMenu />{" "}
               </MenuItem>
             )}
+            <MenuItem sx={{ "&:hover": { backgroundColor: "transparent" } }}>
+              <SupportMenu />
+            </MenuItem>
           </MenuList>
         </HorizontalDrawer>
       </Box>

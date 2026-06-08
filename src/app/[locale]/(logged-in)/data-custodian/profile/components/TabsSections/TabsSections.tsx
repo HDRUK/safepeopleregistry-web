@@ -48,19 +48,19 @@ export default function TabsSections({ tabId }: TabsSectionsProps) {
           iconPosition="start"
         />
         <Tab
-          icon={<GroupOutlinedIcon />}
-          label={t("users")}
-          href={routes.profileCustodianUsers.path}
-          component={Link}
-          value={PageTabs.USERS}
-          iconPosition="start"
-        />
-        <Tab
           icon={<AssignmentOutlinedIcon />}
           label={t("projects")}
           href={routes.profileCustodianProjects.path}
           component={Link}
           value={PageTabs.PROJECTS}
+          iconPosition="start"
+        />
+        <Tab
+          icon={<GroupOutlinedIcon />}
+          label={t("users")}
+          href={routes.profileCustodianUsers.path}
+          component={Link}
+          value={PageTabs.USERS}
           iconPosition="start"
         />
         <Tab

@@ -786,7 +786,7 @@
     "inviteUserConflict": "The email for this user has already been invited or already has an account!",
     "roleRequiredInvalid": "Role is required",
     "fromRequiredInvalid": "From date is required",
-    "toRequiredInvalid": "To date is required",
+    "toRequiredInvalid": "Either enter an end date or check the box below to confirm you are currently in this role",
     "rorInvalid": "ROR ID is not in the correct format",
     "toMustBeAfterFrom": "To date must be after from date",
     "isCurrent": "Current Role?",
@@ -1072,7 +1072,7 @@
     "organisationNameSubtitle": "Email address of an Organisational contact who is an appropriately senior individual, such as a Head of Department or Human Resources/People Services mailbox. This may also be the person who signs the data access agreements.",
     "organisationNotListed": "Organisation not listed? <link> Ask them to register </link>",
     "organisationListed": "Organisation already exists? <link> Select them here </link>",
-    "affiliationsDescription": "Please list all Organisations (employers or institutes) with whom you are currently employed, on an honorary contract, or enrolled with as a student. Your Organisations will use this to confirm your affiliation.",
+    "affiliationsDescription": "Please list all Organisations (employers or institutes) with whom you are currently employed, on an honorary contract, or enrolled with as a student. Your Organisations can use this to confirm your affiliation.",
     "postAffiliationSuccess": "You have successfully created an affiliation",
     "postAffiliationVerification": "We have sent a verification email to {email}. Please click the link in the email.",
     "postAffiliationError": "There was an error creating your affiliation. Please try again or contact us at <contactLink></contactLink>",
@@ -1381,7 +1381,14 @@
     "registerButton": "Register",
     "ariaOpenMobileMenu": "open mobile menu",
     "ariaCloseMobileMenu": "close mobile menu",
-    "signOutButton": "Sign Out"
+    "signOutButton": "Sign Out",
+    "getInvolvedButton": "Get involved",
+    "getSupportButton": "Get support",
+    "supportReadFAQs": "Read the FAQs",
+    "supportViewGlossary": "View the Glossary",
+    "supportGetInvolved": "Get involved",
+    "supportAskTeam": "Ask the team (new tab)",
+    "supportContactUs": "Contact us"
   },
   "Register": {
     "title": "What would you like to do?",
@@ -2059,13 +2066,15 @@
     "keyFeature1Title": "One profile for multiple decisions",
     "keyFeature1Info": "Users and their Organisations can create standardised profiles that make it easier for Data Custodians to validate the safety of a User applying for access to sensitive data.",
     "keyFeature2Title": "Free, secure, & community-focused",
-    "keyFeature2Info": "Co-created with Users, Organisations and Data Custodians, the Safe People Registry is an open-source platform that evolves with your needs - get involved and share your thoughts!",
+    "keyFeature2Info": "Co-created with Users, Organisations and Data Custodians, the Safe People Registry is an open-source platform that evolves with your needs - <link>share your thoughts</link>!",
     "keyFeature3Title": "Easy customisations",
     "keyFeature3Info": "Data Custodians can define their own criteria for rapid validation of Users and Organisations, with customisable features like automated flags and manual checklists.",
     "registerNow": "Register now",
     "or": "or",
     "signIn": "sign in here",
-    "getStartedLabel": "Get started"
+    "getStartedLabel": "Get started",
+    "openAccessTitle": "Open access and open to listen",
+    "openAccessContent": "We provide this platform free as part of our <openAccessLink>commitment to open access</openAccessLink>. We want everything we build to make it easier for you as Users, Organisations, and Data Custodians. This includes getting your thoughts to inform our design decisions and testing early versions of the product with you so we can stay informed and smoothen your experience. If you'd like to get involved then we'd love you to <getInvolvedLink>get involved</getInvolvedLink>."
   },
   "About": {
     "infoTitle": "About",
@@ -2080,7 +2089,7 @@
     "historyItem1": "Listening closely to the needs of data users and access approvers",
     "historyItem2": "Mapping existing processes",
     "historyItem3": "Supporting the development of guidance (see key references below)",
-    "historyOutro": "The result is the Safe People Registry: A flexible and practical tool designed to simplify ‘safe people’ validations and support consistent, confident decision making, even as needs and policies evolve over time.",
+    "historyOutro": "The result is the Safe People Registry: a flexible and practical tool designed to simplify ‘safe people’ validations and support consistent, confident decision making, even as needs and policies evolve over time.",
     "historyImageAlt": "Collage of people working collaboratively on research and data.",
     "openAccessTitle": "Open access and open to listen",
     "openAccessText": "We provide this platform free as part of our <openAccessLink>commitment to open access</openAccessLink>. We want everything we build to make it easier for you as Users, Organisations, and Data Custodians. This includes getting your thoughts to inform our design decisions and testing early versions of the product with you so we can stay informed and smoothen your experience. If you’d like to get involved then we’d love you to <getInvolvedLink>get involved</getInvolvedLink>.",
@@ -2348,6 +2357,48 @@
     }
   },
   "Common": {
-    "opensInNewTab": "(opens in a new tab)"
+    "opensInNewTab": "(opens in a new tab)",
+    "moreQuestionsTitle": "More questions?",
+    "moreQuestionsAskTeam": "Ask the team",
+    "moreQuestionsFAQ": "Frequently asked questions"
+  },
+  "GetInvolved": {
+    "infoTitle": "Get involved",
+    "intro1": "The Safe People Registry was created in collaboration with Data Custodians, Organisations, and Users from across the UK's sensitive data community. From the very beginning, we've believed in the power of open-source development and community-driven innovation.",
+    "intro2": "We welcome everyone, whether you're already using the Safe People Registry or just curious about it, to get involved, share ideas, and help shape its future.",
+    "intro3": "Here's how you can get involved:",
+    "mailingListTitle": "Join our mailing list",
+    "mailingListDescription": "Hear about our latest features, events, & user testing invitations!",
+    "mailingListButton": "Join",
+    "feedbackTitle": "Share your feedback!",
+    "feedbackDescription": "Have an idea? Want to comment on or help with our roadmap?",
+    "feedbackButton": "Share your feedback",
+    "testFeatureTitle": "Test our latest feature",
+    "testFeatureDescription": "We're working on how our Notifications system functions.",
+    "surveyTitle": "Vote on your favourite features",
+    "surveyDescription": "Tell us your priorities by filling in our roadmap survey.",
+    "surveyButton": "Take survey",
+    "acknowledgementTitle": "Acknowledgement to key groups who have already been instrumental in the co-creation of our software:",
+    "acknowledgementItem1": "Alliance members including members of the Pan-UK Data Governance Steering Group",
+    "acknowledgementItem2": "Representatives from the NHS Data for Research and Development Programme and NHS Research Secure Data Environment Network",
+    "acknowledgementItem3": "Representatives from the UK Trusted Research Environment Community",
+    "acknowledgementItem4": "Representatives from the HDR UK Public Advisory Board"
+  },
+  "ContactUs": {
+    "infoTitle": "Contact us",
+    "intro1": "We'd love to hear from you!",
+    "intro2": "Whether you have a question, spot a bug, or want to share your ideas, we’re here to help.",
+    "questionTitle": "Have a question?",
+    "questionDescription": "You may also find our FAQs section helpful.",
+    "questionButton": "Go to our FAQs",
+    "helpTitle": "Ask for help",
+    "helpDescription": "Something not working as you expect, or a frustrating experience? We want to help.",
+    "helpButton": "Share your feedback",
+    "getInvolvedTitle": "Get involved",
+    "getInvolvedDescription": "Be part of the conversation and help shape the future of the Safe People Registry. You can hear about events, take part in user testing, and get early updates on new features.",
+    "getInvolvedButton": "Get involved",
+    "emailTitle": "Email us",
+    "emailDescription": "Finally, you can always email us at <emailLink>enquiries@safepeopleregistry.org</emailLink> if you have thoughts not covered by the above!",
+    "emailButton": "Email us"
   }
 }
