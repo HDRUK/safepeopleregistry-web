@@ -29,6 +29,9 @@ jest.mock("@/i18n/routing", () => ({
   useRouter: jest.fn(() => ({
     push: jest.fn(),
   })),
+  Link: ({ children, href }: { children: React.ReactNode; href: string }) => (
+    <a href={href}>{children}</a>
+  ),
 }));
 
 jest.mock("@/data/store");
