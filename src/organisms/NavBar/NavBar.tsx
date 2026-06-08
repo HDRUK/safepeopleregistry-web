@@ -188,6 +188,8 @@ export default function NavBar({ loggedIn }: NavBarProps) {
     },
   ];
 
+  console.log({ SoursdLogo, NotificationsMenu, MaskLabel });
+
   return (
     <StyledContainer>
       <Box
@@ -251,7 +253,9 @@ export default function NavBar({ loggedIn }: NavBarProps) {
           </div>
           <Box
             sx={{ flexGrow: 1, justifyContent: "flex-end", display: "flex" }}>
-            <SoursdLogo size={40} />
+            <Link href="/">
+              <SoursdLogo size={40} />
+            </Link>
           </Box>
         </Box>
         <HorizontalDrawer
