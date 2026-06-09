@@ -3,13 +3,13 @@ export const safePeopleRegistryConsumerTermsSection1 = `
 
 ## 1.1 These terms of use (the "Terms") describe how you may access and use the Safe People Registry. By accepting these Terms as part of the Account registration process, you acknowledge and agree to these Terms. If you do not agree to any of these Terms you must not use the Safe People Registry.
 
-## 1.2 When certain words and phrases are used in these Terms, they have specific meanings (these are known as “defined terms”). You can identify these defined terms because they start with capital letters (even if they are not at the start of a sentence). Where a defined term is used, it has the meaning given to it in the section of these Terms (or in the section above “PART 1 – BUSINESS USERS”) where it was defined. You can find these meanings by looking at the sentence where the defined term is included in bold and speech marks.
+## 1.2 When certain words and phrases are used in these Terms, they have specific meanings (these are known as "defined terms"). You can identify these defined terms because they start with capital letters (even if they are not at the start of a sentence). Where a defined term is used, it has the meaning given to it in the section of these Terms (or in the section above "PART 1 – BUSINESS USERS") where it was defined. You can find these meanings by looking at the sentence where the defined term is included in bold and speech marks.
 
-## 1.3 These Terms cover access to and use of the Safe People Registry by users acting on behalf of themselves as Consumers in order to access sensitive data on TREs or SDEs for research Commented [EM2]: Check link right purposes (a “Researcher”).
+## 1.3 These Terms cover access to and use of the Safe People Registry by users acting on behalf of themselves as Consumers in order to access sensitive data on TREs or SDEs for research Commented [EM2]: Check link right purposes (a "Researcher").
 
-## 1.4 When we refer to a “Data Custodian”, we mean a user acting as a delegate on behalf of organisations that manage a TRE or SDE in order to set rules to validate whether a Researcher meets the criteria to access the TRE or SDE that the Data Custodian manages.
+## 1.4 When we refer to a "Data Custodian", we mean a user acting as a delegate on behalf of organisations that manage a TRE or SDE in order to set rules to validate whether a Researcher meets the criteria to access the TRE or SDE that the Data Custodian manages.
 
-## 1.5 In these Terms, when we refer to "you" or "your," we mean you, the person accessing or using the Safe People Registry as a Researcher.
+## 1.5 In these Terms, when we refer to "you" or "your" we mean you, the person accessing or using the Safe People Registry as a Researcher.
 
 ## 1.6 We will only use your personal data through the Safe People Registry in accordance with our privacy policy (available https://safepeopleregistry.org/en/privacy-policy)
 
@@ -27,7 +27,7 @@ export const safePeopleRegistryConsumerTermsSection2 = `
 
 ### 2.1.4 to view any validation decisions made by Data Custodians in your Account based on the data that you have provided; and
 
-### 2.1.5 to view projects you have been associated with by a Data Custodian, (collectively, the “Researcher Permitted Purpose”).
+### 2.1.5 to view projects you have been associated with by a Data Custodian, (collectively, the "Researcher Permitted Purpose").
 
 ## 2.2 We grant you a non-exclusive, non-transferable, right (without the right to grant sub-licences) to use and access the Safe People Registry solely for the Researcher Permitted Purpose.
 
@@ -37,7 +37,7 @@ export const safePeopleRegistryConsumerTermsSection2 = `
 export const safePeopleRegistryConsumerTermsSection3 = `
 # 3. YOUR ACCOUNT AND PASSWORD
 
-## 3.1 You will need to register an account with us on the Safe People Registry in order to access the services available on the Safe People Registry (“Account”).
+## 3.1 You will need to register an account with us on the Safe People Registry in order to access the services available on the Safe People Registry ("Account").
 
 ## 3.2 In order to register an Account, you must be aged 18 or over. You will be asked to provide certain information (such as your name and e-mail address) and create a password. You must treat the password (and any unique identification code provided as part of account registration) as confidential and you must not disclose it to any third party.
 
@@ -84,7 +84,7 @@ or
 
 ### 4.2.5 it must not infringe the rights or privacy of anyone else;
 
-### 4.2.6 it must not contain someone else’s personal details or confidential information relating to other people; and
+### 4.2.6 it must not contain someone else's personal details or confidential information relating to other people; and
 
 ### 4.2.7 it must not promote or condone terrorism, violence or illegal behaviour.
 
@@ -97,7 +97,7 @@ or
 export const safePeopleRegistryConsumerTermsSection5 = `
 # 5. INTELLECTUAL PROPERTY
 
-## 5.5 In these terms “Intellectual Property Rights” means: (a) patents, inventions, designs, copyright and related rights, database rights, trade-marks, service marks and trade names (whether registered or unregistered), and rights to apply for registration; (b) proprietary rights in domain names; (c) knowhow and confidential information; (d) applications, extensions and renewals in relation to any of these rights; and (e) all other rights of a similar nature or having an equivalent effect which currently exist anywhere in the world.
+## 5.5 In these terms "Intellectual Property Rights" means: (a) patents, inventions, designs, copyright and related rights, database rights, trade-marks, service marks and trade names (whether registered or unregistered), and rights to apply for registration; (b) proprietary rights in domain names; (c) knowhow and confidential information; (d) applications, extensions and renewals in relation to any of these rights; and (e) all other rights of a similar nature or having an equivalent effect which currently exist anywhere in the world.
 
 ## 5.6 Save for Input Data (for which clause 0 below shall apply), we are the owner or licensee of all Intellectual Property Rights in the Safe People Registry and its content. Except as expressly permitted herein, these Terms do not grant you any rights to, or in, any Intellectual Property Rights in respect of the Safe People Registry.
 
@@ -106,7 +106,7 @@ export const safePeopleRegistryConsumerTermsSection5 = `
 export const safePeopleRegistryConsumerTermsSection6 = `
 # 6. INPUT DATA
 
-## 6.1 In these Terms, “Input Data” means any data that you input into the Safe People Registry.
+## 6.1 In these Terms, "Input Data" means any data that you input into the Safe People Registry.
 
 ## 6.2 You will retain all rights, title and interest in and to all of your Input Data, subject to any pre-existing rights that third parties may have in its content. You shall at all times have sole responsibility for the legality, reliability, integrity, accuracy and quality of the Input Data and for ensuring that its use does not infringe the rights of any third parties. If your Input Data contains material and/or content owned or generated by a third party, you should ensure that you have all the necessary licences, permissions and/or consents from that third party to use such material and/or before inputting such Input Data into the Safe People Registry.
 
@@ -137,11 +137,11 @@ export const safePeopleRegistryConsumerTermsSection7 = `
 
 ## 7.2 Save as set out in clause 7.1:
 
-### 7.13.1 if we fail to comply with these Terms, we are responsible for loss or damage you suffer that is a foreseeable result of our breach of these Terms or our negligence, but we are not responsible for any loss or damage that is not foreseeable. Loss or damage is foreseeable if it was an obvious consequence of our breach or if it was contemplated by you and us at the time of contract entry;
+### 7.2.1 if we fail to comply with these Terms, we are responsible for loss or damage you suffer that is a foreseeable result of our breach of these Terms or our negligence, but we are not responsible for any loss or damage that is not foreseeable. Loss or damage is foreseeable if it was an obvious consequence of our breach or if it was contemplated by you and us at the time of contract entry;
 
-### 7.13.2 we only supply the Safe People Registry to you for domestic and private use. You agree not to use the Safe People Registry for any commercial or business purposes and we have no liability to you for any loss of profit, loss of business, business interruption, or loss of business opportunity; and
+### 7.2.2 we only supply the Safe People Registry to you for domestic and private use. You agree not to use the Safe People Registry for any commercial or business purposes and we have no liability to you for any loss of profit, loss of business, business interruption, or loss of business opportunity; and
 
-### 7.13.3 our maximum liability to you under these Terms is limited to £500.
+### 7.2.3 our maximum liability to you under these Terms is limited to £500.
 
 `;
 
