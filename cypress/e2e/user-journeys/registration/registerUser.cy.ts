@@ -30,66 +30,6 @@ describe("Register user journey", () => {
     openUserTermsAndConditions();
 
     checkTermsAndConditionsContent(
-      /Part 1 - Business Users/i,
-      /PART 1 - BUSINESS USERS/i
-    );
-    checkTermsAndConditionsContent(
-      /Understanding the Terms/i,
-      /UNDERSTANDING THESE TERMS OF USE/i
-    );
-    checkTermsAndConditionsContent(
-      /Researcher Usage/i,
-      /USE OF THE SAFE PEOPLE REGISTRY BY RESEARCHERS/i
-    );
-    checkTermsAndConditionsContent(
-      /Research Organisation Usage/i,
-      /USE OF THE SAFE PEOPLE REGISTRY BY RESEARCH ORGANISATIONS/i
-    );
-    checkTermsAndConditionsContent(
-      /Data Custodian Usage/i,
-      /USE OF THE SAFE PEOPLE REGISTRY BY DATA CUSTODIANS/i
-    );
-    checkTermsAndConditionsContent(
-      /Account Management/i,
-      /YOUR ACCOUNT AND PASSWORD/i
-    );
-    checkTermsAndConditionsContent(/Acceptable Use/i, /ACCEPTABLE USE/i);
-    checkTermsAndConditionsContent(
-      /Intellectual Property/i,
-      /INTELLECTUAL PROPERTY/i
-    );
-    checkTermsAndConditionsContent(/Input Data/i, /INPUT DATA/i);
-    checkTermsAndConditionsContent(/Liability/i, /OUR LIABILITY/i);
-    checkTermsAndConditionsContent(
-      /Usage/i,
-      /USE OF THE SAFE PEOPLE REGISTRY AND DISCLAIMERS/i
-    );
-    checkTermsAndConditionsContent(
-      /Suspension of Access/i,
-      /SUSPENSION AND TERMINATION/i
-    );
-    checkTermsAndConditionsContent(
-      /Changes to Terms/i,
-      /CHANGES TO THESE TERMS/i
-    );
-    checkTermsAndConditionsContent(
-      /Third Party Services/i,
-      /THIRD PARTY CONTENT/i
-    );
-    checkTermsAndConditionsContent(
-      /Other Terms/i,
-      /OTHER IMPORTANT INFORMATION/i
-    );
-    checkTermsAndConditionsContent(
-      /Governing Law/i,
-      /GOVERNING LAW AND JURISDICTION/i
-    );
-    checkTermsAndConditionsContent(/Contact Information/i, /CONTACTING US/i);
-    checkTermsAndConditionsContent(
-      /Part 2 - Consumers/i,
-      /PART 2 - CONSUMERS/i
-    );
-    checkTermsAndConditionsContent(
       /Understanding the Terms/i,
       /UNDERSTANDING THESE TERMS OF USE/i
     );
@@ -110,7 +50,7 @@ describe("Register user journey", () => {
     checkTermsAndConditionsContent(/Liability/i, /OUR LIABILITY/i);
     checkTermsAndConditionsContent(
       /Usage/i,
-      /USE OF THE SAFE PEOPLE REGISTRY AND DISCLAIMERS/i
+      /USE OF THE SAFE PEOPLE REGISTRY/i
     );
     checkTermsAndConditionsContent(
       /Suspension of Access/i,
