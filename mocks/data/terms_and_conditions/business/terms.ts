@@ -1,15 +1,15 @@
 export const safePeopleRegistryTermsSection1 = `
 # 1. UNDERSTANDING THESE TERMS OF USE
 
-## 1.1 These terms of use (the "Terms") describe how you may access and use the Safe People Registry. By accepting these Terms as part of the Account registration process, you acknowledge and agree to these Terms. If you do not agree to any of these Terms, you must not use the Safe People Registry.
+## 1.1 These terms of use (the “Terms”) describe how you may access and use the Safe People Registry. By accepting these Terms as part of the Account (defined below) registration process, you acknowledge and agree to these Terms. If you do not agree to any of these Terms, you must not use the Safe People Registry.
 
-## 1.2 These Terms cover access to and use of the Safe People Registry by users ("Users") acting:
+## 1.2 These Terms cover access to and use of the Safe People Registry by users (“Users”) acting:
 
-### 1.2.1 on behalf of themselves in order to access sensitive data on TREs or SDEs for research purposes (a "Researcher");
+### 1.2.1 on behalf of themselves in order to access sensitive data on TREs or SDEs for research purposes (a “Researcher”);
 
-### 1.2.2 as a delegate on behalf of a university, research institute, commercial organisation or administrative body in order to affiliate Researchers (in which case such organisation will be a "Research Organisation"); and
+### 1.2.2 as a delegate on behalf of a university, research institute, commercial organisation or administrative body in order to affiliate Researchers (in which case such organisation will be a “Research Organisation”); and
 
-### 1.2.3 acting as a delegate on behalf of organisations that manage a TRE or SDE in order to set rules to validate whether a Researcher or Research Organisation meets the criteria to access the TRE or SDE that you manage (in which case such organisation will be a "Data Custodian").
+### 1.2.3 acting as a delegate on behalf of organisations that manage a TRE or SDE in order to set rules to validate whether a Researcher or Research Organisation meets the criteria to access the TRE or SDE that you manage (in which case such organisation will be a “Data Custodian”).
 
 ## 1.3 In these Terms, when we refer to "you" or "your," we mean:
 
@@ -23,7 +23,7 @@ export const safePeopleRegistryTermsSection1 = `
 
 ### 1.4.2 you agree to these Terms on behalf of the Research Organisation or Data Custodian (as applicable) that you represent.
 
-## 1.5 We will only use your personal data through the Safe People Registry in accordance with our privacy policy (available at https://safepeopleregistry.org/en/privacy-policy).
+## 1.5 We will only use your personal data through the Safe People Registry in accordance with our privacy policy (available https://safepeopleregistry.org/en/privacy-policy)..
 
 ## 1.6 Where you are acting on behalf of a Research Organisation or Data Custodian, you agree that HDR UK and the Research Organisation and/or Data Custodian are independent controllers for the processing of personal data associated with the Safe People Registry and that HDR UK and the applicable Research Organisation/Data Custodian will comply with applicable data protection legislation such as the UK GDPR.
 `;
@@ -34,17 +34,17 @@ export const safePeopleRegistryTermsSection2 = `
 
 ## 2.2 Subject to these Terms, you may access and use the Safe People Registry for the following purposes:
 
-### 2.2.1 to populate data fields in your Safe People Registry profile such as data in relation to your identity, your affiliations, your experience, your training and your location;
+### 2.2.1 to populate data fields in Safe People Registry profile such as data in relation to your identity, your affiliations, your experience, your training and your location;
 
 ### 2.2.2 to view the data that you have provided in your Account;
 
-### 2.2.3 to request that Research Organisations add you as an affiliate;
+### 2.2.3 to request that research organisations add you as an affiliate;
 
-### 2.2.4 to view any validation decisions made by Data Custodians in your Account based on the data that you have provided; and
+### 2.2.4 to view any data access decisions made by Data Custodians in your Account based on the data that you have provided; and
 
 ### 2.2.5 to view projects you have been associated with by a Data Custodian,
 
-(collectively, the "Researcher Permitted Purpose").
+(collectively, the “Researcher Permitted Purpose”).
 
 ## 2.3 We grant you a non-exclusive, non-transferable, right (without the right to grant sub-licences) to use and access the Safe People Registry solely for the Researcher Permitted Purpose.
 
@@ -58,7 +58,7 @@ export const safePeopleRegistryTermsSection3 = `
 
 ## 3.2 Subject to these Terms, you may access and use the Safe People Registry for the following purposes:
 
-### 3.2.1 to populate data fields in your Safe People Registry profile such as data in relation to your organisation’s name and address, your organisation identifiers, your data security compliance, details of your nominated Senior Responsible Officer ("SRO") and any of your authorised delegates;
+### 3.2.1 to populate data fields in your Safe People Registry profile such as data in relation to your organisation’s name and address, your organisation identifiers, your data security compliance, details of your nominated Senior Responsible Officer (“SRO”) and any of your authorised delegates
 
 ### 3.2.2 to view the data that you have provided in your Account;
 
@@ -70,11 +70,9 @@ export const safePeopleRegistryTermsSection3 = `
 
 ### 3.2.6 to view, copy, download and export Researchers and projects associated with your Research Organisation by a Data Custodian,
 
-(collectively, the "Research Organisation Permitted Purpose").
+### 3.2.7 to view all projects associated with affiliated Researchers, including those associated with other Data Custodians.
 
-## 3.3 We grant you a non-exclusive, non-transferable, right (without the right to grant sub-licences) to use and access the Safe People Registry solely for the Research Organisation Permitted Purpose.
-
-## 3.4 As a Research Organisation, you shall identify an SRO who will be responsible for your Account and nominating various authorised delegates. Each SRO shall follow the SRO Declaration process as set out in the Safe People Registry in order for their Account to be verified and made active.
+(collectively, the “Research Organisation Permitted Purpose”).
 `;
 
 export const safePeopleRegistryTermsSection4 = `
@@ -102,7 +100,9 @@ export const safePeopleRegistryTermsSection4 = `
 
 ### 4.2.9 to allow Researchers to sign into your TRE or SRE with their Safe People Registry Account log-in details or digital identifiers,
 
-(collectively, the "Data Custodian Permitted Purpose").
+### 4.2.10 to view all projects associated with any Researcher whose profile appears in the Safe People Registry, regardless of which Data Custodian created the project.
+
+(collectively, the “Data Custodian Permitted Purpose”).
 
 ## 4.3 We grant you a non-exclusive, non-transferable, right (without the right to grant sub-licences) to use and access the Safe People Registry solely for the Data Custodian Permitted Purpose.
 
@@ -112,9 +112,9 @@ export const safePeopleRegistryTermsSection4 = `
 
 ### 4.5.1 you are accredited under one of the following:
 
-#### 4.5.1.1 https://uksa.statisticsauthority.gov.uk/digitaleconomyact-research-statistics/better-access-to-data-for-research-information-for-processors/list-of-digital-economy-act-accredited-processing-environments/; or
+#### 4.5.1.1 the Digital Economy Act (DEA) 2017; or
 
-#### 4.5.1.2 https://www.gov.scot/publications/charter-safe-havens-scotland-principles-standards-scottish-safe-haven-network-support-use-data-enable-research-innovation-scotland/;
+#### 4.5.1.2 the Scottish Safe Haven Charter;
 
 ### 4.5.2 you are an SDE within the NSH SDE Network; or
 
@@ -124,7 +124,7 @@ export const safePeopleRegistryTermsSection4 = `
 export const safePeopleRegistryTermsSection5 = `
 # 5. YOUR ACCOUNT AND PASSWORD
 
-## 5.1 You will need to register an account with us on Safe People Registry in order to access the services available on Safe People Registry ("Account").
+## 5.1 You will need to register an account with us on the Safe People Registry in order to access the services available on the Safe People Registry (“Account”).
 
 ## 5.2 In order to register an Account, you must be aged 18 or over. You will be asked to provide certain information (such as your name and e-mail address) and create a password. You must treat the password (and any unique identification code provided as part of account registration) as confidential and you must not disclose it to any third party.
 
@@ -152,11 +152,13 @@ export const safePeopleRegistryTermsSection6 = `
 
 ## 6.1 You agree not to:
 
-### 6.1.1 use the Safe People Registry in any way that breaches these Terms or any applicable law or regulation;
+## 6.1.1 use the Safe People Registry in any way that breaches these Terms or any applicable
+law or regulation;
 
 ### 6.1.2 use the Safe People Registry for the purpose of making hiring decisions;
 
-### 6.1.3 copy, modify or otherwise reproduce or re-sell any part of the Safe People Registry; or
+### 6.1.3 copy, modify or otherwise reproduce or re-sell any part of the Safe People Registry; 
+or
 
 ### 6.1.4 do any act or thing that might damage, disrupt or otherwise interfere with the operation of the Safe People Registry or any equipment, network or software used in operating the Safe People Registry.
 
@@ -185,16 +187,16 @@ export const safePeopleRegistryTermsSection6 = `
 export const safePeopleRegistryTermsSection7 = `
 # 7. INTELLECTUAL PROPERTY
 
-## 7.1 In these terms **“Intellectual Property Rights”** means: (a) patents, inventions, designs, copyright and related rights, database rights, trade-marks, service marks and trade names (whether registered or unregistered), and rights to apply for registration; (b) proprietary rights in domain names; (c) knowhow and confidential information; (d) applications, extensions and renewals in relation to any of these rights; and (e) all other rights of a similar nature or having an equivalent effect which currently exist anywhere in the world.
+## 7.1 In these terms “Intellectual Property Rights” means: (a) patents, inventions, designs, copyright and related rights, database rights, trade-marks, service marks and trade names (whether registered or unregistered), and rights to apply for registration; (b) proprietary rights in domain names; (c) knowhow and confidential information; (d) applications, extensions and renewals in relation to any of these rights; and (e) all other rights of a similar nature or having an equivalent effect which currently exist anywhere in the world.
 
-## 7.2 Save for Input Data (for which clause 8 below shall apply), we are the owner or licensee of all Intellectual Property Rights in the Safe People Registry and its content. Except as expressly permitted herein, these Terms do not grant you any rights to, or in, any Intellectual Property Rights in respect of the Safe People Registry.
+## 7.2 Save for Input Data (for which clause 8 below shall apply), we are the owner or licensee of all Intellectual Property Rights in the Safe People Registry and its content. Except as expressly permitted herein, these Terms do not grant you any rights to, or in, any Intellectual Property Rights in respect of the Safe People Registry
 
 `;
 
 export const safePeopleRegistryTermsSection8 = `
 # 8. INPUT DATA
 
-## 8.1 In these Terms, **“Input Data”** means any data that you input into the Safe People Registry.
+## 8.1 In these Terms, “Input Data” means any data that you input into the Safe People Registry.
 
 ## 8.2 You will retain all rights, title and interest in and to all of your Input Data, subject to any pre-existing rights that third parties may have in its content. You shall at all times have sole responsibility for the legality, reliability, integrity, accuracy and quality of the Input Data and for ensuring that its use does not infringe the rights of any third parties. If your Input Data contains material and/or content owned or generated by a third party, you should ensure that you have all the necessary licences, permissions and/or consents from that third party to use such material and/or before inputting such Input Data into the Safe People Registry.
 
@@ -209,7 +211,6 @@ export const safePeopleRegistryTermsSection8 = `
 ### 8.4.3 give rise to any cause of action against us, in each case in any jurisdiction and under any applicable law.
 
 ## 8.5 In the event of any loss or damage to Input Data, we will use reasonable commercial endeavours to restore the lost or damaged Input Data from the latest back-up of such Input Data (where such back-ups are made by us). This will be your sole and exclusive remedy. We shall not be responsible for any loss, destruction, alteration or disclosure of Input Data caused by you or any third party (except those third parties sub-contracted by us to perform services, in which case our liability shall be subject to the limitations and exclusions set out in clause 9).
-
 `;
 
 export const safePeopleRegistryTermsSection9 = `
@@ -223,18 +224,17 @@ export const safePeopleRegistryTermsSection9 = `
 
 ### 9.1.3 any matter in respect of which it would be unlawful for us to exclude or restrict our liability.
 
-## 9.2 Subject to clause 9.1, our total liability to you arising out of or in connection with these Terms and/or the provision of the Safe People Registry, whether in contract (including under any indemnity), misrepresentation (whether tortious or statutory), tort (including negligence), breach of statutory duty, or otherwise shall be limited to £500.
+## 9.2 Subject to clause 0, our total liability to you arising out of or in connection with these Terms and/or the provision of the Safe People Registry, whether in contract (including under any indemnity), misrepresentation (whether tortious or statutory), tort (including negligence), breach of statutory duty, or otherwise shall be limited to £500.
 
-## 9.3 Subject to clause 9.1, in no event shall we be liable to you for any loss of profits, loss of revenue, loss of contracts, damage to goodwill, failure to realise anticipated savings or for any indirect or consequential loss, whether arising from negligence, breach of contract or otherwise, even if we were aware of the possibility that such loss or damage might be incurred by you.
+## 9.3 Subject to clause 0, in no event shall we be liable to you for any loss of profits, loss of revenue, loss of contracts, damage to goodwill, failure to realise anticipated savings or for any indirect or consequential loss, whether arising from negligence, breach of contract or otherwise, even if we were aware of the possibility that such loss or damage might be incurred by you.
 
-## 9.4 You shall indemnify and hold us harmless against any losses, costs, liabilities and expenses suffered or incurred by us and/or our affiliates as a result of any breach of these Terms (including any breach of any warranty in these terms).
-
+## 9.4 You shall indemnify and hold us harmless against any losses, costs, liabilities and expenses suffered or incurred by us and/or our affiliates as a result of any breach of these Terms (including any breach of any warranty in these terms)
 `;
 
 export const safePeopleRegistryTermsSection10 = `
 # 10. USE OF THE SAFE PEOPLE REGISTRY AND DISCLAIMERS
 
-## 10.1 The Safe People Registry is provided to you free of charge. We do not guarantee that the Safe People Registry, or any content on it, will always be available, will be uninterrupted or error-free, or that defects will be corrected. Access to the Safe People Registry is permitted on a temporary basis. We may suspend, withdraw, discontinue or change all or any part of the Safe People Registry without notice. We will not be liable to you if for any reason the Safe People Registry is unavailable at any time or for any period. We may update the Safe People Registry and/or change the content on it at any time.
+## 10.1 The Safe People Registry is provided to you free of charge. We do not guarantee that the Safe People Registry, or any content on it, will always be available, will be uninterrupted or error-free, or that defects will be corrected. Access to the Safe People Registry is permitted on atemporary basis. We may suspend, withdraw, discontinue or change all or any part of the Safe People Registry without notice. We will not be liable to you if for any reason the Safe People Registry is unavailable at any time or for any period. We may update the Safe People Registry and/or change the content on it at any time.
 
 ## 10.2 The Safe People Registry may contain inaccuracies or typographical errors. To the fullest extent permitted by applicable law, we make no representations about the reliability, availability, timeliness or accuracy of the content included on the Safe People Registry and are not liable for and take no responsibility for any content or data uploaded by Users to the Safe People Registry.
 
@@ -259,9 +259,7 @@ export const safePeopleRegistryTermsSection11 = `
 
 ### 11.1.2 we suspect your use of the Safe People Registry has been fraudulent or is being conducted in an unauthorised way; or
 
-### 11.1.3 we are required by law or regulation to do so.
-
-We will not be liable to you for the unavailability of the Safe People Registry during such suspension.
+### 11.1.3 we are required by law or regulation to do so. We will not be liable to you for the unavailability of the Safe People Registry during such suspension.
 
 ## 11.2 If you breach any of these Terms, we may immediately do any or all of the following (without limitation and without prejudice to any other right or remedy):
 
@@ -329,8 +327,8 @@ export const safePeopleRegistryTermsSection16 = `
 
 ## 16.2 Should you have any reasons for a complaint, we will endeavour to resolve the issue and avoid any re-occurrence in the future.
 
-## 16.3 You can contact us by clicking [here](https://safepeopleregistry.org/en/support) or by using the following details:
+## 16.3 You can contact us by clicking [here](mailto:enquiries@safepeopleregistry.org) or by using the following details:
+Email address: enquires@safepeopleregistry.org
 
-### Email address: [enquiries@safepeopleregistry.org](enquiries@safepeopleregistry.org)
-
+Terms last updated April 2026
 `;

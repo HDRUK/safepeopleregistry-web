@@ -30,6 +30,10 @@ import {
   safePeopleRegistryConsumerTermsSection8,
   safePeopleRegistryConsumerTermsSection9,
   safePeopleRegistryConsumerTermsSection10,
+  safePeopleRegistryConsumerTermsSection13,
+  safePeopleRegistryConsumerTermsSection14,
+  safePeopleRegistryConsumerTermsSection12,
+  safePeopleRegistryConsumerTermsSection11,
 } from "./consumer/terms";
 
 export const mockedTermsAndConditionsBusiness = {
@@ -183,6 +187,34 @@ export const mockedTermsAndConditionsConsumer = {
     content: (
       <Markdown variant="legal">
         {safePeopleRegistryConsumerTermsSection10}
+      </Markdown>
+    ),
+  },
+  thirdParty: {
+    content: (
+      <Markdown variant="legal">
+        {safePeopleRegistryConsumerTermsSection11}
+      </Markdown>
+    ),
+  },
+  other: {
+    content: (
+      <Markdown variant="legal">
+        {safePeopleRegistryConsumerTermsSection12}
+      </Markdown>
+    ),
+  },
+  law: {
+    content: (
+      <Markdown variant="legal">
+        {safePeopleRegistryConsumerTermsSection13}
+      </Markdown>
+    ),
+  },
+  contact: {
+    content: (
+      <Markdown variant="legal">
+        {safePeopleRegistryConsumerTermsSection14}
       </Markdown>
     ),
   },
