@@ -30,10 +30,10 @@ import {
   safePeopleRegistryConsumerTermsSection8,
   safePeopleRegistryConsumerTermsSection9,
   safePeopleRegistryConsumerTermsSection10,
+  safePeopleRegistryConsumerTermsSection11,
+  safePeopleRegistryConsumerTermsSection12,
   safePeopleRegistryConsumerTermsSection13,
   safePeopleRegistryConsumerTermsSection14,
-  safePeopleRegistryConsumerTermsSection12,
-  safePeopleRegistryConsumerTermsSection11,
 } from "./consumer/terms";
 
 export const mockedTermsAndConditionsBusiness = {
