@@ -30,7 +30,7 @@ export default function SoursdLogo({
     <StyledLogoContainer variant={variant} direction={direction} {...restProps}>
       <Image
         src={logoColor}
-        alt="Safe People Registry"
+        alt={variant === "titled" ? "" : "Safe People Registry"}
         width={size}
         height={size}
         priority
