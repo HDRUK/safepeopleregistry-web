@@ -16,7 +16,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { MouseEvent, useEffect, useState } from "react";
 import HorizontalDrawer from "../../components/HorizontalDrawer";
 import MaskLabel from "../../components/MaskLabel";
@@ -101,7 +101,6 @@ interface NavBarProps {
 export default function NavBar({ loggedIn }: NavBarProps) {
   const t = useTranslations(NAMESPACE_TRANSLATIONS_NAVBAR);
   const router = useRouter();
-  const pathname = usePathname();
   const [storedUser, setUser] = useStore(store => [
     store.getUser(),
     store.setUser,
@@ -189,10 +188,6 @@ export default function NavBar({ loggedIn }: NavBarProps) {
     },
   ];
 
-  console.log({ SoursdLogo, NotificationsMenu, MaskLabel });
-
-  const isHome = pathname === "/";
-
   return (
     <StyledContainer>
       <Box
@@ -212,21 +207,13 @@ export default function NavBar({ loggedIn }: NavBarProps) {
                 gap: 1,
                 flexGrow: 1,
               }}>
-              {isHome ? (
+              <Link href="/">
                 <SoursdLogo
                   variant="titled"
                   direction="horizontal"
                   sx={{ mr: 4 }}
                 />
-              ) : (
-                <Link href="/">
-                  <SoursdLogo
-                    variant="titled"
-                    direction="horizontal"
-                    sx={{ mr: 4 }}
-                  />
-                </Link>
-              )}
+              </Link>
               {renderButtons(left_buttons)}
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
