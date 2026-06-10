@@ -207,7 +207,7 @@ export default function NavBar({ loggedIn }: NavBarProps) {
                 gap: 1,
                 flexGrow: 1,
               }}>
-              <Link href="/">
+              <Link href="/" style={{ textDecoration: "none" }}>
                 <SoursdLogo
                   variant="titled"
                   direction="horizontal"
@@ -251,7 +251,7 @@ export default function NavBar({ loggedIn }: NavBarProps) {
           </div>
           <Box
             sx={{ flexGrow: 1, justifyContent: "flex-end", display: "flex" }}>
-            <Link href="/">
+            <Link href="/" style={{ textDecoration: "none" }}>
               <SoursdLogo size={40} />
             </Link>
           </Box>
