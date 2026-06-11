@@ -207,11 +207,13 @@ export default function NavBar({ loggedIn }: NavBarProps) {
                 gap: 1,
                 flexGrow: 1,
               }}>
-              <SoursdLogo
-                variant="titled"
-                direction="horizontal"
-                sx={{ mr: 4 }}
-              />
+              <Link href="/" style={{ textDecoration: "none" }}>
+                <SoursdLogo
+                  variant="titled"
+                  direction="horizontal"
+                  sx={{ mr: 4 }}
+                />
+              </Link>
               {renderButtons(left_buttons)}
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
@@ -249,7 +251,9 @@ export default function NavBar({ loggedIn }: NavBarProps) {
           </div>
           <Box
             sx={{ flexGrow: 1, justifyContent: "flex-end", display: "flex" }}>
-            <SoursdLogo size={40} />
+            <Link href="/" style={{ textDecoration: "none" }}>
+              <SoursdLogo size={40} />
+            </Link>
           </Box>
         </Box>
         <HorizontalDrawer

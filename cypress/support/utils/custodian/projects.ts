@@ -23,7 +23,10 @@ const goToProjectUsersList = (projectTitle: string = DEFAULT_PROJECT_NAME) => {
   cy.waitForLoadingToFinish();
 
   cy.contains("a", projectTitle).should("be.visible").click();
-  cy.contains("a", "Safe People").should("be.visible").click();
+  cy.get('[data-cy="sub-tabs-navigation"]')
+    .contains("a", "Safe People")
+    .should("be.visible")
+    .click();
   cy.url().should("include", "safe-people");
   cy.contains("button", "Switch to list view").should("be.visible").click();
 };

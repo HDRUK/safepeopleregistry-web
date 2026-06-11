@@ -26,7 +26,10 @@ describe("Projects", () => {
 
     addNewProject(dataProject);
 
-    cy.contains("a", "Safe People").should("be.visible").click();
+    cy.get('[data-cy="sub-tabs-navigation"]')
+      .contains("a", "Safe People")
+      .should("be.visible")
+      .click();
 
     addNewProjectUser(DEFAULT_USER);
 
