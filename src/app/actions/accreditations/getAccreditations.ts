@@ -6,10 +6,10 @@ import { handleJsonResponse } from "@/services/requestHelpers";
 import { AccreditationsResponse } from "@/services/accreditations/types";
 
 export default async (
-  resgitryId: number,
+  registryId: number,
   options: ResponseOptions
 ): Promise<ResponseJson<Paged<AccreditationsResponse>>> => {
-  const response = await getRequest(`/accreditations/${resgitryId}`);
+  const response = await getRequest(`/accreditations/${registryId}`);
 
   return handleJsonResponse(response, options);
 };
