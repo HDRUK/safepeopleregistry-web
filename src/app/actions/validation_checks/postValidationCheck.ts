@@ -7,9 +7,13 @@ import { ValidationCheck } from "@/types/logs";
 import { ResponseOptions, ResponseJson } from "@/types/requests";
 
 export default async (
+  custodianId: number,
   payload: PostValidationCheck,
   options?: ResponseOptions
 ): Promise<ResponseJson<ValidationCheck>> => {
-  const response = await postRequest(`/custodians/validation_checks`, payload);
+  const response = await postRequest(
+    `/custodians/${custodianId}/validation_checks`,
+    payload
+  );
   return handleJsonResponse(response, options);
 };
