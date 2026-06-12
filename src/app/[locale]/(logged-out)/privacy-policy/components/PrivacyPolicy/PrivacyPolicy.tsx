@@ -25,14 +25,14 @@ We have a data protection manager who is responsible for overseeing questions in
 
 Personal data means any information about an individual from which that person can be identified. We may collect, use, store, and transfer different kinds of personal data:
 
-| Category                      | Details                                                                                                                                                                               |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Identity data**             | including first name, last name, job title, employment status, location, career history and similar identifiers                                                                       |
-| **Career and Education data** | such as employment status, professional affiliations, career history, ORDCID IDs and similar information                                                                              |
-| **Contact data**              | such as your email address                                                                                                                                                            |
-| **Communications Data**       | including your communication preferences.                                                                                                                                             |
-| **Technical data**            | such as internet protocol (IP) address, browser type and version and operating system and platform. Please see our cookie policy for further details.                                 |
-| **Image Data**                | including photographed identification and facial representations, this is an optional step to verify individual identity and is completed by a third party with you explicit consent. |
+| Category                       | Details                                                                                                                                                                                          |
+| -----------------------------  | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Identity data**              | including first name, last name, job title, employment status, location, career history and similar identifiers                                                                                  |
+| **Career and Education data**  | such as employment status, professional affiliations, career history, ORDCID IDs and similar information                                                                                         |
+| **Contact data**               | such as your email address                                                                                                                                                                       |
+| **Communications Data**        | including your communication preferences.                                                                                                                                                        |
+| **Technical data**             | such as internet protocol (IP) address, browser type and version and operating system and platform. Please see our cookie policy for further details.                                            |
+| **Identity verification data** | including photographed identification documents and images for verification, this is an optional step to verify individual identity and is completed by a third party with you explicit consent. |
 
 ## How we use your personal data and the purpose for which we use it
 
@@ -54,7 +54,9 @@ You may give us your personal data via a third-party platform such as Eventbrite
 
 ## How we use your personal data and the purpose for which we use it
 
-The Safe People Registry is designed to share (a) a Researcher’s profile data with Research Organisations and Data Custodians; and (b) Research Organisations’ data with Data Custodians. The Safe People Registry does not make any decisions as to whether Researchers and/or Research Organisations are considered ‘safe people’ (as defined in the Five Safes Framework) nor does the Safe People Registry make any decisions regarding the grant of access to sensitive data held on TRE’s and SDEs. The Safe People Registry holds a User’s profile data in a centralised location for convenience purposes only and records the decisions made by Data Custodians. The Safe People Registry does not make any decisions related to User or Organisational data access.
+The Safe People Registry is designed to share (a) a Researcher’s profile information with their Research Organisation and with Data Custodians, and (b) information about Research Organisations with Data Custodians. Data Custodians can view all researcher profiles within the Registry, while Research Organisations can view the profiles of their affiliated users.
+
+The Safe People Registry does not make any decisions as to whether Researchers and/or Research Organisations are considered ‘safe people’ (as defined in the Five Safes Framework) nor does the Safe People Registry make any decisions regarding the grant of access to sensitive data held on TRE’s and SDEs. The Safe People Registry holds a User’s profile data in a centralised location for convenience purposes only and records the decisions made by Data Custodians. The Safe People Registry does not make any decisions related to User or Organisational data access.
 
 In order to create an account and use the Safe People Registry we need to process and share your personal data. You will not be able to use the Safe People Registry without the processing of your personal data.
 
@@ -92,9 +94,9 @@ We may share your data with the following categories of recipients:
 
 Some of our external third-party system providers are based in the United States or other countries outside the UK and EEA so their processing of your personal data will involve a transfer of data. Whenever we transfer your personal data to a country without an adaquacy decision we ensure a similar degree of protection is afforded to that personal data by ensuring at least one of the following safeguards is implemented:
 
-| **Category**                                                            | **Mechanism**                | **Country** |
-| ----------------------------------------------------------------------- | ---------------------------- | ----------- |
-| Contact Data and Communications Preferences which is stored on Hubspot. | Standard Contractual Clauses | USA         |
+| **Category**                                  | **Mechanism**                                        | **Country** |
+| --------------------------------------------- | ---------------------------------------------------- | ----------- |
+| Contact Data and Communications Preferences.  | UK-US data bridge: Data Privacy Framework Principles | USA         |
 
 A copy the relevant mechanism can be provided for your review on request to the contact details above.
 
