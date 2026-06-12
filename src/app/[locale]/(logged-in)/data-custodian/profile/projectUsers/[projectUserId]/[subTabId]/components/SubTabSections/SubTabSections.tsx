@@ -27,6 +27,16 @@ export default function SubTabsSections({
 
   const subTabs = [
     {
+      label: t("custodianOrgInfo"),
+      value: UserSubTabs.CUSTODIAN_ORG_INFO,
+      href: injectParamsIntoPath(
+        routes.profileCustodianUsersCustodianOrgInfo.path,
+        {
+          projectUserId,
+        }
+      ),
+    },
+    {
       label: t("affiliations"),
       value: UserSubTabs.AFFILIATIONS,
       href: injectParamsIntoPath(
@@ -55,16 +65,6 @@ export default function SubTabsSections({
       value: UserSubTabs.TRAINING_ACCREDITATIONS,
       href: injectParamsIntoPath(
         routes.profileCustodianUsersTrainingAccreditations.path,
-        {
-          projectUserId,
-        }
-      ),
-    },
-    {
-      label: t("custodianOrgInfo"),
-      value: UserSubTabs.CUSTODIAN_ORG_INFO,
-      href: injectParamsIntoPath(
-        routes.profileCustodianUsersCustodianOrgInfo.path,
         {
           projectUserId,
         }

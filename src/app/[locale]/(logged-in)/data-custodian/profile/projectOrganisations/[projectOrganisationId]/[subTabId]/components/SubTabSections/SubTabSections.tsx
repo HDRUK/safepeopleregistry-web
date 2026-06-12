@@ -27,6 +27,16 @@ export default function SubTabsSections({
 
   const subTabs = [
     {
+      label: t("organisationsAutomatedFlags"),
+      value: OrganisationsSubTabs.AUTOMATED_FLAGS,
+      href: injectParamsIntoPath(
+        routes.profileCustodianOrganisationsAutomatedFlags.path,
+        {
+          projectOrganisationId,
+        }
+      ),
+    },
+    {
       label: t("organisationsPeople"),
       value: OrganisationsSubTabs.PEOPLE,
       href: injectParamsIntoPath(
@@ -71,16 +81,6 @@ export default function SubTabsSections({
       value: OrganisationsSubTabs.DATA_SECURITY_COMPLIANCE,
       href: injectParamsIntoPath(
         routes.profileCustodianOrganisationsDataSecurityCompliance.path,
-        {
-          projectOrganisationId,
-        }
-      ),
-    },
-    {
-      label: t("organisationsAutomatedFlags"),
-      value: OrganisationsSubTabs.AUTOMATED_FLAGS,
-      href: injectParamsIntoPath(
-        routes.profileCustodianOrganisationsAutomatedFlags.path,
         {
           projectOrganisationId,
         }

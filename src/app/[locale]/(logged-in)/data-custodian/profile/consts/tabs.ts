@@ -23,21 +23,21 @@ enum ProjectsSubTabs {
 }
 
 enum UserSubTabs {
+  CUSTODIAN_ORG_INFO = "custodian_org_info",
   AFFILIATIONS = "affiliations",
   PROJECTS = "projects",
   IDENTITY = "identity",
   TRAINING_ACCREDITATIONS = "training_accreditations",
-  CUSTODIAN_ORG_INFO = "custodian_org_info",
   HISTORY = "history",
 }
 
 enum OrganisationsSubTabs {
+  AUTOMATED_FLAGS = "automated_flags",
   PEOPLE = "people",
   CONTACT_DETAILS = "contact_details",
   DIGITAL_IDENTIFIERS = "digital_identifiers",
   SECTOR_WEBSITE = "sector_website",
   DATA_SECURITY_COMPLIANCE = "data_security_compliance",
-  AUTOMATED_FLAGS = "automated_flags",
 }
 
 type TabStructure = {
