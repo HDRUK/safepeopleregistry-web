@@ -1,3 +1,24 @@
+## [1.35.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.34.0...v1.35.0) (2026-06-17)
+
+### ✨ Features
+
+* **REGISTRY-1847:** Add get involved page (#795) ([4794247](https://github.com/HDRUK/safepeopleregistry-web/commit/479424796418889023e0a2df71fa9138faa3ce28))
+* **REGISTRY-1850:** Add contact page and support menu dropdown (#800) ([e95b8e0](https://github.com/HDRUK/safepeopleregistry-web/commit/e95b8e01548a818546f8431f8436e495f07ddedf))
+* **REGISTRY-2428:** Update page metadata (#806) ([7e4ef27](https://github.com/HDRUK/safepeopleregistry-web/commit/7e4ef2739d2b6f4e7ac97b2389d65257e35366da))
+
+### 🐛 Bug Fixes
+
+* **GAT-8809:** updated semantic pipeline (#798) ([5f83cbb](https://github.com/HDRUK/safepeopleregistry-web/commit/5f83cbb84e99a7dad6fa73d369eea32f68267233)), closes [GAT-8809](undefinedGAT-8809)
+* **REGISTRY-2026:** Clicking the logo should take you to the Home page (#809) ([a7a24f7](https://github.com/HDRUK/safepeopleregistry-web/commit/a7a24f764c246420b64aa787fb6f0476d8ad620e))
+* **REGISTRY-2297:** User/Affiliations | Update text about Affiliation (copy edits) (#805) ([091be64](https://github.com/HDRUK/safepeopleregistry-web/commit/091be64251de6e51590faebf607a32c9dc0ae684))
+* **REGISTRY-2671:** Custodian/ User OR Organisation / Automated flags tab | Move Automated Flags tab to be the first tab (#811) ([c9be085](https://github.com/HDRUK/safepeopleregistry-web/commit/c9be085f4e4495e3c21978c115a4ec22167a72b5))
+* **REGISTRY-2683:** Update privacy notice (#812) ([a034534](https://github.com/HDRUK/safepeopleregistry-web/commit/a0345347ae5d0472054f956f5915702cc53235f8))
+* **REGISTRY-2684:** Update Ts&Cs (#807) ([97bcced](https://github.com/HDRUK/safepeopleregistry-web/commit/97bcced5700659523e01b6b569a8098b76e9bfce))
+* **REGISTRY-2690:** User/Affiliations | Affiliations modal - change help text (#802) ([3353bf1](https://github.com/HDRUK/safepeopleregistry-web/commit/3353bf14664b701199e2e1fc85d32746b3788548))
+* **REGISTRY-2711:** Re-order Custodian tabs (#803) ([95d5227](https://github.com/HDRUK/safepeopleregistry-web/commit/95d52275a0882356bef6e850cec388ddc1ba8b55))
+* **REGISTRY-2791:** Update endpoint for validation checks (#810) ([6a3ea81](https://github.com/HDRUK/safepeopleregistry-web/commit/6a3ea81f406a2730c6cdbc09ceb9e228e6bab924))
+* **REGISTRY-2816:** Uncapitalise the errant A (#801) ([ca51a1f](https://github.com/HDRUK/safepeopleregistry-web/commit/ca51a1fca91ef16b445777ef976333e17ed393f5))
+
 ## [1.34.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.33.0...v1.34.0) (2026-05-29)
 
 ### ✨ Features
