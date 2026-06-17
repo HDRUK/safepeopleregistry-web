@@ -15,7 +15,7 @@ export default function Organisations() {
   const { custodianId, nameRoute } = useStore(state => ({
     custodianId: state.getCustodian()?.id,
     nameRoute:
-      state.getApplication().routes.profileCustodianOrganisationsPeople,
+      state.getApplication().routes.profileCustodianOrganisationsAutomatedFlags,
   }));
 
   const paginatedQueryParams = useStorePaginatedQueryParams();
