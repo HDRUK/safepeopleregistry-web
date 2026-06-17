@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { SITE_NAME } from "@/utils/metadata";
 import { PendingInvite } from "@/consts/application";
 import { UserGroup } from "@/consts/user";
 import { PageBody } from "@/modules";
@@ -7,6 +9,12 @@ import { cookies } from "next/headers";
 import { getMeUnclaimed } from "@/app/actions/auth";
 import { getPendingInvite, putEmailByInvite } from "@/app/actions/users";
 import Register from "./components/Register";
+
+export const metadata: Metadata = {
+  title: `Register | ${SITE_NAME}`,
+  description:
+    "Create your Safe People Registry account to get started with streamlined 'safe people' validations.",
+};
 
 async function Page({
   searchParams,

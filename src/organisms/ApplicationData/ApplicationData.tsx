@@ -121,7 +121,6 @@ export default function ApplicationData({
     setProjectRoles(projectRolesData);
     setCustodian(custodianData);
     setOrganisation(organisationData);
-    setUser(userData);
     setAffiliationsWorkflowTransitions(affiliationsWorkflowTransitionsData);
 
     setHistories({
@@ -134,6 +133,10 @@ export default function ApplicationData({
       professionalRegistrations: professionalRegistrationsData,
     });
   }, []);
+
+  useEffect(() => {
+    if (userData) setUser(userData);
+  }, [userData]);
 
   useEffect(() => {
     if (path) addUrlToHistory(path);

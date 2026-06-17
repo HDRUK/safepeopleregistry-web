@@ -18,11 +18,13 @@ import ProjectsTable from "./ProjectsTable";
 import InvitesFilters from "./InvitesFilters";
 import EmailsTable from "./EmailsTable";
 import EmailsFilters from "./EmailsFilters";
+import MoreQuestions from "./MoreQuestions";
 
 export {
   AffiliationsTable,
   Footer,
   Header,
+  MoreQuestions,
   PageContainer,
   PageGuidance,
   PageSection,

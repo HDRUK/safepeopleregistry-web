@@ -3,12 +3,15 @@ import HowToRegOutlinedIcon from "@mui/icons-material/HowToRegOutlined";
 import { ButtonVariant } from "@/organisms/NavBar/NavBar";
 import { ROUTES } from "@/consts/router";
 import { getLoginUrl } from "@/utils/keycloak";
+import { isLoggedIn } from "@/utils/auth";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 
 const NAMESPACE_TRANSLATIONS = "Homepage";
 
 export default async function AuthButtons() {
+  if (await isLoggedIn()) return null;
+
   const t = await getTranslations(NAMESPACE_TRANSLATIONS);
 
   return (

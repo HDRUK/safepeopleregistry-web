@@ -29,6 +29,9 @@ jest.mock("@/i18n/routing", () => ({
   useRouter: jest.fn(() => ({
     push: jest.fn(),
   })),
+  Link: ({ children, href }: { children: React.ReactNode; href: string }) => (
+    <a href={href}>{children}</a>
+  ),
 }));
 
 jest.mock("@/data/store");
@@ -41,7 +44,7 @@ jest.mock("@/app/actions/auth/getMe", () => ({
 const mockGetMe = getMe as jest.MockedFunction<typeof getMe>;
 const mockUseStore = useStore as jest.MockedFunction<typeof useStore>;
 
-const linksText = ["Home", "About", "Features", "Contact", "Help"];
+const linksText = ["Home", "How it works", "About", "Get involved"];
 
 const renderMobileMenuTest = () => {
   defineMatchMedia(theme.breakpoints.values.xs);

@@ -14,6 +14,18 @@ const ROUTES: Routes = {
   about: {
     path: "/about",
   },
+  faq: {
+    path: "/faq",
+  },
+  glossary: {
+    path: "/glossary",
+  },
+  contact: {
+    path: "/contact",
+  },
+  getInvolved: {
+    path: "/get-involved",
+  },
   profileCustodian: {
     path: "/data-custodian/profile",
     permissions: [UserGroup.CUSTODIANS],

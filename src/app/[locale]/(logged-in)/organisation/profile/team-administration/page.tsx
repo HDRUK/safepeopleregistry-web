@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { SITE_NAME } from "@/utils/metadata";
 import {
   PageBodyContainer,
   PageColumns,
@@ -8,6 +10,12 @@ import {
 import { useTranslations } from "next-intl";
 import Delegates from "../components/Delegates";
 import { PageTabs, TeamAdminPageSubTabs } from "../consts/tabs";
+
+export const metadata: Metadata = {
+  title: `Team Administration | ${SITE_NAME}`,
+  description:
+    "Manage your organisation's team members and their roles on Safe People Registry.",
+};
 
 const NAMESPACE_TRANSLATION = "ProfileOrganisation";
 

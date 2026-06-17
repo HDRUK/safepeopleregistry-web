@@ -267,14 +267,18 @@ export const mockedResearcherAffiliationsGuidance = {
       <Typography mb={2}>
         In the Safe People Registry, individual Users (researchers, innovators)
         are affiliated to their Organisation (e.g. employer, university, or
-        honorary contract holder). To request affiliation, you must add or
-        update a current Organisation and verify your professional email
+        honorary contract holder). To request affiliation confirmation, you must
+        add or update a current Organisation and verify your professional email
         address. Your Organisation will then be asked to confirm your
         affiliation.
       </Typography>
       <Typography mb={2}>
         If your Organisation is not yet registered on Safe People Registry, you
         can invite them to create an account by adding them.
+      </Typography>
+      <Typography mb={2}>
+        Most Data Custodians require a confirmed affiliation between a User and
+        Organisation.
       </Typography>
       <Typography mb={5}>
         Why are we using the term 'User'? In our engagement with Data
