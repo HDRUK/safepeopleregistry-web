@@ -36,16 +36,7 @@ export default function SubTabsSections({
         }
       ),
     },
-    {
-      label: t("organisationsPeople"),
-      value: OrganisationsSubTabs.PEOPLE,
-      href: injectParamsIntoPath(
-        routes.profileCustodianOrganisationsPeople.path,
-        {
-          projectOrganisationId,
-        }
-      ),
-    },
+
     {
       label: t("organisationsContactDetails"),
       value: OrganisationsSubTabs.CONTACT_DETAILS,
@@ -81,6 +72,16 @@ export default function SubTabsSections({
       value: OrganisationsSubTabs.DATA_SECURITY_COMPLIANCE,
       href: injectParamsIntoPath(
         routes.profileCustodianOrganisationsDataSecurityCompliance.path,
+        {
+          projectOrganisationId,
+        }
+      ),
+    },
+    {
+      label: t("organisationsPeople"),
+      value: OrganisationsSubTabs.PEOPLE,
+      href: injectParamsIntoPath(
+        routes.profileCustodianOrganisationsPeople.path,
         {
           projectOrganisationId,
         }

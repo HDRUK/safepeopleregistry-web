@@ -15,7 +15,8 @@ function Users() {
   const tProfile = useTranslations(NAMESPACE_TRANSLATIONS_PROFILE);
   const { custodianId, nameRoute } = useStore(state => ({
     custodianId: state.getCustodian()?.id,
-    nameRoute: state.getApplication().routes.profileCustodianUsersIdentity,
+    nameRoute:
+      state.getApplication().routes.profileCustodianUsersCustodianOrgInfo,
   }));
 
   const paginatedQueryParams = useStorePaginatedQueryParams();

@@ -35,6 +35,7 @@ const hasProjectsTabCustodianUser = () => {
 };
 
 const hasIdentityTabCustodianUser = (user: User) => {
+  cy.clickSubTab("Identity");
   const name = getName(user);
   cy.get(dataCy("page-body")).within(() => {
     cy.contains(name).should("exist");
