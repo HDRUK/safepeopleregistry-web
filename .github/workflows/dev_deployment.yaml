@@ -1,10 +1,10 @@
 name: Build and deploy to DEV
-run-name:  ${{ github.actor }} triggered deploy to DEV pipeline
+run-name: ${{ github.actor }} triggered deploy to DEV pipeline
 
 on:
   push:
     branches:
-      - dev
+      - feat/registry-2826
 
 jobs:
   setup:
@@ -55,5 +55,5 @@ jobs:
     with:
       env: dev
       chart_path: chart/soursd-web/Chart.yaml
-      git_ref: dev
+      git_ref: feat/registry-2826
     secrets: inherit

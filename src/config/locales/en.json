@@ -1959,8 +1959,7 @@
     "daysSince": "{days} days ago",
     "user": {
       "created": {
-        "title": "Account created",
-        "description": "with primary email \"{attributes_email}\"   "
+        "title": "Account created"
       },
       "updated": {
         "title": "Updated their details",
