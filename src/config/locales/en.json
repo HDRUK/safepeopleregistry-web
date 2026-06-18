@@ -1960,7 +1960,7 @@
     "user": {
       "created": {
         "title": "Account created",
-        "description": "with primary email \"{attributes_email}\"   "
+        "description": "The user account was created"
       },
       "updated": {
         "title": "Updated their details",
