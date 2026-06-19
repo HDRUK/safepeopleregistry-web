@@ -3,7 +3,7 @@ import { render, screen } from "@/utils/testUtils";
 import ProjectsSafeOutputsDetails from "./ProjectsSafeOutputsDetails";
 
 const projectDetailsData = mockedProjectDetails({
-  research_outputs: ["http://www.hdruk.ac.uk"],
+  research_outputs: { research_outputs: ["http://www.hdruk.ac.uk"] },
 });
 
 describe("<ProjectsSafeDataDetails />", () => {
@@ -16,6 +16,8 @@ describe("<ProjectsSafeDataDetails />", () => {
   });
 
   it("renders all main fields with correct values", () => {
+    console.log(projectDetailsData);
+
     render(
       <ProjectsSafeOutputsDetails projectDetailsData={projectDetailsData} />
     );

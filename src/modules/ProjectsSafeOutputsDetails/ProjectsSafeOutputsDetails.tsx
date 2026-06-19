@@ -34,7 +34,7 @@ export default function ProjectsSafeOutputsDetails({
           column_id: "research_outputs",
           content: (
             <Typography component="ul">
-              {data?.research_outputs?.map((url: string) => (
+              {data?.research_outputs?.research_outputs?.map((url: string) => (
                 <li key={url}>
                   <a href={url}>{url}</a>
                 </li>
