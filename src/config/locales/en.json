@@ -1960,7 +1960,7 @@
     "user": {
       "created": {
         "title": "Account created",
-        "description": "with primary email \"{attributes_email}\"   "
+        "description": "The user account was created"
       },
       "updated": {
         "title": "Updated their details",
@@ -2393,7 +2393,7 @@
     "questionButton": "Go to our FAQs",
     "helpTitle": "Ask for help",
     "helpDescription": "Something not working as you expect, or a frustrating experience? We want to help.",
-    "helpButton": "Share your feedback",
+    "helpButton": "Get help",
     "getInvolvedTitle": "Get involved",
     "getInvolvedDescription": "Be part of the conversation and help shape the future of the Safe People Registry. You can hear about events, take part in user testing, and get early updates on new features.",
     "getInvolvedButton": "Get involved",

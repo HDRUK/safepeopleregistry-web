@@ -60,13 +60,13 @@ export default function SubTabsSections({
         }
       ),
     },
-    {
-      label: t("history"),
-      value: UserSubTabs.HISTORY,
-      href: injectParamsIntoPath(routes.profileOrganisationUsersHistory.path, {
-        userId,
-      }),
-    },
+    // {
+    //   label: t("history"),
+    //   value: UserSubTabs.HISTORY,
+    //   href: injectParamsIntoPath(routes.profileOrganisationUsersHistory.path, {
+    //     userId,
+    //   }),
+    // },
   ];
 
   return <SubTabs current={subTabId} tabs={subTabs} />;
