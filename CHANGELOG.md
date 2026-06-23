@@ -1,3 +1,15 @@
+## [1.36.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.35.0...v1.36.0) (2026-06-23)
+
+### ✨ Features
+
+* **REGISTRY-2826:** Hide primary email in creation logs (#820) ([aeab013](https://github.com/HDRUK/safepeopleregistry-web/commit/aeab013b2f9b23b98a14337eb837ceae774c2b8a))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-2823:** Update Contact Us page - Share your feedback --> Get help (#814) ([3aff4ff](https://github.com/HDRUK/safepeopleregistry-web/commit/3aff4ffc5e49f702d4f5e9ee58e9132a93c11ea6))
+* **REGISTRY-2825:** Hide Organisations - History tab (for now) (#815) ([5d1e63f](https://github.com/HDRUK/safepeopleregistry-web/commit/5d1e63ff2e5c57f8666fee57a3c75bde0a5a4c2b))
+* **REGISTRY-2827:** Change initial landing for User on Custodian validation screen (#819) ([e4acdd3](https://github.com/HDRUK/safepeopleregistry-web/commit/e4acdd3d7dc2b23106c832382624c882e7d3feed))
+
 ## [1.35.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.34.0...v1.35.0) (2026-06-17)
 
 ### ✨ Features
