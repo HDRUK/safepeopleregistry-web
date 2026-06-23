@@ -16,7 +16,7 @@ export default function ProjectsSafePeople() {
   const { custodianId, projectId, route } = useStore(state => ({
     custodianId: state.getCustodian()?.id,
     projectId: state.getCurrentProject().id,
-    route: state.getApplication().routes.profileCustodianUsersProjects,
+    route: state.getApplication().routes.profileCustodianUsersCustodianOrgInfo,
   }));
 
   const paginatedQueryParams = useStorePaginatedQueryParams();
