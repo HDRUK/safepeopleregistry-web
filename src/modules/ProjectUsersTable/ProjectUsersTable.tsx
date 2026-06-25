@@ -71,11 +71,11 @@ export default function ProjectUsersTable({
         accessorFn: row => getProjectUser(row).project?.title,
       }),
       createDefaultColumn("organisationName", {
-        accessorFn: row => getProjectUser(row).affiliation.organisation,
-        cell: info =>
-          renderOrganisationsNameCell(
-            getProjectUser(info.row.original).affiliation.organisation
-          ),
+        accessorFn: row =>
+          // getProjectOrganisation(row).affiliation?.organisation,
+          (row as CustodianProjectUser)?.custodian_project_organisation
+            ?.model_state?.state?.slug,
+        cell: renderStatusCell,
       }),
       createDefaultColumn("organisationStatus", {
         accessorFn: row => getProjectUser(row),

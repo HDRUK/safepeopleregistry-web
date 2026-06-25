@@ -516,6 +516,7 @@ type CustodianProjectUser = WithModelState<{
   created_at: string;
   updated_at: string;
   project_has_user: ProjectUser;
+  custodian_project_organisation?: CustodianProjectOrganisation;
 }>;
 
 type ProjectSponsorship = WithModelState<{
