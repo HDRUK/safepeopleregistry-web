@@ -15,6 +15,12 @@ const SRO_DELCLARATION_FILE = "/Registry_SRO_Declaration.pdf";
 
 export default function SroDeclaration() {
   const organisation = useStore(state => state.config.organisation);
+  const { user } = useStore(store => ({
+    user: store.getUser(),
+  }));
+
+  const isDelegate = user?.is_delegate === 0;
+
   const t = useTranslations(NAMESPACE_TRANSLATION);
 
   const latestSroFile = organisation?.files
@@ -38,18 +44,19 @@ export default function SroDeclaration() {
           target="_blank">
           {t("downloadTemplate")}
         </Link>
-
-        <FormControlWrapper
-          name="sro_declaration"
-          displayLabel={false}
-          renderField={fieldProps => (
-            <SroDeclarationUploader
-              name="sro_declaration"
-              value={latestSroFile?.id}
-              onChange={fieldProps.onChange}
-            />
-          )}
-        />
+        {isDelegate && (
+          <FormControlWrapper
+            name="sro_declaration"
+            displayLabel={false}
+            renderField={fieldProps => (
+              <SroDeclarationUploader
+                name="sro_declaration"
+                value={latestSroFile?.id}
+                onChange={fieldProps.onChange}
+              />
+            )}
+          />
+        )}
       </Grid>
     </PageSection>
   );

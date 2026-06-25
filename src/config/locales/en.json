@@ -751,6 +751,7 @@
     "arrayAddAnotherButton": "Add Another",
     "keyContactFormTitle": "Senior Responsible Officer (SRO) contact information",
     "keyContactFormDescription": "As a Senior Responsible Officer (SRO), it is required that you have sufficient seniority and relevant responsibility to nominate Delegates from your Organisation to affiliate your employees or students. \n\n\n\n\n\n As an SRO, please provide your individual information here: ",
+    "keyContactFormDescriptionDelegate": "As a Senior Responsible Officer (SRO), it is required that you have sufficient seniority and relevant responsibility to nominate Delegates from your Organisation to affiliate your employees or students. ",
     "departmentName": "Department",
     "departmentNamePlaceholder": "Department Name",
     "departmentNameRequiredInvalid": "Department name is required",
