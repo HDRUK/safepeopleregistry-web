@@ -11,7 +11,6 @@ import {
 } from "../../types/application";
 import {
   renderOrganisationsNameCell,
-  renderOrganisationsStatusCell,
   renderProjectUserNameCell,
   renderStatusCell,
 } from "../../utils/cells";
