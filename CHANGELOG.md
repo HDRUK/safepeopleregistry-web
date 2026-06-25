@@ -1,3 +1,10 @@
+## [1.36.1](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.36.0...v1.36.1) (2026-06-25)
+
+### 🐛 Bug Fixes
+
+* **GAT-8998:** removed args duplication (#826) ([8ce7127](https://github.com/HDRUK/safepeopleregistry-web/commit/8ce7127c9a1fc336c98fa7fed3ce13481e7a227c)), closes [GAT-8998](undefinedGAT-8998)
+* **REGISTRY-2827:** Change initial landing for User on Custodian validation screen (#825) ([a9f34bc](https://github.com/HDRUK/safepeopleregistry-web/commit/a9f34bc3dc5f1d1ceed39030d4508849a07a633f))
+
 ## [1.36.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.35.0...v1.36.0) (2026-06-23)
 
 ### ✨ Features
