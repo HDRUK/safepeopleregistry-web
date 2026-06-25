@@ -61,7 +61,7 @@ export default function NameAndAddress() {
     setUser: state.setUser,
   }));
 
-  const isDelegate = user?.is_delegate === 0;
+  const isDelegate = user?.is_delegate === 1;
 
   const {
     isError,
@@ -271,7 +271,7 @@ export default function NameAndAddress() {
                   <FormControlWrapper
                     name="sro_profile_uri"
                     renderField={fieldProps =>
-                      isDelegate ? (
+                      !isDelegate ? (
                         <TextField {...fieldProps} />
                       ) : (
                         <Typography gutterBottom>{fieldProps.value}</Typography>

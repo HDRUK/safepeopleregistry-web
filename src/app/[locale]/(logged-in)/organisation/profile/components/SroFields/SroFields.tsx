@@ -17,13 +17,13 @@ export default function SroFields() {
     user: state.getUser(),
   }));
 
-  const isDelegate = user?.is_delegate === 0;
+  const isDelegate = user?.is_delegate === 1;
 
   const t = useTranslations(NAMESPACE_TRANSLATION);
 
   return (
     <PageSection>
-      {isDelegate ? (
+      {!isDelegate ? (
         <FormSection
           heading={t("keyContactFormTitle")}
           description={<Markdown>{t("keyContactFormDescription")}</Markdown>}>

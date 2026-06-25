@@ -19,7 +19,7 @@ export default function SroDeclaration() {
     user: store.getUser(),
   }));
 
-  const isDelegate = user?.is_delegate === 0;
+  const isDelegate = user?.is_delegate === 1;
 
   const t = useTranslations(NAMESPACE_TRANSLATION);
 
@@ -44,7 +44,7 @@ export default function SroDeclaration() {
           target="_blank">
           {t("downloadTemplate")}
         </Link>
-        {isDelegate && (
+        {!isDelegate && (
           <FormControlWrapper
             name="sro_declaration"
             displayLabel={false}
