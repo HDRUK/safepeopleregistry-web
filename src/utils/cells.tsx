@@ -13,6 +13,7 @@ import SelectRole from "../components/SelectRole";
 import { FileType } from "../consts/files";
 import { PrimaryContactIcon } from "../consts/icons";
 import {
+  CustodianProjectUser,
   CustodianUser,
   File,
   Organisation,
@@ -246,7 +247,10 @@ const renderSelectRoleCell = (
 };
 
 const renderStatusCell = (
-  info: CellContext<User | ProjectUser | Organisation, unknown>
+  info: CellContext<
+    User | ProjectUser | Organisation | CustodianProjectUser,
+    unknown
+  >
 ) => <ChipStatus status={info.getValue() as Status} />;
 
 export {
