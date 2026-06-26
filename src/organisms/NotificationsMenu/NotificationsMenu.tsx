@@ -20,9 +20,9 @@ import { NotificationPutType } from "../../services/notifications/types";
 import { Notification } from "../../types/notifications";
 import { formatDBDateTime } from "../../utils/date";
 import { formatNotificationType } from "../../utils/notifications";
-import { NotificationModal } from "../NotifcationModal";
+import { NotificationModal } from "../NotificationModal";
 import useGetNotificationsCount from "./hooks/useGetNotificationCounts";
-import useGetNotifcations from "./hooks/useGetNotifications";
+import useGetNotifications from "./hooks/useGetNotifications";
 import usePutNotification from "./hooks/usePutNotification";
 import { StyledMenuItem } from "./NotificationsMenu.styles";
 
@@ -48,7 +48,7 @@ export default function NotificationsMenu() {
     hasNextPage: hasNextPageNotifications,
     isFetching: isFetchingNotifications,
     isFetchingNextPage: isFetchingNextPageNotifications,
-  } = useGetNotifcations(user?.id as number);
+  } = useGetNotifications(user?.id as number);
 
   const isFirstLoad = useRef(true);
   useEffect(() => {
