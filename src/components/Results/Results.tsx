@@ -21,9 +21,6 @@ export default function Results({
   pagination,
   ...restProps
 }: ResultsProps) {
-  console.log(queryState, "queryState");
-  cons;
-
   return (
     <Box
       {...restProps}
