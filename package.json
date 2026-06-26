@@ -125,7 +125,7 @@
     "next-router-mock": "^0.9.13",
     "prettier": "^3.2.5",
     "semantic-release": "^25.0.5",
-    "storybook": "^10.3.3",
+    "storybook": "^10.4.6",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   },
