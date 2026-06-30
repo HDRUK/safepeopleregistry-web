@@ -17,7 +17,7 @@ import { getUserQuery, putUserQuery } from "@/services/users";
 import { AddressFields } from "@/types/application";
 import { KeyContactFormValues } from "@/types/form";
 import { pick } from "@/utils/json";
-import { Grid, TextField } from "@mui/material";
+import { Grid, TextField, Typography } from "@mui/material";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -60,6 +60,8 @@ export default function NameAndAddress() {
     user: state.getUser(),
     setUser: state.setUser,
   }));
+
+  const isDelegate = user?.is_delegate === 1;
 
   const {
     isError,
@@ -268,7 +270,13 @@ export default function NameAndAddress() {
                 <Grid size={{ xs: 12 }}>
                   <FormControlWrapper
                     name="sro_profile_uri"
-                    renderField={fieldProps => <TextField {...fieldProps} />}
+                    renderField={fieldProps =>
+                      !isDelegate ? (
+                        <TextField {...fieldProps} />
+                      ) : (
+                        <Typography gutterBottom>{fieldProps.value}</Typography>
+                      )
+                    }
                     description={tForm("sroProfileUriDescription")}
                   />
                 </Grid>

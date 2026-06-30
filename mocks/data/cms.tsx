@@ -4,9 +4,17 @@ import { ReactNode } from "react";
 
 export const mockedChristmasBannerContent = () => (
   <>
-    Please note that the HDR UK Technology Team are on reduced hours from Dec 20
-    - January 3, and will be unable to respond to support requests during this
-    time.
+    We wiped this pre-production test site of its data on the week of June 30.
+    You will need to re-register an account to continue testing this site. If
+    you contacted us previously, you should receive an email within 24 hours
+    inviting you or your team back onto the system. Otherwise, if you'd like to
+    be re-invited back onto this test site as a Data Custodian, please email us
+    at{" "}
+    <a href="mailto:enquiries@safepeopleregistry.org">
+      enquiries@safepeopleregistry.org
+    </a>{" "}
+    with the email address of an administrator of your Custodian account. Once
+    invited, they can invite the rest of the team.
   </>
 );
 
@@ -590,6 +598,8 @@ export const mockedOrganisationProfileGuidance: TabGuidance = {
 
           <ul style={{ marginBottom: "1rem", paddingLeft: "1.25rem" }}>
             <li>Affiliating a User, and</li>
+            <li>Adding or updating profile information</li>
+            <li>Adding or removing other Delegates</li>
             <li>Accepting the Safe People Registry's Terms and Conditions</li>
           </ul>
         </>
