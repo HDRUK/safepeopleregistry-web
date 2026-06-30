@@ -438,6 +438,7 @@
     "manageDelegates": "Manage Delegates",
     "delegateAdminDescription": "The SRO can invite Delegates to administer the Organisation account. Delegates perform the day-to-day affiliation of Users, as well as invite other Delegates. \n\n A Delegate could be a Human Resources (HR) representative, Information Governance (IG) representative e.g. Data Protection Officer (DPO), Contracts representative or Legal representative. \n\n You can invite Delegate to register for a Safe People Registry account by adding them below.",
     "delegateAdminDescriptionDelegate": "As a Delegate for your Organisation, you can view all other Delegates.",
+    "adminTeamDescription": "You can invite Delegates to administer the Organisation account. Delegates perform the day-to-day tasks of: User affiliation, editing Organisation profile details, and adding/removing other Delegates. \n\n A Delegate could be a Human Resources (HR) representative, Information Governance (IG) representative e.g. Data Protection Officer (DPO), Contracts representative or Legal representative. \n\n You can invite Delegate to register for a Safe People Registry account by adding them below.",
     "userAdmin": "Users",
     "teamAdmin": "Team",
     "home": "Home",
