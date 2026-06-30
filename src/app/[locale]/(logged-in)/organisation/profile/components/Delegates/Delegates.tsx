@@ -13,8 +13,7 @@ import { Typography } from "@mui/material";
 const NAMESPACE_TRANSLATION_PROFILE = "ProfileOrganisation";
 
 export default function Delegates() {
-  const { user, organisation } = useStore(state => ({
-    user: state.getUser(),
+  const { organisation } = useStore(state => ({
     organisation: state.config.organisation,
   }));
 
