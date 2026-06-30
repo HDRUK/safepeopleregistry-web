@@ -1,7 +1,6 @@
 "use client";
 
 import LoadingWrapper from "@/components/LoadingWrapper";
-import Markdown from "@/components/Markdown";
 import { DEFAULT_STALE_TIME } from "@/consts/requests";
 import { useStore } from "@/data/store";
 import { PageBody } from "@/modules";
@@ -9,12 +8,12 @@ import { getOrganisationDelegatesQuery } from "@/services/organisations";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import DelegateTable from "../DelegateTable";
+import { Typography } from "@mui/material";
 
 const NAMESPACE_TRANSLATION_PROFILE = "ProfileOrganisation";
 
 export default function Delegates() {
-  const { user, organisation } = useStore(state => ({
-    user: state.getUser(),
+  const { organisation } = useStore(state => ({
     organisation: state.config.organisation,
   }));
 
@@ -32,11 +31,7 @@ export default function Delegates() {
     <LoadingWrapper variant="basic" loading={queryState.isLoading}>
       <PageBody
         description={
-          <Markdown>
-            {user?.is_delegate === 0
-              ? tProfile("delegateAdminDescription")
-              : tProfile("delegateAdminDescriptionDelegate")}
-          </Markdown>
+          <Typography>{tProfile("adminTeamDescription")}</Typography>
         }>
         <DelegateTable {...queryState} />
       </PageBody>

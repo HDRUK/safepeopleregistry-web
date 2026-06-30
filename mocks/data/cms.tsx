@@ -590,6 +590,8 @@ export const mockedOrganisationProfileGuidance: TabGuidance = {
 
           <ul style={{ marginBottom: "1rem", paddingLeft: "1.25rem" }}>
             <li>Affiliating a User, and</li>
+            <li>Adding or updating profile information</li>
+            <li>Adding or removing other Delegates</li>
             <li>Accepting the Safe People Registry's Terms and Conditions</li>
           </ul>
         </>
