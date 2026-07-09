@@ -167,7 +167,7 @@ const hasAddManualChecksForOrganisationConfigurationManualChecks = () => {
     .within(() => {
       cy.contains("button", "Add manual check").click();
     });
-  cy.contains("h3", "Add User manual check").should("exist");
+  cy.contains("h3", "Add Organisation manual check").should("exist");
   cy.contains("label", "Description").should("exist");
   cy.contains("button", "Cancel").should("exist");
   cy.get("#text").type(text);
