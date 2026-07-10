@@ -1,3 +1,18 @@
+## [1.37.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.36.1...v1.37.0) (2026-07-10)
+
+### ✨ Features
+
+* **REGISTRY-1806:** Organisation/Profile/Sector, size and website | Add "Micro (less than 10 Employees) (#831) ([76d2712](https://github.com/HDRUK/safepeopleregistry-web/commit/76d2712a9558e592a59275ea49bba5248da9af6e))
+
+### 🐛 Bug Fixes
+
+* **GAT-9056:** added pipeline for automated Jira release to the registry apps (#830) ([563d567](https://github.com/HDRUK/safepeopleregistry-web/commit/563d5672c4dca5c5349bb3c78ca599afc50b4c10)), closes [GAT-9056](undefinedGAT-9056)
+* **REGISTRY-0000:** Don't show NotificationModal when it doesn't have new-old pairs. (#833) ([bc5b708](https://github.com/HDRUK/safepeopleregistry-web/commit/bc5b7082ce7ac4f00c22e342115cccf668cd4073))
+* **REGISTRY-1240:** Organisation | Update Delegate view of Organisation profile to be read-only (#827) ([155d9cd](https://github.com/HDRUK/safepeopleregistry-web/commit/155d9cdea51f352db73285b9c4f36aeead1d6120)), closes [Delegate](undefinedgate)
+* **REGISTRY-2776:** Fix the column accessor for organisation status in projectUser table (#829) ([3e742f5](https://github.com/HDRUK/safepeopleregistry-web/commit/3e742f5ed4a7c242d12d46c196e9d1c9e0498956))
+* **REGISTRY-2810:** Banner on pre-prod ONLY leading up to June 30th. (#835) ([3663f22](https://github.com/HDRUK/safepeopleregistry-web/commit/3663f2210a003e7ed0d9b9939a23a61e283e4237))
+* **REGISTRY-2841:** Update Organisation text for Delegate & SRO Views (#834) ([d55e903](https://github.com/HDRUK/safepeopleregistry-web/commit/d55e903adac402cb19324566dc6ec8564b0fff22)), closes [Delegate](undefinedgate)
+
 ## [1.36.1](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.36.0...v1.36.1) (2026-06-25)
 
 ### 🐛 Bug Fixes
