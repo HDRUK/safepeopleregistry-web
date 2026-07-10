@@ -6,7 +6,7 @@ import Markdown from "@/components/Markdown";
 import SelectDepartments from "@/components/SelectDepartments";
 import { useStore } from "@/data/store";
 import { PageSection } from "@/modules";
-import { Grid, TextField } from "@mui/material";
+import { Grid, TextField, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 
 const NAMESPACE_TRANSLATION = "Form";
@@ -17,11 +17,13 @@ export default function SroFields() {
     user: state.getUser(),
   }));
 
+  const isDelegate = user?.is_delegate === 1;
+
   const t = useTranslations(NAMESPACE_TRANSLATION);
 
   return (
     <PageSection>
-      {user?.is_delegate === 0 && (
+      {!isDelegate ? (
         <FormSection
           heading={t("keyContactFormTitle")}
           description={<Markdown>{t("keyContactFormDescription")}</Markdown>}>
@@ -64,6 +66,61 @@ export default function SroFields() {
               <FormControlWrapper
                 name="email"
                 renderField={fieldProps => <TextField {...fieldProps} />}
+              />
+            </Grid>
+          </Grid>
+        </FormSection>
+      ) : (
+        <FormSection
+          heading={t("keyContactFormTitle")}
+          description={
+            <Markdown>{t("keyContactFormDescriptionDelegate")}</Markdown>
+          }>
+          <Grid container rowSpacing={3}>
+            <Grid size={{ xs: 12 }}>
+              <FormControlWrapper
+                name="first_name"
+                renderField={fieldProps => (
+                  <Typography>{fieldProps.value}</Typography>
+                )}
+              />
+            </Grid>
+
+            <Grid size={{ xs: 12 }}>
+              <FormControlWrapper
+                name="last_name"
+                renderField={fieldProps => (
+                  <Typography>{fieldProps.value}</Typography>
+                )}
+              />
+            </Grid>
+
+            <Grid size={{ xs: 12 }}>
+              <FormControlWrapper
+                name="department"
+                renderField={fieldProps => (
+                  <Typography>
+                    {organisation?.departments?.find(
+                      department => department.id === fieldProps.value
+                    )?.name || " "}
+                  </Typography>
+                )}
+              />
+            </Grid>
+            <Grid size={{ xs: 12 }}>
+              <FormControlWrapper
+                name="role"
+                renderField={fieldProps => (
+                  <Typography>{fieldProps.value}</Typography>
+                )}
+              />
+            </Grid>
+            <Grid size={{ xs: 12 }}>
+              <FormControlWrapper
+                name="email"
+                renderField={fieldProps => (
+                  <Typography>{fieldProps.value}</Typography>
+                )}
               />
             </Grid>
           </Grid>

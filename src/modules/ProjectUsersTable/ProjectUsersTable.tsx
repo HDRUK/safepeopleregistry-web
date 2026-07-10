@@ -11,7 +11,6 @@ import {
 } from "../../types/application";
 import {
   renderOrganisationsNameCell,
-  renderOrganisationsStatusCell,
   renderProjectUserNameCell,
   renderStatusCell,
 } from "../../utils/cells";
@@ -78,9 +77,10 @@ export default function ProjectUsersTable({
           ),
       }),
       createDefaultColumn("organisationStatus", {
-        accessorFn: row => getProjectUser(row),
-        cell: info =>
-          renderOrganisationsStatusCell(getProjectUser(info.row.original)),
+        accessorFn: row =>
+          (row as CustodianProjectUser)?.custodian_project_organisation
+            ?.model_state?.state?.slug,
+        cell: renderStatusCell,
       }),
       createDefaultColumn("affiliationStatus", {
         accessorFn: row =>

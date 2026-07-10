@@ -13,6 +13,7 @@ const VALIDATION_CHARITY_ID = /^(\d{6,7}|SC\d{6}|NI\d{6})$/;
 const VALIDATION_INTEGRATION_ID = /^[A-Za-z0-9]{40}$/;
 
 const ORGANISATION_SIZE_OPTIONS = [
+  { value: 4, label: "Micro (Less than 10 Employees)" },
   { value: 1, label: "Small (10 - 49 Employees)" },
   { value: 2, label: "Medium (50 - 249 Employees)" },
   { value: 3, label: "Large (250 or more Employees)" },
