@@ -1240,6 +1240,29 @@
     "cvUploaded": "CV Uploaded",
     "downloadCv": "Download CV"
   },
+  "AccreditedResearcherRegistrations": {
+    "accreditationTitle": "Accredited Researcher Registrations",
+    "publicRegisterLink": "View the public register of accredited researchers",
+    "noResultsMessage": "You currently have no accredited researcher registrations",
+    "buttonText": "Add researcher accreditation",
+    "editAccreditation": "Edit researcher accreditation",
+    "addAccreditation": "Add researcher accreditation",
+    "errorDeleteMessage": "There was an error deleting your accredited researcher registration entry",
+    "successDeleteMessage": "Your training accredited researcher registration entry was successfully deleted"
+  },
+  "AccreditedResearcherRegistrationForm": {
+    "associatedOrganisationName": "Associated organisation name",
+    "id": "ID",
+    "issueDate": "Issue date",
+    "expiryDate": "Expiry date",
+    "cancel": "Cancel",
+    "requiredName": "Associated organisation name is required",
+    "requiredId": "ID is required",
+    "requiredIssueDate": "Issue date is required",
+    "requiredExpiryDate": "Expiry date is required",
+    "issueDateInvalid": "Issue date must be in the past",
+    "expiryDateInvalid": "Expiry date must be after the issue date"
+  },
   "ProfileCompleteStatus": {
     "profileComplete": "Profile complete",
     "uniqueIdPopup": "Your unique id is used by Data Custodians to identify who you are.",
