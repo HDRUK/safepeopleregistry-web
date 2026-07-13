@@ -19,6 +19,7 @@ import {
   PageSection,
 } from "@/modules";
 import ProfessionalRegistrations from "@/modules/ProfessionalRegistrations";
+import AccreditedResearcherRegs from "@/organisms/AccreditedResearcherRegs/AccreditedResearcherRegs";
 import Training from "@/organisms/Training";
 import { getUserQuery, putUserQuery } from "@/services/users";
 import { EntityType } from "@/types/api";
@@ -101,6 +102,15 @@ export default function Trainings() {
                     user={userData?.data}
                     setHistories={setHistories}
                     getHistories={getHistories}
+                  />
+                </PageSection>
+                <PageSection>
+                  <AccreditedResearcherRegs
+                    variant={EntityType.USER}
+                    user={userData?.data}
+                    setHistories={setHistories}
+                    getHistories={getHistories}
+                    registryId={user.registry_id}
                   />
                 </PageSection>
                 <PageSection>
