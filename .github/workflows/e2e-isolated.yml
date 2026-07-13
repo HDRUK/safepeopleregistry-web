@@ -302,7 +302,7 @@ jobs:
           repository: HDRUK/safepeopleregistry-api
           path: safepeopleregistry-api
           token: ${{ steps.generate-deployment-token.outputs.token }}
-          ref: "00bc00acef38e79b09fda0bdff14852c27924b71"
+          ref: "dfff62bbe33afceef9c57f435c460bfae7c6ae80"
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
