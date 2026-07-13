@@ -344,6 +344,14 @@ interface ResearcherAccreditation {
   awarded_locale: string;
 }
 
+interface Accreditation {
+  id: number;
+  associated_organisation_name: string;
+  id_string: string;
+  issue_date: string;
+  expiry_date: string;
+}
+
 interface ResearcherTraining {
   awarded_at: string;
   provider: string;
@@ -611,6 +619,7 @@ export type {
   ProjectRole,
   ProjectUser,
   ResearcherAccreditation,
+  Accreditation,
   ResearcherAffiliation,
   ResearcherEducation,
   ResearcherEmployment,
