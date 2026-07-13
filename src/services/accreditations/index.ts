@@ -1,3 +1,11 @@
-import getAccreditationsQuery from "@/services/accreditations/getAccreditationsQuery";
+import getAccreditationsQuery from "./getAccreditationsQuery";
+import putAccreditationsQuery from "./putAccreditationsQuery";
+import deleteAccreditationsQuery from "./deleteAccreditationsQuery";
+import postAccreditationsQuery from "./postAccreditationsQuery";
 
-export { getAccreditationsQuery };
+export {
+  getAccreditationsQuery,
+  putAccreditationsQuery,
+  deleteAccreditationsQuery,
+  postAccreditationsQuery,
+};
