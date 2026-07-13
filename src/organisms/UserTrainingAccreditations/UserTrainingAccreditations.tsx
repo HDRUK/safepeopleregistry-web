@@ -20,7 +20,6 @@ export default function UserTrainingAccreditations({
       professionalRegistrations:
         state.config.histories?.professionalRegistrations || [],
     }));
-  console.log(user?.registry_id, "user?.registry_id");
   return (
     <>
       <PageSection>
