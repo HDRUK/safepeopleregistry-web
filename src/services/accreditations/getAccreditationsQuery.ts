@@ -18,5 +18,5 @@ export default function getAccreditationsQuery(
         ...options?.responseOptions,
       }),
     ...options,
-  } as UseQueryOptions<ReturnType<typeof getAccreditations>>;
+  } as UseQueryOptions<Awaited<ReturnType<typeof getAccreditations>>>;
 }
