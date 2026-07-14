@@ -237,7 +237,7 @@ jobs:
           key: ${{ runner.os }}-keycloak-sql-v1
 
       - name: Download Keycloak SQL file
-        # if: steps.cache-keycloak-sql.outputs.cache-hit != 'true'
+        if: steps.cache-keycloak-sql.outputs.cache-hit != 'true'
         run: |
           gcloud storage cp gs://hdrregistrypostgresquery/keycloak.sql ./keycloak.sql
 
@@ -389,9 +389,9 @@ jobs:
           browser: chrome
           headless: true
 
-      - name: Upload Cypress video
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: cypress-video
-          path: cypress/videos
+      # - name: Upload Cypress video
+      #   uses: actions/upload-artifact@v4
+      #   if: always()
+      #   with:
+      #     name: cypress-video
+      #     path: cypress/videos
