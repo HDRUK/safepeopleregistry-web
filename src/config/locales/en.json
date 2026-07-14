@@ -1260,7 +1260,7 @@
     "getUserError": "Could not get the user",
     "getPermissionsError": "Could not get a list of all permissions",
     "updatePermissionsError": "Could not update the permissions",
-    "updateOrganisationPermissionsError": "Could not update the orgnisations permissions",
+    "updateOrganisationPermissionsError": "Could not update the organisations permissions",
     "loading": "Loading page"
   },
   "Users": {

@@ -244,7 +244,7 @@ export default function ValidationChecks() {
           rightButton={
             isAdmin && (
               <AddNewValidationCheck
-                title={t("userAddTitle")}
+                title={t("orgAddTitle")}
                 onSubmit={handleAddOrganisationCheck}
               />
             )
