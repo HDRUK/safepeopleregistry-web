@@ -1247,6 +1247,7 @@
     "buttonText": "Add researcher accreditation",
     "editAccreditation": "Edit researcher accreditation",
     "addAccreditation": "Add researcher accreditation",
+    "postAccreditationSuccess": "Research accreditation added successfully",
     "errorDeleteMessage": "There was an error deleting your accredited researcher registration entry",
     "successDeleteMessage": "Your training accredited researcher registration entry was successfully deleted"
   },

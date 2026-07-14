@@ -71,12 +71,10 @@ export default function AccreditedResearcherRegs({
     useMutation(postAccreditationsQuery(registryId));
 
   const { mutateAsync: mutateUpdateAsync, ...putAccreditationsQueryState } =
-    useMutation(putAccreditationsQuery(selectedAccreditation?.id));
+    useMutation(putAccreditationsQuery(registryId));
 
   const { mutateAsync: mutateDeleteAsync, ...deleteAccreditationsQueryState } =
-    useMutation(
-      deleteAccreditationsQuery({ id: selectedAccreditation?.id, registryId })
-    );
+    useMutation(deleteAccreditationsQuery(registryId));
 
   const onSubmit = useCallback(
     async (accreditation: PostAccreditationsPayload) => {
