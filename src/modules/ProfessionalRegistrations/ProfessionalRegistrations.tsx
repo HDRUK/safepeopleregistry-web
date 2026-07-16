@@ -269,7 +269,7 @@ export default function ProfessionalRegistrations({
         </Button>
       )}
 
-      {variant === EntityType.CUSTODIAN && (
+      {/* {variant === EntityType.CUSTODIAN && (
         <>
           <Box
             sx={{
@@ -322,7 +322,7 @@ export default function ProfessionalRegistrations({
             <Typography>{tProfile("userDeclarationCheckboxLabel")}</Typography>
           </Box>
         </>
-      )}
+      )} */}
     </>
   );
 }

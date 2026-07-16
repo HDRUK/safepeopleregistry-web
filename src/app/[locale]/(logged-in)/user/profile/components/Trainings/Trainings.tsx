@@ -123,7 +123,7 @@ export default function Trainings() {
                   />
                 </PageSection>
 
-                <Box sx={{ mt: 1, maxWidth: "50%" }}>
+                {/* <Box sx={{ mt: 1, maxWidth: "50%" }}>
                   <FormControlCheckbox
                     name="uksa_registered"
                     label={tProfile("accreditedResearcherCheckboxLabel")}
@@ -137,9 +137,9 @@ export default function Trainings() {
                       </Link>
                     }
                   />
-                </Box>
+                </Box> */}
 
-                <Box sx={{ mt: 1, maxWidth: "50%" }}>
+                {/* <Box sx={{ mt: 1, maxWidth: "50%" }}>
                   <FormControlCheckbox
                     name="declaration_signed"
                     label={tProfile("userDeclarationCheckboxLabel")}
@@ -153,7 +153,7 @@ export default function Trainings() {
                       </Link>
                     }
                   />
-                </Box>
+                </Box> */}
                 <Box
                   sx={{ display: "flex", justifyContent: "flex-end", mt: 3 }}>
                   <ProfileNavigationFooter
