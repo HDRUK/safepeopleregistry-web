@@ -10,9 +10,8 @@ import { useStore } from "@/data/store";
 import { PostAccreditationsPayload } from "@/services/accreditations/types";
 import { Accreditation } from "@/types/application";
 import { formatDBDateTime } from "@/utils/date";
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Grid } from "@mui/material";
 import dayjs from "dayjs";
-import Grid from "node_modules/@mui/material/esm/Grid/Grid";
 import { useMemo } from "react";
 import { useTranslations } from "next-intl";
 
