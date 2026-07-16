@@ -59,7 +59,7 @@ describe("<AccreditatedResearchRegs />", () => {
       renderTrainingComponent();
 
       const addButton = screen.getByRole("button", {
-        name: /add accreditated research registration/i,
+        name: /add researcher accreditation/i,
       });
       fireEvent.click(addButton);
 
