@@ -1,3 +1,5 @@
+"use client";
+
 import ButtonSave from "@/components/ButtonSave";
 import DateInput from "@/components/DateInput/DateInput";
 import Form from "@/components/Form";
@@ -12,6 +14,7 @@ import { Button, TextField } from "@mui/material";
 import dayjs from "dayjs";
 import Grid from "node_modules/@mui/material/esm/Grid/Grid";
 import { useMemo } from "react";
+import { useTranslations } from "next-intl";
 
 interface AccreditationFormValues {
   associated_organisation_name: string | null;
@@ -27,25 +30,27 @@ interface AccreditationFormProps {
   initialValues?: Accreditation;
 }
 
+const NAMESPACE_TRANSLATION_ACCREDITATIONS_FORM =
+  "AccreditedResearcherRegistrationsForm";
+
 export default function AccreditationForm({
   onSubmit,
   isPending,
   onCancel,
   initialValues,
 }: AccreditationFormProps) {
+  const t = useTranslations(NAMESPACE_TRANSLATION_ACCREDITATIONS_FORM);
   const [user, setUser] = useStore(store => [store.config.user, store.setUser]);
 
   const schema = useMemo(
     () =>
       yup.object().shape({
-        associated_organisation_name: yup
-          .string()
-          .required("Associated organisation name is required"),
-        id_string: yup.string().required("ID string is required"),
+        associated_organisation_name: yup.string().required(t("requiredName")),
+        id_string: yup.string().required(t("requiredId")),
         issue_date: yup
           .string()
-          .required("Issue date is required")
-          .test("is-past", "Issue date must be in the past", value => {
+          .required(t("requiredIssueDate"))
+          .test("is-past", t("issueDateInvalid"), value => {
             return (
               dayjs(value).isBefore(dayjs()) ||
               dayjs(value).isSame(dayjs(), "day")
@@ -53,16 +58,12 @@ export default function AccreditationForm({
           }),
         expiry_date: yup
           .string()
-          .required("Expiry date is required")
-          .test(
-            "after-awarded",
-            "Expiry date must be after issue date",
-            (value, context) => {
-              const { issue_date } = context.parent;
-              return dayjs(value).isAfter(dayjs(issue_date));
-            }
-          )
-          .test("is-future", "Expiry date must be in the future", value => {
+          .required(t("requiredExpiryDate"))
+          .test("after-awarded", t("expiryDateInvalid"), (value, context) => {
+            const { issue_date } = context.parent;
+            return dayjs(value).isAfter(dayjs(issue_date));
+          })
+          .test("is-future", t("futureRequiredExpiryDate"), value => {
             return dayjs(value).isAfter(dayjs());
           }),
       }),
@@ -100,35 +101,35 @@ export default function AccreditationForm({
         <Grid size={{ xs: 12 }} key="associated_organisation_name">
           <FormControl
             name="associated_organisation_name"
-            label={"Associated Organisation Name"}
+            label={t("associatedOrganisationName")}
             renderField={props => <TextField {...props} />}
           />
         </Grid>
         <Grid size={{ xs: 12 }} key="id_string">
           <FormControl
             name="id_string"
-            label={"ID"}
+            label={t("id")}
             renderField={props => <TextField {...props} />}
           />
         </Grid>
         <Grid size={{ xs: 7 }} key="issue_date">
           <FormControl
             name="issue_date"
-            label={"Issue Date"}
+            label={t("issueDate")}
             renderField={props => <DateInput {...props} />}
           />
         </Grid>
         <Grid size={{ xs: 7 }} key="expiry_date">
           <FormControl
             name="expiry_date"
-            label={"Expiry Date"}
+            label={t("expiryDate")}
             renderField={props => <DateInput {...props} />}
           />
         </Grid>
       </Grid>
       <FormActions sx={{ display: "flex", justifyContent: "space-between" }}>
         <Button onClick={onCancel} variant="outlined">
-          Cancel
+          {t("cancel")}
         </Button>
         <ButtonSave type="submit" disabled={isPending} />
       </FormActions>

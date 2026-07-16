@@ -45,7 +45,8 @@ interface AccreditationsProps {
   getHistories?: () => StoreUserHistories | undefined;
 }
 
-const NAMESPACE_TRANSLATION_TRAINING = "AccreditedResearcherRegistrations";
+const NAMESPACE_TRANSLATION_ACCREDITATIONS =
+  "AccreditedResearcherRegistrations";
 
 export default function AccreditedResearcherRegs({
   variant,
@@ -57,7 +58,7 @@ export default function AccreditedResearcherRegs({
   const [selectedAccreditation, setSelectedAccreditation] = useState<
     Accreditation | undefined
   >(undefined);
-  const t = useTranslations(NAMESPACE_TRANSLATION_TRAINING);
+  const t = useTranslations(NAMESPACE_TRANSLATION_ACCREDITATIONS);
 
   const {
     data: accreditationsData,
@@ -131,7 +132,7 @@ export default function AccreditedResearcherRegs({
             onClick={() => handleOpenModal(accreditation)}
             sx={{ color: "secondary.main" }}
             icon={<CreateOutlinedIcon sx={{ color: "secondary.main" }} />}>
-            View or Edit
+            {t("viewOrEditAccreditation")}
           </ActionMenuItem>
 
           <ActionMenuItem
@@ -140,7 +141,7 @@ export default function AccreditedResearcherRegs({
             }}
             sx={{ color: "error.main" }}
             icon={<DeleteOutlineOutlinedIcon sx={{ color: "error.main" }} />}>
-            Delete
+            {t("deleteAccreditation")}
           </ActionMenuItem>
         </ActionMenu>
       );
@@ -210,24 +211,24 @@ export default function AccreditedResearcherRegs({
 
   const columns = [
     {
-      header: "Associated Organisation",
+      header: t("associatedOrganisationName"),
       accessorKey: "associated_organisation_name",
       flex: 1,
     },
     {
-      header: "ID",
+      header: t("id"),
       accessorKey: "id_string",
       flex: 1,
     },
     {
-      header: "Date of Issue",
+      header: t("issueDate"),
       accessorKey: "issue_date",
       flex: 1,
       cell: ({ row }: { row: { original: Accreditation } }) =>
         formatShortDate(row.original.issue_date),
     },
     {
-      header: "Expiry Date",
+      header: t("expiryDate"),
       accessorKey: "expiry_date",
       flex: 1,
       cell: ({ row }: { row: { original: Accreditation } }) =>
@@ -244,8 +245,6 @@ export default function AccreditedResearcherRegs({
         ]
       : []),
   ];
-
-  console.log(registryId, "registryId");
 
   return (
     <>
