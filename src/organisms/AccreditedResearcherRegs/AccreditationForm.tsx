@@ -8,7 +8,7 @@ import FormControl from "../../components/FormControlWrapper";
 import yup from "@/config/yup";
 import { useStore } from "@/data/store";
 import { PostAccreditationsPayload } from "@/services/accreditations/types";
-import { ResearcherAccreditation, Accreditation } from "@/types/application";
+import { Accreditation } from "@/types/application";
 import { formatDBDateTime } from "@/utils/date";
 import { Button, TextField } from "@mui/material";
 import dayjs from "dayjs";

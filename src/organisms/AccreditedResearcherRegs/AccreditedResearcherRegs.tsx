@@ -9,17 +9,9 @@ import {
   postAccreditationsQuery,
   putAccreditationsQuery,
 } from "@/services/accreditations";
-import {
-  Accreditations,
-  //Accreditations
-  PostAccreditationsPayload,
-} from "@/services/accreditations/types";
+import { PostAccreditationsPayload } from "@/services/accreditations/types";
 import { EntityType } from "../../types/api";
-import {
-  //ResearcherAccreditation,
-  User,
-  Accreditation,
-} from "@/types/application";
+import { User, Accreditation } from "@/types/application";
 import { StoreUserHistories } from "@/data/store";
 import { useTranslations } from "next-intl";
 import { Button, Link, Typography } from "@mui/material";
@@ -29,10 +21,8 @@ import { AddIcon } from "@/consts/icons";
 import FormModal from "@/components/FormModal";
 import { useCallback, useState } from "react";
 import AccreditationForm from "./AccreditationForm";
-
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import useQueryAlerts from "@/hooks/useQueryAlerts/useQueryAlerts";
-
 import ActionMenuItem from "@/components/ActionMenu/ActionMenuItem";
 import { ActionMenu } from "@/components/ActionMenu";
 import useQueryConfirmAlerts from "@/hooks/useQueryConfirmAlerts";
@@ -54,11 +44,11 @@ export default function AccreditedResearcherRegs({
   setHistories,
   getHistories,
 }: AccreditationsProps) {
+  const t = useTranslations(NAMESPACE_TRANSLATION_ACCREDITATIONS);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAccreditation, setSelectedAccreditation] = useState<
     Accreditation | undefined
   >(undefined);
-  const t = useTranslations(NAMESPACE_TRANSLATION_ACCREDITATIONS);
 
   const {
     data: accreditationsData,
@@ -106,10 +96,8 @@ export default function AccreditedResearcherRegs({
       };
 
       if (selectedAccreditation) {
-        // Update existing accreditation
         await mutateUpdateAsync({ id: selectedAccreditation.id, ...payload });
       } else {
-        // Create new accreditation
         await mutateAsync(payload);
         await onSubmit(payload);
       }
