@@ -220,8 +220,6 @@ type User = WithModelState<{
   role?: string;
   location?: string;
   status: Status;
-  declaration_signed?: boolean;
-  uksa_registered?: boolean;
   rules?: RuleState[];
   t_and_c_agreed?: boolean;
   invited_by?: User;

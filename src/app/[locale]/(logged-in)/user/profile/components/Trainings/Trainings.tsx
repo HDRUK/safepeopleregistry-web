@@ -73,19 +73,9 @@ export default function Trainings() {
     router.push(ROUTES.profileResearcherHome.path);
   };
 
-  const formOptions = useMemo(
-    () => ({
-      defaultValues: {
-        uksa_registered: !!userData?.data?.uksa_registered,
-        declaration_signed: !!userData?.data?.declaration_signed,
-      },
-    }),
-    [userData?.data?.uksa_registered, userData?.data?.declaration_signed]
-  );
-
   return (
     <LoadingWrapper variant="basic" loading={isLoading}>
-      <Form {...formOptions} onSubmit={handleSubmit} key={userData?.data?.id}>
+      <Form onSubmit={handleSubmit} key={userData?.data?.id}>
         <PageBodyContainer heading={tProfile("trainingTitle")}>
           <PageColumns>
             <PageColumnBody size={{ lg: 8 }}>
