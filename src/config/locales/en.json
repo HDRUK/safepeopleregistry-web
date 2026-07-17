@@ -1270,7 +1270,8 @@
     "requiredId": "ID is required",
     "requiredIssueDate": "Issue date is required",
     "requiredExpiryDate": "Expiry date is required",
-    "expiryDateInvalid": "Issue date must be in the past",
+    "issueDateInvalid": "Issue date must be in the past",
+    "expiryDateInvalid": "Expiry date must be in the future",
     "futureRequiredExpiryDate": "Expiry date must be after the issue date"
   },
   "ProfileCompleteStatus": {
