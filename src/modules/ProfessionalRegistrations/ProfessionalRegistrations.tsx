@@ -242,7 +242,7 @@ export default function ProfessionalRegistrations({
         errorMessage={
           <ErrorMessage
             t={tProfessional}
-            key="professionalRegsitrationsErrorMessage"
+            key="professionalRegistrationsErrorMessage"
           />
         }
         total={professionalRegistrations.length}

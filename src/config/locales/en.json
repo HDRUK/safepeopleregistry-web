@@ -967,7 +967,7 @@
     "memberIdRequiredInvalid": "ID is required",
     "professionalRegistrationsRecords": "Professional memberships records",
     "professionalRegistrationsNoResultsMessage": "You currently have no professional memberships",
-    "professionalRegsitrationsErrorMessage": "There was an error getting your professional memberships. Please try again or contact us at <contactLink></contactLink>",
+    "professionalRegistrationsErrorMessage": "There was an error getting your professional memberships. Please try again or contact us at <contactLink></contactLink>",
     "errorCreateMessage": "There was an error creating your professional memberships. Please try again or contact us at <contactLink></contactLink>",
     "errorPutMessage": "There was an error updating your professional membership. Please try again or contact us at <contactLink></contactLink>",
     "successCreateMessage": "Your professional membership was successfully created",
