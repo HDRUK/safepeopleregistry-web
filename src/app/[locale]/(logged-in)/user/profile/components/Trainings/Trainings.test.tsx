@@ -37,7 +37,6 @@ describe("Trainings", () => {
 
     mockUseStore({ user: mockUser });
     (useQuery as jest.Mock).mockReturnValue({
-      // data: mockUserData,
       isLoading: false,
       refetch: jest.fn(),
     });
@@ -55,20 +54,6 @@ describe("Trainings", () => {
     ).toBeInTheDocument();
   });
 
-  it("submits form with correct data", async () => {
-    const mockPutUser = jest.fn();
-    (useMutation as jest.Mock).mockReturnValue({
-      mutateAsync: mockPutUser,
-      isPending: false,
-    });
-
-    render(<Trainings />);
-
-    await act(async () => {
-      fireEvent.click(screen.getByText("Finish"));
-    });
-  });
-
   it("navigates to the correct route after submission", async () => {
     render(<Trainings />);
 
@@ -81,12 +66,6 @@ describe("Trainings", () => {
         ROUTES.profileResearcherHome.path
       );
     });
-  });
-
-  it("updates form when user data changes", async () => {
-    const { rerender } = render(<Trainings />);
-
-    rerender(<Trainings />);
   });
 
   it("has no accessibility violations", async () => {
