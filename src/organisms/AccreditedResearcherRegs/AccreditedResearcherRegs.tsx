@@ -58,6 +58,7 @@ export default function AccreditedResearcherRegs({
     ...getAccreditationsQuery(registryId),
   });
 
+  //states
   const { mutateAsync, isPending, ...postAccreditationsQueryState } =
     useMutation(postAccreditationsQuery(registryId));
 
