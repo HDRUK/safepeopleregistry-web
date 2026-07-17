@@ -27,7 +27,6 @@ import { Box } from "@mui/material";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { useMemo } from "react";
 
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";
 
