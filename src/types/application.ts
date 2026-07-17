@@ -220,8 +220,6 @@ type User = WithModelState<{
   role?: string;
   location?: string;
   status: Status;
-  declaration_signed?: boolean;
-  uksa_registered?: boolean;
   rules?: RuleState[];
   t_and_c_agreed?: boolean;
   invited_by?: User;
@@ -342,6 +340,14 @@ interface ResearcherAccreditation {
   expires_at: string;
   title: string;
   awarded_locale: string;
+}
+
+interface Accreditation {
+  id: number;
+  associated_organisation_name: string;
+  id_string: string;
+  issue_date: string;
+  expiry_date: string;
 }
 
 interface ResearcherTraining {
@@ -611,6 +617,7 @@ export type {
   ProjectRole,
   ProjectUser,
   ResearcherAccreditation,
+  Accreditation,
   ResearcherAffiliation,
   ResearcherEducation,
   ResearcherEmployment,

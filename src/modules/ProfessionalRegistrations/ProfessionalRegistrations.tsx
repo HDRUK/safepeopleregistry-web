@@ -3,16 +3,15 @@
 import { StoreUserHistories } from "@/data/store";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import { Box, Button, Link, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { ColumnDef } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import ErrorMessage from "@/components/ErrorMessage";
-import Icon from "@/components/Icon";
 import { ActionMenu, ActionMenuItem } from "../../components/ActionMenu";
 import Table from "../../components/Table";
-import { AddIcon, RejectIcon, VerifyIcon } from "../../consts/icons";
+import { AddIcon } from "../../consts/icons";
 import useQueryAlerts from "../../hooks/useQueryAlerts";
 import useQueryConfirmAlerts from "../../hooks/useQueryConfirmAlerts";
 import useMutationUpdateProfessionalRegistration from "../../queries/useMutationUpdateProfessionalRegistration";
@@ -31,10 +30,6 @@ import ProfessionalRegistrationsFormModal from "./ProfessionalRegistrationsFormM
 
 const NAMESPACE_TRANSLATION_PROFESSIONAL = "ProfessionalRegistrations";
 const NAMESPACE_TRANSLATION_APPLICATION = "Application";
-const NAMESPACE_TRANSLATION_PROFILE = "Profile";
-
-const UKSA_URL =
-  "https://uksa.statisticsauthority.gov.uk/digitaleconomyact-research-statistics/better-useofdata-for-research-information-for-researchers/list-of-accredited-researchers-and-research-projects-under-the-research-strand-of-the-digital-economy-act/";
 
 interface ProfessionalRegistrationsProps {
   variant: EntityType;
@@ -58,7 +53,6 @@ export default function ProfessionalRegistrations({
   const [isEditMode, setIsEditMode] = useState(false);
   const tProfessional = useTranslations(NAMESPACE_TRANSLATION_PROFESSIONAL);
   const tApplication = useTranslations(NAMESPACE_TRANSLATION_APPLICATION);
-  const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
 
   const {
     data: professionalRegistrationsData,
@@ -248,7 +242,7 @@ export default function ProfessionalRegistrations({
         errorMessage={
           <ErrorMessage
             t={tProfessional}
-            key="professionalRegsitrationsErrorMessage"
+            key="professionalRegistrationsErrorMessage"
           />
         }
         total={professionalRegistrations.length}
@@ -267,61 +261,6 @@ export default function ProfessionalRegistrations({
           sx={{ mt: 2 }}>
           {tProfessional("addProfessionalRegistration")}
         </Button>
-      )}
-
-      {variant === EntityType.CUSTODIAN && (
-        <>
-          <Box
-            sx={{
-              p: 0,
-              my: 2,
-              display: "flex",
-              flexDirection: "column",
-            }}>
-            <Box
-              sx={{
-                p: 0,
-                mt: 3,
-                mb: 1,
-                display: "flex",
-                alignItems: "center",
-              }}>
-              <Icon sx={{ mr: 1 }}>
-                {user.uksa_registered ? (
-                  <VerifyIcon data-testid="AccreditedResearcherIcon" />
-                ) : (
-                  <RejectIcon data-testid="AccreditedResearcherIcon" />
-                )}
-              </Icon>
-              <Typography>
-                {tProfile("accreditedResearcherCheckboxLabel")}
-              </Typography>
-            </Box>
-            {!!user.uksa_registered && (
-              <Link href={UKSA_URL} target="_blank">
-                {tProfile("checkAccreditedResearcher")}
-              </Link>
-            )}
-          </Box>
-
-          <Box
-            sx={{
-              p: 0,
-              mt: 3,
-              mb: 2,
-              display: "flex",
-              alignItems: "center",
-            }}>
-            <Icon sx={{ mr: 1 }}>
-              {user.declaration_signed ? (
-                <VerifyIcon data-testid="UserDeclarationIcon" />
-              ) : (
-                <RejectIcon data-testid="UserDeclarationIcon" />
-              )}
-            </Icon>
-            <Typography>{tProfile("userDeclarationCheckboxLabel")}</Typography>
-          </Box>
-        </>
       )}
     </>
   );

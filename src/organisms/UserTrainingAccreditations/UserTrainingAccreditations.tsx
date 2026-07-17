@@ -3,6 +3,7 @@ import { PageSection } from "../../modules";
 import ProfessionalRegistrations from "../../modules/ProfessionalRegistrations";
 import { EntityType } from "../../types/api";
 import Training from "../Training";
+import AccreditedResearcherRegs from "../AccreditedResearcherRegs";
 
 interface UserTrainingAccreditationsProps {
   variant: EntityType;
@@ -19,11 +20,17 @@ export default function UserTrainingAccreditations({
       professionalRegistrations:
         state.config.histories?.professionalRegistrations || [],
     }));
-
   return (
     <>
       <PageSection>
         <Training variant={variant} user={user} />
+      </PageSection>
+      <PageSection>
+        <AccreditedResearcherRegs
+          variant={variant}
+          user={user}
+          registryId={user.registry_id}
+        />
       </PageSection>
       <PageSection sx={{ mb: 3 }}>
         <ProfessionalRegistrations
