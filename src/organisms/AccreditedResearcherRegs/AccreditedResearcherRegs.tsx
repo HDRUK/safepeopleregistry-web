@@ -97,6 +97,7 @@ export default function AccreditedResearcherRegs({
 
       if (selectedAccreditation) {
         await mutateUpdateAsync({ id: selectedAccreditation.id, ...payload });
+        await onSubmit(payload);
       } else {
         await mutateAsync(payload);
         await onSubmit(payload);
