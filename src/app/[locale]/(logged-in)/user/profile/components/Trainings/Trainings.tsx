@@ -2,7 +2,6 @@
 
 import ErrorMessage from "@/components/ErrorMessage";
 import Form from "@/components/Form";
-import FormControlCheckbox from "@/components/FormControlCheckbox";
 import Guidance from "@/components/Guidance";
 import LoadingWrapper from "@/components/LoadingWrapper";
 import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
@@ -24,18 +23,13 @@ import Training from "@/organisms/Training";
 import { getUserQuery, putUserQuery } from "@/services/users";
 import { EntityType } from "@/types/api";
 import { User } from "@/types/application";
-import { Box, Link } from "@mui/material";
+import { Box } from "@mui/material";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";
-
-const RESEARCHER_DECLARATION_LINK =
-  "https://uksa.statisticsauthority.gov.uk/digitaleconomyact-research-statistics/better-useofdata-for-research-information-for-researchers/list-of-accredited-researchers-and-research-projects-under-the-research-strand-of-the-digital-economy-act/";
-const USER_DECLARATION_LINK =
-  "https://www.gov.uk/government/publications/digital-economy-act-2017-part-5-codes-of-practice/research-code-of-practice-and-accreditation-criteria";
 
 export default function Trainings() {
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
@@ -122,38 +116,6 @@ export default function Trainings() {
                     professionalRegistrations={professionalRegistrations}
                   />
                 </PageSection>
-
-                {/* <Box sx={{ mt: 1, maxWidth: "50%" }}>
-                  <FormControlCheckbox
-                    name="uksa_registered"
-                    label={tProfile("accreditedResearcherCheckboxLabel")}
-                    labelCaption={
-                      <Link
-                        href={RESEARCHER_DECLARATION_LINK}
-                        color="primary"
-                        target="_blank"
-                        sx={{ display: "block", mt: 0.5 }}>
-                        {tProfile("findOutMore")}
-                      </Link>
-                    }
-                  />
-                </Box> */}
-
-                {/* <Box sx={{ mt: 1, maxWidth: "50%" }}>
-                  <FormControlCheckbox
-                    name="declaration_signed"
-                    label={tProfile("userDeclarationCheckboxLabel")}
-                    labelCaption={
-                      <Link
-                        href={USER_DECLARATION_LINK}
-                        color="primary"
-                        target="_blank"
-                        sx={{ display: "block", mt: 0.5 }}>
-                        {tProfile("findOutMore")}
-                      </Link>
-                    }
-                  />
-                </Box> */}
                 <Box
                   sx={{ display: "flex", justifyContent: "flex-end", mt: 3 }}>
                   <ProfileNavigationFooter

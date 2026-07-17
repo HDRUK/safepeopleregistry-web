@@ -39,7 +39,7 @@ export default function AccreditationForm({
   initialValues,
 }: AccreditationFormProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION_ACCREDITATIONS_FORM);
-  const [user, setUser] = useStore(store => [store.config.user, store.setUser]);
+  const [user] = useStore(store => [store.config.user, store.setUser]);
 
   const schema = useMemo(
     () =>
