@@ -1515,6 +1515,27 @@
       "countyRequiredInvalid": "County is required",
       "countryRequiredInvalid": "Country is required"
     },
+    "Parents": {
+      "heading": "Parent",
+      "description": "If you have a parent organisation, please add it below.",
+      "addParentButton": "Add a parent",
+      "removeParentToolTip": "Remove this parent",
+      "editParentToolTip": "Edit this parent",
+      "cancelButton": "Cancel",
+      "saveButton": "Save",
+      "organisationName": "Name",
+      "address": "Address",
+      "actions": "Actions",
+      "edit": "Edit parent",
+      "delete": "Delete parent",
+      "parentNameRequired": "Parent name is required",
+      "postcodeRequiredInvalid": "Postcode is required",
+      "postcodeFormatInvalid": "The postcode is not valid",
+      "address1RequiredInvalid": "Line 1 of the address is required",
+      "townRequiredInvalid": "Town is required",
+      "countyRequiredInvalid": "County is required",
+      "countryRequiredInvalid": "Country is required"
+    },
     "SroDeclaratation": {
       "heading": "SRO Declaration",
       "intro": "In order to grant you full Organisation account privileges (including adding Users from your Organisation and those Users being validated by Data Custodians), you will need to complete and upload the form below.",
