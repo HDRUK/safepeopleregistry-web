@@ -7,7 +7,8 @@ import { ResponseOptions, ResponseJson } from "@/types/requests";
 export default async (
   subsidaryId: number,
   orgId: number,
-  options: ResponseOptions
+  options: ResponseOptions,
+  isParent?: boolean
 ): Promise<ResponseJson<null>> => {
   const response = await deleteRequest(
     `/subsidiaries/${subsidaryId}/organisations/${orgId}`
