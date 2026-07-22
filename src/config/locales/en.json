@@ -1495,6 +1495,7 @@
     },
     "Subsidiaries": {
       "heading": "UK subsidiaries",
+      "description": "If your Organisation is based internationally, please add any UK-based subsidiaries below.",
       "addSubsidiaryButton": "Add a subsidiary",
       "removeSubsidiaryToolTip": "Remove this subsidiary",
       "editSubsidiaryToolTip": "Edit this subsidiary",
@@ -1503,6 +1504,7 @@
       "organisationName": "Name",
       "address": "Address",
       "actions": "Actions",
+      "add": "Add subsidiary",
       "edit": "Edit subsidiary",
       "delete": "Delete subsidiary",
       "subsidiaryNameRequired": "Subsidiary name is required",

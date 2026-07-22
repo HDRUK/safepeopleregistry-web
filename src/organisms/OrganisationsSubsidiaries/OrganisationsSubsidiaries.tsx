@@ -49,10 +49,7 @@ export default function OrganisationsSubsidiaries({
 
   return (
     <>
-      <PageSection
-        heading={t("heading")}
-        description="If your Organisation is based internationally, please add any
-            UK-based subsidiaries below.">
+      <PageSection heading={t("heading")} description={t("description")}>
         <div>
           <OrganisationsSubsidiariesTable
             data={organisation?.subsidiaries || []}
@@ -78,7 +75,7 @@ export default function OrganisationsSubsidiaries({
       </PageSection>
       <FormModal
         open={!!activeSubsidiary}
-        heading={activeSubsidiary?.id ? "Edit subsidiary" : "Add subsidiary"}>
+        heading={activeSubsidiary?.id ? t("edit") : t("add")}>
         <OrganisationsSubsidiaryEditForm
           t={t}
           mutateState={restUpdateState}
