@@ -77,7 +77,7 @@ export default function OrganisationsParents({
       </PageSection>
       <FormModal
         open={!!activeParent}
-        heading={activeParent?.id ? t("edit") : t("addParentButton")}>
+        heading={activeParent?.id ? t("edit") : t("add")}>
         <OrganisationsSubsidiaryEditForm
           t={t}
           mutateState={restUpdateState}

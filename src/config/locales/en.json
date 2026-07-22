@@ -1528,6 +1528,7 @@
       "organisationName": "Name",
       "address": "Address",
       "actions": "Actions",
+      "add": "Add parent",
       "edit": "Edit parent",
       "delete": "Delete parent",
       "parentNameRequired": "Parent name is required",
