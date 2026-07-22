@@ -241,6 +241,7 @@ interface Subsidiary extends AddressFields {
     subsidiary_id: number;
   };
   website?: string;
+  is_parent?: boolean;
 }
 
 interface Charity extends AddressFields {
