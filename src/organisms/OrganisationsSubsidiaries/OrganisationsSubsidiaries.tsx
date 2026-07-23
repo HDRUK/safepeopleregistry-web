@@ -47,12 +47,15 @@ export default function OrganisationsSubsidiaries({
     },
   });
 
+  const subsidiaries =
+    organisation?.subsidiaries?.filter(s => !s.is_parent) ?? [];
+
   return (
     <>
       <PageSection heading={t("heading")} description={t("description")}>
         <div>
           <OrganisationsSubsidiariesTable
-            data={organisation?.subsidiaries || []}
+            data={subsidiaries}
             t={t}
             isPaginated={false}
             onEdit={subsidiary => setActiveSubsidiary(subsidiary)}
