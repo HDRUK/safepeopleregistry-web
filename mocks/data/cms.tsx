@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 
 export const mockedChristmasBannerContent = () => (
   <>
-    We wiped this pre-production test site of its data on the week of June 30.
+    We wiped this pre-production test site of its data on the week of July 23.
     You will need to re-register an account to continue testing this site. If
     you contacted us previously, you should receive an email within 24 hours
     inviting you or your team back onto the system. Otherwise, if you'd like to
