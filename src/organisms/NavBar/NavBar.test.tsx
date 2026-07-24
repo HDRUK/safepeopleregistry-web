@@ -1,4 +1,4 @@
-import { useStore } from "@/data/store";
+import { StoreState, useStore } from "@/data/store";
 import { mockedJwt } from "@/mocks/data/auth";
 import { mockedUser } from "@/mocks/data/user";
 import theme from "@/theme";
@@ -117,7 +117,11 @@ describe("NavBar Component", () => {
       selector({
         getUser: () => mockedUser(),
         setUser: jest.fn(),
-      })
+        config: {
+          organisation: undefined,
+          custodian: undefined,
+        },
+      } as unknown as StoreState)
     );
 
     render(<NavBar loggedIn />);
@@ -137,7 +141,11 @@ describe("NavBar Component", () => {
       selector({
         getUser: () => mockedUser(),
         setUser: jest.fn(),
-      })
+        config: {
+          organisation: undefined,
+          custodian: undefined,
+        },
+      } as unknown as StoreState)
     );
 
     (get as jest.Mock).mockReturnValue(mockedJwt);
