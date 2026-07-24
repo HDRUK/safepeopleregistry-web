@@ -29,11 +29,12 @@ describe("Resend invite", () => {
   });
 
   it("Shows a list of emails", () => {
-    cy.wait(20000);
     cy.contains("button", "Update").click();
 
     cy.get(dataCy("emails-list"))
       .find("tbody tr")
+      .should("exist")
+      .and("have.length.greaterThan", 0)
       .first()
       .within(() => {
         cy.contains("td", "Safe People Registry | User invite").should("exist");
