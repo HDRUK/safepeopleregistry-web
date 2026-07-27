@@ -1487,7 +1487,7 @@
     "EditDelegate": {
       "heading": "Edit delegate",
       "edit": "Edit",
-      "successAlertText": "The Delegate has been successfully editted",
+      "successAlertText": "The Delegate has been successfully edited",
       "errorAlertText": "There has been a problem deleting this data. Please try again or contact us at <contactLink></contactLink>"
     },
     "OrganisationUsersFilters": {

@@ -11,7 +11,7 @@ import {
 
 const dataDelegate = DEFAULT_DELEGATE_FIELDS_ORGANISATIONS;
 
-const edittedDelegate = {
+const editedDelegate = {
   ...dataDelegate,
   delegate_first_name: faker.person.firstName(),
   delegate_last_name: faker.person.lastName(),
@@ -41,13 +41,13 @@ describe("Organisations delegates journey", () => {
   });
 
   it("Edits a delegate", () => {
-    editDelegateOrganisations(edittedDelegate, dataDelegate);
+    editDelegateOrganisations(editedDelegate, dataDelegate);
 
-    hasDelegateOrganisations(edittedDelegate);
+    hasDelegateOrganisations(editedDelegate);
   });
 
   // it("Removes a delegate", () => {
-  //   removeDelegateOrganisations(edittedDelegate);
+  //   removeDelegateOrganisations(editedDelegate);
 
   //   hasNoDelegateOrganisations();
   // }); <<<< happy no data path?

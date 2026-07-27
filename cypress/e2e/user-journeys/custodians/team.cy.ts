@@ -34,18 +34,18 @@ describe("Custodians team user journey", () => {
   });
 
   it("Edits safe data", () => {
-    const edittedUser = {
+    const editedUser = {
       ...dataUser,
       first_name: faker.person.firstName(),
       last_name: faker.person.lastName(),
       email: faker.internet.email(),
     };
 
-    updatedEmail = edittedUser.email;
+    updatedEmail = editedUser.email;
 
-    editTeamMemberCustodians(edittedUser, dataUser.email);
+    editTeamMemberCustodians(editedUser, dataUser.email);
 
-    hasTeamMemberCustodians(edittedUser);
+    hasTeamMemberCustodians(editedUser);
   });
 
   it("Removes a team member", () => {

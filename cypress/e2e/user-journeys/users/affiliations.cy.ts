@@ -25,7 +25,7 @@ const dataAffiliation = {
   email: undefined,
 };
 
-const dataEdittedAffiliation = {
+const dataEditedAffiliation = {
   ...dataAffiliation,
   member_id: Cypress._.random(0, 1e6).toString(),
   role: "Administrator",
@@ -62,9 +62,9 @@ describe("Affiliations journey", () => {
   });
 
   it("Edits an affiliation and reloads the page", () => {
-    editAffiliationUsers(dataAffiliation, dataEdittedAffiliation);
+    editAffiliationUsers(dataAffiliation, dataEditedAffiliation);
 
-    hasAffiliationUsers(dataEdittedAffiliation, Status.AFFILIATION_PENDING);
+    hasAffiliationUsers(dataEditedAffiliation, Status.AFFILIATION_PENDING);
   });
 
   it("Resends the verification email for a current-employer affiliation", () => {
@@ -88,8 +88,8 @@ describe("Affiliations journey", () => {
   });
 
   it("Removes an affiliation and reloads the page", () => {
-    removeAffiliationUsers(dataEdittedAffiliation);
+    removeAffiliationUsers(dataEditedAffiliation);
 
-    hasRemoveAffiliationUsers(dataEdittedAffiliation);
+    hasRemoveAffiliationUsers(dataEditedAffiliation);
   });
 });
