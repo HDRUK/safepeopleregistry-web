@@ -1,4 +1,5 @@
 import { mockedAffiliation } from "@/mocks/data/user";
+import { mockedOrganisation } from "@/mocks/data/organisation";
 import {
   DEFAULT_AFFILIATION_USERS,
   DEFAULT_TO_DATE,
@@ -12,11 +13,16 @@ import {
   resendAffiliationVerification,
 } from "cypress/support/utils/user/affiliations";
 import { loginUser } from "cypress/support/utils/user/auth";
+import { loginAdmin } from "cypress/support/utils/admin/auth";
+import { validateSROOrganisations } from "cypress/support/utils/admin/sro";
 import { ROUTES } from "@/consts/router";
 import { Status } from "@/consts/application";
 import { logout } from "cypress/support/utils/common";
 
 const dataCurrentAffiliation = mockedAffiliation(DEFAULT_AFFILIATION_USERS);
+const dataCurrentAffiliationOrganisation = mockedOrganisation({
+  organisation_name: dataCurrentAffiliation.organisation.organisation_name,
+});
 const dataAffiliation = {
   ...dataCurrentAffiliation,
   current_employer: false,
@@ -32,6 +38,13 @@ const dataEditedAffiliation = {
 };
 
 describe("Affiliations journey", () => {
+  before(() => {
+    loginAdmin();
+    cy.visitFirst(ROUTES.profileAdmin.path);
+    validateSROOrganisations(dataCurrentAffiliationOrganisation, "Approve");
+    logout();
+  });
+
   beforeEach(() => {
     loginUser();
 
