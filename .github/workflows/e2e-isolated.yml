@@ -388,7 +388,6 @@ jobs:
         with:
           browser: chrome
           headless: true
-          spec: cypress/e2e/user-journeys/users/affiliations.cy.ts
 
       - name: Upload Cypress video
         uses: actions/upload-artifact@v4
