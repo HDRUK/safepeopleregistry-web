@@ -1,6 +1,6 @@
 import { ROUTES } from "@/consts/router";
 import { loginAdmin } from "cypress/support/utils/admin/auth";
-import { validateSROOrganisatons } from "cypress/support/utils/admin/sro";
+import { validateSROOrganisations } from "cypress/support/utils/admin/sro";
 import { logout } from "cypress/support/utils/common";
 import {
   DEFAULT_UNAPPROVED_ORGANISATION,
@@ -47,7 +47,7 @@ describe("SRO journey", () => {
     });
 
     it("Approves an organisation", () => {
-      validateSROOrganisatons(dataOrganisation, "Approve");
+      validateSROOrganisations(dataOrganisation, "Approve");
 
       hasSROOrganisation(dataOrganisation, "Approved");
     });
@@ -57,7 +57,7 @@ describe("SRO journey", () => {
      * lots of implications so the option is disabled
      */
     // it("Unapproves an organisation", () => {
-    //   validateSROOrganisatons(dataOrganisation, "Unapprove");
+    //   validateSROOrganisations(dataOrganisation, "Unapprove");
 
     //   hasSROOrganisation(dataOrganisation, "Not approved");
     // });
