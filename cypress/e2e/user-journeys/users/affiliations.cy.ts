@@ -39,18 +39,12 @@ const dataEditedAffiliation = {
 
 describe("Affiliations journey", () => {
   before(() => {
-    // loginAdmin();
-    // cy.visitFirst(ROUTES.profileAdmin.path);
-    // validateSROOrganisations(dataCurrentAffiliationOrganisation, "Approve");
-    // logout();
-  });
-
-  beforeEach(() => {
     loginAdmin();
     cy.visitFirst(ROUTES.profileAdmin.path);
     validateSROOrganisations(dataCurrentAffiliationOrganisation, "Approve");
-    logout();
+  });
 
+  beforeEach(() => {
     loginUser();
 
     cy.visitFirst(ROUTES.profileResearcherAffiliations.path);
