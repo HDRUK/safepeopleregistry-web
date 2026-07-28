@@ -18,6 +18,7 @@ import { validateSROOrganisations } from "cypress/support/utils/admin/sro";
 import { ROUTES } from "@/consts/router";
 import { Status } from "@/consts/application";
 import { logout } from "cypress/support/utils/common";
+import { hasSROOrganisation } from "cypress/support/utils/organisation/sro";
 
 const dataCurrentAffiliation = mockedAffiliation(DEFAULT_AFFILIATION_USERS);
 const dataCurrentAffiliationOrganisation = mockedOrganisation({
@@ -42,6 +43,7 @@ describe("Affiliations journey", () => {
     loginAdmin();
     cy.visitFirst(ROUTES.profileAdmin.path);
     validateSROOrganisations(dataCurrentAffiliationOrganisation, "Approve");
+    hasSROOrganisation(dataCurrentAffiliationOrganisation, "Approved");
   });
 
   beforeEach(() => {
