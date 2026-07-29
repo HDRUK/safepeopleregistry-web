@@ -249,7 +249,7 @@ export default function DigitalIdentifiers() {
                 <FormActions>
                   <ProfileNavigationFooter
                     previousHref={
-                      ROUTES.profileOrganisationDetailsNameAndAddress.path
+                      ROUTES.profileOrganisationDetailsNameAndSRO.path
                     }
                     nextStepText={tOrgProfile("detailsSectorSizeAndWebsite")}
                     isLoading={isLoading}

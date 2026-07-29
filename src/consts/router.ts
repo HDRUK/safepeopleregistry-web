@@ -229,18 +229,26 @@ const ROUTES: Routes = {
     path: "/organisation/profile/home",
     permissions: [UserGroup.ORGANISATIONS],
   },
-  profileOrganisationDetailsNameAndAddress: {
-    path: "/organisation/profile/details/name-and-address",
+  profileOrganisationDetailsNameAndSRO: {
+    path: "/organisation/profile/details/name-and-sro",
+    permissions: [UserGroup.ORGANISATIONS],
+  },
+  profileOrganisationDetailsAddress: {
+    path: "/organisation/profile/details/address",
+    permissions: [UserGroup.ORGANISATIONS],
+  },
+  profileOrganisationDetailsOrganisationDetails: {
+    path: "/organisation/profile/details/organisation_details",
     permissions: [UserGroup.ORGANISATIONS],
   },
   profileOrganisationDetailsDigitalIdentifiers: {
     path: "/organisation/profile/details/digital-identifiers",
     permissions: [UserGroup.ORGANISATIONS],
   },
-  profileOrganisationDetailsSectorSizeAndWebsite: {
-    path: "/organisation/profile/details/sector-size-and-website",
-    permissions: [UserGroup.ORGANISATIONS],
-  },
+  // profileOrganisationDetailsSectorSizeAndWebsite: {
+  //   path: "/organisation/profile/details/sector-size-and-website",
+  //   permissions: [UserGroup.ORGANISATIONS],
+  // },
   profileOrganisationDetailsSecurityCompliance: {
     path: "/organisation/profile/details/security-compliance",
     permissions: [UserGroup.ORGANISATIONS],
@@ -305,6 +313,7 @@ const ROUTES: Routes = {
     path: "/admin",
     permissions: [UserGroup.ADMINS],
   },
+  profileOrganisationUserAdministrationDelegates: undefined,
 };
 
 const EXCLUDE_REDIRECT_URLS: string[] = [ROUTES.invite.path];

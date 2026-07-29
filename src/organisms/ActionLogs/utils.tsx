@@ -37,21 +37,25 @@ const generateActions = (routes: Route) => {
       icon: <BadgeOutlinedIcon />,
       path: routes.profileResearcherProjects.path,
     },
-    name_address_completed: {
+    name_and_sro_completed: {
       icon: <CorporateFareIcon />,
-      path: routes.profileOrganisationDetailsNameAndAddress.path,
+      path: routes.profileOrganisationDetailsNameAndSRO.path,
+    },
+    address_completed: {
+      icon: <CorporateFareIcon />,
+      path: routes.profileOrganisationDetailsAddress.path,
+    },
+    // sector_size_completed: {
+    //   icon: <CorporateFareIcon />,
+    //   path: routes.profileOrganisationDetailsSectorSizeAndWebsite.path,
+    // },
+    organisation_details_completed: {
+      icon: <CorporateFareIcon />,
+      path: routes.profileOrganisationDetailsOrganisationDetails.path,
     },
     digital_identifiers_completed: {
       icon: <CorporateFareIcon />,
       path: routes.profileOrganisationDetailsDigitalIdentifiers.path,
-    },
-    sector_size_completed: {
-      icon: <CorporateFareIcon />,
-      path: routes.profileOrganisationDetailsSectorSizeAndWebsite.path,
-    },
-    add_subsidiary_completed: {
-      icon: <CorporateFareIcon />,
-      path: routes.profileOrganisationDetailsNameAndAddress.path,
     },
     data_security_completed: {
       icon: <CorporateFareIcon />,

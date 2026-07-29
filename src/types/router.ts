@@ -74,9 +74,11 @@ interface Routes {
   profileOrganisation: RouteConfig;
   profileOrganisationActions: RouteConfig;
   profileOrganisationDetails: RouteConfig;
-  profileOrganisationDetailsNameAndAddress: RouteConfig;
+  profileOrganisationDetailsNameAndSRO: RouteConfig;
+  profileOrganisationDetailsAddress: RouteConfig;
+  profileOrganisationDetailsOrganisationDetails: RouteConfig;
   profileOrganisationDetailsDigitalIdentifiers: RouteConfig;
-  profileOrganisationDetailsSectorSizeAndWebsite: RouteConfig;
+  // profileOrganisationDetailsSectorSizeAndWebsite: RouteConfig;
   profileOrganisationDetailsSecurityCompliance: RouteConfig;
   profileOrganisationUserAdministration: RouteConfig;
   profileOrganisationTeamAdministration: RouteConfig;
