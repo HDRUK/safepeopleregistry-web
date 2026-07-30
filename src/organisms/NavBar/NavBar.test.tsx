@@ -1,4 +1,4 @@
-import { useStore } from "@/data/store";
+import { StoreState, useStore } from "@/data/store";
 import { mockedJwt } from "@/mocks/data/auth";
 import { mockedUser } from "@/mocks/data/user";
 import theme from "@/theme";
@@ -15,6 +15,9 @@ import {
   waitFor,
 } from "../../utils/testUtils";
 import NavBar from "./NavBar";
+import { mockedOrganisation } from "@/mocks/data/organisation";
+import { mockedCustodian } from "@/mocks/data/custodian";
+import { AccountType } from "@/types/accounts";
 
 jest.mock("js-cookie", () => ({
   get: jest.fn(),
@@ -117,7 +120,11 @@ describe("NavBar Component", () => {
       selector({
         getUser: () => mockedUser(),
         setUser: jest.fn(),
-      })
+        config: {
+          organisation: mockedOrganisation,
+          custodian: mockedCustodian,
+        },
+      } as unknown as StoreState)
     );
 
     render(<NavBar loggedIn />);
@@ -125,6 +132,40 @@ describe("NavBar Component", () => {
     fireEvent.click(screen.getByRole("button", { name: "Sign Out" }));
 
     expect(handleLogout).toHaveBeenCalled();
+  });
+
+  it("displays 'Organisation' chip when the user belongs to an organisation", () => {
+    mockUseStore.mockImplementation(selector =>
+      selector({
+        getUser: () => mockedUser(),
+        setUser: jest.fn(),
+        config: {
+          organisation: mockedOrganisation,
+          custodian: undefined,
+        },
+      } as unknown as StoreState)
+    );
+
+    render(<NavBar loggedIn />);
+
+    expect(screen.getByText(AccountType.ORGANISATION)).toBeInTheDocument();
+  });
+
+  it("displays 'Custodian' chip when the user belongs to an custodian", () => {
+    mockUseStore.mockImplementation(selector =>
+      selector({
+        getUser: () => mockedUser(),
+        setUser: jest.fn(),
+        config: {
+          organisation: undefined,
+          custodian: mockedCustodian,
+        },
+      } as unknown as StoreState)
+    );
+
+    render(<NavBar loggedIn />);
+
+    expect(screen.getByText(AccountType.CUSTODIAN)).toBeInTheDocument();
   });
 
   it("displays 'My Account' and 'Sign Out' if the user is authenticated", () => {
@@ -137,7 +178,11 @@ describe("NavBar Component", () => {
       selector({
         getUser: () => mockedUser(),
         setUser: jest.fn(),
-      })
+        config: {
+          organisation: undefined,
+          custodian: undefined,
+        },
+      } as unknown as StoreState)
     );
 
     (get as jest.Mock).mockReturnValue(mockedJwt);
