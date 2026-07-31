@@ -24,6 +24,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useMemo } from "react";
 import useUpdateOrganisation from "../../hooks/useUpdateOrganisation";
 import SroFields from "../SroFields";
+import OrganisationsParents from "@/organisms/OrganisationsParents";
 
 export interface NameAndAddressFormValues {
   organisation_name: string;
@@ -258,6 +259,10 @@ export default function NameAndAddress() {
                   </Grid>
                 </Grid>
               </PageSection>
+              <OrganisationsParents
+                onEditSuccess={() => handleRefetch()}
+                onDeleteSuccess={() => handleRefetch()}
+              />
               <OrganisationsSubsidiaries
                 onEditSuccess={() => handleRefetch()}
                 onDeleteSuccess={() => handleRefetch()}

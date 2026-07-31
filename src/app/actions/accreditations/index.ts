@@ -1,3 +1,11 @@
-import getAccreditations from "@/app/actions/accreditations/getAccreditations";
+import getAccreditations from "./getAccreditations";
+import deleteAccreditations from "./deleteAccreditations";
+import postAccreditations from "./postAccreditations";
+import putAccreditations from "./putAccreditations";
 
-export { getAccreditations };
+export {
+  getAccreditations,
+  deleteAccreditations,
+  postAccreditations,
+  putAccreditations,
+};

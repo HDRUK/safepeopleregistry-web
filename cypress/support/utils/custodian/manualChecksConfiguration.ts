@@ -5,7 +5,7 @@ const hasUnCheckedOnUsersConfigurationManualChecks = () => {
   cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
     timeout: 20000,
   });
-  cy.get("#13").should("exist").uncheck();
+  cy.get("#37").should("exist").uncheck();
   cy.contains(
     "p",
     "Contact details tab: Location meets project & policy requirements"
@@ -13,7 +13,7 @@ const hasUnCheckedOnUsersConfigurationManualChecks = () => {
   cy.get('[data-cy="action-menu"]')
     .find('button[type="button"]')
     .should("exist");
-  cy.get("#14").should("exist").uncheck();
+  cy.get("#38").should("exist").uncheck();
   cy.contains(
     "p",
     "Projects tab: Previous sensitive data project with us in last 2 years at same affiliation?"
@@ -28,8 +28,8 @@ const hasCheckedOnUsersConfigurationManualChecks = () => {
   cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
     timeout: 20000,
   });
-  cy.get("#13").should("exist").check();
-  cy.get("#14").should("exist").check();
+  cy.get("#37").should("exist").check();
+  cy.get("#38").should("exist").check();
 };
 
 const addManualChecksForUsersConfigurationManualChecks = (title: string) => {
@@ -130,14 +130,14 @@ const hasUnCheckedOnOrganisationConfigurationManualChecks = () => {
   cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
     timeout: 20000,
   });
-  cy.get("#19").should("exist").uncheck();
+  cy.get("#43").should("exist").uncheck();
   cy.contains("span", "Contact details tab: Verify SRO identity").should(
     "exist"
   );
   cy.get('[data-cy="action-menu"]')
     .find('button[type="button"]')
     .should("exist");
-  cy.get("#21").should("exist").uncheck();
+  cy.get("#45").should("exist").uncheck();
   cy.contains(
     "p",
     "Digital identifiers tab: Check validity & type (Public, Private, etc.)"
@@ -152,8 +152,8 @@ const hasCheckedOnOrganisationConfigurationManualChecks = () => {
   cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
     timeout: 20000,
   });
-  cy.get("#19").should("exist").check();
-  cy.get("#21").should("exist").check();
+  cy.get("#43").should("exist").check();
+  cy.get("#45").should("exist").check();
 };
 
 const hasAddManualChecksForOrganisationConfigurationManualChecks = () => {
@@ -167,7 +167,7 @@ const hasAddManualChecksForOrganisationConfigurationManualChecks = () => {
     .within(() => {
       cy.contains("button", "Add manual check").click();
     });
-  cy.contains("h3", "Add User manual check").should("exist");
+  cy.contains("h3", "Add Organisation manual check").should("exist");
   cy.contains("label", "Description").should("exist");
   cy.contains("button", "Cancel").should("exist");
   cy.get("#text").type(text);

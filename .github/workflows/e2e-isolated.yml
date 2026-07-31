@@ -196,7 +196,7 @@ jobs:
       id-token: "write"
     steps:
       - name: Install MailDev
-        run: npm install -g maildev
+        run: npm install -g maildev@2.2.1 # pinned to v2.2.1 because v3.0 changes the API - a future cleanup task will be to update the code to work with v3.0 and remove this pinning
 
       - name: Start MailDev
         run: |

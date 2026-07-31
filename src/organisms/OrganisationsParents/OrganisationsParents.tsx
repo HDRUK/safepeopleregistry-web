@@ -15,22 +15,22 @@ import Button from "@mui/material/Button";
 import { deleteSubsidiaryQuery } from "@/services/subsidiaries";
 import useMutationUpdateSubsidiary from "../../queries/useMutationUpdateSubsidiary";
 
-const NAMESPACE_TRANSLATION = "Organisations.Subsidiaries";
+const NAMESPACE_TRANSLATION = "Organisations.Parents";
 
-interface OrganisationsSubsidiariesProps {
+interface OrganisationsParentsProps {
   onDeleteSuccess?: () => void;
   onEditSuccess?: () => void;
 }
 
-export default function OrganisationsSubsidiaries({
+export default function OrganisationsParents({
   onDeleteSuccess,
   onEditSuccess,
-}: OrganisationsSubsidiariesProps) {
+}: OrganisationsParentsProps) {
   const organisation = useStore(state => state.config.organisation);
   const t = useTranslations(NAMESPACE_TRANSLATION);
-  const [activeSubsidiary, setActiveSubsidiary] = useState<Subsidiary>();
+  const [activeParent, setActiveParent] = useState<Subsidiary>();
 
-  const { mutateAsync: mutateUpdateAsync, ...restUpdateState } =
+  const { mutateAsync: mutateUpdateAysnc, ...restUpdateState } =
     useMutationUpdateSubsidiary();
 
   const { showConfirm } = useMutationWithConfirmation(deleteSubsidiaryQuery(), {
@@ -41,55 +41,54 @@ export default function OrganisationsSubsidiaries({
 
   useQueryAlerts(restUpdateState, {
     onSuccess: () => {
-      setActiveSubsidiary(undefined);
-
+      setActiveParent(undefined);
       onEditSuccess?.();
     },
   });
 
-  const subsidiaries =
-    organisation?.subsidiaries?.filter(s => !s.is_parent) ?? [];
+  const parents = organisation?.subsidiaries?.filter(s => s.is_parent) ?? [];
 
   return (
     <>
       <PageSection heading={t("heading")} description={t("description")}>
         <div>
           <OrganisationsSubsidiariesTable
-            data={subsidiaries}
+            data={parents}
             t={t}
             isPaginated={false}
-            onEdit={subsidiary => setActiveSubsidiary(subsidiary)}
-            onDelete={subsidiary =>
+            onEdit={parent => setActiveParent(parent)}
+            onDelete={parent =>
               showConfirm({
                 params: {
-                  subsidiaryId: subsidiary.id,
+                  subsidiaryId: parent.id,
                   organisationId: organisation.id,
+                  isParent: true,
                 },
               })
             }
           />
-          <Button
-            variant="outlined"
-            onClick={() => setActiveSubsidiary({})}
-            sx={{ mt: 2 }}>
-            {t("addSubsidiaryButton")}
-          </Button>
         </div>
+        <Button
+          variant="outlined"
+          onClick={() => setActiveParent({})}
+          sx={{ mt: 2 }}>
+          {t("addParentButton")}
+        </Button>
       </PageSection>
       <FormModal
-        open={!!activeSubsidiary}
-        heading={activeSubsidiary?.id ? t("edit") : t("add")}>
+        open={!!activeParent}
+        heading={activeParent?.id ? t("edit") : t("add")}>
         <OrganisationsSubsidiaryEditForm
           t={t}
           mutateState={restUpdateState}
-          defaultValues={activeSubsidiary}
-          onCancel={() => setActiveSubsidiary(undefined)}
+          defaultValues={activeParent}
+          onCancel={() => setActiveParent(undefined)}
           onSubmit={(payload: Subsidiary | Partial<Subsidiary>) => {
-            mutateUpdateAsync({
-              payload,
+            mutateUpdateAysnc({
+              payload: { ...payload, is_parent: true },
               params: {
                 organisationId: organisation.id,
-                subsidiaryId: activeSubsidiary.id,
+                subsidiaryId: activeParent?.id,
               },
             });
           }}

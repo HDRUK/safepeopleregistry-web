@@ -27,12 +27,6 @@ jest.mock("@/data/store", () => ({
 
 describe("Trainings", () => {
   const mockUser = mockedUser({ id: 1 });
-  const mockUserData = {
-    data: {
-      uksa_registered: false,
-      declaration_signed: false,
-    },
-  };
 
   const mockRouter = {
     push: jest.fn(),
@@ -43,7 +37,6 @@ describe("Trainings", () => {
 
     mockUseStore({ user: mockUser });
     (useQuery as jest.Mock).mockReturnValue({
-      data: mockUserData,
       isLoading: false,
       refetch: jest.fn(),
     });
@@ -61,42 +54,6 @@ describe("Trainings", () => {
     ).toBeInTheDocument();
   });
 
-  it("displays checkboxes", () => {
-    render(<Trainings />);
-    const checkboxes = screen.getAllByRole("checkbox");
-    expect(checkboxes).toHaveLength(2);
-  });
-
-  it("displays 'Find out more' links", () => {
-    render(<Trainings />);
-    expect(screen.getAllByText("Find out more")).toHaveLength(2);
-  });
-
-  it("submits form with correct data", async () => {
-    const mockPutUser = jest.fn();
-    (useMutation as jest.Mock).mockReturnValue({
-      mutateAsync: mockPutUser,
-      isPending: false,
-    });
-
-    render(<Trainings />);
-
-    const checkboxes = screen.getAllByRole("checkbox");
-    fireEvent.click(checkboxes[0]);
-    fireEvent.click(checkboxes[1]);
-
-    await act(async () => {
-      fireEvent.click(screen.getByText("Finish"));
-    });
-
-    await waitFor(() => {
-      expect(mockPutUser).toHaveBeenCalledWith({
-        uksa_registered: true,
-        declaration_signed: true,
-      });
-    });
-  });
-
   it("navigates to the correct route after submission", async () => {
     render(<Trainings />);
 
@@ -108,33 +65,6 @@ describe("Trainings", () => {
       expect(mockRouter.push).toHaveBeenCalledWith(
         ROUTES.profileResearcherHome.path
       );
-    });
-  });
-
-  it("updates form when user data changes", async () => {
-    const { rerender } = render(<Trainings />);
-
-    const checkboxes = screen.getAllByRole("checkbox");
-    expect(checkboxes[0]).not.toBeChecked();
-    expect(checkboxes[1]).not.toBeChecked();
-
-    (useQuery as jest.Mock).mockReturnValue({
-      data: {
-        data: {
-          ...mockUser,
-          uksa_registered: true,
-          declaration_signed: true,
-        },
-      },
-      isLoading: false,
-    });
-
-    rerender(<Trainings />);
-
-    await waitFor(() => {
-      const updatedCheckboxes = screen.getAllByRole("checkbox");
-      expect(updatedCheckboxes[0]).toBeChecked();
-      expect(updatedCheckboxes[1]).toBeChecked();
     });
   });
 

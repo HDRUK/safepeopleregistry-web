@@ -135,7 +135,7 @@ export default function ProjectsAddUserForm({
           queryState={restQueryParams}
           noResultsMessage={t("noResultsMessage")}
           errorMessage={
-            <ErrorMessage t={t} tKey="professionalRegsitrationsErrorMessage" />
+            <ErrorMessage t={t} tKey="professionalRegistrationsErrorMessage" />
           }
           total={total}
           page={page}
