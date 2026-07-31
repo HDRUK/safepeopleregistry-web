@@ -1,3 +1,16 @@
+## [1.38.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.37.0...v1.38.0) (2026-07-31)
+
+### ✨ Features
+
+* **REGISTRY-1006:** Organisations - add parent organisation (subsidiaries) (#839) ([5023bda](https://github.com/HDRUK/safepeopleregistry-web/commit/5023bda86be0efa7d5b606e02ef22e93cc241b93))
+* **REGISTRY-2622:** User | Change UK Stats Authority tick box to instead be its own table (#838) ([fa0d2ae](https://github.com/HDRUK/safepeopleregistry-web/commit/fa0d2ae7abe8a8bb85abb1b4e3d2ecc969ec5b5f))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-0000:** Fix 'Add organisation manual check' modal header (#837) ([f463f2e](https://github.com/HDRUK/safepeopleregistry-web/commit/f463f2ed47d18de13e0082da82e940d2c7954e2c))
+* **REGISTRY-000:** Update copyright notices' year to 2026 (#841) ([868c7b0](https://github.com/HDRUK/safepeopleregistry-web/commit/868c7b010de0c96ae55d1ea44d434179b7d33711))
+* **REGISTRY-2854:** Update banner text on pre-prod to say July 23, not June 30 (#840) ([44f4a93](https://github.com/HDRUK/safepeopleregistry-web/commit/44f4a93bf7c7e0089640cc8d8af74e25ed6e389e))
+
 ## [1.37.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.36.1...v1.37.0) (2026-07-10)
 
 ### ✨ Features
