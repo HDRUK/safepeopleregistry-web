@@ -9,7 +9,7 @@ enum PageTabs {
 enum DetailsPageSubTabs {
   NAME_AND_SRO = "name-and-sro",
   ADDRESS = "address",
-  ORGANISATION_DETAILS = "organisation_details",
+  ORGANISATION_DETAILS = "organisation-details",
   DIGITAL_IDENTIFIERS = "digital-identifiers",
   // SECTOR_SIZE_AND_WEBSITE = "sector-size-and-website",
   SECURITY_COMPLIANCE = "security-compliance",
