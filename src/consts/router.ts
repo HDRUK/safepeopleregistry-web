@@ -238,7 +238,7 @@ const ROUTES: Routes = {
     permissions: [UserGroup.ORGANISATIONS],
   },
   profileOrganisationDetailsOrganisationDetails: {
-    path: "/organisation/profile/details/organisation_details",
+    path: "/organisation/profile/details/organisation-details",
     permissions: [UserGroup.ORGANISATIONS],
   },
   profileOrganisationDetailsDigitalIdentifiers: {
