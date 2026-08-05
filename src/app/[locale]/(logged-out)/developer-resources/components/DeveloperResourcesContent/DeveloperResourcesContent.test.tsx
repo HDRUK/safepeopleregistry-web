@@ -8,7 +8,9 @@ describe("<DeveloperResourcesContent />", () => {
   it("renders the intro paragraph", async () => {
     const Component = await DeveloperResourcesContent();
     render(Component);
-    expect(screen.getByText(/Safe People Registry API/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/lets you integrate directly with our platform/i)
+    ).toBeInTheDocument();
   });
 
   it("renders the heading", async () => {
