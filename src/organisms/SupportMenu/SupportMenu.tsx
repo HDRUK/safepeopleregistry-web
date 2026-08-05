@@ -12,7 +12,6 @@ import { ROUTES } from "@/consts/router";
 import { UserGroup } from "@/consts/user";
 import { getMeQuery } from "@/services/auth";
 import { Link } from "@/i18n/routing";
-import CodeIcon from "@mui/icons-material/Code";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Button,
