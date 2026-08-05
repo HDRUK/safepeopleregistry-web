@@ -26,6 +26,9 @@ const ROUTES: Routes = {
   getInvolved: {
     path: "/get-involved",
   },
+  developerResources: {
+    path: "/developer-resources",
+  },
   profileCustodian: {
     path: "/data-custodian/profile",
     permissions: [UserGroup.CUSTODIANS],

@@ -12,6 +12,7 @@ import { ROUTES } from "@/consts/router";
 import { UserGroup } from "@/consts/user";
 import { getMeQuery } from "@/services/auth";
 import { Link } from "@/i18n/routing";
+import CodeIcon from "@mui/icons-material/Code";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Button,
@@ -62,6 +63,11 @@ export default function SupportMenu() {
       label: t("supportViewGlossary"),
       href: ROUTES.glossary.path,
     },
+    // {
+    //   icon: <CodeIcon fontSize="small" />,
+    //   label: t("supportDeveloperResources"),
+    //   href: ROUTES.developerResources.path,
+    // },
     {
       icon: <DiversityIcon fontSize="small" />,
       label: t("supportGetInvolved"),
