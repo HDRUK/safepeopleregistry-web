@@ -309,7 +309,7 @@ const ROUTES: Routes = {
     path: "/admin",
     permissions: [UserGroup.ADMINS],
   },
-  profileOrganisationUserAdministrationDelegates: undefined,
+  // profileOrganisationUserAdministrationDelegates: undefined,
 };
 
 const EXCLUDE_REDIRECT_URLS: string[] = [ROUTES.invite.path];
