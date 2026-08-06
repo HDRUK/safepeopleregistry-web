@@ -27,7 +27,7 @@ describe("Subsidiaries journey", () => {
   beforeEach(() => {
     loginOrganisation();
 
-    cy.visitFirst(ROUTES.profileOrganisationDetailsNameAndSRO.path);
+    cy.visitFirst(ROUTES.profileOrganisationDetailsOrganisationDetails.path);
   });
 
   after(() => {
