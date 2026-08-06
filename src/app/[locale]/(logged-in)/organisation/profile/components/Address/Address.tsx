@@ -44,7 +44,7 @@ const ORG_KEYS = [
   "postcode",
 ];
 
-export default function NameAndAddress() {
+export default function Address() {
   const { organisation } = useOrganisationStore();
   const router = useRouter();
 

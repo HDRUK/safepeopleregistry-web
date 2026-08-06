@@ -12,13 +12,11 @@ import {
   UserAdminPageSubTabs,
 } from "../../consts/tabs";
 import DigitalIdentifiers from "../DigitalIdentifiers";
-// import NameAndAddress from "../NameAndAddress";
 import ProjectsSafeData from "../ProjectsSafeData";
 import ProjectsSafeOutputs from "../ProjectsSafeOutputs";
 import ProjectsSafePeople from "../ProjectsSafePeople";
 import ProjectsSafeProject from "../ProjectsSafeProject";
 import ProjectsSafeSettings from "../ProjectsSafeSettings";
-// import SectorSizeAndWebsite from "../SectorSizeAndWebsite";
 import SecurityCompliance from "../SecurityCompliance";
 import Address from "../Address";
 import NameAndSRO from "../NameAndSRO";
