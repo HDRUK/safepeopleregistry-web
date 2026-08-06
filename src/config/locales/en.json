@@ -2445,6 +2445,7 @@
   "DeveloperResources": {
     "infoTitle": "Developer resources",
     "intro1": "The Safe People Registry API lets you integrate directly with our platform. Explore the interactive API documentation, or get started quickly with an SDK for your language of choice.",
+    "intro2": "Note that API integration relies on having a Data Custodian account. To get a Data Custodian test and/or live account, please email us at <emailLink>enquiries@safepeopleregistry.org</emailLink>",
     "apiDocTitle": "API documentation",
     "apiDocDescription": "Browse the full API reference and try out requests in our interactive Swagger docs.",
     "apiDocButton": "View API docs",
