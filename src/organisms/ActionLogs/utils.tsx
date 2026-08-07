@@ -45,10 +45,6 @@ const generateActions = (routes: Route) => {
       icon: <CorporateFareIcon />,
       path: routes.profileOrganisationDetailsAddress.path,
     },
-    // sector_size_completed: {
-    //   icon: <CorporateFareIcon />,
-    //   path: routes.profileOrganisationDetailsSectorSizeAndWebsite.path,
-    // },
     organisation_details_completed: {
       icon: <CorporateFareIcon />,
       path: routes.profileOrganisationDetailsOrganisationDetails.path,

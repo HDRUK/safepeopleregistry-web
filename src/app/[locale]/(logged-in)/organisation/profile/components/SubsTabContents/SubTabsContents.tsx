@@ -62,9 +62,6 @@ export default function SubTabsContents({
     case DetailsPageSubTabs.DIGITAL_IDENTIFIERS:
       content = <DigitalIdentifiers />;
       break;
-    // case DetailsPageSubTabs.SECTOR_SIZE_AND_WEBSITE:
-    //   content = <SectorSizeAndWebsite />;
-    //   break;
     case DetailsPageSubTabs.SECURITY_COMPLIANCE:
       content = <SecurityCompliance />;
       break;
