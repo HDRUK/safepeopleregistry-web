@@ -1419,6 +1419,7 @@
     "getSupportButton": "Get support",
     "supportReadFAQs": "Read the FAQs",
     "supportViewGlossary": "View the Glossary",
+    "supportDeveloperResources": "Developer Resources",
     "supportGetInvolved": "Get involved",
     "supportAskTeam": "Ask the team (new tab)",
     "supportContactUs": "Contact us"
@@ -2440,6 +2441,25 @@
     "acknowledgementItem2": "Representatives from the NHS Data for Research and Development Programme and NHS Research Secure Data Environment Network",
     "acknowledgementItem3": "Representatives from the UK Trusted Research Environment Community",
     "acknowledgementItem4": "Representatives from the HDR UK Public Advisory Board"
+  },
+  "DeveloperResources": {
+    "infoTitle": "Developer resources",
+    "intro1": "The Safe People Registry API lets you integrate directly with our platform. Explore the interactive API documentation, or get started quickly with an SDK for your language of choice.",
+    "intro2": "Note that API integration relies on having a Data Custodian account. To get a Data Custodian test and/or live account, please email us at <emailLink>enquiries@safepeopleregistry.org</emailLink>",
+    "apiDocTitle": "API documentation",
+    "apiDocDescription": "Browse the full API reference and try out requests in our interactive Swagger docs.",
+    "apiDocButton": "View API docs",
+    "sdkJavaTitle": "Java SDK",
+    "sdkJavaDescription": "Integrate with the Safe People Registry API from a Java application.",
+    "sdkCSharpTitle": "C# SDK",
+    "sdkCSharpDescription": "Integrate with the Safe People Registry API from a C# application.",
+    "sdkPythonTitle": "Python SDK",
+    "sdkPythonDescription": "Integrate with the Safe People Registry API from a Python application.",
+    "sdkGoTitle": "Go SDK",
+    "sdkGoDescription": "Integrate with the Safe People Registry API from a Go application.",
+    "sdkTypescriptTitle": "TypeScript SDK",
+    "sdkTypescriptDescription": "Integrate with the Safe People Registry API from a TypeScript application.",
+    "sdkButton": "View on GitHub"
   },
   "ContactUs": {
     "infoTitle": "Contact us",

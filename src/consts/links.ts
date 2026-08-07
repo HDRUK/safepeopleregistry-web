@@ -43,6 +43,15 @@ const links = {
     surveyOrganisation:
       "https://hdruk.atlassian.net/servicedesk/customer/portal/7/group/83/create/177?customfield_10752=11728&customfield_10223=12025",
   },
+  developerResources: {
+    apiDocumentation: "https://api.safepeopleregistry.org/api/documentation",
+    sdkJava: "https://github.com/HDRUK/safepeopleregistry-api-java-sdk",
+    sdkCSharp: "https://github.com/HDRUK/safepeopleregistry-api-csharp-sdk",
+    sdkPython: "https://github.com/HDRUK/safepeopleregistry-api-python-sdk",
+    sdkGo: "https://github.com/HDRUK/safepeopleregistry-api-go-sdk",
+    sdkTypescript:
+      "https://github.com/HDRUK/safepeopleregistry-api-typescript-sdk",
+  },
 } as const;
 
 export default links;

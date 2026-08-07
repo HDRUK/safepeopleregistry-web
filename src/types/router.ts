@@ -23,6 +23,7 @@ interface Routes {
   glossary: RouteConfig;
   contact: RouteConfig;
   getInvolved: RouteConfig;
+  developerResources: RouteConfig;
   usersCustodian: RouteConfig;
   profileCustodian: RouteConfig;
   profileCustodianUserById: RouteConfig;
