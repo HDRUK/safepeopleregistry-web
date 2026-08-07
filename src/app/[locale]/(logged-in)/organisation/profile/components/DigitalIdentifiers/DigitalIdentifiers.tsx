@@ -105,7 +105,7 @@ export default function DigitalIdentifiers() {
       ods_id: fields.ods_id,
     };
     onSubmit(payload).then(() =>
-      router.push(ROUTES.profileOrganisationDetailsSectorSizeAndWebsite.path)
+      router.push(ROUTES.profileOrganisationDetailsSecurityCompliance.path)
     );
   };
   return (
@@ -249,9 +249,9 @@ export default function DigitalIdentifiers() {
                 <FormActions>
                   <ProfileNavigationFooter
                     previousHref={
-                      ROUTES.profileOrganisationDetailsNameAndAddress.path
+                      ROUTES.profileOrganisationDetailsOrganisationDetails.path
                     }
-                    nextStepText={tOrgProfile("detailsSectorSizeAndWebsite")}
+                    nextStepText={tOrgProfile("nextStepDataSecurityCompliance")}
                     isLoading={isLoading}
                   />
                 </FormActions>

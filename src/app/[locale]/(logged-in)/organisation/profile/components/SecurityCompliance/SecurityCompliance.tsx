@@ -159,7 +159,7 @@ export default function SecurityCompliance() {
             <FormActions>
               <ProfileNavigationFooter
                 previousHref={
-                  ROUTES.profileOrganisationDetailsSectorSizeAndWebsite.path
+                  ROUTES.profileOrganisationDetailsDigitalIdentifiers.path
                 }
                 isLoading={isLoading}
               />

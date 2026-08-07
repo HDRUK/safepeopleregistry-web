@@ -1,6 +1,6 @@
 import { mockedOrganisation } from "@/mocks/data/organisation";
 import { fireEvent, render, screen, waitFor } from "@/utils/testUtils";
-import NameAndAddress from "./NameAndAddress";
+import NameAndSRO from "./NameAndSRO";
 
 const putProps = {
   isError: false,
@@ -26,7 +26,7 @@ jest.mock("@tanstack/react-query", () => {
 });
 
 function setupTest() {
-  return render(<NameAndAddress />);
+  return render(<NameAndSRO />);
 }
 
 const userData = {
@@ -39,20 +39,12 @@ const userData = {
 };
 
 function getAllInputs() {
-  return [
-    /Organisation name/,
-    /Address 1/,
-    /Address 2/,
-    /Town/,
-    /County/,
-    /Country/,
-    /Postcode/,
-  ];
+  return [/Organisation name/];
 }
 
 const organisation = mockedOrganisation();
 
-describe("<NameAndAddress />", () => {
+describe("<NameAndSRO />", () => {
   beforeEach(() => {
     mockUseStore({
       config: { organisation, user: userData },
@@ -65,7 +57,7 @@ describe("<NameAndAddress />", () => {
     jest.clearAllMocks();
   });
 
-  it("renders all main form fields", () => {
+  it("renders all name/SRO fields", () => {
     setupTest();
 
     const inputs = getAllInputs();
@@ -78,28 +70,13 @@ describe("<NameAndAddress />", () => {
   it("submits the form when values are filled", async () => {
     setupTest();
 
-    const form = await screen.findByRole("form", { name: "Name and address" });
+    const form = await screen.findByRole("form", { name: "Name and SRO" });
     fireEvent.submit(form);
 
-    const {
-      address_1,
-      address_2,
-      county,
-      country,
-      town,
-      postcode,
-      organisation_name,
-      sro_profile_uri,
-    } = organisation;
+    const { organisation_name, sro_profile_uri } = organisation;
 
     await waitFor(() => {
       expect(putProps.onSubmit).toHaveBeenCalledWith({
-        address_1,
-        address_2,
-        county,
-        country,
-        town,
-        postcode,
         organisation_name,
         sro_profile_uri,
       });
@@ -117,7 +94,7 @@ describe("<NameAndAddress />", () => {
 
     clearInputsByLabelText(getAllInputs());
 
-    const form = await screen.findByRole("form", { name: "Name and address" });
+    const form = await screen.findByRole("form", { name: "Name and SRO" });
     fireEvent.submit(form);
 
     await waitFor(() => {
