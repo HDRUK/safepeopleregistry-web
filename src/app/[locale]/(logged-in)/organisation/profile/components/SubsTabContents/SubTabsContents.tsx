@@ -12,14 +12,15 @@ import {
   UserAdminPageSubTabs,
 } from "../../consts/tabs";
 import DigitalIdentifiers from "../DigitalIdentifiers";
-import NameAndAddress from "../NameAndAddress";
 import ProjectsSafeData from "../ProjectsSafeData";
 import ProjectsSafeOutputs from "../ProjectsSafeOutputs";
 import ProjectsSafePeople from "../ProjectsSafePeople";
 import ProjectsSafeProject from "../ProjectsSafeProject";
 import ProjectsSafeSettings from "../ProjectsSafeSettings";
-import SectorSizeAndWebsite from "../SectorSizeAndWebsite";
 import SecurityCompliance from "../SecurityCompliance";
+import Address from "../Address";
+import NameAndSRO from "../NameAndSRO";
+import OrganisationDetails from "../OrganisationDetails";
 
 interface TabsContentsProps {
   tabId: string;
@@ -49,14 +50,17 @@ export default function SubTabsContents({
   let content = null;
 
   switch (subTabId) {
-    case DetailsPageSubTabs.NAME_AND_ADDRESS:
-      content = <NameAndAddress />;
+    case DetailsPageSubTabs.NAME_AND_SRO:
+      content = <NameAndSRO />;
+      break;
+    case DetailsPageSubTabs.ADDRESS:
+      content = <Address />;
+      break;
+    case DetailsPageSubTabs.ORGANISATION_DETAILS:
+      content = <OrganisationDetails />;
       break;
     case DetailsPageSubTabs.DIGITAL_IDENTIFIERS:
       content = <DigitalIdentifiers />;
-      break;
-    case DetailsPageSubTabs.SECTOR_SIZE_AND_WEBSITE:
-      content = <SectorSizeAndWebsite />;
       break;
     case DetailsPageSubTabs.SECURITY_COMPLIANCE:
       content = <SecurityCompliance />;

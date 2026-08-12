@@ -272,7 +272,7 @@ export default function Webhooks() {
                     <FormActions>
                       <ProfileNavigationFooter
                         previousHref={
-                          ROUTES.profileOrganisationDetailsSectorSizeAndWebsite
+                          ROUTES.profileOrganisationDetailsOrganisationDetails
                             .path
                         }
                         isLoading={isPostLoading || isDeleteLoading}

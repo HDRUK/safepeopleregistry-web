@@ -5,7 +5,7 @@ import { PageSection } from "@/modules";
 import { useTranslations } from "next-intl";
 
 import FormControlWrapper from "@/components/FormControlWrapper";
-import SroDeclarationUploader from "@/app/[locale]/(logged-in)/organisation/profile/components/NameAndAddress/SroDeclarationUploader";
+import SroDeclarationUploader from "@/app/[locale]/(logged-in)/organisation/profile/components/NameAndSRO/SroDeclarationUploader";
 import Link from "next/link";
 import { Grid } from "@mui/material";
 import { FileType } from "@/consts/files";
