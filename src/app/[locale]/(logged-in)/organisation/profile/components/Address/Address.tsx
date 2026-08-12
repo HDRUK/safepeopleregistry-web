@@ -71,8 +71,6 @@ export default function Address() {
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
   const tOrgProfile = useTranslations(NAMESPACE_TRANSLATION_ORG_PROFILE);
 
-  const isDelegate = user?.is_delegate === 1;
-
   const schema = useMemo(
     () =>
       yup.object().shape({
