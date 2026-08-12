@@ -403,7 +403,7 @@ export default function AffiliationsForm({
                         </Box>
                       )
                     }
-                    disabled={!!initialValues}
+                    disabled={!!initialValues && !!initialValues.email}
                   />
                 </Grid>
               )}
