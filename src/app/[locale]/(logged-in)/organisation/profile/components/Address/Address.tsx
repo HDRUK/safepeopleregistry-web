@@ -82,30 +82,6 @@ export default function Address() {
         county: yup.string().required(tForm("countyRequiredInvalid")),
         country: yup.string().required(tForm("countryRequiredInvalid")),
         postcode: yup.string().required(tForm("postcodeRequiredInvalid")),
-        first_name: !isDelegate
-          ? yup.string().required()
-          : yup.string().nullable(),
-        last_name: !isDelegate
-          ? yup.string().required()
-          : yup.string().nullable(),
-        department: !isDelegate
-          ? yup.number().required()
-          : yup.number().nullable(),
-        email: !isDelegate
-          ? yup
-              .string()
-              .email(tForm("emailInvalid"))
-              .required(tForm("emailRequired"))
-          : yup.string().nullable(),
-        role: !isDelegate
-          ? yup.string().required(tForm("roleRequiredInvalid"))
-          : yup.string().nullable(),
-        sro_profile_uri: !isDelegate
-          ? yup
-              .string()
-              .url(tForm("sroProfileUriInvalid"))
-              .required(tForm("sroProfileUriRequiredInvalid"))
-          : yup.string().nullable(),
       }),
     [tForm]
   );
