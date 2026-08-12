@@ -2448,7 +2448,10 @@
     "acknowledgementItem1": "Alliance members including members of the Pan-UK Data Governance Steering Group",
     "acknowledgementItem2": "Representatives from the NHS Data for Research and Development Programme and NHS Research Secure Data Environment Network",
     "acknowledgementItem3": "Representatives from the UK Trusted Research Environment Community",
-    "acknowledgementItem4": "Representatives from the HDR UK Public Advisory Board"
+    "acknowledgementItem4": "Representatives from the HDR UK Public Advisory Board",
+    "exploreRoadmapTitle": "Explore our public roadmap",
+    "exploreRoadmapDescription": "Come see what we're working on now and in the future!",
+    "exploreRoadmapButton": "Explore roadmap"
   },
   "DeveloperResources": {
     "infoTitle": "Developer resources",
