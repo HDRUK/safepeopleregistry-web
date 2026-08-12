@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import RecordVoiceOverOutlinedIcon from "@mui/icons-material/RecordVoiceOverOutlined";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
+import ViewTimelineOutlinedIcon from "@mui/icons-material/ViewTimelineOutlined";
 import ActionCard from "@/components/ActionCard";
 import { CardConfig, resolveHref } from "@/components/ActionCard/types";
 import { UserGroup } from "@/consts/user";
@@ -34,6 +35,15 @@ const CARDS: CardConfig[] = [
       [UserGroup.USERS]: links.getInvolved.surveyUser,
       [UserGroup.CUSTODIANS]: links.getInvolved.surveyCustodian,
       [UserGroup.ORGANISATIONS]: links.getInvolved.surveyOrganisation,
+    },
+  },
+  {
+    icon: <ViewTimelineOutlinedIcon fontSize="large" />,
+    titleKey: "exploreRoadmapTitle",
+    descriptionKey: "exploreRoadmapDescription",
+    ctaLabelKey: "exploreRoadmapButton",
+    hrefs: {
+      loggedOut: links.getInvolved.exploreRoadmap,
     },
   },
   {
