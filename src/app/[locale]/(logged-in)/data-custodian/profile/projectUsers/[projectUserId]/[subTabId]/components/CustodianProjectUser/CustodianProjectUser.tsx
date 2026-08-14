@@ -24,6 +24,8 @@ import { useEffect } from "react";
 import { UserSubTabs } from "../../../../../consts/tabs";
 import SubTabsSections from "../SubTabSections";
 import SubTabsContents from "../SubsTabContents";
+import { Box, Link, Typography } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 interface CustodianProjectUserProps {
   projectUserId: number;
@@ -99,37 +101,47 @@ function CustodianProjectUser({
   return (
     user &&
     registry && (
-      <PageBodyContainer
-        heading={
-          <>
-            {t("heading", {
-              projectTitle: project?.title,
-            })}
-          </>
-        }>
-        <PageColumns>
-          <PageColumnBody size={{ lg: 8 }}>
-            <UserDetails projectUser={projectUser} />
+      <>
+        <Link href={`/data-custodian/profile/projectUsers`}>
+          <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+            <ArrowBackIcon />
+            <Typography sx={{ ml: 1, textDecoration: "underline" }}>
+              {t("backToUsers")}
+            </Typography>
+          </Box>
+        </Link>
+        <PageBodyContainer
+          heading={
+            <>
+              {t("heading", {
+                projectTitle: project?.title,
+              })}
+            </>
+          }>
+          <PageColumns>
+            <PageColumnBody size={{ lg: 8 }}>
+              <UserDetails projectUser={projectUser} />
 
-            <SubTabsSections
-              projectUserId={projectUserId}
-              subTabId={subTabId}
-            />
-            <PageBody heading={t(toCamelCase(subTabId))}>
-              <SubTabsContents registryId={registry.id} subTabId={subTabId} />
-            </PageBody>
-          </PageColumnBody>
-          <PageColumnDetails size={{ lg: 4 }}>
-            <StatusPanel variant={ActionValidationVariants.ProjectUser} />
-            <ActionValidationPanel
-              variant={ActionValidationVariants.ProjectUser}
-              queryState={queryState}
-              logs={validationLogs?.data || []}
-              onStatusChange={handleStatusUpdate}
-            />
-          </PageColumnDetails>
-        </PageColumns>
-      </PageBodyContainer>
+              <SubTabsSections
+                projectUserId={projectUserId}
+                subTabId={subTabId}
+              />
+              <PageBody heading={t(toCamelCase(subTabId))}>
+                <SubTabsContents registryId={registry.id} subTabId={subTabId} />
+              </PageBody>
+            </PageColumnBody>
+            <PageColumnDetails size={{ lg: 4 }}>
+              <StatusPanel variant={ActionValidationVariants.ProjectUser} />
+              <ActionValidationPanel
+                variant={ActionValidationVariants.ProjectUser}
+                queryState={queryState}
+                logs={validationLogs?.data || []}
+                onStatusChange={handleStatusUpdate}
+              />
+            </PageColumnDetails>
+          </PageColumns>
+        </PageBodyContainer>
+      </>
     )
   );
 }
