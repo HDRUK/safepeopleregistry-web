@@ -18,8 +18,8 @@ const performKeycloakCodeLogin = (email: string, password: string) => {
       .find("form#kc-form-login")
       .attr("action");
 
-    expect(action, "Keycloak login form action url").to.be.a("string").and
-      .not.be.empty;
+    expect(action, "Keycloak login form action url").to.be.a("string").and.not
+      .be.empty;
 
     cy.request({
       method: "POST",
