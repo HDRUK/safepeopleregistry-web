@@ -4,6 +4,7 @@ const performKeycloakCodeLogin = (email: string, password: string) => {
   const clientId = Cypress.env("keycloakClientId");
   const redirectUri = Cypress.env("keycloakLoginRedirectUrl");
 
+  // Adding a comment to try re-triggering Actions correctly
   const authUrl =
     `${keycloakBaseUrl}/realms/${realm}/protocol/openid-connect/auth?` +
     new URLSearchParams({
