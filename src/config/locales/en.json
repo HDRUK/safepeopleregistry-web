@@ -1980,7 +1980,7 @@
       }
     },
     "DelegateCheck": {
-      "delegate_contacts": "Delegate contacts"
+      "delegates": "Delegate contacts"
     },
     "IdentityVerification": {
       "registry": {
