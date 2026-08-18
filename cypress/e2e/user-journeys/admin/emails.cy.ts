@@ -7,6 +7,30 @@ import { dataCy, getModalByHeader, logout } from "cypress/support/utils/common";
 
 const dataInviteUser = mockedInvitedUser();
 
+const refreshUntilFirstRowMatches = (
+  predicate: (firstRowText: string) => boolean,
+  maxAttempts = 5,
+  attempts = 0
+) => {
+  cy.get(dataCy("emails-list"))
+    .find("tbody tr")
+    .should("have.length.greaterThan", 0)
+    .first()
+    .then($row => {
+      if (predicate($row.text())) {
+        return;
+      }
+
+      if (attempts >= maxAttempts) {
+        throw new Error("Timed out waiting for first row to match condition");
+      }
+
+      cy.contains("button", "Update").click();
+      cy.wait(1000);
+      refreshUntilFirstRowMatches(predicate, maxAttempts, attempts + 1);
+    });
+};
+
 describe("Resend invite", () => {
   before(() => {
     loginAdmin();
@@ -29,11 +53,11 @@ describe("Resend invite", () => {
   });
 
   it("Shows a list of emails", () => {
-    cy.wait(20000);
-    cy.contains("button", "Update").click();
-
+    refreshUntilFirstRowMatches(text => text.includes(dataInviteUser.email));
     cy.get(dataCy("emails-list"))
       .find("tbody tr")
+      .should("exist")
+      .and("have.length.greaterThan", 0)
       .first()
       .within(() => {
         cy.contains("td", "Safe People Registry | User invite").should("exist");

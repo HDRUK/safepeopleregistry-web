@@ -10,24 +10,19 @@ import yup from "@/config/yup";
 import { ROUTES } from "@/consts/router";
 import { useStore } from "@/data/store";
 import { PageBody, PageSection } from "@/modules";
-import OrganisationsSubsidiaries from "@/organisms/OrganisationsSubsidiaries/OrganisationsSubsidiaries";
-import SroDeclaration from "@/organisms/SroDeclaration";
 import useOrganisationStore from "@/queries/useOrganisationStore";
-import { getUserQuery, putUserQuery } from "@/services/users";
+import { getUserQuery } from "@/services/users";
 import { AddressFields } from "@/types/application";
 import { KeyContactFormValues } from "@/types/form";
 import { pick } from "@/utils/json";
-import { Grid, TextField, Typography } from "@mui/material";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { Grid, TextField } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo } from "react";
 import useUpdateOrganisation from "../../hooks/useUpdateOrganisation";
-import SroFields from "../SroFields";
-import OrganisationsParents from "@/organisms/OrganisationsParents";
 
-export interface NameAndAddressFormValues {
-  organisation_name: string;
+export interface AddressFormValues {
   address_1: string;
   address_2?: string | null;
   town: string;
@@ -41,28 +36,22 @@ const NAMESPACE_TRANSLATION_PROFILE = "Profile";
 const NAMESPACE_TRANSLATION_ORG_PROFILE = "ProfileOrganisation";
 
 const ORG_KEYS = [
-  "organisation_name",
   "address_1",
   "address_2",
   "town",
   "county",
   "country",
   "postcode",
-  "sro_profile_uri",
 ];
 
-const SRO_KEYS = ["first_name", "last_name", "email", "role", "department"];
-
-export default function NameAndAddress() {
-  const { organisation, refetch } = useOrganisationStore();
+export default function Address() {
+  const { organisation } = useOrganisationStore();
   const router = useRouter();
 
   const { user, setUser } = useStore(state => ({
     user: state.getUser(),
     setUser: state.setUser,
   }));
-
-  const isDelegate = user?.is_delegate === 1;
 
   const {
     isError,
@@ -72,10 +61,6 @@ export default function NameAndAddress() {
   } = useUpdateOrganisation({
     id: organisation?.id,
   });
-
-  const { mutateAsync: mutateUser } = useMutation(
-    putUserQuery(user?.id as number)
-  );
 
   const { data: userData, refetch: refetchUserData } = useQuery({
     ...getUserQuery(user?.id as number),
@@ -89,77 +74,40 @@ export default function NameAndAddress() {
   const schema = useMemo(
     () =>
       yup.object().shape({
-        organisation_name: yup
-          .string()
-          .required(tForm("organisationNameRequiredInvalid")),
         address_1: yup.string().required(tForm("address1RequiredInvalid")),
         address_2: yup.string().nullable(),
         town: yup.string().required(tForm("townRequiredInvalid")),
         county: yup.string().required(tForm("countyRequiredInvalid")),
         country: yup.string().required(tForm("countryRequiredInvalid")),
         postcode: yup.string().required(tForm("postcodeRequiredInvalid")),
-        first_name: yup.string().required(),
-        last_name: yup.string().required(),
-        department: yup.number().required(),
-        email: yup
-          .string()
-          .email(tForm("emailInvalid"))
-          .required(tForm("emailRequired")),
-        role: yup.string().required(tForm("roleRequiredInvalid")),
-        sro_profile_uri: yup
-          .string()
-          .url(tForm("sroProfileUriInvalid"))
-          .required(tForm("sroProfileUriRequiredInvalid")),
       }),
     [tForm]
   );
   const formOptions = {
     defaultValues: {
-      organisation_name: organisation?.organisation_name,
       address_1: organisation?.address_1,
       address_2: organisation?.address_2,
       town: organisation?.town,
       county: organisation?.county,
       country: organisation?.country,
       postcode: organisation?.postcode,
-      first_name: user?.first_name,
-      last_name: user?.last_name,
-      department: user?.departments?.[0]?.id,
-      email: user?.email,
-      role: user?.role,
-      sro_profile_uri: organisation?.sro_profile_uri,
     },
     error: isError && <ErrorMessage t={tProfile} tKey={error} />,
   };
 
   const handleSubmit = async (
-    formData: Partial<NameAndAddressFormValues & KeyContactFormValues>
+    formData: Partial<AddressFormValues & KeyContactFormValues>
   ) => {
     const organisationPayload = pick(
       formData,
       ORG_KEYS
-    ) as Partial<NameAndAddressFormValues>;
-
-    const { department, ...restSroPayload } = pick(
-      formData,
-      SRO_KEYS
-    ) as Partial<KeyContactFormValues>;
+    ) as Partial<AddressFormValues>;
 
     await onSubmitOrganisation(organisationPayload);
 
-    await mutateUser({
-      ...restSroPayload,
-      department_id: department,
-      is_sro: true,
-    });
-
     refetchUserData();
 
-    router.push(ROUTES.profileOrganisationDetailsDigitalIdentifiers.path);
-  };
-
-  const handleRefetch = () => {
-    refetch();
+    router.push(ROUTES.profileOrganisationDetailsOrganisationDetails.path);
   };
 
   useEffect(() => {
@@ -171,7 +119,7 @@ export default function NameAndAddress() {
   return (
     <PageBody>
       <Form
-        aria-label="Name and address"
+        aria-label={tOrgProfile("addressTitle")}
         schema={schema}
         onSubmit={handleSubmit}
         {...formOptions}
@@ -179,32 +127,19 @@ export default function NameAndAddress() {
         {({ setValue }) => {
           const handleFindAddress = (address: AddressFields) => {
             Object.entries(address).forEach(([key, value]) => {
-              setValue(key as keyof NameAndAddressFormValues, value ?? "");
+              setValue(key as keyof AddressFormValues, value ?? "");
             });
           };
 
           return (
             <>
-              <PageSection
-                heading={tOrgProfile("nameAndAddressTitle")}
-                description={tOrgProfile.rich("nameAndAddressDescription", {
-                  bold: chunks => <b>{chunks}</b>,
-                  br: () => <br />,
-                })}>
+              <PageSection heading={tOrgProfile("addressTitle")}>
                 <Grid container rowSpacing={3}>
-                  <Grid size={{ xs: 12 }}>
-                    <FormControlWrapper
-                      name="organisation_name"
-                      renderField={fieldProps => <TextField {...fieldProps} />}
-                    />
-                  </Grid>
                   <Grid size={{ xs: 12 }}>
                     <FormControlWrapper
                       name="address"
                       displayPlaceholder={false}
-                      description={tOrgProfile(
-                        "nameAndAddressAddressDescription"
-                      )}
+                      description={tOrgProfile("addressDescription")}
                       renderField={() => (
                         <GoogleAutocomplete
                           name="address"
@@ -214,7 +149,7 @@ export default function NameAndAddress() {
                           onAddressSelected={value =>
                             handleFindAddress(value as AddressFields)
                           }
-                          placeholder="Search for your address..."
+                          placeholder={tOrgProfile("addressSearch")}
                         />
                       )}
                     />
@@ -259,37 +194,12 @@ export default function NameAndAddress() {
                   </Grid>
                 </Grid>
               </PageSection>
-              <OrganisationsParents
-                onEditSuccess={() => handleRefetch()}
-                onDeleteSuccess={() => handleRefetch()}
-              />
-              <OrganisationsSubsidiaries
-                onEditSuccess={() => handleRefetch()}
-                onDeleteSuccess={() => handleRefetch()}
-              />
-
-              <SroFields />
-              <SroDeclaration />
-
-              <Grid container rowSpacing={3}>
-                <Grid size={{ xs: 12 }}>
-                  <FormControlWrapper
-                    name="sro_profile_uri"
-                    renderField={fieldProps =>
-                      !isDelegate ? (
-                        <TextField {...fieldProps} />
-                      ) : (
-                        <Typography gutterBottom>{fieldProps.value}</Typography>
-                      )
-                    }
-                    description={tForm("sroProfileUriDescription")}
-                  />
-                </Grid>
-              </Grid>
-
               <FormActions>
                 <ProfileNavigationFooter
-                  nextStepText={tOrgProfile("detailsDigitalIdentifiers")}
+                  previousHref={
+                    ROUTES.profileOrganisationDetailsNameAndSRO.path
+                  }
+                  nextStepText={tOrgProfile("nextStepOrganisationDetails")}
                   isLoading={isLoading}
                 />
               </FormActions>

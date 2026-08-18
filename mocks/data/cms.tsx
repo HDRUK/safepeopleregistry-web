@@ -435,18 +435,10 @@ export type ProfileGuidance = Record<string, TabGuidance>;
 
 export const mockedOrganisationProfileGuidance: TabGuidance = {
   details: {
-    "name-and-address": {
-      infoTitle: "Why are we asking for this information?",
+    "name-and-sro": {
+      infoTitle: "What’s a Senior Responsible Officer?",
       info: (
         <>
-          <Typography mb={5}>
-            Providing the Safe People Registry with full Organisation
-            information helps Data Custodians validate your Organisation. The
-            more information you provide, the faster and easier the validation
-            process becomes for Users (an employee or student of an
-            Organisation) to gain access to sensitive data.
-          </Typography>
-
           <Typography mb={3}>
             <strong>Senior Responsible Officers (SROs)</strong> are responsible
             for:
@@ -479,30 +471,44 @@ export const mockedOrganisationProfileGuidance: TabGuidance = {
         </>
       ),
     },
-    "digital-identifiers": {
-      infoTitle: "More information, faster validation",
+    address: {
+      infoTitle: "Why are we asking for this information?",
       info: (
         <>
           <Typography mb={5}>
-            Providing the Safe People Registry with your Organisation's
-            persistent digital identifiers enables Data Custodians to rapidly
-            validate your Organisation.
+            Providing the Safe People Registry with full Organisation
+            information helps Data Custodians validate your Organisation. The
+            more information you provide, the faster and easier the validation
+            process becomes for Users (an employee or student of an
+            Organisation) to gain access to sensitive data.
           </Typography>
           <Typography mb={5}>
-            If your Organisation’s headquarters is based in the UK, your
-            Organisation legal name and address should align with your
-            Organisation's listing on Companies House.
+            If your Organisation headquarters is based within the UK, your
+            Organisation legal name and address information should align with
+            your Organisation’s listing on Companies House.
           </Typography>
         </>
       ),
     },
-    "sector-size-and-website": {
+    "organisation-details": {
       infoTitle: "More facts, quicker access",
       info: (
+        <>
+          <Typography mb={5}>
+            Providing the Safe People Registry with information on your
+            Organisation’s sector, size and website accelerates Organisation
+            validation by Data Custodians.
+          </Typography>
+        </>
+      ),
+    },
+    "digital-identifiers": {
+      infoTitle: "More information, faster validation",
+      info: (
         <Typography mb={5}>
-          Providing the Safe People Registry with information on your
-          Organisation’s sector, size and website accelerates Organisation
-          validation by Data Custodians.
+          Providing the Safe People Registry with your Organisation's persistent
+          digital identifiers enables Data Custodians to rapidly validate your
+          Organisation.
         </Typography>
       ),
     },

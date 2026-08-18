@@ -14,11 +14,13 @@ jobs:
 
   setup-preprod:
     uses: ./.github/workflows/build-args.yaml
+    needs: semantic
     with:
       environment: preprod
 
   setup-prod:
     uses: ./.github/workflows/build-args.yaml
+    needs: semantic
     with:
       environment: prod
 

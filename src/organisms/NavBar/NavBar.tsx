@@ -9,6 +9,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import {
   Box,
   Button,
+  Chip,
   IconButton,
   MenuItem,
   MenuList,
@@ -27,6 +28,7 @@ import { handleLogin, handleLogout } from "../../utils/keycloak";
 import NotificationsMenu from "../NotificationsMenu";
 import SupportMenu from "../SupportMenu/SupportMenu";
 import { StyledContainer, StyledHeader } from "./NavBar.styles";
+import { AccountType } from "@/types/accounts";
 
 const NAMESPACE_TRANSLATIONS_NAVBAR = "NavBar";
 
@@ -105,6 +107,8 @@ export default function NavBar({ loggedIn }: NavBarProps) {
     store.getUser(),
     store.setUser,
   ]);
+  const storedOrganisation = useStore(state => state.config.organisation);
+  const storedCustodian = useStore(state => state.config.custodian);
 
   const theme = useTheme();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -214,6 +218,24 @@ export default function NavBar({ loggedIn }: NavBarProps) {
                   sx={{ mr: 4 }}
                 />
               </Link>
+              {loggedIn && (
+                <Chip
+                  label={
+                    storedOrganisation
+                      ? AccountType.ORGANISATION
+                      : storedCustodian
+                        ? AccountType.CUSTODIAN
+                        : AccountType.USER
+                  }
+                  sx={{
+                    textTransform: "uppercase",
+                    backgroundColor: theme.palette[`neutral-500`].main,
+                    color: theme.palette.white,
+                  }}
+                  size="medium"
+                />
+              )}
+
               {renderButtons(left_buttons)}
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>

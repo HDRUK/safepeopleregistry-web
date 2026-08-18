@@ -1,7 +1,17 @@
 import { faker } from "@faker-js/faker";
 
+// Navigates like cy.clickSubTab, but skips its generic waitForLoadingToFinish
+// (spinner polling + 1s network-idle wait) in favour of letting each caller's
+// own specific assertion (skeleton gone, button visible, etc.) gate progress.
+const goToManualChecksTab = () => {
+  cy.contains('[data-cy="sub-tabs-navigation"] a', "Manual checks")
+    .should("be.visible")
+    .invoke("attr", "href")
+    .then(href => cy.visitFirst((href as string).replace(/^\/[a-z-]+\//, "/")));
+};
+
 const hasUnCheckedOnUsersConfigurationManualChecks = () => {
-  cy.clickSubTab("Manual checks");
+  goToManualChecksTab();
   cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
     timeout: 20000,
   });
@@ -24,7 +34,7 @@ const hasUnCheckedOnUsersConfigurationManualChecks = () => {
 };
 
 const hasCheckedOnUsersConfigurationManualChecks = () => {
-  cy.clickSubTab("Manual checks");
+  goToManualChecksTab();
   cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
     timeout: 20000,
   });
@@ -33,7 +43,7 @@ const hasCheckedOnUsersConfigurationManualChecks = () => {
 };
 
 const addManualChecksForUsersConfigurationManualChecks = (title: string) => {
-  cy.clickSubTab("Manual checks");
+  goToManualChecksTab();
   cy.contains('[data-cy="skeleton-checkboxlist"]', { timeout: 20000 }).should(
     "not.exist"
   );
@@ -54,7 +64,7 @@ const addManualChecksForUsersConfigurationManualChecks = (title: string) => {
 
 const hasCancelButtonTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks =
   () => {
-    cy.clickSubTab("Manual checks");
+    goToManualChecksTab();
     cy.contains("button", "Add manual check").should("exist").click();
     cy.contains("button", "Cancel").should("exist").click();
     cy.contains("a", "Manual checks").should("exist");
@@ -62,7 +72,7 @@ const hasCancelButtonTakesBackToTheManaulChecksPageForUsersConfigurationManualCh
 
 const hasCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks =
   () => {
-    cy.clickSubTab("Manual checks");
+    goToManualChecksTab();
 
     cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
       timeout: 20000,
@@ -80,7 +90,7 @@ const hasCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualCheck
   };
 
 const hasEditManualChecksForUsersConfigurationManualChecks = () => {
-  cy.clickSubTab("Manual checks");
+  goToManualChecksTab();
   cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
     timeout: 20000,
   });
@@ -98,7 +108,7 @@ const hasEditManualChecksForUsersConfigurationManualChecks = () => {
 
 const hasEditCancelButtonTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks =
   () => {
-    cy.clickSubTab("Manual checks");
+    goToManualChecksTab();
     cy.get('[data-cy="action-menu"]').eq(0).should("exist").click();
     cy.contains('li[role="menuitem"]', "Edit").should("exist").click();
     cy.contains("button", "Cancel").should("exist").click();
@@ -107,7 +117,7 @@ const hasEditCancelButtonTakesBackToTheManaulChecksPageForUsersConfigurationManu
 
 const hasEditCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks =
   () => {
-    cy.clickSubTab("Manual checks");
+    goToManualChecksTab();
 
     cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
       timeout: 20000,
@@ -126,7 +136,7 @@ const hasEditCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualC
   };
 
 const hasUnCheckedOnOrganisationConfigurationManualChecks = () => {
-  cy.clickSubTab("Manual checks");
+  goToManualChecksTab();
   cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
     timeout: 20000,
   });
@@ -148,7 +158,7 @@ const hasUnCheckedOnOrganisationConfigurationManualChecks = () => {
 };
 
 const hasCheckedOnOrganisationConfigurationManualChecks = () => {
-  cy.clickSubTab("Manual checks");
+  goToManualChecksTab();
   cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
     timeout: 20000,
   });
@@ -157,7 +167,7 @@ const hasCheckedOnOrganisationConfigurationManualChecks = () => {
 };
 
 const hasAddManualChecksForOrganisationConfigurationManualChecks = () => {
-  cy.clickSubTab("Manual checks");
+  goToManualChecksTab();
   cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
     timeout: 20000,
   });
@@ -178,7 +188,7 @@ const hasAddManualChecksForOrganisationConfigurationManualChecks = () => {
 
 const hasCancelButtonTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks =
   () => {
-    cy.clickSubTab("Manual checks");
+    goToManualChecksTab();
     cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
       timeout: 20000,
     });
@@ -189,7 +199,7 @@ const hasCancelButtonTakesBackToTheManaulChecksPageForOrganisationConfigurationM
 
 const hasCloseIconTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks =
   () => {
-    cy.clickSubTab("Manual checks");
+    goToManualChecksTab();
 
     cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
       timeout: 20000,
@@ -207,7 +217,7 @@ const hasCloseIconTakesBackToTheManaulChecksPageForOrganisationConfigurationManu
   };
 
 const hasEditManualChecksForOrganisationConfigurationManualChecks = () => {
-  cy.clickSubTab("Manual checks");
+  goToManualChecksTab();
   cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
     timeout: 20000,
   });
@@ -229,7 +239,7 @@ const hasEditManualChecksForOrganisationConfigurationManualChecks = () => {
 
 const hasEditCancelButtonTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks =
   () => {
-    cy.clickSubTab("Manual checks");
+    goToManualChecksTab();
     cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
       timeout: 20000,
     });
@@ -241,7 +251,7 @@ const hasEditCancelButtonTakesBackToTheManaulChecksPageForOrganisationConfigurat
 
 const hasEditCloseIconTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks =
   () => {
-    cy.clickSubTab("Manual checks");
+    goToManualChecksTab();
 
     cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
       timeout: 20000,
@@ -260,7 +270,7 @@ const hasEditCloseIconTakesBackToTheManaulChecksPageForOrganisationConfiguration
   };
 
 const hasAddManualChecksForUsersConfigurationManualChecks = () => {
-  cy.clickSubTab("Manual checks");
+  goToManualChecksTab();
   cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
     timeout: 20000,
   });

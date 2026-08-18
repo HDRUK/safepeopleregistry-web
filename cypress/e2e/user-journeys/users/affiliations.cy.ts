@@ -1,4 +1,5 @@
 import { mockedAffiliation } from "@/mocks/data/user";
+import { mockedOrganisation } from "@/mocks/data/organisation";
 import {
   DEFAULT_AFFILIATION_USERS,
   DEFAULT_TO_DATE,
@@ -12,11 +13,17 @@ import {
   resendAffiliationVerification,
 } from "cypress/support/utils/user/affiliations";
 import { loginUser } from "cypress/support/utils/user/auth";
+import { loginAdmin } from "cypress/support/utils/admin/auth";
+import { validateSROOrganisations } from "cypress/support/utils/admin/sro";
 import { ROUTES } from "@/consts/router";
 import { Status } from "@/consts/application";
 import { logout } from "cypress/support/utils/common";
+import { hasSROOrganisation } from "cypress/support/utils/organisation/sro";
 
 const dataCurrentAffiliation = mockedAffiliation(DEFAULT_AFFILIATION_USERS);
+const dataCurrentAffiliationOrganisation = mockedOrganisation({
+  organisation_name: dataCurrentAffiliation.organisation.organisation_name,
+});
 const dataAffiliation = {
   ...dataCurrentAffiliation,
   current_employer: false,
@@ -25,13 +32,20 @@ const dataAffiliation = {
   email: undefined,
 };
 
-const dataEdittedAffiliation = {
+const dataEditedAffiliation = {
   ...dataAffiliation,
   member_id: Cypress._.random(0, 1e6).toString(),
   role: "Administrator",
 };
 
 describe("Affiliations journey", () => {
+  before(() => {
+    loginAdmin();
+    cy.visitFirst(ROUTES.profileAdmin.path);
+    validateSROOrganisations(dataCurrentAffiliationOrganisation, "Approve");
+    hasSROOrganisation(dataCurrentAffiliationOrganisation, "Approved");
+  });
+
   beforeEach(() => {
     loginUser();
 
@@ -62,9 +76,9 @@ describe("Affiliations journey", () => {
   });
 
   it("Edits an affiliation and reloads the page", () => {
-    editAffiliationUsers(dataAffiliation, dataEdittedAffiliation);
+    editAffiliationUsers(dataAffiliation, dataEditedAffiliation);
 
-    hasAffiliationUsers(dataEdittedAffiliation, Status.AFFILIATION_PENDING);
+    hasAffiliationUsers(dataEditedAffiliation, Status.AFFILIATION_PENDING);
   });
 
   it("Resends the verification email for a current-employer affiliation", () => {
@@ -88,8 +102,8 @@ describe("Affiliations journey", () => {
   });
 
   it("Removes an affiliation and reloads the page", () => {
-    removeAffiliationUsers(dataEdittedAffiliation);
+    removeAffiliationUsers(dataEditedAffiliation);
 
-    hasRemoveAffiliationUsers(dataEdittedAffiliation);
+    hasRemoveAffiliationUsers(dataEditedAffiliation);
   });
 });

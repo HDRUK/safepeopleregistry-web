@@ -1,6 +1,6 @@
 import { Organisation } from "@/types/application";
 
-const validateSROOrganisatons = (
+const validateSROOrganisations = (
   data: Organisation,
   action: "Approve" | "Unapprove"
 ) => {
@@ -11,4 +11,4 @@ const validateSROOrganisatons = (
   cy.actionMenuClick(action);
 };
 
-export { validateSROOrganisatons };
+export { validateSROOrganisations };

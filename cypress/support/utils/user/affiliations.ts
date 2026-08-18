@@ -67,22 +67,22 @@ const hasAffiliationUsers = (
 
 const editAffiliationUsers = (
   affiliation: ResearcherAffiliation,
-  edittedAffiliation: ResearcherAffiliation
+  editedAffiliation: ResearcherAffiliation
 ) => {
   cy.getLatestRowOfResults();
   cy.getResultsActionMenu(affiliation.member_id).click();
 
   cy.actionMenuClick("View or edit");
 
-  cy.dateSelectValue("from", edittedAffiliation.from);
+  cy.dateSelectValue("from", editedAffiliation.from);
 
   if (!affiliation.current_employer) {
-    cy.dateSelectValue("to", edittedAffiliation.to);
+    cy.dateSelectValue("to", editedAffiliation.to);
   }
 
-  cy.selectValue("#relationship", edittedAffiliation.relationship);
-  cy.get("#role").clear().type(edittedAffiliation.role);
-  cy.get("#member_id").clear().type(edittedAffiliation.member_id);
+  cy.selectValue("#relationship", editedAffiliation.relationship);
+  cy.get("#role").clear().type(editedAffiliation.role);
+  cy.get("#member_id").clear().type(editedAffiliation.member_id);
 
   cy.saveFormClick();
   cy.clickAlertModal();
