@@ -1,3 +1,19 @@
+## [1.39.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.38.0...v1.39.0) (2026-08-18)
+
+### ✨ Features
+
+* **REGISTRY-000:** speed up and fix E2E testing (#844) ([092499e](https://github.com/HDRUK/safepeopleregistry-web/commit/092499e7f88f1bb51a63ddd6b665f07067c29249))
+* **REGISTRY-2839:** Account type label on all screens for a logged in user (#843) ([9d31b23](https://github.com/HDRUK/safepeopleregistry-web/commit/9d31b23f27e707d53b59e18da4908a96a1db3ee1))
+* **REGISTRY-2898:** Add the public roadmap page to the Get involved section (#860) ([c3fbf78](https://github.com/HDRUK/safepeopleregistry-web/commit/c3fbf786411b43fc4e317d3027add53d0d37826f))
+* **REGISTRY-2900:** prevent changing affiliation email (#859) ([8a0ec3b](https://github.com/HDRUK/safepeopleregistry-web/commit/8a0ec3bacc6109ce967cf9f8a3a53add66d49e23))
+* **REGISTRY-2902:** Adds developer resources page and drop down nav … (#852) ([1c8129c](https://github.com/HDRUK/safepeopleregistry-web/commit/1c8129c71b1d459414a43c0066ff3e13ec8a2656))
+
+### 🐛 Bug Fixes
+
+* **GAT-1234:** Add dependency on semantic job for build step (#848) ([876edad](https://github.com/HDRUK/safepeopleregistry-web/commit/876edad9e512cdd90874792b73e40e18b6344701)), closes [GAT-1234](undefinedGAT-1234)
+* **REGISTRY-2731:** Improve tabs on Organisation profile (#850) ([d38933d](https://github.com/HDRUK/safepeopleregistry-web/commit/d38933d9989963e303e9578f292ca639dd0518c9))
+* **REGISTRY-2876:** Remove asterisks from read-only (Delegate) view of Organisation SRO details (#858) ([17637fb](https://github.com/HDRUK/safepeopleregistry-web/commit/17637fbaaa032951b87abf5345fe323b1df8b0ca)), closes [Delegate](undefinedgate)
+
 ## [1.38.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.37.0...v1.38.0) (2026-07-31)
 
 ### ✨ Features
