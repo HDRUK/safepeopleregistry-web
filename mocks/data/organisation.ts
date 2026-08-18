@@ -229,7 +229,7 @@ const mockedOrganisation = (
         rule: "DelegateCheck",
         status: "failed",
         conditions: {
-          path: "delegate_contacts",
+          path: "delegates",
           expects: {
             minimum: 1,
           },
