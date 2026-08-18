@@ -24,8 +24,9 @@ import { useEffect } from "react";
 import { UserSubTabs } from "../../../../../consts/tabs";
 import SubTabsSections from "../SubTabSections";
 import SubTabsContents from "../SubsTabContents";
-import { Box, Link, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useRouter } from "next/navigation";
 
 interface CustodianProjectUserProps {
   projectUserId: number;
@@ -41,6 +42,7 @@ function CustodianProjectUser({
   const t = useTranslations(NAMESPACE_TRANSLATION_CUSTODIAN_PROJECT_USER);
   const custodian = useStore(state => state.getCustodian());
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const {
     data: custodianProjectUser,
@@ -102,14 +104,22 @@ function CustodianProjectUser({
     user &&
     registry && (
       <>
-        <Link href={`/data-custodian/profile/projectUsers`}>
-          <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-            <ArrowBackIcon />
-            <Typography sx={{ ml: 1, textDecoration: "underline" }}>
-              {t("backToUsers")}
-            </Typography>
-          </Box>
-        </Link>
+        <Box
+          onClick={() => router.back()}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            mb: 2,
+            cursor: "pointer",
+            color: "primary.main",
+            textDecoration: "underline",
+          }}>
+          <ArrowBackIcon />
+          <Typography sx={{ ml: 1, textDecoration: "underline" }}>
+            {t("backToUsers")}
+          </Typography>
+        </Box>
+
         <PageBodyContainer
           heading={
             <>
