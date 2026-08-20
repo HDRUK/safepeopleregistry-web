@@ -54,6 +54,9 @@ const links = {
     sdkTypescript:
       "https://github.com/HDRUK/safepeopleregistry-api-typescript-sdk",
   },
+  identity: {
+    veriff: "https://www.veriff.com/",
+  },
 } as const;
 
 export default links;
