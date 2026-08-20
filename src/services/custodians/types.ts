@@ -49,7 +49,7 @@ interface PutCustodianActiveEntityModelPayload {
 }
 
 interface PutCustodianActiveEntityModelResponse {
-  entity_model_id: number;
+  decision_model_id: number;
   active: boolean;
 }
 

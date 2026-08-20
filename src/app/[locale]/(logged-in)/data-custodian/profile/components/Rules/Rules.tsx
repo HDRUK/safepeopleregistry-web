@@ -108,7 +108,7 @@ export default function Rules() {
       checkedState: boolean[]
     ) =>
       rulesData?.data?.map((rule: { id: number }, index: number) => ({
-        entity_model_id: rule.id,
+        decision_model_id: rule.id,
         active: checkedState[index],
       })) || [];
 
