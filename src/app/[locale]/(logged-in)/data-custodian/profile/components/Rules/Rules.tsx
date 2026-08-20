@@ -3,7 +3,7 @@ import CheckboxList from "@/components/CheckboxList";
 import ErrorMessage from "@/components/ErrorMessage";
 import Form from "@/components/Form";
 import FormActions from "@/components/FormActions";
-import { EntityModelTypes } from "@/consts/custodian";
+import { DecisionModelTypes } from "@/consts/custodian";
 import { HeadingLevel } from "@/consts/header";
 import { DEFAULT_STALE_TIME } from "@/consts/requests";
 import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
@@ -12,9 +12,9 @@ import useIsCustodianAdmin from "@/hooks/useIsCustodianAdmin";
 import { mockedConfigurationRulesDescription } from "@/mocks/data/cms";
 import { PageBody } from "@/modules";
 import {
-  getCustodianEntityModelQuery,
-  GetCustodianEntityModelResponse,
-  putCustodianActiveEntityModelQuery,
+  getCustodianDecisionModelQuery,
+  GetCustodianDecisionModelResponse,
+  putCustodianActiveDecisionModelQuery,
 } from "@/services/custodians";
 import { Rule, RuleName } from "@/types/rules";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -35,9 +35,9 @@ export default function Rules() {
   const isAdmin = useIsCustodianAdmin();
 
   const { data: userRulesData, isLoading: isLoadingUserRules } = useQuery(
-    getCustodianEntityModelQuery(
+    getCustodianDecisionModelQuery(
       custodian?.id,
-      EntityModelTypes.USER_VALIDATION_RULES,
+      DecisionModelTypes.USER_VALIDATION_RULES,
       {
         staleTime: DEFAULT_STALE_TIME,
       }
@@ -45,18 +45,18 @@ export default function Rules() {
   );
 
   const { data: orgRulesData, isLoading: isLoadingOrgRules } = useQuery(
-    getCustodianEntityModelQuery(
+    getCustodianDecisionModelQuery(
       custodian?.id,
-      EntityModelTypes.ORG_VALIDATION_RULES,
+      DecisionModelTypes.ORG_VALIDATION_RULES,
       { staleTime: DEFAULT_STALE_TIME }
     )
   );
 
   const { mutateAsync, isPending } = useMutation({
-    ...putCustodianActiveEntityModelQuery(custodian?.id),
+    ...putCustodianActiveDecisionModelQuery(custodian?.id),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["getCustodianEntityModel", custodian?.id],
+        queryKey: ["getCustodianDecisionModel", custodian?.id],
       });
     },
   });
@@ -100,7 +100,7 @@ export default function Rules() {
     const createRulePayload = (
       rulesData:
         | (Response & {
-            data: GetCustodianEntityModelResponse[];
+            data: GetCustodianDecisionModelResponse[];
             message: string;
             status: number;
           })

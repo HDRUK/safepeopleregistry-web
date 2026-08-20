@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from "@/utils/testUtils";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { mockedCustodian } from "@/mocks/data/custodian";
-import { EntityModelTypes } from "@/consts/custodian";
+import { DecisionModelTypes } from "@/consts/custodian";
 import { mockUseStore } from "jest.setup";
 import Rules from "./Rules";
 import useIsCustodianAdmin from "@/hooks/useIsCustodianAdmin";
@@ -41,13 +41,13 @@ describe("<Rules />", () => {
     (useQuery as jest.Mock).mockImplementation(queryConfig => {
       const { queryKey } = queryConfig;
 
-      if (queryKey[2] === EntityModelTypes.USER_VALIDATION_RULES) {
+      if (queryKey[2] === DecisionModelTypes.USER_VALIDATION_RULES) {
         return {
           data: mockUserRulesData,
           isLoading: false,
         };
       }
-      if (queryKey[2] === EntityModelTypes.ORG_VALIDATION_RULES) {
+      if (queryKey[2] === DecisionModelTypes.ORG_VALIDATION_RULES) {
         return {
           data: mockOrgRulesData,
           isLoading: false,
