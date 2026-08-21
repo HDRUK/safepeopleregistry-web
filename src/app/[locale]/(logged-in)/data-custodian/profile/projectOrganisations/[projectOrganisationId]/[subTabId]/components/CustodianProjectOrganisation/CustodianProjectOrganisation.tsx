@@ -21,8 +21,6 @@ import OrganisationDetailsSlim from "@/modules/OrganisationDetailsSlim";
 import { OrganisationsSubTabs } from "../../../../../consts/tabs";
 import SubTabsContents from "../SubsTabContents";
 import SubTabsSections from "../SubTabSections";
-import { Box, Link, Typography } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useTranslations } from "next-intl";
 import BackToResultsButton from "../../../../../components/BackToResultsButton";
 
@@ -98,18 +96,9 @@ function CustodianProjectOrganisation({
     organisation && (
       <>
         <BackToResultsButton
-          label={t("backToUsers")}
-          fallback="/data-custodian/profile/projectOrganisations"
-          ignorePathSegment={`/projectOrganisations/${projectOrganisationId}`}
+          label={t("backToOrganisations")}
+          fixedHref="/data-custodian/profile/projectOrganisations"
         />
-        {/* <Link href={`/data-custodian/profile/projectOrganisations`}>
-          <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-            <ArrowBackIcon />
-            <Typography sx={{ ml: 1, textDecoration: "underline" }}>
-              {t("backToOrganisations")}
-            </Typography>
-          </Box>
-        </Link> */}
         <PageBodyContainer heading={projectTitle}>
           <PageColumns>
             <PageColumnBody size={{ lg: 8 }}>

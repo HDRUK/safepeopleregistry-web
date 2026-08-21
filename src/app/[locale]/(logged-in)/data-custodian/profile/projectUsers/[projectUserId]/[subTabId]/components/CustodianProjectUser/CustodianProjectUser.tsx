@@ -99,42 +99,12 @@ function CustodianProjectUser({
   useEffect(() => {
     if (userData?.data) setUser(userData.data);
   }, [userData]);
-
-  // const { history } = useStore(state => ({
-  //   history: state.config.router.history,
-  //   // getPreviousUrl: state.getPreviousUrl,
-  // }));
-
-  // const backHref = useMemo(() => {
-  //   const fallback = "/data-custodian/profile/projectUsers";
-  //   const currentUserPath = `/projectUsers/${params.projectUserId}`;
-
-  //   for (let i = history.length - 1; i >= 0; i--) {
-  //     if (!history[i].includes(currentUserPath)) {
-  //       return history[i];
-  //     }
-  //   }
-  //   return fallback;
-  // }, [history, params.projectUserId]);
-
-  // const handleBack = () => {
-  //   router.back();
-  // };
-
-  // useEffect(() => {
-  //   console.log({
-  //     history,
-  //     current: history.at(-1),
-  //     previous: getPreviousUrl(),
-  //   });
-  // }, [history]);
   return (
     user &&
     registry && (
       <>
         <BackToResultsButton
           label={t("backToUsers")}
-          // fallback="/data-custodian/profile/projectUsers"
           ignorePathSegment={`/projectUsers/${params.projectUserId}`}
         />
 

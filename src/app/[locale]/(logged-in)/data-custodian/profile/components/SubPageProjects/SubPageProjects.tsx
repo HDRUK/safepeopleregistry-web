@@ -4,8 +4,6 @@ import { ResearcherProject } from "@/types/application";
 import { useEffect } from "react";
 import { PageTabs, ProjectsSubTabs } from "../../consts/tabs";
 import SubTabsContents from "../SubsTabContents";
-import { Box, Link, Typography } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useTranslations } from "next-intl";
 import BackToResultsButton from "../BackToResultsButton";
 
@@ -39,17 +37,8 @@ export default function SubPageProjects({ params, projectData }: PageProps) {
       <>
         <BackToResultsButton
           label={t("backToProjects")}
-          fallback="/data-custodian/profile/projects"
-          ignorePathSegment={`/projects/${id}`}
+          fixedHref="/data-custodian/profile/projects"
         />
-        {/* <Link href={`/data-custodian/profile/projects`}>
-          <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-            <ArrowBackIcon />
-            <Typography sx={{ ml: 1, textDecoration: "underline" }}>
-              {t("backToProjects")}
-            </Typography>
-          </Box>
-        </Link> */}
         <PageBodyContainer heading={project.title}>
           <SubTabsContents tabId={tabId} subTabId={subTabId} id={id} />
         </PageBodyContainer>
