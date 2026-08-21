@@ -242,7 +242,14 @@
       "identity": "Identity",
       "projects": "Projects",
       "affiliations": "Affiliations",
-      "custodianOrgInfo": "Automated Flags"
+      "custodianOrgInfo": "Automated Flags",
+      "backToUsers": "Back to users"
+    },
+    "Project": {
+      "backToProjects": "Back to projects"
+    },
+    "Organisation": {
+      "backToOrganisations": "Back to organisations"
     },
     "Integrations": {
       "okButton": "OK",
