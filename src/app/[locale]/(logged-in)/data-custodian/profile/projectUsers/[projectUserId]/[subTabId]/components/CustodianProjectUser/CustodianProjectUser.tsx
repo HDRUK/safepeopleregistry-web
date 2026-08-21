@@ -24,9 +24,8 @@ import { useEffect } from "react";
 import { UserSubTabs } from "../../../../../consts/tabs";
 import SubTabsSections from "../SubTabSections";
 import SubTabsContents from "../SubsTabContents";
-import { Box, Typography } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
+import BackToResultsButton from "../../../../../components/BackToResultsButton/BackToResultsButton";
 
 interface CustodianProjectUserProps {
   projectUserId: number;
@@ -42,7 +41,8 @@ function CustodianProjectUser({
   const t = useTranslations(NAMESPACE_TRANSLATION_CUSTODIAN_PROJECT_USER);
   const custodian = useStore(state => state.getCustodian());
   const queryClient = useQueryClient();
-  const router = useRouter();
+  // const router = useRouter();
+  const params = useParams<{ projectUserId: string }>();
 
   const {
     data: custodianProjectUser,
@@ -100,25 +100,43 @@ function CustodianProjectUser({
     if (userData?.data) setUser(userData.data);
   }, [userData]);
 
+  // const { history } = useStore(state => ({
+  //   history: state.config.router.history,
+  //   // getPreviousUrl: state.getPreviousUrl,
+  // }));
+
+  // const backHref = useMemo(() => {
+  //   const fallback = "/data-custodian/profile/projectUsers";
+  //   const currentUserPath = `/projectUsers/${params.projectUserId}`;
+
+  //   for (let i = history.length - 1; i >= 0; i--) {
+  //     if (!history[i].includes(currentUserPath)) {
+  //       return history[i];
+  //     }
+  //   }
+  //   return fallback;
+  // }, [history, params.projectUserId]);
+
+  // const handleBack = () => {
+  //   router.back();
+  // };
+
+  // useEffect(() => {
+  //   console.log({
+  //     history,
+  //     current: history.at(-1),
+  //     previous: getPreviousUrl(),
+  //   });
+  // }, [history]);
   return (
     user &&
     registry && (
       <>
-        <Box
-          onClick={() => router.back()}
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            mb: 2,
-            cursor: "pointer",
-            color: "primary.main",
-            textDecoration: "underline",
-          }}>
-          <ArrowBackIcon />
-          <Typography sx={{ ml: 1, textDecoration: "underline" }}>
-            {t("backToUsers")}
-          </Typography>
-        </Box>
+        <BackToResultsButton
+          label={t("backToUsers")}
+          // fallback="/data-custodian/profile/projectUsers"
+          ignorePathSegment={`/projectUsers/${params.projectUserId}`}
+        />
 
         <PageBodyContainer
           heading={

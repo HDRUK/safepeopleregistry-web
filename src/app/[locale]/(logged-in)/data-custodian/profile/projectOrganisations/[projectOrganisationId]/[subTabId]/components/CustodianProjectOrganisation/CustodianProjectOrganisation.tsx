@@ -24,6 +24,7 @@ import SubTabsSections from "../SubTabSections";
 import { Box, Link, Typography } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useTranslations } from "next-intl";
+import BackToResultsButton from "../../../../../components/BackToResultsButton";
 
 interface CustodianProjectUserProps {
   projectOrganisationId: number;
@@ -96,14 +97,19 @@ function CustodianProjectOrganisation({
   return (
     organisation && (
       <>
-        <Link href={`/data-custodian/profile/projectOrganisations`}>
+        <BackToResultsButton
+          label={t("backToUsers")}
+          fallback="/data-custodian/profile/projectOrganisations"
+          ignorePathSegment={`/projectOrganisations/${projectOrganisationId}`}
+        />
+        {/* <Link href={`/data-custodian/profile/projectOrganisations`}>
           <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
             <ArrowBackIcon />
             <Typography sx={{ ml: 1, textDecoration: "underline" }}>
               {t("backToOrganisations")}
             </Typography>
           </Box>
-        </Link>
+        </Link> */}
         <PageBodyContainer heading={projectTitle}>
           <PageColumns>
             <PageColumnBody size={{ lg: 8 }}>

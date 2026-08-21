@@ -7,6 +7,7 @@ import SubTabsContents from "../SubsTabContents";
 import { Box, Link, Typography } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useTranslations } from "next-intl";
+import BackToResultsButton from "../BackToResultsButton";
 
 interface PageProps {
   projectData: ResearcherProject;
@@ -36,14 +37,19 @@ export default function SubPageProjects({ params, projectData }: PageProps) {
   return (
     project?.id === Number(id) && (
       <>
-        <Link href={`/data-custodian/profile/projects`}>
+        <BackToResultsButton
+          label={t("backToProjects")}
+          fallback="/data-custodian/profile/projects"
+          ignorePathSegment={`/projects/${id}`}
+        />
+        {/* <Link href={`/data-custodian/profile/projects`}>
           <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
             <ArrowBackIcon />
             <Typography sx={{ ml: 1, textDecoration: "underline" }}>
               {t("backToProjects")}
             </Typography>
           </Box>
-        </Link>
+        </Link> */}
         <PageBodyContainer heading={project.title}>
           <SubTabsContents tabId={tabId} subTabId={subTabId} id={id} />
         </PageBodyContainer>
