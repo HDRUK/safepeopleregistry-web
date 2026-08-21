@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { PageTabs, ProjectsSubTabs } from "../../consts/tabs";
 import SubTabsContents from "../SubsTabContents";
 import { useTranslations } from "next-intl";
-import BackToResultsButton from "../BackToResultsButton";
+import BackToResultsButton from "@/components/BackToResultsButton";
 
 interface PageProps {
   projectData: ResearcherProject;

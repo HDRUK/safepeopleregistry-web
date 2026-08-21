@@ -22,7 +22,7 @@ import { OrganisationsSubTabs } from "../../../../../consts/tabs";
 import SubTabsContents from "../SubsTabContents";
 import SubTabsSections from "../SubTabSections";
 import { useTranslations } from "next-intl";
-import BackToResultsButton from "../../../../../components/BackToResultsButton";
+import BackToResultsButton from "@/components/BackToResultsButton";
 
 interface CustodianProjectUserProps {
   projectOrganisationId: number;

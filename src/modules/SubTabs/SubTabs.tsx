@@ -31,7 +31,6 @@ export default function SubTabs({
           value={value}
           href={href}
           component={Link}
-          replace
           iconPosition="start"
           sx={{ fontWeight: 400, fontSize: "14px", mb: 2 }}
           key={label}

@@ -25,7 +25,7 @@ import { UserSubTabs } from "../../../../../consts/tabs";
 import SubTabsSections from "../SubTabSections";
 import SubTabsContents from "../SubsTabContents";
 import { useParams } from "next/navigation";
-import BackToResultsButton from "../../../../../components/BackToResultsButton/BackToResultsButton";
+import BackToResultsButton from "@/components/BackToResultsButton";
 
 interface CustodianProjectUserProps {
   projectUserId: number;
@@ -41,7 +41,6 @@ function CustodianProjectUser({
   const t = useTranslations(NAMESPACE_TRANSLATION_CUSTODIAN_PROJECT_USER);
   const custodian = useStore(state => state.getCustodian());
   const queryClient = useQueryClient();
-  // const router = useRouter();
   const params = useParams<{ projectUserId: string }>();
 
   const {
