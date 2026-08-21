@@ -25,13 +25,13 @@ interface SendCustodianInviteResponse {
   data: object;
 }
 
-interface GetCustodianEntityModelResponse {
+interface GetCustodianDecisionModelResponse {
   id: number;
   created_at: string;
   updated_at: string;
   name: string;
   description: string;
-  entity_model_type_id: number;
+  decision_model_type_id: number;
   calls_file: boolean;
   calls_operation: boolean;
   active: number;
@@ -44,11 +44,11 @@ interface GetCustodianStatusResponse {
   affiliation_status: ModelState;
 }
 
-interface PutCustodianActiveEntityModelPayload {
-  configs: Array<PutCustodianActiveEntityModelResponse>;
+interface PutCustodianActiveDecisionModelPayload {
+  configs: Array<PutCustodianActiveDecisionModelResponse>;
 }
 
-interface PutCustodianActiveEntityModelResponse {
+interface PutCustodianActiveDecisionModelResponse {
   decision_model_id: number;
   active: boolean;
 }
@@ -102,9 +102,9 @@ export type {
   PostCustodianResponse,
   PostCustodianInviteResponse,
   EntityType,
-  GetCustodianEntityModelResponse,
-  PutCustodianActiveEntityModelPayload,
-  PutCustodianActiveEntityModelResponse,
+  GetCustodianDecisionModelResponse,
+  PutCustodianActiveDecisionModelPayload,
+  PutCustodianActiveDecisionModelResponse,
   GetCustodiansUserProjectsResponse,
   GetCustodianOrganisationsResponse,
   GetCustodianOrganisationUsersResponse,

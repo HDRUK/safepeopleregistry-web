@@ -4,8 +4,8 @@ import usePaginatedCustodianOrganisations from "./usePaginatedCustodianOrganisat
 import putCustodianQuery from "./putCustodianQuery";
 import postCustodianQuery from "./postCustodianQuery";
 import postCustodianInviteQuery from "./postCustodianInviteQuery";
-import getCustodianEntityModelQuery from "./getCustodianEntityModelQuery";
-import putCustodianActiveEntityModelQuery from "./putCustodianActiveEntityModelQuery";
+import getCustodianDecisionModelQuery from "./getCustodianDecisionModelQuery";
+import putCustodianActiveDecisionModelQuery from "./putCustodianActiveDecisionModelQuery";
 import usePaginatedCustodianOrganisationUsers from "./usePaginatedCustodianOrganisationUsers";
 import usePaginatedCustodianUsers from "./usePaginatedCustodianUsers";
 import postCustodianProjectQuery from "./postCustodianProjectQuery";
@@ -16,8 +16,8 @@ export {
   putCustodianQuery,
   postCustodianInviteQuery,
   postCustodianQuery,
-  getCustodianEntityModelQuery,
-  putCustodianActiveEntityModelQuery,
+  getCustodianDecisionModelQuery,
+  putCustodianActiveDecisionModelQuery,
   usePaginatedCustodiansUserProjects,
   usePaginatedCustodianOrganisations,
   usePaginatedCustodianOrganisationUsers,
