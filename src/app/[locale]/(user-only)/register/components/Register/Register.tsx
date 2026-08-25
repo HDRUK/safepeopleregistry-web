@@ -1,5 +1,6 @@
 "use client";
 
+import cookies from "js-cookie";
 import LoadingWrapper from "@/components/LoadingWrapper";
 import { UserGroup } from "@/consts/user";
 import { User } from "@/types/application";
@@ -7,13 +8,14 @@ import { getProfilePathByEntity } from "@/utils/entity";
 import { getAcceptedTCs } from "@/utils/register";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
+import { postGatewayHandoff } from "@/app/actions/auth";
 import { registerOrganisation, registerUser } from "../../actions";
 import AccountConfirm from "../AccountConfirm";
 
 interface AccountConfirmProps {
   unclaimedUser: User | undefined;
   tokenUser: Partial<User>;
-  searchParams: { type?: UserGroup };
+  searchParams: { type?: UserGroup; external_redirect?: string };
 }
 
 export default function Register({
@@ -39,7 +41,20 @@ export default function Register({
           }
         }
 
-        startTransition(() => {
+        const externalRedirect = cookies.get("external_redirect");
+
+        startTransition(async () => {
+          if (externalRedirect) {
+            cookies.remove("external_redirect");
+
+            const { data } = await postGatewayHandoff();
+
+            if (data?.code) {
+              window.location.href = `${externalRedirect}?code=${data.code}`;
+              return;
+            }
+          }
+
           router.push(getProfilePathByEntity(searchParams.type));
         });
       }
@@ -52,7 +67,10 @@ export default function Register({
 
   return (
     <LoadingWrapper variant="basic" loading={isLoading || isRedirecting}>
-      <AccountConfirm unclaimedUser={unclaimedUser} />
+      <AccountConfirm
+        unclaimedUser={unclaimedUser}
+        externalRedirect={searchParams?.external_redirect}
+      />
     </LoadingWrapper>
   );
 }
