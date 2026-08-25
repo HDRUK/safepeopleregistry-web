@@ -24,15 +24,6 @@ async function Page({
 }) {
   const rawParams = await searchParams;
 
-  if (
-    rawParams.external_redirect &&
-    !isAllowedExternalRedirect(rawParams.external_redirect)
-  ) {
-    console.warn(
-      `Rejected external_redirect "${rawParams.external_redirect}" - its origin is not in ALLOWED_EXTERNAL_REDIRECT_ORIGINS. Falling back to a normal registration.`
-    );
-  }
-
   const params = {
     ...rawParams,
     external_redirect: isAllowedExternalRedirect(rawParams.external_redirect)

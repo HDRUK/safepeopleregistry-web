@@ -20,12 +20,6 @@ export default async function Page({
   const loggedIn = await isLoggedIn();
   const params = await searchParams;
 
-  if (params.external_redirect && !isAllowedExternalRedirect(params.external_redirect)) {
-    console.warn(
-      `Rejected external_redirect "${params.external_redirect}" - its origin is not in ALLOWED_EXTERNAL_REDIRECT_ORIGINS. Falling back to a normal login.`
-    );
-  }
-
   const externalRedirect = isAllowedExternalRedirect(params.external_redirect)
     ? params.external_redirect
     : undefined;

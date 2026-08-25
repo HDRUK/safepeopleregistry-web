@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { handleJsonResponse } from "@/services/requestHelpers";
-import { postRequest } from "@/services/requests";
+import { postRequest, postRequestWithToken } from "@/services/requests";
 import { ResponseJson, ResponseOptions } from "@/types/requests";
 
 interface PostGatewayHandoffResponse {
@@ -20,10 +20,7 @@ export default async (
   // cookie store - cookies().get() isn't guaranteed to see a .set() made
   // earlier in that same request.
   const response = accessToken
-    ? await fetch(url, {
-        method: "POST",
-        headers: { Authorization: `Bearer ${accessToken}` },
-      })
+    ? await postRequestWithToken(url, accessToken)
     : await postRequest(url);
 
   const result = await handleJsonResponse(response, options);

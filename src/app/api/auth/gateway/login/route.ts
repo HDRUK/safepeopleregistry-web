@@ -1,4 +1,3 @@
-import axios from "axios";
 import keycloakGateway from "@/config/keycloakGateway";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
@@ -23,19 +22,28 @@ export async function GET(req: Request) {
   const tokenUrl = `${keycloakGateway.authServerUrl}/realms/${keycloakGateway.realm}/protocol/openid-connect/token`;
 
   try {
-    const tokenResponse = await axios.post(
-      tokenUrl,
-      new URLSearchParams({
+    // Plain fetch here (not postRequest) because this is Keycloak's own
+    // token endpoint, not speedi-as-api. postGatewayHandoff below is the
+    // speedi-as-api call, and goes through the shared request wrapper.
+    const tokenResponse = await fetch(tokenUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
         grant_type: "authorization_code",
         client_id: keycloakGateway.clientId,
         client_secret: keycloakGateway.clientSecret,
         code,
         redirect_uri: keycloakGateway.redirectUriLogin,
       }),
-      { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
-    );
+    });
 
-    const { access_token } = tokenResponse.data;
+    if (!tokenResponse.ok) {
+      throw new Error(
+        `Keycloak token exchange failed (${tokenResponse.status})`
+      );
+    }
+
+    const { access_token } = await tokenResponse.json();
 
     const { data } = await postGatewayHandoff(access_token);
 
