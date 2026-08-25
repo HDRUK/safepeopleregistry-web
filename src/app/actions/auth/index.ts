@@ -3,6 +3,7 @@ import getMe from "@/app/actions/auth/getMe";
 import getMeUnclaimed from "@/app/actions/auth/getMeUnclaimed";
 import { getRefreshAccessToken } from "@/app/actions/auth/getRefreshAccessToken";
 import postClaimUser from "@/app/actions/auth/postClaimUser";
+import postGatewayHandoff from "@/app/actions/auth/postGatewayHandoff";
 import postRegister from "@/app/actions/auth/postRegister";
 
 export {
@@ -11,5 +12,6 @@ export {
   getMeUnclaimed,
   getRefreshAccessToken,
   postClaimUser,
+  postGatewayHandoff,
   postRegister,
 };

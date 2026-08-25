@@ -11,7 +11,8 @@ async function request<T>(
   method: string,
   url: string,
   payload?: QueryPayload<T>,
-  options?: RequestInit
+  options?: RequestInit,
+  token?: string
 ) {
   try {
     let defaultContentType;
@@ -26,6 +27,14 @@ async function request<T>(
       }),
       ...options?.headers,
     });
+
+    // Overrides whatever getHeadersWithAuthorization derived from the
+    // access_token cookie - needed when the caller has a token in hand that
+    // isn't (yet, or ever) reflected in the cookie store, e.g. immediately
+    // after a code exchange within the same request.
+    if (token) {
+      (headers as Record<string, string>).Authorization = `Bearer ${token}`;
+    }
 
     const body =
       payload instanceof Function
@@ -76,6 +85,19 @@ async function postRequest<T>(
   return response;
 }
 
+// For the narrow case where the caller must authenticate with a specific
+// token rather than whatever's in the access_token cookie.
+async function postRequestWithToken<T>(
+  url: string,
+  token: string,
+  payload?: QueryPayload<T>,
+  options?: RequestInit
+) {
+  const response = await request("POST", url, payload, options, token);
+
+  return response;
+}
+
 async function patchRequest<T>(
   url: string,
   payload?: QueryPayload<T>,
@@ -103,4 +125,11 @@ async function deleteRequest<T>(
   return response;
 }
 
-export { deleteRequest, getRequest, patchRequest, postRequest, putRequest };
+export {
+  deleteRequest,
+  getRequest,
+  patchRequest,
+  postRequest,
+  postRequestWithToken,
+  putRequest,
+};

@@ -1,5 +1,7 @@
+import cookies from "js-cookie";
 import { UserGroup } from "@/consts/user";
 import keycloakConfig from "../config/keycloak";
+import keycloakGatewayConfig from "../config/keycloakGateway";
 
 const getLoginUrl = () => {
   const authUrl = `${keycloakConfig.authServerUrl}/realms/${keycloakConfig.realm}/protocol/openid-connect/auth`;
@@ -56,8 +58,46 @@ const getRegisterUrl = (
   return `${registerUrl}?${params.toString()}`;
 };
 
-const handleRegister = (selectedUserGroup?: UserGroup | null) => {
+const handleRegister = (
+  selectedUserGroup?: UserGroup | null,
+  externalRedirect?: string
+) => {
+  if (externalRedirect) {
+    cookies.set("external_redirect", externalRedirect);
+    window.location.href = getGatewayRegisterUrl(selectedUserGroup);
+    return;
+  }
+
   window.location.href = getRegisterUrl(selectedUserGroup);
+};
+
+// Gateway-originated flows authenticate against a dedicated Keycloak client
+// (redirect_uri still points back into this app - see /api/auth/gateway/*)
+// so the resulting token is scoped for handoff rather than a Registry session.
+const getGatewayLoginUrl = () => {
+  const authUrl = `${keycloakGatewayConfig.authServerUrl}/realms/${keycloakGatewayConfig.realm}/protocol/openid-connect/auth`;
+  const params = new URLSearchParams({
+    client_id: keycloakGatewayConfig.clientId,
+    response_type: "code",
+    redirect_uri: keycloakGatewayConfig.redirectUriLogin,
+    scope: "openid profile email",
+  });
+
+  return `${authUrl}?${params.toString()}`;
+};
+
+const getGatewayRegisterUrl = (selectedUserGroup?: UserGroup | null) => {
+  const registerUrl = `${keycloakGatewayConfig.authServerUrl}/realms/${keycloakGatewayConfig.realm}/protocol/openid-connect/registrations`;
+
+  const params = new URLSearchParams({
+    client_id: keycloakGatewayConfig.clientId,
+    scope: "openid profile email",
+    redirect_uri: keycloakGatewayConfig.redirectUriRegister,
+    response_type: "code",
+    ...(selectedUserGroup && { state: selectedUserGroup.toString() }),
+  });
+
+  return `${registerUrl}?${params.toString()}`;
 };
 
 export {
@@ -67,4 +107,6 @@ export {
   getRegisterUrl,
   getLoginUrl,
   getLogoutUrl,
+  getGatewayLoginUrl,
+  getGatewayRegisterUrl,
 };

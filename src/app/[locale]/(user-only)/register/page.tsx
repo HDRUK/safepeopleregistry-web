@@ -5,6 +5,7 @@ import { UserGroup } from "@/consts/user";
 import { PageBody } from "@/modules";
 import { getDecodedAccessToken } from "@/utils/auth";
 import { redirectProfile } from "@/utils/router";
+import { isAllowedExternalRedirect } from "@/utils/externalRedirect";
 import { cookies } from "next/headers";
 import { getMeUnclaimed } from "@/app/actions/auth";
 import { getPendingInvite, putEmailByInvite } from "@/app/actions/users";
@@ -19,9 +20,16 @@ export const metadata: Metadata = {
 async function Page({
   searchParams,
 }: {
-  searchParams: Promise<{ type?: UserGroup }>;
+  searchParams: Promise<{ type?: UserGroup; external_redirect?: string }>;
 }) {
-  const params = await searchParams;
+  const rawParams = await searchParams;
+
+  const params = {
+    ...rawParams,
+    external_redirect: isAllowedExternalRedirect(rawParams.external_redirect)
+      ? rawParams.external_redirect
+      : undefined,
+  };
   await redirectProfile();
 
   const accessToken = await getDecodedAccessToken();
