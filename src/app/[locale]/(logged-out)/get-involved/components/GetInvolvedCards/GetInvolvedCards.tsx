@@ -6,6 +6,7 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import RecordVoiceOverOutlinedIcon from "@mui/icons-material/RecordVoiceOverOutlined";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import ViewTimelineOutlinedIcon from "@mui/icons-material/ViewTimelineOutlined";
+import RateReviewOutlinedIcon from "@mui/icons-material/RateReviewOutlined";
 import ActionCard from "@/components/ActionCard";
 import { CardConfig, resolveHref } from "@/components/ActionCard/types";
 import { UserGroup } from "@/consts/user";
@@ -53,6 +54,15 @@ const CARDS: CardConfig[] = [
     ctaLabelKey: "surveyButton",
     hrefs: {
       loggedOut: links.getInvolved.feedback,
+    },
+  },
+  {
+    icon: <RateReviewOutlinedIcon fontSize="large" />,
+    titleKey: "testingGroupTitle",
+    descriptionKey: "testingGroupDescription",
+    ctaLabelKey: "testingGroupButton",
+    hrefs: {
+      loggedOut: links.getInvolved.testingGroup,
     },
   },
 ];
