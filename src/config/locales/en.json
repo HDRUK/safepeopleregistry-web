@@ -2459,7 +2459,10 @@
     "acknowledgementItem4": "Representatives from the HDR UK Public Advisory Board",
     "exploreRoadmapTitle": "Explore our public roadmap",
     "exploreRoadmapDescription": "Come see what we're working on now and in the future!",
-    "exploreRoadmapButton": "Explore roadmap"
+    "exploreRoadmapButton": "Explore roadmap",
+    "testingGroupTitle": "Join our testing group!",
+    "testingGroupDescription": "Want to test out new features before they are live, or tell us how you use the system?",
+    "testingGroupButton": "Sign up for testing"
   },
   "DeveloperResources": {
     "infoTitle": "Developer resources",
