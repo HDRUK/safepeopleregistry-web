@@ -6,7 +6,8 @@ import { get } from "js-cookie";
 import getMe from "@/app/actions/auth/getMe";
 import { ResponseJson } from "@/types/requests";
 import { User } from "@/types/application";
-import { handleLogin, handleLogout } from "../../utils/keycloak";
+import { handleLogout } from "../../utils/keycloak";
+import { useRouter } from "next/navigation";
 import {
   defineMatchMedia,
   fireEvent,
@@ -29,9 +30,6 @@ jest.mock("../../utils/keycloak", () => ({
 }));
 
 jest.mock("@/i18n/routing", () => ({
-  useRouter: jest.fn(() => ({
-    push: jest.fn(),
-  })),
   Link: ({ children, href }: { children: React.ReactNode; href: string }) => (
     <a href={href}>{children}</a>
   ),
@@ -81,7 +79,7 @@ describe("NavBar Component", () => {
     ).toBeInTheDocument();
   });
 
-  it("calls handleLogin on Sign In click when not authenticated", () => {
+  it("navigates to /sign-in on Sign In click when not authenticated", () => {
     render(<NavBar />);
 
     fireEvent.click(
@@ -90,7 +88,7 @@ describe("NavBar Component", () => {
       })
     );
 
-    expect(handleLogin).toHaveBeenCalled();
+    expect(useRouter().push).toHaveBeenCalledWith("/sign-in");
   });
 
   it("displays 'Sign In' if the user is not authenticated", () => {
