@@ -363,6 +363,7 @@
     "configurationWebhooks": "Webhooks",
     "webhookError": "There was a problem with the webhook configuration. Please try again or contact us at <contactLink></contactLink>",
     "configurationIntegrations": "Integrations",
+    "configurationSso": "Enterprise SSO",
     "userRulesTitle": "User",
     "organisationRulesTitle": "Organisation",
     "updateRulesSuccess": "Flags configuration updated successfully",
@@ -410,6 +411,10 @@
       "integrations": {
         "infoTitle": "Guidance",
         "info": "This tool currently imports project information from Gateway.\n\nThis only functions if:\n\n- This Custom Integration is enabled on Gateway.\n- The Application ID and Client ID match the IDs in the Gateway.\n\n- During each project creation in Safe People Registry, you use a valid Data Use Registry (DUR) ID from within the Gateway"
+      },
+      "sso": {
+        "infoTitle": "Guidance",
+        "info": "Request a SAML single sign-on connection so your staff can sign in with your own Identity Provider (Okta, Azure AD, ADFS, etc). Submit your metadata URL or XML plus the email domain(s) it should apply to - a Registry admin reviews and approves every request before it goes live."
       }
     }
   },
@@ -439,6 +444,8 @@
     "detailsOrganisationSectorDescription": "Your Organisation’s sector information should align with Standard Industry Classification (SIC) codes as listed in Companies House or other regulatory sources.",
     "detailsSubsidiaries": "UK subsidiaries",
     "detailsSecurityCompliance": "Data security compliance",
+    "detailsSso": "Enterprise SSO",
+    "detailsSsoDelegateNotice": "Only your organisation's primary admin can request or manage SSO connections.",
     "userAdministrationTitle": "Users",
     "userAdminEmployeeStudents": "Users",
     "teamAdminTitle": "Your administrative team",
@@ -1399,6 +1406,7 @@
   },
   "Administration": {
     "emailsInviteTitle": "Email logs",
+    "ssoTenantsInviteTitle": "Enterprise SSO Connections",
     "featuresInviteTitle": "Feature Flags",
     "invitesInviteTitle": "Invites",
     "sroInviteTitle": "Organisations - Senior Responsible Officer",
@@ -1416,6 +1424,65 @@
   },
   "SoursdLogo": {
     "logoTitle": "Safe People Registry"
+  },
+  "SignIn": {
+    "title": "Sign in",
+    "description": "Enter your work email and we'll take you to the right place to sign in.",
+    "emailLabel": "Email address",
+    "continueButton": "Continue",
+    "errorMessage": "Something went wrong, please try again."
+  },
+  "SsoTenantsSubmission": {
+    "formMissingFields": "Please fill in the name, metadata, and at least one domain.",
+    "formSubmitError": "Something went wrong submitting your request.",
+    "intro": "Request a SAML single sign-on connection for your organisation. A Registry admin reviews every request before it goes live.",
+    "nameColumn": "Name",
+    "domainsColumn": "Domains",
+    "statusColumn": "Status",
+    "noRequests": "No requests submitted yet.",
+    "connectionDetailsButton": "Connection details",
+    "requestConnectionButton": "Request SSO connection",
+    "requestDialogTitle": "Request an SSO connection",
+    "organisationNameLabel": "Organisation name",
+    "metadataUrlOption": "Metadata URL",
+    "metadataXmlOption": "Paste XML",
+    "metadataUrlLabel": "Metadata URL",
+    "metadataXmlLabel": "Metadata XML",
+    "domainsLabel": "Email domains (comma-separated)",
+    "domainsPlaceholder": "acme.com, acme.co.uk",
+    "cancelButton": "Cancel",
+    "submitButton": "Submit request",
+    "detailsDialogTitle": "{name} - SAML connection details",
+    "closeButton": "Close"
+  },
+  "SsoTenantsAdminList": {
+    "rejectReasonPrompt": "Reason for rejecting this request?",
+    "deleteConfirmTitle": "Delete this SSO connection?",
+    "deleteConfirmText": "This permanently removes the connection and its Keycloak Identity Provider. Anyone who signs in using this SAML integration will immediately lose access to the Safe People Registry through it. This cannot be undone.",
+    "deleteConfirmButton": "Delete",
+    "deleteErrorText": "Something went wrong deleting this connection. Please try again.",
+    "deleteSuccessText": "The SSO connection has been deleted.",
+    "intro": "Every SAML connection request from a Custodian or Organisation Admin lands here first. Approving is the only action that actually provisions anything in Keycloak.",
+    "nameColumn": "Name",
+    "domainsColumn": "Domains",
+    "statusColumn": "Status",
+    "actionsColumn": "Actions",
+    "noConnections": "No SSO connections yet.",
+    "disabledLabel": "disabled",
+    "approveButton": "Approve",
+    "rejectButton": "Reject",
+    "connectionDetailsButton": "Connection details",
+    "disableButton": "Disable",
+    "enableButton": "Re-enable",
+    "deleteButton": "Delete",
+    "detailsDialogTitle": "{name} - SAML connection details",
+    "closeButton": "Close"
+  },
+  "SsoTenantSpDetails": {
+    "intro": "Hand these URLs to the team who manages {idpAlias}'s Identity Provider, so they can register Safe People Registry as a trusted Service Provider on their end, to complete the connection.",
+    "entityIdLabel": "Identifier (Entity ID)",
+    "acsUrlLabel": "Reply URL (Assertion Consumer Service URL)",
+    "metadataUrlLabel": "SP Metadata (some IdPs can import this directly)"
   },
   "NavBar": {
     "homeButton": "Home",

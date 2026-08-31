@@ -1,6 +1,7 @@
 "use client";
 
 import { useStore } from "@/data/store";
+import { useFeatures } from "@/components/FeatureProvider";
 import { useTranslations } from "next-intl";
 import SubTabs from "@/modules/SubTabs";
 import { Option } from "@/types/common";
@@ -31,6 +32,7 @@ export default function SubTabsSections({
 }: SubTabsSectionsProps) {
   const routes = useStore(store => store.application.routes);
   const t = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
+  const { isEnterpriseSamlSsoEnabled } = useFeatures();
 
   const subTabs: SubTabsMap = {
     [PageTabs.DETAILS]: [
@@ -84,6 +86,18 @@ export default function SubTabsSections({
           }
         ),
       },
+      ...(isEnterpriseSamlSsoEnabled
+        ? [
+            {
+              label: t("detailsSso"),
+              value: DetailsPageSubTabs.SSO,
+              href: injectParamsIntoPath(
+                routes.profileOrganisationDetailsSso.path,
+                { id }
+              ),
+            },
+          ]
+        : []),
     ],
     [PageTabs.PROJECTS]: [
       {

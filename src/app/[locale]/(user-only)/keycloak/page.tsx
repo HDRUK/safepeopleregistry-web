@@ -15,6 +15,7 @@ export default async function Page({
   searchParams: Promise<{
     redirect_path: string;
     external_redirect?: string;
+    kc_idp_hint?: string;
   }>;
 }) {
   const loggedIn = await isLoggedIn();
@@ -29,6 +30,7 @@ export default async function Page({
       loggedIn={loggedIn}
       redirect_uri={params.redirect_path}
       external_redirect={externalRedirect}
+      idp_hint={params.kc_idp_hint}
     />
   );
 }
