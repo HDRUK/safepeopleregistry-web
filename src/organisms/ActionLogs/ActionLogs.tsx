@@ -90,8 +90,6 @@ export default function ActionLogs({
     };
   });
 
-  const isDelegate = user?.is_delegate;
-
   return (
     <>
       {!!hydratedInCompletedActions.length && (
