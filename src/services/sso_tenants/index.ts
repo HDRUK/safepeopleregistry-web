@@ -1,10 +1,10 @@
-import getSsoTenantsQuery from "@/services/sso_tenants/getSsoTenantsQuery";
-import postSsoTenantQuery from "@/services/sso_tenants/postSsoTenantQuery";
-import postSsoTenantApproveQuery from "@/services/sso_tenants/postSsoTenantApproveQuery";
-import postSsoTenantRejectQuery from "@/services/sso_tenants/postSsoTenantRejectQuery";
-import postSsoTenantEnableQuery from "@/services/sso_tenants/postSsoTenantEnableQuery";
-import deleteSsoTenantQuery from "@/services/sso_tenants/deleteSsoTenantQuery";
-import purgeSsoTenantQuery from "@/services/sso_tenants/purgeSsoTenantQuery";
+import getSsoTenantsQuery from "./getSsoTenantsQuery";
+import postSsoTenantQuery from "./postSsoTenantQuery";
+import postSsoTenantApproveQuery from "./postSsoTenantApproveQuery";
+import postSsoTenantRejectQuery from "./postSsoTenantRejectQuery";
+import postSsoTenantEnableQuery from "./postSsoTenantEnableQuery";
+import deleteSsoTenantQuery from "./deleteSsoTenantQuery";
+import purgeSsoTenantQuery from "./purgeSsoTenantQuery";
 
 export {
   getSsoTenantsQuery,

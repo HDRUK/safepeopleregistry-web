@@ -5,10 +5,6 @@ import {
   Box,
   Button,
   Chip,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
   Table,
   TableBody,
   TableCell,
@@ -27,6 +23,7 @@ import {
   purgeSsoTenantQuery,
 } from "@/services/sso_tenants";
 import { SsoTenant, SsoTenantStatus } from "@/services/sso_tenants/types";
+import FormModal from "@/components/FormModal";
 import SsoTenantSpDetails from "@/components/SsoTenantSpDetails";
 import useQueryConfirmAlerts from "@/hooks/useQueryConfirmAlerts";
 
@@ -210,23 +207,18 @@ export default function SsoTenantsAdminList() {
         </TableBody>
       </Table>
 
-      <Dialog
+      <FormModal
         open={!!detailsTenant}
         onClose={() => setDetailsTenant(null)}
-        fullWidth
-        maxWidth="sm">
-        <DialogTitle>
-          {t("detailsDialogTitle", { name: detailsTenant?.name ?? "" })}
-        </DialogTitle>
-        <DialogContent>
-          {detailsTenant && <SsoTenantSpDetails ssoTenant={detailsTenant} />}
-        </DialogContent>
-        <DialogActions>
+        variant="content"
+        heading={t("detailsDialogTitle", { name: detailsTenant?.name ?? "" })}>
+        {detailsTenant && <SsoTenantSpDetails ssoTenant={detailsTenant} />}
+        <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 3 }}>
           <Button onClick={() => setDetailsTenant(null)}>
             {t("closeButton")}
           </Button>
-        </DialogActions>
-      </Dialog>
+        </Box>
+      </FormModal>
     </Box>
   );
 }
