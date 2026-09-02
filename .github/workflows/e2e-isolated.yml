@@ -1,6 +1,8 @@
 name: PR Isolated E2E Tests
 
 on:
+  schedule:
+    - cron: "45 1 * * *" # Run at 1:45am UTC every day
   pull_request:
   workflow_dispatch:
     inputs:
