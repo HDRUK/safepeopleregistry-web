@@ -1,3 +1,5 @@
+import { IdentityProviderStatus } from "../../consts/identity";
+
 interface LinkedIdentity {
   id: number;
   user_id: number;
@@ -9,8 +11,6 @@ interface LinkedIdentity {
   created_at: string;
   updated_at: string;
 }
-
-type IdentityProviderStatus = "active" | "coming_soon";
 
 interface IdentityProviderCatalogEntry {
   key: string;
@@ -27,7 +27,6 @@ interface GetLinkedIdentitiesResponse {
 
 export type {
   LinkedIdentity,
-  IdentityProviderStatus,
   IdentityProviderCatalogEntry,
   GetLinkedIdentitiesResponse,
 };

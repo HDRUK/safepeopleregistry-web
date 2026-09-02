@@ -2,6 +2,7 @@
 
 import ActionCard from "@/components/ActionCard";
 import { useFeatures } from "@/components/FeatureProvider";
+import { IdentityProviderStatus, LinkStatus } from "@/consts/identity";
 import { ROUTES } from "@/consts/router";
 import { UserGroup } from "@/consts/user";
 import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
@@ -28,6 +29,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, ReactNode } from "react";
+import IdentityRow from "./IdentityRow";
 
 const NAMESPACE_TRANSLATION = "Users.Identity";
 
@@ -40,88 +42,12 @@ function providerIcon(key: string) {
   return PROVIDER_ICONS[key] || <PublicIcon />;
 }
 
-interface ClaimListProps {
-  claims: Record<string, unknown> | null;
-}
-
-function ClaimList({ claims }: ClaimListProps) {
-  if (!claims) return null;
-
-  const entries = Object.entries(claims).filter(([, value]) => !!value);
-
-  if (!entries.length) return null;
-
-  return (
-    <Box component="ul" sx={{ m: 0, pl: 2.5, mt: 1 }}>
-      {entries.map(([key, value]) => (
-        <Box component="li" key={key}>
-          <Typography component="span" fontWeight={600}>
-            {key}
-          </Typography>
-          {": "}
-          {String(value)}
-        </Box>
-      ))}
-    </Box>
-  );
-}
-
-interface IdentityRowProps {
-  icon: ReactNode;
-  title: string;
-  description?: string;
-  badgeText: string;
-  badgeColor: "primary" | "success";
-  claims?: Record<string, unknown> | null;
-  action?: ReactNode;
-}
-
-function IdentityRow({
-  icon,
-  title,
-  description,
-  badgeText,
-  badgeColor,
-  claims,
-  action,
-}: IdentityRowProps) {
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        alignItems: "flex-start",
-        justifyContent: "space-between",
-        gap: 2,
-        p: 2,
-        borderRadius: 2,
-        bgcolor: "grey.100",
-      }}>
-      <Box sx={{ display: "flex", gap: 2 }}>
-        <Box sx={{ pt: 0.5 }}>{icon}</Box>
-        <Box>
-          <Stack direction="row" spacing={1} alignItems="center">
-            <Typography fontWeight={600}>{title}</Typography>
-            <Chip size="small" color={badgeColor} label={badgeText} />
-          </Stack>
-          {description && (
-            <Typography variant="body2" color="textSecondary">
-              {description}
-            </Typography>
-          )}
-          <ClaimList claims={claims ?? null} />
-        </Box>
-      </Box>
-      {action}
-    </Box>
-  );
-}
-
 export default function LinkedIdentities() {
   const t = useTranslations(NAMESPACE_TRANSLATION);
   const queryClient = useQueryClient();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { showAlert } = useAlertModal();
+  const { showAlert, hideAlert } = useAlertModal();
   const { isLinkedIdentitiesEnabled } = useFeatures();
 
   const { user } = useStore(state => ({
@@ -151,16 +77,20 @@ export default function LinkedIdentities() {
 
     if (!linkStatus) return;
 
-    if (linkStatus === "success") {
+    if (linkStatus === LinkStatus.SUCCESS) {
       showAlert({
         severity: "success",
         text: t("linkedIdentitiesLinkSuccess"),
+        onConfirm: async () => hideAlert(),
+        onClose: async () => hideAlert(),
       });
       refetch();
     } else {
       showAlert({
         severity: "error",
         text: t("linkedIdentitiesLinkError"),
+        onConfirm: async () => hideAlert(),
+        onClose: async () => hideAlert(),
       });
     }
 
@@ -179,11 +109,11 @@ export default function LinkedIdentities() {
 
   const availableProviders = providers.filter(
     (provider: IdentityProviderCatalogEntry) =>
-      provider.status === "active" && !provider.linked
+      provider.status === IdentityProviderStatus.ACTIVE && !provider.linked
   );
   const comingSoonProviders = providers.filter(
     (provider: IdentityProviderCatalogEntry) =>
-      provider.status === "coming_soon"
+      provider.status === IdentityProviderStatus.COMING_SOON
   );
 
   const recentActivity = [...linked]
