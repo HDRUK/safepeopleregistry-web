@@ -18,6 +18,7 @@ import { getActionLogsQuery } from "../../services/action_logs";
 import { ActionLogEntity } from "../../types/logs";
 import { toCamelCase } from "../../utils/string";
 import generateActions, { ActionConfig } from "./utils";
+import { mockedOrganisationDelegateHomeIntro } from "@/mocks/data/cms";
 
 const NAMESPACE_TRANSLATION_PROFILE = "ActionLogs";
 
@@ -92,13 +93,16 @@ export default function ActionLogs({
 
   const isDelegate = user?.is_delegate;
 
-  if (isDelegate) return <> </>;
-
   return (
     <>
       {!!hydratedInCompletedActions.length && (
         <PageBody>
-          <ActionsPanel variant="plain" {...panelProps}>
+          <ActionsPanel
+            variant="plain"
+            {...panelProps}
+            {...(isDelegate
+              ? { description: mockedOrganisationDelegateHomeIntro }
+              : {})}>
             {hydratedInCompletedActions.map(action => (
               <ActionsPanelItem {...action} key={action.description} />
             ))}
