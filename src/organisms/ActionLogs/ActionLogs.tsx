@@ -18,7 +18,6 @@ import { getActionLogsQuery } from "../../services/action_logs";
 import { ActionLogEntity } from "../../types/logs";
 import { toCamelCase } from "../../utils/string";
 import generateActions, { ActionConfig } from "./utils";
-import { mockedOrganisationDelegateHomeIntro } from "@/mocks/data/cms";
 
 const NAMESPACE_TRANSLATION_PROFILE = "ActionLogs";
 
@@ -97,12 +96,7 @@ export default function ActionLogs({
     <>
       {!!hydratedInCompletedActions.length && (
         <PageBody>
-          <ActionsPanel
-            variant="plain"
-            {...panelProps}
-            {...(isDelegate
-              ? { description: mockedOrganisationDelegateHomeIntro }
-              : {})}>
+          <ActionsPanel variant="plain" {...panelProps}>
             {hydratedInCompletedActions.map(action => (
               <ActionsPanelItem {...action} key={action.description} />
             ))}
