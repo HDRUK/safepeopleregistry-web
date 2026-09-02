@@ -1,6 +1,9 @@
 import SoursdCard from "@/components/SoursdCard";
 import { useStore } from "@/data/store";
-import { mockedOrganisationHomeIntro } from "@/mocks/data/cms";
+import {
+  mockedOrganisationDelegateHomeIntro,
+  mockedOrganisationHomeIntro,
+} from "@/mocks/data/cms";
 import {
   PageBody,
   PageBodyContainer,
@@ -21,7 +24,12 @@ const SYSTEM_APPOVED_ONLY_ACTIONS = [
 
 const Home = () => {
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
-  const organisation = useStore(state => state.getOrganisation());
+  const { organisation, user } = useStore(state => ({
+    organisation: state.getOrganisation(),
+    user: state.getUser(),
+  }));
+
+  const isDelegate = user?.is_delegate;
 
   return (
     <PageBodyContainer heading={tProfile("homeTitle")}>
@@ -33,7 +41,9 @@ const Home = () => {
                 variant="organisation"
                 panelProps={{
                   heading: "Welcome to Safe People Registry!",
-                  description: mockedOrganisationHomeIntro,
+                  description: isDelegate
+                    ? mockedOrganisationDelegateHomeIntro
+                    : mockedOrganisationHomeIntro,
                 }}
                 hiddenActions={
                   !organisation?.system_approved
