@@ -114,7 +114,7 @@ export default function SsoTenantsSubmission() {
               <TableCell>
                 <Chip
                   size="small"
-                  label={tenant.status}
+                  label={tenant.status.toUpperCase()}
                   color={STATUS_COLOR[tenant.status]}
                 />
                 {tenant.status === "rejected" && tenant.rejected_reason && (
