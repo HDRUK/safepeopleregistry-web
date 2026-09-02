@@ -12,7 +12,7 @@ export async function GET(req: Request) {
 
   cookieStore.delete("link_provider");
 
-  const redirectTarget = `${process.env.NEXT_PUBLIC_LOCAL_ENV}en${ROUTES.profileResearcherIdentity.path}`;
+  const redirectTarget = `${process.env.NEXT_PUBLIC_LOCAL_ENV}/en${ROUTES.profileResearcherIdentity.path}`;
 
   if (keycloakError || !provider) {
     return NextResponse.redirect(

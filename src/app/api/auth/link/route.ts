@@ -20,7 +20,7 @@ interface DecodedAccessToken {
 function errorRedirect() {
   return NextResponse.redirect(
     encodeURI(
-      `${process.env.NEXT_PUBLIC_LOCAL_ENV}en${ROUTES.profileResearcherIdentity.path}?linkStatus=error`
+      `${process.env.NEXT_PUBLIC_LOCAL_ENV}/en${ROUTES.profileResearcherIdentity.path}?linkStatus=error`
     )
   );
 }
