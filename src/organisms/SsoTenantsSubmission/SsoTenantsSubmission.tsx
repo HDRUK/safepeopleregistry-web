@@ -5,10 +5,6 @@ import {
   Box,
   Button,
   Chip,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
   FormControlLabel,
   Radio,
   RadioGroup,
@@ -24,6 +20,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { getSsoTenantsQuery, postSsoTenantQuery } from "@/services/sso_tenants";
 import { SsoTenant, SsoTenantStatus } from "@/services/sso_tenants/types";
+import FormModal from "@/components/FormModal";
 import SsoTenantSpDetails from "@/components/SsoTenantSpDetails";
 
 const NAMESPACE_TRANSLATION = "SsoTenantsSubmission";
@@ -142,69 +139,67 @@ export default function SsoTenantsSubmission() {
         {t("requestConnectionButton")}
       </Button>
 
-      <Dialog
+      <FormModal
         open={isOpen}
         onClose={() => {
           setIsOpen(false);
           resetForm();
         }}
-        fullWidth
-        maxWidth="sm">
-        <DialogTitle>{t("requestDialogTitle")}</DialogTitle>
-        <DialogContent>
-          <TextField
-            label={t("organisationNameLabel")}
-            fullWidth
-            required
-            value={name}
-            onChange={e => setName(e.target.value)}
-            sx={{ mt: 1, mb: 2 }}
+        variant="content"
+        heading={t("requestDialogTitle")}>
+        <TextField
+          label={t("organisationNameLabel")}
+          fullWidth
+          required
+          value={name}
+          onChange={e => setName(e.target.value)}
+          sx={{ mt: 1, mb: 2 }}
+        />
+        <RadioGroup
+          row
+          value={metadataSource}
+          onChange={e => setMetadataSource(e.target.value as "url" | "xml")}
+          sx={{ mb: 1 }}>
+          <FormControlLabel
+            value="url"
+            control={<Radio />}
+            label={t("metadataUrlOption")}
           />
-          <RadioGroup
-            row
-            value={metadataSource}
-            onChange={e => setMetadataSource(e.target.value as "url" | "xml")}
-            sx={{ mb: 1 }}>
-            <FormControlLabel
-              value="url"
-              control={<Radio />}
-              label={t("metadataUrlOption")}
-            />
-            <FormControlLabel
-              value="xml"
-              control={<Radio />}
-              label={t("metadataXmlOption")}
-            />
-          </RadioGroup>
-          <TextField
-            label={
-              metadataSource === "url"
-                ? t("metadataUrlLabel")
-                : t("metadataXmlLabel")
-            }
-            fullWidth
-            required
-            multiline={metadataSource === "xml"}
-            minRows={metadataSource === "xml" ? 4 : undefined}
-            value={metadataValue}
-            onChange={e => setMetadataValue(e.target.value)}
-            sx={{ mb: 2 }}
+          <FormControlLabel
+            value="xml"
+            control={<Radio />}
+            label={t("metadataXmlOption")}
           />
-          <TextField
-            label={t("domainsLabel")}
-            fullWidth
-            required
-            placeholder={t("domainsPlaceholder")}
-            value={domains}
-            onChange={e => setDomains(e.target.value)}
-          />
-          {formError && (
-            <Typography color="error" sx={{ mt: 2 }}>
-              {formError}
-            </Typography>
-          )}
-        </DialogContent>
-        <DialogActions>
+        </RadioGroup>
+        <TextField
+          label={
+            metadataSource === "url"
+              ? t("metadataUrlLabel")
+              : t("metadataXmlLabel")
+          }
+          fullWidth
+          required
+          multiline={metadataSource === "xml"}
+          minRows={metadataSource === "xml" ? 4 : undefined}
+          value={metadataValue}
+          onChange={e => setMetadataValue(e.target.value)}
+          sx={{ mb: 2 }}
+        />
+        <TextField
+          label={t("domainsLabel")}
+          fullWidth
+          required
+          placeholder={t("domainsPlaceholder")}
+          value={domains}
+          onChange={e => setDomains(e.target.value)}
+        />
+        {formError && (
+          <Typography color="error" sx={{ mt: 2 }}>
+            {formError}
+          </Typography>
+        )}
+        <Box
+          sx={{ display: "flex", justifyContent: "flex-end", gap: 1, mt: 3 }}>
           <Button
             onClick={() => {
               setIsOpen(false);
@@ -218,26 +213,21 @@ export default function SsoTenantsSubmission() {
             disabled={isPending}>
             {t("submitButton")}
           </Button>
-        </DialogActions>
-      </Dialog>
+        </Box>
+      </FormModal>
 
-      <Dialog
+      <FormModal
         open={!!detailsTenant}
         onClose={() => setDetailsTenant(null)}
-        fullWidth
-        maxWidth="sm">
-        <DialogTitle>
-          {t("detailsDialogTitle", { name: detailsTenant?.name ?? "" })}
-        </DialogTitle>
-        <DialogContent>
-          {detailsTenant && <SsoTenantSpDetails ssoTenant={detailsTenant} />}
-        </DialogContent>
-        <DialogActions>
+        variant="content"
+        heading={t("detailsDialogTitle", { name: detailsTenant?.name ?? "" })}>
+        {detailsTenant && <SsoTenantSpDetails ssoTenant={detailsTenant} />}
+        <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 3 }}>
           <Button onClick={() => setDetailsTenant(null)}>
             {t("closeButton")}
           </Button>
-        </DialogActions>
-      </Dialog>
+        </Box>
+      </FormModal>
     </Box>
   );
 }

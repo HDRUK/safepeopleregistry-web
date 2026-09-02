@@ -33,6 +33,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
+import { mockedLinkedIdentitiesGuidanceProps } from "@/mocks/data/cms";
+import LinkedIdentities from "./LinkedIdentities";
 import VeriffTermsAndConditions from "../VeriffTermsAndConditions";
 
 export interface IdentityFormValues {
@@ -278,14 +280,22 @@ export default function Identity() {
                 onClose={() => setShowModal(false)}
               />
             </PageSection>
+            <LinkedIdentities />
           </PageBody>
         </PageColumnBody>
         <PageColumnDetails size={{ lg: 4 }}>
-          <Guidance
-            {...mockedPersonalDetailsGuidanceProps}
-            isCollapsible={false}
-            infoWidth="100%"
-          />
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+            <Guidance
+              {...mockedPersonalDetailsGuidanceProps}
+              isCollapsible={false}
+              infoWidth="100%"
+            />
+            <Guidance
+              {...mockedLinkedIdentitiesGuidanceProps}
+              isCollapsible={false}
+              infoWidth="100%"
+            />
+          </Box>
         </PageColumnDetails>
       </PageColumns>
     </PageBodyContainer>

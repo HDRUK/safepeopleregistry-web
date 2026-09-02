@@ -27,3 +27,8 @@ export const isEnterpriseSamlSsoEnabled = flag({
   key: "EnterpriseSAMLSSOEnabled",
   adapter,
 });
+
+export const isLinkedIdentitiesEnabled = flag({
+  key: "LinkedIdentitiesEnabled",
+  adapter,
+});
