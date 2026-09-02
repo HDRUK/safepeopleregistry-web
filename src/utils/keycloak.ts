@@ -3,20 +3,21 @@ import { UserGroup } from "@/consts/user";
 import keycloakConfig from "../config/keycloak";
 import keycloakGatewayConfig from "../config/keycloakGateway";
 
-const getLoginUrl = () => {
+const getLoginUrl = (idpHint?: string) => {
   const authUrl = `${keycloakConfig.authServerUrl}/realms/${keycloakConfig.realm}/protocol/openid-connect/auth`;
   const params = new URLSearchParams({
     client_id: keycloakConfig.clientId,
     response_type: "code",
     redirect_uri: keycloakConfig.redirectUriLogin,
     scope: "openid profile email",
+    ...(idpHint && { kc_idp_hint: idpHint }),
   });
 
   return `${authUrl}?${params.toString()}`;
 };
 
-const handleLogin = () => {
-  window.location.href = getLoginUrl();
+const handleLogin = (idpHint?: string) => {
+  window.location.href = getLoginUrl(idpHint);
 };
 
 const getLogoutUrl = () => {

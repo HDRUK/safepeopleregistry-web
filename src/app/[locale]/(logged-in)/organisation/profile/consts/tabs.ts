@@ -12,6 +12,7 @@ enum DetailsPageSubTabs {
   ORGANISATION_DETAILS = "organisation-details",
   DIGITAL_IDENTIFIERS = "digital-identifiers",
   SECURITY_COMPLIANCE = "security-compliance",
+  SSO = "sso",
 }
 
 enum UserAdminPageSubTabs {

@@ -25,6 +25,7 @@ import ProjectsSafeOutputs from "../ProjectsSafeOutputs";
 import ProjectsSafeProject from "../ProjectsSafeProject";
 import ProjectsSafeSettings from "../ProjectsSafeSettings";
 import Rules from "../Rules";
+import SsoTenants from "../SsoTenants";
 import UserCustodianOrgInfo from "../UserCustodianOrgInfo";
 import UserProjects from "../UserProjects";
 import ValidationChecks from "../ValidationChecks";
@@ -71,6 +72,9 @@ export default function SubTabsContents({
       break;
     case ConfigurationSubTabs.INTEGRATIONS:
       content = <Integrations />;
+      break;
+    case ConfigurationSubTabs.SSO:
+      content = <SsoTenants />;
       break;
     case UserSubTabs.HISTORY:
       content = <UserHistory />;

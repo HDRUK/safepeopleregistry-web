@@ -21,6 +21,7 @@ import SecurityCompliance from "../SecurityCompliance";
 import Address from "../Address";
 import NameAndSRO from "../NameAndSRO";
 import OrganisationDetails from "../OrganisationDetails";
+import SsoTenants from "../SsoTenants";
 
 interface TabsContentsProps {
   tabId: string;
@@ -64,6 +65,9 @@ export default function SubTabsContents({
       break;
     case DetailsPageSubTabs.SECURITY_COMPLIANCE:
       content = <SecurityCompliance />;
+      break;
+    case DetailsPageSubTabs.SSO:
+      content = <SsoTenants />;
       break;
     case UserAdminPageSubTabs.EMPLOYEE_STUDENT_ADMINISTRATION:
       content = <OrganisationUsers />;

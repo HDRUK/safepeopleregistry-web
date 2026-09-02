@@ -24,7 +24,7 @@ import MaskLabel from "../../components/MaskLabel";
 import SoursdLogo from "../../components/SoursdLogo";
 import PageCenter from "../../modules/PageCenter";
 import { getInitials, getName } from "../../utils/application";
-import { handleLogin, handleLogout } from "../../utils/keycloak";
+import { handleLogout } from "../../utils/keycloak";
 import NotificationsMenu from "../NotificationsMenu";
 import SupportMenu from "../SupportMenu/SupportMenu";
 import { StyledContainer, StyledHeader } from "./NavBar.styles";
@@ -186,7 +186,7 @@ export default function NavBar({ loggedIn }: NavBarProps) {
         if (loggedIn) {
           handleLogout();
         } else {
-          handleLogin();
+          router.push("/sign-in");
         }
       },
     },
