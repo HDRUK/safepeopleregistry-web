@@ -124,7 +124,7 @@ export default function SsoTenantsAdminList() {
               <TableCell>
                 <Chip
                   size="small"
-                  label={tenant.status}
+                  label={tenant.status.toUpperCase()}
                   color={STATUS_COLOR[tenant.status]}
                 />
                 {!tenant.enabled && tenant.status === "approved" && (
