@@ -312,8 +312,7 @@ Cypress.Commands.add("clickUntilFound", (selector, action, assertions) => {
 Cypress.Commands.add("clickSubTab", (label: string) => {
   cy.contains('[data-cy="sub-tabs-navigation"] a', label)
     .should("be.visible")
-    .invoke("attr", "href")
-    .then(href => cy.visitFirst((href as string).replace(/^\/[a-z-]+\//, "/")));
+    .click();
   cy.waitForLoadingToFinish();
 });
 
