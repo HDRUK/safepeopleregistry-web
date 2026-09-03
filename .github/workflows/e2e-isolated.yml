@@ -44,8 +44,9 @@ env:
   MAIL_FROM_NAME: "speedi-as"
   APP_NAME: "Safe People Registry"
   APP_ENV: "dev"
-  APP_DEBUG: "true"
+  APP_DEBUG: "false"
   APP_URL: "http://localhost:8000"
+  PHP_CLI_SERVER_WORKERS: 10
   REBUILD_DB: "0"
   PORTAL_URL: "http://localhost:3000"
   PORTAL_PATH_INVITE: "invite"
