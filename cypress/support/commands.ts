@@ -86,7 +86,20 @@ Cypress.Commands.add("login", (email: string, password: string) => {
     },
     {
       validate() {
-        cy.getCookie("access_token").should("exist");
+        // A cookie existing locally doesn't mean the session is still
+        // alive server-side (e.g. after a real signout revokes it) -
+        // exercise the refresh_token against Keycloak so a dead session
+        // is detected and the cache is discarded instead of reused.
+        cy.request({
+          method: "POST",
+          url: "/api/auth/refresh",
+          followRedirect: false,
+          failOnStatusCode: false,
+        }).then(response => {
+          expect(response.status, "session is still valid server-side").to.eq(
+            200
+          );
+        });
       },
       cacheAcrossSpecs: true,
     }

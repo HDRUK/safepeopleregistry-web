@@ -34,6 +34,12 @@ const signout = () => {
   cy.contains("button", "Sign Out").click();
 
   cy.get("#kc-logout").if().click();
+
+  // A real logout revokes the session server-side, but leaves any
+  // cacheAcrossSpecs cy.session cookies in place — clear them so the
+  // next cy.login() for this identity re-authenticates for real
+  // instead of restoring now-dead cookies.
+  Cypress.session.clearAllSavedSessions();
 };
 
 const shouldBeUserProfile = () => {
