@@ -378,14 +378,6 @@ jobs:
           nohup npm start > next.log 2>&1 &
           sleep 10
 
-      - name: Cache Cypress
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/Cypress
-          key: e2e-cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            e2e-cypress-${{ runner.os }}-
-
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
