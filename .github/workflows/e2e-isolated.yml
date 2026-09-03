@@ -370,6 +370,17 @@ jobs:
         run: npm install
         # if we switch to ci then bin off cache as it will do a CLEAN INSTALLL
 
+      - name: Cache Cypress binary
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/Cypress
+          key: e2e-cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            e2e-cypress-${{ runner.os }}-
+
+      - name: Ensure Cypress binary is installed
+        run: npx cypress install
+
       - name: Build Next.js
         run: npm run build
 
