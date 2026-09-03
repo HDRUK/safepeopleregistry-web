@@ -88,6 +88,7 @@ Cypress.Commands.add("login", (email: string, password: string) => {
       validate() {
         cy.getCookie("access_token").should("exist");
       },
+      cacheAcrossSpecs: true,
     }
   );
 });
