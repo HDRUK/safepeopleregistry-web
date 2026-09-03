@@ -173,7 +173,6 @@ Cypress.Commands.add("getResultsActionMenu", (value: string) => {
 Cypress.Commands.add(
   "clickAlertModal",
   (text: string = "OK", title: string = "Success") => {
-    cy.wait(500);
     cy.get(dataCy("alert-modal"), { timeout: 10000 })
       .filter(":visible")
       .should("have.length", 1)
