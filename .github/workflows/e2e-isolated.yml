@@ -335,6 +335,8 @@ jobs:
       - name: Start Laravel API and wait for readiness
         run: |
           cd safepeopleregistry-api
+          php artisan config:cache
+          php artisan route:cache
           php artisan serve --host=0.0.0.0 --port=8000 > laravel.log 2>&1 &
           echo "Waiting for Laravel to start..."
           for _ in {1..20}; do
