@@ -357,6 +357,7 @@ jobs:
           node-version: 20
 
       - name: Cache Node modules
+        id: cache-node-modules
         uses: actions/cache@v4
         with:
           path: |
@@ -367,8 +368,8 @@ jobs:
             e2e-node-modules-${{ runner.os }}-
 
       - name: Install Node deps
-        run: npm install
-        # if we switch to ci then bin off cache as it will do a CLEAN INSTALLL
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: npm ci
 
       - name: Cache Cypress binary
         uses: actions/cache@v4
