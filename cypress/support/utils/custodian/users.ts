@@ -5,36 +5,32 @@ import { formatDisplayShortDate } from "@/utils/date";
 import { dataCy } from "../common";
 import { DEFAULT_ORGANISATION_NAME, DEFAULT_PROJECT_NAME } from "../data";
 
-const hasAffiliationsTabCustodianUser = () => {
+const has6TabsCustodianUser = (user: User) => {
   cy.clickSubTab("Affiliations");
   cy.contains("h2", "Affiliations").should("be.visible");
 
-  const row = cy.getResultsRowByValue(DEFAULT_ORGANISATION_NAME);
+  const row1 = cy.getResultsRowByValue(DEFAULT_ORGANISATION_NAME);
 
-  row.within(() => {
+  row1.within(() => {
     cy.contains("td", DEFAULT_ORGANISATION_NAME).should("exist");
     cy.contains("td", getStatus(Status.INVITED)).should("exist");
     cy.contains("td", formatDisplayShortDate(new Date().toISOString())).should(
       "exist"
     );
   });
-};
 
-const hasProjectsTabCustodianUser = () => {
   cy.clickSubTab("Projects");
   cy.contains("h2", "Projects").should("exist");
 
-  const row = cy.getResultsRowByValue(DEFAULT_PROJECT_NAME);
+  const row2 = cy.getResultsRowByValue(DEFAULT_PROJECT_NAME);
 
-  row.within(() => {
+  row2.within(() => {
     cy.contains("td", DEFAULT_PROJECT_NAME).should("exist");
     cy.contains("td", DEFAULT_ORGANISATION_NAME).should("exist");
     cy.contains("td", getStatus(Status.PENDING)).should("exist");
     cy.contains("td", getStatus(Status.INVITED)).should("exist");
   });
-};
 
-const hasIdentityTabCustodianUser = (user: User) => {
   cy.clickSubTab("Identity");
   const name = getName(user);
   cy.get(dataCy("page-body")).within(() => {
@@ -46,30 +42,17 @@ const hasIdentityTabCustodianUser = (user: User) => {
     );
     cy.contains("p", "IDVT checks incomplete").should("exist");
   });
-};
 
-const hasTrainingandAccreditationsTabCustodianUser = () => {
   cy.clickSubTab("Training and Accreditations");
   cy.contains("h2", "Training and Accreditations").should("exist");
   cy.contains("h3", "Training history").should("exist");
   cy.contains("h3", "Professional membership history").should("exist");
-};
 
-const hasAutomatedFlagsTabCustodianUser = () => {
   cy.clickSubTab("Automated Flags");
   cy.contains("h2", "Automated Flags").should("exist");
-};
 
-const hasHistoryTabCustodianUser = () => {
   cy.clickSubTab("History");
   cy.contains("h2", "History").should("be.visible");
 };
 
-export {
-  hasAffiliationsTabCustodianUser,
-  hasProjectsTabCustodianUser,
-  hasIdentityTabCustodianUser,
-  hasTrainingandAccreditationsTabCustodianUser,
-  hasAutomatedFlagsTabCustodianUser,
-  hasHistoryTabCustodianUser,
-};
+export { has6TabsCustodianUser };
