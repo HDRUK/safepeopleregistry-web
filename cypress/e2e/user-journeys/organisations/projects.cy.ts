@@ -1,12 +1,11 @@
 import { ROUTES } from "@/consts/router";
 import { logout } from "cypress/support/utils/common";
-import { loginCustodian } from "cypress/support/utils/custodian/auth";
 import {
   addNewProject,
   hasSponsoredProject,
 } from "cypress/support/utils/custodian/projects";
 import { DEFAULT_PROJECT } from "cypress/support/utils/data";
-import { loginOrganisation } from "cypress/support/utils/organisation/auth";
+import { loginViaApi } from "cypress/support/utils/organisation/fastAuth";
 import {
   confirmOrganisationSponsorship,
   hasOrganisationSponsorshipStatus,
@@ -14,16 +13,25 @@ import {
 
 const dataProject = DEFAULT_PROJECT;
 
+const loginCustodianViaApi = () =>
+  loginViaApi(Cypress.env("custodianEmail"), Cypress.env("custodianPassword"));
+
+const loginOrganisationViaApi = () =>
+  loginViaApi(
+    Cypress.env("organisationEmail"),
+    Cypress.env("organisationPassword")
+  );
+
 describe("Projects organisation journey", () => {
   before(() => {
-    loginCustodian();
+    loginCustodianViaApi();
     cy.visitFirst(ROUTES.profileCustodianProjects.path);
 
     addNewProject(dataProject);
   });
 
   beforeEach(() => {
-    loginOrganisation();
+    loginOrganisationViaApi();
 
     cy.visitFirst(ROUTES.profileOrganisationProjects.path);
   });
