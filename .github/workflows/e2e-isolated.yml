@@ -46,8 +46,9 @@ env:
   MAIL_FROM_NAME: "speedi-as"
   APP_NAME: "Safe People Registry"
   APP_ENV: "dev"
-  APP_DEBUG: "true"
+  APP_DEBUG: "false"
   APP_URL: "http://localhost:8000"
+  PHP_CLI_SERVER_WORKERS: 10
   REBUILD_DB: "0"
   PORTAL_URL: "http://localhost:3000"
   PORTAL_PATH_INVITE: "invite"
@@ -314,9 +315,9 @@ jobs:
       - name: Cache Composer deps
         uses: actions/cache@v4
         with:
-          path: vendor
-          key: e2e-composer-${{ hashFiles('composer.lock') }}
-          restore-keys: e2e-composer-${{ hashFiles('composer.lock') }}
+          path: safepeopleregistry-api/vendor
+          key: e2e-composer-${{ hashFiles('safepeopleregistry-api/composer.lock') }}
+          restore-keys: e2e-composer-${{ hashFiles('safepeopleregistry-api/composer.lock') }}
 
       - name: Install Composer deps
         run: |
@@ -356,6 +357,7 @@ jobs:
           node-version: 20
 
       - name: Cache Node modules
+        id: cache-node-modules
         uses: actions/cache@v4
         with:
           path: |
@@ -366,8 +368,19 @@ jobs:
             e2e-node-modules-${{ runner.os }}-
 
       - name: Install Node deps
-        run: npm install
-        # if we switch to ci then bin off cache as it will do a CLEAN INSTALLL
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Cache Cypress binary
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/Cypress
+          key: e2e-cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            e2e-cypress-${{ runner.os }}-
+
+      - name: Ensure Cypress binary is installed
+        run: npx cypress install
 
       - name: Build Next.js
         run: npm run build
@@ -377,19 +390,12 @@ jobs:
           nohup npm start > next.log 2>&1 &
           sleep 10
 
-      - name: Cache Cypress
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/Cypress
-          key: e2e-cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            e2e-cypress-${{ runner.os }}-
-
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
           headless: true
+          install: false
 
       # - name: Upload Cypress video
       #   uses: actions/upload-artifact@v4
