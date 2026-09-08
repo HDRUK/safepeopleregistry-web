@@ -13,6 +13,14 @@
     "scanErrorText": "Your file file may have a virus"
   },
   "Admin": {
+    "SuperAdminList": {
+      "name": "Name",
+      "email": "Email",
+      "status": "Status",
+      "createdAt": "Created at",
+      "noResultsMessage": "No admins found",
+      "errorMessage": "Unable to retrieve admins. Please contact us at <contactLink></contactLink>"
+    },
     "EmailsTable": {
       "noErrorFound": "No error found",
       "sendGridError": "SendGrid doesn't have any data yet. Try repeating the action later.",
@@ -1421,6 +1429,15 @@
     "inviteCustodianSuccess": "You have successfully invited the Data Custodian"
   },
   "Administration": {
+    "featureFlags": "Feature Flags",
+    "invites": "Invites",
+    "emailLogs": "Email logs",
+    "organisations": "Organisations",
+    "superAdminList": "Super Admins",
+    "inviteCustodian": "Invite Custodian",
+    "inviteUser": "Invite User",
+    "inviteCustodianModalHeading": "Invite Data Custodian",
+    "inviteUserModalHeading": "Invite User",
     "emailsInviteTitle": "Email logs",
     "ssoTenantsInviteTitle": "Enterprise SSO Connections",
     "featuresInviteTitle": "Feature Flags",
