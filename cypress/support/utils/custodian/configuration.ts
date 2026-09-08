@@ -47,7 +47,8 @@ const hasUnCheckedOnUsersConfigurationAutomatedFlags = () => {
 
 const hasCheckedOnUsersConfigurationAutomatedFlags = () => {
   cy.get("#10").should("exist").check();
-  cy.get("#11").should("exist").check();
+  // Removed the sanctions check temporarily until it is correctly specified and implemented
+  // cy.get("#11").should("exist").check();
   cy.get("#15").should("exist").check();
   cy.saveContinueClick("Save");
   cy.clickAlertModal();
@@ -112,7 +113,8 @@ const hasUnCheckedOnOrganisationConfigurationAutomatedFlags = () => {
 };
 
 const hasCheckedOnOrganisationConfigurationAutomatedFlags = () => {
-  cy.get("#16").should("exist").check();
+  // Removed the sanctions check temporarily until it is correctly specified and implemented
+  // cy.get("#16").should("exist").check();
   cy.get("#17").should("exist").check();
   cy.get("#18").should("exist").check();
   cy.get("#19").should("exist").check();

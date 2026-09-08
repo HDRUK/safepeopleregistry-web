@@ -123,7 +123,7 @@ export default function Rules() {
           {
             ...userRulesData,
             data: userRulesData?.data?.filter(
-              u => u.name !== RuleName.TRAINING && u.name !== "User Location"
+              u => u.name !== RuleName.TRAINING && u.name !== "User location"
             ),
           },
           userRules
