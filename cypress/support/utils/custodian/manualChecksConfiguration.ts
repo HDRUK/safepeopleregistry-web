@@ -62,7 +62,7 @@ const addManualChecksForUsersConfigurationManualChecks = (title: string) => {
   cy.saveFormClick("Save");
 };
 
-const hasCancelButtonTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks =
+const hasCancelButtonTakesBackToTheManualChecksPageForUsersConfigurationManualChecks =
   () => {
     goToManualChecksTab();
     cy.contains("button", "Add manual check").should("exist").click();
@@ -70,7 +70,7 @@ const hasCancelButtonTakesBackToTheManaulChecksPageForUsersConfigurationManualCh
     cy.contains("a", "Manual checks").should("exist");
   };
 
-const hasCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks =
+const hasCloseIconTakesBackToTheManualChecksPageForUsersConfigurationManualChecks =
   () => {
     goToManualChecksTab();
 
@@ -106,7 +106,7 @@ const hasEditManualChecksForUsersConfigurationManualChecks = () => {
   cy.contains("a", "Manual checks").should("exist");
 };
 
-const hasEditCancelButtonTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks =
+const hasEditCancelButtonTakesBackToTheManualChecksPageForUsersConfigurationManualChecks =
   () => {
     goToManualChecksTab();
     cy.get('[data-cy="action-menu"]').eq(0).should("exist").click();
@@ -115,7 +115,7 @@ const hasEditCancelButtonTakesBackToTheManaulChecksPageForUsersConfigurationManu
     cy.contains("a", "Manual checks").should("exist");
   };
 
-const hasEditCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks =
+const hasEditCloseIconTakesBackToTheManualChecksPageForUsersConfigurationManualChecks =
   () => {
     goToManualChecksTab();
 
@@ -186,7 +186,7 @@ const hasAddManualChecksForOrganisationConfigurationManualChecks = () => {
   cy.contains("a", "Manual checks").should("exist");
 };
 
-const hasCancelButtonTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks =
+const hasCancelButtonTakesBackToTheManualChecksPageForOrganisationConfigurationManualChecks =
   () => {
     goToManualChecksTab();
     cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
@@ -197,7 +197,7 @@ const hasCancelButtonTakesBackToTheManaulChecksPageForOrganisationConfigurationM
     cy.contains("a", "Manual checks").should("exist");
   };
 
-const hasCloseIconTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks =
+const hasCloseIconTakesBackToTheManualChecksPageForOrganisationConfigurationManualChecks =
   () => {
     goToManualChecksTab();
 
@@ -237,7 +237,7 @@ const hasEditManualChecksForOrganisationConfigurationManualChecks = () => {
   cy.contains("a", "Manual checks").should("exist");
 };
 
-const hasEditCancelButtonTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks =
+const hasEditCancelButtonTakesBackToTheManualChecksPageForOrganisationConfigurationManualChecks =
   () => {
     goToManualChecksTab();
     cy.get('[data-cy="skeleton-checkboxlist"]').should("not.exist", {
@@ -249,7 +249,7 @@ const hasEditCancelButtonTakesBackToTheManaulChecksPageForOrganisationConfigurat
     cy.contains("a", "Manual checks").should("exist");
   };
 
-const hasEditCloseIconTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks =
+const hasEditCloseIconTakesBackToTheManualChecksPageForOrganisationConfigurationManualChecks =
   () => {
     goToManualChecksTab();
 
@@ -294,17 +294,17 @@ export {
   hasCheckedOnUsersConfigurationManualChecks,
   addManualChecksForUsersConfigurationManualChecks,
   hasAddManualChecksForUsersConfigurationManualChecks,
-  hasCancelButtonTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks,
-  hasCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks,
+  hasCancelButtonTakesBackToTheManualChecksPageForUsersConfigurationManualChecks,
+  hasCloseIconTakesBackToTheManualChecksPageForUsersConfigurationManualChecks,
   hasEditManualChecksForUsersConfigurationManualChecks,
-  hasEditCancelButtonTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks,
-  hasEditCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks,
+  hasEditCancelButtonTakesBackToTheManualChecksPageForUsersConfigurationManualChecks,
+  hasEditCloseIconTakesBackToTheManualChecksPageForUsersConfigurationManualChecks,
   hasUnCheckedOnOrganisationConfigurationManualChecks,
   hasCheckedOnOrganisationConfigurationManualChecks,
   hasAddManualChecksForOrganisationConfigurationManualChecks,
-  hasCancelButtonTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks,
-  hasCloseIconTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks,
+  hasCancelButtonTakesBackToTheManualChecksPageForOrganisationConfigurationManualChecks,
+  hasCloseIconTakesBackToTheManualChecksPageForOrganisationConfigurationManualChecks,
   hasEditManualChecksForOrganisationConfigurationManualChecks,
-  hasEditCancelButtonTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks,
-  hasEditCloseIconTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks,
+  hasEditCancelButtonTakesBackToTheManualChecksPageForOrganisationConfigurationManualChecks,
+  hasEditCloseIconTakesBackToTheManualChecksPageForOrganisationConfigurationManualChecks,
 };

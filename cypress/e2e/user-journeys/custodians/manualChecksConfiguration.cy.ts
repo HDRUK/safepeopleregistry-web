@@ -4,16 +4,16 @@ import { loginCustodian } from "cypress/support/utils/custodian/auth";
 import {
   hasAddManualChecksForOrganisationConfigurationManualChecks,
   hasAddManualChecksForUsersConfigurationManualChecks,
-  hasCancelButtonTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks,
-  hasCancelButtonTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks,
+  hasCancelButtonTakesBackToTheManualChecksPageForOrganisationConfigurationManualChecks,
+  hasCancelButtonTakesBackToTheManualChecksPageForUsersConfigurationManualChecks,
   hasCheckedOnOrganisationConfigurationManualChecks,
   hasCheckedOnUsersConfigurationManualChecks,
-  hasCloseIconTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks,
-  hasCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks,
-  hasEditCancelButtonTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks,
-  hasEditCancelButtonTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks,
-  hasEditCloseIconTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks,
-  hasEditCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks,
+  hasCloseIconTakesBackToTheManualChecksPageForOrganisationConfigurationManualChecks,
+  hasCloseIconTakesBackToTheManualChecksPageForUsersConfigurationManualChecks,
+  hasEditCancelButtonTakesBackToTheManualChecksPageForOrganisationConfigurationManualChecks,
+  hasEditCancelButtonTakesBackToTheManualChecksPageForUsersConfigurationManualChecks,
+  hasEditCloseIconTakesBackToTheManualChecksPageForOrganisationConfigurationManualChecks,
+  hasEditCloseIconTakesBackToTheManualChecksPageForUsersConfigurationManualChecks,
   hasEditManualChecksForOrganisationConfigurationManualChecks,
   hasEditManualChecksForUsersConfigurationManualChecks,
   hasUnCheckedOnOrganisationConfigurationManualChecks,
@@ -42,24 +42,24 @@ describe("Projects custodians journey", () => {
     hasAddManualChecksForUsersConfigurationManualChecks();
   });
 
-  it("Has Cancel Button Takes Back To The Manaul Checks Page For Users Configuration Manual Checks", () => {
-    hasCancelButtonTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks();
+  it("Has Cancel Button Takes Back To The Manual Checks Page For Users Configuration Manual Checks", () => {
+    hasCancelButtonTakesBackToTheManualChecksPageForUsersConfigurationManualChecks();
   });
 
-  it("Has Close Icon Takes Back To The Manaul Checks Page For Users Configuration Manual Checks", () => {
-    hasCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks();
+  it("Has Close Icon Takes Back To The Manual Checks Page For Users Configuration Manual Checks", () => {
+    hasCloseIconTakesBackToTheManualChecksPageForUsersConfigurationManualChecks();
   });
 
   it("Has Edit Manual Checks For Users Configuration Manual Checks", () => {
     hasEditManualChecksForUsersConfigurationManualChecks();
   });
 
-  it("Has Edit Cancel Button Takes Back To The Manaul Checks Page For Users Configuration Manual Checks", () => {
-    hasEditCancelButtonTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks();
+  it("Has Edit Cancel Button Takes Back To The Manual Checks Page For Users Configuration Manual Checks", () => {
+    hasEditCancelButtonTakesBackToTheManualChecksPageForUsersConfigurationManualChecks();
   });
 
-  it("Has Edit Close Icon Takes Back To The Manaul Checks Page For Users Configuration Manual Checks", () => {
-    hasEditCloseIconTakesBackToTheManaulChecksPageForUsersConfigurationManualChecks();
+  it("Has Edit Close Icon Takes Back To The Manual Checks Page For Users Configuration Manual Checks", () => {
+    hasEditCloseIconTakesBackToTheManualChecksPageForUsersConfigurationManualChecks();
   });
 
   it("Has UnChecked On Organisation Configuration Manual Checks", () => {
@@ -74,23 +74,23 @@ describe("Projects custodians journey", () => {
     hasAddManualChecksForOrganisationConfigurationManualChecks();
   });
 
-  it("Has Cancel Button Takes Back To The Manaul Checks Page For Organisation Configuration Manual Checks", () => {
-    hasCancelButtonTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks();
+  it("Has Cancel Button Takes Back To The Manual Checks Page For Organisation Configuration Manual Checks", () => {
+    hasCancelButtonTakesBackToTheManualChecksPageForOrganisationConfigurationManualChecks();
   });
 
-  it("Has Close Icon Takes Back To The Manaul Checks Page For Organisation Configuration Manual Checks", () => {
-    hasCloseIconTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks();
+  it("Has Close Icon Takes Back To The Manual Checks Page For Organisation Configuration Manual Checks", () => {
+    hasCloseIconTakesBackToTheManualChecksPageForOrganisationConfigurationManualChecks();
   });
 
   it("Has Edit Manual Checks For Organisation Configuration Manual Checks", () => {
     hasEditManualChecksForOrganisationConfigurationManualChecks();
   });
 
-  it("Has Edit Cancel Button Takes Back To The Manaul Checks Page For Organisation Configuration Manual Checks", () => {
-    hasEditCancelButtonTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks();
+  it("Has Edit Cancel Button Takes Back To The Manual Checks Page For Organisation Configuration Manual Checks", () => {
+    hasEditCancelButtonTakesBackToTheManualChecksPageForOrganisationConfigurationManualChecks();
   });
 
-  it("Has Edit Close Icon Takes Back To The Manaul Checks Page For Organisation Configuration Manual Checks", () => {
-    hasEditCloseIconTakesBackToTheManaulChecksPageForOrganisationConfigurationManualChecks();
+  it("Has Edit Close Icon Takes Back To The Manual Checks Page For Organisation Configuration Manual Checks", () => {
+    hasEditCloseIconTakesBackToTheManualChecksPageForOrganisationConfigurationManualChecks();
   });
 });

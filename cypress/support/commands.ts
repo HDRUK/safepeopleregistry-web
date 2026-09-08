@@ -88,6 +88,7 @@ Cypress.Commands.add("login", (email: string, password: string) => {
       validate() {
         cy.getCookie("access_token").should("exist");
       },
+      cacheAcrossSpecs: true,
     }
   );
 });
@@ -172,7 +173,6 @@ Cypress.Commands.add("getResultsActionMenu", (value: string) => {
 Cypress.Commands.add(
   "clickAlertModal",
   (text: string = "OK", title: string = "Success") => {
-    cy.wait(500);
     cy.get(dataCy("alert-modal"), { timeout: 10000 })
       .filter(":visible")
       .should("have.length", 1)
@@ -311,8 +311,7 @@ Cypress.Commands.add("clickUntilFound", (selector, action, assertions) => {
 Cypress.Commands.add("clickSubTab", (label: string) => {
   cy.contains('[data-cy="sub-tabs-navigation"] a', label)
     .should("be.visible")
-    .invoke("attr", "href")
-    .then(href => cy.visitFirst((href as string).replace(/^\/[a-z-]+\//, "/")));
+    .click();
   cy.waitForLoadingToFinish();
 });
 

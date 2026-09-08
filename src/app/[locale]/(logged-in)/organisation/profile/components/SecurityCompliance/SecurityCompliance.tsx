@@ -60,8 +60,8 @@ export default function SecurityCompliance() {
       iso_expiry_date: formatDBDate(data.iso_expiry_date),
       dsptk_expiry_date: formatDBDate(data.dsptk_expiry_date),
       dsptk_date_last_published: formatDBDate(data.dsptk_date_last_published),
-      ico_date_registered: formatDBDate(data.dsptk_expiry_date),
-      ico_expiry_date: formatDBDate(data.dsptk_expiry_date),
+      ico_date_registered: formatDBDate(data.ico_date_registered),
+      ico_expiry_date: formatDBDate(data.ico_expiry_date),
     } as PutOrganisationPayload;
 
     onSubmit(payload);

@@ -249,25 +249,24 @@ export default function AffiliationsPage({
               {tProfile("reinviteOrganisation")}
             </ActionMenuItem>
           )}
-          {affiliationStatus === Status.AFFILIATION_EMAIL_VERIFY &&
-            !affiliation.organisation.unclaimed && (
-              <ActionMenuItem
-                disabled={inviteQueryState.isLoading}
-                onClick={() => {
-                  setSelectedAffiliation(affiliation);
-                  handleResendAffiliationEmail(affiliation);
-                }}
-                sx={{ color: "secondary.main" }}
-                icon={
-                  inviteQueryState.isLoading ? (
-                    <CircularProgress size={20} />
-                  ) : (
-                    <EmailIcon sx={{ color: "secondary.main" }} />
-                  )
-                }>
-                {tProfile("resendVerification")}
-              </ActionMenuItem>
-            )}
+          {affiliationStatus === Status.AFFILIATION_EMAIL_VERIFY && (
+            <ActionMenuItem
+              disabled={inviteQueryState.isLoading}
+              onClick={() => {
+                setSelectedAffiliation(affiliation);
+                handleResendAffiliationEmail(affiliation);
+              }}
+              sx={{ color: "secondary.main" }}
+              icon={
+                inviteQueryState.isLoading ? (
+                  <CircularProgress size={20} />
+                ) : (
+                  <EmailIcon sx={{ color: "secondary.main" }} />
+                )
+              }>
+              {tProfile("resendVerification")}
+            </ActionMenuItem>
+          )}
           <ActionMenuItem
             onClick={() => showConfirmDelete(affiliation.id)}
             sx={{ color: "error.main" }}
