@@ -15,6 +15,19 @@ enum ProjectsSubTabs {
   SAFE_OUTPUTS = "safe-outputs",
 }
 
+enum AdminSubTabs {
+  FEATURE_FLAGS = "feature-flags",
+  DATA_CUSTODIAN_INVITATION = "data-custodian-invitation",
+  EMAIL_LOGS = "email-logs",
+  ORGANISATIONS = "organisations",
+  SUPER_ADMIN_LIST = "super-admin-list",
+}
+
+enum AdminModalActions {
+  INVITE_CUSTODIAN = "invite-custodian",
+  INVITE_USER = "invite-user",
+}
+
 type TabStructure = {
   [key in PageTabs]?: ProjectsSubTabs[];
 };
@@ -27,4 +40,10 @@ function getSubTabs(tab: PageTabs): ProjectsSubTabs[] | undefined {
   return tabHierarchy[tab];
 }
 
-export { PageTabs, ProjectsSubTabs, getSubTabs };
+export {
+  PageTabs,
+  ProjectsSubTabs,
+  AdminSubTabs,
+  AdminModalActions,
+  getSubTabs,
+};
