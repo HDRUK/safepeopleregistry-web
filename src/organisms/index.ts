@@ -9,6 +9,7 @@ import InviteOrganisationModal from "./InviteOrganisationModal";
 import EmailsList from "./EmailsList";
 import SsoTenantsSubmission from "./SsoTenantsSubmission";
 import SsoTenantsAdminList from "./SsoTenantsAdminList";
+import SuperAdminList from "./SuperAdminList";
 
 export {
   Application,
@@ -22,4 +23,5 @@ export {
   EmailsList,
   SsoTenantsSubmission,
   SsoTenantsAdminList,
+  SuperAdminList,
 };
