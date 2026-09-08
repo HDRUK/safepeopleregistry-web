@@ -19,6 +19,7 @@ import NavBar from "./NavBar";
 import { mockedOrganisation } from "@/mocks/data/organisation";
 import { mockedCustodian } from "@/mocks/data/custodian";
 import { AccountType } from "@/types/accounts";
+import { UserGroup } from "@/consts/user";
 
 jest.mock("js-cookie", () => ({
   get: jest.fn(),
@@ -164,6 +165,23 @@ describe("NavBar Component", () => {
     render(<NavBar loggedIn />);
 
     expect(screen.getByText(AccountType.CUSTODIAN)).toBeInTheDocument();
+  });
+
+  it("displays 'Super-admin' chip when the user is a super admin", () => {
+    mockUseStore.mockImplementation(selector =>
+      selector({
+        getUser: () => mockedUser({ user_group: UserGroup.ADMINS }),
+        setUser: jest.fn(),
+        config: {
+          organisation: undefined,
+          custodian: undefined,
+        },
+      } as unknown as StoreState)
+    );
+
+    render(<NavBar loggedIn />);
+
+    expect(screen.getByText(AccountType.ADMIN)).toBeInTheDocument();
   });
 
   it("displays 'My Account' and 'Sign Out' if the user is authenticated", () => {
