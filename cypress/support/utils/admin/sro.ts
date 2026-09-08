@@ -4,7 +4,7 @@ const validateSROOrganisations = (
   data: Organisation,
   action: "Approve" | "Unapprove"
 ) => {
-  cy.contains("Organisations - Senior Responsible Officer").click();
+  cy.contains("Organisations").click();
 
   cy.getResultsActionMenu(data.organisation_name).click();
 

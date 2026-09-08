@@ -11,11 +11,11 @@ const inviteNewCustodianForm = (invite: InviteCustodianFormValues) => {
 };
 
 const inviteNewCustodian = (invite: InviteCustodianFormValues) => {
-  cy.contains("Data Custodian Invitation").click();
+  cy.contains("Invite Custodian").click();
 
   inviteNewCustodianForm(invite);
 
-  cy.get(dataCy("data-custodian-invite")).within(() => {
+  cy.get(dataCy("form-modal")).within(() => {
     cy.contains("button", "Invite").click();
   });
 
@@ -50,12 +50,12 @@ const inviteNewOrganisationForm = (invite: InviteUserFormValues) => {
 };
 
 const inviteNewOrganisation = (invite: InviteUserFormValues) => {
-  cy.contains("User invitation").click();
+  cy.contains("Invite User").click();
   cy.contains("button", "Ask them to register").click();
 
   inviteNewOrganisationForm(invite);
 
-  cy.get(dataCy("data-user-invite")).within(() => {
+  cy.get(dataCy("form-modal")).within(() => {
     cy.contains("button", "Invite").click();
   });
 
@@ -63,11 +63,11 @@ const inviteNewOrganisation = (invite: InviteUserFormValues) => {
 };
 
 const inviteNewUser = (invite: InviteUserFormValues) => {
-  cy.contains("User invitation").click();
+  cy.contains("Invite User").click();
 
   inviteNewUserForm(invite);
 
-  cy.get(dataCy("data-user-invite")).within(() => {
+  cy.get(dataCy("form-modal")).within(() => {
     cy.contains("button", "Invite").click();
   });
 
