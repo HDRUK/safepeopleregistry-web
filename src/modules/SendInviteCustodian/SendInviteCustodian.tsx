@@ -1,4 +1,5 @@
 import { useTranslations } from "next-intl";
+import { ReactNode } from "react";
 import ErrorMessage from "@/components/ErrorMessage";
 import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
 import InviteCustodian from "../InviteCustodian";
@@ -9,11 +10,13 @@ const NAMESPACE_TRANSLATIONS_ORGANISATION = "Custodian";
 interface SendInviteOrganisationProps {
   onSuccess?: () => void;
   onError?: () => void;
+  actions?: ReactNode;
 }
 
 export default function SendInviteOrganisation({
   onSuccess,
   onError,
+  actions,
 }: SendInviteOrganisationProps) {
   const { showAlert, hideAlert } = useAlertModal();
   const t = useTranslations(NAMESPACE_TRANSLATIONS_ORGANISATION);
@@ -49,5 +52,11 @@ export default function SendInviteOrganisation({
     onSuccess: handleSuccessAlert,
   });
 
-  return <InviteCustodian onSubmit={handleSubmit} queryState={queryState} />;
+  return (
+    <InviteCustodian
+      onSubmit={handleSubmit}
+      queryState={queryState}
+      actions={actions}
+    />
+  );
 }
