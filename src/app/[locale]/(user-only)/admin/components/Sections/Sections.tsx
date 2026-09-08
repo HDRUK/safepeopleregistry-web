@@ -6,6 +6,7 @@ import InviteUser from "@/modules/InviteUser";
 import SendInviteCustodian from "@/modules/SendInviteCustodian";
 import ButtonCancel from "@/components/ButtonCancel";
 import FormModal from "@/components/FormModal";
+import { PageBody } from "@/modules";
 import {
   OrganisationsList,
   InvitesList,
@@ -58,7 +59,11 @@ export default function Sections() {
     {
       label: t("emailLogs"),
       value: AdminSubTabs.EMAIL_LOGS,
-      component: <EmailsList />,
+      component: (
+        <PageBody data-cy="emails-list">
+          <EmailsList />
+        </PageBody>
+      ),
     },
     {
       label: t("superAdminList"),
