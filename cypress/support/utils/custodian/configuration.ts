@@ -6,13 +6,14 @@ const hasUnCheckedOnUsersConfigurationAutomatedFlags = () => {
     "p",
     "A User has verified their identity via the Identity Verification Technology (IDVT)."
   ).should("exist");
-  cy.get("#11").should("exist").uncheck();
-  cy.contains("p", "User location").should("exist");
-  cy.contains("p", ":").should("exist");
-  cy.contains(
-    "p",
-    "A User is located in a country which has UK equivalent data protection laws."
-  ).should("exist");
+  // Removed the sanctions check temporarily until it is correctly specified and implemented
+  // cy.get("#11").should("exist").uncheck();
+  // cy.contains("p", "User location").should("exist");
+  // cy.contains("p", ":").should("exist");
+  // cy.contains(
+  //   "p",
+  //   "A User is located in a country which has UK equivalent data protection laws."
+  // ).should("exist");
   // cy.get("#12").should("exist").uncheck();
   // cy.contains("p", "Training").should("exist");
   // cy.contains("p", ":").should("exist");
@@ -46,19 +47,21 @@ const hasUnCheckedOnUsersConfigurationAutomatedFlags = () => {
 
 const hasCheckedOnUsersConfigurationAutomatedFlags = () => {
   cy.get("#10").should("exist").check();
-  cy.get("#11").should("exist").check();
+  // Removed the sanctions check temporarily until it is correctly specified and implemented
+  // cy.get("#11").should("exist").check();
   cy.get("#15").should("exist").check();
   cy.saveContinueClick("Save");
   cy.clickAlertModal();
 };
 
 const hasUnCheckedOnOrganisationConfigurationAutomatedFlags = () => {
-  cy.get("#16").should("exist").uncheck();
-  cy.contains("p", "Sanctions").should("exist");
-  cy.contains("p", ":").should("exist");
-  cy.contains("p", "An Organisation is not on the UK sanctions list.").should(
-    "exist"
-  );
+  // Removed the sanctions check temporarily until it is correctly specified and implemented
+  // cy.get("#16").should("exist").uncheck();
+  // cy.contains("p", "Sanctions").should("exist");
+  // cy.contains("p", ":").should("exist");
+  // cy.contains("p", "An Organisation is not on the UK sanctions list.").should(
+  //   "exist"
+  // );
   cy.get("#17").should("exist").uncheck();
   cy.contains("p", "Data security compliance:").should("exist");
   cy.contains("p", ":").should("exist");
@@ -110,7 +113,8 @@ const hasUnCheckedOnOrganisationConfigurationAutomatedFlags = () => {
 };
 
 const hasCheckedOnOrganisationConfigurationAutomatedFlags = () => {
-  cy.get("#16").should("exist").check();
+  // Removed the sanctions check temporarily until it is correctly specified and implemented
+  // cy.get("#16").should("exist").check();
   cy.get("#17").should("exist").check();
   cy.get("#18").should("exist").check();
   cy.get("#19").should("exist").check();

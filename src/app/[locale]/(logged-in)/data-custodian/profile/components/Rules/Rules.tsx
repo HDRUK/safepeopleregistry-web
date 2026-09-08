@@ -76,12 +76,16 @@ export default function Rules() {
 
   const formattedUserRules: Rule[] = useMemo(
     () =>
-      // TEMPORARILY FILTER ANY TRAINING RULES
-      formatRules(userRulesData)?.filter(r => r.label !== RuleName.TRAINING),
+      // TEMPORARILY FILTER ANY TRAINING and SANCTIONS RULES
+      formatRules(userRulesData)?.filter(
+        r => r.label !== RuleName.TRAINING && r.label !== "User location"
+      ),
     [userRulesData]
   );
   const formattedOrgRules: Rule[] = useMemo(
-    () => formatRules(orgRulesData),
+    () =>
+      // TEMPORARILY FILTER ANY SANCTIONS RULES
+      formatRules(orgRulesData)?.filter(r => r.label !== "Sanctions"),
     [orgRulesData]
   );
 
@@ -115,16 +119,23 @@ export default function Rules() {
     const payload = {
       configs: [
         ...createRulePayload(
-          // TEMPORARILY FILTER ANY TRAINING RULES
+          // TEMPORARILY FILTER ANY TRAINING AND SANCTIONS RULES
           {
             ...userRulesData,
             data: userRulesData?.data?.filter(
-              u => u.name !== RuleName.TRAINING
+              u => u.name !== RuleName.TRAINING && u.name !== "User location"
             ),
           },
           userRules
         ),
-        ...createRulePayload(orgRulesData, orgRules),
+        ...createRulePayload(
+          // TEMPORARILY FILTER ANY SANCTIONS RULES
+          {
+            ...orgRulesData,
+            data: orgRulesData?.data?.filter(o => o.name !== "Sanctions"),
+          },
+          orgRules
+        ),
       ],
     };
 
