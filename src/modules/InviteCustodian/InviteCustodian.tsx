@@ -2,7 +2,7 @@ import SaveIcon from "@mui/icons-material/Save";
 import { LoadingButton } from "@mui/lab";
 import { Grid, TextField } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { useMemo } from "react";
+import { ReactNode, useMemo } from "react";
 import Form from "../../components/Form";
 import FormActions from "../../components/FormActions";
 import FormControlWrapper from "../../components/FormControlWrapper";
@@ -15,6 +15,7 @@ import { MutationState } from "../../types/form";
 export interface InviteCustodianFormProps {
   onSubmit: (custodian: PostCustodianPayload) => void;
   queryState: MutationState;
+  actions?: ReactNode;
 }
 
 const NAMESPACE_TRANSLATION_FORM = "Form";
@@ -23,6 +24,7 @@ const NAMESPACE_TRANSLATION_CUSTODIAN = "Custodian";
 export default function InviteCustodianForm({
   onSubmit,
   queryState,
+  actions,
 }: InviteCustodianFormProps) {
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
   const tCustodian = useTranslations(NAMESPACE_TRANSLATION_CUSTODIAN);
@@ -70,6 +72,7 @@ export default function InviteCustodianForm({
             </Grid>
           </FormSection>
           <FormActions>
+            {actions}
             <LoadingButton
               type="submit"
               endIcon={<SaveIcon />}
