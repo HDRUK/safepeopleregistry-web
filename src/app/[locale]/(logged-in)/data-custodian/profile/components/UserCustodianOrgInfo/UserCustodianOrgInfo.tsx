@@ -14,7 +14,10 @@ export default function UserCustodianOrgInfo() {
             r =>
               // TEMPORARILY FILTER ANY TRAINING RULES
               r.rule !== RuleName.TRAINING &&
-              r.failed_rules?.rule !== RuleName.TRAINING
+              r.failed_rules?.rule !== RuleName.TRAINING &&
+              // TEMPORARILY FILTER THE SANCTIONS RULE
+              r.rule !== RuleName.UK_DATA_PROTECTION &&
+              r.failed_rules?.rule !== RuleName.UK_DATA_PROTECTION
           ) || []
         }
       />
