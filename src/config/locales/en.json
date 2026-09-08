@@ -1434,6 +1434,7 @@
     "emailLogs": "Email logs",
     "organisations": "Organisations",
     "superAdminList": "Super Admins",
+    "ssoTenants": "Enterprise SSO Connections",
     "inviteCustodian": "Invite Custodian",
     "inviteUser": "Invite User",
     "inviteCustodianModalHeading": "Invite Data Custodian",
