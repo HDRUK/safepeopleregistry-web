@@ -14,7 +14,7 @@ import { UseQueryResult } from "@tanstack/react-query";
 import { CellContext, ColumnDef } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import EditDelegate from "../EditDelegate";
+import EditDelegate, { EditDelegateModal } from "../EditDelegate";
 import InviteDelegateForm from "../InviteDelegateForm";
 import ChipStatus from "@/components/ChipStatus";
 import { Status } from "@/consts/application";
@@ -30,6 +30,8 @@ const DelegateTable = ({
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
 
   const [openInviteModal, setOpenInviteModal] = useState<boolean>(false);
+  const [editingDelegate, setEditingDelegate] = useState<User | null>(null);
+  const [openEditModal, setOpenEditModal] = useState<boolean>(false);
 
   const renderAccountStatus = (accountStatus?: string) => (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -39,13 +41,25 @@ const DelegateTable = ({
 
   const renderActions = (info: CellContext<User, unknown>) => (
     <ActionMenu>
-      <EditDelegate user={info.row.original} onSuccess={refetch} />
-      <DecoupleDelegate
-        user={info.row.original}
-        onSuccess={refetch}
-        payload={{ is_delegate: 0 }}
-        namespace="DecoupleDelegates"
-      />
+      {({ handleClose }) => [
+        <EditDelegate
+          key="edit"
+          user={info.row.original}
+          onClick={user => {
+            handleClose();
+
+            setEditingDelegate(user);
+            setOpenEditModal(true);
+          }}
+        />,
+        <DecoupleDelegate
+          key="decouple"
+          user={info.row.original}
+          onSuccess={refetch}
+          payload={{ is_delegate: 0 }}
+          namespace="DecoupleDelegates"
+        />,
+      ]}
     </ActionMenu>
   );
 
@@ -112,6 +126,12 @@ const DelegateTable = ({
           />
         </FormModal>
       </PageSection>
+      <EditDelegateModal
+        user={editingDelegate}
+        open={openEditModal}
+        onClose={() => setOpenEditModal(false)}
+        onSuccess={refetch}
+      />
     </>
   );
 };
