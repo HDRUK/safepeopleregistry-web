@@ -29,11 +29,10 @@ export default function SubTabs({
         <Tab
           label={label}
           value={value}
-          href={href}
-          component={Link}
           iconPosition="start"
           sx={{ fontWeight: 400, fontSize: "14px", mb: 2 }}
           key={label}
+          {...(href ? { href, component: Link } : {})}
         />
       ))}
     </Tabs>
