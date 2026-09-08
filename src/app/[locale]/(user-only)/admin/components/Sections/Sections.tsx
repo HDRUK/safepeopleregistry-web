@@ -11,12 +11,13 @@ import {
   OrganisationsList,
   InvitesList,
   EmailsList,
+  SsoTenantsAdminList,
   SuperAdminList,
 } from "@/organisms";
+import { useFeatures } from "@/components/FeatureProvider";
 import FeatureFlagList from "@/organisms/FeatureFlagsList";
 import { EntityType } from "@/types/api";
 import { Box, Button } from "@mui/material";
-
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import {
@@ -32,6 +33,7 @@ export default function Sections() {
   const t = useTranslations(NAMESPACE_TRANSLATIONS_ADMINISTRATION);
   const queryClient = useQueryClient();
   const user = useStore(state => state.getUser());
+  const { isEnterpriseSamlSsoEnabled } = useFeatures();
 
   const [currentSubTab, setCurrentSubTab] = useState<AdminSubTabs | null>(
     AdminSubTabs.DATA_CUSTODIAN_INVITATION
@@ -70,6 +72,15 @@ export default function Sections() {
       value: AdminSubTabs.SUPER_ADMIN_LIST,
       component: <SuperAdminList />,
     },
+    ...(isEnterpriseSamlSsoEnabled
+      ? [
+          {
+            label: t("ssoTenants"),
+            value: AdminSubTabs.SSO_TENANTS,
+            component: <SsoTenantsAdminList />,
+          },
+        ]
+      : []),
   ];
 
   const handleInviteSuccess = () => {

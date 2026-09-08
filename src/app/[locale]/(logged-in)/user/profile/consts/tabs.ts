@@ -21,6 +21,7 @@ enum AdminSubTabs {
   EMAIL_LOGS = "email-logs",
   ORGANISATIONS = "organisations",
   SUPER_ADMIN_LIST = "super-admin-list",
+  SSO_TENANTS = "sso-tenants",
 }
 
 enum AdminModalActions {
