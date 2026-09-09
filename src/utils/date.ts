@@ -45,6 +45,8 @@ function formatDateToString(
   date: Date | string | null | undefined,
   format: string
 ) {
+  if (date == null) return date;
+
   const djsDate = dayjs(date);
 
   return djsDate.isValid() ? djsDate.format(format) : date;
