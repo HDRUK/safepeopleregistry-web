@@ -40,7 +40,7 @@ describe("Resend invite", () => {
   });
 
   it("Shows a list of users who are pending invites", () => {
-    cy.contains("User invitation").click();
+    cy.contains("Invite User").click();
 
     inviteUser(dataInviteUser);
 

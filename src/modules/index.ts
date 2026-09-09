@@ -18,6 +18,7 @@ import ProjectsTable from "./ProjectsTable";
 import InvitesFilters from "./InvitesFilters";
 import EmailsTable from "./EmailsTable";
 import EmailsFilters from "./EmailsFilters";
+import SuperAdminTable from "./SuperAdminTable";
 import MoreQuestions from "./MoreQuestions";
 
 export {
@@ -42,4 +43,5 @@ export {
   InvitesFilters,
   EmailsTable,
   EmailsFilters,
+  SuperAdminTable,
 };
