@@ -757,7 +757,7 @@
     "dsptkCertified": "DSPT Compliant",
     "dsptkOdsCode": "Organisation code",
     "dsptkOdsCodePlaceholder": "e.g. DSPTK-2025-12345",
-    "dsptkOdsCodeInvalid": "DSPTK identifier is invalid, it must be alphanumeric and between 1 and 9 characters long",
+    "dsptkOdsCodeInvalid": "DSPTK identifier is invalid. It must be alphanumeric and between 1 and 9 characters long",
     "dsptkExpiryDate": "Expiry date",
     "dsptkStatus": "Status",
     "dsptkExpiryDateRequired": "An expiry date for your code needs to be set.",

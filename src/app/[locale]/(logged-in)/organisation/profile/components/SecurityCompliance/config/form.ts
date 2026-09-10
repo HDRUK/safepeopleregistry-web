@@ -97,9 +97,10 @@ export const getValidation = (t: (key: string) => string) =>
       .string()
       .optional()
       .matches(VALIDATION_DSPTK_CERTIFICATION_NUMBER, {
-        message: t("dsptkCertificationNumberInvalid"),
+        message: t("dsptkOdsCodeInvalid"),
         excludeEmptyString: true,
       }),
+
     dsptk_expiry_date: yup
       .date()
       .nullable()
