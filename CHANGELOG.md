@@ -1,3 +1,34 @@
+## [1.40.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.39.0...v1.40.0) (2026-09-11)
+
+### ✨ Features
+
+* **REGISTRY-000:** Rename entity model (#867) ([be0b2b1](https://github.com/HDRUK/safepeopleregistry-web/commit/be0b2b1857f07735620eac9ec12766a448805c35))
+* **REGISTRY-000:** Rename entity_model_id to decision_model_id (#866) ([893a32a](https://github.com/HDRUK/safepeopleregistry-web/commit/893a32a2ddfe4f12e80b09f0b0c430a6c805f35f))
+* **REGISTRY-000:** Run the e2e tests nightly at 1:45am UTC (#879) ([fb7eabd](https://github.com/HDRUK/safepeopleregistry-web/commit/fb7eabd4ffb896c223f55191f7573a0891188837))
+* **REGISTRY-000:** speed up e2e tests (#882) ([c175f84](https://github.com/HDRUK/safepeopleregistry-web/commit/c175f848577088c0d32b0718a13bddcd28ffc9a2))
+* **REGISTRY-2362:** Superadmin account | Update to current design (#886) ([d6a0d54](https://github.com/HDRUK/safepeopleregistry-web/commit/d6a0d54beb76296cd0d87c1ad509156045c07afc))
+* **REGISTRY-2907:** Custodian view of IDVT: Return name & expiration date (#865) ([8b11021](https://github.com/HDRUK/safepeopleregistry-web/commit/8b1102108500a4f633460774027ae40f32f7cca0))
+* **REGISTRY-2913:** Enables SSO for Gateway auth (#868) ([5af37bc](https://github.com/HDRUK/safepeopleregistry-web/commit/5af37bc7473bbec2b29c6747bfc1af8ba050df71)), closes [Gateway](undefinedGateway)
+* **REGISTRY-2914:** Add a box to the "Get Involved" page (#870) ([e261e1a](https://github.com/HDRUK/safepeopleregistry-web/commit/e261e1a4da55e715e7c0177b8e6e51e59521c58f))
+* **REGISTRY-2917:** Adds SAML SSO to registry (#871) ([a2e131c](https://github.com/HDRUK/safepeopleregistry-web/commit/a2e131c9a1d832a9a2eec1b9f75a9a450883eb3d))
+* **REGISTRY-2918:** Adds missing build args (#875) ([5e2198d](https://github.com/HDRUK/safepeopleregistry-web/commit/5e2198dab8335f24ff1689ab928fc381bd7c2cbd))
+* **REGISTRY-2918:** Fix missing slash in GH redirect (#877) ([8e6e367](https://github.com/HDRUK/safepeopleregistry-web/commit/8e6e367c10f85cd179761718839ce303a4fc0f91))
+* **REGISTRY-2918:** Implements social account linking via SSO (#874) ([0d8f975](https://github.com/HDRUK/safepeopleregistry-web/commit/0d8f975b2b02424ed051215e526f1b6fd842ead5))
+* **REGISTRY-2931:** #2 need vars baked into build (#869) ([a6445f4](https://github.com/HDRUK/safepeopleregistry-web/commit/a6445f4f5b01207ff8a6a81ec88dcebab3e2ba7c))
+* **REGISTRY-2945:** Hide sanctions checks (#885) ([162a404](https://github.com/HDRUK/safepeopleregistry-web/commit/162a4041d35dd404c55283c07f875a60423c339c))
+* **REGISTRY-874:** Back to results link (#862) ([0110cf0](https://github.com/HDRUK/safepeopleregistry-web/commit/0110cf02eb9f6022011d897fa06bfa06bb4e9d2e))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-000:** Fix the flaky Edit Delegate test  (#887) ([5eca366](https://github.com/HDRUK/safepeopleregistry-web/commit/5eca366bf904b206beee57f79f8ab77600ba32cf)), closes [Delegate](undefinedgate)
+* **REGISTRY-000:** Revert using npm ci in e2e tests, back to npm install (#895) ([1104f3c](https://github.com/HDRUK/safepeopleregistry-web/commit/1104f3c42aba861bcb3b5c66e5463f4c19c9fcdb))
+* **REGISTRY-2281:** Fix text in automated flags screen (#864) ([8942d7d](https://github.com/HDRUK/safepeopleregistry-web/commit/8942d7d2d82c3318683b12cd20e35b63d60cd30d))
+* **REGISTRY-2762:** Fix bug where affiliation verify email couldn't be re-sent if the organisation was unclaimed (#884) ([3a2de18](https://github.com/HDRUK/safepeopleregistry-web/commit/3a2de1882e91c411b7f68c9ef5c84ae436b041c7))
+* **REGISTRY-2842:** Update Organisation home actions page for the Delegate view (#876) ([be6b3fe](https://github.com/HDRUK/safepeopleregistry-web/commit/be6b3fec6386f5326e95f2fa11daf864b5a52fbb)), closes [Delegate](undefinedgate)
+* **REGISTRY-2923:** Fix certificate expiry dates bug (#883) ([5d8eb2e](https://github.com/HDRUK/safepeopleregistry-web/commit/5d8eb2e1a769a4f085221118f27713bfdd771044))
+* **REGISTRY-2923:** Organisation certification expiry dates all get set on update (#894) ([9c1ddee](https://github.com/HDRUK/safepeopleregistry-web/commit/9c1ddee9889291ab748a2d656a1abeb0fb13b552))
+* **REGISTRY-2952:** Fix certificate regexes (#896) ([598026f](https://github.com/HDRUK/safepeopleregistry-web/commit/598026f2e264e77835ab2b5d0e4343e5f42881f0))
+
 ## [1.39.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.38.0...v1.39.0) (2026-08-18)
 
 ### ✨ Features
