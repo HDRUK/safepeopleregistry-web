@@ -41,6 +41,7 @@ const mockedUser = (user?: Partial<User>): User => ({
   organisations: [],
   orcid_scanning: false,
   orcid_scanning_completed_at: null,
+  created_at: faker.date.past().toISOString(),
   departments: [mockedDepartment({ id: 2 })],
   registry: {
     files: [mockedFile()],

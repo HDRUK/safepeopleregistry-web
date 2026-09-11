@@ -6,7 +6,8 @@ import { get } from "js-cookie";
 import getMe from "@/app/actions/auth/getMe";
 import { ResponseJson } from "@/types/requests";
 import { User } from "@/types/application";
-import { handleLogin, handleLogout } from "../../utils/keycloak";
+import { handleLogout } from "../../utils/keycloak";
+import { useRouter } from "next/navigation";
 import {
   defineMatchMedia,
   fireEvent,
@@ -18,6 +19,7 @@ import NavBar from "./NavBar";
 import { mockedOrganisation } from "@/mocks/data/organisation";
 import { mockedCustodian } from "@/mocks/data/custodian";
 import { AccountType } from "@/types/accounts";
+import { UserGroup } from "@/consts/user";
 
 jest.mock("js-cookie", () => ({
   get: jest.fn(),
@@ -29,9 +31,6 @@ jest.mock("../../utils/keycloak", () => ({
 }));
 
 jest.mock("@/i18n/routing", () => ({
-  useRouter: jest.fn(() => ({
-    push: jest.fn(),
-  })),
   Link: ({ children, href }: { children: React.ReactNode; href: string }) => (
     <a href={href}>{children}</a>
   ),
@@ -81,7 +80,7 @@ describe("NavBar Component", () => {
     ).toBeInTheDocument();
   });
 
-  it("calls handleLogin on Sign In click when not authenticated", () => {
+  it("navigates to /sign-in on Sign In click when not authenticated", () => {
     render(<NavBar />);
 
     fireEvent.click(
@@ -90,7 +89,7 @@ describe("NavBar Component", () => {
       })
     );
 
-    expect(handleLogin).toHaveBeenCalled();
+    expect(useRouter().push).toHaveBeenCalledWith("/sign-in");
   });
 
   it("displays 'Sign In' if the user is not authenticated", () => {
@@ -166,6 +165,23 @@ describe("NavBar Component", () => {
     render(<NavBar loggedIn />);
 
     expect(screen.getByText(AccountType.CUSTODIAN)).toBeInTheDocument();
+  });
+
+  it("displays 'Super-admin' chip when the user is a super admin", () => {
+    mockUseStore.mockImplementation(selector =>
+      selector({
+        getUser: () => mockedUser({ user_group: UserGroup.ADMINS }),
+        setUser: jest.fn(),
+        config: {
+          organisation: undefined,
+          custodian: undefined,
+        },
+      } as unknown as StoreState)
+    );
+
+    render(<NavBar loggedIn />);
+
+    expect(screen.getByText(AccountType.ADMIN)).toBeInTheDocument();
   });
 
   it("displays 'My Account' and 'Sign Out' if the user is authenticated", () => {

@@ -89,6 +89,10 @@ const ROUTES: Routes = {
     path: "/data-custodian/profile/configuration/integrations",
     permissions: [UserGroup.CUSTODIANS],
   },
+  profileCustodianConfigurationSso: {
+    path: "/data-custodian/profile/configuration/sso",
+    permissions: [UserGroup.CUSTODIANS],
+  },
   profileCustodianConfigurationRules: {
     path: "/data-custodian/profile/configuration/rules",
     permissions: [UserGroup.CUSTODIANS],
@@ -247,6 +251,10 @@ const ROUTES: Routes = {
   },
   profileOrganisationDetailsSecurityCompliance: {
     path: "/organisation/profile/details/security-compliance",
+    permissions: [UserGroup.ORGANISATIONS],
+  },
+  profileOrganisationDetailsSso: {
+    path: "/organisation/profile/details/sso",
     permissions: [UserGroup.ORGANISATIONS],
   },
   profileOrganisationUserAdministration: {

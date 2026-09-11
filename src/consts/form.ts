@@ -1,6 +1,7 @@
-const VALIDATION_CE_CERTIFICATION_NUMBER = /^[\w]{4}$/;
+const VALIDATION_CE_CERTIFICATION_NUMBER =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
-const VALIDATION_DSPTK_CERTIFICATION_NUMBER = /^DSPTK-\d{4}-\d{5}$/;
+const VALIDATION_DSPTK_CERTIFICATION_NUMBER = /^[a-zA-Z0-9]{1,9}$/;
 
 const VALIDATION_ORC_ID = /^[\d]{4}-[\d]{4}-[\d]{4}-[\d]{4}$/;
 

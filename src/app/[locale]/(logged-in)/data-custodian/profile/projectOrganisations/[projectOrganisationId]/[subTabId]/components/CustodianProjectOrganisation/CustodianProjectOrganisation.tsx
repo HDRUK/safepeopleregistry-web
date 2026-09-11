@@ -21,17 +21,23 @@ import OrganisationDetailsSlim from "@/modules/OrganisationDetailsSlim";
 import { OrganisationsSubTabs } from "../../../../../consts/tabs";
 import SubTabsContents from "../SubsTabContents";
 import SubTabsSections from "../SubTabSections";
+import { useTranslations } from "next-intl";
+import BackToResultsButton from "@/components/BackToResultsButton";
 
 interface CustodianProjectUserProps {
   projectOrganisationId: number;
   subTabId: OrganisationsSubTabs;
 }
 
+const NAMESPACE_TRANSLATION_CUSTODIAN_ORGANISATION =
+  "CustodianProfile.Organisation";
+
 function CustodianProjectOrganisation({
   projectOrganisationId,
   subTabId,
 }: CustodianProjectUserProps) {
   const custodian = useStore(state => state.getCustodian());
+  const t = useTranslations(NAMESPACE_TRANSLATION_CUSTODIAN_ORGANISATION);
 
   const {
     data: custodianProjectOrganisation,
@@ -88,33 +94,41 @@ function CustodianProjectOrganisation({
 
   return (
     organisation && (
-      <PageBodyContainer heading={projectTitle}>
-        <PageColumns>
-          <PageColumnBody size={{ lg: 8 }}>
-            <OrganisationDetailsSlim
-              organisation={
-                custodianProjectOrganisation?.data.project_organisation
-                  .organisation
-              }
-            />
+      <>
+        <BackToResultsButton
+          label={t("backToOrganisations")}
+          fixedHref="/data-custodian/profile/projectOrganisations"
+        />
+        <PageBodyContainer heading={projectTitle}>
+          <PageColumns>
+            <PageColumnBody size={{ lg: 8 }}>
+              <OrganisationDetailsSlim
+                organisation={
+                  custodianProjectOrganisation?.data.project_organisation
+                    .organisation
+                }
+              />
 
-            <SubTabsSections
-              projectOrganisationId={projectOrganisationId}
-              subTabId={subTabId}
-            />
-            <SubTabsContents subTabId={subTabId} />
-          </PageColumnBody>
-          <PageColumnDetails size={{ lg: 4 }}>
-            <StatusList organisationStatus={state?.state.slug || Status.NONE} />
-            <ActionValidationPanel
-              variant={ActionValidationVariants.Organisation}
-              queryState={queryState}
-              logs={validationLogs?.data || []}
-              onStatusChange={refetch}
-            />
-          </PageColumnDetails>
-        </PageColumns>
-      </PageBodyContainer>
+              <SubTabsSections
+                projectOrganisationId={projectOrganisationId}
+                subTabId={subTabId}
+              />
+              <SubTabsContents subTabId={subTabId} />
+            </PageColumnBody>
+            <PageColumnDetails size={{ lg: 4 }}>
+              <StatusList
+                organisationStatus={state?.state.slug || Status.NONE}
+              />
+              <ActionValidationPanel
+                variant={ActionValidationVariants.Organisation}
+                queryState={queryState}
+                logs={validationLogs?.data || []}
+                onStatusChange={refetch}
+              />
+            </PageColumnDetails>
+          </PageColumns>
+        </PageBodyContainer>
+      </>
     )
   );
 }

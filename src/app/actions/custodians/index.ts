@@ -1,5 +1,5 @@
 import getCustodian from "@/app/actions/custodians/getCustodian";
-import getCustodianEntityModel from "@/app/actions/custodians/getCustodianEntityModel";
+import getCustodianDecisionModel from "@/app/actions/custodians/getCustodianDecisionModel";
 import getCustodianOrganisations from "@/app/actions/custodians/getCustodianOrganisations";
 import getCustodianOrganisationUsers from "@/app/actions/custodians/getCustodianOrganisationUsers";
 import getCustodians from "@/app/actions/custodians/getCustodians";
@@ -12,7 +12,7 @@ import postCustodian from "@/app/actions/custodians/postCustodian";
 import postCustodianInvite from "@/app/actions/custodians/postCustodianInvite";
 import postCustodianProject from "@/app/actions/custodians/postCustodianProject";
 import putCustodian from "@/app/actions/custodians/putCustodian";
-import putCustodianActiveEntityModel from "@/app/actions/custodians/putCustodianActiveEntityModel";
+import putCustodianActiveDecisionModel from "@/app/actions/custodians/putCustodianActiveDecisionModel";
 import sendInvite from "@/app/actions/custodians/sendInvite";
 
 export {
@@ -20,7 +20,7 @@ export {
   getCustodianStatus,
   getCustodian,
   getCustodians,
-  putCustodianActiveEntityModel,
+  putCustodianActiveDecisionModel,
   getCustodianUsers,
   putCustodian,
   getCustodianOrganisationUsers,
@@ -29,7 +29,7 @@ export {
   postCustodianProject,
   getCustodianOrganisations,
   sendInvite,
-  getCustodianEntityModel,
+  getCustodianDecisionModel,
   postCustodian,
   getOrganisationStatus,
 };

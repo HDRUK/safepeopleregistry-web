@@ -74,6 +74,27 @@ export const mockedOrganisationHomeIntro = (
   </>
 );
 
+export const mockedOrganisationDelegateHomeIntro = (
+  <>
+    <Typography mb={2}>
+      You'll see a list of tasks below to complete your profile.
+    </Typography>
+    <Typography mb={2}>
+      The Organisation account is set up by a SRO (Senior Responsible Officer),
+      who is required to get a declaration signed on behalf of their
+      Organisation and upload this. The SRO must have a position of seniority,
+      as they are held accountable for the data.
+    </Typography>
+    <Typography mb={2}>
+      Delegates act on behalf of the SRO, including updating the Organisation
+      profile and affiliating Users.
+    </Typography>
+    <Typography mb={2}>
+      Please see actions below to finish setting up the account.
+    </Typography>
+  </>
+);
+
 export const mockedProjectsIntro =
   "This list includes all projects recorded in the Safe People Registry for your Data Custodian. Note that these will be visible to other Data Custodians who work with the same Users. Clicking on a project will show you more information and next steps, such as adding Users to begin the validation process.";
 
@@ -178,6 +199,27 @@ export const mockedPersonalDetailsGuidanceProps = {
         validate you as a ‘safe person’. The more relevant information you
         provide, the quicker and smoother the validation process will be.
       </Typography>
+    </>
+  ),
+};
+
+export const mockedLinkedIdentitiesGuidanceProps = {
+  infoTitle: "Why link multiple identities?",
+  info: (
+    <>
+      <Typography mb={3}>
+        Linking trusted identities lets Data Custodians verify you as a safe
+        person without you ever re-typing the same details. Every link is a
+        one-click OAuth handshake — never a free-text email.
+      </Typography>
+      <Typography fontWeight={600} mb={1}>
+        What we never ask for
+      </Typography>
+      <Ol>
+        <li>Your email address as a string to “match against”</li>
+        <li>A second password</li>
+        <li>Copies of identity documents you’ve already verified elsewhere</li>
+      </Ol>
     </>
   ),
 };

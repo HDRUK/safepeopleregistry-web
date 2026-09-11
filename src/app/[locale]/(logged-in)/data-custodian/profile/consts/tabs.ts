@@ -12,6 +12,7 @@ enum ConfigurationSubTabs {
   WEBHOOKS = "webhooks",
   RULES = "rules",
   VALIDATION_CHECKS = "validation-checks",
+  SSO = "sso",
 }
 
 enum ProjectsSubTabs {

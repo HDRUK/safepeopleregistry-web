@@ -13,6 +13,14 @@
     "scanErrorText": "Your file file may have a virus"
   },
   "Admin": {
+    "SuperAdminList": {
+      "name": "Name",
+      "email": "Email",
+      "status": "Status",
+      "createdAt": "Created at",
+      "noResultsMessage": "No admins found",
+      "errorMessage": "Unable to retrieve admins. Please contact us at <contactLink></contactLink>"
+    },
     "EmailsTable": {
       "noErrorFound": "No error found",
       "sendGridError": "SendGrid doesn't have any data yet. Try repeating the action later.",
@@ -242,7 +250,14 @@
       "identity": "Identity",
       "projects": "Projects",
       "affiliations": "Affiliations",
-      "custodianOrgInfo": "Automated Flags"
+      "custodianOrgInfo": "Automated Flags",
+      "backToUsers": "Back to users"
+    },
+    "Project": {
+      "backToProjects": "Back to projects"
+    },
+    "Organisation": {
+      "backToOrganisations": "Back to organisations"
     },
     "Integrations": {
       "okButton": "OK",
@@ -356,6 +371,7 @@
     "configurationWebhooks": "Webhooks",
     "webhookError": "There was a problem with the webhook configuration. Please try again or contact us at <contactLink></contactLink>",
     "configurationIntegrations": "Integrations",
+    "configurationSso": "Enterprise SSO",
     "userRulesTitle": "User",
     "organisationRulesTitle": "Organisation",
     "updateRulesSuccess": "Flags configuration updated successfully",
@@ -403,6 +419,10 @@
       "integrations": {
         "infoTitle": "Guidance",
         "info": "This tool currently imports project information from Gateway.\n\nThis only functions if:\n\n- This Custom Integration is enabled on Gateway.\n- The Application ID and Client ID match the IDs in the Gateway.\n\n- During each project creation in Safe People Registry, you use a valid Data Use Registry (DUR) ID from within the Gateway"
+      },
+      "sso": {
+        "infoTitle": "Guidance",
+        "info": "Request a SAML single sign-on connection so your staff can sign in with your own Identity Provider (Okta, Azure AD, ADFS, etc). Submit your metadata URL or XML plus the email domain(s) it should apply to - a Registry admin reviews and approves every request before it goes live."
       }
     }
   },
@@ -432,6 +452,8 @@
     "detailsOrganisationSectorDescription": "Your Organisation’s sector information should align with Standard Industry Classification (SIC) codes as listed in Companies House or other regulatory sources.",
     "detailsSubsidiaries": "UK subsidiaries",
     "detailsSecurityCompliance": "Data security compliance",
+    "detailsSso": "Enterprise SSO",
+    "detailsSsoDelegateNotice": "Only your organisation's primary admin can request or manage SSO connections.",
     "userAdministrationTitle": "Users",
     "userAdminEmployeeStudents": "Users",
     "teamAdminTitle": "Your administrative team",
@@ -715,14 +737,14 @@
     "ceCertified": "Cyber Essentials Certified",
     "ceCertificationNum": "Cyber Essentials Certified ID",
     "ceCertificationNumPlaceholder": "e.g. A1B2",
-    "ceCertificationNumberInvalid": "Certification number must be exactly 4 alphanumeric characters.",
+    "ceCertificationNumberInvalid": "Certification number must be a UUID.",
     "ceExpiryDate": "Expiry date",
     "ceExpiryDateRequired": "An expiry date for your code needs to be set.",
     "ceExpiryEvidenceRequired": "Evidence of your cyber essentials certification is required",
     "cePlusCertified": "Cyber Essentials Plus Certified",
     "cePlusCertificationNum": "Cyber Essentials Plus Certified ID",
     "cePlusCertificationNumPlaceholder": "e.g. X1Y2",
-    "cePlusCertificationNumberInvalid": "Certification number must be exactly 4 alphanumeric characters.",
+    "cePlusCertificationNumberInvalid": "Certification number must be a UUID.",
     "cePlusExpiryDate": "Expiry date",
     "cePlusExpiryDateRequired": "An expiry date for your code needs to be set.",
     "cePlusExpiryEvidenceRequired": "Evidence of your cyber essentials plus certification is required",
@@ -735,7 +757,7 @@
     "dsptkCertified": "DSPT Compliant",
     "dsptkOdsCode": "Organisation code",
     "dsptkOdsCodePlaceholder": "e.g. DSPTK-2025-12345",
-    "dsptkOdsCodeInvalid": "DSPTK identifier is invalid, it must be in the form, e.g.: DSPTK-2025-12345",
+    "dsptkOdsCodeInvalid": "DSPTK identifier is invalid. It must be alphanumeric and between 1 and 9 characters long",
     "dsptkExpiryDate": "Expiry date",
     "dsptkStatus": "Status",
     "dsptkExpiryDateRequired": "An expiry date for your code needs to be set.",
@@ -1329,13 +1351,30 @@
       "idvtCheckDescription": "Some Data Custodians require identity verification before validating you as a User. To streamline approvals across different UK Data Custodians, we recommend completing the identity check in advance. The check is carried out by a third-party provider (Veriff) and includes:\n\n- Verification of a valid government-issued ID (fraud check)\n\n- A likeness check (matching your face to the ID)\n\n- A liveness check (to confirm you're a real, present person)\n\n- A sanctions check (for anti-money laundering purposes)\n\nThe Safe People Registry doesn't have access to information uploaded to Veriff - only the results. For more information about Veriff, please consult their [privacy notice](https://www.veriff.com/privacy-notice).",
       "idvtComplete": "IDVT checks complete",
       "idvtIncomplete": "IDVT checks incomplete",
+      "idvtCheckDetails": "{document_type} which expires on {expiry_date} verified for \"{first_name} {last_name}\" on {completed_date}. Verified via <veriffLink>Veriff</veriffLink>.",
       "idvtInvalidCountry": "Only users within the UK are permitted to complete the IDVT process.",
       "emailDescription": "<bold>Please use your personal email to set up your Safe People Registry account.</bold> This ensures that your account stays with you, even if you change jobs or leave a university. You'll also need it to recover your Safe People Registry account if you ever lose access.",
       "locationDescription": "Data custodians may need to know which country that you will be accessing data from, as different countries adhere to different laws regarding data sharing and data confidentiality. Also, IDVT below is only available to individuals residing in the UK.",
       "locationMissing": "Location not provided",
       "location": "Location",
       "digiIdent": "Digital identifier",
-      "name": "Name"
+      "name": "Name",
+      "linkedIdentitiesTitle": "Linked identities",
+      "linkedIdentitiesSubtitle": "Sign-in providers we've verified you control. Each connection is an OAuth handshake — the provider tells us who you are; you never type an email to \"match\" an account.",
+      "linkedIdentitiesPrimaryLabel": "Registry account",
+      "linkedIdentitiesPrimaryBadge": "Primary",
+      "linkedIdentitiesLinkedBadge": "Linked",
+      "linkedIdentitiesComingSoon": "Coming soon",
+      "linkedIdentitiesConnect": "Connect",
+      "linkedIdentitiesRemove": "Remove",
+      "linkedIdentitiesAvailableTitle": "Available to add",
+      "linkedIdentitiesRecentActivityTitle": "Recent identity activity",
+      "linkedIdentitiesRecentActivityItem": "Linked {provider} on {date}",
+      "linkedIdentitiesLinkSuccess": "Identity linked successfully",
+      "linkedIdentitiesLinkError": "There was a problem linking that identity. Please try again or contact us.",
+      "linkedIdentitiesUnlinkSuccess": "Identity removed",
+      "linkedIdentitiesUnlinkError": "There was a problem removing that identity. Please try again or contact us.",
+      "getLinkedIdentitiesError": "Could not get your linked identities"
     },
     "InviteUser": {
       "inviteUserTitle": "Request User to be invited to create a Safe People Registry account",
@@ -1390,7 +1429,18 @@
     "inviteCustodianSuccess": "You have successfully invited the Data Custodian"
   },
   "Administration": {
+    "featureFlags": "Feature Flags",
+    "invites": "Invites",
+    "emailLogs": "Email logs",
+    "organisations": "Organisations",
+    "superAdminList": "Super Admins",
+    "ssoTenants": "Enterprise SSO Connections",
+    "inviteCustodian": "Invite Custodian",
+    "inviteUser": "Invite User",
+    "inviteCustodianModalHeading": "Invite Data Custodian",
+    "inviteUserModalHeading": "Invite User",
     "emailsInviteTitle": "Email logs",
+    "ssoTenantsInviteTitle": "Enterprise SSO Connections",
     "featuresInviteTitle": "Feature Flags",
     "invitesInviteTitle": "Invites",
     "sroInviteTitle": "Organisations - Senior Responsible Officer",
@@ -1408,6 +1458,65 @@
   },
   "SoursdLogo": {
     "logoTitle": "Safe People Registry"
+  },
+  "SignIn": {
+    "title": "Sign in",
+    "description": "Enter your work email and we'll take you to the right place to sign in.",
+    "emailLabel": "Email address",
+    "continueButton": "Continue",
+    "errorMessage": "Something went wrong, please try again."
+  },
+  "SsoTenantsSubmission": {
+    "formMissingFields": "Please fill in the name, metadata, and at least one domain.",
+    "formSubmitError": "Something went wrong submitting your request.",
+    "intro": "Request a SAML single sign-on connection for your organisation. A Registry admin reviews every request before it goes live.",
+    "nameColumn": "Name",
+    "domainsColumn": "Domains",
+    "statusColumn": "Status",
+    "noRequests": "No requests submitted yet.",
+    "connectionDetailsButton": "Connection details",
+    "requestConnectionButton": "Request SSO connection",
+    "requestDialogTitle": "Request an SSO connection",
+    "organisationNameLabel": "Organisation name",
+    "metadataUrlOption": "Metadata URL",
+    "metadataXmlOption": "Paste XML",
+    "metadataUrlLabel": "Metadata URL",
+    "metadataXmlLabel": "Metadata XML",
+    "domainsLabel": "Email domains (comma-separated)",
+    "domainsPlaceholder": "acme.com, acme.co.uk",
+    "cancelButton": "Cancel",
+    "submitButton": "Submit request",
+    "detailsDialogTitle": "{name} - SAML connection details",
+    "closeButton": "Close"
+  },
+  "SsoTenantsAdminList": {
+    "rejectReasonPrompt": "Reason for rejecting this request?",
+    "deleteConfirmTitle": "Delete this SSO connection?",
+    "deleteConfirmText": "This permanently removes the connection and its Keycloak Identity Provider. Anyone who signs in using this SAML integration will immediately lose access to the Safe People Registry through it. This cannot be undone.",
+    "deleteConfirmButton": "Delete",
+    "deleteErrorText": "Something went wrong deleting this connection. Please try again.",
+    "deleteSuccessText": "The SSO connection has been deleted.",
+    "intro": "Every SAML connection request from a Custodian or Organisation Admin lands here first. Approving is the only action that actually provisions anything in Keycloak.",
+    "nameColumn": "Name",
+    "domainsColumn": "Domains",
+    "statusColumn": "Status",
+    "actionsColumn": "Actions",
+    "noConnections": "No SSO connections yet.",
+    "disabledLabel": "disabled",
+    "approveButton": "Approve",
+    "rejectButton": "Reject",
+    "connectionDetailsButton": "Connection details",
+    "disableButton": "Disable",
+    "enableButton": "Re-enable",
+    "deleteButton": "Delete",
+    "detailsDialogTitle": "{name} - SAML connection details",
+    "closeButton": "Close"
+  },
+  "SsoTenantSpDetails": {
+    "intro": "Hand these URLs to the team who manages {idpAlias}'s Identity Provider, so they can register Safe People Registry as a trusted Service Provider on their end, to complete the connection.",
+    "entityIdLabel": "Identifier (Entity ID)",
+    "acsUrlLabel": "Reply URL (Assertion Consumer Service URL)",
+    "metadataUrlLabel": "SP Metadata (some IdPs can import this directly)"
   },
   "NavBar": {
     "homeButton": "Home",
@@ -1980,7 +2089,7 @@
       }
     },
     "DelegateCheck": {
-      "delegate_contacts": "Delegate contacts"
+      "delegates": "Delegate contacts"
     },
     "IdentityVerification": {
       "registry": {
@@ -2451,7 +2560,10 @@
     "acknowledgementItem4": "Representatives from the HDR UK Public Advisory Board",
     "exploreRoadmapTitle": "Explore our public roadmap",
     "exploreRoadmapDescription": "Come see what we're working on now and in the future!",
-    "exploreRoadmapButton": "Explore roadmap"
+    "exploreRoadmapButton": "Explore roadmap",
+    "testingGroupTitle": "Join our testing group!",
+    "testingGroupDescription": "Want to test out new features before they are live, or tell us how you use the system?",
+    "testingGroupButton": "Sign up for testing"
   },
   "DeveloperResources": {
     "infoTitle": "Developer resources",

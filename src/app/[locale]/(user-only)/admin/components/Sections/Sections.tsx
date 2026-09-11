@@ -2,19 +2,30 @@
 
 import { JOB_DELAY } from "@/consts/application";
 import { useStore } from "@/data/store";
-import { PageBody } from "@/modules";
 import InviteUser from "@/modules/InviteUser";
 import SendInviteCustodian from "@/modules/SendInviteCustodian";
-import { OrganisationsList, InvitesList, EmailsList } from "@/organisms";
+import ButtonCancel from "@/components/ButtonCancel";
+import FormModal from "@/components/FormModal";
+import { PageBody } from "@/modules";
+import {
+  OrganisationsList,
+  InvitesList,
+  EmailsList,
+  SsoTenantsAdminList,
+  SuperAdminList,
+} from "@/organisms";
+import { useFeatures } from "@/components/FeatureProvider";
 import FeatureFlagList from "@/organisms/FeatureFlagsList";
 import { EntityType } from "@/types/api";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { Typography } from "@mui/material";
-import Accordion from "@mui/material/Accordion";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import AccordionSummary from "@mui/material/AccordionSummary";
+import { Box, Button } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
+import {
+  AdminSubTabs,
+  AdminModalActions,
+} from "@/app/[locale]/(logged-in)/user/profile/consts/tabs";
+import SubTabs from "@/modules/SubTabs";
+import { useState } from "react";
 
 const NAMESPACE_TRANSLATIONS_ADMINISTRATION = "Administration";
 
@@ -22,6 +33,55 @@ export default function Sections() {
   const t = useTranslations(NAMESPACE_TRANSLATIONS_ADMINISTRATION);
   const queryClient = useQueryClient();
   const user = useStore(state => state.getUser());
+  const { isEnterpriseSamlSsoEnabled } = useFeatures();
+
+  const [currentSubTab, setCurrentSubTab] = useState<AdminSubTabs | null>(
+    AdminSubTabs.DATA_CUSTODIAN_INVITATION
+  );
+
+  const [openModal, setOpenModal] = useState<AdminModalActions | null>(null);
+
+  const subTabs = [
+    {
+      label: t("invites"),
+      value: AdminSubTabs.DATA_CUSTODIAN_INVITATION,
+      component: <InvitesList />,
+    },
+    {
+      label: t("organisations"),
+      value: AdminSubTabs.ORGANISATIONS,
+      component: <OrganisationsList />,
+    },
+    {
+      label: t("featureFlags"),
+      value: AdminSubTabs.FEATURE_FLAGS,
+      component: <FeatureFlagList />,
+    },
+
+    {
+      label: t("emailLogs"),
+      value: AdminSubTabs.EMAIL_LOGS,
+      component: (
+        <PageBody data-cy="emails-list">
+          <EmailsList />
+        </PageBody>
+      ),
+    },
+    {
+      label: t("superAdminList"),
+      value: AdminSubTabs.SUPER_ADMIN_LIST,
+      component: <SuperAdminList />,
+    },
+    ...(isEnterpriseSamlSsoEnabled
+      ? [
+          {
+            label: t("ssoTenants"),
+            value: AdminSubTabs.SSO_TENANTS,
+            component: <SsoTenantsAdminList />,
+          },
+        ]
+      : []),
+  ];
 
   const handleInviteSuccess = () => {
     setTimeout(() => {
@@ -34,60 +94,62 @@ export default function Sections() {
     }, JOB_DELAY);
   };
 
-  const sections = [
-    { name: "features", component: <FeatureFlagList /> },
+  const modals = [
     {
-      name: "custodian",
-      component: <SendInviteCustodian onSuccess={handleInviteSuccess} />,
+      label: t("inviteCustodian"),
+      value: AdminModalActions.INVITE_CUSTODIAN,
+      heading: t("inviteCustodianModalHeading"),
+      component: (
+        <SendInviteCustodian
+          onSuccess={handleInviteSuccess}
+          actions={<ButtonCancel onClick={() => setOpenModal(null)} />}
+        />
+      ),
     },
     {
-      name: "user",
+      label: t("inviteUser"),
+      value: AdminModalActions.INVITE_USER,
+      heading: t("inviteUserModalHeading"),
       component: (
         <InviteUser
           entityId={user.id}
           entityType={EntityType.ADMIN}
           onSuccess={handleInviteSuccess}
           combinedSuccess={false}
+          actions={<ButtonCancel onClick={() => setOpenModal(null)} />}
         />
-      ),
-    },
-    {
-      name: "sro",
-      component: <OrganisationsList />,
-    },
-    {
-      name: "invites",
-      component: (
-        <PageBody>
-          <InvitesList />
-        </PageBody>
-      ),
-    },
-    {
-      name: "emails",
-      component: (
-        <PageBody data-cy="emails-list">
-          <EmailsList />
-        </PageBody>
       ),
     },
   ];
 
+  const selectedSubTab = subTabs.find(tab => tab.value === currentSubTab);
+
   return (
     <>
-      {sections.map(({ name, component }) => (
-        <Accordion
-          data-cy={`data-${name}-invite`}
-          slotProps={{ heading: { component: "h2" } }}>
-          <AccordionSummary
-            id={`data-${name}-invite`}
-            aria-controls={`data-${name}-invite-content`}
-            aria-label={t(`${name}InviteTitle`)}
-            expandIcon={<ArrowDropDownIcon />}>
-            <Typography>{t(`${name}InviteTitle`)}</Typography>
-          </AccordionSummary>
-          <AccordionDetails>{component}</AccordionDetails>
-        </Accordion>
+      <SubTabs
+        tabs={subTabs.map(({ label, value }) => ({ label, value }))}
+        current={currentSubTab}
+        onChange={(_, value) => setCurrentSubTab(value)}
+      />
+
+      {modals.map(({ label, value }) => (
+        <Box sx={{ display: "inline-block", mr: 1, mb: 1 }} key={value}>
+          <Button key={value} onClick={() => setOpenModal(value)}>
+            {label}
+          </Button>
+        </Box>
+      ))}
+
+      {selectedSubTab?.component}
+
+      {modals.map(({ value, heading, component }) => (
+        <FormModal
+          key={value}
+          heading={heading}
+          open={openModal === value}
+          onClose={() => setOpenModal(null)}>
+          {component}
+        </FormModal>
       ))}
     </>
   );

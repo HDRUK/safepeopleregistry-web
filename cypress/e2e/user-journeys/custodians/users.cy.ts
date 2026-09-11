@@ -6,14 +6,7 @@ import {
   goToProjectUsersList,
   inviteNewProjectUser,
 } from "cypress/support/utils/custodian/projects";
-import {
-  hasAffiliationsTabCustodianUser,
-  hasAutomatedFlagsTabCustodianUser,
-  hasHistoryTabCustodianUser,
-  hasIdentityTabCustodianUser,
-  hasProjectsTabCustodianUser,
-  hasTrainingandAccreditationsTabCustodianUser,
-} from "cypress/support/utils/custodian/users";
+import { has6TabsCustodianUser } from "cypress/support/utils/custodian/users";
 
 import { DEFAULT_PROJECT_INVITE_USERS } from "cypress/support/utils/data";
 
@@ -29,45 +22,21 @@ describe("Projects custodians journey", () => {
 });
 
 describe("Projects custodians journey", () => {
-  beforeEach(() => {
+  before(() => {
     loginCustodian();
+    goToProjectUsersList();
+    inviteNewProjectUser(dataProjectInviteUser);
     cy.visitFirst(ROUTES.profileCustodianUsers.path);
     cy.waitForLoadingToFinish();
     cy.contains("button", "Switch to list view").click();
     cy.contains("a", getName(dataProjectInviteUser)).click();
   });
 
-  before(() => {
-    loginCustodian();
-    goToProjectUsersList();
-    inviteNewProjectUser(dataProjectInviteUser);
-  });
-
   after(() => {
     logout();
   });
 
-  it("Has Affiliations Tab Custodian User", () => {
-    hasAffiliationsTabCustodianUser();
-  });
-
-  it("Has Projects Tab Custodian User", () => {
-    hasProjectsTabCustodianUser();
-  });
-
-  it("Has Identity Tab Custodian User", () => {
-    hasIdentityTabCustodianUser(dataProjectInviteUser);
-  });
-
-  it("Has Training and Accreditations Tab Custodian User", () => {
-    hasTrainingandAccreditationsTabCustodianUser();
-  });
-
-  it("Has Automated Flags Tab Custodian User", () => {
-    hasAutomatedFlagsTabCustodianUser();
-  });
-
-  it("Has History Tab Custodian User", () => {
-    hasHistoryTabCustodianUser();
+  it("Has 6 Tabs Custodian User", () => {
+    has6TabsCustodianUser(dataProjectInviteUser);
   });
 });

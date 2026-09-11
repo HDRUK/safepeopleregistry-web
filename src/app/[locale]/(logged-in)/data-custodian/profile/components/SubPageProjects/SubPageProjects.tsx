@@ -4,6 +4,8 @@ import { ResearcherProject } from "@/types/application";
 import { useEffect } from "react";
 import { PageTabs, ProjectsSubTabs } from "../../consts/tabs";
 import SubTabsContents from "../SubsTabContents";
+import { useTranslations } from "next-intl";
+import BackToResultsButton from "@/components/BackToResultsButton";
 
 interface PageProps {
   projectData: ResearcherProject;
@@ -12,8 +14,10 @@ interface PageProps {
     id: number;
   };
 }
+const NAMESPACE_TRANSLATION_CUSTODIAN_PROJECT = "CustodianProfile.Project";
 
 export default function SubPageProjects({ params, projectData }: PageProps) {
+  const t = useTranslations(NAMESPACE_TRANSLATION_CUSTODIAN_PROJECT);
   const { subTabId, id } = params;
   const tabId = PageTabs.PROJECTS;
 
@@ -30,9 +34,15 @@ export default function SubPageProjects({ params, projectData }: PageProps) {
 
   return (
     project?.id === Number(id) && (
-      <PageBodyContainer heading={project.title}>
-        <SubTabsContents tabId={tabId} subTabId={subTabId} id={id} />
-      </PageBodyContainer>
+      <>
+        <BackToResultsButton
+          label={t("backToProjects")}
+          fixedHref="/data-custodian/profile/projects"
+        />
+        <PageBodyContainer heading={project.title}>
+          <SubTabsContents tabId={tabId} subTabId={subTabId} id={id} />
+        </PageBodyContainer>
+      </>
     )
   );
 }

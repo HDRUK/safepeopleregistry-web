@@ -28,9 +28,13 @@ const NAMESPACE_TRANSLATION_TERMS_AND_CONDITIONS = "TermsAndConditions";
 
 interface AccountConfirmProps {
   unclaimedUser: User | undefined;
+  externalRedirect?: string;
 }
 
-export default function AccountConfirm({ unclaimedUser }: AccountConfirmProps) {
+export default function AccountConfirm({
+  unclaimedUser,
+  externalRedirect,
+}: AccountConfirmProps) {
   const t = useTranslations(NAMESPACE_TRANSLATIONS_PROFILE);
   const tTerms = useTranslations(NAMESPACE_TRANSLATION_TERMS_AND_CONDITIONS);
   const router = useRouter();
@@ -201,7 +205,7 @@ export default function AccountConfirm({ unclaimedUser }: AccountConfirmProps) {
             if (unclaimedUser) {
               handleRegister(unclaimedUser);
             } else {
-              handleRegisterKeycloak(userGroup);
+              handleRegisterKeycloak(userGroup, externalRedirect);
             }
           }}
           onDecline={async () => {

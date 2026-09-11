@@ -175,6 +175,10 @@ type Identity = {
   idvt_result_perc: number;
   idvt_started_at: string;
   idvt_success: number;
+  idvt_document_type: string;
+  idvt_document_valid_until: string;
+  idvt_document_first_name: string;
+  idvt_document_last_name: string;
   passport_path: string;
   postcode: string;
   registry_id: number;

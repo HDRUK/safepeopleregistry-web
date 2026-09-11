@@ -11,6 +11,7 @@ export enum RuleName {
   IDENTITY_VERIFICATION = "IdentityVerification",
   UK_DATA_PROTECTION = "UKDataProtection",
   AFFILIATED_ORGANISATION = "AffiliatedOrganisation",
+  SANCTIONS_CHECK = "SanctionsCheck",
 }
 
 export interface RuleState {

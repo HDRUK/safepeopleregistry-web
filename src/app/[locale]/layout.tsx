@@ -9,6 +9,8 @@ import AlertModalProvider from "@/context/AlertModalProvider";
 import IntlClientProvider from "@/context/IntlClientProvider";
 import {
   isChristmasBannerEnabled,
+  isEnterpriseSamlSsoEnabled,
+  isLinkedIdentitiesEnabled,
   isSponsorship,
   isTestFeatureEnabled,
   isTestFeatureUserAdmin,
@@ -53,6 +55,8 @@ export default async function RootLayout({
     isTestFeatureUserAdmin: (await isTestFeatureUserAdmin()) as boolean,
     isSponsorship: (await isSponsorship()) as boolean,
     isChristmasBannerEnabled: (await isChristmasBannerEnabled()) as boolean,
+    isEnterpriseSamlSsoEnabled: (await isEnterpriseSamlSsoEnabled()) as boolean,
+    isLinkedIdentitiesEnabled: (await isLinkedIdentitiesEnabled()) as boolean,
   };
 
   // below boolean will grow as we get more banners.. i know this is a pointless const for now...

@@ -24,11 +24,12 @@ import MaskLabel from "../../components/MaskLabel";
 import SoursdLogo from "../../components/SoursdLogo";
 import PageCenter from "../../modules/PageCenter";
 import { getInitials, getName } from "../../utils/application";
-import { handleLogin, handleLogout } from "../../utils/keycloak";
+import { handleLogout } from "../../utils/keycloak";
 import NotificationsMenu from "../NotificationsMenu";
 import SupportMenu from "../SupportMenu/SupportMenu";
 import { StyledContainer, StyledHeader } from "./NavBar.styles";
 import { AccountType } from "@/types/accounts";
+import { UserGroup } from "@/consts/user";
 
 const NAMESPACE_TRANSLATIONS_NAVBAR = "NavBar";
 
@@ -186,7 +187,7 @@ export default function NavBar({ loggedIn }: NavBarProps) {
         if (loggedIn) {
           handleLogout();
         } else {
-          handleLogin();
+          router.push("/sign-in");
         }
       },
     },
@@ -225,7 +226,9 @@ export default function NavBar({ loggedIn }: NavBarProps) {
                       ? AccountType.ORGANISATION
                       : storedCustodian
                         ? AccountType.CUSTODIAN
-                        : AccountType.USER
+                        : storedUser?.user_group === UserGroup.ADMINS
+                          ? AccountType.ADMIN
+                          : AccountType.USER
                   }
                   sx={{
                     textTransform: "uppercase",

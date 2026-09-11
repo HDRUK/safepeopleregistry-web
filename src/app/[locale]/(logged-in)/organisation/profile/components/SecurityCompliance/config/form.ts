@@ -1,4 +1,7 @@
-import { VALIDATION_CE_CERTIFICATION_NUMBER } from "@/consts/form";
+import {
+  VALIDATION_CE_CERTIFICATION_NUMBER,
+  VALIDATION_DSPTK_CERTIFICATION_NUMBER,
+} from "@/consts/form";
 import yup from "@/config/yup";
 import { Organisation } from "@/types/application";
 import { getDate } from "@/utils/date";
@@ -88,6 +91,14 @@ export const getValidation = (t: (key: string) => string) =>
         is: (value: string) => !!value,
         then: schema => schema.required(t("isoExpiryEvidenceRequired")),
         otherwise: schema => schema.notRequired(),
+      }),
+
+    dsptk_ods_code: yup
+      .string()
+      .optional()
+      .matches(VALIDATION_DSPTK_CERTIFICATION_NUMBER, {
+        message: t("dsptkOdsCodeInvalid"),
+        excludeEmptyString: true,
       }),
 
     dsptk_expiry_date: yup

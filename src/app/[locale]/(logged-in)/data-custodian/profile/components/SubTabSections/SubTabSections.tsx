@@ -1,6 +1,7 @@
 "use client";
 
 import { useStore } from "@/data/store";
+import { useFeatures } from "@/components/FeatureProvider";
 import SubTabs from "@/modules/SubTabs";
 import { Option } from "@/types/common";
 import { injectParamsIntoPath } from "@/utils/application";
@@ -36,6 +37,7 @@ export default function SubTabsSections({
 }: SubTabsSectionsProps) {
   const routes = useStore(store => store.getApplication().routes);
   const t = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
+  const { isEnterpriseSamlSsoEnabled } = useFeatures();
 
   const subTabs: SubTabsMap = {
     [PageTabs.CONFIGURATION]: [
@@ -59,6 +61,15 @@ export default function SubTabsSections({
         value: ConfigurationSubTabs.INTEGRATIONS,
         href: routes.profileCustodianConfigurationIntegrations.path,
       },
+      ...(isEnterpriseSamlSsoEnabled
+        ? [
+            {
+              label: t("configurationSso"),
+              value: ConfigurationSubTabs.SSO,
+              href: routes.profileCustodianConfigurationSso.path,
+            },
+          ]
+        : []),
     ],
     [PageTabs.USERS]: [
       {

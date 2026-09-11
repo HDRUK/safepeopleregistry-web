@@ -22,3 +22,13 @@ export const isSponsorship = flag({
   key: "sponsorship",
   adapter,
 });
+
+export const isEnterpriseSamlSsoEnabled = flag({
+  key: "EnterpriseSAMLSSOEnabled",
+  adapter,
+});
+
+export const isLinkedIdentitiesEnabled = flag({
+  key: "LinkedIdentitiesEnabled",
+  adapter,
+});

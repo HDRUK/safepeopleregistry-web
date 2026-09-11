@@ -2,7 +2,6 @@ import { Box, Button, Typography } from "@mui/material";
 import HowToRegOutlinedIcon from "@mui/icons-material/HowToRegOutlined";
 import { ButtonVariant } from "@/organisms/NavBar/NavBar";
 import { ROUTES } from "@/consts/router";
-import { getLoginUrl } from "@/utils/keycloak";
 import { isLoggedIn } from "@/utils/auth";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
@@ -40,7 +39,7 @@ export default async function AuthButtons() {
         {t("or")}{" "}
         <Typography
           component={Link}
-          href={getLoginUrl()}
+          href="/sign-in"
           sx={{
             color: "primary.main",
           }}>

@@ -5,6 +5,10 @@ import { Box, Link, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
 import LaunchIcon from "@mui/icons-material/Launch";
 import Text from "../../components/Text";
+import { dateToString } from "@/utils/date";
+import { toSentenceCase } from "@/utils/string";
+import links from "@/consts/links";
+import ExternalLink from "@/components/ExternalLink/ExternalLink";
 
 const NAMESPACE_TRANSLATION = "Users.Identity";
 
@@ -43,11 +47,42 @@ export default function UserIdentity() {
           </Link>
         </Box>
       )}
-      <Text
-        sx={{ fontWeight: 600 }}
-        startIcon={idvtComplete ?? <ErrorIcon color="error" />}>
-        {idvtComplete ? t("idvtComplete") : t("idvtIncomplete")}
-      </Text>
+      <Box>
+        <Text
+          sx={{ fontWeight: 600 }}
+          startIcon={idvtComplete ?? <ErrorIcon color="error" />}>
+          {idvtComplete ? t("idvtComplete") : t("idvtIncomplete")}
+        </Text>
+        {idvtComplete && (
+          <Text sx={{ display: "inline" }}>
+            {t.rich("idvtCheckDetails", {
+              document_type: toSentenceCase(
+                user.registry.identity?.idvt_document_type ??
+                  "Unknown Document Type"
+              ),
+              expiry_date:
+                dateToString(
+                  user.registry.identity?.idvt_document_valid_until
+                )?.toString() ?? "NO EXPIRY DATE",
+              first_name:
+                user.registry.identity?.idvt_document_first_name ?? "UNKNOWN",
+              last_name:
+                user.registry.identity?.idvt_document_last_name ?? "UNKNOWN",
+              completed_date:
+                dateToString(
+                  user.registry.identity?.idvt_completed_at
+                )?.toString() ?? "UNKNOWN COMPLETION DATE",
+              veriffLink: chunks => (
+                <ExternalLink
+                  href={links.identity.veriff}
+                  sx={{ color: "primary.main" }}>
+                  {chunks}
+                </ExternalLink>
+              ),
+            })}
+          </Text>
+        )}
+      </Box>
     </>
   );
 }

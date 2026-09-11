@@ -33,9 +33,8 @@ export default function ActionLogs({
   hiddenActions = ["add_users_completed"],
 }: ActionLogProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
-  const { routes, user } = useStore(state => ({
+  const { routes } = useStore(state => ({
     routes: state.getApplication().routes,
-    user: state.getUser(),
   }));
 
   const { id: entityId } = useStore(state => {
@@ -89,10 +88,6 @@ export default function ActionLogs({
       ),
     };
   });
-
-  const isDelegate = user?.is_delegate;
-
-  if (isDelegate) return <> </>;
 
   return (
     <>
