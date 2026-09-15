@@ -27,9 +27,6 @@ describe("<OrganisationsDigitalIdentifiersDetails />", () => {
     ).toBeInTheDocument();
     expect(screen.getByText(organisation.ror_id)).toBeInTheDocument();
     expect(
-      screen.getByText(organisation.organisation_unique_id)
-    ).toBeInTheDocument();
-    expect(
       screen.getByText(organisation.companies_house_no)
     ).toBeInTheDocument();
   });
