@@ -1700,8 +1700,7 @@
       "companiesHouseNo": "Companies House ID",
       "rorId": "ROR ID",
       "odsId": "ODS Code",
-      "charities": "Charities",
-      "organisationUniqueId": "Safe People Registry identifier"
+      "charities": "Charities"
     },
     "SectorWebsite": {
       "sectorName": "Organisation sector",
@@ -1727,7 +1726,6 @@
     "rorId": "ROR ID",
     "odsId": "ODS Code",
     "charities": "Charities",
-    "organisationUniqueId": "Safe People Registry identifier",
     "sectorName": "Organisation sector",
     "website": "Organisation website",
     "organisationSize": "Organisation size",
