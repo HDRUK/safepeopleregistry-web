@@ -1,5 +1,7 @@
 const MAX_UPLOAD_SIZE_BYTES = 10000000;
 
+const DEFAULT_ACCEPTED_DOCUMENT_FILE_EXTENSIONS = ["pdf", "doc", "docx"];
+
 enum FileStatus {
   PENDING = "pending",
   PROCESSED = "processed",
@@ -14,4 +16,9 @@ enum FileType {
   DECLARATION_SRO = "DECLARATION_SRO",
 }
 
-export { MAX_UPLOAD_SIZE_BYTES, FileStatus, FileType };
+export {
+  MAX_UPLOAD_SIZE_BYTES,
+  DEFAULT_ACCEPTED_DOCUMENT_FILE_EXTENSIONS,
+  FileStatus,
+  FileType,
+};

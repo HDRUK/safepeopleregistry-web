@@ -7,7 +7,10 @@ import Guidance from "@/components/Guidance";
 import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
 import Text from "@/components/Text";
 import yup from "@/config/yup";
-import { FileType } from "@/consts/files";
+import {
+  DEFAULT_ACCEPTED_DOCUMENT_FILE_EXTENSIONS,
+  FileType,
+} from "@/consts/files";
 import { VALIDATION_ORC_ID } from "@/consts/form";
 import { ROUTES } from "@/consts/router";
 import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
@@ -25,7 +28,7 @@ import {
 } from "@/modules";
 import FileUploadDetails from "@/modules/FileUploadDetails/FileUploadDetails";
 import { putUserQuery } from "@/services/users";
-import { getFileHref, getLatestCV } from "@/utils/file";
+import { getAcceptAttribute, getFileHref, getLatestCV } from "@/utils/file";
 import { Grid, TextField, Typography } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
@@ -53,10 +56,14 @@ export default function Experience() {
     isScanComplete,
     isScanFailed,
     isSizeInvalid,
+    isTypeInvalid,
     isUploading,
     isScanning,
     file,
-  } = useFileUpload("cvUpload", { initialFileId: latestCV?.id });
+  } = useFileUpload("cvUpload", {
+    initialFileId: latestCV?.id,
+    allowedExtensions: DEFAULT_ACCEPTED_DOCUMENT_FILE_EXTENSIONS,
+  });
 
   const uploadFile = useUserFileUpload({
     user,
@@ -179,7 +186,11 @@ export default function Experience() {
                           fileHref={getFileHref(latestCV?.name)}
                           fileType={FileType.CV}
                           fileNameText={file?.name || tProfile("noCvUploaded")}
+                          accept={getAcceptAttribute(
+                            DEFAULT_ACCEPTED_DOCUMENT_FILE_EXTENSIONS
+                          )}
                           isSizeInvalid={isSizeInvalid}
+                          isTypeInvalid={isTypeInvalid}
                           isScanning={isScanning}
                           isScanComplete={isScanComplete}
                           isScanFailed={isScanFailed}
