@@ -19,9 +19,6 @@ export default function OrganisationsDigitalIdentifiersDetails({
       data={organisationData}
       keys={[
         {
-          column_id: "organisation_unique_id",
-        },
-        {
           column_id: "companies_house_no",
           content: (
             <Link
@@ -52,7 +49,6 @@ export default function OrganisationsDigitalIdentifiersDetails({
             </Link>
           ),
         },
-        "",
         {
           column_id: "charities",
           content: (
