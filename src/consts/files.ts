@@ -16,4 +16,9 @@ enum FileType {
   DECLARATION_SRO = "DECLARATION_SRO",
 }
 
-export { MAX_UPLOAD_SIZE_BYTES, DOCUMENT_FILE_EXTENSIONS, FileStatus, FileType };
+export {
+  MAX_UPLOAD_SIZE_BYTES,
+  DOCUMENT_FILE_EXTENSIONS,
+  FileStatus,
+  FileType,
+};
