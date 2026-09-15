@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 import useFileUpload from "@/hooks/useFileUpload";
 import FileLink from "@/components/FileLink";
-import { FileType } from "@/consts/files";
+import { DOCUMENT_FILE_EXTENSIONS, FileType } from "@/consts/files";
 import { Grid } from "@mui/material";
 import useOrganisationFileUpload from "@/hooks/useOrganisationFileUpload";
 import { useStore } from "@/data/store";
@@ -29,11 +29,13 @@ const SroDeclarationUploader = ({
     isScanComplete,
     isScanFailed,
     isSizeInvalid,
+    isTypeInvalid,
     isUploading,
     isScanning,
     file,
   } = useFileUpload(`UploadFailed`, {
     initialFileId: value,
+    allowedExtensions: DOCUMENT_FILE_EXTENSIONS,
   });
 
   const uploadFile = useOrganisationFileUpload({
@@ -56,7 +58,9 @@ const SroDeclarationUploader = ({
           fileButtonText={file?.name ? t("buttonTextAlt") : t("buttonText")}
           message={`${FileType.CERTIFICATION}${name.toUpperCase()}`}
           fileNameText={file?.name}
+          accept=".pdf,.doc,.docx"
           isSizeInvalid={isSizeInvalid}
+          isTypeInvalid={isTypeInvalid}
           isScanning={isScanning}
           isScanComplete={isScanComplete}
           isScanFailed={isScanFailed}

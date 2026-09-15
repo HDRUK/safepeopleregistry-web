@@ -10,7 +10,7 @@ import Form from "../../components/Form";
 import FormActions from "../../components/FormActions";
 import FormControl from "../../components/FormControlWrapper";
 import yup from "../../config/yup";
-import { FileType } from "../../consts/files";
+import { DOCUMENT_FILE_EXTENSIONS, FileType } from "../../consts/files";
 import useFileUpload from "../../hooks/useFileUpload";
 import useUserFileUpload from "../../hooks/useUserFileUpload";
 import FileUploadDetails from "../../modules/FileUploadDetails/FileUploadDetails";
@@ -63,11 +63,13 @@ export default function TrainingForm({
     isScanComplete,
     isScanFailed,
     isSizeInvalid,
+    isTypeInvalid,
     isUploading,
     isScanning,
     file,
   } = useFileUpload("certificationUploadFailed", {
     initialFileId: initialValues?.certification_id,
+    allowedExtensions: DOCUMENT_FILE_EXTENSIONS,
   });
 
   const { setValue } = useForm();
@@ -210,7 +212,9 @@ export default function TrainingForm({
                   fileType={FileType.CERTIFICATION}
                   fileTypesText={tUpload("fileTypesText")}
                   fileNameText={file?.name || tForm("noCertificationUploaded")}
+                  accept=".pdf,.doc,.docx"
                   isSizeInvalid={isSizeInvalid}
+                  isTypeInvalid={isTypeInvalid}
                   isScanning={isScanning}
                   isScanComplete={isScanComplete}
                   isScanFailed={isScanFailed}

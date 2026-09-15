@@ -5,6 +5,7 @@ import { MAX_UPLOAD_SIZE_BYTES } from "../../consts/files";
 import getFileQuery from "../../services/files/getFileQuery";
 import postFileQuery from "../../services/files/postFileQuery";
 import {
+  getFileExtension,
   getFileHref,
   isFileScanComplete,
   isFileScanFailed,
@@ -17,11 +18,13 @@ export interface FileUploadState {
   isScanning: boolean;
   isScanComplete: boolean;
   isScanFailed: boolean;
+  isTypeInvalid?: boolean;
   message: string;
 }
 
 interface UseFileUploadOptions {
   initialFileId?: number;
+  allowedExtensions?: string[];
 }
 
 export default function useFileUpload(
@@ -48,6 +51,7 @@ export default function useFileUpload(
   });
 
   const [isSizeInvalid, setIsSizeInvalid] = useState<boolean>();
+  const [isTypeInvalid, setIsTypeInvalid] = useState<boolean>();
 
   const postFileState = useMutation(postFileQuery(message));
 
@@ -64,9 +68,19 @@ export default function useFileUpload(
   const upload = useCallback(
     async (formData: FormData) => {
       setIsSizeInvalid(false);
+      setIsTypeInvalid(false);
       setIsUploading(true);
 
       const file = formData.get("file") as File;
+
+      if (
+        options?.allowedExtensions &&
+        !options.allowedExtensions.includes(getFileExtension(file) || "")
+      ) {
+        setIsTypeInvalid(true);
+        setIsUploading(false);
+        return null;
+      }
 
       if (file.size <= MAX_UPLOAD_SIZE_BYTES) {
         const { data } = await postFileState.mutateAsync(formData);
@@ -80,7 +94,7 @@ export default function useFileUpload(
       setIsUploading(false);
       return null;
     },
-    [fileId, fileData]
+    [fileId, fileData, options?.allowedExtensions]
   );
 
   useEffect(() => {
@@ -102,6 +116,7 @@ export default function useFileUpload(
     isScanComplete: isFileScanComplete(file),
     isScanFailed: isFileScanFailed(file),
     isSizeInvalid,
+    isTypeInvalid,
     isUploading,
     fileHref: getFileHref(file),
     file,

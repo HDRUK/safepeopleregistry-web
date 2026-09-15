@@ -28,6 +28,7 @@ export interface FileLinkProps extends FileUploadState {
   fileScanningText?: string;
   fileMaxSizeText?: ReactNode;
   fileMaxSizeErrorText?: ReactNode;
+  fileTypeErrorText?: ReactNode;
   fileTypesText?: ReactNode;
   fileNameText?: ReactNode;
   fileInputLabelText?: string;
@@ -46,6 +47,7 @@ export default function FileLink({
   fileButtonText,
   fileMaxSizeText,
   fileMaxSizeErrorText,
+  fileTypeErrorText,
   fileTypesText,
   fileNameText,
   fileInputLabelText,
@@ -54,6 +56,7 @@ export default function FileLink({
   isScanFailed,
   isUploading,
   isSizeInvalid,
+  isTypeInvalid,
   includeStatus,
   onFileChange,
   onDownload,
@@ -128,8 +131,24 @@ export default function FileLink({
           {". "}
           {fileMaxSizeText || t("maxSizeText", translationsMaxSize)}
         </Typography>
-        {isSizeInvalid &&
-          (fileMaxSizeErrorText || t("maxSizeErrorText", translationsMaxSize))}
+        {isSizeInvalid && (
+          <Typography
+            variant="small"
+            color="error"
+            sx={{ mt: 0.5 }}
+            component="div">
+            {fileMaxSizeErrorText || t("maxSizeErrorText", translationsMaxSize)}
+          </Typography>
+        )}
+        {isTypeInvalid && (
+          <Typography
+            variant="small"
+            color="error"
+            sx={{ mt: 0.5 }}
+            component="div">
+            {fileTypeErrorText || t("fileTypeErrorText")}
+          </Typography>
+        )}
       </Grid>
       <input
         id="fileInput"

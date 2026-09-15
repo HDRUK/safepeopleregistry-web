@@ -37,8 +37,8 @@ function getFileHref(file: File | undefined) {
   return `${path}/${file.id}/download`;
 }
 
-function getFileExtension(file: File) {
-  return file.name.match(/[^.]*$/)?.[0]?.toLowerCase();
+function getFileExtension(file: { name: string }) {
+  return file.name.split(".").pop()?.toLowerCase();
 }
 
 const getFileFromEvent = ({ target }: ChangeEvent<HTMLInputElement>) => {
