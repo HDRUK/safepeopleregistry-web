@@ -62,9 +62,7 @@ const SroDeclarationUploader = ({
           fileButtonText={file?.name ? t("buttonTextAlt") : t("buttonText")}
           message={`${FileType.CERTIFICATION}${name.toUpperCase()}`}
           fileNameText={file?.name}
-          accept={getAcceptAttribute(
-            DEFAULT_ACCEPTED_DOCUMENT_FILE_EXTENSIONS
-          )}
+          accept={getAcceptAttribute(DEFAULT_ACCEPTED_DOCUMENT_FILE_EXTENSIONS)}
           isSizeInvalid={isSizeInvalid}
           isTypeInvalid={isTypeInvalid}
           isScanning={isScanning}
