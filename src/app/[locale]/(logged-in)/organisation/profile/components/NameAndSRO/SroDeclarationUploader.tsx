@@ -1,12 +1,16 @@
 import { ChangeEvent } from "react";
 import useFileUpload from "@/hooks/useFileUpload";
 import FileLink from "@/components/FileLink";
-import { DOCUMENT_FILE_EXTENSIONS, FileType } from "@/consts/files";
+import {
+  DEFAULT_ACCEPTED_DOCUMENT_FILE_EXTENSIONS,
+  FileType,
+} from "@/consts/files";
 import { Grid } from "@mui/material";
 import useOrganisationFileUpload from "@/hooks/useOrganisationFileUpload";
 import { useStore } from "@/data/store";
 import { useTranslations } from "next-intl";
 import { downloadFile } from "@/app/actions/files";
+import { getAcceptAttribute } from "@/utils/file";
 
 interface SroDeclarationUploaderProps {
   name: string;
@@ -35,7 +39,7 @@ const SroDeclarationUploader = ({
     file,
   } = useFileUpload(`UploadFailed`, {
     initialFileId: value,
-    allowedExtensions: DOCUMENT_FILE_EXTENSIONS,
+    allowedExtensions: DEFAULT_ACCEPTED_DOCUMENT_FILE_EXTENSIONS,
   });
 
   const uploadFile = useOrganisationFileUpload({
@@ -58,7 +62,9 @@ const SroDeclarationUploader = ({
           fileButtonText={file?.name ? t("buttonTextAlt") : t("buttonText")}
           message={`${FileType.CERTIFICATION}${name.toUpperCase()}`}
           fileNameText={file?.name}
-          accept=".pdf,.doc,.docx"
+          accept={getAcceptAttribute(
+            DEFAULT_ACCEPTED_DOCUMENT_FILE_EXTENSIONS
+          )}
           isSizeInvalid={isSizeInvalid}
           isTypeInvalid={isTypeInvalid}
           isScanning={isScanning}

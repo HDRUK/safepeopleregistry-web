@@ -1,6 +1,6 @@
 const MAX_UPLOAD_SIZE_BYTES = 10000000;
 
-const DOCUMENT_FILE_EXTENSIONS = ["pdf", "doc", "docx"];
+const DEFAULT_ACCEPTED_DOCUMENT_FILE_EXTENSIONS = ["pdf", "doc", "docx"];
 
 enum FileStatus {
   PENDING = "pending",
@@ -18,7 +18,7 @@ enum FileType {
 
 export {
   MAX_UPLOAD_SIZE_BYTES,
-  DOCUMENT_FILE_EXTENSIONS,
+  DEFAULT_ACCEPTED_DOCUMENT_FILE_EXTENSIONS,
   FileStatus,
   FileType,
 };
