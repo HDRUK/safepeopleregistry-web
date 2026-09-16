@@ -48,6 +48,7 @@ export default function UserBulkInvite({
       <Box sx={{ minWidth: "210px", maxWidth: "210px" }}>
         <FileLink
           accept={getAcceptAttribute(CSV_FILE_EXTENSIONS)}
+          fileTypesText='File type: CSV file with 3 columns labelled "firstname", "lastname", and "email"'
           includeStatus={false}
           fileButtonText="Bulk upload users"
           isSizeInvalid={isSizeInvalid}
