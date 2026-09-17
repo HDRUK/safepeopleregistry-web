@@ -248,6 +248,7 @@
       "getUserError": "Could not get the relevant user",
       "history": "History",
       "trainingAccreditations": "Training and Accreditations",
+      "certificates": "Certificates",
       "identity": "Identity",
       "projects": "Projects",
       "affiliations": "Affiliations",
@@ -1269,6 +1270,16 @@
     "updateTrainingSuccess": "Training course updated successfully",
     "cvUploaded": "CV Uploaded",
     "downloadCv": "Download CV"
+  },
+  "UserCertificates": {
+    "title": "Certificates",
+    "columnName": "Certificate",
+    "columnAwardedAt": "Date of issue",
+    "columnExpiresAt": "Date of expiry",
+    "download": "Download",
+    "noResultsMessage": "This user currently has no certificates",
+    "fileDownloadError": "An error occurred while downloading the certificate. Please try again or <contactLink>contact support</contactLink> if the problem persists.",
+    "errorButton": "OK"
   },
   "AccreditedResearcherRegistrations": {
     "accreditationTitle": "Accredited Researcher Registrations",
