@@ -1,16 +1,5 @@
 import { ROUTES } from "@/consts/router";
-import { mockedRegistration } from "@/mocks/data/auth";
-import { shouldBeOrganisationProfile } from "cypress/support/utils/common";
-import { EMAIL_REGISTER_VERIFICATION_LABEL } from "cypress/support/utils/data";
-import { actionMessage } from "cypress/support/utils/mail";
-import {
-  acceptTermsAndConditions,
-  checkTermsAndConditionsContent,
-  openOrganisationTermsAndConditions,
-  registerKeycloak,
-} from "cypress/support/utils/registration/register";
-
-const registration = mockedRegistration();
+import { openOrganisationTermsAndConditions } from "cypress/support/utils/registration/register";
 
 describe("Register organisation journey", () => {
   beforeEach(() => {
@@ -29,68 +18,18 @@ describe("Register organisation journey", () => {
   it("Has the correct Terms and Conditions content", () => {
     openOrganisationTermsAndConditions();
 
-    checkTermsAndConditionsContent(
-      /Understanding the Terms/i,
-      /UNDERSTANDING THESE TERMS OF USE/i
-    );
-    checkTermsAndConditionsContent(
-      /Researcher Usage/i,
-      /USE OF THE SAFE PEOPLE REGISTRY BY RESEARCHERS/i
-    );
-    checkTermsAndConditionsContent(
-      /Account Management/i,
-      /YOUR ACCOUNT AND PASSWORD/i
-    );
-    checkTermsAndConditionsContent(/Acceptable Use/i, /ACCEPTABLE USE/i);
-    checkTermsAndConditionsContent(
-      /Intellectual Property/i,
-      /INTELLECTUAL PROPERTY/i
-    );
-    checkTermsAndConditionsContent(/Input Data/i, /INPUT DATA/i);
-    checkTermsAndConditionsContent(/Liability/i, /OUR LIABILITY/i);
-    checkTermsAndConditionsContent(
-      /Usage/i,
-      /USE OF THE SAFE PEOPLE REGISTRY/i
-    );
-    checkTermsAndConditionsContent(
-      /Suspension of Access/i,
-      /SUSPENSION AND TERMINATION/i
-    );
-    checkTermsAndConditionsContent(
-      /Changes to Terms/i,
-      /CHANGES TO THESE TERMS/i
-    );
-    checkTermsAndConditionsContent(
-      /Third Party Services/i,
-      /THIRD PARTY CONTENT/i
-    );
-    checkTermsAndConditionsContent(
-      /Other Terms/i,
-      /OTHER IMPORTANT INFORMATION/i
-    );
-    checkTermsAndConditionsContent(
-      /Governing Law/i,
-      /GOVERNING LAW AND JURISDICTION/i
-    );
-    checkTermsAndConditionsContent(/Contact Information/i, /CONTACTING US/i);
-  });
+    cy.contains("h3", "Register as an Organisation").should("exist");
 
-  it("Registers the organisation", () => {
-    cy.on("uncaught:exception", err => {
-      console.error(`Registration error (suppressed): ${err.message}`);
-      return false;
-    });
+    cy.contains(
+      "If you are an Organisation and would like to use the Safe People Registry, please email us at"
+    ).should("exist");
 
-    openOrganisationTermsAndConditions();
+    cy.contains("a", "enquiries@safepeopleregistry.org")
+      .should("have.attr", "href", "mailto:enquiries@safepeopleregistry.org")
+      .should("exist");
 
-    acceptTermsAndConditions();
+    cy.contains("button", "Close").click();
 
-    registerKeycloak(registration);
-
-    actionMessage(EMAIL_REGISTER_VERIFICATION_LABEL, {
-      to: registration.email,
-    });
-
-    shouldBeOrganisationProfile();
+    cy.contains("h3", "Register as an Organisation").should("not.exist");
   });
 });

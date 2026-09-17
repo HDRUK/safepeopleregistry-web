@@ -32,3 +32,8 @@ export const isLinkedIdentitiesEnabled = flag({
   key: "LinkedIdentitiesEnabled",
   adapter,
 });
+
+export const isSroRequirementEnabled = flag({
+  key: "SroRequirementEnabled",
+  adapter,
+});

@@ -1566,7 +1566,10 @@
     "custodiansGuidance": "The Safe People Registry enables Data Custodian access to User and Organisation profiles, supporting assessment of the Safe People component of the Five Safes Framework.\n\nIf you manage secure research data (e.g. via a Trusted Research Environment, Safe Haven, or Secure Data Environment) and need to:\n- View or edit your Organisation profile\n- Validate Users and Organisations\n- Manage projects (past and present)\n- Configure User permissions for data access\n\nthen please choose this option.\n\n**Note:** If you hold multiple roles, you’ll need a separate account for each.",
     "custodianModalTitle": "Register as a Custodian",
     "custodianModalContent": "If you are a Data Custodian and would like to use the Safe People Registry, please email us at",
-    "custodianModalClose": "Close"
+    "custodianModalClose": "Close",
+    "organisationModalTitle": "Register as an Organisation",
+    "organisationModalContent": "If you are an Organisation and would like to use the Safe People Registry, please email us at",
+    "organisationModalClose": "Close"
   },
   "ProjectUserCard": {
     "notFound": {
