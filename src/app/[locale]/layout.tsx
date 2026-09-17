@@ -12,6 +12,7 @@ import {
   isEnterpriseSamlSsoEnabled,
   isLinkedIdentitiesEnabled,
   isSponsorship,
+  isSroRequirementEnabled,
   isTestFeatureEnabled,
   isTestFeatureUserAdmin,
 } from "@/flags";
@@ -57,6 +58,7 @@ export default async function RootLayout({
     isChristmasBannerEnabled: (await isChristmasBannerEnabled()) as boolean,
     isEnterpriseSamlSsoEnabled: (await isEnterpriseSamlSsoEnabled()) as boolean,
     isLinkedIdentitiesEnabled: (await isLinkedIdentitiesEnabled()) as boolean,
+    isSroRequirementEnabled: (await isSroRequirementEnabled()) as boolean,
   };
 
   // below boolean will grow as we get more banners.. i know this is a pointless const for now...

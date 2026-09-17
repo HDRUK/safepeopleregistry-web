@@ -1,5 +1,6 @@
 "use client";
 
+import { useFeatures } from "@/components/FeatureProvider";
 import Guidance from "@/components/Guidance";
 import LoadingWrapper from "@/components/LoadingWrapper";
 import SoursdLogo from "@/components/SoursdLogo";
@@ -40,8 +41,10 @@ export default function AccountConfirm({
   const router = useRouter();
   const [isTransitioning, startTransition] = useTransition();
   const { showAlert, hideAlert } = useAlertModal();
+  const { isSroRequirementEnabled } = useFeatures();
 
-  const [custodianModalOpen, setCustodianModalOpen] = useState<boolean>(false);
+  const [custodianModalOpen, setCustodianModalOpen] = useState(false);
+  const [organisationModalOpen, setOrganisationModalOpen] = useState(false);
 
   const [userGroup, setUserGroup] = useState<UserGroup | null>(
     unclaimedUser?.user_group
@@ -166,13 +169,21 @@ export default function AccountConfirm({
               }}>
               {!unclaimedUser && (
                 <LoadingButton
-                  onClick={
-                    userGroup !== UserGroup.CUSTODIANS
-                      ? () => {
-                          setTermsDisplayed(true);
-                        }
-                      : () => setCustodianModalOpen(true)
-                  }
+                  onClick={() => {
+                    if (userGroup === UserGroup.CUSTODIANS) {
+                      setCustodianModalOpen(true);
+                      return;
+                    }
+                    if (
+                      userGroup === UserGroup.ORGANISATIONS &&
+                      !isSroRequirementEnabled
+                    ) {
+                      setOrganisationModalOpen(true);
+                      return;
+                    }
+
+                    setTermsDisplayed(true);
+                  }}
                   variant="contained"
                   disabled={!userGroup}
                   sx={{ p: 2, minWidth: 300 }}
@@ -230,6 +241,24 @@ export default function AccountConfirm({
           </Typography>
           <Button onClick={() => setCustodianModalOpen(false)}>
             {t("custodianModalClose")}
+          </Button>
+        </ModalContent>
+      </Modal>
+
+      <Modal
+        open={organisationModalOpen}
+        sx={{ p: 1 }}
+        onClose={() => setOrganisationModalOpen(false)}>
+        <ModalContent>
+          <Typography variant="h3">{t("organisationModalTitle")}</Typography>
+          <Typography variant="body1" sx={{ my: 3 }}>
+            {t("organisationModalContent")}{" "}
+            <Link href={`mailto:${CONTACT_MAIL_ADDRESS}`}>
+              {CONTACT_MAIL_ADDRESS}
+            </Link>
+          </Typography>
+          <Button onClick={() => setOrganisationModalOpen(false)}>
+            {t("organisationModalClose")}
           </Button>
         </ModalContent>
       </Modal>
