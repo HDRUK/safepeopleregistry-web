@@ -8,6 +8,7 @@
     "inputLabelText": "File input",
     "fileTypesText": "File types: PDF, DOC, and DOCX",
     "maxSizeErrorText": "Your file must be under {size}",
+    "fileTypeErrorText": "Your file type is not supported",
     "scanningText": "Scanning file for viruses...",
     "scanOkText": "File was successfully scanned",
     "scanErrorText": "Your file file may have a virus"
@@ -1700,8 +1701,7 @@
       "companiesHouseNo": "Companies House ID",
       "rorId": "ROR ID",
       "odsId": "ODS Code",
-      "charities": "Charities",
-      "organisationUniqueId": "Safe People Registry identifier"
+      "charities": "Charities"
     },
     "SectorWebsite": {
       "sectorName": "Organisation sector",
@@ -1727,7 +1727,6 @@
     "rorId": "ROR ID",
     "odsId": "ODS Code",
     "charities": "Charities",
-    "organisationUniqueId": "Safe People Registry identifier",
     "sectorName": "Organisation sector",
     "website": "Organisation website",
     "organisationSize": "Organisation size",

@@ -3,7 +3,9 @@ import { ChangeEvent, useCallback } from "react";
 import FileLink from "../FileLink";
 import { FileType } from "../../consts/files";
 import useFileUpload from "../../hooks/useFileUpload";
-import { getFileFromEvent } from "../../utils/file";
+import { getAcceptAttribute, getFileFromEvent } from "../../utils/file";
+
+const CSV_FILE_EXTENSIONS = ["csv"];
 
 interface UserBulkInviteProps {
   organisation_id: number;
@@ -18,8 +20,11 @@ export default function UserBulkInvite({
     isScanFailed,
     isScanning,
     isSizeInvalid,
+    isTypeInvalid,
     isUploading,
-  } = useFileUpload("bulkInviteUploadError");
+  } = useFileUpload("bulkInviteUploadError", {
+    allowedExtensions: CSV_FILE_EXTENSIONS,
+  });
 
   const handleFileChange = useCallback(
     async (e: ChangeEvent<HTMLInputElement>) => {
@@ -42,10 +47,12 @@ export default function UserBulkInvite({
     <Box>
       <Box sx={{ minWidth: "210px", maxWidth: "210px" }}>
         <FileLink
-          accept=".csv"
+          accept={getAcceptAttribute(CSV_FILE_EXTENSIONS)}
+          fileTypesText='File type: CSV file with 3 columns labelled "firstname", "lastname", and "email"'
           includeStatus={false}
           fileButtonText="Bulk upload users"
           isSizeInvalid={isSizeInvalid}
+          isTypeInvalid={isTypeInvalid}
           isScanning={isScanning}
           isScanComplete={isScanComplete}
           isScanFailed={isScanFailed}

@@ -38,7 +38,11 @@ function getFileHref(file: File | undefined) {
 }
 
 function getFileExtension(file: File) {
-  return file.name.match(/[^.]*$/)?.[0]?.toLowerCase();
+  return file.name.split(".").pop()?.toLowerCase();
+}
+
+function getAcceptAttribute(extensions: string[]) {
+  return extensions.map(extension => `.${extension.toLowerCase()}`).join(",");
 }
 
 const getFileFromEvent = ({ target }: ChangeEvent<HTMLInputElement>) => {
@@ -56,6 +60,7 @@ const resetFileFromEvent = ({ target }: ChangeEvent<HTMLInputElement>) => {
 };
 
 export {
+  getAcceptAttribute,
   getFileExtension,
   getFileFromEvent,
   getFileHref,

@@ -1,12 +1,16 @@
 import { ChangeEvent } from "react";
 import useFileUpload from "@/hooks/useFileUpload";
 import FileLink from "@/components/FileLink";
-import { FileType } from "@/consts/files";
+import {
+  DEFAULT_ACCEPTED_DOCUMENT_FILE_EXTENSIONS,
+  FileType,
+} from "@/consts/files";
 import useOrganisationFileUpload from "@/hooks/useOrganisationFileUpload";
 import { useStore } from "@/data/store";
 import { capitaliseFirstLetter } from "@/utils/string";
 import { useTranslations } from "next-intl";
 import { downloadFile } from "@/app/actions/files";
+import { getAcceptAttribute } from "@/utils/file";
 
 interface CertificationUploaderProps {
   name: string;
@@ -27,11 +31,13 @@ const CertificationUploader = ({
     isScanComplete,
     isScanFailed,
     isSizeInvalid,
+    isTypeInvalid,
     isUploading,
     isScanning,
     file,
   } = useFileUpload(`certification${capitaliseFirstLetter(name)}UploadFailed`, {
     initialFileId: value,
+    allowedExtensions: DEFAULT_ACCEPTED_DOCUMENT_FILE_EXTENSIONS,
   });
 
   const uploadFile = useOrganisationFileUpload({
@@ -52,7 +58,9 @@ const CertificationUploader = ({
       fileButtonText={file?.name ? t("buttonTextAlt") : t("buttonText")}
       message={`${FileType.CERTIFICATION}${name.toUpperCase()}`}
       fileNameText={file?.name}
+      accept={getAcceptAttribute(DEFAULT_ACCEPTED_DOCUMENT_FILE_EXTENSIONS)}
       isSizeInvalid={isSizeInvalid}
+      isTypeInvalid={isTypeInvalid}
       isScanning={isScanning}
       isScanComplete={isScanComplete}
       isScanFailed={isScanFailed}
