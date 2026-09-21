@@ -477,43 +477,7 @@ export type ProfileGuidance = Record<string, TabGuidance>;
 
 export const mockedOrganisationProfileGuidance: TabGuidance = {
   details: {
-    "name-and-sro": {
-      infoTitle: "What’s a Senior Responsible Officer?",
-      info: (
-        <>
-          <Typography mb={3}>
-            <strong>Senior Responsible Officers (SROs)</strong> are responsible
-            for:
-          </Typography>
-
-          <ul style={{ marginBottom: "1rem", paddingLeft: "1.25rem" }}>
-            <li>Creating the Organisation’s Safe People Registry account</li>
-            <li>
-              Nominating <strong>Delegates</strong> to administrate User
-              affiliations
-            </li>
-            <li>
-              Providing and maintaining accurate information in the
-              Organisation’s Safe People Registry profile
-            </li>
-            <li>
-              Accepting the Safe People Registry's Terms and Conditions on
-              behalf of the Organisation
-            </li>
-          </ul>
-
-          <Typography mb={3}>
-            It's essential for your Organisation to designate an SRO. The Safe
-            People Registry deals with sensitive data involving your Users
-            (employees or students) and their work on sensitive data projects
-            within the UK. Therefore, there needs to be senior-level visibility
-            and accountability for this Safe People Registry Organisation
-            account.
-          </Typography>
-        </>
-      ),
-    },
-    address: {
+    "name-and-address": {
       infoTitle: "Why are we asking for this information?",
       info: (
         <>
@@ -566,6 +530,25 @@ export const mockedOrganisationProfileGuidance: TabGuidance = {
             Some Data Custodians require this information even if Users are
             accessing data within Trusted Research Environments (TREs) or Secure
             Data Environments (SDEs).
+          </Typography>
+        </>
+      ),
+    },
+    sro: {
+      infoTitle: "Why are we asking for this information?",
+      info: (
+        <>
+          <Typography mb={5}>
+            Providing the Safe People Registry with full Organisation
+            information helps Data Custodians validate your Organisation. The
+            more information you provide, the faster and easier the validation
+            process becomes for Users (an employee or student of an
+            Organisation) to gain access to sensitive data.
+          </Typography>
+          <Typography mb={5}>
+            If your Organisation headquarters is based within the UK, your
+            Organisation legal name and address information should align with
+            your Organisation’s listing on Companies House.
           </Typography>
         </>
       ),
