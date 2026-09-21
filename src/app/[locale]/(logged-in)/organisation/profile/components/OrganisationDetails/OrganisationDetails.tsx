@@ -86,7 +86,7 @@ export default function OrganisationDetails() {
     };
 
     onSubmit(payload).then(() => {
-      router.push(ROUTES.profileOrganisationDetailsSecurityCompliance.path);
+      router.push(ROUTES.profileOrganisationDetailsDigitalIdentifiers.path);
     });
   };
 
@@ -161,7 +161,9 @@ export default function OrganisationDetails() {
           />
           <FormActions>
             <ProfileNavigationFooter
-              previousHref={ROUTES.profileOrganisationDetailsAddress.path}
+              previousHref={
+                ROUTES.profileOrganisationDetailsNameAndAddress.path
+              }
               nextStepText={tOrgProfile("nextStepDigitalIdentifiers")}
               isLoading={isLoading}
             />
