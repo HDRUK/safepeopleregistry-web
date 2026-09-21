@@ -26,8 +26,13 @@ jest.mock("@tanstack/react-query", () => {
   };
 });
 
-function setupTest() {
-  return render(<SroForm />);
+function setupTest({
+  isDelegate = false,
+  hasSroAssigned = true,
+}: { isDelegate?: boolean; hasSroAssigned?: boolean } = {}) {
+  return render(
+    <SroForm isDelegate={isDelegate} hasSroAssigned={hasSroAssigned} />
+  );
 }
 
 const userData = {
@@ -84,7 +89,7 @@ describe("<SroForm />", () => {
       },
     });
 
-    setupTest();
+    setupTest({ isDelegate: true, hasSroAssigned: true });
 
     expect(screen.queryByLabelText(/First name/)).not.toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Previous" })).toBeInTheDocument();
@@ -99,7 +104,7 @@ describe("<SroForm />", () => {
       },
     });
 
-    setupTest();
+    setupTest({ isDelegate: true, hasSroAssigned: false });
 
     expect(screen.getAllByLabelText(/First name/)[0]).toBeInTheDocument();
   });

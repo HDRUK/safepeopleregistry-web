@@ -29,7 +29,12 @@ const NAMESPACE_TRANSLATION_ORG_PROFILE = "ProfileOrganisation";
 
 const SRO_KEYS = ["first_name", "last_name", "email", "role", "department"];
 
-export default function SroForm() {
+interface SroFormProps {
+  isDelegate: boolean;
+  hasSroAssigned: boolean;
+}
+
+export default function SroForm({ isDelegate, hasSroAssigned }: SroFormProps) {
   const { organisation } = useOrganisationStore();
 
   const { user, setUser } = useStore(state => ({
@@ -37,8 +42,6 @@ export default function SroForm() {
     setUser: state.setUser,
   }));
 
-  const isDelegate = user?.is_delegate === 1;
-  const hasSroAssigned = Boolean(organisation?.sro_officer);
   const latestSroDeclaration = getLatestSRODeclaration(organisation?.files);
   const hasCompletedSroDeclaration = isFileScanComplete(latestSroDeclaration);
 
@@ -140,8 +143,8 @@ export default function SroForm() {
         onSubmit={handleSubmit}
         {...formOptions}
         key={organisation?.id}>
-        <SroFields />
-        <SroDeclaration />
+        <SroFields isDelegate={isDelegate} hasSroAssigned={hasSroAssigned} />
+        <SroDeclaration isDelegate={isDelegate} />
 
         <Grid container rowSpacing={3}>
           <Grid size={{ xs: 12 }}>

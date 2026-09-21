@@ -2,8 +2,10 @@ import { mockedOrganisation } from "@/mocks/data/organisation";
 import { render, screen } from "@/utils/testUtils";
 import SroInvite from "./SroInvite";
 
-function setupTest() {
-  return render(<SroInvite />);
+function setupTest({
+  hasSroAssigned = false,
+}: { hasSroAssigned?: boolean } = {}) {
+  return render(<SroInvite hasSroAssigned={hasSroAssigned} />);
 }
 
 const organisation = mockedOrganisation();
@@ -23,7 +25,7 @@ describe("<SroInvite />", () => {
     });
 
     it("renders the invite-an-SRO content instead of the full form", () => {
-      setupTest();
+      setupTest({ hasSroAssigned: false });
 
       expect(
         screen.getByText(/There's no SRO currently assigned/)
@@ -37,7 +39,7 @@ describe("<SroInvite />", () => {
     });
 
     it("keeps the send invite button enabled as a placeholder", () => {
-      setupTest();
+      setupTest({ hasSroAssigned: false });
 
       expect(screen.getByRole("button", { name: "Send invite" })).toBeEnabled();
     });
@@ -51,7 +53,7 @@ describe("<SroInvite />", () => {
     });
 
     it("shows the assigned SRO's details, a resend-invite button and a sent chip", () => {
-      setupTest();
+      setupTest({ hasSroAssigned: true });
 
       expect(
         screen.getByText(
@@ -72,7 +74,7 @@ describe("<SroInvite />", () => {
     });
 
     it("still shows the Previous and Save navigation buttons under the invite section", () => {
-      setupTest();
+      setupTest({ hasSroAssigned: true });
 
       expect(
         screen.getByRole("link", { name: "Previous" })

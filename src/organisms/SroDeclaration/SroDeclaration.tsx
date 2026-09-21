@@ -13,13 +13,12 @@ import { FileType } from "@/consts/files";
 const NAMESPACE_TRANSLATION = "Organisations.SroDeclaratation";
 const SRO_DELCLARATION_FILE = "/Registry_SRO_Declaration.pdf";
 
-export default function SroDeclaration() {
-  const organisation = useStore(state => state.config.organisation);
-  const { user } = useStore(store => ({
-    user: store.getUser(),
-  }));
+interface SroDeclarationProps {
+  isDelegate: boolean;
+}
 
-  const isDelegate = user?.is_delegate === 1;
+export default function SroDeclaration({ isDelegate }: SroDeclarationProps) {
+  const organisation = useStore(state => state.config.organisation);
 
   const t = useTranslations(NAMESPACE_TRANSLATION);
 

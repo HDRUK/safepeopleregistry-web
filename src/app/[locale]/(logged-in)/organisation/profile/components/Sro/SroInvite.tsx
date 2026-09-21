@@ -11,12 +11,15 @@ import { useState } from "react";
 
 const NAMESPACE_TRANSLATION_ORG_PROFILE = "ProfileOrganisation";
 
-export default function SroInvite() {
+interface SroInviteProps {
+  hasSroAssigned: boolean;
+}
+
+export default function SroInvite({ hasSroAssigned }: SroInviteProps) {
   const tOrgProfile = useTranslations(NAMESPACE_TRANSLATION_ORG_PROFILE);
   const { organisation } = useOrganisationStore();
 
   const sroOfficer = organisation?.sro_officer;
-  const hasSroAssigned = Boolean(sroOfficer);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
