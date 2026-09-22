@@ -817,7 +817,7 @@
     "emailAddressInvalid": "Email address is not in the correct format",
     "emailAddressRequiredInvalid": "Email address is required",
     "emailAlreadyExists": "An account already exists with this email",
-    "emailDescription": "Please check with the organisation first in order to send the email to the most relevant person. This should ideally be the Senior Responsible Officer, but can be anyone who can administrate the Organisation.",
+    "emailDescription": "Email address of an Organisational contact who is an appropriately senior individual, such as a Head of Department or Human Resources/People Services mailbox. This may also be the person who signs the data access agreements.",
     "departmentRequiredInvalid": "Department is required",
     "postDelegatesSuccess": "Delegate invited successfully. They should have recieved an email to register",
     "postDelegatesError": "There was a problem with inviting this Delegate. Please try again",

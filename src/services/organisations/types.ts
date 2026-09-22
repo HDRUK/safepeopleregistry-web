@@ -23,6 +23,8 @@ type PutOrganisationPayload = Partial<Organisation>;
 
 type PostOrganisationPayload = Partial<Organisation>;
 type PostOrganisationNewAccountPayload = Partial<Organisation>;
+type PostOrganisationInviteToContactSuperadminPayload = Partial<Organisation>;
+type PostOrganisationInviteToContactSuperadminResponse = number;
 type PostOrganisationResponse = Organisation;
 type PostOrganisationInviteResponse = Organisation;
 interface PostOrganisationUnclaimedPayload {
@@ -95,6 +97,8 @@ export type {
   PutOrganisationSubsidiaryPayload,
   PostOrganisationSubsidiaryPayload,
   PostOrganisationNewAccountPayload,
+  PostOrganisationInviteToContactSuperadminPayload,
+  PostOrganisationInviteToContactSuperadminResponse,
   PutSystemApprovedPayload,
   GetProjectsResponse,
   PatchSponsorshipStatusParams,
