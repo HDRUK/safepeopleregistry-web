@@ -1717,7 +1717,7 @@
     },
     "SroDetails": {
       "sroOfficerContact": "Senior Responsible Officer (SRO) contact information",
-      "sroOfficierContactInfo": "Senior Responsible Officers (SROs), are required to have sufficient seniority and relevant responsibility to nominate Delegates from your Organisation to affiliate your employees or students.",
+      "sroOfficierContactInfo": "Senior Responsible Officers (SROs) are legally signed off by their Organisation to be accountable for the overall administration of an Organisation account.",
       "signedDeclaration": "Signed declaration",
       "profileLink": "Profile link of signatory"
     },
@@ -2324,9 +2324,9 @@
     "linkHRSystemsQ": "Can we link the Safe People Registry to our internal HR systems?",
     "linkHRSystemsA": "Yes! The Safe People Registry can connect with your internal HR systems, by using automated API links.",
     "sroRoleQ": "What is the role of the Senior Responsible Officer?",
-    "sroRoleA": "The SRO is responsible for setting up the Organisation’s record and making sure all the information stays accurate and up to date.",
+    "sroRoleA": "The SRO is legally responsible for the Safe People Registry account on behalf of the Organisation, adding legitimacy and assurance to the Organisation profile.",
     "sroDelegateQ": "Can the SRO delegate affiliations to someone else?",
-    "sroDelegateA": "Yes. Once setting up the Organisation’s profile, the SRO can appoint trusted Organisational administrators (termed <bold>Delegates</bold> in the Safe People Registry) who can manage User affiliations on their behalf.",
+    "sroDelegateA": "Yes. An SRO can appoint trusted Organisational administrators (termed <bold>Delegates</bold> in the Safe People Registry) who can manage User affiliations on their behalf.",
     "orgSeeProjectsBeforeApprovalQ": "Can Organisations see projects they are associated with before the projects are recorded as approved?",
     "orgSeeProjectsBeforeApprovalA": "Yes! The Organisation can also see in real time if/when the Data Custodian records project approval.",
     "orgVerifiedQ": "How are Organisations verified to use the Safe People Registry?",
@@ -2410,7 +2410,7 @@
       },
       "seniorResponsibleOfficer": {
         "term": "Senior Responsible Officer (SRO)",
-        "definition": "The person within an Organisation who creates and manages its Safe People Registry profile. The SRO can also appoint other administrative delegates."
+        "definition": "The person within an Organisation who is legally signed off to take accountability for the Organisation's Safe People Registry account. An SRO adds assurance to an Organisation profile, but is not required for having an Organisation account."
       },
       "sponsorship": {
         "term": "Sponsorship",

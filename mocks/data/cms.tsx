@@ -60,17 +60,6 @@ export const mockedOrganisationHomeIntro = (
     <Typography mb={2}>
       You'll see a list of tasks below to complete your profile.
     </Typography>
-    <Typography mb={2}>
-      The Organisation account is set up by a SRO (Senior Responsible Officer),
-      who is required to get a declaration signed on behalf of their
-      Organisation and upload this. The SRO must have a position of seniority,
-      as they are held accountable for the data.
-    </Typography>
-    <Typography mb={2}>
-      Please fill in your Organisation's profile, including uploading the SRO
-      declaration. This is checked by HDR UK before full account privileges are
-      granted.
-    </Typography>
   </>
 );
 
@@ -407,12 +396,15 @@ export const mockedDelegateAdministationDescription = (
     <Typography variant="subtitle1" fontSize="large" sx={{ pb: 1 }}>
       Senior Responsible Officer (SRO) contact information
     </Typography>
-    <Typography>
-      As a representative of your Organisation, you have been nominated as a
-      Senior Responsible Officer (SRO), with sufficient seniority and relevant
-      responsibility to nominate Delegates from your Organisation to affiliate
-      your employees or students. As an SRO, You can provide your individual
-      information here:
+    <Typography mb={2}>
+      The Senior Responsible Officer (SRO) must have sufficient authority and
+      responsibility to be accountable for this Organisation account. Please
+      provide SRO information below.
+    </Typography>
+    <Typography mb={2}>
+      The SRO must be legally signed off by their Organisation to take ownership
+      of this account. Please fill in and get a legal signatory to sign the SRO
+      Declaration form.
     </Typography>
   </>
 );
