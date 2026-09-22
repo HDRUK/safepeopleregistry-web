@@ -55,6 +55,7 @@ interface PostOrganisationInviteUserPayload {
   is_delegate?: number;
   role?: string;
   user_group?: string;
+  sro_email?: string;
 }
 
 type PostOrganisationInviteUserResponse = number;
