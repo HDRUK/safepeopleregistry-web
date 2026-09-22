@@ -535,20 +535,21 @@ export const mockedOrganisationProfileGuidance: TabGuidance = {
       ),
     },
     sro: {
-      infoTitle: "Why are we asking for this information?",
+      infoTitle: "What’s a Senior Responsible Officer?",
       info: (
         <>
-          <Typography mb={5}>
-            Providing the Safe People Registry with full Organisation
-            information helps Data Custodians validate your Organisation. The
-            more information you provide, the faster and easier the validation
-            process becomes for Users (an employee or student of an
-            Organisation) to gain access to sensitive data.
+          <Typography mb={3}>
+            <strong>Senior Responsible Officers (SROs)</strong> are accountable
+            for the overall administration of an Organisation account.
           </Typography>
-          <Typography mb={5}>
-            If your Organisation headquarters is based within the UK, your
-            Organisation legal name and address information should align with
-            your Organisation’s listing on Companies House.
+          <Typography mb={3}>
+            The Safe People Registry deals with sensitive data involving your
+            Users (employees or students) and their work on sensitive data
+            projects within the UK. Therefore, senior-level visibility and
+            accountability for a Safe People Registry Organisation account is
+            important. This lends significant assurance to Data Custodians,
+            speeding up both Organisation and User (researcher/innovator)
+            validation.
           </Typography>
         </>
       ),
