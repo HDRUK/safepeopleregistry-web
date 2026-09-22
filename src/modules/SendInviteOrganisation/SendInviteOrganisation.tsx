@@ -5,7 +5,8 @@ import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
 import InviteOrganisation from "../InviteOrganisation";
 import useOrganisationInvite from "@/queries/useOrganisationInvite/useOrganisationInvite";
 
-const NAMESPACE_TRANSLATIONS_ORGANISATION = "Form";
+const NAMESPACE_TRANSLATIONS_ORGANISATION = "Organisation";
+const NAMESPACE_TRANSLATIONS_FORM = "Form";
 
 interface SendInviteOrganisationProps {
   onSuccess?: () => void;
@@ -20,6 +21,7 @@ export default function SendInviteOrganisation({
 }: SendInviteOrganisationProps) {
   const { showAlert, hideAlert } = useAlertModal();
   const t = useTranslations(NAMESPACE_TRANSLATIONS_ORGANISATION);
+  const tForm = useTranslations(NAMESPACE_TRANSLATIONS_FORM);
 
   const handleErrorAlert = () => {
     showAlert({
@@ -57,7 +59,7 @@ export default function SendInviteOrganisation({
       onSubmit={handleSubmit}
       queryState={queryState}
       onCancel={actions?.onCancel}
-      t={t}
+      t={tForm}
     />
   );
 }

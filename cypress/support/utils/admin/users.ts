@@ -19,6 +19,18 @@ const hasUser = (pendingInvite: PendingInvite, status: Status) => {
   });
 };
 
+const hasOrganisationInvite = (leadApplicantEmail: string) => {
+  cy.contains("Invites").click();
+
+  cy.selectValue("#filterByUser", "Organisations");
+  cy.get("#searchByText").clear().type(leadApplicantEmail);
+
+  cy.getResultsRowByValue(leadApplicantEmail).within(() => {
+    cy.contains("td", leadApplicantEmail);
+    cy.contains("td", getStatus(Status.INVITED));
+  });
+};
+
 const hasNoPendingInvites = () => {
   cy.contains("There are no pending invites for these search filters").should(
     "exist"
@@ -40,4 +52,4 @@ const inviteUser = (invite: InviteUserFormValues) => {
   // cy.clickAlertModal("Close");
 };
 
-export { hasUser, hasNoPendingInvites, inviteUser };
+export { hasUser, hasNoPendingInvites, hasOrganisationInvite, inviteUser };
