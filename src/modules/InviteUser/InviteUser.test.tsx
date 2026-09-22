@@ -13,7 +13,7 @@ jest.mock("@/data/store");
 
 const mockSubmit = jest.fn();
 
-const fields = ["First name", "Last name", "Email"];
+const fields = [/First name/i, /Last name/i, /Email/i];
 
 const renderInviteUserComponent = () => {
   return render(

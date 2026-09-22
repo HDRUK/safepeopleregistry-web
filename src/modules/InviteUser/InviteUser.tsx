@@ -10,7 +10,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { getUsers } from "@/app/actions/users";
-import { useFeatures } from "@/components/FeatureProvider";
 import Form from "../../components/Form";
 import FormActions from "../../components/FormActions";
 import FormControlWrapper from "../../components/FormControlWrapper";
@@ -56,7 +55,6 @@ export default function InviteUser({
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
   const tUser = useTranslations(NAMESPACE_TRANSLATION_ORGANISATION);
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
-  const { isSroRequirementEnabled } = useFeatures();
 
   const queryClient = useQueryClient();
   const [selectOrganisation, setSelectOrganisation] = useState<boolean>(true);
@@ -137,10 +135,6 @@ export default function InviteUser({
               .string()
               .email(tForm("emailInvalid"))
               .required(tForm("organisationEmailRequired")),
-        sro_email: yup
-          .string()
-          .email(tForm("custodianSroEmailFormatInvalid"))
-          .notRequired(),
       }),
     [tForm, selectOrganisation]
   );
@@ -154,7 +148,6 @@ export default function InviteUser({
       organisation_id: initialOrganisationId || "",
       organisation_name: "",
       organisation_email: "",
-      sro_email: "",
     },
   };
 
@@ -300,17 +293,6 @@ export default function InviteUser({
                     </Grid>
                   </>
                 ))}
-
-              {!isSroRequirementEnabled && (
-                <Grid size={{ xs: 12 }}>
-                  <FormControlWrapper
-                    name="sro_email"
-                    label={tForm("custodianSroEmail")}
-                    description={tForm("custodianSroEmailDescription")}
-                    renderField={fieldProps => <TextField {...fieldProps} />}
-                  />
-                </Grid>
-              )}
             </Grid>
           </FormSection>
           <FormActions>

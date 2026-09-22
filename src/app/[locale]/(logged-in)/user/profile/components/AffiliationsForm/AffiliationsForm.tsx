@@ -21,7 +21,6 @@ import { getDate, getDateComparisonFlags } from "@/utils/date";
 import SelectOrganisation from "@/components/SelectOrganisation";
 import { EntityType } from "@/types/api";
 import { UseFormSetValue } from "react-hook-form";
-import { useFeatures } from "@/components/FeatureProvider";
 
 export interface AffiliationsFormProps {
   onSubmit: (affiliation: ResearcherAffiliation) => void;
@@ -74,7 +73,6 @@ export default function AffiliationsForm({
   const tProfile = useTranslations(NAMESPACE_TRANSLATION);
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
   const tApplication = useTranslations(NAMESPACE_TRANSLATION_APPLICATION);
-  const { isSroRequirementEnabled } = useFeatures();
   const [selectedOrganisationId, setSelectedOrganisationId] = useState<
     number | null
   >();
@@ -127,10 +125,6 @@ export default function AffiliationsForm({
             is: (value: boolean) => !!value,
             otherwise: schema => schema.notRequired(),
           }),
-        sro_email: yup
-          .string()
-          .email(tForm("userSroEmailFormatInvalid"))
-          .notRequired(),
       }),
     [tForm, selectOrganisation]
   );
@@ -151,7 +145,6 @@ export default function AffiliationsForm({
         department: "", // keeping this blank for now
         organisation_name: undefined,
         organisation_email: undefined,
-        sro_email: initialValues?.sro_email || "",
       },
     }),
     [initialValues]
@@ -411,16 +404,6 @@ export default function AffiliationsForm({
                       )
                     }
                     disabled={!!initialValues && !!initialValues.email}
-                  />
-                </Grid>
-              )}
-              {!isSroRequirementEnabled && (
-                <Grid size={{ xs: 12 }}>
-                  <FormControlWrapper
-                    name="sro_email"
-                    label={tForm("userSroEmail")}
-                    description={tForm("userSroEmailDescription")}
-                    renderField={fieldProps => <TextField {...fieldProps} />}
                   />
                 </Grid>
               )}
