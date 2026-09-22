@@ -414,7 +414,7 @@ export default function AffiliationsForm({
                   />
                 </Grid>
               )}
-              {!isSroRequirementEnabled && (
+              {!isSroRequirementEnabled && !selectOrganisation && (
                 <Grid size={{ xs: 12 }}>
                   <FormControlWrapper
                     name="sro_email"

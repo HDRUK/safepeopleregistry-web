@@ -301,7 +301,7 @@ export default function InviteUser({
                   </>
                 ))}
 
-              {!isSroRequirementEnabled && (
+              {!isSroRequirementEnabled && !selectOrganisation && (
                 <Grid size={{ xs: 12 }}>
                   <FormControlWrapper
                     name="sro_email"
