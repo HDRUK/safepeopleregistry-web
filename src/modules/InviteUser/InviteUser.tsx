@@ -133,16 +133,17 @@ export default function InviteUser({
           : yup.string().required(tForm("organisationNameRequired")),
         organisation_email: selectOrganisation
           ? yup.string().notRequired()
-          : yup
-              .string()
-              .email(tForm("emailInvalid"))
-              .required(tForm("organisationEmailRequired")),
-        sro_email: yup
-          .string()
-          .email(tForm("custodianSroEmailFormatInvalid"))
-          .notRequired(),
+          : !isSroRequirementEnabled
+            ? yup
+                .string()
+                .email(tForm("custodianSroEmailFormatInvalid"))
+                .notRequired()
+            : yup
+                .string()
+                .email(tForm("emailInvalid"))
+                .required(tForm("organisationEmailRequired")),
       }),
-    [tForm, selectOrganisation]
+    [tForm, selectOrganisation, isSroRequirementEnabled]
   );
 
   const formOptions = {
@@ -154,7 +155,6 @@ export default function InviteUser({
       organisation_id: initialOrganisationId || "",
       organisation_name: "",
       organisation_email: "",
-      sro_email: "",
     },
   };
 
@@ -292,25 +292,23 @@ export default function InviteUser({
                     <Grid size={{ xs: 12 }}>
                       <FormControlWrapper
                         name="organisation_email"
+                        label={
+                          !isSroRequirementEnabled
+                            ? tForm("custodianSroEmail")
+                            : undefined
+                        }
                         renderField={fieldProps => (
                           <TextField {...fieldProps} />
                         )}
-                        description={tProfile("organisationNameSubtitle")}
+                        description={
+                          !isSroRequirementEnabled
+                            ? tForm("custodianSroEmailDescription")
+                            : tProfile("organisationNameSubtitle")
+                        }
                       />
                     </Grid>
                   </>
                 ))}
-
-              {!isSroRequirementEnabled && !selectOrganisation && (
-                <Grid size={{ xs: 12 }}>
-                  <FormControlWrapper
-                    name="sro_email"
-                    label={tForm("custodianSroEmail")}
-                    description={tForm("custodianSroEmailDescription")}
-                    renderField={fieldProps => <TextField {...fieldProps} />}
-                  />
-                </Grid>
-              )}
             </Grid>
           </FormSection>
           <FormActions>
