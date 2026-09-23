@@ -56,7 +56,9 @@ export default function SendInviteOrganisation({
 
   return (
     <InviteOrganisation
-      onSubmit={handleSubmit}
+      onSubmit={async organisation => {
+        await handleSubmit(organisation);
+      }}
       queryState={queryState}
       onCancel={actions?.onCancel}
       t={tForm}

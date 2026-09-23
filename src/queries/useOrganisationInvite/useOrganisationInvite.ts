@@ -21,10 +21,12 @@ export default function useOrganisationInvite({
   onSuccess,
   onError,
 }: UseOrganisationInviteProps = {}) {
-  console.log("useOrganisationInvite called");
   const { isSroRequirementEnabled } = useFeatures();
 
   const storedUser = useStore(store => store.getUser());
+
+  const shouldInviteSroDirectly =
+    isSroRequirementEnabled || storedUser?.user_group === UserGroup.ADMINS;
 
   const {
     mutateAsync: mutateOrganisationUnclaimed,
@@ -45,21 +47,21 @@ export default function useOrganisationInvite({
   } = useMutation(postOrganisationInviteToContactSuperadminQuery());
 
   const handleSubmit = useCallback(
-    async (organisation: PostOrganisationUnclaimedPayload) => {
+    async (
+      organisation: PostOrganisationUnclaimedPayload
+    ): Promise<number | undefined> => {
       try {
-        const { data: id } = await mutateOrganisationUnclaimed(organisation);
+        const { data: organisationId } =
+          await mutateOrganisationUnclaimed(organisation);
 
-        if (
-          isSroRequirementEnabled ||
-          storedUser?.user_group === UserGroup.ADMINS
-        ) {
+        if (shouldInviteSroDirectly) {
           // only invite the user if the SRO requirement is enabled or the user is an admin
-          await mutateOrganisationInvite(id);
+          await mutateOrganisationInvite(organisationId);
         } else {
           // otherwise, send the superadmin a notification about this request.
           // If an email has been provided, this will additionally send an email to the user asking them to email superadmin to create an organisation.
           await mutateOrganisationInviteToContactSuperadmin({
-            organisationId: id,
+            organisationId,
             payload: {
               email: organisation.lead_applicant_email,
             },
@@ -67,36 +69,57 @@ export default function useOrganisationInvite({
         }
 
         onSuccess?.();
-        return id;
+
+        return organisationId;
       } catch (_) {
         onError?.();
+
         return undefined;
       }
     },
-    []
+    [
+      shouldInviteSroDirectly,
+      mutateOrganisationUnclaimed,
+      mutateOrganisationInvite,
+      mutateOrganisationInviteToContactSuperadmin,
+      onSuccess,
+      onError,
+    ]
   );
+
+  const reset = useCallback(() => {
+    resetOrganisationUnclaimed();
+    resetOrganisationInvite();
+    resetOrganisationInviteToContactSuperadmin();
+  }, [
+    resetOrganisationUnclaimed,
+    resetOrganisationInvite,
+    resetOrganisationInviteToContactSuperadmin,
+  ]);
 
   const queryState = getCombinedQueryState<MutationState>([
     postOrganisationUnclaimedQueryState,
-    postOrganisationInviteQueryState,
-    postOrganisationInviteToContactSuperadminQueryState,
+    shouldInviteSroDirectly
+      ? postOrganisationInviteQueryState
+      : postOrganisationInviteToContactSuperadminQueryState,
   ]);
 
   return useMemo(
     () => ({
       queryState: {
         ...queryState,
-        reset: () => {
-          resetOrganisationUnclaimed();
-          resetOrganisationInvite();
-          resetOrganisationInviteToContactSuperadmin();
-        },
+        reset,
       },
-      data: postOrganisationUnclaimedQueryState.data,
       handleSubmit,
       mutateOrganisationUnclaimed,
       mutateOrganisationInvite,
     }),
-    [queryState]
+    [
+      queryState,
+      reset,
+      handleSubmit,
+      mutateOrganisationUnclaimed,
+      mutateOrganisationInvite,
+    ]
   );
 }
