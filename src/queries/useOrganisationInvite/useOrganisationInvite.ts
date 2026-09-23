@@ -56,20 +56,14 @@ export default function useOrganisationInvite({
           // only invite the user if the SRO requirement is enabled or the user is an admin
           await mutateOrganisationInvite(id);
         } else {
-          // otherwise (if an email has been provided) send an email to the user asking them to email superadmin to create an organisation
-          if (organisation.lead_applicant_email) {
-            // results = await mutateCustodianUserInvite({
-            //   organisationId: organisationId as number,
-            //   payload,
-            // });
-            await mutateOrganisationInviteToContactSuperadmin({
-              organisationId: id,
-              payload: {
-                email: organisation.lead_applicant_email,
-              },
-            });
-          }
-          // send notification to superadmin that a new organisation has been created and needs to be contacted
+          // otherwise, send the superadmin a notification about this request.
+          // If an email has been provided, this will additionally send an email to the user asking them to email superadmin to create an organisation.
+          await mutateOrganisationInviteToContactSuperadmin({
+            organisationId: id,
+            payload: {
+              email: organisation.lead_applicant_email,
+            },
+          });
         }
 
         onSuccess?.();
