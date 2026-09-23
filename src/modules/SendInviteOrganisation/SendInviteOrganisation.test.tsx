@@ -15,7 +15,7 @@ const renderSendInviteOrganisation = () => render(<SendInviteOrganisation />);
 const renderSubmitted = async () => {
   renderSendInviteOrganisation();
 
-  [/Name/i, /Contact email/i].forEach(name => {
+  [/Name/i, /Email/i].forEach(name => {
     const input = screen.getByRole("textbox", { name });
     const inputValue = faker.internet.email();
 
