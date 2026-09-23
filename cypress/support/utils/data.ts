@@ -161,6 +161,18 @@ const EMAIL_REGISTER_VERIFICATION_LABEL = "Link to e-mail address verification";
 const EMAIL_UPDATE_ACCOUNT_LABEL = "Link to account update";
 const EMAIL_SIGN_ME_UP = "Sign me up!";
 
+const SRO_REQUIREMENT_FEATURE = "SroRequirementEnabled";
+
+// Copy shown once SroRequirementEnabled is off and the SRO email address
+// becomes a suggestion rather than a requirement.
+const SRO_EMAIL_LABEL =
+  "Email address for Senior Responsible Officer (optional)";
+const SRO_EMAIL_FORMAT_ERROR = "SRO email must be a valid format";
+const USER_SRO_EMAIL_DESCRIPTION =
+  "Suggest an appropriately senior individual to register the organisation";
+const CUSTODIAN_SRO_EMAIL_DESCRIPTION =
+  "Organisational contact who is an appropriately senior individual";
+
 const DEFAULT_USER = {
   first_name: DEFAULT_USER_FIRST_NAME,
   last_name: DEFAULT_USER_LAST_NAME,
@@ -168,6 +180,11 @@ const DEFAULT_USER = {
 };
 
 export {
+  CUSTODIAN_SRO_EMAIL_DESCRIPTION,
+  SRO_EMAIL_FORMAT_ERROR,
+  SRO_EMAIL_LABEL,
+  SRO_REQUIREMENT_FEATURE,
+  USER_SRO_EMAIL_DESCRIPTION,
   DEFAULT_AFFILIATION_USERS,
   DEFAULT_TRAINING,
   DEFAULT_PROFESSIONAL_REGISTRATION,

@@ -29,7 +29,9 @@ type PostOrganisationResponse = Organisation;
 type PostOrganisationInviteResponse = Organisation;
 interface PostOrganisationUnclaimedPayload {
   organisation_name: string;
-  lead_applicant_email: string;
+  // Optional while SroRequirementEnabled is off: the inviter may not know who
+  // the SRO is, in which case only the superadmin is notified.
+  lead_applicant_email?: string;
 }
 
 interface UpdateOrganisationPermissionsResponse {

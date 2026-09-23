@@ -169,7 +169,7 @@ export default function InviteUser({
 
     let organisationId = organisation_id;
 
-    if (organisation_name && organisation_email) {
+    if (!selectOrganisation && organisation_name) {
       const invitePayload = {
         organisation_name,
         lead_applicant_email: organisation_email,

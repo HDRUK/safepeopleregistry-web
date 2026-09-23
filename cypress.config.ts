@@ -122,6 +122,12 @@ export default defineConfig({
       "cypress/e2e/user-journeys/registration/registerOrganisation.cy.ts",
       "cypress/e2e/user-journeys/registration/registerCustodian.cy.ts",
       "cypress/e2e/user-journeys/users/profile.cy.ts",
+      // Each toggles SroRequirementEnabled off and restores it afterwards, so
+      // keep them last in the run.
+      "cypress/e2e/user-journeys/features/sroDisabledUserAffiliation.cy.ts",
+      "cypress/e2e/user-journeys/features/sroDisabledCustodianSponsor.cy.ts",
+      "cypress/e2e/user-journeys/features/sroDisabledCustodianUserInvite.cy.ts",
+      "cypress/e2e/user-journeys/features/sroDisabledSuperadminInvite.cy.ts",
     ],
     // supportFile: "cypress/support/index.ts",
   },

@@ -294,7 +294,7 @@ export default function AffiliationsPage({
       if (!organisation_id) {
         const invitePayload = {
           organisation_name: fields.organisation_name as string,
-          lead_applicant_email: fields.organisation_email as string,
+          lead_applicant_email: fields.organisation_email,
         };
         organisation_id =
           await handleCreateAndInviteOrganisation(invitePayload);
