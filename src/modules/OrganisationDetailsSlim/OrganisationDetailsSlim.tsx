@@ -52,6 +52,7 @@ export default function OrganisationDetailsSlim({
           {hiddenDelegates.length > 0 && (
             <Tooltip title={hiddenDelegates.map(getName).join(", ")} arrow>
               <Box component="span" sx={{ cursor: "default" }}>
+                {" "}
                 +{hiddenDelegates.length}
               </Box>
             </Tooltip>
