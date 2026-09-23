@@ -26,7 +26,6 @@ import {
 } from "@/app/[locale]/(logged-in)/user/profile/consts/tabs";
 import SubTabs from "@/modules/SubTabs";
 import { useState } from "react";
-import InviteOrganisation from "@/modules/InviteOrganisation/InviteOrganisation";
 import SendInviteOrganisation from "@/modules/SendInviteOrganisation/SendInviteOrganisation";
 
 const NAMESPACE_TRANSLATIONS_ADMINISTRATION = "Administration";
