@@ -25,7 +25,7 @@ export default function OrganisationDetailsSlim({
     getOrganisationDelegatesQuery(organisationId as number, !!organisationId)
   );
 
-  const delegates = delegatesResponse?.data || [];
+  const delegates = (delegatesResponse?.data || []).slice(0, 2);
   if (!organisation) {
     return null;
   }
