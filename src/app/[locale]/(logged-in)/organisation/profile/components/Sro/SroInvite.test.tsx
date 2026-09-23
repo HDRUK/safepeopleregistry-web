@@ -1,5 +1,5 @@
 import { mockedOrganisation } from "@/mocks/data/organisation";
-import { render, screen } from "@/utils/testUtils";
+import { fireEvent, render, screen } from "@/utils/testUtils";
 import SroInvite from "./SroInvite";
 
 function setupTest({
@@ -42,6 +42,28 @@ describe("<SroInvite />", () => {
       setupTest({ hasSroAssigned: false });
 
       expect(screen.getByRole("button", { name: "Send invite" })).toBeEnabled();
+    });
+
+    it("defaults to the 'enter new SRO details' mode", () => {
+      setupTest({ hasSroAssigned: false });
+
+      expect(
+        screen.getByRole("radio", { name: "Enter new SRO details" })
+      ).toBeChecked();
+      expect(screen.getByLabelText(/First name/)).toBeInTheDocument();
+    });
+
+    it("switches to a delegate picker when 'select from existing Delegates' is chosen", () => {
+      setupTest({ hasSroAssigned: false });
+
+      fireEvent.click(
+        screen.getByRole("radio", { name: "Select from existing Delegates" })
+      );
+
+      expect(screen.queryByLabelText(/First name/)).not.toBeInTheDocument();
+      expect(screen.queryByLabelText(/Last name/)).not.toBeInTheDocument();
+      expect(screen.queryByLabelText(/Email address/)).not.toBeInTheDocument();
+      expect(screen.getByRole("combobox")).toBeInTheDocument();
     });
   });
 
