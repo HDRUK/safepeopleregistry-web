@@ -1,29 +1,79 @@
 "use client";
 
+import Form from "@/components/Form/Form";
 import FormActions from "@/components/FormActions";
+import FormControlWrapper from "@/components/FormControlWrapper";
 import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
+import yup from "@/config/yup";
 import { ROUTES } from "@/consts/router";
 import { PageBody, PageSection } from "@/modules";
 import useOrganisationStore from "@/queries/useOrganisationStore";
-import { Button, Chip, Grid, TextField, Typography } from "@mui/material";
+import getOrganisationDelegatesQuery from "@/services/organisations/getOrganisationDelegatesQuery";
+import { User } from "@/types/application";
+import { getName } from "@/utils/application";
+import {
+  Autocomplete,
+  Button,
+  Chip,
+  FormControlLabel,
+  Grid,
+  Radio,
+  RadioGroup,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
+const NAMESPACE_TRANSLATION_FORM = "Form";
 const NAMESPACE_TRANSLATION_ORG_PROFILE = "ProfileOrganisation";
+
+type SroInviteMode = "new" | "existingDelegate";
 
 interface SroInviteProps {
   hasSroAssigned: boolean;
 }
 
 export default function SroInvite({ hasSroAssigned }: SroInviteProps) {
+  const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
   const tOrgProfile = useTranslations(NAMESPACE_TRANSLATION_ORG_PROFILE);
   const { organisation } = useOrganisationStore();
 
   const sroOfficer = organisation?.sro_officer;
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+  const [mode, setMode] = useState<SroInviteMode>("new");
+  const [selectedDelegate, setSelectedDelegate] = useState<User | null>(null);
+
+  const schema = useMemo(
+    () =>
+      yup.object().shape({
+        first_name:
+          mode === "new"
+            ? yup.string().required(tForm("firstNameRequiredInvalid"))
+            : yup.string().nullable(),
+        last_name:
+          mode === "new"
+            ? yup.string().required(tForm("lastNameRequiredInvalid"))
+            : yup.string().nullable(),
+        email:
+          mode === "new"
+            ? yup
+                .string()
+                .email(tForm("emailInvalid"))
+                .required(tForm("emailRequired"))
+            : yup.string().nullable(),
+      }),
+    [tForm, mode]
+  );
+
+  const { data: delegatesData } = useQuery(
+    getOrganisationDelegatesQuery(
+      organisation?.id as number,
+      Boolean(organisation?.id)
+    )
+  );
+  const delegates = delegatesData?.data || [];
 
   const handleSendInvite = () => {};
 
@@ -100,54 +150,135 @@ export default function SroInvite({ hasSroAssigned }: SroInviteProps) {
         </Typography>
         <Grid container rowSpacing={3}>
           <Grid size={{ xs: 12 }}>
-            <Typography
-              component="label"
-              htmlFor="sro-invite-first-name"
-              sx={{ display: "block", mb: 1 }}>
-              {tOrgProfile("sroInviteFirstName")}{" "}
-              <span style={{ color: "red" }}>*</span>
+            <Typography sx={{ fontWeight: "bold" }}>
+              {tOrgProfile("sroInviteModeLabel")}
             </Typography>
-            <TextField
-              id="sro-invite-first-name"
-              fullWidth
-              required
-              value={firstName}
-              onChange={e => setFirstName(e.target.value)}
-            />
+            <RadioGroup
+              row
+              value={mode}
+              onChange={e => setMode(e.target.value as SroInviteMode)}>
+              <FormControlLabel
+                value="new"
+                control={<Radio />}
+                label={tOrgProfile("sroInviteModeNew")}
+              />
+              <FormControlLabel
+                value="existingDelegate"
+                control={<Radio />}
+                label={tOrgProfile("sroInviteModeExisting")}
+              />
+            </RadioGroup>
           </Grid>
-          <Grid size={{ xs: 12 }}>
-            <Typography
-              component="label"
-              htmlFor="sro-invite-last-name"
-              sx={{ display: "block", mb: 1 }}>
-              {tOrgProfile("sroInviteLastName")}{" "}
-              <span style={{ color: "red" }}>*</span>
-            </Typography>
-            <TextField
-              id="sro-invite-last-name"
-              fullWidth
-              required
-              value={lastName}
-              onChange={e => setLastName(e.target.value)}
-            />
-          </Grid>
-          <Grid size={{ xs: 12 }}>
-            <Typography
-              component="label"
-              htmlFor="sro-invite-email"
-              sx={{ display: "block", mb: 1 }}>
-              {tOrgProfile("sroInviteEmailAddress")}{" "}
-              <span style={{ color: "red" }}>*</span>
-            </Typography>
-            <TextField
-              id="sro-invite-email"
-              fullWidth
-              type="email"
-              required
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-            />
-          </Grid>
+
+          {mode === "new" ? (
+            <Grid size={{ xs: 12 }}>
+              <Form
+                schema={schema}
+                defaultValues={{ first_name: "", last_name: "", email: "" }}>
+                <Grid container rowSpacing={3}>
+                  <Grid size={{ xs: 12 }}>
+                    <FormControlWrapper
+                      name="first_name"
+                      renderField={fieldProps => <TextField {...fieldProps} />}
+                    />
+                  </Grid>
+                  <Grid size={{ xs: 12 }}>
+                    <FormControlWrapper
+                      name="last_name"
+                      renderField={fieldProps => <TextField {...fieldProps} />}
+                    />
+                  </Grid>
+                  <Grid size={{ xs: 12 }}>
+                    <FormControlWrapper
+                      name="email"
+                      label={tOrgProfile("sroInviteEmailAddress")}
+                      renderField={fieldProps => (
+                        <TextField {...fieldProps} type="email" />
+                      )}
+                    />
+                  </Grid>
+                </Grid>
+              </Form>
+            </Grid>
+          ) : (
+            <Grid size={{ xs: 12 }}>
+              <Typography
+                component="label"
+                htmlFor="sro-invite-select-delegate"
+                sx={{ display: "block", mb: 1 }}>
+                {tOrgProfile("sroInviteSelectDelegateLabel")}{" "}
+                <span style={{ color: "red" }}>*</span>
+              </Typography>
+              <Autocomplete
+                id="sro-invite-select-delegate"
+                options={delegates}
+                getOptionLabel={option => getName(option)}
+                isOptionEqualToValue={(option, selected) =>
+                  option.id === selected.id
+                }
+                value={selectedDelegate}
+                onChange={(_, newValue) => setSelectedDelegate(newValue)}
+                renderInput={params => (
+                  <TextField
+                    {...params}
+                    variant="outlined"
+                    required
+                    placeholder={tOrgProfile(
+                      "sroInviteSelectDelegatePlaceholder"
+                    )}
+                  />
+                )}
+              />
+            </Grid>
+          )}
+
+          {mode === "existingDelegate" && selectedDelegate && (
+            <>
+              <Grid size={{ xs: 12 }}>
+                <Typography
+                  component="label"
+                  htmlFor="sro-invite-selected-delegate-first-name"
+                  sx={{ display: "block", mb: 1 }}>
+                  {tOrgProfile("sroInviteFirstName")}
+                </Typography>
+                <TextField
+                  id="sro-invite-selected-delegate-first-name"
+                  fullWidth
+                  disabled
+                  value={selectedDelegate.first_name}
+                />
+              </Grid>
+              <Grid size={{ xs: 12 }}>
+                <Typography
+                  component="label"
+                  htmlFor="sro-invite-selected-delegate-last-name"
+                  sx={{ display: "block", mb: 1 }}>
+                  {tOrgProfile("sroInviteLastName")}
+                </Typography>
+                <TextField
+                  id="sro-invite-selected-delegate-last-name"
+                  fullWidth
+                  disabled
+                  value={selectedDelegate.last_name}
+                />
+              </Grid>
+              <Grid size={{ xs: 12 }}>
+                <Typography
+                  component="label"
+                  htmlFor="sro-invite-selected-delegate-email"
+                  sx={{ display: "block", mb: 1 }}>
+                  {tOrgProfile("sroInviteEmailAddress")}
+                </Typography>
+                <TextField
+                  id="sro-invite-selected-delegate-email"
+                  fullWidth
+                  disabled
+                  value={selectedDelegate.email}
+                />
+              </Grid>
+            </>
+          )}
+
           <Grid size={{ xs: 12 }}>
             <Button
               variant="contained"
