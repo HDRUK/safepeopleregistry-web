@@ -13,12 +13,6 @@ export default async (
   payload: PostOrganisationInviteToContactSuperadminPayload,
   options?: ResponseOptions
 ): Promise<ResponseJson<PostOrganisationInviteToContactSuperadminResponse>> => {
-  console.log(
-    "postOrganisationInviteToContactSuperadmin called with id:",
-    id,
-    "and payload:",
-    payload
-  );
   const response = await postRequest(
     `/organisations/${id}/invite_to_contact_superadmin`,
     payload

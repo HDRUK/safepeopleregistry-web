@@ -2,7 +2,6 @@ import postOrganisationInviteToContactSuperadmin from "@/app/actions/organisatio
 import { PostOrganisationInviteToContactSuperadminPayload } from "@/services/organisations/types";
 
 export default function postOrganisationInviteToContactSuperadminQuery() {
-  console.log("postOrganisationInviteToContactSuperadminQuery called");
   return {
     mutationKey: ["postOrganisationInviteToContactSuperadmin"],
     mutationFn: async ({
