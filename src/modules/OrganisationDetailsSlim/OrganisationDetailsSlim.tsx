@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Link, Typography } from "@mui/material";
+import { Box, Link, Tooltip, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { Fragment } from "react";
@@ -25,7 +25,10 @@ export default function OrganisationDetailsSlim({
     getOrganisationDelegatesQuery(organisationId as number, !!organisationId)
   );
 
-  const delegates = (delegatesResponse?.data || []).slice(0, 2);
+  const allDelegates = delegatesResponse?.data || [];
+  const delegates = allDelegates.slice(0, 2);
+  const hiddenDelegates = allDelegates.slice(2);
+
   if (!organisation) {
     return null;
   }
@@ -46,6 +49,13 @@ export default function OrganisationDetailsSlim({
               {index < delegates.length - 1 && ", "}
             </Fragment>
           ))}
+          {hiddenDelegates.length > 0 && (
+            <Tooltip title={hiddenDelegates.map(getName).join(", ")} arrow>
+              <Box component="span" sx={{ cursor: "default" }}>
+                +{hiddenDelegates.length}
+              </Box>
+            </Tooltip>
+          )}
         </Typography>
         <Typography>
           {t("organisationDetailsSroLabel")}{" "}
