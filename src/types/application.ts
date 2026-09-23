@@ -401,7 +401,6 @@ type ResearcherAffiliation = WithModelState<{
   primary_contact?: boolean;
   registryAffiliationState?: string;
   department: string;
-  sro_email?: string;
 }>;
 
 interface ResearcherProjectApproval {

@@ -35,6 +35,7 @@ export interface AffiliationsFormProps {
 const NAMESPACE_TRANSLATION = "Profile";
 const NAMESPACE_TRANSLATION_FORM = "Form";
 const NAMESPACE_TRANSLATION_APPLICATION = "Application";
+
 function FormSyncEffects({
   fromDate,
   isCurrent,
@@ -110,10 +111,15 @@ export default function AffiliationsForm({
           : yup.string().required(tForm("organisationNameRequired")),
         organisation_email: selectOrganisation
           ? yup.string().notRequired()
-          : yup
-              .string()
-              .email(tForm("emailInvalid"))
-              .required(tForm("organisationEmailRequired")),
+          : !isSroRequirementEnabled
+            ? yup
+                .string()
+                .email(tForm("userSroEmailFormatInvalid"))
+                .notRequired()
+            : yup
+                .string()
+                .email(tForm("emailInvalid"))
+                .required(tForm("organisationEmailRequired")),
         relationship: yup
           .string()
           .required(tForm("relationshipRequiredInvalid")),
@@ -127,12 +133,8 @@ export default function AffiliationsForm({
             is: (value: boolean) => !!value,
             otherwise: schema => schema.notRequired(),
           }),
-        sro_email: yup
-          .string()
-          .email(tForm("userSroEmailFormatInvalid"))
-          .notRequired(),
       }),
-    [tForm, selectOrganisation]
+    [tForm, selectOrganisation, isSroRequirementEnabled]
   );
 
   const formOptions = useMemo(
@@ -151,7 +153,6 @@ export default function AffiliationsForm({
         department: "", // keeping this blank for now
         organisation_name: undefined,
         organisation_email: undefined,
-        sro_email: initialValues?.sro_email || "",
       },
     }),
     [initialValues]
@@ -308,22 +309,31 @@ export default function AffiliationsForm({
                   <Grid size={{ xs: 12 }}>
                     <FormControlWrapper
                       name="organisation_email"
+                      label={
+                        !isSroRequirementEnabled
+                          ? tForm("userSroEmail")
+                          : undefined
+                      }
                       renderField={fieldProps => <TextField {...fieldProps} />}
                       description={
-                        <>
-                          <Box mb={2}>
-                            {tProfile("organisationNameSubtitle")}
-                          </Box>
-                          {!!initialValues && !initialValues?.email && (
-                            <Box
-                              sx={{ display: "flex", color: "warning.main" }}>
-                              <WarningIcon />
-                              <Typography>
-                                {tProfile("affiliationsEmailWarningMessage")}
-                              </Typography>
+                        !isSroRequirementEnabled ? (
+                          tForm("userSroEmailDescription")
+                        ) : (
+                          <>
+                            <Box mb={2}>
+                              {tProfile("organisationNameSubtitle")}
                             </Box>
-                          )}
-                        </>
+                            {!!initialValues && !initialValues?.email && (
+                              <Box
+                                sx={{ display: "flex", color: "warning.main" }}>
+                                <WarningIcon />
+                                <Typography>
+                                  {tProfile("affiliationsEmailWarningMessage")}
+                                </Typography>
+                              </Box>
+                            )}
+                          </>
+                        )
                       }
                     />
                   </Grid>
@@ -411,16 +421,6 @@ export default function AffiliationsForm({
                       )
                     }
                     disabled={!!initialValues && !!initialValues.email}
-                  />
-                </Grid>
-              )}
-              {!isSroRequirementEnabled && (
-                <Grid size={{ xs: 12 }}>
-                  <FormControlWrapper
-                    name="sro_email"
-                    label={tForm("userSroEmail")}
-                    description={tForm("userSroEmailDescription")}
-                    renderField={fieldProps => <TextField {...fieldProps} />}
                   />
                 </Grid>
               )}
