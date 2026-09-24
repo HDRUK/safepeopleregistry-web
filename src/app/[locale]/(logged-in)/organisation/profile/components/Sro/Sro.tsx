@@ -8,6 +8,7 @@ import SroInvite from "./SroInvite";
 
 export default function Sro() {
   const { isSroRequirementEnabled } = useFeatures();
+
   const { organisation } = useOrganisationStore();
   const user = useStore(state => state.getUser());
 
