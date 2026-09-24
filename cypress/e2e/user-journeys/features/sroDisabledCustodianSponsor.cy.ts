@@ -2,12 +2,13 @@ import { ROUTES } from "@/consts/router";
 import { mockedOrganisationInvite } from "@/mocks/data/organisation";
 import { mockedProject } from "@/mocks/data/project";
 import { faker } from "@faker-js/faker";
-import { runWithFeatureFlag } from "cypress/support/utils/admin/features";
 import { loginAdmin } from "cypress/support/utils/admin/auth";
+import { runWithFeatureFlag } from "cypress/support/utils/admin/features";
+import { hasNoOrganisationInvite } from "cypress/support/utils/admin/users";
 import { loginCustodian } from "cypress/support/utils/custodian/auth";
 import {
   createProjectAndInviteNewSponsor,
-  hasUninvitedProjectSponsor,
+  hasSelectedProjectSponsor,
 } from "cypress/support/utils/custodian/projects";
 import { SRO_REQUIREMENT_FEATURE } from "cypress/support/utils/data";
 
@@ -33,22 +34,17 @@ describe("A Custodian invites a project sponsor, SRO requirement disabled", () =
     createProjectAndInviteNewSponsor(project, sponsor);
   });
 
-  it("Attaches the Organisation as the sponsor without inviting it", () => {
-    hasUninvitedProjectSponsor(sponsor);
+  it("Attaches the Organisation to the project as its sponsor", () => {
+    hasSelectedProjectSponsor(sponsor);
   });
 
+  // The flag-off behaviour: the superadmin is notified to go and contact the
+  // Organisation, rather than the Organisation being invited to register.
   it("Does not raise a pending Organisation invite", () => {
     loginAdmin();
 
     cy.visitFirst(ROUTES.profileAdmin.path);
 
-    cy.contains("Invites").click();
-
-    cy.selectValue("#filterByUser", "Organisations");
-    cy.get("#searchByText").clear().type(sponsor.lead_applicant_email);
-
-    cy.waitForLoadingToFinish();
-
-    cy.contains(sponsor.lead_applicant_email).should("not.exist");
+    hasNoOrganisationInvite(sponsor.lead_applicant_email);
   });
 });

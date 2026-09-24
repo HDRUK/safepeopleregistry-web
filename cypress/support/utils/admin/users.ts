@@ -37,6 +37,17 @@ const hasNoPendingInvites = () => {
   );
 };
 
+// Asserts the explicit empty state rather than the absence of a row, so this
+// can't pass just because the table failed to render.
+const hasNoOrganisationInvite = (leadApplicantEmail: string) => {
+  cy.contains("Invites").click();
+
+  cy.selectValue("#filterByUser", "Organisations");
+  cy.get("#searchByText").clear().type(leadApplicantEmail);
+
+  hasNoPendingInvites();
+};
+
 const inviteUser = (invite: InviteUserFormValues) => {
   cy.get("#first_name").clear().type(invite.first_name);
   cy.get("#last_name").clear().type(invite.last_name);
@@ -52,4 +63,10 @@ const inviteUser = (invite: InviteUserFormValues) => {
   // cy.clickAlertModal("Close");
 };
 
-export { hasUser, hasNoPendingInvites, hasOrganisationInvite, inviteUser };
+export {
+  hasUser,
+  hasNoOrganisationInvite,
+  hasNoPendingInvites,
+  hasOrganisationInvite,
+  inviteUser,
+};

@@ -307,17 +307,15 @@ const createProjectAndInviteNewSponsor = (
   invitesNewSponsor(invite);
 };
 
-// The counterpart to hasProjectSponsor(): the Organisation has been created and
-// attached as the sponsor, but no registration invite was sent to it, so there
-// is nothing to resend. This is what SroRequirementEnabled=false buys us - the
-// superadmin is notified instead of the Organisation being invited directly.
-const hasUninvitedProjectSponsor = (invite: InviteOrganisationFormValues) => {
+// The newly created Organisation is attached to the project as its sponsor.
+// Deliberately says nothing about the status chip: POST /organisations/unclaimed
+// puts the Organisation into `invited` state on creation, so the chip reads
+// "Invited" whether or not a registration invite was actually sent. Whether the
+// Organisation was invited is asserted against the pending invites list instead.
+const hasSelectedProjectSponsor = (invite: InviteOrganisationFormValues) => {
   cy.contains(invite.organisation_name).should("exist");
 
-  cy.get(dataCy("invite-sponsor")).within(() => {
-    cy.contains(getStatus(Status.INVITED)).should("not.exist");
-    cy.contains("Resend invite").should("not.exist");
-  });
+  cy.get(dataCy("invite-sponsor")).should("exist");
 };
 
 const hasProjectSponsor = () => {
@@ -406,5 +404,5 @@ export {
   invitesNewSponsor,
   hasProjectSponsor,
   hasSponsoredProject,
-  hasUninvitedProjectSponsor,
+  hasSelectedProjectSponsor,
 };
