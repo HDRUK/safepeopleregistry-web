@@ -27,6 +27,7 @@ enum AdminSubTabs {
 enum AdminModalActions {
   INVITE_CUSTODIAN = "invite-custodian",
   INVITE_USER = "invite-user",
+  INVITE_ORGANISATION = "invite-organisation",
 }
 
 type TabStructure = {

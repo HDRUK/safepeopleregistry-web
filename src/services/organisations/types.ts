@@ -23,11 +23,24 @@ type PutOrganisationPayload = Partial<Organisation>;
 
 type PostOrganisationPayload = Partial<Organisation>;
 type PostOrganisationNewAccountPayload = Partial<Organisation>;
+type PostOrganisationInviteToContactSuperadminPayload = Partial<Organisation>;
+type PostOrganisationInviteToContactSuperadminResponse = number;
 type PostOrganisationResponse = Organisation;
 type PostOrganisationInviteResponse = Organisation;
+// POST /organisations/unclaimed. Creates the Organisation in the invited state,
+// so the lead applicant is required - they are who the invitation goes to.
 interface PostOrganisationUnclaimedPayload {
   organisation_name: string;
   lead_applicant_email: string;
+}
+
+// POST /organisations/unclaimed_before_superadmin_invitation. Creates the
+// Organisation without a state and without inviting anyone, so the lead
+// applicant is optional: the inviter may not know who the SRO is, and it is the
+// superadmin who gets notified to go and make contact.
+interface PostOrganisationUnclaimedBeforeSuperadminInvitationPayload {
+  organisation_name: string;
+  lead_applicant_email?: string;
 }
 
 interface UpdateOrganisationPermissionsResponse {
@@ -91,10 +104,13 @@ export type {
   PostOrganisationResponse,
   PostOrganisationInviteResponse,
   PostOrganisationUnclaimedPayload,
+  PostOrganisationUnclaimedBeforeSuperadminInvitationPayload,
   UpdateOrganisationSubsidiary,
   PutOrganisationSubsidiaryPayload,
   PostOrganisationSubsidiaryPayload,
   PostOrganisationNewAccountPayload,
+  PostOrganisationInviteToContactSuperadminPayload,
+  PostOrganisationInviteToContactSuperadminResponse,
   PutSystemApprovedPayload,
   GetProjectsResponse,
   PatchSponsorshipStatusParams,

@@ -36,6 +36,44 @@ const addAffiliationUsers = (
   cy.saveFormClick();
 };
 
+// Adds an affiliation against an Organisation that isn't on the Registry yet,
+// via the "Organisation not listed? Ask them to register" link. Leaving
+// `organisation_email` out exercises the SroRequirementEnabled=false path,
+// where the SRO email address is optional.
+const addAffiliationForNewOrganisationUsers = (
+  affiliation: ResearcherAffiliation,
+  organisation: { organisation_name: string; organisation_email?: string }
+) => {
+  openNewOrganisationAffiliationForm();
+
+  cy.get("#organisation_name").clear().type(organisation.organisation_name);
+
+  if (organisation.organisation_email) {
+    cy.get("#organisation_email").clear().type(organisation.organisation_email);
+  }
+
+  cy.dateSelectValue("from", affiliation.from);
+  cy.dateSelectValue("to", affiliation.to);
+
+  cy.selectValue("#relationship", affiliation.relationship);
+  cy.get("#role").clear().type(affiliation.role);
+  cy.get("#member_id").clear().type(affiliation.member_id);
+
+  cy.saveFormClick();
+};
+
+// Opens "Add affiliation" and switches the form over to naming an Organisation
+// that isn't on the Registry yet.
+const openNewOrganisationAffiliationForm = () => {
+  cy.buttonClick("Add affiliation");
+
+  cy.get(dataCy("form-modal")).should("be.visible");
+
+  cy.buttonClick("Ask them to register");
+
+  cy.get("#organisation_name").should("be.visible");
+};
+
 const hasAffiliationUsers = (
   affiliation: ResearcherAffiliation,
   status?: Status
@@ -112,10 +150,12 @@ const resendAffiliationVerification = (affiliation: ResearcherAffiliation) => {
 };
 
 export {
+  addAffiliationForNewOrganisationUsers,
   addAffiliationUsers,
   editAffiliationUsers,
   hasAffiliationUsers,
   hasRemoveAffiliationUsers,
+  openNewOrganisationAffiliationForm,
   removeAffiliationUsers,
   resendAffiliationVerification,
 };

@@ -1,12 +1,13 @@
 import useQueryAlerts from "@/hooks/useQueryAlerts";
 import useOrganisationInvite from "@/queries/useOrganisationInvite";
 import { WithTranslations } from "@/types/application";
+import { InviteOrganisationFormValues } from "@/types/form";
 import FormModal, { FormModalProps } from "../../components/FormModal";
 import InviteOrganisation from "../../modules/InviteOrganisation";
 
 type InviteOrganisationModalProps = WithTranslations<
   Omit<FormModalProps, "children"> & {
-    onSuccess?: (id: number) => void;
+    onSuccess: (id: number) => void;
     custodianId?: number;
   }
 >;
@@ -17,11 +18,17 @@ export default function InviteOrganisationModal({
   t,
   ...restProps
 }: InviteOrganisationModalProps) {
-  const { queryState, data, handleSubmit } = useOrganisationInvite();
+  const { queryState, handleSubmit } = useOrganisationInvite();
 
-  useQueryAlerts(queryState, {
-    onSuccess: () => onSuccess(data?.data),
-  });
+  useQueryAlerts(queryState);
+
+  const handleInvite = async (organisation: InviteOrganisationFormValues) => {
+    const organisationId = await handleSubmit(organisation);
+
+    if (organisationId !== undefined) {
+      onSuccess(organisationId);
+    }
+  };
 
   return (
     <FormModal
@@ -33,7 +40,7 @@ export default function InviteOrganisationModal({
       <InviteOrganisation
         t={t}
         onCancel={onClose}
-        onSubmit={handleSubmit}
+        onSubmit={handleInvite}
         queryState={queryState}
       />
     </FormModal>
