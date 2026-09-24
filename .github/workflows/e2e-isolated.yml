@@ -9,7 +9,7 @@ on:
       api_branch:
         description: "Branch of safepeopleregistry-api to check out"
         required: false
-        default: "dev"
+        default: "feat/registry-2930-create-an-organisation-without-superadmin-invitation"
 
 env:
   APP_KEY: ${{ secrets.APP_KEY }}

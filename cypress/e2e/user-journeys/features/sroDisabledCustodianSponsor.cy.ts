@@ -8,7 +8,7 @@ import { hasNoOrganisationInvite } from "cypress/support/utils/admin/users";
 import { loginCustodian } from "cypress/support/utils/custodian/auth";
 import {
   createProjectAndInviteNewSponsor,
-  hasSelectedProjectSponsor,
+  hasUninvitedProjectSponsor,
 } from "cypress/support/utils/custodian/projects";
 import { SRO_REQUIREMENT_FEATURE } from "cypress/support/utils/data";
 
@@ -34,8 +34,8 @@ describe("A Custodian invites a project sponsor, SRO requirement disabled", () =
     createProjectAndInviteNewSponsor(project, sponsor);
   });
 
-  it("Attaches the Organisation to the project as its sponsor", () => {
-    hasSelectedProjectSponsor(sponsor);
+  it("Attaches the Organisation as the sponsor without inviting it", () => {
+    hasUninvitedProjectSponsor(sponsor);
   });
 
   // The flag-off behaviour: the superadmin is notified to go and contact the

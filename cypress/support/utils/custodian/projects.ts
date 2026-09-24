@@ -307,15 +307,17 @@ const createProjectAndInviteNewSponsor = (
   invitesNewSponsor(invite);
 };
 
-// The newly created Organisation is attached to the project as its sponsor.
-// Deliberately says nothing about the status chip: POST /organisations/unclaimed
-// puts the Organisation into `invited` state on creation, so the chip reads
-// "Invited" whether or not a registration invite was actually sent. Whether the
-// Organisation was invited is asserted against the pending invites list instead.
-const hasSelectedProjectSponsor = (invite: InviteOrganisationFormValues) => {
+// The counterpart to hasProjectSponsor(): the Organisation is attached as the
+// sponsor, but nobody was invited to it. The unclaimed_before_superadmin_invitation
+// endpoint leaves the Organisation without a state, so getSponsorshipStatus has
+// no "Invited" to report and there is no invite to resend.
+const hasUninvitedProjectSponsor = (invite: InviteOrganisationFormValues) => {
   cy.contains(invite.organisation_name).should("exist");
 
-  cy.get(dataCy("invite-sponsor")).should("exist");
+  cy.get(dataCy("invite-sponsor")).within(() => {
+    cy.contains(getStatus(Status.INVITED)).should("not.exist");
+    cy.contains("Resend invite").should("not.exist");
+  });
 };
 
 const hasProjectSponsor = () => {
@@ -404,5 +406,5 @@ export {
   invitesNewSponsor,
   hasProjectSponsor,
   hasSponsoredProject,
-  hasSelectedProjectSponsor,
+  hasUninvitedProjectSponsor,
 };

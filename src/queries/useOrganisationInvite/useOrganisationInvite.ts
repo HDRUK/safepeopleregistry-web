@@ -3,8 +3,9 @@ import { useCallback, useMemo } from "react";
 import { MutationState } from "../../types/form";
 import {
   postOrganisationInviteQuery,
-  PostOrganisationUnclaimedPayload,
+  PostOrganisationUnclaimedBeforeSuperadminInvitationPayload,
   postOrganisationUnclaimedQuery,
+  postOrganisationUnclaimedBeforeSuperadminInvitationQuery,
   postOrganisationInviteToContactSuperadminQuery,
 } from "../../services/organisations";
 import { getCombinedQueryState } from "../../utils/query";
@@ -35,6 +36,12 @@ export default function useOrganisationInvite({
   } = useMutation(postOrganisationUnclaimedQuery());
 
   const {
+    mutateAsync: mutateOrganisationUnclaimedBeforeSuperadminInvitation,
+    reset: resetOrganisationUnclaimedBeforeSuperadminInvitation,
+    ...postOrganisationUnclaimedBeforeSuperadminInvitationQueryState
+  } = useMutation(postOrganisationUnclaimedBeforeSuperadminInvitationQuery());
+
+  const {
     mutateAsync: mutateOrganisationInvite,
     reset: resetOrganisationInvite,
     ...postOrganisationInviteQueryState
@@ -48,25 +55,49 @@ export default function useOrganisationInvite({
 
   const handleSubmit = useCallback(
     async (
-      organisation: PostOrganisationUnclaimedPayload
+      organisation: PostOrganisationUnclaimedBeforeSuperadminInvitationPayload
     ): Promise<number | undefined> => {
       try {
-        const { data: organisationId } =
-          await mutateOrganisationUnclaimed(organisation);
-
         if (shouldInviteSroDirectly) {
-          // only invite the user if the SRO requirement is enabled or the user is an admin
-          await mutateOrganisationInvite(organisationId);
-        } else {
-          // otherwise, send the superadmin a notification about this request.
-          // If an email has been provided, this will additionally send an email to the user asking them to email superadmin to create an organisation.
-          await mutateOrganisationInviteToContactSuperadmin({
-            organisationId,
-            payload: {
-              email: organisation.lead_applicant_email,
-            },
+          const { organisation_name, lead_applicant_email } = organisation;
+
+          if (!lead_applicant_email) {
+            // /organisations/unclaimed creates the Organisation already invited,
+            // so it has to know who to invite. Every form that reaches this
+            // branch makes the address mandatory - see the caveat in
+            // InviteUser, where an admin with SroRequirementEnabled off does not.
+            throw new Error(
+              "A lead applicant email address is required to invite an Organisation directly"
+            );
+          }
+
+          const { data: organisationId } = await mutateOrganisationUnclaimed({
+            organisation_name,
+            lead_applicant_email,
           });
+
+          await mutateOrganisationInvite(organisationId);
+
+          onSuccess?.();
+
+          return organisationId;
         }
+
+        // Nobody is invited here: the Organisation is created without a state,
+        // and the superadmin is notified to go and make contact. If an address
+        // was supplied, the invitee is additionally emailed asking them to get
+        // in touch with the superadmin.
+        const { data: organisationId } =
+          await mutateOrganisationUnclaimedBeforeSuperadminInvitation(
+            organisation
+          );
+
+        await mutateOrganisationInviteToContactSuperadmin({
+          organisationId,
+          payload: {
+            email: organisation.lead_applicant_email,
+          },
+        });
 
         onSuccess?.();
 
@@ -80,6 +111,7 @@ export default function useOrganisationInvite({
     [
       shouldInviteSroDirectly,
       mutateOrganisationUnclaimed,
+      mutateOrganisationUnclaimedBeforeSuperadminInvitation,
       mutateOrganisationInvite,
       mutateOrganisationInviteToContactSuperadmin,
       onSuccess,
@@ -89,20 +121,24 @@ export default function useOrganisationInvite({
 
   const reset = useCallback(() => {
     resetOrganisationUnclaimed();
+    resetOrganisationUnclaimedBeforeSuperadminInvitation();
     resetOrganisationInvite();
     resetOrganisationInviteToContactSuperadmin();
   }, [
     resetOrganisationUnclaimed,
+    resetOrganisationUnclaimedBeforeSuperadminInvitation,
     resetOrganisationInvite,
     resetOrganisationInviteToContactSuperadmin,
   ]);
 
-  const queryState = getCombinedQueryState<MutationState>([
-    postOrganisationUnclaimedQueryState,
+  const queryState = getCombinedQueryState<MutationState>(
     shouldInviteSroDirectly
-      ? postOrganisationInviteQueryState
-      : postOrganisationInviteToContactSuperadminQueryState,
-  ]);
+      ? [postOrganisationUnclaimedQueryState, postOrganisationInviteQueryState]
+      : [
+          postOrganisationUnclaimedBeforeSuperadminInvitationQueryState,
+          postOrganisationInviteToContactSuperadminQueryState,
+        ]
+  );
 
   return useMemo(
     () => ({

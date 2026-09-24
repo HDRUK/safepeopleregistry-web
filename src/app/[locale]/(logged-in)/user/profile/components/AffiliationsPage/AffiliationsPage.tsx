@@ -98,7 +98,18 @@ export default function AffiliationsPage({
     queryState: inviteQueryState,
     handleSubmit: handleCreateAndInviteOrganisation,
     mutateOrganisationInvite,
-  } = useOrganisationInvite();
+  } = useOrganisationInvite({
+    onError: () => {
+      showAlert({
+        severity: "error",
+        text: renderErrorToString(tProfile, "affiliationActionError"),
+        confirmButtonText: tProfile("affiliationActionErrorButton"),
+        onConfirm: async () => {
+          hideAlert();
+        },
+      });
+    },
+  });
 
   const combinedQueryState = getCombinedQueryState(
     [inviteQueryState, postAffiliationQueryState, putAffiliationQueryState],
@@ -298,6 +309,11 @@ export default function AffiliationsPage({
         };
         organisation_id =
           await handleCreateAndInviteOrganisation(invitePayload);
+
+        // The Organisation couldn't be created, so there is nothing to affiliate
+        // to. onError has already told the user; saving the affiliation anyway
+        // would send organisation_id: undefined and reject unhandled.
+        if (!organisation_id) return;
       }
 
       const {
