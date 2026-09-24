@@ -17,7 +17,7 @@ const addSROOrganisations = (
     force: true,
   });
 
-  cy.saveContinueClick();
+  cy.saveContinueClick("Save");
 };
 
 const hasSROOrganisation = (
