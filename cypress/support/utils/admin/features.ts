@@ -1,14 +1,33 @@
 import { ROUTES } from "@/consts/router";
+import { dataCy } from "../common";
 import { loginAdmin } from "./auth";
 
 const FEATURE_FLAG_VALUE_COLUMN = 3; // name, description, scope, value
 
+// Starts from the document body rather than whatever Cypress currently has
+// scoped. A test that fails inside .within() - cy.clickAlertModal does - leaks
+// that scope into the after hook, which would otherwise search for the tab
+// inside a dead modal and leave the flag unrestored for every later spec.
+const pageBody = () => cy.document().its("body");
+
 const openFeatureFlags = () => {
-  cy.contains("Feature Flags").click();
+  pageBody().contains("Feature Flags").click();
 };
 
 const featureFlagValueCell = (feature: string) =>
-  cy.getResultsRowByValue(feature).find("td").eq(FEATURE_FLAG_VALUE_COLUMN);
+  pageBody()
+    .find("tbody tr")
+    .contains("td", feature)
+    .parent()
+    .find("td")
+    .eq(FEATURE_FLAG_VALUE_COLUMN);
+
+const featureFlagActionMenu = (feature: string) =>
+  pageBody()
+    .find("tbody tr")
+    .contains("td", feature)
+    .parent()
+    .find(dataCy("action-menu"));
 
 const hasFeatureFlag = (feature: string, enabled: string) => {
   openFeatureFlags();
@@ -38,7 +57,7 @@ const setFeatureFlag = (feature: string, enabled: boolean) => {
     .then(text => {
       if (text.trim() === String(enabled)) return;
 
-      cy.getResultsActionMenu(feature).click();
+      featureFlagActionMenu(feature).click();
       cy.actionMenuClick(enabled ? "Enable" : "Disable");
       cy.wait(700);
 
