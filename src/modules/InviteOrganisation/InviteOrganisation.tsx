@@ -11,7 +11,9 @@ import { MAX_FORM_WIDTH } from "../../consts/form";
 import { InviteOrganisationFormValues, MutationState } from "../../types/form";
 
 export type InviteOrganisationFormProps = WithTranslations<{
-  onSubmit: (organisation: InviteOrganisationFormValues) => void;
+  onSubmit: (
+    organisation: InviteOrganisationFormValues
+  ) => void | Promise<void>;
   onCancel: () => void;
   queryState: MutationState;
 }>;
