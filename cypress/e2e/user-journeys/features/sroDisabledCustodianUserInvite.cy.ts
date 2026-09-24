@@ -1,10 +1,13 @@
+import { ROUTES } from "@/consts/router";
 import { mockedOrganisationInvite } from "@/mocks/data/organisation";
+import { mockedProject } from "@/mocks/data/project";
 import { mockedInvitedUser } from "@/mocks/data/user";
 import { faker } from "@faker-js/faker";
 import { runWithFeatureFlag } from "cypress/support/utils/admin/features";
 import { dataCy } from "cypress/support/utils/common";
 import { loginCustodian } from "cypress/support/utils/custodian/auth";
 import {
+  addNewProject,
   goToProjectUsersList,
   hasInvitedProjectUser,
   inviteNewProjectUserForNewOrganisation,
@@ -18,15 +21,38 @@ import {
   SRO_REQUIREMENT_FEATURE,
 } from "cypress/support/utils/data";
 
+// Creates its own project rather than reusing "Test project", so this spec
+// doesn't depend on custodians/projects.cy.ts having run first.
+const project = mockedProject({
+  title: `SRO disabled user invite ${Cypress._.random(0, 1e6)}`,
+  unique_id: faker.string.alphanumeric(10).toUpperCase(),
+  lay_summary: faker.lorem.sentence(),
+  technical_summary: faker.lorem.sentence(),
+  public_benefit: faker.lorem.sentence(),
+  request_category_type: "Health Data Research",
+  start_date: "2024-07-01",
+  end_date: "2025-07-01",
+});
+
 const newInvitedUser = () => mockedInvitedUser({ role: DEFAULT_ROLE_NAME });
 
 describe("A Custodian invites a User at an unregistered Organisation, SRO requirement disabled", () => {
   runWithFeatureFlag(SRO_REQUIREMENT_FEATURE, false);
 
+  before(() => {
+    loginCustodian();
+
+    cy.visitFirst(ROUTES.profileCustodianProjects.path);
+
+    cy.waitForLoadingToFinish();
+
+    addNewProject(project);
+  });
+
   beforeEach(() => {
     loginCustodian();
 
-    goToProjectUsersList();
+    goToProjectUsersList(project.title);
   });
 
   it("Marks the SRO email address as optional and explains who to name", () => {

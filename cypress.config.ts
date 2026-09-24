@@ -89,6 +89,13 @@ export default defineConfig({
     video: false,
     videosFolder: "cypress/videos",
     specPattern: [
+      // First in the run: each toggles SroRequirementEnabled off and restores
+      // it afterwards, and they need identities that later specs leave in a
+      // changed state. Self-contained - they create whatever data they need.
+      "cypress/e2e/user-journeys/features/sroDisabledUserAffiliation.cy.ts",
+      "cypress/e2e/user-journeys/features/sroDisabledCustodianSponsor.cy.ts",
+      "cypress/e2e/user-journeys/features/sroDisabledCustodianUserInvite.cy.ts",
+      "cypress/e2e/user-journeys/features/sroDisabledSuperadminInvite.cy.ts",
       "cypress/e2e/user-journeys/admin/features.cy.ts",
       "cypress/e2e/user-journeys/admin/users.cy.ts",
       "cypress/e2e/user-journeys/admin/sro.cy.ts",
@@ -121,13 +128,10 @@ export default defineConfig({
       "cypress/e2e/user-journeys/registration/registerUser.cy.ts",
       "cypress/e2e/user-journeys/registration/registerOrganisation.cy.ts",
       "cypress/e2e/user-journeys/registration/registerCustodian.cy.ts",
+      // Must stay last. It signs out (clearing every cached session) and changes
+      // the test user's login email, submitting the revert without confirming
+      // it, so any loginUser() in a later spec fails to authenticate.
       "cypress/e2e/user-journeys/users/profile.cy.ts",
-      // Each toggles SroRequirementEnabled off and restores it afterwards, so
-      // keep them last in the run.
-      "cypress/e2e/user-journeys/features/sroDisabledUserAffiliation.cy.ts",
-      "cypress/e2e/user-journeys/features/sroDisabledCustodianSponsor.cy.ts",
-      "cypress/e2e/user-journeys/features/sroDisabledCustodianUserInvite.cy.ts",
-      "cypress/e2e/user-journeys/features/sroDisabledSuperadminInvite.cy.ts",
     ],
     // supportFile: "cypress/support/index.ts",
   },
