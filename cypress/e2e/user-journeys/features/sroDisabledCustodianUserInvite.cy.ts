@@ -7,7 +7,7 @@ import { runWithFeatureFlag } from "cypress/support/utils/admin/features";
 import { dataCy } from "cypress/support/utils/common";
 import { loginCustodian } from "cypress/support/utils/custodian/auth";
 import {
-  addNewProject,
+  createProject,
   goToProjectUsersList,
   hasInvitedProjectUser,
   inviteNewProjectUserForNewOrganisation,
@@ -26,10 +26,6 @@ import {
 const project = mockedProject({
   title: `SRO disabled user invite ${Cypress._.random(0, 1e6)}`,
   unique_id: faker.string.alphanumeric(10).toUpperCase(),
-  lay_summary: faker.lorem.sentence(),
-  technical_summary: faker.lorem.sentence(),
-  public_benefit: faker.lorem.sentence(),
-  request_category_type: "Health Data Research",
   start_date: "2024-07-01",
   end_date: "2025-07-01",
 });
@@ -46,7 +42,7 @@ describe("A Custodian invites a User at an unregistered Organisation, SRO requir
 
     cy.waitForLoadingToFinish();
 
-    addNewProject(project);
+    createProject(project);
   });
 
   beforeEach(() => {

@@ -287,13 +287,11 @@ const addNewProject = (project: ResearcherProject) => {
   cy.clickAlertModal("Close");
 };
 
-// Creates a project and, on the Safe Project step, invites a brand new
-// Organisation as its sponsor rather than picking an existing one. Sponsor is
-// still empty at this point, so InviteSponsor offers "Invite to register".
-const createProjectAndInviteNewSponsor = (
-  project: ResearcherProject,
-  invite: InviteOrganisationFormValues
-) => {
+// Creates the project and stops on the Safe Project step. Unlike addNewProject
+// it never picks a sponsor: SelectOrganisation only offers system-approved
+// Organisations, and the seed Organisation isn't approved until
+// admin/sro.cy.ts runs, so any spec ordered before that can't select one.
+const createProject = (project: ResearcherProject) => {
   cy.contains("button", "Add new project").click();
 
   cy.get("#unique_id").clear().type(project.unique_id);
@@ -303,6 +301,16 @@ const createProjectAndInviteNewSponsor = (
   cy.dateSelectValue("end_date", project.end_date);
 
   cy.saveContinueClick("Create project");
+};
+
+// Invites a brand new Organisation as the project's sponsor rather than picking
+// an existing one. Sponsor is still empty after createProject, so InviteSponsor
+// offers "Invite to register".
+const createProjectAndInviteNewSponsor = (
+  project: ResearcherProject,
+  invite: InviteOrganisationFormValues
+) => {
+  createProject(project);
 
   invitesNewSponsor(invite);
 };
@@ -384,6 +392,7 @@ const updateSafeOutputsProject = (projectDetails: ProjectDetails) => {
 
 export {
   addNewProject,
+  createProject,
   createProjectAndInviteNewSponsor,
   addNewProjectUser,
   changePrimaryContactProjectUsers,
