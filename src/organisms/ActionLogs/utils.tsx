@@ -39,11 +39,11 @@ const generateActions = (routes: Route) => {
     },
     name_and_sro_completed: {
       icon: <CorporateFareIcon />,
-      path: routes.profileOrganisationDetailsNameAndSRO.path,
+      path: routes.profileOrganisationDetailsNameAndAddress.path,
     },
     address_completed: {
       icon: <CorporateFareIcon />,
-      path: routes.profileOrganisationDetailsAddress.path,
+      path: routes.profileOrganisationDetailsNameAndAddress.path,
     },
     organisation_details_completed: {
       icon: <CorporateFareIcon />,

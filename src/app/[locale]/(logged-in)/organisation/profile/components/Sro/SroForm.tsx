@@ -8,52 +8,49 @@ import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
 import yup from "@/config/yup";
 import { ROUTES } from "@/consts/router";
 import { useStore } from "@/data/store";
-import { PageBody, PageSection } from "@/modules";
+import { PageBody } from "@/modules";
 import SroDeclaration from "@/organisms/SroDeclaration";
 import useOrganisationStore from "@/queries/useOrganisationStore";
 import { getUserQuery, putUserQuery } from "@/services/users";
 import { KeyContactFormValues } from "@/types/form";
+import { formatDisplayLongDateTime } from "@/utils/date";
+import { getLatestSRODeclaration, isFileScanComplete } from "@/utils/file";
 import { pick } from "@/utils/json";
-import { Grid, TextField, Typography } from "@mui/material";
+import { Chip, Grid, TextField, Typography } from "@mui/material";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import { useEffect, useMemo } from "react";
 import useUpdateOrganisation from "../../hooks/useUpdateOrganisation";
 import SroFields from "../SroFields";
-
-export interface NameAndSROFormValues {
-  organisation_name: string;
-  sro_profile_uri: string;
-}
 
 const NAMESPACE_TRANSLATION_FORM = "Form";
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";
 const NAMESPACE_TRANSLATION_ORG_PROFILE = "ProfileOrganisation";
 
-const ORG_KEYS = ["organisation_name", "sro_profile_uri"];
-
 const SRO_KEYS = ["first_name", "last_name", "email", "role", "department"];
 
-export default function NameAndSRO() {
+interface SroFormProps {
+  isDelegate: boolean;
+  hasSroAssigned: boolean;
+}
+
+export default function SroForm({ isDelegate, hasSroAssigned }: SroFormProps) {
   const { organisation } = useOrganisationStore();
-  const router = useRouter();
 
   const { user, setUser } = useStore(state => ({
     user: state.getUser(),
     setUser: state.setUser,
   }));
 
-  const isDelegate = user?.is_delegate === 1;
+  const latestSroDeclaration = getLatestSRODeclaration(organisation?.files);
+  const hasCompletedSroDeclaration = isFileScanComplete(latestSroDeclaration);
 
   const {
     isError,
     isPending: isLoading,
     error,
     onSubmit: onSubmitOrganisation,
-  } = useUpdateOrganisation({
-    id: organisation?.id,
-  });
+  } = useUpdateOrganisation({ id: organisation?.id });
 
   const { mutateAsync: mutateUser } = useMutation(
     putUserQuery(user?.id as number)
@@ -71,39 +68,36 @@ export default function NameAndSRO() {
   const schema = useMemo(
     () =>
       yup.object().shape({
-        organisation_name: yup
-          .string()
-          .required(tForm("organisationNameRequiredInvalid")),
-        first_name: !isDelegate
+        first_name: !(isDelegate && hasSroAssigned)
           ? yup.string().required()
           : yup.string().nullable(),
-        last_name: !isDelegate
+        last_name: !(isDelegate && hasSroAssigned)
           ? yup.string().required()
           : yup.string().nullable(),
-        department: !isDelegate
+        department: !(isDelegate && hasSroAssigned)
           ? yup.number().required()
           : yup.number().nullable(),
-        email: !isDelegate
+        email: !(isDelegate && hasSroAssigned)
           ? yup
               .string()
               .email(tForm("emailInvalid"))
               .required(tForm("emailRequired"))
           : yup.string().nullable(),
-        role: !isDelegate
+        role: !(isDelegate && hasSroAssigned)
           ? yup.string().required(tForm("roleRequiredInvalid"))
           : yup.string().nullable(),
-        sro_profile_uri: !isDelegate
+        sro_profile_uri: !(isDelegate && hasSroAssigned)
           ? yup
               .string()
               .url(tForm("sroProfileUriInvalid"))
               .required(tForm("sroProfileUriRequiredInvalid"))
           : yup.string().nullable(),
       }),
-    [tForm]
+    [tForm, isDelegate, hasSroAssigned]
   );
+
   const formOptions = {
     defaultValues: {
-      organisation_name: organisation?.organisation_name,
       first_name: user?.first_name,
       last_name: user?.last_name,
       department: user?.departments?.[0]?.id,
@@ -115,19 +109,16 @@ export default function NameAndSRO() {
   };
 
   const handleSubmit = async (
-    formData: Partial<NameAndSROFormValues & KeyContactFormValues>
+    formData: Partial<KeyContactFormValues & { sro_profile_uri: string }>
   ) => {
-    const organisationPayload = pick(
-      formData,
-      ORG_KEYS
-    ) as Partial<NameAndSROFormValues>;
-
     const { department, ...restSroPayload } = pick(
       formData,
       SRO_KEYS
     ) as Partial<KeyContactFormValues>;
 
-    await onSubmitOrganisation(organisationPayload);
+    await onSubmitOrganisation({
+      sro_profile_uri: formData.sro_profile_uri,
+    });
 
     await mutateUser({
       ...restSroPayload,
@@ -136,8 +127,6 @@ export default function NameAndSRO() {
     });
 
     refetchUserData();
-
-    router.push(ROUTES.profileOrganisationDetailsAddress.path);
   };
 
   useEffect(() => {
@@ -149,34 +138,20 @@ export default function NameAndSRO() {
   return (
     <PageBody>
       <Form
-        aria-label={tOrgProfile("nameAndSROTitle")}
+        aria-label={tOrgProfile("sroInviteTitle")}
         schema={schema}
         onSubmit={handleSubmit}
         {...formOptions}
         key={organisation?.id}>
-        <PageSection
-          heading={tOrgProfile("organisationName")}
-          description={tOrgProfile.rich("nameAndSRODescription", {
-            bold: chunks => <strong>{chunks}</strong>,
-          })}>
-          <Grid container rowSpacing={3}>
-            <Grid size={{ xs: 12 }}>
-              <FormControlWrapper
-                name="organisation_name"
-                renderField={fieldProps => <TextField {...fieldProps} />}
-              />
-            </Grid>
-          </Grid>
-        </PageSection>
-        <SroFields />
-        <SroDeclaration />
+        <SroFields isDelegate={isDelegate} hasSroAssigned={hasSroAssigned} />
+        <SroDeclaration isDelegate={isDelegate} />
 
         <Grid container rowSpacing={3}>
           <Grid size={{ xs: 12 }}>
             <FormControlWrapper
               name="sro_profile_uri"
               renderField={fieldProps =>
-                !isDelegate ? (
+                !(isDelegate && hasSroAssigned) ? (
                   <TextField {...fieldProps} />
                 ) : (
                   <Typography gutterBottom>{fieldProps.value}</Typography>
@@ -187,9 +162,34 @@ export default function NameAndSRO() {
           </Grid>
         </Grid>
 
+        <Grid container>
+          <Grid size={{ xs: 12 }}>
+            {hasCompletedSroDeclaration ? (
+              <Chip
+                color="success"
+                label={tOrgProfile("sroDeclarationApprovedChip", {
+                  date: String(
+                    formatDisplayLongDateTime(
+                      latestSroDeclaration?.updated_at ??
+                        latestSroDeclaration?.created_at
+                    )
+                  ),
+                })}
+              />
+            ) : (
+              <Chip
+                color="warning"
+                label={tOrgProfile("sroDeclarationPendingApprovalChip")}
+              />
+            )}
+          </Grid>
+        </Grid>
+
         <FormActions>
           <ProfileNavigationFooter
-            nextStepText={tOrgProfile("nextStepAddress")}
+            previousHref={
+              ROUTES.profileOrganisationDetailsSecurityCompliance.path
+            }
             isLoading={isLoading}
           />
         </FormActions>

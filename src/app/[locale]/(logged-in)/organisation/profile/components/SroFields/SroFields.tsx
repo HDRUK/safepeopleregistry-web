@@ -11,19 +11,22 @@ import { useTranslations } from "next-intl";
 
 const NAMESPACE_TRANSLATION = "Form";
 
-export default function SroFields() {
-  const { organisation, user } = useStore(state => ({
-    organisation: state.getOrganisation(),
-    user: state.getUser(),
-  }));
+interface SroFieldsProps {
+  isDelegate: boolean;
+  hasSroAssigned: boolean;
+}
 
-  const isDelegate = user?.is_delegate === 1;
+export default function SroFields({
+  isDelegate,
+  hasSroAssigned,
+}: SroFieldsProps) {
+  const organisation = useStore(state => state.getOrganisation());
 
   const t = useTranslations(NAMESPACE_TRANSLATION);
 
   return (
     <PageSection>
-      {!isDelegate ? (
+      {!(isDelegate && hasSroAssigned) ? (
         <FormSection
           heading={t("keyContactFormTitle")}
           description={<Markdown>{t("keyContactFormDescription")}</Markdown>}>
