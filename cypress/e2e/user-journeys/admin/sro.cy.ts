@@ -1,10 +1,12 @@
 import { ROUTES } from "@/consts/router";
 import { loginAdmin } from "cypress/support/utils/admin/auth";
+import { runWithFeatureFlag } from "cypress/support/utils/admin/features";
 import { validateSROOrganisations } from "cypress/support/utils/admin/sro";
 import { logout } from "cypress/support/utils/common";
 import {
   DEFAULT_UNAPPROVED_ORGANISATION,
   DEFAULT_SRO_FIELDS_ORGANISATIONS,
+  SRO_REQUIREMENT_FEATURE,
 } from "cypress/support/utils/data";
 import { loginUnapprovedOrganisation } from "cypress/support/utils/organisation/auth";
 import {
@@ -17,10 +19,12 @@ import {
 const dataOrganisation = DEFAULT_UNAPPROVED_ORGANISATION;
 
 describe("SRO journey", () => {
+  runWithFeatureFlag(SRO_REQUIREMENT_FEATURE, true);
+
   describe("Organisation not approved", () => {
     beforeEach(() => {
       loginUnapprovedOrganisation();
-      cy.visitFirst(ROUTES.profileOrganisationDetailsNameAndSRO.path);
+      cy.visitFirst(ROUTES.profileOrganisationDetailsSro.path);
     });
 
     after(() => {
@@ -67,7 +71,7 @@ describe("SRO journey", () => {
     beforeEach(() => {
       loginUnapprovedOrganisation();
 
-      cy.visitFirst(ROUTES.profileOrganisationDetailsNameAndSRO.path);
+      cy.visitFirst(ROUTES.profileOrganisationDetailsSro.path);
     });
 
     after(() => {

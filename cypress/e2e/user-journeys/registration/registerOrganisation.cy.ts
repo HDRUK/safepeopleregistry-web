@@ -1,4 +1,6 @@
 import { ROUTES } from "@/consts/router";
+import { runWithFeatureFlag } from "cypress/support/utils/admin/features";
+import { SRO_REQUIREMENT_FEATURE } from "cypress/support/utils/data";
 import { openOrganisationTermsAndConditions } from "cypress/support/utils/registration/register";
 
 describe("Register organisation journey", () => {
@@ -15,21 +17,25 @@ describe("Register organisation journey", () => {
     cy.contains("button", "Continue").click();
   });
 
-  it("Has the correct Terms and Conditions content", () => {
-    openOrganisationTermsAndConditions();
+  describe("SRO requirement disabled", () => {
+    runWithFeatureFlag(SRO_REQUIREMENT_FEATURE, false);
 
-    cy.contains("h3", "Register as an Organisation").should("exist");
+    it("Has the correct Terms and Conditions content", () => {
+      openOrganisationTermsAndConditions();
 
-    cy.contains(
-      "If you are an Organisation and would like to use the Safe People Registry, please email us at"
-    ).should("exist");
+      cy.contains("h3", "Register as an Organisation").should("exist");
 
-    cy.contains("a", "enquiries@safepeopleregistry.org")
-      .should("have.attr", "href", "mailto:enquiries@safepeopleregistry.org")
-      .should("exist");
+      cy.contains(
+        "If you are an Organisation and would like to use the Safe People Registry, please email us at"
+      ).should("exist");
 
-    cy.contains("button", "Close").click();
+      cy.contains("a", "enquiries@safepeopleregistry.org")
+        .should("have.attr", "href", "mailto:enquiries@safepeopleregistry.org")
+        .should("exist");
 
-    cy.contains("h3", "Register as an Organisation").should("not.exist");
+      cy.contains("button", "Close").click();
+
+      cy.contains("h3", "Register as an Organisation").should("not.exist");
+    });
   });
 });
