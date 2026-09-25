@@ -1,6 +1,6 @@
 import { ROUTES } from "@/consts/router";
 import { loginAdmin } from "./auth";
-import { logout } from "../common";
+import { signout } from "../common";
 
 const FEATURE_FLAG_VALUE_COLUMN = 3; // name, description, scope, value
 
@@ -65,7 +65,7 @@ const runWithFeatureFlag = (feature: string, enabled: boolean) => {
 
     setFeatureFlag(feature, enabled);
 
-    logout();
+    signout();
   });
 
   after(() => {
