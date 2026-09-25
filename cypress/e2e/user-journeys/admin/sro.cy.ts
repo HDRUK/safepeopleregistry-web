@@ -1,10 +1,12 @@
 import { ROUTES } from "@/consts/router";
 import { loginAdmin } from "cypress/support/utils/admin/auth";
+import { runWithFeatureFlag } from "cypress/support/utils/admin/features";
 import { validateSROOrganisations } from "cypress/support/utils/admin/sro";
-import { dataCy, logout } from "cypress/support/utils/common";
+import { logout } from "cypress/support/utils/common";
 import {
   DEFAULT_UNAPPROVED_ORGANISATION,
   DEFAULT_SRO_FIELDS_ORGANISATIONS,
+  SRO_REQUIREMENT_FEATURE,
 } from "cypress/support/utils/data";
 import { loginUnapprovedOrganisation } from "cypress/support/utils/organisation/auth";
 import {
@@ -17,22 +19,7 @@ import {
 const dataOrganisation = DEFAULT_UNAPPROVED_ORGANISATION;
 
 describe("SRO journey", () => {
-  before(() => {
-    loginAdmin();
-    cy.visitFirst(ROUTES.profileAdmin.path);
-    cy.waitForLoadingToFinish();
-    cy.contains("Feature Flags").click();
-    cy.getResultsRowByValue("SroRequirementEnabled").then($row => {
-      if ($row.text().includes("false")) {
-        cy.getResultsActionMenu("SroRequirementEnabled").click();
-        cy.actionMenuClick("Enable");
-        cy.get(dataCy("results"))
-          .contains("tr", "SroRequirementEnabled")
-          .should("contain.text", "true");
-      }
-    });
-    logout();
-  });
+  runWithFeatureFlag(SRO_REQUIREMENT_FEATURE, true);
 
   describe("Organisation not approved", () => {
     beforeEach(() => {

@@ -63,6 +63,10 @@ const runWithFeatureFlag = (feature: string, enabled: boolean) => {
     });
 
     setFeatureFlag(feature, enabled);
+
+    cy.clearAllCookies();
+    cy.clearAllLocalStorage();
+    cy.clearAllSessionStorage();
   });
 
   after(() => {
