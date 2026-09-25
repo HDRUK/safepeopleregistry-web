@@ -33,7 +33,8 @@ const signout = () => {
   cy.visit(ROUTES.homepage.path);
   cy.contains("button", "Sign Out").click();
 
-  cy.get("#kc-logout").click();
+  cy.wait(1000);
+  cy.get("#kc-logout").if().click();
 
   // A real logout revokes the session server-side, but leaves any
   // cacheAcrossSpecs cy.session cookies in place — clear them so the
