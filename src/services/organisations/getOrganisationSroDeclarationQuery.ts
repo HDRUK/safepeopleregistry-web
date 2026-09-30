@@ -1,25 +1,13 @@
 import getOrganisationSroDeclaration from "@/app/actions/organisations/getOrganisationSroDeclaration";
-import { QueryOptions } from "@/types/requests";
-import { UseQueryOptions } from "@tanstack/react-query";
+import downloadFile from "@/app/actions/files/downloadFile";
 
-export default function getOrganisationSroDeclarationQuery(
-  organisationId: number,
-  options?: QueryOptions
-) {
+
+export default function getOrganisationSroDeclarationQuery(id: number | undefined) {
   return {
-    queryKey: [
-      "getOrganisationSroDeclaration",
-      organisationId,
-      ...(options?.queryKeySuffix || []),
-    ],
-    queryFn: ({ queryKey }) => {
-      return getOrganisationSroDeclaration(queryKey[1] as number, {
-        error: {
-          message: "getOrganisationSroDeclarationError",
-        },
-        ...options?.responseOptions,
-      });
+    queryKey: ["getOrganisationSroDeclaration"],
+    queryFn: () => {
+      return getOrganisationSroDeclaration(id as number);
     },
-    ...options,
-  } as UseQueryOptions<Awaited<ReturnType<typeof getOrganisationSroDeclaration>>>;
+    enabled: !!id,
+  };
 }

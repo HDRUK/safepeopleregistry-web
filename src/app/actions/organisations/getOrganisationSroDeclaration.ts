@@ -1,15 +1,32 @@
 "use server";
 
-import { OrganisationResponse } from "@/services/organisations";
-import { handleJsonResponse } from "@/services/requestHelpers";
+
 import { getRequest } from "@/services/requests";
-import { ResponseJson, ResponseOptions } from "@/types/requests";
 
-export default async (
-  id: string | number,
-  options: ResponseOptions
-): Promise<ResponseJson<OrganisationResponse>> => {
-  const response = await getRequest(`/organisations/${id}/sro_declaration`, undefined);
+export default async (id: number) => {
+  try {
+    const response = (await getRequest(`/organisation/${id}/sro_delcaration`)) as Response;
+    if (!response.ok) {
+      throw new Error("Failed to download file");
+    }
 
-  return handleJsonResponse(response, options);
+    const blob = await response.blob();
+
+    const fileName =
+      response.headers
+        .get("Content-Disposition")
+        ?.split("filename=")[1]
+        ?.replace(/"/g, "") || "downloaded_file";
+
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+
+    if (window.URL.revokeObjectURL) window.URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error("Download error:", error);
+  }
 };
