@@ -1,5 +1,6 @@
 import getOrganisationDelegatesQuery from "@/services/organisations/getOrganisationDelegatesQuery";
 import getOrganisationQuery from "@/services/organisations/getOrganisationQuery";
+import getOrganisationSroDeclarationQuery from "./getOrganisationSroDeclarationQuery";
 import getOrganisationRegistriesQuery from "@/services/organisations/getOrganisationRegistriesQuery";
 import postCustodianInviteUserQuery from "@/services/organisations/postCustodianInviteUserQuery";
 import postOrganisationInviteQuery from "@/services/organisations/postOrganisationInviteQuery";
@@ -12,6 +13,7 @@ import usePagedSponsoredProjectsQuery from "@/services/organisations/usePagedSpo
 export {
   putOrganisationApprovedQuery,
   getOrganisationQuery,
+  getOrganisationSroDeclarationQuery,
   postOrganisationInviteUserQuery,
   getOrganisationDelegatesQuery,
   getOrganisationRegistriesQuery,
