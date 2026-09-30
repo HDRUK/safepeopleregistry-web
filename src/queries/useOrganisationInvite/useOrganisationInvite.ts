@@ -7,18 +7,22 @@ import {
   postOrganisationUnclaimedQuery,
   postOrganisationUnclaimedBeforeSuperadminInvitationQuery,
   postOrganisationInviteToContactSuperadminQuery,
+  putOrganisationQuery,
 } from "../../services/organisations";
 import { getCombinedQueryState } from "../../utils/query";
 import { useFeatures } from "@/components/FeatureProvider";
 import { UserGroup } from "@/consts/user";
 import { useStore } from "@/data/store";
+import { Organisation } from "@/types/application";
 
 interface UseOrganisationInviteProps {
+  organisation?: Organisation;
   onSuccess?: () => void;
   onError?: () => void;
 }
 
 export default function useOrganisationInvite({
+  organisation: existingOrganisation,
   onSuccess,
   onError,
 }: UseOrganisationInviteProps = {}) {
@@ -53,11 +57,38 @@ export default function useOrganisationInvite({
     ...postOrganisationInviteToContactSuperadminQueryState
   } = useMutation(postOrganisationInviteToContactSuperadminQuery());
 
+  const {
+    mutateAsync: mutateOrganisation,
+    reset: resetOrganisation,
+    ...putOrganisationQueryState
+  } = useMutation(putOrganisationQuery());
+
   const handleSubmit = useCallback(
     async (
       organisation: PostOrganisationUnclaimedBeforeSuperadminInvitationPayload
     ): Promise<number | undefined> => {
       try {
+        if (existingOrganisation) {
+          const { id } = existingOrganisation;
+          const { organisation_name, lead_applicant_email } = organisation;
+
+          if (
+            organisation_name !== existingOrganisation.organisation_name ||
+            lead_applicant_email !== existingOrganisation.lead_applicant_email
+          ) {
+            await mutateOrganisation({
+              params: { organisationId: id },
+              payload: { organisation_name, lead_applicant_email },
+            });
+          }
+
+          await mutateOrganisationInvite(id);
+
+          onSuccess?.();
+
+          return id;
+        }
+
         if (shouldInviteSroDirectly) {
           const { organisation_name, lead_applicant_email } = organisation;
 
@@ -109,7 +140,9 @@ export default function useOrganisationInvite({
       }
     },
     [
+      existingOrganisation,
       shouldInviteSroDirectly,
+      mutateOrganisation,
       mutateOrganisationUnclaimed,
       mutateOrganisationUnclaimedBeforeSuperadminInvitation,
       mutateOrganisationInvite,
@@ -124,21 +157,32 @@ export default function useOrganisationInvite({
     resetOrganisationUnclaimedBeforeSuperadminInvitation();
     resetOrganisationInvite();
     resetOrganisationInviteToContactSuperadmin();
+    resetOrganisation();
   }, [
+    resetOrganisation,
     resetOrganisationUnclaimed,
     resetOrganisationUnclaimedBeforeSuperadminInvitation,
     resetOrganisationInvite,
     resetOrganisationInviteToContactSuperadmin,
   ]);
 
-  const queryState = getCombinedQueryState<MutationState>(
-    shouldInviteSroDirectly
-      ? [postOrganisationUnclaimedQueryState, postOrganisationInviteQueryState]
-      : [
-          postOrganisationUnclaimedBeforeSuperadminInvitationQueryState,
-          postOrganisationInviteToContactSuperadminQueryState,
-        ]
-  );
+  let queryStates;
+
+  if (existingOrganisation) {
+    queryStates = [putOrganisationQueryState, postOrganisationInviteQueryState];
+  } else if (shouldInviteSroDirectly) {
+    queryStates = [
+      postOrganisationUnclaimedQueryState,
+      postOrganisationInviteQueryState,
+    ];
+  } else {
+    queryStates = [
+      postOrganisationUnclaimedBeforeSuperadminInvitationQueryState,
+      postOrganisationInviteToContactSuperadminQueryState,
+    ];
+  }
+
+  const queryState = getCombinedQueryState<MutationState>(queryStates);
 
   return useMemo(
     () => ({
