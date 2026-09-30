@@ -4,7 +4,9 @@ import { FileType } from "@/consts/files";
 import useColumns from "@/hooks/useColumns";
 import {
   renderFileDownloadLink,
+  renderOrganisationAccountStatusCell,
   renderOrganisationValidatedCell,
+  renderSroStatusCell,
   renderUserNameCell,
 } from "@/utils/cells";
 import { formatDisplayLongDate } from "@/utils/date";
@@ -19,6 +21,8 @@ import { ModuleTables } from "../../types/modules";
 
 export type OrganisationsTableColumns =
   | "organisationName"
+  | "status"
+  | "sroStatus"
   | "systemApproved"
   | "systemApprovedAt"
   | "sroProfileLink"
@@ -35,9 +39,11 @@ export default function OrganisationsTable({
   extraColumns,
   includeColumns = [
     "organisationName",
+    "status",
     "systemApproved",
     "systemApprovedAt",
     "sroDocument",
+    "sroStatus",
     "sroProfileLink",
     "role",
     "email",
@@ -54,6 +60,9 @@ export default function OrganisationsTable({
     const initialColumns: ColumnDef<Organisation>[] = [
       createDefaultColumn("organisationName", {
         accessorKey: "organisation_name",
+      }),
+      createDefaultColumn("status", {
+        cell: renderOrganisationAccountStatusCell,
       }),
       createDefaultColumn("sroProfileLink", {
         cell: info => (
@@ -72,6 +81,9 @@ export default function OrganisationsTable({
         accessorKey: "files",
         cell: info =>
           renderFileDownloadLink(info.getValue(), FileType.DECLARATION_SRO),
+      }),
+      createDefaultColumn("sroStatus", {
+        cell: renderSroStatusCell,
       }),
       createDefaultColumn("systemApproved", {
         accessorKey: "system_approved",
