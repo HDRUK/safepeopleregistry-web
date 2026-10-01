@@ -18,7 +18,6 @@ export default function OrganisationsContactDetails() {
     projectOrganisation: state.getCurrentProjectOrganisation(),
   }));
 
-  //  Why is this still here, we probably can remove it 
   console.log(projectOrganisation);
 
   return (
