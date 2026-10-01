@@ -68,7 +68,7 @@ const SRO_STATUSES = {
 };
 
 function getSroStatus({ sro_status }: Organisation): Status | undefined {
-  return sro_status && SRO_STATUSES[sro_status];
+  return sro_status ? SRO_STATUSES[sro_status] : undefined;
 }
 
 export { filterOrganisationsList, getOrganisationAccountStatus, getSroStatus };
