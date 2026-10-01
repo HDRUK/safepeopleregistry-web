@@ -5,12 +5,16 @@ import { getRequest } from "@/services/requests";
 
 export default async (id: number) => {
   try {
-    const response = (await getRequest(`/organisation/${id}/sro_delcaration`)) as Response;
+    const response = (await getRequest(`/organisations/${id}/sro_declaration`)) as Response;
     if (!response.ok) {
       throw new Error("Failed to download file");
     }
 
     const blob = await response.blob();
+
+     const contentType =
+    response.headers.get("Content-Type") || "application/octet-stream";
+
 
     const fileName =
       response.headers
@@ -18,15 +22,13 @@ export default async (id: number) => {
         ?.split("filename=")[1]
         ?.replace(/"/g, "") || "downloaded_file";
 
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = fileName;
-    document.body.appendChild(a);
-    a.click();
-
-    if (window.URL.revokeObjectURL) window.URL.revokeObjectURL(url);
+    return {
+    blob,
+    fileName,
+    contentType,
+  };
   } catch (error) {
     console.error("Download error:", error);
   }
+
 };

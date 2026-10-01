@@ -4,6 +4,9 @@ import { Link, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useTranslations } from "next-intl";
 import { Organisation } from "../../types/application";
+import {getOrganisationSroDeclarationQuery} from "@/services/organisations/";
+import { useQuery } from "@tanstack/react-query";
+import SroDeclarationDownloadLink from "@/components/SroDeclarationDownloadLink/SroDeclarationDownloadLink";
 
 export type OrganisationsSroDetailsProps = {
   organisation: Organisation;
@@ -19,8 +22,10 @@ export default function OrganisationsSroDetails({
   const tSro = useTranslations(NAMESPACE_TRANSLATION_SRO_DETAILS);
 
   const sroDetails = organisation.sro_officer;
-
+// Not sure this is even doing anything at the moment.
   const latestSroFile = getLatestSRODeclaration(organisation?.files);
+  const sroFile =  useQuery(getOrganisationSroDeclarationQuery(organisation?.id));
+
 
   return (
     <Box
@@ -37,9 +42,10 @@ export default function OrganisationsSroDetails({
       <div>
         <Typography variant="h6">{t("name")}</Typography>
         <Typography>
-          {sroDetails?.first_name} {sroDetails?.last_name}
+          {sroDetails?.first_name} {sroDetails?.last_name} 
         </Typography>
       </div>
+
 
       {sroDetails?.departments?.[0] && (
         <div>
@@ -64,6 +70,12 @@ export default function OrganisationsSroDetails({
           <Typography variant="h6">{tSro("signedDeclaration")}</Typography>
           <FileDownloadLink file={latestSroFile} />
         </div>
+      )}
+      {sroFile && (
+        <div>
+        <Typography variant='h6'>SRO Declaration form</Typography>
+        <SroDeclarationDownloadLink organisationId={organisation.id} />
+      </div>
       )}
       {organisation?.sro_profile_uri && (
         <div>
