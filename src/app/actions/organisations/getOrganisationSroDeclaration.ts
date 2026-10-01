@@ -29,5 +29,6 @@ export default async (id: number) => {
     };
   } catch (error) {
     console.error("Download error:", error);
+    throw error;
   }
 };
