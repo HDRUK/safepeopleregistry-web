@@ -12,9 +12,6 @@ const mockedFile = (file?: Partial<FileResponse>) => ({
   ...file,
 });
 
-export { mockedFile };
-
-
 const mockedSroDeclarationFile = (file?: Partial<FileResponse>) => ({
   id: faker.number.int(),
   name: "sro_declaration.pdf",
@@ -24,3 +21,5 @@ const mockedSroDeclarationFile = (file?: Partial<FileResponse>) => ({
   updated_at: faker.date.soon().toString(),
   ...file,
 });
+
+export { mockedFile, mockedSroDeclarationFile };
