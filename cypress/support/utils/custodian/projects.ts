@@ -254,6 +254,12 @@ const addNewProjectUser = (user: User) => {
     .trigger("click");
 };
 
+const openProject = (project: ResearcherProject) => {
+  cy.get("#searchByText").clear().type(project.title);
+
+  cy.contains("a", project.title).click();
+};
+
 const invitesNewSponsor = (invite: InviteOrganisationFormValues) => {
   cy.contains("button", "Invite to register").click();
 
@@ -408,6 +414,7 @@ export {
   inviteNewProjectUser,
   inviteNewProjectUserForNewOrganisation,
   openNewProjectUserForNewOrganisationForm,
+  openProject,
   removeFromProjectUsers,
   updateSafeDataProject,
   updateSafeOutputsProject,

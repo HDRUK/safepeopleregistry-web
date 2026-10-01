@@ -311,6 +311,8 @@ type Organisation = OrganisationIdvt &
     organisation_size?: number;
     project?: WithModelState<ResearcherProject>;
     system_approved?: boolean;
+    // needs backend
+    sro_status?: "approved" | "pending" | "rejected";
     sro_profile_uri?: string;
     sro_officer?: User;
     files?: File[];

@@ -1,5 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { mock200Json, mockFailedJson } from "jest.utils";
+import { mockedOrganisation } from "@/mocks/data/organisation";
 import {
   act,
   commonAccessibilityTests,
@@ -8,9 +9,15 @@ import {
   screen,
   waitFor,
 } from "../../utils/testUtils";
-import SendInviteOrganisation from "./SendInviteOrganisation";
+import SendInviteOrganisation, {
+  SendInviteOrganisationProps,
+} from "./SendInviteOrganisation";
 
-const renderSendInviteOrganisation = () => render(<SendInviteOrganisation />);
+const organisation = mockedOrganisation();
+
+const renderSendInviteOrganisation = (
+  props?: Partial<SendInviteOrganisationProps>
+) => render(<SendInviteOrganisation {...props} />);
 
 const renderSubmitted = async () => {
   renderSendInviteOrganisation();
@@ -56,6 +63,31 @@ describe("<SendInviteOrganisation />", () => {
     await waitFor(() => {
       expect(
         screen.getByText(/There was an error inviting the Organisation/i)
+      ).toBeTruthy();
+    });
+  });
+
+  it("prefills and invites an existing organisation", async () => {
+    global.fetch.mockImplementation(() => mock200Json(null));
+
+    renderSendInviteOrganisation({ organisation });
+
+    expect(screen.getByRole("textbox", { name: /Name/i })).toHaveValue(
+      organisation.organisation_name
+    );
+    expect(screen.getByRole("textbox", { name: /Email/i })).toHaveValue(
+      organisation.lead_applicant_email
+    );
+
+    const button = screen.getByRole("button", { name: /invite/i });
+
+    await act(() => {
+      fireEvent.submit(button);
+    });
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(/You have successfully invited the Organisation/i)
       ).toBeTruthy();
     });
   });
