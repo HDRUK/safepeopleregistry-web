@@ -13,3 +13,14 @@ const mockedFile = (file?: Partial<FileResponse>) => ({
 });
 
 export { mockedFile };
+
+
+const mockedSroDeclarationFile = (file?: Partial<FileResponse>) => ({
+  id: faker.number.int(),
+  name: "sro_declaration.pdf",
+  type: FileType.DECLARATION_SRO,
+  status: FileStatus.PROCESSED,
+  created_at: faker.date.soon().toString(),
+  updated_at: faker.date.soon().toString(),
+  ...file,
+});
