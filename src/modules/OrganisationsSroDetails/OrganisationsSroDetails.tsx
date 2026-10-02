@@ -72,7 +72,7 @@ export default function OrganisationsSroDetails({
       )}
       {sroFile?.data && (
         <div>
-          <Typography variant="h6">{t("SRO Declaration form")}</Typography>
+          <Typography variant="h6">SRO Declaration form</Typography>
           <SroDeclarationDownloadLink organisationId={organisation.id} />
         </div>
       )}
