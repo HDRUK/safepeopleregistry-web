@@ -8,7 +8,7 @@ export default function sroDeclarationDownloadLink({
 }: SroDeclarationDownloadLinkProps) {
   const { sroDeclarationDownload } = useSroDeclarationDownload(organisationId);
 
-  const handleDownload = async () => {
+  const handleSroDownload = async () => {
     const { data } = await sroDeclarationDownload();
     if (data) {
       const blob = new Blob([data.blob], { type: data.contentType });
@@ -26,7 +26,7 @@ export default function sroDeclarationDownloadLink({
     <a
       href="#"
       onClick={() => {
-        handleDownload();
+        handleSroDownload();
       }}>
       Download SRO Declaration form
     </a>
