@@ -4,6 +4,7 @@ import {
 } from "@/app/actions/custodians";
 import getOrganisation from "@/app/actions/organisations/getOrganisation";
 import getOrganisationDelegates from "@/app/actions/organisations/getOrganisationDelegates";
+import getOrganisationSroDeclaration from "./getOrganisationSroDeclaration";
 import getOrganisationIdvt from "@/app/actions/organisations/getOrganisationIdvt";
 import getOrganisationRegistries from "@/app/actions/organisations/getOrganisationRegistries";
 import getOrganisations from "@/app/actions/organisations/getOrganisations";
@@ -25,6 +26,7 @@ import { postPermissions } from "@/app/actions/users";
 export {
   postPermissions,
   getSponsoredProjects,
+  getOrganisationSroDeclaration,
   getOrganisationUsers,
   postOrganisationInviteUser,
   postOrganisationInvite,
