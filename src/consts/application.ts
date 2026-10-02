@@ -61,6 +61,13 @@ enum Status {
   SPONSORSHIP_PENDING = "sponsorship_pending",
   SPONSORSHIP_APPROVED = "sponsorship_approved",
   SPONSORSHIP_REJECTED = "sponsorship_rejected",
+  ORGANISATION_ACCOUNT_CREATED = "organisation_account_created",
+  ORGANISATION_INVITED_BY_ADMIN = "organisation_invited_by_admin",
+  ORGANISATION_INVITED_BY_OTHER = "organisation_invited_by_other",
+  ORGANISATION_PLACEHOLDER = "organisation_placeholder",
+  SRO_APPROVED = "sro_approved",
+  SRO_PENDING = "sro_pending",
+  SRO_REJECTED = "sro_rejected",
 }
 
 const PAGINATION_UPPER_LIMIT = 1000;

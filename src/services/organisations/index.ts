@@ -8,11 +8,13 @@ import postOrganisationInviteToContactSuperadminQuery from "@/services/organisat
 import postOrganisationUnclaimedQuery from "@/services/organisations/postOrganisationUnclaimedQuery";
 import postOrganisationUnclaimedBeforeSuperadminInvitationQuery from "@/services/organisations/postOrganisationUnclaimedBeforeSuperadminInvitationQuery";
 import putOrganisationApprovedQuery from "@/services/organisations/putOrganisationApprovedQuery";
+import putOrganisationQuery from "@/services/organisations/putOrganisationQuery";
 import useOrganisationsQuery from "@/services/organisations/useOrganisationsQuery";
 import usePagedSponsoredProjectsQuery from "@/services/organisations/usePagedSponsoredProjectsQuery";
 
 export {
   putOrganisationApprovedQuery,
+  putOrganisationQuery,
   getOrganisationQuery,
   postOrganisationInviteUserQuery,
   postOrganisationInviteToContactSuperadminQuery,

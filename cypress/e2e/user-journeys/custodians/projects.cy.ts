@@ -8,6 +8,7 @@ import {
   hasProject,
   hasProjectSponsor,
   invitesNewSponsor,
+  openProject,
   updateSafeDataProject,
   updateSafeOutputsProject,
   updateSafeSettingsProject,
@@ -55,7 +56,7 @@ describe("Projects custodians journey", () => {
   });
 
   it("Invites a sponsor", () => {
-    cy.contains("a", dataProject.title).click();
+    openProject(dataProject);
 
     invitesNewSponsor(invitedSponsor);
 
@@ -63,21 +64,21 @@ describe("Projects custodians journey", () => {
   });
 
   it("Edits safe data", () => {
-    cy.contains("a", dataProject.title).click();
+    openProject(dataProject);
     cy.contains("a", "Safe Data").click();
 
     updateSafeDataProject(dataProjectDetails);
   });
 
   it("Edits safe settings", () => {
-    cy.contains("a", dataProject.title).click();
+    openProject(dataProject);
     cy.contains("a", "Safe Settings").click();
 
     updateSafeSettingsProject(dataProjectDetails);
   });
 
   it("Edits safe outputs", () => {
-    cy.contains("a", dataProject.title).click();
+    openProject(dataProject);
     cy.contains("a", "Safe Outputs").click();
 
     updateSafeOutputsProject(dataProjectDetails);

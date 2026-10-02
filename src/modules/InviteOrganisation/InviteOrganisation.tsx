@@ -16,12 +16,14 @@ export type InviteOrganisationFormProps = WithTranslations<{
   ) => void | Promise<void>;
   onCancel: () => void;
   queryState: MutationState;
+  defaultValues?: Partial<InviteOrganisationFormValues>;
 }>;
 
 export default function InviteOrganisationForm({
   onSubmit,
   onCancel,
   queryState,
+  defaultValues,
   t,
 }: InviteOrganisationFormProps) {
   const schema = useMemo(
@@ -42,6 +44,7 @@ export default function InviteOrganisationForm({
     defaultValues: {
       organisation_name: "",
       lead_applicant_email: "",
+      ...defaultValues,
     },
   };
 

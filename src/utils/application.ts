@@ -67,6 +67,8 @@ const getColorForStatus = (status?: Status): string => {
       Status.ORGANISATION_REGISTERED,
       Status.SPONSORSHIP_APPROVED,
       Status.EMAIL_SUCCESSFUL,
+      Status.ORGANISATION_ACCOUNT_CREATED,
+      Status.SRO_APPROVED,
     ].includes(status!)
   )
     return "success";
@@ -80,6 +82,7 @@ const getColorForStatus = (status?: Status): string => {
       Status.ORGANISATION_NOT_VALIDATED,
       Status.SPONSORSHIP_REJECTED,
       Status.EMAIL_FAILED,
+      Status.SRO_REJECTED,
     ].includes(status!)
   )
     return "error";
@@ -97,9 +100,20 @@ const getColorForStatus = (status?: Status): string => {
       Status.PENDING,
       Status.AFFILIATION_PENDING,
       Status.SPONSORSHIP_PENDING,
+      Status.ORGANISATION_PLACEHOLDER,
     ].includes(status!)
   )
     return "warning";
+
+  if (
+    [
+      Status.ORGANISATION_INVITED_BY_ADMIN,
+      Status.ORGANISATION_INVITED_BY_OTHER,
+    ].includes(status!)
+  )
+    return "neutral-light";
+
+  if (status === Status.SRO_PENDING) return "primary";
 
   return "neutral";
 };
