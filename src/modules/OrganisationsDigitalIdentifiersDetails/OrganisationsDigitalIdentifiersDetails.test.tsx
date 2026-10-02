@@ -31,6 +31,35 @@ describe("<OrganisationsDigitalIdentifiersDetails />", () => {
     ).toBeInTheDocument();
   });
 
+  it("renders the ODS code if set", () => {
+    const organisationWithOdsId = mockedOrganisation({
+      ods_id: "ABC12",
+    });
+
+    setupTest({
+      organisationData: organisationWithOdsId,
+    });
+
+    expect(screen.getByText("ODS Code")).toBeInTheDocument();
+    expect(screen.getByText(organisationWithOdsId.ods_id)).toBeInTheDocument();
+  });
+
+  it("does not render the ODS code if not set", () => {
+    setupTest();
+
+    expect(screen.queryByText("ODS Code")).not.toBeInTheDocument();
+  });
+
+  it("does not render the ODS code if blank", () => {
+    setupTest({
+      organisationData: mockedOrganisation({
+        ods_id: "  ",
+      }),
+    });
+
+    expect(screen.queryByText("ODS Code")).not.toBeInTheDocument();
+  });
+
   it("renders the correct subsidiaries", () => {
     setupTest();
 
