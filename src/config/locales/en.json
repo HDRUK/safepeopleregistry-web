@@ -1716,7 +1716,8 @@
       "sroOfficerContact": "Senior Responsible Officer (SRO) contact information",
       "sroOfficierContactInfo": "Senior Responsible Officers (SROs), are required to have sufficient seniority and relevant responsibility to nominate Delegates from your Organisation to affiliate your employees or students.",
       "signedDeclaration": "Signed declaration",
-      "profileLink": "Profile link of signatory"
+      "profileLink": "Profile link of signatory",
+      "sroDeclarationForm": "SRO Declaration form"
     },
     "sroOfficer": "Senior Responsible Officer",
     "subsidiaries": "UK subsidiaries",
