@@ -4,7 +4,7 @@ import { ActionMenu, ActionMenuItem } from "@/components/ActionMenu";
 import FormModal from "@/components/FormModal";
 import { Status } from "@/consts/application";
 import useColumns from "@/hooks/useColumns";
-import { OrganisationsTable } from "@/modules";
+import { OrganisationsTable, PageSection } from "@/modules";
 import SendInviteOrganisation from "@/modules/SendInviteOrganisation";
 import {
   Organisation,
@@ -94,7 +94,7 @@ export default function OrganisationsList() {
   ];
 
   return (
-    <>
+    <PageSection>
       <OrganisationsTable extraColumns={extraColumns} {...query} t={t} />
       {organisationToInvite && (
         <FormModal
@@ -111,6 +111,6 @@ export default function OrganisationsList() {
           />
         </FormModal>
       )}
-    </>
+    </PageSection>
   );
 }
