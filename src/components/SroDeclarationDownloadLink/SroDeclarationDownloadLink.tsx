@@ -1,4 +1,4 @@
-import useSroDeclarationDownload from "../../hooks/useSroDeclarationDownload/useSroDeclarationDownload";
+import useSroDeclarationDownload from "@/hooks/useSroDeclarationDownload/useSroDeclarationDownload";
 
 export interface SroDeclarationDownloadLinkProps {
   organisationId: number;

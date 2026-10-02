@@ -9,7 +9,6 @@ export default function useSroDeclarationDownload(organisationId: number) {
   });
 
   return {
-    // Modify the return to match
     sroDeclarationDownload,
     ...queryState,
   };
