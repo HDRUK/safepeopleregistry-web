@@ -14,6 +14,8 @@ export default function OrganisationsDigitalIdentifiersDetails({
   organisationData,
   tKey = NAMESPACE_TRANSLATION,
 }: OrganisationsDigitalIdentifiersDetailsProps) {
+  const hasOdsId = Boolean(organisationData.ods_id?.trim());
+
   return (
     <FieldsToText
       data={organisationData}
@@ -38,17 +40,21 @@ export default function OrganisationsDigitalIdentifiersDetails({
             </Link>
           ),
         },
-        {
-          column_id: "ods_id",
-          content: (
-            <Link
-              target="_blank"
-              rel="noreferrer"
-              href={`https://www.odsdatasearchandexport.nhs.uk/?search=generalorg&query=${organisationData.ods_id}`}>
-              {organisationData.ods_id}
-            </Link>
-          ),
-        },
+        ...(hasOdsId
+          ? [
+              {
+                column_id: "ods_id",
+                content: (
+                  <Link
+                    target="_blank"
+                    rel="noreferrer"
+                    href={`https://www.odsdatasearchandexport.nhs.uk/?search=generalorg&query=${organisationData.ods_id}`}>
+                    {organisationData.ods_id}
+                  </Link>
+                ),
+              },
+            ]
+          : []),
         {
           column_id: "charities",
           content: (
