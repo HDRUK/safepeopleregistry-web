@@ -145,9 +145,6 @@ export default function SroInvite({ hasSroAssigned }: SroInviteProps) {
   return (
     <PageBody heading={tOrgProfile("sroInviteTitle")}>
       <PageSection description={tOrgProfile("sroInviteNoOfficerDescription")}>
-        <Typography sx={{ mt: 2, mb: 2 }}>
-          {tOrgProfile("sroInviteProvideDetails")}
-        </Typography>
         <Grid container rowSpacing={3}>
           <Grid size={{ xs: 12 }}>
             <Typography sx={{ fontWeight: "bold" }}>
