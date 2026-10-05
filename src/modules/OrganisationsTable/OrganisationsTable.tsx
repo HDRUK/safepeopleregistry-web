@@ -11,7 +11,7 @@ import {
 } from "@/utils/cells";
 import { formatDisplayLongDate } from "@/utils/date";
 import { filterColumns } from "@/utils/table";
-import { Link } from "@mui/material";
+import { Box, Link } from "@mui/material";
 import { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
 import ErrorMessage from "../../components/ErrorMessage";
@@ -60,19 +60,32 @@ export default function OrganisationsTable({
     const initialColumns: ColumnDef<Organisation>[] = [
       createDefaultColumn("organisationName", {
         accessorKey: "organisation_name",
+        cell: info => (
+          <Box component="span" sx={{ wordBreak: "break-word" }}>
+            {info.getValue() as string}
+          </Box>
+        ),
       }),
       createDefaultColumn("status", {
         cell: renderOrganisationAccountStatusCell,
       }),
       createDefaultColumn("sroProfileLink", {
         cell: info => (
-          <Link href={info.row.original.sro_profile_uri} target="_blank">
+          <Link
+            href={info.row.original.sro_profile_uri}
+            target="_blank"
+            sx={{ wordBreak: "break-word" }}>
             {renderUserNameCell(info.row.original.sro_officer)}
           </Link>
         ),
       }),
       createDefaultColumn("email", {
         accessorKey: "sro_officer.email",
+        cell: info => (
+          <Box component="span" sx={{ wordBreak: "break-all" }}>
+            {info.getValue() as string}
+          </Box>
+        ),
       }),
       createDefaultColumn("role", {
         accessorKey: "sro_officer.role",

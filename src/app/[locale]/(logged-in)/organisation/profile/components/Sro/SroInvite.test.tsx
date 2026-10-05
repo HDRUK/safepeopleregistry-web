@@ -34,14 +34,16 @@ describe("<SroInvite />", () => {
       expect(screen.getByLabelText(/Last name/)).toBeInTheDocument();
       expect(screen.getByLabelText(/Email address/)).toBeInTheDocument();
       expect(
-        screen.getByRole("button", { name: "Send invite" })
+        screen.getByRole("button", { name: "Invite & Save" })
       ).toBeInTheDocument();
     });
 
     it("keeps the send invite button enabled as a placeholder", () => {
       setupTest({ hasSroAssigned: false });
 
-      expect(screen.getByRole("button", { name: "Send invite" })).toBeEnabled();
+      expect(
+        screen.getByRole("button", { name: "Invite & Save" })
+      ).toBeEnabled();
     });
 
     it("defaults to the 'enter new SRO details' mode", () => {
@@ -85,7 +87,7 @@ describe("<SroInvite />", () => {
         )
       ).toBeInTheDocument();
       expect(
-        screen.getByRole("button", { name: "Re-send invite" })
+        screen.getByRole("button", { name: "Reinvite & Save" })
       ).toBeInTheDocument();
       expect(
         screen.getByText(/Invite successfully sent on/)
@@ -101,7 +103,9 @@ describe("<SroInvite />", () => {
       expect(
         screen.getByRole("link", { name: "Previous" })
       ).toBeInTheDocument();
-      expect(screen.getByRole("button", { name: "Save" })).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: "Reinvite & Save" })
+      ).toBeInTheDocument();
     });
   });
 });
