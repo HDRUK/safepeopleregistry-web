@@ -126,8 +126,6 @@ export default function OrganisationsDataSecurityComplianceDetails({
                     {t("certificate")}
                   </Typography>
                   <FileDownloadLink file={file}> </FileDownloadLink>
-                    
-                  
                 </div>
               )}
             </Box>

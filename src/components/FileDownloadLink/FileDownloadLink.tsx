@@ -8,9 +8,8 @@ export interface FileDownloadLinkProps {
 
 export default function FileDownloadLink({ file }: FileDownloadLinkProps) {
   const { downloadFile } = useFileDownload(file.id);
-  console.log("file", file);
 
-    const handledownloadFile = async () => {
+  const handledownloadFile = async () => {
     const { data } = await downloadFile();
     if (data) {
       const blob = new Blob([data.blob], { type: data.contentType });

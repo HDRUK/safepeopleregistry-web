@@ -4,9 +4,8 @@ import { getRequest } from "@/services/requests";
 
 export default async (id: number) => {
   try {
-    console.log("Downloading file with ID:", id);
     const response = (await getRequest(`/files/${id}/download`)) as Response;
-    console.log("Response received:", response.ok, response.status, response.statusText);
+
     if (!response.ok) {
       throw new Error("Failed to download file");
     }

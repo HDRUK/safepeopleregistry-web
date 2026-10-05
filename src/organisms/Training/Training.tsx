@@ -30,7 +30,6 @@ import { PostTrainingsPayload } from "../../services/trainings/types";
 import { EntityType } from "../../types/api";
 import { ResearcherTraining, User } from "../../types/application";
 import TrainingForm from "./TrainingForm";
-import { FourGMobiledataOutlined } from "@mui/icons-material";
 
 const NAMESPACE_TRANSLATION_TRAINING = "Training";
 const NAMESPACE_TRANSLATION_APPLICATION = "Application";
@@ -93,72 +92,40 @@ export default function Training({
     ...deleteProfessionalRegistrationQueryState
   } = useMutation(deleteTrainingsQuery());
 
-//   useEffect(() => {
-//   if (!fileIdToDownload) return;
-
-//   const download = async () => {
-//     const result = await fileDownload();
-
-//     console.log("DOWNLOAD RESULT:", result);
-//   };
-
-//   download();
-// }, [fileIdToDownload, fileDownload]);
-
-  // useEffect(() => {
-  //   try {
-  //     if (fileIdToDownload) {
-  //       fileDownload(fileIdToDownload);
-  //       setFileIdToDownload(undefined);
-  //     }
-  //   } catch (_) {
-  //     showAlert({
-  //       severity: "error",
-  //       text: <ErrorMessage t={t} tKey="fileDownloadError" />,
-  //       confirmButtonText: t("errorButton"),
-  //       onConfirm: async () => {
-  //         hideAlert();
-  //       },
-  //     });
-  //   }
-  // }, [fileIdToDownload, fileDownload]);
-
-
   useEffect(() => {
-  if (!fileIdToDownload) return;
+    if (!fileIdToDownload) return;
 
-  const download = async () => {
-    try {
-      const { data } = await fileDownload();
+    const download = async () => {
+      try {
+        const { data } = await fileDownload();
 
-      if (!data) return;
+        if (!data) return;
 
-      const { blob, fileName } = data;
+        const { blob, fileName } = data;
 
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
 
-      link.href = url;
-      link.download = fileName;
-      document.body.appendChild(link);
-      link.click();
+        link.href = url;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
 
-      link.remove();
-      URL.revokeObjectURL(url);
+        link.remove();
+        URL.revokeObjectURL(url);
 
-      setFileIdToDownload(undefined);
-    } catch {
-      showAlert({
-        severity: "error",
-        text: <ErrorMessage t={t} tKey="fileDownloadError" />,
-        confirmButtonText: t("errorButton"),
-        onConfirm: hideAlert,
-      });
-    }
-  };
+        setFileIdToDownload(undefined);
+      } catch {
+        showAlert({
+          severity: "error",
+          text: <ErrorMessage t={t} tKey="fileDownloadError" />,
+          confirmButtonText: t("errorButton"),
+          onConfirm: hideAlert,
+        });
+      }
+    };
     download();
-
-}, [fileIdToDownload, fileDownload, showAlert, t, hideAlert]);
+  }, [fileIdToDownload, fileDownload, showAlert, t, hideAlert]);
 
   const handleOpenModal = useCallback((training?: ResearcherTraining) => {
     setSelectedTraining(training);
@@ -228,14 +195,11 @@ export default function Training({
           <ActionMenuItem
             icon={<TaskAltIcon sx={{ color: "secondary.main" }} />}
             sx={{ color: "secondary.main" }}
-            onClick={() =>
-            {
+            onClick={() => {
               if (certificateFileId) {
                 downloadFile(certificateFileId);
               }
-              // !!certificateFileId && downloadFile(certificateFileId);
-              }
-            }
+            }}
             disabled={!certificateFileId}>
             {t("viewCertificate")}
           </ActionMenuItem>
