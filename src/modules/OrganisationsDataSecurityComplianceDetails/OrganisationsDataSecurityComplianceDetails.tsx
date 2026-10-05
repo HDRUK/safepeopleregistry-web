@@ -1,8 +1,9 @@
 import { Box, Link, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
-import { downloadFile } from "@/app/actions/files";
+// import { downloadFile } from "@/app/actions/files";
 import { Organisation } from "../../types/application";
 import { formatDisplayLongDate } from "../../utils/date";
+import FileDownloadLink from "@/components/FileDownloadLink/FileDownloadLink";
 
 interface OrganisationsDataSecurityComplianceDetailsProps {
   organisationData: Organisation;
@@ -34,7 +35,6 @@ export default function OrganisationsDataSecurityComplianceDetails({
     ico_expiry_date,
     ico_expiry_evidence,
   } = organisationData;
-
   const data = [
     {
       name: t("ceCertification"),
@@ -125,9 +125,9 @@ export default function OrganisationsDataSecurityComplianceDetails({
                   <Typography variant="h6" fontSize="1rem">
                     {t("certificate")}
                   </Typography>
-                  <Link onClick={() => downloadFile(file?.id as number)}>
-                    {t("downloadEvidence")}
-                  </Link>
+                  <FileDownloadLink file={file}> </FileDownloadLink>
+                    
+                  
                 </div>
               )}
             </Box>

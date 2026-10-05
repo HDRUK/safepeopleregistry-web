@@ -8,7 +8,7 @@ export interface FileDownloadLinkProps {
 
 export default function FileDownloadLink({ file }: FileDownloadLinkProps) {
   const { downloadFile } = useFileDownload(file.id);
-
+  console.log("file", file);
 
     const handledownloadFile = async () => {
     const { data } = await downloadFile();
@@ -31,7 +31,7 @@ export default function FileDownloadLink({ file }: FileDownloadLinkProps) {
       onClick={() => {
         handledownloadFile();
       }}>
-      {file.name}
+      Download File
     </Link>
   );
 }
