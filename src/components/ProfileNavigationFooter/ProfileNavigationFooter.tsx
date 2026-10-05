@@ -10,6 +10,7 @@ const NAMESPACE_TRANSLATION_PROFILE = "Profile";
 
 export type ProfileNavigationFooterProps = {
   nextStepText?: string;
+  submitButtonText?: string;
   isLoading?: boolean;
   previousHref?: string;
   nextHref?: string;
@@ -22,6 +23,7 @@ export default function ProfileNavigationFooter({
   previousHref,
   nextHref,
   nextStepText,
+  submitButtonText,
   isLoading,
   isDisabled = false,
   isLastStep = false,
@@ -29,11 +31,13 @@ export default function ProfileNavigationFooter({
 }: ProfileNavigationFooterProps) {
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
 
-  const nextButtonText = isLastStep
-    ? tProfile("finishLinkText")
-    : nextStepText
-      ? tProfile("submitAndContinueButton")
-      : tProfile("submitButton");
+  const nextButtonText = submitButtonText
+    ? submitButtonText
+    : isLastStep
+      ? tProfile("finishLinkText")
+      : nextStepText
+        ? tProfile("submitAndContinueButton")
+        : tProfile("submitButton");
 
   return (
     <Grid container spacing={2} alignItems="center" sx={{ width: "100%" }}>
