@@ -102,7 +102,7 @@ export default function ProjectsAddUserForm({
     <>
       <FormModalBody>
         <SearchBar
-          disabled={!!invitedUsers.length}
+          disabled={showInvitedUsers}
           onClear={resetQueryParams}
           onSearch={(text: string) => {
             updateQueryParams({
@@ -119,7 +119,7 @@ export default function ProjectsAddUserForm({
                     badgeContent={invitedUsers.length}
                     color="primary"
                     sx={{
-                      ml: 1,
+                      ml: 2,
                     }}
                   />
                 }>
