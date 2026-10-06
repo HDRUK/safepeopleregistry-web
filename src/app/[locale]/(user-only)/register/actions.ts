@@ -50,7 +50,7 @@ async function registerInvite(unclaimedUser: User, userGroup: UserGroup) {
 
     cookieStore.delete("account_digi_ident");
 
-    if (!unclaimedUser.is_delegate) {
+    if (unclaimedUser.is_delegate || unclaimedUser.is_sro) {
       await putOrganisation(orgId, { unclaimed: 0 });
     }
 
