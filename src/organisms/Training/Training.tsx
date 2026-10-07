@@ -183,7 +183,7 @@ export default function Training({
             icon={<TaskAltIcon sx={{ color: "secondary.main" }} />}
             sx={{ color: "secondary.main" }}
             onClick={() => {
-              !!certificateFileId && downloadFile(certificateFileId)
+              !!certificateFileId && downloadFile(certificateFileId);
             }}
             disabled={!certificateFileId}>
             {t("viewCertificate")}
