@@ -12,6 +12,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 import { FileStatus, FileType } from "@/consts/files";
+import { downloadBlob } from "@/utils/file";
 import { formatDBDateTime, formatShortDate } from "@/utils/date";
 import { ActionMenu, ActionMenuItem } from "../../components/ActionMenu";
 import FormModal from "../../components/FormModal";
@@ -98,22 +99,8 @@ export default function Training({
     const download = async () => {
       try {
         const { data } = await fileDownload();
-
         if (!data) return;
-
-        const { blob, fileName } = data;
-
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-
-        link.href = url;
-        link.download = fileName;
-        document.body.appendChild(link);
-        link.click();
-
-        link.remove();
-        URL.revokeObjectURL(url);
-
+        downloadBlob(data.blob, data.fileName);
         setFileIdToDownload(undefined);
       } catch {
         showAlert({
@@ -196,7 +183,7 @@ export default function Training({
             icon={<TaskAltIcon sx={{ color: "secondary.main" }} />}
             sx={{ color: "secondary.main" }}
             onClick={() => {
-              !!certificateFileId && downloadFile(certificateFileId)
+              !!certificateFileId && downloadFile(certificateFileId);
             }}
             disabled={!certificateFileId}>
             {t("viewCertificate")}
