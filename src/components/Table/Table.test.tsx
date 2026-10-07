@@ -13,6 +13,12 @@ interface TestData {
   name: string;
 }
 
+const mockRows = (count: number): TestData[] =>
+  Array.from({ length: count }, (_, i) => ({
+    id: i + 1,
+    name: `User ${i + 1}`,
+  }));
+
 describe("<Table />", () => {
   const columns: ColumnDef<TestData>[] = [
     {
@@ -79,6 +85,25 @@ describe("<Table />", () => {
     const nextPageButton = screen.getByRole("button", { name: /next/i });
     fireEvent.click(nextPageButton);
     expect(setPage).toHaveBeenCalledWith(2);
+  });
+
+  test("splits the data into pages itself when setPage is not passed", () => {
+    render(
+      <Table
+        data={mockRows(30)}
+        columns={columns}
+        isPaginated
+        queryState={{ isLoading: false, isError: false }}
+      />
+    );
+
+    expect(screen.getByText("User 1")).toBeInTheDocument();
+    expect(screen.queryByText("User 26")).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: /next/i }));
+
+    expect(screen.queryByText("User 1")).not.toBeInTheDocument();
+    expect(screen.getByText("User 26")).toBeInTheDocument();
   });
 
   it("has no accessibility violations", async () => {

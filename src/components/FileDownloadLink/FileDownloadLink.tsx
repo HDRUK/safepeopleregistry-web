@@ -10,11 +10,10 @@ export interface FileDownloadLinkProps {
 
 const NAMESPACE_TRANSLATION_FILE = "File";
 
-
 export default function FileDownloadLink({ file }: FileDownloadLinkProps) {
   const { downloadFile } = useFileDownload(file.id);
   const t = useTranslations(NAMESPACE_TRANSLATION_FILE);
-  
+
   const handledownloadFile = async () => {
     const { data } = await downloadFile();
     downloadBlob(data.blob, data.fileName);
