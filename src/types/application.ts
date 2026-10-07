@@ -220,6 +220,7 @@ type User = WithModelState<{
     identity?: Identity;
   };
   is_delegate: number;
+  is_sro: number;
   departments?: Department[];
   role?: string;
   location?: string;

@@ -313,7 +313,8 @@ export const mockedResearcherAffiliationsGuidance = {
       </Typography>
       <Typography mb={2}>
         If your Organisation is not yet registered on Safe People Registry, you
-        can invite them to create an account by adding them.
+        can still add them, or even invite them to create an account by
+        including an email address for a potential Organisation representative.
       </Typography>
       <Typography mb={2}>
         Most Data Custodians require a confirmed affiliation between a User and

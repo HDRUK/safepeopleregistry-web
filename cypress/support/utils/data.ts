@@ -166,7 +166,7 @@ const SRO_REQUIREMENT_FEATURE = "SroRequirementEnabled";
 // Copy shown once SroRequirementEnabled is off and the SRO email address
 // becomes a suggestion rather than a requirement.
 const SRO_EMAIL_LABEL =
-  "Email address for Senior Responsible Officer (optional)";
+  "Email address for an Organisation representative (optional)";
 const SRO_EMAIL_FORMAT_ERROR = "SRO email must be a valid format";
 const USER_SRO_EMAIL_DESCRIPTION =
   "Suggest an appropriately senior individual to register the organisation";
