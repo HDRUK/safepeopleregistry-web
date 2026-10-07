@@ -12,6 +12,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 import { FileStatus, FileType } from "@/consts/files";
+import { downloadBlob } from "@/utils/file";
 import { formatDBDateTime, formatShortDate } from "@/utils/date";
 import { ActionMenu, ActionMenuItem } from "../../components/ActionMenu";
 import FormModal from "../../components/FormModal";
@@ -93,22 +94,25 @@ export default function Training({
   } = useMutation(deleteTrainingsQuery());
 
   useEffect(() => {
-    try {
-      if (fileIdToDownload) {
-        fileDownload();
+    if (!fileIdToDownload) return;
+
+    const download = async () => {
+      try {
+        const { data } = await fileDownload();
+        if (!data) return;
+        downloadBlob(data.blob, data.fileName);
         setFileIdToDownload(undefined);
+      } catch {
+        showAlert({
+          severity: "error",
+          text: <ErrorMessage t={t} tKey="fileDownloadError" />,
+          confirmButtonText: t("errorButton"),
+          onConfirm: hideAlert,
+        });
       }
-    } catch (_) {
-      showAlert({
-        severity: "error",
-        text: <ErrorMessage t={t} tKey="fileDownloadError" />,
-        confirmButtonText: t("errorButton"),
-        onConfirm: async () => {
-          hideAlert();
-        },
-      });
-    }
-  }, [fileIdToDownload, fileDownload]);
+    };
+    download();
+  }, [fileIdToDownload, fileDownload, showAlert, t, hideAlert]);
 
   const handleOpenModal = useCallback((training?: ResearcherTraining) => {
     setSelectedTraining(training);
@@ -178,9 +182,9 @@ export default function Training({
           <ActionMenuItem
             icon={<TaskAltIcon sx={{ color: "secondary.main" }} />}
             sx={{ color: "secondary.main" }}
-            onClick={() =>
+            onClick={() => {
               !!certificateFileId && downloadFile(certificateFileId)
-            }
+            }}
             disabled={!certificateFileId}>
             {t("viewCertificate")}
           </ActionMenuItem>
