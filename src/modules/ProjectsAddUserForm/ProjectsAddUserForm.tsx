@@ -137,10 +137,7 @@ export default function ProjectsAddUserForm({
           errorMessage={
             <ErrorMessage t={t} tKey="professionalRegistrationsErrorMessage" />
           }
-          total={total}
-          page={page}
-          setPage={setPage}
-          last_page={last_page}
+          {...(!showInvitedUsers && { total, page, setPage, last_page })}
         />
       </FormModalBody>
       <FormActions>
