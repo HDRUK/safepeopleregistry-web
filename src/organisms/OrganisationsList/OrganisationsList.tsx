@@ -52,7 +52,7 @@ export default function OrganisationsList() {
         const { system_approved, id } = info.row.original;
 
         const canInvite = [
-          Status.ORGANISATION_INVITED_BY_OTHER,
+          Status.ORGANISATION_INVITED_BY_NONADMIN,
           Status.ORGANISATION_PLACEHOLDER,
         ].includes(getOrganisationAccountStatus(info.row.original));
 
