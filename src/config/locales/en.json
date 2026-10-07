@@ -11,7 +11,8 @@
     "fileTypeErrorText": "Your file type is not supported",
     "scanningText": "Scanning file for viruses...",
     "scanOkText": "File was successfully scanned",
-    "scanErrorText": "Your file file may have a virus"
+    "scanErrorText": "Your file file may have a virus",
+    "FileDownloadText": "Download File"
   },
   "Admin": {
     "SuperAdminList": {
