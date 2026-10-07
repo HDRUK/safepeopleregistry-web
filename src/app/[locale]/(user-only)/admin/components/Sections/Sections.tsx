@@ -26,6 +26,7 @@ import {
 } from "@/app/[locale]/(logged-in)/user/profile/consts/tabs";
 import SubTabs from "@/modules/SubTabs";
 import { useState } from "react";
+import SendInviteOrganisation from "@/modules/SendInviteOrganisation/SendInviteOrganisation";
 
 const NAMESPACE_TRANSLATIONS_ADMINISTRATION = "Administration";
 
@@ -117,6 +118,17 @@ export default function Sections() {
           onSuccess={handleInviteSuccess}
           combinedSuccess={false}
           actions={<ButtonCancel onClick={() => setOpenModal(null)} />}
+        />
+      ),
+    },
+    {
+      label: t("inviteOrganisation"),
+      value: AdminModalActions.INVITE_ORGANISATION,
+      heading: t("inviteOrganisationModalHeading"),
+      component: (
+        <SendInviteOrganisation
+          onSuccess={handleInviteSuccess}
+          actions={{ onCancel: () => setOpenModal(null) }}
         />
       ),
     },

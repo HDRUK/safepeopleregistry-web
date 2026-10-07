@@ -18,9 +18,9 @@ import ProjectsSafePeople from "../ProjectsSafePeople";
 import ProjectsSafeProject from "../ProjectsSafeProject";
 import ProjectsSafeSettings from "../ProjectsSafeSettings";
 import SecurityCompliance from "../SecurityCompliance";
-import Address from "../Address";
-import NameAndSRO from "../NameAndSRO";
+import NameAndAddress from "../NameAndAddress";
 import OrganisationDetails from "../OrganisationDetails";
+import Sro from "../Sro";
 import SsoTenants from "../SsoTenants";
 
 interface TabsContentsProps {
@@ -51,11 +51,8 @@ export default function SubTabsContents({
   let content = null;
 
   switch (subTabId) {
-    case DetailsPageSubTabs.NAME_AND_SRO:
-      content = <NameAndSRO />;
-      break;
-    case DetailsPageSubTabs.ADDRESS:
-      content = <Address />;
+    case DetailsPageSubTabs.NAME_AND_ADDRESS:
+      content = <NameAndAddress />;
       break;
     case DetailsPageSubTabs.ORGANISATION_DETAILS:
       content = <OrganisationDetails />;
@@ -68,6 +65,9 @@ export default function SubTabsContents({
       break;
     case DetailsPageSubTabs.SSO:
       content = <SsoTenants />;
+      break;
+    case DetailsPageSubTabs.SRO:
+      content = <Sro />;
       break;
     case UserAdminPageSubTabs.EMPLOYEE_STUDENT_ADMINISTRATION:
       content = <OrganisationUsers />;

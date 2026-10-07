@@ -41,6 +41,31 @@ const inviteOrganisation = (invite: InviteOrganisationFormValues) => {
   cy.clickAlertModal("Close");
 };
 
+const openInviteOrganisationModal = () => {
+  cy.contains("button", "Invite Organisation").click();
+};
+
+const closeInviteOrganisationModal = () => {
+  cy.get(dataCy("form-modal")).find('[aria-label="Close"]').click();
+};
+
+// The superadmin "Invite Organisation" flow, which creates a brand new
+// unclaimed Organisation rather than selecting an existing one. The form modal
+// is not closed by a successful invite, so close it explicitly.
+const inviteNewOrganisationAsAdmin = (invite: InviteOrganisationFormValues) => {
+  openInviteOrganisationModal();
+
+  inviteOrganisationForm(invite);
+
+  cy.get(dataCy("form-modal")).within(() => {
+    cy.contains("button", "Invite").click();
+  });
+
+  cy.clickAlertModal("Ok");
+
+  closeInviteOrganisationModal();
+};
+
 const inviteNewOrganisationForm = (invite: InviteUserFormValues) => {
   cy.get("#first_name").clear().type(invite.first_name);
   cy.get("#last_name").clear().type(invite.last_name);
@@ -75,12 +100,15 @@ const inviteNewUser = (invite: InviteUserFormValues) => {
 };
 
 export {
+  closeInviteOrganisationModal,
   inviteNewCustodian,
   inviteNewCustodianForm,
   inviteNewOrganisation,
+  inviteNewOrganisationAsAdmin,
   inviteNewOrganisationForm,
   inviteNewUser,
   inviteNewUserForm,
   inviteOrganisation,
   inviteOrganisationForm,
+  openInviteOrganisationModal,
 };

@@ -10,6 +10,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { getUsers } from "@/app/actions/users";
+import { useFeatures } from "@/components/FeatureProvider";
 import Form from "../../components/Form";
 import FormActions from "../../components/FormActions";
 import FormControlWrapper from "../../components/FormControlWrapper";
@@ -55,6 +56,7 @@ export default function InviteUser({
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
   const tUser = useTranslations(NAMESPACE_TRANSLATION_ORGANISATION);
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
+  const { isSroRequirementEnabled } = useFeatures();
 
   const queryClient = useQueryClient();
   const [selectOrganisation, setSelectOrganisation] = useState<boolean>(true);
@@ -131,12 +133,17 @@ export default function InviteUser({
           : yup.string().required(tForm("organisationNameRequired")),
         organisation_email: selectOrganisation
           ? yup.string().notRequired()
-          : yup
-              .string()
-              .email(tForm("emailInvalid"))
-              .required(tForm("organisationEmailRequired")),
+          : !isSroRequirementEnabled
+            ? yup
+                .string()
+                .email(tForm("custodianSroEmailFormatInvalid"))
+                .notRequired()
+            : yup
+                .string()
+                .email(tForm("emailInvalid"))
+                .required(tForm("organisationEmailRequired")),
       }),
-    [tForm, selectOrganisation]
+    [tForm, selectOrganisation, isSroRequirementEnabled]
   );
 
   const formOptions = {
@@ -162,7 +169,7 @@ export default function InviteUser({
 
     let organisationId = organisation_id;
 
-    if (organisation_name && organisation_email) {
+    if (!selectOrganisation && organisation_name) {
       const invitePayload = {
         organisation_name,
         lead_applicant_email: organisation_email,
@@ -285,10 +292,19 @@ export default function InviteUser({
                     <Grid size={{ xs: 12 }}>
                       <FormControlWrapper
                         name="organisation_email"
+                        label={
+                          !isSroRequirementEnabled
+                            ? tForm("custodianSroEmail")
+                            : undefined
+                        }
                         renderField={fieldProps => (
                           <TextField {...fieldProps} />
                         )}
-                        description={tProfile("organisationNameSubtitle")}
+                        description={
+                          !isSroRequirementEnabled
+                            ? tForm("custodianSroEmailDescription")
+                            : tProfile("organisationNameSubtitle")
+                        }
                       />
                     </Grid>
                   </>

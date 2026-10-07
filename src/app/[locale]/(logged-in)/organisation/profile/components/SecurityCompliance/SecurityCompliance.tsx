@@ -13,6 +13,7 @@ import { PutOrganisationPayload } from "@/services/organisations";
 import { formatDBDate } from "@/utils/date";
 import { Grid, TextField } from "@mui/material";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
 import useUpdateOrganisation from "../../hooks/useUpdateOrganisation";
@@ -30,6 +31,7 @@ const NAMESPACE_TRANSLATION_PROFILE = "ProfileOrganisation";
 
 export default function SecurityCompliance() {
   const organisation = useStore(state => state.config.organisation);
+  const router = useRouter();
   const t = useTranslations(NAMESPACE_TRANSLATION_FORM);
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
 
@@ -64,7 +66,9 @@ export default function SecurityCompliance() {
       ico_expiry_date: formatDBDate(data.ico_expiry_date),
     } as PutOrganisationPayload;
 
-    onSubmit(payload);
+    onSubmit(payload).then(() => {
+      router.push(ROUTES.profileOrganisationDetailsSro.path);
+    });
   };
 
   return (
@@ -161,6 +165,7 @@ export default function SecurityCompliance() {
                 previousHref={
                   ROUTES.profileOrganisationDetailsDigitalIdentifiers.path
                 }
+                nextStepText={tProfile("nextStepSro")}
                 isLoading={isLoading}
               />
             </FormActions>

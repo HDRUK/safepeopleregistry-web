@@ -70,7 +70,7 @@ describe("Projects custodians journey", () => {
     hasCheckedOnOrganisationConfigurationManualChecks();
   });
 
-  it("Has Add Manual Checks For Users Configuration Manual Checks", () => {
+  it("Has Add Manual Checks For Organisation Configuration Manual Checks", () => {
     hasAddManualChecksForOrganisationConfigurationManualChecks();
   });
 

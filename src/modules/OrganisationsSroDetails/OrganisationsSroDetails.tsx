@@ -4,6 +4,9 @@ import { Link, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useTranslations } from "next-intl";
 import { Organisation } from "../../types/application";
+import { getOrganisationSroDeclarationQuery } from "@/services/organisations/";
+import { useQuery } from "@tanstack/react-query";
+import SroDeclarationDownloadLink from "@/components/SroDeclarationDownloadLink/SroDeclarationDownloadLink";
 
 export type OrganisationsSroDetailsProps = {
   organisation: Organisation;
@@ -19,8 +22,10 @@ export default function OrganisationsSroDetails({
   const tSro = useTranslations(NAMESPACE_TRANSLATION_SRO_DETAILS);
 
   const sroDetails = organisation.sro_officer;
-
   const latestSroFile = getLatestSRODeclaration(organisation?.files);
+  const sroFile = useQuery(
+    getOrganisationSroDeclarationQuery(organisation?.id)
+  );
 
   return (
     <Box
@@ -63,6 +68,12 @@ export default function OrganisationsSroDetails({
         <div>
           <Typography variant="h6">{tSro("signedDeclaration")}</Typography>
           <FileDownloadLink file={latestSroFile} />
+        </div>
+      )}
+      {sroFile?.data && (
+        <div>
+          <Typography variant="h6">{tSro("sroDeclarationForm")}</Typography>
+          <SroDeclarationDownloadLink organisationId={organisation.id} />
         </div>
       )}
       {organisation?.sro_profile_uri && (

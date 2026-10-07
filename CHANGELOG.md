@@ -1,3 +1,14 @@
+## [1.41.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.40.0...v1.41.0) (2026-09-18)
+
+### ✨ Features
+
+* **REGISTRY-2951:** Fix text for CSV uploads (#900) ([4752149](https://github.com/HDRUK/safepeopleregistry-web/commit/475214960fa29f4f33028a1d4ee3c741d4f48d64))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-2879:** Check file upload permissions to prevent poor behaviour (#898) ([9bc419a](https://github.com/HDRUK/safepeopleregistry-web/commit/9bc419aad44c3c36ef6a6bb55ea79702044c53a9))
+* **REGISTRY-2883:** Custodian view of the Org profile issues (#899) ([bea44d8](https://github.com/HDRUK/safepeopleregistry-web/commit/bea44d851157d4aedbe82be94310562051279bc3))
+
 ## [1.40.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.39.0...v1.40.0) (2026-09-11)
 
 ### ✨ Features

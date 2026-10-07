@@ -189,6 +189,50 @@ const inviteNewProjectUser = (invite: InviteUserFormValues) => {
   // cy.clickAlertModal("Close");
 };
 
+// Opens the project's "Add a new member" invite form and switches it over to
+// naming an Organisation that isn't on the Registry yet.
+const openNewProjectUserForNewOrganisationForm = () => {
+  cy.contains("button", "Add a new member").click();
+
+  cy.contains(
+    "a",
+    /invite them to create a Safe People Registry account here/i
+  ).click();
+
+  cy.buttonClick("Ask them to register");
+
+  cy.get("#organisation_name").should("be.visible");
+};
+
+// Invites a project User against an Organisation that isn't on the Registry
+// yet. Leaving `organisation_email` out exercises the
+// SroRequirementEnabled=false path, where the SRO email address is optional.
+const inviteNewProjectUserForNewOrganisation = (
+  invite: InviteUserFormValues,
+  organisation: { organisation_name: string; organisation_email?: string }
+) => {
+  openNewProjectUserForNewOrganisationForm();
+
+  cy.get("#first_name").clear().type(invite.first_name);
+  cy.get("#last_name").clear().type(invite.last_name);
+  cy.get("#email").clear().type(invite.email);
+  cy.selectValue("#role", invite.role);
+
+  cy.get("#organisation_name").clear().type(organisation.organisation_name);
+
+  if (organisation.organisation_email) {
+    cy.get("#organisation_email").clear().type(organisation.organisation_email);
+  }
+
+  cy.saveFormClick("Invite");
+  cy.clickAlertModal("Close");
+};
+
+const hasInvitedProjectUser = (invite: InviteUserFormValues) => {
+  cy.contains("You have invited").should("be.visible");
+  cy.contains(getName(invite)).should("be.visible");
+};
+
 const addNewProjectUser = (user: User) => {
   cy.contains("button", "Add a new member").click();
 
@@ -208,6 +252,12 @@ const addNewProjectUser = (user: User) => {
     .should("be.visible")
     .and("be.enabled")
     .trigger("click");
+};
+
+const openProject = (project: ResearcherProject) => {
+  cy.get("#searchByText").clear().type(project.title);
+
+  cy.contains("a", project.title).click();
 };
 
 const invitesNewSponsor = (invite: InviteOrganisationFormValues) => {
@@ -241,6 +291,47 @@ const addNewProject = (project: ResearcherProject) => {
 
   cy.saveContinueClick("Save");
   cy.clickAlertModal("Close");
+};
+
+// Creates the project and stops on the Safe Project step. Unlike addNewProject
+// it never picks a sponsor: SelectOrganisation only offers system-approved
+// Organisations, and the seed Organisation isn't approved until
+// admin/sro.cy.ts runs, so any spec ordered before that can't select one.
+const createProject = (project: ResearcherProject) => {
+  cy.contains("button", "Add new project").click();
+
+  cy.get("#unique_id").clear().type(project.unique_id);
+  cy.get("#title").clear().type(project.title);
+
+  cy.dateSelectValue("start_date", project.start_date);
+  cy.dateSelectValue("end_date", project.end_date);
+
+  cy.saveContinueClick("Create project");
+};
+
+// Invites a brand new Organisation as the project's sponsor rather than picking
+// an existing one. Sponsor is still empty after createProject, so InviteSponsor
+// offers "Invite to register".
+const createProjectAndInviteNewSponsor = (
+  project: ResearcherProject,
+  invite: InviteOrganisationFormValues
+) => {
+  createProject(project);
+
+  invitesNewSponsor(invite);
+};
+
+// The counterpart to hasProjectSponsor(): the Organisation is attached as the
+// sponsor, but nobody was invited to it. The unclaimed_before_superadmin_invitation
+// endpoint leaves the Organisation without a state, so getSponsorshipStatus has
+// no "Invited" to report and there is no invite to resend.
+const hasUninvitedProjectSponsor = (invite: InviteOrganisationFormValues) => {
+  cy.contains(invite.organisation_name).should("exist");
+
+  cy.get(dataCy("invite-sponsor")).within(() => {
+    cy.contains(getStatus(Status.INVITED)).should("not.exist");
+    cy.contains("Resend invite").should("not.exist");
+  });
 };
 
 const hasProjectSponsor = () => {
@@ -307,6 +398,8 @@ const updateSafeOutputsProject = (projectDetails: ProjectDetails) => {
 
 export {
   addNewProject,
+  createProject,
+  createProjectAndInviteNewSponsor,
   addNewProjectUser,
   changePrimaryContactProjectUsers,
   changeStatusProjectOrganisations,
@@ -316,8 +409,12 @@ export {
   hasPrimaryContact,
   hasProject,
   hasProjectOrganisations,
+  hasInvitedProjectUser,
   hasProjectUsers,
   inviteNewProjectUser,
+  inviteNewProjectUserForNewOrganisation,
+  openNewProjectUserForNewOrganisationForm,
+  openProject,
   removeFromProjectUsers,
   updateSafeDataProject,
   updateSafeOutputsProject,
@@ -325,4 +422,5 @@ export {
   invitesNewSponsor,
   hasProjectSponsor,
   hasSponsoredProject,
+  hasUninvitedProjectSponsor,
 };

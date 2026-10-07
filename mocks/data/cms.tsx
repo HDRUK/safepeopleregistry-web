@@ -60,17 +60,6 @@ export const mockedOrganisationHomeIntro = (
     <Typography mb={2}>
       You'll see a list of tasks below to complete your profile.
     </Typography>
-    <Typography mb={2}>
-      The Organisation account is set up by a SRO (Senior Responsible Officer),
-      who is required to get a declaration signed on behalf of their
-      Organisation and upload this. The SRO must have a position of seniority,
-      as they are held accountable for the data.
-    </Typography>
-    <Typography mb={2}>
-      Please fill in your Organisation's profile, including uploading the SRO
-      declaration. This is checked by HDR UK before full account privileges are
-      granted.
-    </Typography>
   </>
 );
 
@@ -324,7 +313,8 @@ export const mockedResearcherAffiliationsGuidance = {
       </Typography>
       <Typography mb={2}>
         If your Organisation is not yet registered on Safe People Registry, you
-        can invite them to create an account by adding them.
+        can still add them, or even invite them to create an account by
+        including an email address for a potential Organisation representative.
       </Typography>
       <Typography mb={2}>
         Most Data Custodians require a confirmed affiliation between a User and
@@ -407,12 +397,15 @@ export const mockedDelegateAdministationDescription = (
     <Typography variant="subtitle1" fontSize="large" sx={{ pb: 1 }}>
       Senior Responsible Officer (SRO) contact information
     </Typography>
-    <Typography>
-      As a representative of your Organisation, you have been nominated as a
-      Senior Responsible Officer (SRO), with sufficient seniority and relevant
-      responsibility to nominate Delegates from your Organisation to affiliate
-      your employees or students. As an SRO, You can provide your individual
-      information here:
+    <Typography mb={2}>
+      The Senior Responsible Officer (SRO) must have sufficient authority and
+      responsibility to be accountable for this Organisation account. Please
+      provide SRO information below.
+    </Typography>
+    <Typography mb={2}>
+      The SRO must be legally signed off by their Organisation to take ownership
+      of this account. Please fill in and get a legal signatory to sign the SRO
+      Declaration form.
     </Typography>
   </>
 );
@@ -477,43 +470,7 @@ export type ProfileGuidance = Record<string, TabGuidance>;
 
 export const mockedOrganisationProfileGuidance: TabGuidance = {
   details: {
-    "name-and-sro": {
-      infoTitle: "What’s a Senior Responsible Officer?",
-      info: (
-        <>
-          <Typography mb={3}>
-            <strong>Senior Responsible Officers (SROs)</strong> are responsible
-            for:
-          </Typography>
-
-          <ul style={{ marginBottom: "1rem", paddingLeft: "1.25rem" }}>
-            <li>Creating the Organisation’s Safe People Registry account</li>
-            <li>
-              Nominating <strong>Delegates</strong> to administrate User
-              affiliations
-            </li>
-            <li>
-              Providing and maintaining accurate information in the
-              Organisation’s Safe People Registry profile
-            </li>
-            <li>
-              Accepting the Safe People Registry's Terms and Conditions on
-              behalf of the Organisation
-            </li>
-          </ul>
-
-          <Typography mb={3}>
-            It's essential for your Organisation to designate an SRO. The Safe
-            People Registry deals with sensitive data involving your Users
-            (employees or students) and their work on sensitive data projects
-            within the UK. Therefore, there needs to be senior-level visibility
-            and accountability for this Safe People Registry Organisation
-            account.
-          </Typography>
-        </>
-      ),
-    },
-    address: {
+    "name-and-address": {
       infoTitle: "Why are we asking for this information?",
       info: (
         <>
@@ -566,6 +523,26 @@ export const mockedOrganisationProfileGuidance: TabGuidance = {
             Some Data Custodians require this information even if Users are
             accessing data within Trusted Research Environments (TREs) or Secure
             Data Environments (SDEs).
+          </Typography>
+        </>
+      ),
+    },
+    sro: {
+      infoTitle: "What’s a Senior Responsible Officer?",
+      info: (
+        <>
+          <Typography mb={3}>
+            <strong>Senior Responsible Officers (SROs)</strong> are accountable
+            for the overall administration of an Organisation account.
+          </Typography>
+          <Typography mb={3}>
+            The Safe People Registry deals with sensitive data involving your
+            Users (employees or students) and their work on sensitive data
+            projects within the UK. Therefore, senior-level visibility and
+            accountability for a Safe People Registry Organisation account is
+            important. This lends significant assurance to Data Custodians,
+            speeding up both Organisation and User (researcher/innovator)
+            validation.
           </Typography>
         </>
       ),

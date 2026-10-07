@@ -80,12 +80,15 @@ const Table = <T,>({
     initialState,
   });
 
+  const isPagedByParent = isPaginated && !!setPage;
+  const { pageIndex } = table.getState().pagination;
+
   const rows = useMemo(() => {
     const rowModel = table.getRowModel();
     return rowModel?.rows ?? [];
-  }, [safeData]);
+  }, [safeData, pageIndex]);
 
-  const resultsTotal = (isPaginated ? total : data?.length) || 0;
+  const resultsTotal = (isPagedByParent ? total : data?.length) || 0;
 
   return (
     <Results
@@ -96,10 +99,14 @@ const Table = <T,>({
       pagination={
         isPaginated && (
           <Pagination
-            count={last_page}
-            page={page}
+            count={isPagedByParent ? last_page : table.getPageCount()}
+            page={isPagedByParent ? page : pageIndex + 1}
             onChange={(e: React.ChangeEvent<unknown>, page: number) => {
-              setPage?.(page);
+              if (isPagedByParent) {
+                setPage(page);
+              } else {
+                table.setPageIndex(page - 1);
+              }
             }}
             {...paginationProps}
           />

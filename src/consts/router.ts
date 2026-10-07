@@ -237,12 +237,8 @@ const ROUTES: Routes = {
     path: "/organisation/profile/home",
     permissions: [UserGroup.ORGANISATIONS],
   },
-  profileOrganisationDetailsNameAndSRO: {
-    path: "/organisation/profile/details/name-and-sro",
-    permissions: [UserGroup.ORGANISATIONS],
-  },
-  profileOrganisationDetailsAddress: {
-    path: "/organisation/profile/details/address",
+  profileOrganisationDetailsNameAndAddress: {
+    path: "/organisation/profile/details/name-and-address",
     permissions: [UserGroup.ORGANISATIONS],
   },
   profileOrganisationDetailsOrganisationDetails: {
@@ -259,6 +255,10 @@ const ROUTES: Routes = {
   },
   profileOrganisationDetailsSso: {
     path: "/organisation/profile/details/sso",
+    permissions: [UserGroup.ORGANISATIONS],
+  },
+  profileOrganisationDetailsSro: {
+    path: "/organisation/profile/details/sro",
     permissions: [UserGroup.ORGANISATIONS],
   },
   profileOrganisationUserAdministration: {

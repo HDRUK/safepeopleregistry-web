@@ -3,6 +3,7 @@ import {
   FORMAT_DATE_DB,
   FORMAT_DATETIME_DB,
   FORMAT_DISPLAY_LONG_DATE,
+  FORMAT_DISPLAY_LONG_DATE_TIME,
   FORMAT_DISPLAY_SHORT_DATE,
   FORMAT_SHORT_DATE,
 } from "../consts/date";
@@ -71,6 +72,10 @@ function formatDisplayLongDate(date: Date | string | null | undefined) {
   return formatDateToString(date, FORMAT_DISPLAY_LONG_DATE);
 }
 
+function formatDisplayLongDateTime(date: Date | string | null | undefined) {
+  return formatDateToString(date, FORMAT_DISPLAY_LONG_DATE_TIME);
+}
+
 function formatNowDBDate() {
   return dayjs().format(FORMAT_DATETIME_DB);
 }
@@ -107,6 +112,7 @@ export {
   formatDBDate,
   formatDBDateTime,
   formatDisplayLongDate,
+  formatDisplayLongDateTime,
   formatDisplayShortDate,
   formatDisplayTimeDate,
   formatNowDBDate,

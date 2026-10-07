@@ -21,6 +21,7 @@ import { getDate, getDateComparisonFlags } from "@/utils/date";
 import SelectOrganisation from "@/components/SelectOrganisation";
 import { EntityType } from "@/types/api";
 import { UseFormSetValue } from "react-hook-form";
+import { useFeatures } from "@/components/FeatureProvider";
 
 export interface AffiliationsFormProps {
   onSubmit: (affiliation: ResearcherAffiliation) => void;
@@ -34,6 +35,7 @@ export interface AffiliationsFormProps {
 const NAMESPACE_TRANSLATION = "Profile";
 const NAMESPACE_TRANSLATION_FORM = "Form";
 const NAMESPACE_TRANSLATION_APPLICATION = "Application";
+
 function FormSyncEffects({
   fromDate,
   isCurrent,
@@ -73,6 +75,7 @@ export default function AffiliationsForm({
   const tProfile = useTranslations(NAMESPACE_TRANSLATION);
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
   const tApplication = useTranslations(NAMESPACE_TRANSLATION_APPLICATION);
+  const { isSroRequirementEnabled } = useFeatures();
   const [selectedOrganisationId, setSelectedOrganisationId] = useState<
     number | null
   >();
@@ -108,10 +111,15 @@ export default function AffiliationsForm({
           : yup.string().required(tForm("organisationNameRequired")),
         organisation_email: selectOrganisation
           ? yup.string().notRequired()
-          : yup
-              .string()
-              .email(tForm("emailInvalid"))
-              .required(tForm("organisationEmailRequired")),
+          : !isSroRequirementEnabled
+            ? yup
+                .string()
+                .email(tForm("userSroEmailFormatInvalid"))
+                .notRequired()
+            : yup
+                .string()
+                .email(tForm("emailInvalid"))
+                .required(tForm("organisationEmailRequired")),
         relationship: yup
           .string()
           .required(tForm("relationshipRequiredInvalid")),
@@ -126,7 +134,7 @@ export default function AffiliationsForm({
             otherwise: schema => schema.notRequired(),
           }),
       }),
-    [tForm, selectOrganisation]
+    [tForm, selectOrganisation, isSroRequirementEnabled]
   );
 
   const formOptions = useMemo(
@@ -301,22 +309,31 @@ export default function AffiliationsForm({
                   <Grid size={{ xs: 12 }}>
                     <FormControlWrapper
                       name="organisation_email"
+                      label={
+                        !isSroRequirementEnabled
+                          ? tForm("userSroEmail")
+                          : undefined
+                      }
                       renderField={fieldProps => <TextField {...fieldProps} />}
                       description={
-                        <>
-                          <Box mb={2}>
-                            {tProfile("organisationNameSubtitle")}
-                          </Box>
-                          {!!initialValues && !initialValues?.email && (
-                            <Box
-                              sx={{ display: "flex", color: "warning.main" }}>
-                              <WarningIcon />
-                              <Typography>
-                                {tProfile("affiliationsEmailWarningMessage")}
-                              </Typography>
+                        !isSroRequirementEnabled ? (
+                          tForm("userSroEmailDescription")
+                        ) : (
+                          <>
+                            <Box mb={2}>
+                              {tProfile("organisationNameSubtitle")}
                             </Box>
-                          )}
-                        </>
+                            {!!initialValues && !initialValues?.email && (
+                              <Box
+                                sx={{ display: "flex", color: "warning.main" }}>
+                                <WarningIcon />
+                                <Typography>
+                                  {tProfile("affiliationsEmailWarningMessage")}
+                                </Typography>
+                              </Box>
+                            )}
+                          </>
+                        )
                       }
                     />
                   </Grid>
