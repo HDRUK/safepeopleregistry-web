@@ -50,11 +50,11 @@ function getOrganisationAccountStatus(organisation: Organisation): Status {
   if (invitedBy) {
     return invitedBy.user_group === UserGroup.ADMINS
       ? Status.ORGANISATION_INVITED_BY_ADMIN
-      : Status.ORGANISATION_INVITED_BY_OTHER;
+      : Status.ORGANISATION_INVITED_BY_NONADMIN;
   }
 
   if (organisation.model_state?.state?.slug === Status.INVITED) {
-    return Status.ORGANISATION_INVITED_BY_OTHER;
+    return Status.ORGANISATION_INVITED_BY_NONADMIN;
   }
 
   return Status.ORGANISATION_PLACEHOLDER;
