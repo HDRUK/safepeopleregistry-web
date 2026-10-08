@@ -57,7 +57,7 @@ describe("<OrganisationsList />", () => {
     ).toBeInTheDocument();
   });
 
-  it("does not show the invite action for an organisation invited by HDR UK", async () => {
+  it("does not show the invite action for an organisation invited by Admin", async () => {
     const organisation = mockedInvitedOrganisation(UserGroup.ADMINS);
 
     setupTest(organisation);
