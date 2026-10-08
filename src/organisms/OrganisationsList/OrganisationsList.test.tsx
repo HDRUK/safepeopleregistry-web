@@ -45,7 +45,7 @@ const openActionMenu = async (organisation: Organisation) => {
 };
 
 describe("<OrganisationsList />", () => {
-  it("shows the invite action for an organisation invited by other", async () => {
+  it("shows the invite action for an organisation invited by non-admin", async () => {
     const organisation = mockedInvitedOrganisation(UserGroup.CUSTODIANS);
 
     setupTest(organisation);
