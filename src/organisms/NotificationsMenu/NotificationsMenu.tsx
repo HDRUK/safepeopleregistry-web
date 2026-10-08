@@ -23,7 +23,7 @@ import { formatNotificationType } from "../../utils/notifications";
 import { NotificationModal } from "../NotificationModal";
 import useGetNotificationsCount from "./hooks/useGetNotificationCounts";
 import useGetNotifications from "./hooks/useGetNotifications";
-import usePutNotification from "./hooks/usePutNotification";
+import usePatchNotification from "./hooks/usePatchNotification";
 import { StyledMenuItem } from "./NotificationsMenu.styles";
 
 const NAMESPACE_TRANSLATIONS = "NotificationsMenu";
@@ -61,7 +61,7 @@ export default function NotificationsMenu() {
     refetchNotifications();
   }, [notificationsCount?.data]);
 
-  const { mutateAsync: mutateNotification } = usePutNotification(
+  const { mutateAsync: mutateNotification } = usePatchNotification(
     user?.id as number
   );
 
