@@ -212,7 +212,15 @@ export default function NotificationsMenu() {
             </StyledMenuItem>
           ))
         )}
-
+        <StyledMenuItem
+          onClick={handleClose}>
+            <Typography variant="body2" 
+            sx={{ fontWeight: "inherit" }}
+            color="text.primary"
+            >
+            {t('closeMenu')}
+            </Typography>
+        </StyledMenuItem>
         {isLoadingMoreNotifications && (
           <StyledMenuItem>
             <CircularProgress sx={{ mx: "auto" }} />

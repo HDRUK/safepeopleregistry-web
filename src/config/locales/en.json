@@ -1111,7 +1111,8 @@
   "NotificationsMenu": {
     "noNotifications": "You have no notifications!",
     "orcIdSuccessTitle": "ORCID scrape completed",
-    "orcIdSuccessDescription": "Employment, educaton and qualifications has been gathered from your ORCID profile. You will need to reload the page to see the updates."
+    "orcIdSuccessDescription": "Employment, educaton and qualifications has been gathered from your ORCID profile. You will need to reload the page to see the updates.",
+    "closeMenu": "Close Menu"
   },
   "NotificationsModal": {
     "colField": "Field",
