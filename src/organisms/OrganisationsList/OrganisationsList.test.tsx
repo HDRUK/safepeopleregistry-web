@@ -45,7 +45,7 @@ const openActionMenu = async (organisation: Organisation) => {
 };
 
 describe("<OrganisationsList />", () => {
-  it("shows the invite action for an organisation invited by other", async () => {
+  it("shows the invite action for an organisation invited by non-admin", async () => {
     const organisation = mockedInvitedOrganisation(UserGroup.CUSTODIANS);
 
     setupTest(organisation);
@@ -57,7 +57,7 @@ describe("<OrganisationsList />", () => {
     ).toBeInTheDocument();
   });
 
-  it("does not show the invite action for an organisation invited by HDR UK", async () => {
+  it("does not show the invite action for an organisation invited by Admin", async () => {
     const organisation = mockedInvitedOrganisation(UserGroup.ADMINS);
 
     setupTest(organisation);

@@ -50,11 +50,11 @@ describe("<OrganisationsTable />", () => {
   it.each([
     ["Account created", { unclaimed: 0 }],
     [
-      "Invited by HDR UK",
+      "Invited by Admin",
       { unclaimed: 1, sro_officer: sroInvitedBy(UserGroup.ADMINS) },
     ],
     [
-      "Invited by other",
+      "Invited by non-admin",
       { unclaimed: 1, sro_officer: sroInvitedBy(UserGroup.CUSTODIANS) },
     ],
     ["Placeholder", { unclaimed: 1 }],

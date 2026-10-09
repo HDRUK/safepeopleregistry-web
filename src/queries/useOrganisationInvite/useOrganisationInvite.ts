@@ -125,9 +125,7 @@ export default function useOrganisationInvite({
 
         await mutateOrganisationInviteToContactSuperadmin({
           organisationId,
-          payload: {
-            email: organisation.lead_applicant_email,
-          },
+          payload: {},
         });
 
         onSuccess?.();
