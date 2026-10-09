@@ -1,18 +1,19 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Button } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
+import downloadFile from "@/app/actions/files/downloadFile";
 import ErrorMessage from "@/components/ErrorMessage";
 import Table from "@/components/Table";
 import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
 import { useStore } from "@/data/store";
-import useFileDownload from "@/hooks/useFileDownload";
 import { PageSection } from "@/modules";
 import { getTrainingByRegistryIdQuery } from "@/services/trainings";
 import { File as ApplicationFile } from "@/types/application";
 import { formatShortDate } from "@/utils/date";
+import { downloadBlob } from "@/utils/file";
 
 const NAMESPACE_TRANSLATION_USER_CERTIFICATES = "UserCertificates";
 
@@ -34,22 +35,11 @@ export default function UserCertificates() {
     enabled: !!user?.registry_id,
   });
 
-  const [fileIdToDownload, setFileIdToDownload] = useState<
-    number | undefined
-  >();
-  const { downloadFile: fileDownload } = useFileDownload(fileIdToDownload);
-
-  const downloadFile = useCallback((fileId: number) => {
-    setFileIdToDownload(fileId);
-  }, []);
-
-  useEffect(() => {
+  const handleDownload = async (fileId: number) => {
     try {
-      if (fileIdToDownload) {
-        fileDownload();
-        setFileIdToDownload(undefined);
-      }
-    } catch (_) {
+      const { blob, fileName } = await downloadFile(fileId);
+      downloadBlob(blob, fileName);
+    } catch {
       showAlert({
         severity: "error",
         text: <ErrorMessage t={t} tKey="fileDownloadError" />,
@@ -59,7 +49,7 @@ export default function UserCertificates() {
         },
       });
     }
-  }, [fileIdToDownload, fileDownload]);
+  };
 
   const certificates: UserCertificateRow[] = useMemo(
     () =>
@@ -106,7 +96,7 @@ export default function UserCertificates() {
       accessorKey: "download",
       cell: ({ row }: { row: { original: UserCertificateRow } }) => (
         <Button
-          onClick={() => downloadFile(row.original.file.id)}
+          onClick={() => handleDownload(row.original.file.id)}
           variant="contained"
           color="primary">
           {t("download")}
