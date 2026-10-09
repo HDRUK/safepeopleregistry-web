@@ -24,6 +24,7 @@ import { NotificationModal } from "../NotificationModal";
 import useGetNotificationsCount from "./hooks/useGetNotificationCounts";
 import useGetNotifications from "./hooks/useGetNotifications";
 import usePatchNotification from "./hooks/usePatchNotification";
+import usePatchAllNotification from "./hooks/usePatchAllNotifications";
 import { StyledMenuItem } from "./NotificationsMenu.styles";
 
 const NAMESPACE_TRANSLATIONS = "NotificationsMenu";
@@ -31,9 +32,10 @@ const NAMESPACE_TRANSLATIONS = "NotificationsMenu";
 export default function NotificationsMenu() {
   const t = useTranslations(NAMESPACE_TRANSLATIONS);
   const user = useStore(store => store.getUser());
-  const [showNotificationModel, setShowNotificationModal] = useState(false);
+  const [showNotificationModal, setShowNotificationModal] = useState(false);
   const [currentNotification, setCurrentNotification] =
     useState<Notification>();
+    
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -65,6 +67,10 @@ export default function NotificationsMenu() {
     user?.id as number
   );
 
+  const { mutateAsync: mutateAllNotifications } = usePatchAllNotification(
+    user?.id as number
+  );
+
   const notifications =
     notificationsData?.pages.flatMap(page => page.data.data) || [];
 
@@ -89,11 +95,28 @@ export default function NotificationsMenu() {
     });
   };
 
-  const handleViewNotification = (notif: Notification) => {
-    if (!notif.read_at) changeReadStatus(notif.id, NotificationPutType.READ);
-    setCurrentNotification(notif);
-    setShowNotificationModal(true);
+  const changeAllToReadStatus = () => {
+    console.log("code block has been entered");
+    mutateAllNotifications({ userId: user?.id as number }).then(() => {
+      refetchNotifications();
+      refetchCount();
+    });
+    console.log("Commands have been executed");
   };
+
+  const handleViewNotification = (notif: Notification) => {
+    console.log("Notification Clicked",notif);
+    // if (!notif.read_at) changeReadStatus(notif.id, NotificationPutType.READ);
+    setCurrentNotification(notif);
+    // console.log("notification Set:", setCurrentNotification(notif));
+    setShowNotificationModal(true);
+
+  };
+
+useEffect(() => {
+  console.log("currentNotification:", currentNotification);
+  console.log("showNotificationModel:", showNotificationModal);
+}, [currentNotification, showNotificationModal]);
 
   const [isNearBottom, setIsNearBottom] = useState<boolean>(false);
   const [debouncedIsNearBottom, setDebouncedIsNearBottom] = useDebounce(
@@ -213,13 +236,27 @@ export default function NotificationsMenu() {
           ))
         )}
         <StyledMenuItem
-          onClick={handleClose}>
-            <Typography variant="body2" 
+          data-testid="notification-mark-as-read"
+          onClick={() => {
+            console.log("Button has been clicked");
+            changeAllToReadStatus();
+          }}>
+          <Typography
+            variant="body2"
             sx={{ fontWeight: "inherit" }}
-            color="text.primary"
-            >
-            {t('closeMenu')}
-            </Typography>
+            color="text.primary">
+            {t("markAllAsRead")}
+          </Typography>
+        </StyledMenuItem>
+        <StyledMenuItem
+          onClick={handleClose}
+          data-testid="notification-menu-close">
+          <Typography
+            variant="body2"
+            sx={{ fontWeight: "inherit" }}
+            color="text.primary">
+            {t("closeMenu")}
+          </Typography>
         </StyledMenuItem>
         {isLoadingMoreNotifications && (
           <StyledMenuItem>
@@ -230,7 +267,8 @@ export default function NotificationsMenu() {
 
       {currentNotification && (
         <NotificationModal
-          open={showNotificationModel}
+          notification={currentNotification}
+          open={showNotificationModal}
           handleMarkAsUnread={() => {
             changeReadStatus(
               currentNotification.id,
@@ -239,7 +277,6 @@ export default function NotificationsMenu() {
             setShowNotificationModal(false);
           }}
           onClose={() => setShowNotificationModal(false)}
-          notification={currentNotification}
         />
       )}
     </Box>

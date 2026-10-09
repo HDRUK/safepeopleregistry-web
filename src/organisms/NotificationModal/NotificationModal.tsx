@@ -71,6 +71,7 @@ export default function NotificationModal({
       console.error("Error approving/denying request:", error);
     }
   };
+  console.log("Notification Component Rendered",{notification, open:restProps.open});
 
   const handleApproveOrDeny = (requestId: number, status: number) => {
     approveOrDenyRequest(requestId, status);
@@ -86,12 +87,20 @@ export default function NotificationModal({
         typeof val === "object" && val !== null && "old" in val && "new" in val
     );
 
+  console.log("[NotificationModal] Render conditions", {
+  details,
+  isDetailsObject,
+  hasOldNewStructure,
+  open: restProps.open,
+});
   return (
-    hasOldNewStructure && (
+    // hasOldNewStructure && (
+    
       <Modal
         data-testid="notification-modal"
         onClose={onClose}
         sx={{ p: 1 }}
+        // open={restProps.open}
         {...restProps}>
         <Card
           sx={{
@@ -275,6 +284,5 @@ export default function NotificationModal({
           </CardContent>
         </Card>
       </Modal>
-    )
-  );
+    );
 }
