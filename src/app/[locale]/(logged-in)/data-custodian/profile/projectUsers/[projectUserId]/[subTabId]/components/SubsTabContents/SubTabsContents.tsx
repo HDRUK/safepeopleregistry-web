@@ -3,6 +3,7 @@
 import { useStore } from "@/data/store";
 import { notFound } from "next/navigation";
 import UserAffiliations from "@/organisms/UserAffiliations";
+import UserCertificates from "@/organisms/UserCertificates";
 import UserHistory from "@/organisms/UserHistory";
 import UserIdentity from "@/organisms/UserIdentity";
 import UserTrainingAccreditations from "@/organisms/UserTrainingAccreditations";
@@ -39,6 +40,9 @@ export default function SubTabsContents({
       break;
     case UserSubTabs.TRAINING_ACCREDITATIONS:
       content = <UserTrainingAccreditations variant={EntityType.CUSTODIAN} />;
+      break;
+    case UserSubTabs.CERTIFICATES:
+      content = <UserCertificates />;
       break;
     case UserSubTabs.PROJECTS:
       content = <UserProjects />;
