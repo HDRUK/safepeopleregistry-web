@@ -1,15 +1,23 @@
-import { getTrainingByRegistryId } from "@/app/actions/trainings";
+import downloadFile from "@/app/actions/files/downloadFile";
+import getTrainingByRegistryId from "@/app/actions/trainings/getTrainingByRegistryId";
 import { mockedFile } from "@/mocks/data/file";
 import { mockedTraining } from "@/mocks/data/user";
+import { downloadBlob } from "@/utils/file";
 import {
   commonAccessibilityTests,
   render,
   screen,
+  userEvent,
   waitFor,
 } from "../../utils/testUtils";
 import UserCertificates from "./UserCertificates";
 
-jest.mock("@/app/actions/trainings");
+jest.mock("@/app/actions/trainings/getTrainingByRegistryId");
+jest.mock("@/app/actions/files/downloadFile");
+jest.mock("@/utils/file", () => ({
+  ...jest.requireActual("@/utils/file"),
+  downloadBlob: jest.fn(),
+}));
 
 describe("<UserCertificates />", () => {
   const certificateFile = mockedFile({ id: 1, name: "cert.pdf" });
@@ -25,6 +33,8 @@ describe("<UserCertificates />", () => {
   });
 
   beforeEach(() => {
+    jest.clearAllMocks();
+
     mockUseStore({
       current: {
         user: {
@@ -67,6 +77,48 @@ describe("<UserCertificates />", () => {
         screen.getByRole("button", { name: /download/i })
       ).toBeInTheDocument();
     });
+  });
+
+  it("downloads the certificate file when the download button is clicked", async () => {
+    const mockBlob = new Blob(["certificate contents"], {
+      type: "application/pdf",
+    });
+
+    (downloadFile as jest.Mock).mockResolvedValue({
+      blob: mockBlob,
+      fileName: "cert.pdf",
+      contentType: "application/pdf",
+    });
+
+    render(<UserCertificates />);
+
+    await userEvent.click(
+      await screen.findByRole("button", { name: /download/i })
+    );
+
+    await waitFor(() => {
+      expect(downloadBlob).toHaveBeenCalledWith(mockBlob, "cert.pdf");
+    });
+    expect(downloadFile).toHaveBeenCalledWith(certificateFile.id);
+  });
+
+  it("displays an error when the certificate download fails", async () => {
+    (downloadFile as jest.Mock).mockRejectedValue(
+      new Error("Failed to download file (status 404)")
+    );
+
+    render(<UserCertificates />);
+
+    await userEvent.click(
+      await screen.findByRole("button", { name: /download/i })
+    );
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(/error occurred while downloading the certificate/i)
+      ).toBeInTheDocument();
+    });
+    expect(downloadBlob).not.toHaveBeenCalled();
   });
 
   it("displays a no results message when there are no certificates", async () => {
