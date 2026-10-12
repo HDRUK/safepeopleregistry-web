@@ -35,7 +35,14 @@ enum AffiliationRelationship {
   HONORARY_CONTRACT = "honoraryContract",
 }
 
+// Mirrors the API's App\Enums\OrganisationRole.
+enum OrganisationRole {
+  SRO = "SRO",
+  DELEGATE = "DELEGATE",
+}
+
 export {
+  OrganisationRole,
   UserGroup,
   UserProvider,
   UserProfileCompletionCategories,
