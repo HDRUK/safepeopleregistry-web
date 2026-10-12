@@ -8,13 +8,13 @@ import {
 const ORGANISATION_ID = 1;
 
 const flagCombinations = [
-  { label: "sro only", is_sro: 1, is_delegate: 0 },
-  { label: "sro and delegate", is_sro: 1, is_delegate: 1 },
-  { label: "delegate only", is_sro: 0, is_delegate: 1 },
-  { label: "neither flag", is_sro: 0, is_delegate: 0 },
+  { label: "sro only", is_sro: true, is_delegate: 0 },
+  { label: "sro and delegate", is_sro: true, is_delegate: 1 },
+  { label: "delegate only", is_sro: false, is_delegate: 1 },
+  { label: "neither flag", is_sro: false, is_delegate: 0 },
 ];
 
-const organisationUser = (is_sro: number, is_delegate: number) =>
+const organisationUser = (is_sro: boolean, is_delegate: number) =>
   mockedUser({
     user_group: UserGroup.ORGANISATIONS,
     organisation_id: ORGANISATION_ID,
@@ -80,15 +80,15 @@ describe("canPerformSroRestrictedAction", () => {
   // Expected outcome for an organisation with: no SRO, a claimed SRO, has_sro not loaded.
   it.each([
     ["admin", mockedUser({ user_group: UserGroup.ADMINS }), [true, true, true]],
-    ["sro", organisationUser(1, 0), [true, true, true]],
-    ["delegate", organisationUser(0, 1), [true, false, false]],
-    ["neither flag", organisationUser(0, 0), [true, false, false]],
+    ["sro", organisationUser(true, 0), [true, true, true]],
+    ["delegate", organisationUser(false, 1), [true, false, false]],
+    ["neither flag", organisationUser(false, 0), [true, false, false]],
     [
       "delegate in another organisation",
       mockedUser({
         user_group: UserGroup.ORGANISATIONS,
         organisation_id: ORGANISATION_ID + 1,
-        is_sro: 0,
+        is_sro: false,
         is_delegate: 1,
       }),
       [false, false, false],
@@ -98,7 +98,7 @@ describe("canPerformSroRestrictedAction", () => {
       mockedUser({
         user_group: UserGroup.ORGANISATIONS,
         organisation_id: null,
-        is_sro: 0,
+        is_sro: false,
         is_delegate: 1,
       }),
       [false, false, false],
