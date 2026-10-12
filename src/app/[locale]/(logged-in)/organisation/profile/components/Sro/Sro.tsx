@@ -16,11 +16,14 @@ export default function Sro() {
 
   const isDelegate =
     !user || getOrganisationRole(user) !== OrganisationRole.SRO;
-  const hasSroAssigned = Boolean(organisation?.sro_officer);
+  // Treated as assigned unless the API says otherwise, so delegates stay locked out
+  // when has_sro has not been loaded. Mirrors OrganisationPolicy::performSroRestrictedAction.
+  const hasClaimedSro = organisation?.has_sro !== false;
+  const hasSroOfficer = Boolean(organisation?.sro_officer);
 
   return isSroRequirementEnabled ? (
-    <SroForm isDelegate={isDelegate} hasSroAssigned={hasSroAssigned} />
+    <SroForm isDelegate={isDelegate} hasSroAssigned={hasClaimedSro} />
   ) : (
-    <SroInvite hasSroAssigned={hasSroAssigned} />
+    <SroInvite hasSroAssigned={hasSroOfficer} />
   );
 }

@@ -1,6 +1,8 @@
 import { useFeatures } from "@/components/FeatureProvider";
 import { UserGroup } from "@/consts/user";
+import { mockedOrganisation } from "@/mocks/data/organisation";
 import { mockedUser } from "@/mocks/data/user";
+import useOrganisationStore from "@/queries/useOrganisationStore";
 import { render, screen } from "@/utils/testUtils";
 import Sro from "./Sro";
 
@@ -8,19 +10,51 @@ jest.mock("@/components/FeatureProvider", () => ({
   useFeatures: jest.fn(),
 }));
 
+jest.mock("@/queries/useOrganisationStore", () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
+
 jest.mock("./SroForm", () => ({
   __esModule: true,
-  default: ({ isDelegate }: { isDelegate: boolean }) => (
-    <div>SroForm content{isDelegate ? " as delegate" : " as sro"}</div>
+  default: ({
+    isDelegate,
+    hasSroAssigned,
+  }: {
+    isDelegate: boolean;
+    hasSroAssigned: boolean;
+  }) => (
+    <div>
+      SroForm content{isDelegate ? " as delegate" : " as sro"}
+      <span>{hasSroAssigned ? "SRO assigned" : "No SRO assigned"}</span>
+    </div>
   ),
 }));
 
 jest.mock("./SroInvite", () => ({
   __esModule: true,
-  default: () => <div>SroInvite content</div>,
+  default: ({ hasSroAssigned }: { hasSroAssigned: boolean }) => (
+    <div>
+      SroInvite content
+      <span>{hasSroAssigned ? "SRO assigned" : "No SRO assigned"}</span>
+    </div>
+  ),
 }));
 
+const mockOrganisation = (
+  organisation: Partial<ReturnType<typeof mockedOrganisation>>
+) =>
+  (useOrganisationStore as jest.Mock).mockReturnValue({
+    organisation: mockedOrganisation(organisation),
+  });
+
 describe("<Sro />", () => {
+  beforeEach(() => {
+    (useOrganisationStore as jest.Mock).mockReturnValue({
+      organisation: undefined,
+    });
+  });
+
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -43,7 +77,7 @@ describe("<Sro />", () => {
 
     render(<Sro />);
 
-    expect(screen.getByText("SroInvite content")).toBeInTheDocument();
+    expect(screen.getByText(/SroInvite content/)).toBeInTheDocument();
     expect(screen.queryByText(/SroForm content/)).not.toBeInTheDocument();
   });
 
@@ -90,4 +124,33 @@ describe("<Sro />", () => {
       ).toBeInTheDocument();
     }
   );
+
+  it.each([
+    { has_sro: true, expected: "SRO assigned" },
+    { has_sro: false, expected: "No SRO assigned" },
+    { has_sro: undefined, expected: "SRO assigned" },
+  ])(
+    "locks SroForm for delegates using has_sro ($has_sro)",
+    ({ has_sro, expected }) => {
+      (useFeatures as jest.Mock).mockReturnValue({
+        isSroRequirementEnabled: true,
+      });
+      mockOrganisation({ has_sro, sro_officer: undefined });
+
+      render(<Sro />);
+
+      expect(screen.getByText(expected)).toBeInTheDocument();
+    }
+  );
+
+  it("still uses sro_officer for SroInvite", () => {
+    (useFeatures as jest.Mock).mockReturnValue({
+      isSroRequirementEnabled: false,
+    });
+    mockOrganisation({ has_sro: true, sro_officer: undefined });
+
+    render(<Sro />);
+
+    expect(screen.getByText("No SRO assigned")).toBeInTheDocument();
+  });
 });
