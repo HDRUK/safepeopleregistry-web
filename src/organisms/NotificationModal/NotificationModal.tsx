@@ -87,7 +87,6 @@ export default function NotificationModal({
         data-testid="notification-modal"
         onClose={onClose}
         sx={{ p: 1 }}
-        // open={restProps.open}
         {...restProps}>
         <Card
           sx={{

@@ -11,7 +11,6 @@ export default async (
   type: NotificationPutType,
   options: ResponseOptions
 ) => {
-  // Put requests are being rejected by the BE, so we are using patch requests instead.
   const response = await patchRequest(
     `/users/${userId}/notifications/${notificationId}/${type}`,
     {}
