@@ -11,6 +11,7 @@ import { Button, Typography } from "@mui/material";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
+import downloadFileAction from "@/app/actions/files/downloadFile";
 import { FileStatus, FileType } from "@/consts/files";
 import { downloadBlob } from "@/utils/file";
 import { formatDBDateTime, formatShortDate } from "@/utils/date";
@@ -114,6 +115,22 @@ export default function Training({
     download();
   }, [fileIdToDownload, fileDownload, showAlert, t, hideAlert]);
 
+  const handleDownloadCertificate = async (fileId: number) => {
+    try {
+      const { blob, fileName } = await downloadFileAction(fileId);
+      downloadBlob(blob, fileName);
+    } catch {
+      showAlert({
+        severity: "error",
+        text: <ErrorMessage t={t} tKey="fileDownloadError" />,
+        confirmButtonText: t("errorButton"),
+        onConfirm: async () => {
+          hideAlert();
+        },
+      });
+    }
+  };
+
   const handleOpenModal = useCallback((training?: ResearcherTraining) => {
     setSelectedTraining(training);
     setIsModalOpen(true);
@@ -202,6 +219,26 @@ export default function Training({
     [user, downloadFile, handleDelete, t, tProfile, tApplication]
   );
 
+  const renderCertificateDownload = useCallback(
+    (training: ResearcherTraining) => {
+      const certificateFile = user?.registry?.files?.find(
+        file => file.id === training.certification_id
+      );
+
+      return (
+        certificateFile && (
+          <Button
+            onClick={() => handleDownloadCertificate(certificateFile.id)}
+            variant="contained"
+            color="primary">
+            {t("downloadCertificate")}
+          </Button>
+        )
+      );
+    },
+    [user, handleDownloadCertificate, t]
+  );
+
   const onSubmit = useCallback(
     async (training: PostTrainingsPayload) => {
       try {
@@ -262,6 +299,16 @@ export default function Training({
       cell: ({ row }: { row: { original: ResearcherTraining } }) =>
         formatShortDate(row.original.expires_at),
     },
+    ...(variant === EntityType.CUSTODIAN
+      ? [
+          {
+            header: t("trainingHistoryColumnCertificate"),
+            accessorKey: "certification_id",
+            cell: ({ row }: { row: { original: ResearcherTraining } }) =>
+              renderCertificateDownload(row.original),
+          },
+        ]
+      : []),
     ...(variant === EntityType.USER
       ? [
           {

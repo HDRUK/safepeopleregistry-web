@@ -29,7 +29,6 @@ enum UserSubTabs {
   PROJECTS = "projects",
   IDENTITY = "identity",
   TRAINING_ACCREDITATIONS = "training_accreditations",
-  CERTIFICATES = "certificates",
   HISTORY = "history",
 }
 

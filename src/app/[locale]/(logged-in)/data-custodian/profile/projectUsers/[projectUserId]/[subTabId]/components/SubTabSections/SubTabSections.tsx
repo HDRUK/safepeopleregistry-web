@@ -71,16 +71,6 @@ export default function SubTabsSections({
       ),
     },
     {
-      label: t("certificates"),
-      value: UserSubTabs.CERTIFICATES,
-      href: injectParamsIntoPath(
-        routes.profileCustodianUsersCertificates.path,
-        {
-          projectUserId,
-        }
-      ),
-    },
-    {
       label: t("history"),
       value: UserSubTabs.HISTORY,
       href: injectParamsIntoPath(routes.profileCustodianUsersHistory.path, {

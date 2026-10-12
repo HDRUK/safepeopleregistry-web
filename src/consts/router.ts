@@ -141,10 +141,6 @@ const ROUTES: Routes = {
     path: "/data-custodian/profile/projectUsers/{projectUserId}/training_accreditations",
     permissions: [UserGroup.CUSTODIANS],
   },
-  profileCustodianUsersCertificates: {
-    path: "/data-custodian/profile/projectUsers/{projectUserId}/certificates",
-    permissions: [UserGroup.CUSTODIANS],
-  },
   profileCustodianUsersIdentity: {
     path: "/data-custodian/profile/projectUsers/{projectUserId}/identity",
     permissions: [UserGroup.CUSTODIANS],
