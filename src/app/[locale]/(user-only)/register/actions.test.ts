@@ -53,7 +53,9 @@ describe("registerInvite", () => {
   it("claims an organisation invitee's account with the invite code from their invite link", async () => {
     withCookies({ invite_code: INVITE_CODE, account_type: "organisation" });
 
-    await registerInvite(organisationInvitee, UserGroup.ORGANISATIONS);
+    await expect(
+      registerInvite(organisationInvitee, UserGroup.ORGANISATIONS)
+    ).resolves.toEqual({ ok: true });
 
     expect(postClaimUser).toHaveBeenCalledWith(5, INVITE_CODE);
     expect(cookieJar.has("invite_code")).toBe(false);
@@ -65,7 +67,7 @@ describe("registerInvite", () => {
 
     await expect(
       registerInvite(organisationInvitee, UserGroup.ORGANISATIONS)
-    ).rejects.toThrow();
+    ).resolves.toEqual({ ok: false });
 
     expect(postClaimUser).not.toHaveBeenCalled();
   });
@@ -76,7 +78,7 @@ describe("registerInvite", () => {
 
     await expect(
       registerInvite(organisationInvitee, UserGroup.ORGANISATIONS)
-    ).rejects.toThrow();
+    ).resolves.toEqual({ ok: false });
 
     expect(cookieJar.get("invite_code")).toBe(INVITE_CODE);
     expect(cookieJar.get("account_type")).toBe("organisation");

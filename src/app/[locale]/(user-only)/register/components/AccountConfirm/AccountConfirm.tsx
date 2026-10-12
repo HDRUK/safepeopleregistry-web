@@ -1,5 +1,6 @@
 "use client";
 
+import ErrorMessage from "@/components/ErrorMessage";
 import { useFeatures } from "@/components/FeatureProvider";
 import Guidance from "@/components/Guidance";
 import LoadingWrapper from "@/components/LoadingWrapper";
@@ -62,7 +63,20 @@ export default function AccountConfirm({
 
   const handleRegister = async (user: User) => {
     startTransition(async () => {
-      await registerInvite(user, userGroup as UserGroup);
+      const { ok } = await registerInvite(user, userGroup as UserGroup);
+
+      if (!ok) {
+        showAlert({
+          severity: "error",
+          text: <ErrorMessage t={t} tKey="claimInviteError" />,
+          confirmButtonText: t("claimInviteErrorButton"),
+          onConfirm: async () => {
+            hideAlert();
+          },
+        });
+
+        return;
+      }
 
       router.push(getProfilePathByEntity(userGroup as UserGroup));
     });

@@ -37,7 +37,14 @@ async function registerOrganisation(tokenUser: Partial<User>) {
   await setAcceptTCs(false, UserGroup.ORGANISATIONS);
 }
 
-async function registerInvite(unclaimedUser: User, userGroup: UserGroup) {
+// Returned rather than thrown: production builds hide the message of errors thrown
+// from server actions, so the caller could not tell the user what went wrong.
+type RegisterInviteResult = { ok: boolean };
+
+async function registerInvite(
+  unclaimedUser: User,
+  userGroup: UserGroup
+): Promise<RegisterInviteResult> {
   const cookieStore = await cookies();
 
   const orgId = unclaimedUser?.organisation_id ?? null;
@@ -47,10 +54,14 @@ async function registerInvite(unclaimedUser: User, userGroup: UserGroup) {
     const inviteCode = cookieStore.get("invite_code")?.value;
 
     if (!inviteCode) {
-      throw new Error("No invite code to claim the account with");
+      return { ok: false };
     }
 
-    await postClaimUser(unclaimedUser.id, inviteCode);
+    try {
+      await postClaimUser(unclaimedUser.id, inviteCode);
+    } catch {
+      return { ok: false };
+    }
 
     // Cleared only once claimed, so a failed claim can be retried with the same invite.
     cookieStore.delete("account_type");
@@ -70,6 +81,8 @@ async function registerInvite(unclaimedUser: User, userGroup: UserGroup) {
 
     await setAcceptTCs(false, UserGroup.USERS);
   }
+
+  return { ok: true };
 }
 
 async function acceptTCs(userGroup: UserGroup) {
