@@ -22,7 +22,7 @@ const mockedPendingInvite = (pendingInvite?: Partial<PendingInvite>) => ({
   user: {
     name: faker.person.fullName(),
     email: faker.internet.email(),
-    unclaimed: 1,
+    unclaimed: true,
     ...pendingInvite?.user,
   },
   ...pendingInvite,

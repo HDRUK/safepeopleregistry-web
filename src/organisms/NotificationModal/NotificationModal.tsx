@@ -71,7 +71,6 @@ export default function NotificationModal({
       console.error("Error approving/denying request:", error);
     }
   };
-  console.log("Notification Component Rendered",{notification, open:restProps.open});
 
   const handleApproveOrDeny = (requestId: number, status: number) => {
     approveOrDenyRequest(requestId, status);
@@ -80,22 +79,10 @@ export default function NotificationModal({
   const { details } = notification.data;
   const isDetailsObject = typeof details === "object" && details !== null;
 
-  const hasOldNewStructure =
-    isDetailsObject &&
-    Object.values(details).some(
-      val =>
-        typeof val === "object" && val !== null && "old" in val && "new" in val
-    );
+  const hasOldNewStructure = "old" in details && "new" in details;
 
-  console.log("[NotificationModal] Render conditions", {
-  details,
-  isDetailsObject,
-  hasOldNewStructure,
-  open: restProps.open,
-});
   return (
-    // hasOldNewStructure && (
-    
+    hasOldNewStructure && (
       <Modal
         data-testid="notification-modal"
         onClose={onClose}
@@ -222,29 +209,21 @@ export default function NotificationModal({
                       )}
                     </TableRow>
                   </TableHead>
+
                   <TableBody>
-                    {Object.entries(details).map(([key, value]) => (
+                    {Object.keys(details.new).map(key => (
                       <TableRow key={key}>
                         <TableCell component="th" scope="row">
                           {key}
                         </TableCell>
-                        {typeof value === "object" &&
-                        value !== null &&
-                        "old" in value &&
-                        "new" in value ? (
-                          <>
-                            <TableCell align="right">
-                              {value.old ?? "—"}
-                            </TableCell>
-                            <TableCell align="right">
-                              {value.new ?? "—"}
-                            </TableCell>
-                          </>
-                        ) : (
-                          <TableCell align="right" colSpan={2}>
-                            {value ?? "—"}
-                          </TableCell>
-                        )}
+
+                        <TableCell align="right">
+                          {details.old[key] ?? "—"}
+                        </TableCell>
+
+                        <TableCell align="right">
+                          {details.new[key] ?? "—"}
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -284,5 +263,6 @@ export default function NotificationModal({
           </CardContent>
         </Card>
       </Modal>
-    );
+    )
+  );
 }

@@ -242,8 +242,8 @@ export default function NavBar({ loggedIn }: NavBarProps) {
               {renderButtons(left_buttons)}
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-              {storedUser?.unclaimed === 0 && <NotificationsMenu />}
-              {storedUser?.unclaimed === 0 && (
+              {storedUser?.unclaimed === false && <NotificationsMenu />}
+              {storedUser?.unclaimed === false && (
                 <MaskLabel
                   initials={`${getInitials(getName(storedUser))}`}
                   label=""
@@ -300,7 +300,7 @@ export default function NavBar({ loggedIn }: NavBarProps) {
               asMenuItem: true,
               fullWidth: true,
             })}
-            {storedUser?.unclaimed === 0 && (
+            {storedUser?.unclaimed === false && (
               <MenuItem
                 key="Notifications"
                 sx={{

@@ -23,7 +23,7 @@ const dataPendingInvite = mockedPendingInvite({
   user: {
     name: getName(dataInviteUser),
     email: dataInviteUser.email,
-    unclaimed: 1,
+    unclaimed: true,
   },
 });
 

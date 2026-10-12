@@ -30,7 +30,7 @@ async function registerOrganisation(tokenUser: Partial<User>) {
     lead_applicant_email: tokenUser.email,
     first_name: tokenUser.given_name,
     last_name: tokenUser.family_name,
-    unclaimed: 0,
+    unclaimed: false,
     t_and_c_agreed: true,
   });
 
@@ -51,7 +51,7 @@ async function registerInvite(unclaimedUser: User, userGroup: UserGroup) {
     cookieStore.delete("account_digi_ident");
 
     if (unclaimedUser.is_delegate || unclaimedUser.is_sro) {
-      await putOrganisation(orgId, { unclaimed: 0 });
+      await putOrganisation(orgId, { unclaimed: false });
     }
 
     await setAcceptTCs(false, UserGroup.ORGANISATIONS);

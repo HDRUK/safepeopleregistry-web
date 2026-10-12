@@ -35,7 +35,6 @@ export default function NotificationsMenu() {
   const [showNotificationModal, setShowNotificationModal] = useState(false);
   const [currentNotification, setCurrentNotification] =
     useState<Notification>();
-    
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -53,6 +52,7 @@ export default function NotificationsMenu() {
   } = useGetNotifications(user?.id as number);
 
   const isFirstLoad = useRef(true);
+
   useEffect(() => {
     if (isFirstLoad.current) {
       isFirstLoad.current = false;
@@ -96,27 +96,19 @@ export default function NotificationsMenu() {
   };
 
   const changeAllToReadStatus = () => {
-    console.log("code block has been entered");
     mutateAllNotifications({ userId: user?.id as number }).then(() => {
       refetchNotifications();
       refetchCount();
     });
-    console.log("Commands have been executed");
   };
 
   const handleViewNotification = (notif: Notification) => {
-    console.log("Notification Clicked",notif);
-    // if (!notif.read_at) changeReadStatus(notif.id, NotificationPutType.READ);
+    if (!notif.read_at) {
+      changeReadStatus(notif.id, NotificationPutType.READ);
+    }
     setCurrentNotification(notif);
-    // console.log("notification Set:", setCurrentNotification(notif));
     setShowNotificationModal(true);
-
   };
-
-useEffect(() => {
-  console.log("currentNotification:", currentNotification);
-  console.log("showNotificationModel:", showNotificationModal);
-}, [currentNotification, showNotificationModal]);
 
   const [isNearBottom, setIsNearBottom] = useState<boolean>(false);
   const [debouncedIsNearBottom, setDebouncedIsNearBottom] = useDebounce(
@@ -238,7 +230,6 @@ useEffect(() => {
         <StyledMenuItem
           data-testid="notification-mark-as-read"
           onClick={() => {
-            console.log("Button has been clicked");
             changeAllToReadStatus();
           }}>
           <Typography
