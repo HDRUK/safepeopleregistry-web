@@ -40,14 +40,21 @@ async function registerOrganisation(tokenUser: Partial<User>) {
 async function registerInvite(unclaimedUser: User, userGroup: UserGroup) {
   const cookieStore = await cookies();
 
-  cookieStore.delete("account_type");
-  cookieStore.delete("invite_code");
-
   const orgId = unclaimedUser?.organisation_id ?? null;
 
   if (orgId) {
-    await postClaimUser(unclaimedUser.id);
+    // The API only lets an invitee claim the account their emailed invite code belongs to.
+    const inviteCode = cookieStore.get("invite_code")?.value;
 
+    if (!inviteCode) {
+      throw new Error("No invite code to claim the account with");
+    }
+
+    await postClaimUser(unclaimedUser.id, inviteCode);
+
+    // Cleared only once claimed, so a failed claim can be retried with the same invite.
+    cookieStore.delete("account_type");
+    cookieStore.delete("invite_code");
     cookieStore.delete("account_digi_ident");
 
     if (unclaimedUser.is_delegate || unclaimedUser.is_sro) {
@@ -56,6 +63,9 @@ async function registerInvite(unclaimedUser: User, userGroup: UserGroup) {
 
     await setAcceptTCs(false, UserGroup.ORGANISATIONS);
   } else {
+    cookieStore.delete("account_type");
+    cookieStore.delete("invite_code");
+
     await registerUser(userGroup);
 
     await setAcceptTCs(false, UserGroup.USERS);
