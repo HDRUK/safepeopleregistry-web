@@ -234,19 +234,12 @@ export default function NotificationsMenu() {
           }}>
           <Typography
             variant="body2"
-            sx={{ fontWeight: "inherit" }}
+            sx={{
+              textAlign: "center",
+              width: "100%",
+            }}
             color="text.primary">
             {t("markAllAsRead")}
-          </Typography>
-        </StyledMenuItem>
-        <StyledMenuItem
-          onClick={handleClose}
-          data-testid="notification-menu-close">
-          <Typography
-            variant="body2"
-            sx={{ fontWeight: "inherit" }}
-            color="text.primary">
-            {t("closeMenu")}
           </Typography>
         </StyledMenuItem>
         {isLoadingMoreNotifications && (
