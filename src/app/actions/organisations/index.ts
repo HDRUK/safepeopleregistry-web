@@ -2,6 +2,7 @@ import {
   getProjectOrganisationStatus,
   getOrganisationStatus,
 } from "@/app/actions/custodians";
+import deleteOrganisationDelegate from "@/app/actions/organisations/deleteOrganisationDelegate";
 import getOrganisation from "@/app/actions/organisations/getOrganisation";
 import getOrganisationDelegates from "@/app/actions/organisations/getOrganisationDelegates";
 import getOrganisationSroDeclaration from "./getOrganisationSroDeclaration";
@@ -24,6 +25,7 @@ import putOrganisationApproved from "@/app/actions/organisations/putOrganisation
 import { postPermissions } from "@/app/actions/users";
 
 export {
+  deleteOrganisationDelegate,
   postPermissions,
   getSponsoredProjects,
   getOrganisationSroDeclaration,

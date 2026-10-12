@@ -50,4 +50,32 @@ function canPerformSroRestrictedAction(
   }
 }
 
-export { canPerformSroRestrictedAction, getOrganisationRole };
+/**
+ * Mirrors OrganisationPolicy::removeDelegate() in the API, for showing or hiding the
+ * control only; the API enforces the rule and only allows delegates (never the SRO)
+ * to be removed.
+ */
+function canRemoveDelegate(
+  user: OrganisationRoleUser & Pick<User, "id">,
+  organisation: Pick<Organisation, "id">,
+  delegate: Pick<User, "id">
+): boolean {
+  if (user.id === delegate.id) {
+    return false;
+  }
+
+  if (user.user_group === UserGroup.ADMINS) {
+    return true;
+  }
+
+  return (
+    getOrganisationRole(user) !== null &&
+    user.organisation_id === organisation.id
+  );
+}
+
+export {
+  canPerformSroRestrictedAction,
+  canRemoveDelegate,
+  getOrganisationRole,
+};

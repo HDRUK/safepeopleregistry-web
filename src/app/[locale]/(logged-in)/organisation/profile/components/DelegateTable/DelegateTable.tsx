@@ -3,12 +3,14 @@ import DecoupleDelegate from "@/components/DecoupleDelegate";
 import ErrorMessage from "@/components/ErrorMessage";
 import FormModal from "@/components/FormModal";
 import Table from "@/components/Table";
+import { useStore } from "@/data/store";
 import { PageSection } from "@/modules";
 import { UsersResponse } from "@/services/users";
 import { User } from "@/types/application";
 import { ResponseJson } from "@/types/requests";
 import { getName } from "@/utils/application";
 import { formatShortDate } from "@/utils/date";
+import { canRemoveDelegate } from "@/utils/organisationRole";
 import { Box, Button } from "@mui/material";
 import { UseQueryResult } from "@tanstack/react-query";
 import { CellContext, ColumnDef } from "@tanstack/react-table";
@@ -28,6 +30,13 @@ const DelegateTable = ({
   isError,
 }: UseQueryResult<ResponseJson<UsersResponse>, Error>) => {
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
+  const { me, organisation } = useStore(state => ({
+    me: state.getUser(),
+    organisation: state.config.organisation,
+  }));
+
+  const canRemove = (delegate: User) =>
+    !!me && !!organisation && canRemoveDelegate(me, organisation, delegate);
 
   const [openInviteModal, setOpenInviteModal] = useState<boolean>(false);
   const [editingDelegate, setEditingDelegate] = useState<User | null>(null);
@@ -52,13 +61,16 @@ const DelegateTable = ({
             setOpenEditModal(true);
           }}
         />,
-        <DecoupleDelegate
-          key="decouple"
-          user={info.row.original}
-          onSuccess={refetch}
-          payload={{ is_delegate: 0 }}
-          namespace="DecoupleDelegates"
-        />,
+        ...(canRemove(info.row.original)
+          ? [
+              <DecoupleDelegate
+                key="decouple"
+                user={info.row.original}
+                onSuccess={refetch}
+                namespace="DecoupleDelegates"
+              />,
+            ]
+          : []),
       ]}
     </ActionMenu>
   );
