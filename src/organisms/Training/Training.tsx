@@ -6,6 +6,7 @@ import ErrorMessage from "@/components/ErrorMessage";
 import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import DownloadIcon from "@mui/icons-material/Download";
 import TaskAltIcon from "@mui/icons-material/TaskAlt";
 import { Button, Typography } from "@mui/material";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -229,9 +230,10 @@ export default function Training({
         certificateFile && (
           <Button
             onClick={() => handleDownloadCertificate(certificateFile.id)}
-            variant="contained"
+            aria-label={t("downloadCertificate")}
+            variant="text"
             color="primary">
-            {t("downloadCertificate")}
+            <DownloadIcon />
           </Button>
         )
       );
