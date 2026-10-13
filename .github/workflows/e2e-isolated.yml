@@ -9,7 +9,7 @@ on:
       api_branch:
         description: "Branch of safepeopleregistry-api to check out"
         required: false
-        default: "api_branch"
+        default: "dev"
 
 env:
   APP_KEY: ${{ secrets.APP_KEY }}
