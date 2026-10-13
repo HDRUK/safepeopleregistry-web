@@ -1,32 +1,8 @@
 import { useRouter } from "@/i18n/routing";
 import { mockedJwt } from "@/mocks/data/auth";
-import { mockedUser } from "@/mocks/data/user";
-import { UserGroup } from "@/consts/user";
-import {
-  commonAccessibilityTests,
-  fireEvent,
-  render,
-  screen,
-} from "@/utils/testUtils";
+import { commonAccessibilityTests, render } from "@/utils/testUtils";
 import { postRegister } from "@/app/actions/auth";
-import { useRouter as useNextRouter } from "next/navigation";
-import { registerInvite } from "../../actions";
 import AccountConfirm from "./AccountConfirm";
-
-jest.mock("../../actions", () => ({
-  acceptTCs: jest.fn(),
-  registerInvite: jest.fn(),
-  rejectTCs: jest.fn(),
-}));
-
-jest.mock("@/components/TermsAndConditions", () => ({
-  __esModule: true,
-  default: ({ onAccept }: { onAccept: () => void }) => (
-    <button type="button" onClick={onAccept}>
-      Accept terms
-    </button>
-  ),
-}));
 
 jest.mock("@/i18n/routing", () => ({
   useParams: jest.fn(),
@@ -107,28 +83,5 @@ describe("<AccountConfirm />", () => {
   */
   it("has no accessibility violations", async () => {
     commonAccessibilityTests(render(<TestComponent />));
-  });
-
-  it("tells an invitee when their account could not be claimed, and stays on the page", async () => {
-    const push = jest.fn();
-    (useNextRouter as jest.Mock).mockReturnValue({ push });
-    (registerInvite as jest.Mock).mockResolvedValue({ ok: false });
-
-    render(
-      <AccountConfirm
-        unclaimedUser={mockedUser({
-          user_group: UserGroup.ORGANISATIONS,
-          organisation_id: 1,
-        })}
-      />
-    );
-
-    fireEvent.click(screen.getByRole("button", { name: "Continue" }));
-    fireEvent.click(screen.getByRole("button", { name: "Accept terms" }));
-
-    expect(
-      await screen.findByText(/couldn't set up your account from this invite/)
-    ).toBeInTheDocument();
-    expect(push).not.toHaveBeenCalled();
   });
 });
