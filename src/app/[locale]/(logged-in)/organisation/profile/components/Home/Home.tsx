@@ -30,8 +30,7 @@ const Home = () => {
   }));
 
   const isDelegate = user?.is_delegate;
-  console.log("organisation:", organisation);
-  console.log("user:", user);
+
   return (
     <PageBodyContainer heading={tProfile("homeTitle")}>
       <PageColumns>

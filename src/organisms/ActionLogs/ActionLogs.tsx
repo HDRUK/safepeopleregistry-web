@@ -88,7 +88,7 @@ export default function ActionLogs({
       ),
     };
   });
-  console.log("hydratedInCompletedActions", hydratedInCompletedActions);
+
   return (
     <>
       {!!hydratedInCompletedActions.length && (
