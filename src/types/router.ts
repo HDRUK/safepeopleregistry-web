@@ -17,6 +17,7 @@ interface RouteConfig {
 interface Routes {
   invite: RouteConfig;
   register: RouteConfig;
+  noOrganisation: RouteConfig;
   homepage: RouteConfig;
   about: RouteConfig;
   faq: RouteConfig;
