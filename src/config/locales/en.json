@@ -1298,6 +1298,7 @@
     "trainingHistoryColumnName": "Training course",
     "trainingHistoryColumnAwardedAt": "Date of issue",
     "trainingHistoryColumnExpiresAt": "Date of expiry",
+    "trainingHistoryColumnCertificate": "Certificate",
     "addTrainingCourse": "Add training course",
     "postTrainingSuccess": "Training course added successfully",
     "closeButton": "Close",
@@ -1312,7 +1313,8 @@
     "updateTrainingError": "There was an error updating the training course. Please <contactLink>contact support</contactLink> if the problem persists.",
     "updateTrainingSuccess": "Training course updated successfully",
     "cvUploaded": "CV Uploaded",
-    "downloadCv": "Download CV"
+    "downloadCv": "Download CV",
+    "downloadCertificate": "Download"
   },
   "AccreditedResearcherRegistrations": {
     "accreditationTitle": "Accredited Researcher Registrations",
