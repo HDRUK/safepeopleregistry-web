@@ -221,7 +221,8 @@ type User = WithModelState<{
     identity?: Identity;
   };
   is_delegate: number;
-  is_sro: number;
+  // The API casts is_sro to a boolean; is_delegate is not cast, and we plan to remove it in a PR soon.
+  is_sro: boolean;
   departments?: Department[];
   role?: string;
   location?: string;
@@ -317,6 +318,8 @@ type Organisation = OrganisationIdvt &
     sro_status?: "approved" | "pending" | "rejected";
     sro_profile_uri?: string;
     sro_officer?: User;
+    // Only returned by GET /organisations/{id}.
+    has_sro?: boolean;
     files?: File[];
     ods_id: string;
     ico_registration_id: string;

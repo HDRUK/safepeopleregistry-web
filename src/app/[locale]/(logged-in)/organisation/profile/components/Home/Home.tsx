@@ -1,4 +1,5 @@
 import SoursdCard from "@/components/SoursdCard";
+import { OrganisationRole } from "@/consts/user";
 import { useStore } from "@/data/store";
 import {
   mockedOrganisationDelegateHomeIntro,
@@ -13,6 +14,7 @@ import {
   PageSection,
 } from "@/modules";
 import ActionLogs from "@/organisms/ActionLogs";
+import { getOrganisationRole } from "@/utils/organisationRole";
 import { useTranslations } from "next-intl";
 
 const NAMESPACE_TRANSLATION_PROFILE = "ProfileOrganisation";
@@ -29,7 +31,7 @@ const Home = () => {
     user: state.getUser(),
   }));
 
-  const isDelegate = user?.is_delegate;
+  const isSro = !!user && getOrganisationRole(user) === OrganisationRole.SRO;
 
   return (
     <PageBodyContainer heading={tProfile("homeTitle")}>
@@ -41,9 +43,9 @@ const Home = () => {
                 variant="organisation"
                 panelProps={{
                   heading: "Welcome to Safe People Registry!",
-                  description: isDelegate
-                    ? mockedOrganisationDelegateHomeIntro
-                    : mockedOrganisationHomeIntro,
+                  description: isSro
+                    ? mockedOrganisationHomeIntro
+                    : mockedOrganisationDelegateHomeIntro,
                 }}
                 hiddenActions={
                   !organisation?.system_approved
