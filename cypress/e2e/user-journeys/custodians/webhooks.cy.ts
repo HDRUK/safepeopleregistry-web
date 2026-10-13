@@ -32,7 +32,7 @@ describe("Custodian webhooks journey", () => {
     cy.contains("Webhooks").should("exist");
   });
 
-  it.only("Adds a webhook", () => {
+  it("Adds a webhook", () => {
     const webhookUrl = `https://hooks.${faker.internet.domainName()}/webhook`;
     cy.waitForLoadingToFinish();
     cy.contains("button", "Add").then($btn => {
