@@ -20,19 +20,28 @@ function checkTermsAndConditionsContent(
 function registerAndLogin(registration: RegistrationValues) {
   registerKeycloak(registration);
 
-  signout();
+  // cy.login's cy.session clears every cookie, but in a real browser the
+  // invite cookie set by the invite link survives signing out and back in.
+  cy.getCookie("invite_code").then(inviteCookie => {
+    signout();
 
-  actionMessage(EMAIL_REGISTER_VERIFICATION_LABEL, {
-    to: registration.email,
+    actionMessage(EMAIL_REGISTER_VERIFICATION_LABEL, {
+      to: registration.email,
+    });
+
+    cy.contains("a", /Click here to proceed/i).click();
+
+    cy.login(registration.email, registration.password);
+
+    if (inviteCookie) {
+      cy.setCookie("invite_code", inviteCookie.value);
+    }
+
+    cy.visitFirst(ROUTES.register.path);
+    cy.contains("button", "Continue").click();
+
+    acceptTermsAndConditions();
   });
-
-  cy.contains("a", /Click here to proceed/i).click();
-
-  cy.login(registration.email, registration.password);
-  cy.visitFirst(ROUTES.register.path);
-  cy.contains("button", "Continue").click();
-
-  acceptTermsAndConditions();
 }
 
 function openUserTermsAndConditions() {
