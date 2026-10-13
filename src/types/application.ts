@@ -209,7 +209,8 @@ type User = WithModelState<{
   orcid_scanning_completed_at: string | null;
   created_at: string;
   feed_source?: UserFeedSource;
-  unclaimed?: number;
+  // The API casts users.unclaimed to a boolean (organisations.unclaimed is still a number).
+  unclaimed?: boolean;
   registry: {
     digi_ident: string;
     files?: File[];
