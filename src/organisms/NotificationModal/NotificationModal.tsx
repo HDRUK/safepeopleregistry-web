@@ -79,10 +79,45 @@ export default function NotificationModal({
   const { details } = notification.data;
   const isDetailsObject = typeof details === "object" && details !== null;
 
-  const hasOldNewStructure = "old" in details && "new" in details;
+  const hasOldNewStructure =
+    isDetailsObject && "old" in details && "new" in details;
+
+  const hasNestedFileStructure =
+    isDetailsObject &&
+    Object.values(details).some(
+      val =>
+        typeof val === "object" && val !== null && "old" in val && "new" in val
+    );
+
+  const detailRows = hasOldNewStructure
+    ? Object.keys({
+        ...details.old,
+        ...details.new,
+      }).map(key => ({
+        field: key,
+        oldValue: details.old?.[key],
+        newValue: details.new?.[key],
+      }))
+    : hasNestedFileStructure
+      ? Object.entries(details)
+          .filter(
+            ([, val]) =>
+              val !== null &&
+              typeof val === "object" &&
+              !Array.isArray(val) &&
+              ("old" in val || "new" in val)
+          )
+          .map(([key, val]) => ({
+            field: key,
+            oldValue: val.old,
+            newValue: val.new,
+          }))
+      : [];
+
+  const hasComparableValues = hasOldNewStructure || hasNestedFileStructure;
 
   return (
-    hasOldNewStructure && (
+    (hasComparableValues || !isDetailsObject) && (
       <Modal
         data-testid="notification-modal"
         onClose={onClose}
@@ -186,7 +221,7 @@ export default function NotificationModal({
                 ))}
               </List>
             )}
-            {isDetailsObject ? (
+            {hasComparableValues ? (
               <TableContainer
                 component={Paper}
                 sx={{ marginTop: 0, width: "100%" }}>
@@ -210,19 +245,15 @@ export default function NotificationModal({
                   </TableHead>
 
                   <TableBody>
-                    {Object.keys(details.new).map(key => (
-                      <TableRow key={key}>
+                    {detailRows.map(({ field, oldValue, newValue }) => (
+                      <TableRow key={field}>
                         <TableCell component="th" scope="row">
-                          {key}
+                          {field}
                         </TableCell>
 
-                        <TableCell align="right">
-                          {details.old[key] ?? "—"}
-                        </TableCell>
+                        <TableCell align="right">{oldValue ?? "—"}</TableCell>
 
-                        <TableCell align="right">
-                          {details.new[key] ?? "—"}
-                        </TableCell>
+                        <TableCell align="right">{newValue ?? "—"}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
