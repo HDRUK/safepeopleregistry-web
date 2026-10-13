@@ -2576,7 +2576,7 @@
         "body": "Choose to enable features like Single Sign-on for access, project approval recording, or automatic publishing of project details to a public data use register. Whatever works best for you!"
       }
     },
-    "videoIntro": "Take a deeper dive into the products with our demo playlist below",
+    "videoIntro": "Take a deeper dive into the platform with our demo playlist below",
     "InfoHero": {
       "title": "The Safe People Registry is <bold>secure</bold>, <bold>supported</bold>, <bold>open-source</bold> and <bold>free</bold>",
       "content": "We co-created the Safe People Registry with Users, Organisations and Data Custodians to make ‘safe people’ validation faster, easier, and more secure.\n\nLed by Health Data Research UK’s (HDR UK) <techLink>Technology Team</techLink> (though not health-data specific), the Safe People Registry is a free, open-source platform designed for long-term use and built with collaboration at its core.\n\nThe Safe People Registry continues to evolve in response to your needs. <helpLink>Help us develop further!</helpLink>"
