@@ -48,16 +48,16 @@ describe("<OrganisationsTable />", () => {
   });
 
   it.each([
-    ["Account created", { unclaimed: 0 }],
+    ["Account created", { unclaimed: false }],
     [
       "Invited by Admin",
-      { unclaimed: 1, sro_officer: sroInvitedBy(UserGroup.ADMINS) },
+      { unclaimed: true, sro_officer: sroInvitedBy(UserGroup.ADMINS) },
     ],
     [
       "Invited by non-admin",
-      { unclaimed: 1, sro_officer: sroInvitedBy(UserGroup.CUSTODIANS) },
+      { unclaimed: true, sro_officer: sroInvitedBy(UserGroup.CUSTODIANS) },
     ],
-    ["Placeholder", { unclaimed: 1 }],
+    ["Placeholder", { unclaimed: true }],
   ])("renders the %s status", (label, overrides) => {
     setupTest({
       includeColumns: ["status"],

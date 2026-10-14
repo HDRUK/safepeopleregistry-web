@@ -15,7 +15,7 @@ import OrganisationsList from "./OrganisationsList";
 
 const mockedInvitedOrganisation = (userGroup: UserGroup) =>
   mockedOrganisation({
-    unclaimed: 1,
+    unclaimed: true,
     model_state: { state: { slug: Status.INVITED } },
     sro_officer: mockedUser({
       invited_by: mockedUser({ user_group: userGroup }),
@@ -72,7 +72,7 @@ describe("<OrganisationsList />", () => {
   it("shows the invite action for a suggested organisation", async () => {
     const organisation = mockedOrganisation({
       lead_applicant_email: "",
-      unclaimed: 1,
+      unclaimed: true,
       model_state: undefined,
     });
 

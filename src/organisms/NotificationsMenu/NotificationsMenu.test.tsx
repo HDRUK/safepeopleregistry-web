@@ -1,6 +1,6 @@
 import { useStore } from "@/data/store";
 import { mockedUser } from "@/mocks/data/user";
-import { putUserNotification } from "@/app/actions/notifications";
+import { patchUserNotification } from "@/app/actions/notifications";
 import {
   screen,
   render,
@@ -20,7 +20,7 @@ jest.mock("@/data/store");
 
 (useStore as unknown as jest.Mock).mockReturnValue(defaultUser);
 
-jest.mock("@/app/actions/notifications/putUserNotification", () => ({
+jest.mock("@/app/actions/notifications/patchUserNotification", () => ({
   __esModule: true,
   default: jest.fn(),
 }));
@@ -103,9 +103,12 @@ describe("<NotificationsMenu />", () => {
       );
     });
 
-    const mockPutNotification = putUserNotification as jest.Mock;
+    const mockPatchNotification = patchUserNotification as jest.Mock;
 
     const firstNotification = screen.getAllByTestId("notification-item")[0];
+
+    console.log("Rendered notification:", firstNotification.outerHTML);
+
     fireEvent.click(firstNotification);
 
     await waitFor(() => {
@@ -113,10 +116,10 @@ describe("<NotificationsMenu />", () => {
     });
 
     await waitFor(() => {
-      expect(mockPutNotification).toHaveBeenCalledTimes(1);
+      expect(mockPatchNotification).toHaveBeenCalledTimes(1);
     });
 
-    expect(mockPutNotification).toHaveBeenCalledWith(
+    expect(mockPatchNotification).toHaveBeenCalledWith(
       expect.any(Number),
       expect.any(String),
       NotificationPutType.READ,
@@ -133,13 +136,13 @@ describe("<NotificationsMenu />", () => {
 
     fireEvent.click(screen.getByTestId("mark-notification-as-unread-button"));
 
-    mockPutNotification.mockClear();
+    mockPatchNotification.mockClear();
 
     await waitFor(() => {
-      expect(mockPutNotification).toHaveBeenCalledTimes(1);
+      expect(mockPatchNotification).toHaveBeenCalledTimes(1);
     });
 
-    expect(mockPutNotification).toHaveBeenCalledWith(
+    expect(mockPatchNotification).toHaveBeenCalledWith(
       expect.any(Number),
       expect.any(String),
       NotificationPutType.UNREAD,
