@@ -209,7 +209,8 @@ type User = WithModelState<{
   orcid_scanning_completed_at: string | null;
   created_at: string;
   feed_source?: UserFeedSource;
-  unclaimed?: number;
+  // The API casts users.unclaimed to a boolean (organisations.unclaimed is still a number).
+  unclaimed?: boolean;
   registry: {
     digi_ident: string;
     files?: File[];
@@ -220,7 +221,8 @@ type User = WithModelState<{
     identity?: Identity;
   };
   is_delegate: number;
-  is_sro: number;
+  // The API casts is_sro to a boolean; is_delegate is not cast, and we plan to remove it in a PR soon.
+  is_sro: boolean;
   departments?: Department[];
   role?: string;
   location?: string;
@@ -316,6 +318,9 @@ type Organisation = OrganisationIdvt &
     sro_status?: "approved" | "pending" | "rejected";
     sro_profile_uri?: string;
     sro_officer?: User;
+    claimed_sro?: User | null;
+    // Only returned by GET /organisations/{id}.
+    has_claimed_sro?: boolean;
     files?: File[];
     ods_id: string;
     ico_registration_id: string;

@@ -1,7 +1,7 @@
 import { Status } from "@/consts/application";
 import { UserGroup } from "@/consts/user";
 import { EntityType } from "@/types/api";
-import { Organisation } from "@/types/application";
+import { Organisation, User } from "@/types/application";
 
 function filterOrganisationsList(
   organisation: Organisation,
@@ -50,11 +50,11 @@ function getOrganisationAccountStatus(organisation: Organisation): Status {
   if (invitedBy) {
     return invitedBy.user_group === UserGroup.ADMINS
       ? Status.ORGANISATION_INVITED_BY_ADMIN
-      : Status.ORGANISATION_INVITED_BY_OTHER;
+      : Status.ORGANISATION_INVITED_BY_NONADMIN;
   }
 
   if (organisation.model_state?.state?.slug === Status.INVITED) {
-    return Status.ORGANISATION_INVITED_BY_OTHER;
+    return Status.ORGANISATION_INVITED_BY_NONADMIN;
   }
 
   return Status.ORGANISATION_PLACEHOLDER;
@@ -71,4 +71,18 @@ function getSroStatus({ sro_status }: Organisation): Status | undefined {
   return sro_status ? SRO_STATUSES[sro_status] : undefined;
 }
 
-export { filterOrganisationsList, getOrganisationAccountStatus, getSroStatus };
+// An organisation user detached from their organisation, e.g. a removed delegate.
+function isWithoutOrganisation(
+  user: Pick<User, "user_group" | "organisation_id">
+): boolean {
+  return (
+    user.user_group === UserGroup.ORGANISATIONS && user.organisation_id == null
+  );
+}
+
+export {
+  filterOrganisationsList,
+  getOrganisationAccountStatus,
+  getSroStatus,
+  isWithoutOrganisation,
+};

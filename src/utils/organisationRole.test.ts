@@ -1,0 +1,185 @@
+import { OrganisationRole, UserGroup } from "@/consts/user";
+import { mockedUser } from "@/mocks/data/user";
+import {
+  canPerformSroRestrictedAction,
+  canRemoveDelegate,
+  getOrganisationRole,
+} from "./organisationRole";
+
+const ORGANISATION_ID = 1;
+
+const flagCombinations = [
+  { label: "sro only", is_sro: true, is_delegate: 0 },
+  { label: "sro and delegate", is_sro: true, is_delegate: 1 },
+  { label: "delegate only", is_sro: false, is_delegate: 1 },
+  { label: "neither flag", is_sro: false, is_delegate: 0 },
+];
+
+const organisationUser = (is_sro: boolean, is_delegate: number) =>
+  mockedUser({
+    user_group: UserGroup.ORGANISATIONS,
+    organisation_id: ORGANISATION_ID,
+    is_sro,
+    is_delegate,
+  });
+
+describe("getOrganisationRole", () => {
+  it.each([
+    [flagCombinations[0], OrganisationRole.SRO],
+    [flagCombinations[1], OrganisationRole.SRO],
+    [flagCombinations[2], OrganisationRole.DELEGATE],
+    [flagCombinations[3], OrganisationRole.DELEGATE],
+  ])("derives the role for $label", ({ is_sro, is_delegate }, expected) => {
+    expect(getOrganisationRole(organisationUser(is_sro, is_delegate))).toBe(
+      expected
+    );
+  });
+
+  it.each(flagCombinations)(
+    "has no role without an organisation ($label)",
+    ({ is_sro, is_delegate }) => {
+      const user = mockedUser({
+        user_group: UserGroup.ORGANISATIONS,
+        organisation_id: null,
+        is_sro,
+        is_delegate,
+      });
+
+      expect(getOrganisationRole(user)).toBeNull();
+    }
+  );
+
+  it.each(
+    [UserGroup.USERS, UserGroup.ADMINS, UserGroup.CUSTODIANS].flatMap(
+      user_group =>
+        flagCombinations.map(flags => ({
+          ...flags,
+          user_group,
+        }))
+    )
+  )(
+    "has no role in the $user_group group ($label)",
+    ({ user_group, is_sro, is_delegate }) => {
+      const user = mockedUser({
+        user_group,
+        organisation_id: ORGANISATION_ID,
+        is_sro,
+        is_delegate,
+      });
+
+      expect(getOrganisationRole(user)).toBeNull();
+    }
+  );
+});
+
+describe("canPerformSroRestrictedAction", () => {
+  const organisation = (has_claimed_sro?: boolean) => ({
+    id: ORGANISATION_ID,
+    has_claimed_sro,
+  });
+
+  // Expected outcome for an organisation with: no SRO, a claimed SRO, has_claimed_sro not loaded.
+  it.each([
+    ["admin", mockedUser({ user_group: UserGroup.ADMINS }), [true, true, true]],
+    ["sro", organisationUser(true, 0), [true, true, true]],
+    ["delegate", organisationUser(false, 1), [true, false, false]],
+    ["neither flag", organisationUser(false, 0), [true, false, false]],
+    [
+      "delegate in another organisation",
+      mockedUser({
+        user_group: UserGroup.ORGANISATIONS,
+        organisation_id: ORGANISATION_ID + 1,
+        is_sro: false,
+        is_delegate: 1,
+      }),
+      [false, false, false],
+    ],
+    [
+      "detached delegate",
+      mockedUser({
+        user_group: UserGroup.ORGANISATIONS,
+        organisation_id: null,
+        is_sro: false,
+        is_delegate: 1,
+      }),
+      [false, false, false],
+    ],
+    [
+      "researcher",
+      mockedUser({
+        user_group: UserGroup.USERS,
+        organisation_id: ORGANISATION_ID,
+      }),
+      [false, false, false],
+    ],
+    [
+      "custodian",
+      mockedUser({ user_group: UserGroup.CUSTODIANS }),
+      [false, false, false],
+    ],
+  ])("%s", (_, user, [noSro, claimedSro, notLoaded]) => {
+    expect(canPerformSroRestrictedAction(user, organisation(false))).toBe(
+      noSro
+    );
+    expect(canPerformSroRestrictedAction(user, organisation(true))).toBe(
+      claimedSro
+    );
+    expect(canPerformSroRestrictedAction(user, organisation(undefined))).toBe(
+      notLoaded
+    );
+  });
+});
+
+describe("canRemoveDelegate", () => {
+  const organisation = { id: ORGANISATION_ID };
+  const delegate = mockedUser({ id: 99 });
+
+  it.each([
+    ["admin", mockedUser({ id: 1, user_group: UserGroup.ADMINS }), true],
+    ["sro", { ...organisationUser(true, 0), id: 1 }, true],
+    ["delegate", { ...organisationUser(false, 1), id: 1 }, true],
+    ["neither flag", { ...organisationUser(false, 0), id: 1 }, true],
+    [
+      "delegate in another organisation",
+      mockedUser({
+        id: 1,
+        user_group: UserGroup.ORGANISATIONS,
+        organisation_id: ORGANISATION_ID + 1,
+        is_sro: false,
+      }),
+      false,
+    ],
+    [
+      "detached delegate",
+      mockedUser({
+        id: 1,
+        user_group: UserGroup.ORGANISATIONS,
+        organisation_id: null,
+        is_sro: false,
+      }),
+      false,
+    ],
+    [
+      "researcher",
+      mockedUser({
+        id: 1,
+        user_group: UserGroup.USERS,
+        organisation_id: ORGANISATION_ID,
+      }),
+      false,
+    ],
+    [
+      "custodian",
+      mockedUser({ id: 1, user_group: UserGroup.CUSTODIANS }),
+      false,
+    ],
+  ])("%s", (_, user, expected) => {
+    expect(canRemoveDelegate(user, organisation, delegate)).toBe(expected);
+  });
+
+  it("does not let anyone remove themselves", () => {
+    const me = { ...organisationUser(true, 0), id: 99 };
+
+    expect(canRemoveDelegate(me, organisation, delegate)).toBe(false);
+  });
+});

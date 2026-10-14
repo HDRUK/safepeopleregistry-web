@@ -63,7 +63,7 @@ enum Status {
   SPONSORSHIP_REJECTED = "sponsorship_rejected",
   ORGANISATION_ACCOUNT_CREATED = "organisation_account_created",
   ORGANISATION_INVITED_BY_ADMIN = "organisation_invited_by_admin",
-  ORGANISATION_INVITED_BY_OTHER = "organisation_invited_by_other",
+  ORGANISATION_INVITED_BY_NONADMIN = "organisation_invited_by_nonadmin",
   ORGANISATION_PLACEHOLDER = "organisation_placeholder",
   SRO_APPROVED = "sro_approved",
   SRO_PENDING = "sro_pending",
