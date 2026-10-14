@@ -82,7 +82,7 @@ export default function NotificationModal({
   const hasOldNewStructure =
     isDetailsObject && "old" in details && "new" in details;
 
-  const hasNestedFileStructure =
+  const hasNestedStructure =
     isDetailsObject &&
     Object.values(details).some(
       val =>
@@ -99,7 +99,7 @@ export default function NotificationModal({
         oldValue: details.old?.[key],
         newValue: details.new?.[key],
       }))
-    : hasNestedFileStructure
+    : hasNestedStructure
       ? Object.entries(details)
           .filter(
             ([, val]) =>
@@ -115,7 +115,7 @@ export default function NotificationModal({
           }))
       : [];
 
-  const hasComparableValues = hasOldNewStructure || hasNestedFileStructure;
+  const hasComparableValues = hasOldNewStructure || hasNestedStructure;
 
   return (
     (hasComparableValues || !isDetailsObject) && (
