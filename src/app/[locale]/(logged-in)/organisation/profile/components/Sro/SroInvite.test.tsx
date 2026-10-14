@@ -1,4 +1,5 @@
 import { mockedOrganisation } from "@/mocks/data/organisation";
+import { mockedUser } from "@/mocks/data/user";
 import { fireEvent, render, screen } from "@/utils/testUtils";
 import SroInvite from "./SroInvite";
 
@@ -19,7 +20,7 @@ describe("<SroInvite />", () => {
     beforeEach(() => {
       mockUseStore({
         config: {
-          organisation: { ...organisation, sro_officer: undefined },
+          organisation: { ...organisation, claimed_sro: null },
         },
       });
     });
@@ -69,43 +70,48 @@ describe("<SroInvite />", () => {
     });
   });
 
-  describe("when an SRO is already assigned", () => {
+  describe("when a claimed SRO is assigned", () => {
+    const claimedSro = mockedUser({
+      first_name: "Jane",
+      last_name: "Doe",
+      email: "jane.doe@example.com",
+      role: "Head of Research",
+    });
+
     beforeEach(() => {
       mockUseStore({
-        config: { organisation },
+        config: { organisation: { ...organisation, claimed_sro: claimedSro } },
       });
     });
 
-    it("shows the assigned SRO's details, a resend-invite button and a sent chip", () => {
+    it("shows the claimed SRO's details", () => {
+      setupTest({ hasSroAssigned: true });
+
+      expect(screen.getByText("Jane Doe")).toBeInTheDocument();
+      expect(screen.getByText("jane.doe@example.com")).toBeInTheDocument();
+      expect(screen.getByText("Head of Research")).toBeInTheDocument();
+    });
+
+    it("does not offer to resend an invite", () => {
       setupTest({ hasSroAssigned: true });
 
       expect(
-        screen.getByText(
-          new RegExp(
-            `${organisation.sro_officer!.first_name} ${organisation.sro_officer!.last_name}`
-          )
-        )
-      ).toBeInTheDocument();
+        screen.queryByText(/Invite successfully sent on/)
+      ).not.toBeInTheDocument();
       expect(
-        screen.getByRole("button", { name: "Reinvite & Save" })
-      ).toBeInTheDocument();
-      expect(
-        screen.getByText(/Invite successfully sent on/)
-      ).toBeInTheDocument();
-      expect(
-        screen.queryByRole("button", { name: "Send invite" })
+        screen.queryByRole("button", { name: "Reinvite & Save" })
       ).not.toBeInTheDocument();
     });
 
-    it("still shows the Previous and Save navigation buttons under the invite section", () => {
+    it("only offers to go back", () => {
       setupTest({ hasSroAssigned: true });
 
       expect(
         screen.getByRole("link", { name: "Previous" })
       ).toBeInTheDocument();
       expect(
-        screen.getByRole("button", { name: "Reinvite & Save" })
-      ).toBeInTheDocument();
+        screen.queryByRole("button", { name: "Save" })
+      ).not.toBeInTheDocument();
     });
   });
 });

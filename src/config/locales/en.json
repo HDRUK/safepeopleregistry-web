@@ -114,8 +114,8 @@
       "sponsorship_approved": "Confirmed",
       "organisation_registered": "Registered",
       "organisation_account_created": "Account created",
-      "organisation_invited_by_admin": "Invited by HDR UK",
-      "organisation_invited_by_other": "Invited by other",
+      "organisation_invited_by_admin": "Invited by Admin",
+      "organisation_invited_by_nonadmin": "Invited by non-admin",
       "organisation_placeholder": "Placeholder",
       "sro_approved": "Approved",
       "sro_pending": "Pending",
@@ -1300,6 +1300,7 @@
     "trainingHistoryColumnName": "Training course",
     "trainingHistoryColumnAwardedAt": "Date of issue",
     "trainingHistoryColumnExpiresAt": "Date of expiry",
+    "trainingHistoryColumnCertificate": "Certificate",
     "addTrainingCourse": "Add training course",
     "postTrainingSuccess": "Training course added successfully",
     "closeButton": "Close",
@@ -1314,7 +1315,8 @@
     "updateTrainingError": "There was an error updating the training course. Please <contactLink>contact support</contactLink> if the problem persists.",
     "updateTrainingSuccess": "Training course updated successfully",
     "cvUploaded": "CV Uploaded",
-    "downloadCv": "Download CV"
+    "downloadCv": "Download CV",
+    "downloadCertificate": "Download"
   },
   "AccreditedResearcherRegistrations": {
     "accreditationTitle": "Accredited Researcher Registrations",
@@ -1590,9 +1592,17 @@
     "supportAskTeam": "Ask the team (new tab)",
     "supportContactUs": "Contact us"
   },
+  "NoOrganisation": {
+    "title": "Your account is no longer linked to an organisation",
+    "description": "You have been removed as a delegate of your organisation, so you no longer have access to its Safe People Registry account.",
+    "help": "If you think you have been removed by mistake, or you need help, please contact us at <contactLink></contactLink>.",
+    "signOut": "Sign out"
+  },
   "Register": {
     "title": "What would you like to do?",
     "claimOrgAccount": "Claim your admin account",
+    "claimInviteError": "We couldn't set up your account from this invite. Please open the link in your invite email again, or contact us at <contactLink></contactLink> if the problem persists.",
+    "claimInviteErrorButton": "OK",
     "postOrganisationUnclaimedError": "Unable to create the initial organisation data, please try again. Alternatively, please contact us at <contactLink></contactLink>",
     "failedToRegister": "Failed to register account. Please try again by refreshing or <contactLink>contact support</contactLink> if the problem persists.",
     "putOrganisationError": "There was a problem registering your organisation. Please try again by refreshing or <contactLink>contact support</contactLink> if the problem persists.",
@@ -2576,7 +2586,7 @@
         "body": "Choose to enable features like Single Sign-on for access, project approval recording, or automatic publishing of project details to a public data use register. Whatever works best for you!"
       }
     },
-    "videoIntro": "Take a deeper dive into the products with our demos",
+    "videoIntro": "Take a deeper dive into the platform with our demo playlist below",
     "InfoHero": {
       "title": "The Safe People Registry is <bold>secure</bold>, <bold>supported</bold>, <bold>open-source</bold> and <bold>free</bold>",
       "content": "We co-created the Safe People Registry with Users, Organisations and Data Custodians to make ‘safe people’ validation faster, easier, and more secure.\n\nLed by Health Data Research UK’s (HDR UK) <techLink>Technology Team</techLink> (though not health-data specific), the Safe People Registry is a free, open-source platform designed for long-term use and built with collaboration at its core.\n\nThe Safe People Registry continues to evolve in response to your needs. <helpLink>Help us develop further!</helpLink>"

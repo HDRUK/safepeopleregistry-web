@@ -108,7 +108,7 @@ const getColorForStatus = (status?: Status): string => {
   if (
     [
       Status.ORGANISATION_INVITED_BY_ADMIN,
-      Status.ORGANISATION_INVITED_BY_OTHER,
+      Status.ORGANISATION_INVITED_BY_NONADMIN,
     ].includes(status!)
   )
     return "neutral-light";

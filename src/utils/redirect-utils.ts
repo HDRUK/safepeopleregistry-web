@@ -1,6 +1,7 @@
 import { ROUTES } from "@/consts/router";
 import { User } from "@/types/application";
 import { getProfilePathByEntity } from "@/utils/entity";
+import { isWithoutOrganisation } from "@/utils/organisation";
 
 const getRegisterRedirectPath = () => {
   return ROUTES.register.path;
@@ -19,6 +20,11 @@ function isInPath(pathname: string, pathToCompare: string | string[]) {
 }
 
 const getProfileRedirectPath = (user: User) => {
+  // Organisation pages need an organisation, so users without one get a page of their own.
+  if (user && isWithoutOrganisation(user)) {
+    return ROUTES.noOrganisation.path;
+  }
+
   const redirectPath = getProfilePathByEntity(user);
 
   return redirectPath;

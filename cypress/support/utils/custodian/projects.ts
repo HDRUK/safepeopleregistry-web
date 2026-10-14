@@ -322,14 +322,14 @@ const createProjectAndInviteNewSponsor = (
 };
 
 // The counterpart to hasProjectSponsor(): the Organisation is attached as the
-// sponsor, but nobody was invited to it. The unclaimed_before_superadmin_invitation
-// endpoint leaves the Organisation without a state, so getSponsorshipStatus has
-// no "Invited" to report and there is no invite to resend.
+// sponsor, and the Organisation has been invited to contact the superadmin,
+// but the superadmin invite step has not yet happened. The invite_to_contact_superadmin
+// endpoint leaves the Organisation in invited_by_nonadmin state
 const hasUninvitedProjectSponsor = (invite: InviteOrganisationFormValues) => {
   cy.contains(invite.organisation_name).should("exist");
 
   cy.get(dataCy("invite-sponsor")).within(() => {
-    cy.contains(getStatus(Status.INVITED)).should("not.exist");
+    cy.contains("Invited by non-admin").should("exist");
     cy.contains("Resend invite").should("not.exist");
   });
 };
