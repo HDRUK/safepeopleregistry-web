@@ -111,7 +111,6 @@ describe("<NotificationsMenu />", () => {
 
     fireEvent.click(firstNotification);
 
-
     await waitFor(() => {
       expect(screen.getByTestId("notification-modal")).toBeInTheDocument();
     });
