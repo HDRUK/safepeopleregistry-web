@@ -13,7 +13,6 @@ import { User } from "@/types/application";
 import { getName } from "@/utils/application";
 import {
   Autocomplete,
-  Chip,
   FormControlLabel,
   Grid,
   Radio,
@@ -45,7 +44,7 @@ export default function SroInvite({ hasSroAssigned }: SroInviteProps) {
   const tOrgProfile = useTranslations(NAMESPACE_TRANSLATION_ORG_PROFILE);
   const { organisation } = useOrganisationStore();
 
-  const sroOfficer = organisation?.sro_officer;
+  const claimedSro = organisation?.claimed_sro;
 
   const [mode, setMode] = useState<SroInviteMode>("new");
   const [selectedDelegate, setSelectedDelegate] = useState<User | null>(null);
@@ -94,9 +93,6 @@ export default function SroInvite({ hasSroAssigned }: SroInviteProps) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleSendInvite = (values: SroInviteFormValues) => {};
 
-  // Need backend: resend SRO invite endpoint
-  const handleResendInvite = () => {};
-
   if (hasSroAssigned) {
     return (
       <PageBody heading={tOrgProfile("sroInviteTitle")}>
@@ -110,31 +106,28 @@ export default function SroInvite({ hasSroAssigned }: SroInviteProps) {
                 {tOrgProfile("sroAssignedName")}
               </Typography>
               <Typography>
-                {sroOfficer?.first_name} {sroOfficer?.last_name}
+                {claimedSro?.first_name} {claimedSro?.last_name}
               </Typography>
             </Grid>
             <Grid size={{ xs: 12 }}>
               <Typography sx={{ fontWeight: "bold" }}>
                 {tOrgProfile("sroAssignedEmail")}
               </Typography>
-              <Typography>{sroOfficer?.email}</Typography>
+              <Typography>{claimedSro?.email || "-"}</Typography>
             </Grid>
             <Grid size={{ xs: 12 }}>
               <Typography sx={{ fontWeight: "bold" }}>
                 {tOrgProfile("sroAssignedDepartment")}
               </Typography>
-              <Typography>{sroOfficer?.departments?.[0]?.name}</Typography>
+              <Typography>
+                {claimedSro?.departments?.[0]?.name || "-"}
+              </Typography>
             </Grid>
             <Grid size={{ xs: 12 }}>
               <Typography sx={{ fontWeight: "bold" }}>
                 {tOrgProfile("sroAssignedJobTitle")}
               </Typography>
-              <Typography>{sroOfficer?.role}</Typography>
-            </Grid>
-          </Grid>
-          <Grid container sx={{ pt: "29px" }}>
-            <Grid size={{ xs: 12 }}>
-              <Chip color="success" label={tOrgProfile("sroInviteSentChip")} />
+              <Typography>{claimedSro?.role || "-"}</Typography>
             </Grid>
           </Grid>
           <FormActions>
@@ -142,8 +135,7 @@ export default function SroInvite({ hasSroAssigned }: SroInviteProps) {
               previousHref={
                 ROUTES.profileOrganisationDetailsSecurityCompliance.path
               }
-              onClick={handleResendInvite}
-              submitButtonText={tOrgProfile("sroResendInviteButton")}
+              hideSubmitButton
             />
           </FormActions>
         </PageSection>

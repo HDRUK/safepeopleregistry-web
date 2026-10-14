@@ -30,7 +30,13 @@ const sro = organisationUser(1, true);
 const delegateA = organisationUser(10, false);
 const delegateB = organisationUser(11, false);
 
-const renderTable = ({ me, hasSro }: { me: typeof sro; hasSro: boolean }) => {
+const renderTable = ({
+  me,
+  hasClaimedSro,
+}: {
+  me: typeof sro;
+  hasClaimedSro: boolean;
+}) => {
   const refetch = jest.fn();
 
   mockUseStore({
@@ -38,7 +44,7 @@ const renderTable = ({ me, hasSro }: { me: typeof sro; hasSro: boolean }) => {
     config: {
       organisation: mockedOrganisation({
         id: ORGANISATION_ID,
-        has_sro: hasSro,
+        has_claimed_sro: hasClaimedSro,
       }),
     },
   });
@@ -84,28 +90,28 @@ describe("<DelegateTable />", () => {
   });
 
   it("lets the SRO remove any delegate", () => {
-    renderTable({ me: sro, hasSro: true });
+    renderTable({ me: sro, hasClaimedSro: true });
 
     expect(canRemove(delegateA)).toBe(true);
     expect(canRemove(delegateB)).toBe(true);
   });
 
   it("lets a delegate remove other delegates before the organisation has an SRO, but not themselves", () => {
-    renderTable({ me: delegateA, hasSro: false });
+    renderTable({ me: delegateA, hasClaimedSro: false });
 
     expect(canRemove(delegateA)).toBe(false);
     expect(canRemove(delegateB)).toBe(true);
   });
 
   it("lets a delegate remove other delegates once the organisation has an SRO, but not themselves", () => {
-    renderTable({ me: delegateA, hasSro: true });
+    renderTable({ me: delegateA, hasClaimedSro: true });
 
     expect(canRemove(delegateA)).toBe(false);
     expect(canRemove(delegateB)).toBe(true);
   });
 
   it("removes the delegate via the organisation delegates endpoint once confirmed", async () => {
-    const { refetch } = renderTable({ me: sro, hasSro: true });
+    const { refetch } = renderTable({ me: sro, hasClaimedSro: true });
 
     openActions(delegateB);
     fireEvent.click(screen.getByRole("menuitem", { name: /Remove/ }));

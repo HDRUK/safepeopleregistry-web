@@ -126,16 +126,16 @@ describe("<Sro />", () => {
   );
 
   it.each([
-    { has_sro: true, expected: "SRO assigned" },
-    { has_sro: false, expected: "No SRO assigned" },
-    { has_sro: undefined, expected: "SRO assigned" },
+    { has_claimed_sro: true, expected: "SRO assigned" },
+    { has_claimed_sro: false, expected: "No SRO assigned" },
+    { has_claimed_sro: undefined, expected: "SRO assigned" },
   ])(
-    "locks SroForm for delegates using has_sro ($has_sro)",
-    ({ has_sro, expected }) => {
+    "locks SroForm for delegates using has_claimed_sro ($has_claimed_sro)",
+    ({ has_claimed_sro, expected }) => {
       (useFeatures as jest.Mock).mockReturnValue({
         isSroRequirementEnabled: true,
       });
-      mockOrganisation({ has_sro, sro_officer: undefined });
+      mockOrganisation({ has_claimed_sro, sro_officer: undefined });
 
       render(<Sro />);
 
@@ -143,14 +143,22 @@ describe("<Sro />", () => {
     }
   );
 
-  it("still uses sro_officer for SroInvite", () => {
-    (useFeatures as jest.Mock).mockReturnValue({
-      isSroRequirementEnabled: false,
-    });
-    mockOrganisation({ has_sro: true, sro_officer: undefined });
+  it.each([
+    { claimed_sro: mockedUser(), expected: "SRO assigned" },
+    { claimed_sro: null, expected: "No SRO assigned" },
+    { claimed_sro: undefined, expected: "No SRO assigned" },
+  ])(
+    "shows SroInvite's assigned SRO only when the claimed SRO is loaded ($expected)",
+    ({ claimed_sro, expected }) => {
+      (useFeatures as jest.Mock).mockReturnValue({
+        isSroRequirementEnabled: false,
+      });
+      // has_claimed_sro alone is not enough: the card needs the SRO's details.
+      mockOrganisation({ has_claimed_sro: true, claimed_sro });
 
-    render(<Sro />);
+      render(<Sro />);
 
-    expect(screen.getByText("No SRO assigned")).toBeInTheDocument();
-  });
+      expect(screen.getByText(expected)).toBeInTheDocument();
+    }
+  );
 });

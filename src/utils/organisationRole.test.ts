@@ -73,12 +73,12 @@ describe("getOrganisationRole", () => {
 });
 
 describe("canPerformSroRestrictedAction", () => {
-  const organisation = (has_sro?: boolean) => ({
+  const organisation = (has_claimed_sro?: boolean) => ({
     id: ORGANISATION_ID,
-    has_sro,
+    has_claimed_sro,
   });
 
-  // Expected outcome for an organisation with: no SRO, a claimed SRO, has_sro not loaded.
+  // Expected outcome for an organisation with: no SRO, a claimed SRO, has_claimed_sro not loaded.
   it.each([
     ["admin", mockedUser({ user_group: UserGroup.ADMINS }), [true, true, true]],
     ["sro", organisationUser(true, 0), [true, true, true]],

@@ -318,8 +318,9 @@ type Organisation = OrganisationIdvt &
     sro_status?: "approved" | "pending" | "rejected";
     sro_profile_uri?: string;
     sro_officer?: User;
+    claimed_sro?: User | null;
     // Only returned by GET /organisations/{id}.
-    has_sro?: boolean;
+    has_claimed_sro?: boolean;
     files?: File[];
     ods_id: string;
     ico_registration_id: string;
