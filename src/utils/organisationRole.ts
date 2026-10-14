@@ -26,11 +26,11 @@ function getOrganisationRole(
 /**
  * Mirrors OrganisationPolicy::performSroRestrictedAction() in the API, for showing or
  * hiding controls only; the API enforces the rule. A delegate is only allowed when
- * has_sro is known to be false, so the result is false if has_sro was not loaded.
+ * has_claimed_sro is known to be false, so the result is false if has_claimed_sro was not loaded.
  */
 function canPerformSroRestrictedAction(
   user: OrganisationRoleUser,
-  organisation: Pick<Organisation, "id"> & { has_sro?: boolean }
+  organisation: Pick<Organisation, "id"> & { has_claimed_sro?: boolean }
 ): boolean {
   if (user.user_group === UserGroup.ADMINS) {
     return true;
@@ -46,7 +46,7 @@ function canPerformSroRestrictedAction(
     case OrganisationRole.SRO:
       return true;
     case OrganisationRole.DELEGATE:
-      return organisation.has_sro === false;
+      return organisation.has_claimed_sro === false;
   }
 }
 
