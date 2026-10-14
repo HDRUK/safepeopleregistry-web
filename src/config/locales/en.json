@@ -1590,6 +1590,12 @@
     "supportAskTeam": "Ask the team (new tab)",
     "supportContactUs": "Contact us"
   },
+  "NoOrganisation": {
+    "title": "Your account is no longer linked to an organisation",
+    "description": "You have been removed as a delegate of your organisation, so you no longer have access to its Safe People Registry account.",
+    "help": "If you think you have been removed by mistake, or you need help, please contact us at <contactLink></contactLink>.",
+    "signOut": "Sign out"
+  },
   "Register": {
     "title": "What would you like to do?",
     "claimOrgAccount": "Claim your admin account",
