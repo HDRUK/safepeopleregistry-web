@@ -88,7 +88,8 @@ export default function NotificationModal({
       val =>
         typeof val === "object" && val !== null && "old" in val && "new" in val
     );
-
+  // Ensures that the data is in a unified structure to render,
+  // until such time as notifications from the BE are unified.
   const detailRows = hasOldNewStructure
     ? Object.keys({
         ...details.old,
