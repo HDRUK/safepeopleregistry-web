@@ -16,6 +16,7 @@ export type ProfileNavigationFooterProps = {
   nextHref?: string;
   isDisabled?: boolean;
   isLastStep?: boolean;
+  hideSubmitButton?: boolean;
   onClick?: () => void;
 };
 
@@ -27,6 +28,7 @@ export default function ProfileNavigationFooter({
   isLoading,
   isDisabled = false,
   isLastStep = false,
+  hideSubmitButton = false,
   onClick,
 }: ProfileNavigationFooterProps) {
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
@@ -75,23 +77,24 @@ export default function ProfileNavigationFooter({
       <Grid
         size={{ xs: 3 }}
         sx={{ display: "flex", justifyContent: "flex-end" }}>
-        {!nextHref ? (
-          <ButtonSave
-            isLoading={isLoading}
-            sx={{ my: 1 }}
-            disabled={isDisabled}
-            onClick={onClick && (() => onClick())}>
-            {nextButtonText}
-          </ButtonSave>
-        ) : (
-          <ButtonSave
-            href={nextHref}
-            component="a"
-            sx={{ my: 1 }}
-            disabled={isDisabled}>
-            {nextButtonText}
-          </ButtonSave>
-        )}
+        {!hideSubmitButton &&
+          (!nextHref ? (
+            <ButtonSave
+              isLoading={isLoading}
+              sx={{ my: 1 }}
+              disabled={isDisabled}
+              onClick={onClick && (() => onClick())}>
+              {nextButtonText}
+            </ButtonSave>
+          ) : (
+            <ButtonSave
+              href={nextHref}
+              component="a"
+              sx={{ my: 1 }}
+              disabled={isDisabled}>
+              {nextButtonText}
+            </ButtonSave>
+          ))}
       </Grid>
     </Grid>
   );
