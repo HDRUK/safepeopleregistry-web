@@ -562,6 +562,7 @@
     "sroAssignedEmail": "Email address",
     "sroAssignedDepartment": "Department",
     "sroAssignedJobTitle": "Job title",
+    "sroAppointmentError": "We couldn't make you the SRO. Please refresh the page and try again, or contact us at <contactLink></contactLink>.",
     "sroDeclarationPendingApprovalChip": "SRO declaration pending approval",
     "sroDeclarationApprovedChip": "SRO declaration approved on {date}",
     "User": {

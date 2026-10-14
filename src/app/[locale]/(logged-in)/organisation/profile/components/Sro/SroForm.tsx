@@ -1,5 +1,6 @@
 "use client";
 
+import putOrganisationSro from "@/app/actions/organisations/putOrganisationSro";
 import ErrorMessage from "@/components/ErrorMessage";
 import Form from "@/components/Form/Form";
 import FormActions from "@/components/FormActions";
@@ -19,7 +20,7 @@ import { pick } from "@/utils/json";
 import { Chip, Grid, TextField, Typography } from "@mui/material";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import useUpdateOrganisation from "../../hooks/useUpdateOrganisation";
 import SroFields from "../SroFields";
 
@@ -55,6 +56,8 @@ export default function SroForm({ isDelegate, hasSroAssigned }: SroFormProps) {
   const { mutateAsync: mutateUser } = useMutation(
     putUserQuery(user?.id as number)
   );
+
+  const [hasAppointmentFailed, setHasAppointmentFailed] = useState(false);
 
   const { data: userData, refetch: refetchUserData } = useQuery({
     ...getUserQuery(user?.id as number),
@@ -105,7 +108,13 @@ export default function SroForm({ isDelegate, hasSroAssigned }: SroFormProps) {
       role: user?.role,
       sro_profile_uri: organisation?.sro_profile_uri,
     },
-    error: isError && <ErrorMessage t={tProfile} tKey={error} />,
+    error: isError ? (
+      <ErrorMessage t={tProfile} tKey={error} />
+    ) : (
+      hasAppointmentFailed && (
+        <ErrorMessage t={tOrgProfile} tKey="sroAppointmentError" />
+      )
+    ),
   };
 
   const handleSubmit = async (
@@ -116,6 +125,22 @@ export default function SroForm({ isDelegate, hasSroAssigned }: SroFormProps) {
       SRO_KEYS
     ) as Partial<KeyContactFormValues>;
 
+    // While there is no SRO, a delegate submitting this form is making themselves the SRO.
+    // Appoint first, so that if the API refuses (e.g. an SRO now exists) nothing else is saved.
+    if (isDelegate && !hasSroAssigned) {
+      try {
+        await putOrganisationSro(
+          organisation?.id as number,
+          user?.id as number
+        );
+        setHasAppointmentFailed(false);
+      } catch {
+        setHasAppointmentFailed(true);
+        return;
+      }
+    }
+
+    // Also refetches the organisation, so has_claimed_sro and claimed_sro reflect the appointment.
     await onSubmitOrganisation({
       sro_profile_uri: formData.sro_profile_uri,
     });
@@ -123,7 +148,6 @@ export default function SroForm({ isDelegate, hasSroAssigned }: SroFormProps) {
     await mutateUser({
       ...restSroPayload,
       department_id: department,
-      is_sro: true,
     });
 
     refetchUserData();
