@@ -1,7 +1,19 @@
+import getOrganisationDelegates from "@/app/actions/organisations/getOrganisationDelegates";
+import putOrganisationSro from "@/app/actions/organisations/putOrganisationSro";
 import { mockedOrganisation } from "@/mocks/data/organisation";
 import { mockedUser } from "@/mocks/data/user";
-import { fireEvent, render, screen } from "@/utils/testUtils";
+import { fireEvent, render, screen, waitFor } from "@/utils/testUtils";
 import SroInvite from "./SroInvite";
+
+jest.mock("@/app/actions/organisations/putOrganisationSro", () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
+
+jest.mock("@/app/actions/organisations/getOrganisationDelegates", () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
 
 function setupTest({
   hasSroAssigned = false,
@@ -112,6 +124,99 @@ describe("<SroInvite />", () => {
       expect(
         screen.queryByRole("button", { name: "Save" })
       ).not.toBeInTheDocument();
+    });
+  });
+
+  describe("appointing an existing delegate", () => {
+    const delegate = mockedUser({
+      id: 42,
+      first_name: "Jane",
+      last_name: "Doe",
+    });
+
+    beforeEach(() => {
+      mockUseStore({
+        config: {
+          organisation: { ...organisation, claimed_sro: null },
+        },
+      });
+      (getOrganisationDelegates as jest.Mock).mockResolvedValue({
+        data: [delegate],
+      });
+      (putOrganisationSro as jest.Mock).mockResolvedValue({ data: null });
+    });
+
+    const chooseDelegateAndSubmit = async () => {
+      const { user } = setupTest({ hasSroAssigned: false });
+
+      fireEvent.click(
+        screen.getByRole("radio", { name: "Select from existing Delegates" })
+      );
+      await user.click(screen.getByRole("combobox"));
+      await user.click(await screen.findByRole("option", { name: "Jane Doe" }));
+      await user.click(screen.getByRole("button", { name: "Invite & Save" }));
+
+      return user;
+    };
+
+    it("asks for confirmation before appointing", async () => {
+      await chooseDelegateAndSubmit();
+
+      expect(await screen.findByText("Appoint a new SRO?")).toBeInTheDocument();
+      expect(putOrganisationSro).not.toHaveBeenCalled();
+    });
+
+    it("appoints the chosen delegate once confirmed", async () => {
+      const user = await chooseDelegateAndSubmit();
+
+      await user.click(
+        await screen.findByRole("button", { name: "Appoint as SRO" })
+      );
+
+      await waitFor(() => {
+        expect(putOrganisationSro).toHaveBeenCalledWith(organisation.id, 42);
+      });
+      expect(
+        await screen.findByText("Jane Doe is now your Organisation's SRO.")
+      ).toBeInTheDocument();
+    });
+
+    it("does not appoint anyone when cancelled", async () => {
+      const user = await chooseDelegateAndSubmit();
+
+      await user.click(await screen.findByRole("button", { name: "Cancel" }));
+
+      expect(putOrganisationSro).not.toHaveBeenCalled();
+    });
+
+    it("shows an error when the appointment is refused", async () => {
+      (putOrganisationSro as jest.Mock).mockRejectedValue(
+        new Error("Forbidden")
+      );
+      const user = await chooseDelegateAndSubmit();
+
+      await user.click(
+        await screen.findByRole("button", { name: "Appoint as SRO" })
+      );
+
+      expect(
+        await screen.findByText(/We couldn't appoint the SRO/)
+      ).toBeInTheDocument();
+    });
+
+    it("does not appoint anyone when inviting a new person", async () => {
+      const { user } = setupTest({ hasSroAssigned: false });
+
+      await user.type(screen.getByLabelText(/First name/), "Sam");
+      await user.type(screen.getByLabelText(/Last name/), "Senior");
+      await user.type(
+        screen.getByLabelText(/Email address/),
+        "sam.senior@example.com"
+      );
+      await user.click(screen.getByRole("button", { name: "Invite & Save" }));
+
+      expect(screen.queryByText("Appoint a new SRO?")).not.toBeInTheDocument();
+      expect(putOrganisationSro).not.toHaveBeenCalled();
     });
   });
 });
