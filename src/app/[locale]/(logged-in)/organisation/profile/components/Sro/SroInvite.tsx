@@ -16,7 +16,7 @@ import { PageBody, PageSection } from "@/modules";
 import useOrganisationStore from "@/queries/useOrganisationStore";
 import getOrganisationDelegatesQuery from "@/services/organisations/getOrganisationDelegatesQuery";
 import { getUserQuery } from "@/services/users";
-import { User } from "@/types/application";
+import { PendingSro, User } from "@/types/application";
 import { getName } from "@/utils/application";
 import { formatDisplayLongDate } from "@/utils/date";
 import {
@@ -154,10 +154,13 @@ export default function SroInvite() {
   const claimedSro = organisation?.claimed_sro;
   const pendingSro = organisation?.pending_sro;
 
-  // Only the SRO themselves can hand the role over from here.
-  const canHandOver = !!user && !!claimedSro && user.id === claimedSro.id;
+  // Only the SRO themselves can hand the role over or invite their replacement from here.
+  const isSignedInSro = !!user && !!claimedSro && user.id === claimedSro.id;
   const [isHandingOver, setIsHandingOver] = useState(false);
   const [handOverTo, setHandOverTo] = useState<User | null>(null);
+
+  // The SRO inviting someone new to replace them shows the invite form, new person only.
+  const [isInvitingReplacement, setIsInvitingReplacement] = useState(false);
 
   // While an SRO invitation is pending, the form is only shown to invite someone else instead.
   const [isReplacingPendingSro, setIsReplacingPendingSro] = useState(false);
@@ -336,8 +339,19 @@ export default function SroInvite() {
     });
 
     setIsReplacingPendingSro(false);
+    setIsInvitingReplacement(false);
     await refetchOrganisation();
   };
+
+  const startInvitingReplacement = () => {
+    setMode("new");
+    setIsInvitingReplacement(true);
+  };
+
+  const sentChipLabel = (invitee: PendingSro) =>
+    `${tOrgProfile("sroInviteSentChip")} ${formatDisplayLongDate(
+      invitee.pending_sro_invite?.invite_sent_at
+    )}`;
 
   const resendInvite = async (invitee: User) => {
     let response;
@@ -372,6 +386,28 @@ export default function SroInvite() {
     await refetchOrganisation();
   };
 
+  // What sending this invitation will do. An earlier invitee keeps their invitation but will
+  // join as a delegate, and an SRO inviting their replacement stays SRO until they claim.
+  const inviteConfirmText = (invitee: {
+    first_name: string;
+    last_name: string;
+  }) => {
+    const names = {
+      name: getName(invitee),
+      ...(pendingSro && { pendingName: getName(pendingSro) }),
+    };
+
+    if (isInvitingReplacement) {
+      return pendingSro
+        ? tOrgProfile("sroInviteReplacementReplacesPendingConfirmText", names)
+        : tOrgProfile("sroInviteReplacementConfirmText", names);
+    }
+
+    return pendingSro
+      ? tOrgProfile("sroInviteReplacesPendingConfirmText", names)
+      : tOrgProfile("sroInviteConfirmText", names);
+  };
+
   const handleSendInvite = (values: SroInviteFormValues) => {
     if (mode === "new") {
       // The schema requires all three in this mode.
@@ -385,13 +421,7 @@ export default function SroInvite() {
       showAlert({
         severity: "warning",
         title: tOrgProfile("sroInviteConfirmTitle"),
-        // Replacing a pending invitation: the earlier invitee will join as a delegate instead.
-        text: pendingSro
-          ? tOrgProfile("sroInviteReplacesPendingConfirmText", {
-              name: getName(invitee),
-              pendingName: getName(pendingSro),
-            })
-          : tOrgProfile("sroInviteConfirmText", { name: getName(invitee) }),
+        text: inviteConfirmText(invitee),
         confirmButtonText: tOrgProfile("sroInviteConfirmButton"),
         cancelButtonText: tOrgProfile("sroInviteCancelButton"),
         onConfirm: async () => {
@@ -425,7 +455,7 @@ export default function SroInvite() {
     });
   };
 
-  if (claimedSro) {
+  if (claimedSro && !isInvitingReplacement) {
     return (
       <PageBody heading={tOrgProfile("sroInviteTitle")}>
         <PageSection description={tOrgProfile("sroAssignedDescription")}>
@@ -433,14 +463,38 @@ export default function SroInvite() {
             {tOrgProfile("sroAssignedIntro")}
           </Typography>
           <SroDetails sro={claimedSro} />
-          {canHandOver && !isHandingOver && (
-            <Box sx={{ pt: 3 }}>
+          {isSignedInSro && !isHandingOver && (
+            <Box sx={{ pt: 3, display: "flex", flexWrap: "wrap", gap: 1 }}>
               <Button variant="outlined" onClick={() => setIsHandingOver(true)}>
                 {tOrgProfile("sroHandOverButton")}
               </Button>
+              {!pendingSro && (
+                <Button variant="outlined" onClick={startInvitingReplacement}>
+                  {tOrgProfile("sroInviteReplacementButton")}
+                </Button>
+              )}
             </Box>
           )}
-          {canHandOver && isHandingOver && (
+          {isSignedInSro && pendingSro && (
+            <Box sx={{ pt: 4, display: "grid", gap: 2, justifyItems: "start" }}>
+              <Typography sx={{ fontWeight: "bold" }}>
+                {tOrgProfile("sroReplacementPendingIntro")}
+              </Typography>
+              <SroDetails sro={pendingSro} showProfile={false} />
+              <Chip color="success" label={sentChipLabel(pendingSro)} />
+              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
+                <Button
+                  variant="outlined"
+                  onClick={() => resendInvite(pendingSro)}>
+                  {tOrgProfile("sroResendInvitationButton")}
+                </Button>
+                <Button variant="outlined" onClick={startInvitingReplacement}>
+                  {tOrgProfile("sroInviteSomeoneElseButton")}
+                </Button>
+              </Box>
+            </Box>
+          )}
+          {isSignedInSro && isHandingOver && (
             <Box sx={{ pt: 3, display: "grid", gap: 2, maxWidth: 480 }}>
               <div>
                 <DelegatePicker
@@ -476,7 +530,8 @@ export default function SroInvite() {
     );
   }
 
-  if (pendingSro && !isReplacingPendingSro) {
+  // An SRO inviting their replacement goes straight to the form, even with one pending.
+  if (pendingSro && !isReplacingPendingSro && !isInvitingReplacement) {
     return (
       <PageBody heading={tOrgProfile("sroInviteTitle")}>
         <PageSection description={tOrgProfile("sroAssignedDescription")}>
@@ -491,12 +546,7 @@ export default function SroInvite() {
             alignItems="flex-start"
             spacing={2}>
             <Grid>
-              <Chip
-                color="success"
-                label={`${tOrgProfile("sroInviteSentChip")} ${formatDisplayLongDate(
-                  pendingSro.pending_sro_invite?.invite_sent_at
-                )}`}
-              />
+              <Chip color="success" label={sentChipLabel(pendingSro)} />
             </Grid>
             <Grid>
               <Button
@@ -527,8 +577,21 @@ export default function SroInvite() {
         schema={schema}
         {...formOptions}
         onSubmit={handleSendInvite}>
-        <PageSection description={tOrgProfile("sroInviteNoOfficerDescription")}>
-          {pendingSro && (
+        <PageSection
+          description={tOrgProfile(
+            isInvitingReplacement
+              ? "sroInviteReplacementDescription"
+              : "sroInviteNoOfficerDescription"
+          )}>
+          {isInvitingReplacement && (
+            <Button
+              variant="text"
+              sx={{ mb: 2 }}
+              onClick={() => setIsInvitingReplacement(false)}>
+              {tOrgProfile("sroInviteReplacementBackButton")}
+            </Button>
+          )}
+          {pendingSro && !isInvitingReplacement && (
             <Button
               variant="text"
               sx={{ mb: 2 }}
@@ -539,26 +602,29 @@ export default function SroInvite() {
             </Button>
           )}
           <Grid container rowSpacing={3}>
-            <Grid size={{ xs: 12 }}>
-              <Typography sx={{ fontWeight: "bold" }}>
-                {tOrgProfile("sroInviteModeLabel")}
-              </Typography>
-              <RadioGroup
-                row
-                value={mode}
-                onChange={e => setMode(e.target.value as SroInviteMode)}>
-                <FormControlLabel
-                  value="new"
-                  control={<Radio />}
-                  label={tOrgProfile("sroInviteModeNew")}
-                />
-                <FormControlLabel
-                  value="existingDelegate"
-                  control={<Radio />}
-                  label={tOrgProfile("sroInviteModeExisting")}
-                />
-              </RadioGroup>
-            </Grid>
+            {/* An SRO hands over to an existing delegate from their own card instead. */}
+            {!isInvitingReplacement && (
+              <Grid size={{ xs: 12 }}>
+                <Typography sx={{ fontWeight: "bold" }}>
+                  {tOrgProfile("sroInviteModeLabel")}
+                </Typography>
+                <RadioGroup
+                  row
+                  value={mode}
+                  onChange={e => setMode(e.target.value as SroInviteMode)}>
+                  <FormControlLabel
+                    value="new"
+                    control={<Radio />}
+                    label={tOrgProfile("sroInviteModeNew")}
+                  />
+                  <FormControlLabel
+                    value="existingDelegate"
+                    control={<Radio />}
+                    label={tOrgProfile("sroInviteModeExisting")}
+                  />
+                </RadioGroup>
+              </Grid>
+            )}
 
             {mode === "new" ? (
               <Grid size={{ xs: 12 }}>

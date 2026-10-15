@@ -472,13 +472,25 @@ describe("<SroInvite />", () => {
       last_name: "Senior",
     });
 
-    const mockStore = (signedIn: typeof sro) =>
+    const replacement = {
+      ...mockedUser({
+        first_name: "Alex",
+        last_name: "Next",
+        email: "alex.next@example.com",
+      }),
+      pending_sro_invite: { invite_sent_at: "2026-10-01 09:00:00" },
+    };
+
+    const mockStore = (
+      signedIn: typeof sro,
+      pendingSro: typeof replacement | null = null
+    ) =>
       mockUseStore({
         config: {
           organisation: {
             ...organisation,
             claimed_sro: sro,
-            pending_sro: null,
+            pending_sro: pendingSro,
           },
           user: signedIn,
         },
@@ -589,6 +601,126 @@ describe("<SroInvite />", () => {
       expect(
         await screen.findByText(/We couldn't hand over the SRO role/)
       ).toBeInTheDocument();
+    });
+
+    it("offers to invite a replacement", async () => {
+      const { user } = setupTest();
+
+      await user.click(
+        screen.getByRole("button", { name: "Invite a replacement" })
+      );
+
+      expect(
+        screen.getByText(/You stay the SRO until they create their account/)
+      ).toBeInTheDocument();
+      expect(
+        screen.queryByRole("radio", { name: "Select from existing Delegates" })
+      ).not.toBeInTheDocument();
+
+      await user.click(screen.getByRole("button", { name: "Back" }));
+      expect(
+        screen.getByRole("button", { name: "Invite a replacement" })
+      ).toBeInTheDocument();
+    });
+
+    it("invites a replacement once confirmed", async () => {
+      (postOrganisationSroInvite as jest.Mock).mockResolvedValue({
+        ok: true,
+        status: 201,
+      });
+      const { user } = setupTest();
+
+      await user.click(
+        screen.getByRole("button", { name: "Invite a replacement" })
+      );
+      await user.type(screen.getByLabelText(/First name/), "Alex");
+      await user.type(screen.getByLabelText(/Last name/), "Next");
+      await user.type(
+        screen.getByLabelText(/Email address/),
+        "alex.next@example.com"
+      );
+      await user.click(screen.getByRole("button", { name: "Invite & Save" }));
+
+      expect(
+        await screen.findByText(
+          /Alex Next will be emailed an invitation to replace you/
+        )
+      ).toBeInTheDocument();
+
+      await user.click(screen.getByRole("button", { name: "Send invite" }));
+
+      await waitFor(() => {
+        expect(postOrganisationSroInvite).toHaveBeenCalledWith(
+          organisation.id,
+          {
+            first_name: "Alex",
+            last_name: "Next",
+            email: "alex.next@example.com",
+          },
+          { suppressThrow: true }
+        );
+      });
+    });
+
+    it("shows the pending replacement under the SRO, with resend", async () => {
+      mockStore(sro, replacement);
+      (postOrganisationSroResendInvite as jest.Mock).mockResolvedValue({
+        ok: true,
+        status: 200,
+      });
+      const { user } = setupTest();
+
+      expect(screen.getByText("Jane Doe")).toBeInTheDocument();
+      expect(screen.getByText("Alex Next")).toBeInTheDocument();
+      expect(
+        screen.queryByRole("button", { name: "Invite a replacement" })
+      ).not.toBeInTheDocument();
+
+      await user.click(
+        screen.getByRole("button", { name: "Resend invitation" })
+      );
+
+      await waitFor(() => {
+        expect(postOrganisationSroResendInvite).toHaveBeenCalledWith(
+          organisation.id,
+          { suppressThrow: true }
+        );
+      });
+    });
+
+    it("warns that a pending replacement will join as a delegate if someone else is invited", async () => {
+      mockStore(sro, replacement);
+      const { user } = setupTest();
+
+      await user.click(
+        screen.getByRole("button", { name: "Invite someone else instead" })
+      );
+      await user.type(screen.getByLabelText(/First name/), "Sam");
+      await user.type(screen.getByLabelText(/Last name/), "Senior");
+      await user.type(
+        screen.getByLabelText(/Email address/),
+        "sam.senior@example.com"
+      );
+      await user.click(screen.getByRole("button", { name: "Invite & Save" }));
+
+      expect(
+        await screen.findByText(
+          /Alex Next's invitation will still work, but they'll join as a Delegate instead/
+        )
+      ).toBeInTheDocument();
+    });
+
+    it("does not offer the replacement options to anyone else", () => {
+      mockStore(delegate, replacement);
+
+      setupTest();
+
+      expect(
+        screen.queryByRole("button", { name: "Invite a replacement" })
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByRole("button", { name: "Resend invitation" })
+      ).not.toBeInTheDocument();
     });
   });
 });
