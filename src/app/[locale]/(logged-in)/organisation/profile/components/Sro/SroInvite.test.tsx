@@ -2,10 +2,11 @@ import getOrganisationDelegates from "@/app/actions/organisations/getOrganisatio
 import postOrganisationSroInvite from "@/app/actions/organisations/postOrganisationSroInvite";
 import postOrganisationSroResendInvite from "@/app/actions/organisations/postOrganisationSroResendInvite";
 import putOrganisationSro from "@/app/actions/organisations/putOrganisationSro";
+import getUser from "@/app/actions/users/getUser";
 import { mockedOrganisation } from "@/mocks/data/organisation";
 import { mockedUser } from "@/mocks/data/user";
 import { formatDisplayLongDate } from "@/utils/date";
-import { fireEvent, render, screen, waitFor } from "@/utils/testUtils";
+import { fireEvent, render, screen, waitFor, within } from "@/utils/testUtils";
 import SroInvite from "./SroInvite";
 
 jest.mock("@/app/actions/organisations/putOrganisationSro", () => ({
@@ -25,6 +26,11 @@ jest.mock(
     default: jest.fn(),
   })
 );
+
+jest.mock("@/app/actions/users/getUser", () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
 
 jest.mock("@/app/actions/organisations/getOrganisationDelegates", () => ({
   __esModule: true,
@@ -449,6 +455,139 @@ describe("<SroInvite />", () => {
         await screen.findByText(
           /Sam Senior's invitation will still work, but they'll join as a Delegate instead/
         )
+      ).toBeInTheDocument();
+    });
+  });
+
+  describe("when the signed-in user is the claimed SRO", () => {
+    const sro = mockedUser({
+      id: 7,
+      first_name: "Jane",
+      last_name: "Doe",
+      email: "jane.doe@example.com",
+    });
+    const delegate = mockedUser({
+      id: 42,
+      first_name: "Sam",
+      last_name: "Senior",
+    });
+
+    const mockStore = (signedIn: typeof sro) =>
+      mockUseStore({
+        config: {
+          organisation: {
+            ...organisation,
+            claimed_sro: sro,
+            pending_sro: null,
+          },
+          user: signedIn,
+        },
+      });
+
+    beforeEach(() => {
+      mockStore(sro);
+      (getOrganisationDelegates as jest.Mock).mockResolvedValue({
+        data: [delegate],
+      });
+      (putOrganisationSro as jest.Mock).mockResolvedValue({ data: null });
+      (getUser as jest.Mock).mockResolvedValue({
+        data: { ...sro, is_sro: false },
+      });
+    });
+
+    const chooseDelegate = async () => {
+      const { user } = setupTest();
+
+      await user.click(
+        screen.getByRole("button", { name: "Hand over to a delegate" })
+      );
+      await user.click(screen.getByRole("combobox"));
+      await user.click(
+        await screen.findByRole("option", { name: "Sam Senior" })
+      );
+
+      return user;
+    };
+
+    it("only offers the handover to the SRO themselves", () => {
+      mockStore(delegate);
+
+      setupTest();
+
+      expect(
+        screen.queryByRole("button", { name: "Hand over to a delegate" })
+      ).not.toBeInTheDocument();
+    });
+
+    it("needs a delegate to be chosen before handing over", async () => {
+      const { user } = setupTest();
+
+      await user.click(
+        screen.getByRole("button", { name: "Hand over to a delegate" })
+      );
+
+      expect(screen.getByRole("button", { name: "Hand over" })).toBeDisabled();
+    });
+
+    it("asks for confirmation before handing over", async () => {
+      const user = await chooseDelegate();
+
+      await user.click(screen.getByRole("button", { name: "Hand over" }));
+
+      expect(
+        await screen.findByText("Hand over the SRO role?")
+      ).toBeInTheDocument();
+      expect(putOrganisationSro).not.toHaveBeenCalled();
+    });
+
+    it("hands the role over once confirmed", async () => {
+      const user = await chooseDelegate();
+
+      await user.click(screen.getByRole("button", { name: "Hand over" }));
+      await user.click(
+        within(await screen.findByRole("dialog")).getByRole("button", {
+          name: "Hand over",
+        })
+      );
+
+      await waitFor(() => {
+        expect(putOrganisationSro).toHaveBeenCalledWith(organisation.id, 42);
+      });
+      expect(
+        await screen.findByText(
+          "Sam Senior is now your Organisation's SRO, and you are now a Delegate."
+        )
+      ).toBeInTheDocument();
+    });
+
+    it("does not hand over when cancelled", async () => {
+      const user = await chooseDelegate();
+
+      await user.click(screen.getByRole("button", { name: "Hand over" }));
+      await user.click(
+        within(await screen.findByRole("dialog")).getByRole("button", {
+          name: "Cancel",
+        })
+      );
+
+      expect(putOrganisationSro).not.toHaveBeenCalled();
+    });
+
+    it("shows an error when the handover is refused", async () => {
+      (putOrganisationSro as jest.Mock).mockRejectedValue(
+        new Error("Forbidden")
+      );
+      const user = await chooseDelegate();
+
+      await user.click(screen.getByRole("button", { name: "Hand over" }));
+      await user.click(
+        within(await screen.findByRole("dialog")).getByRole("button", {
+          name: "Hand over",
+        })
+      );
+
+      expect(
+        await screen.findByText(/We couldn't hand over the SRO role/)
       ).toBeInTheDocument();
     });
   });

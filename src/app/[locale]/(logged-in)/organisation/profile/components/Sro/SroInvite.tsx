@@ -11,14 +11,17 @@ import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
 import yup from "@/config/yup";
 import { ROUTES } from "@/consts/router";
 import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
+import { useStore } from "@/data/store";
 import { PageBody, PageSection } from "@/modules";
 import useOrganisationStore from "@/queries/useOrganisationStore";
 import getOrganisationDelegatesQuery from "@/services/organisations/getOrganisationDelegatesQuery";
+import { getUserQuery } from "@/services/users";
 import { User } from "@/types/application";
 import { getName } from "@/utils/application";
 import { formatDisplayLongDate } from "@/utils/date";
 import {
   Autocomplete,
+  Box,
   Button,
   Chip,
   FormControlLabel,
@@ -89,6 +92,48 @@ function SroDetails({
   );
 }
 
+function DelegatePicker({
+  id,
+  delegates,
+  value,
+  onChange,
+}: {
+  id: string;
+  delegates: User[];
+  value: User | null;
+  onChange: (delegate: User | null) => void;
+}) {
+  const tOrgProfile = useTranslations(NAMESPACE_TRANSLATION_ORG_PROFILE);
+
+  return (
+    <>
+      <Typography
+        component="label"
+        htmlFor={id}
+        sx={{ display: "block", mb: 1 }}>
+        {tOrgProfile("sroInviteSelectDelegateLabel")}{" "}
+        <span style={{ color: "red" }}>*</span>
+      </Typography>
+      <Autocomplete
+        id={id}
+        options={delegates}
+        getOptionLabel={option => getName(option)}
+        isOptionEqualToValue={(option, selected) => option.id === selected.id}
+        value={value}
+        onChange={(_, newValue) => onChange(newValue)}
+        renderInput={params => (
+          <TextField
+            {...params}
+            variant="outlined"
+            required
+            placeholder={tOrgProfile("sroInviteSelectDelegatePlaceholder")}
+          />
+        )}
+      />
+    </>
+  );
+}
+
 // Shows the organisation's claimed SRO; otherwise its invited SRO, with resend; otherwise the
 // form to invite or appoint one.
 export default function SroInvite() {
@@ -97,8 +142,22 @@ export default function SroInvite() {
   const { organisation, refetch: refetchOrganisation } = useOrganisationStore();
   const { showAlert, hideAlert } = useAlertModal();
 
+  const { user, setUser } = useStore(state => ({
+    user: state.getUser(),
+    setUser: state.setUser,
+  }));
+  const { refetch: refetchUser } = useQuery({
+    ...getUserQuery(user?.id as number),
+    enabled: false,
+  });
+
   const claimedSro = organisation?.claimed_sro;
   const pendingSro = organisation?.pending_sro;
+
+  // Only the SRO themselves can hand the role over from here.
+  const canHandOver = !!user && !!claimedSro && user.id === claimedSro.id;
+  const [isHandingOver, setIsHandingOver] = useState(false);
+  const [handOverTo, setHandOverTo] = useState<User | null>(null);
 
   // While an SRO invitation is pending, the form is only shown to invite someone else instead.
   const [isReplacingPendingSro, setIsReplacingPendingSro] = useState(false);
@@ -170,6 +229,67 @@ export default function SroInvite() {
 
     // The organisation now has a claimed SRO, so Sro shows the assigned SRO instead of this form.
     await Promise.all([refetchOrganisation(), refetchDelegates()]);
+  };
+
+  const stopHandingOver = () => {
+    setIsHandingOver(false);
+    setHandOverTo(null);
+  };
+
+  const handOver = async (delegate: User) => {
+    try {
+      await putOrganisationSro(organisation?.id as number, delegate.id);
+    } catch {
+      showAlert({
+        severity: "error",
+        text: <ErrorMessage t={tOrgProfile} tKey="sroHandOverError" />,
+        confirmButtonText: tOrgProfile("sroInviteDoneButton"),
+        onConfirm: async () => hideAlert(),
+      });
+      return;
+    }
+
+    showAlert({
+      severity: "success",
+      text: tOrgProfile("sroHandOverSuccess", { name: getName(delegate) }),
+      confirmButtonText: tOrgProfile("sroInviteDoneButton"),
+      onConfirm: async () => hideAlert(),
+    });
+
+    stopHandingOver();
+
+    // The signed-in user is now a delegate, so refresh them as well as the organisation.
+    const [, , refreshedUser] = await Promise.all([
+      refetchOrganisation(),
+      refetchDelegates(),
+      refetchUser(),
+    ]);
+
+    if (refreshedUser.data?.data) {
+      setUser(refreshedUser.data.data);
+    }
+  };
+
+  const confirmHandOver = () => {
+    if (!handOverTo) {
+      return;
+    }
+
+    // Handing over changes the signed-in user's own role and emails the organisation.
+    showAlert({
+      severity: "warning",
+      title: tOrgProfile("sroHandOverConfirmTitle"),
+      text: tOrgProfile("sroHandOverConfirmText", {
+        name: getName(handOverTo),
+      }),
+      confirmButtonText: tOrgProfile("sroHandOverConfirmButton"),
+      cancelButtonText: tOrgProfile("sroHandOverCancelButton"),
+      onConfirm: async () => {
+        hideAlert();
+        await handOver(handOverTo);
+      },
+      onCancel: () => hideAlert(),
+    });
   };
 
   const inviteSro = async (invitee: {
@@ -313,6 +433,36 @@ export default function SroInvite() {
             {tOrgProfile("sroAssignedIntro")}
           </Typography>
           <SroDetails sro={claimedSro} />
+          {canHandOver && !isHandingOver && (
+            <Box sx={{ pt: 3 }}>
+              <Button variant="outlined" onClick={() => setIsHandingOver(true)}>
+                {tOrgProfile("sroHandOverButton")}
+              </Button>
+            </Box>
+          )}
+          {canHandOver && isHandingOver && (
+            <Box sx={{ pt: 3, display: "grid", gap: 2, maxWidth: 480 }}>
+              <div>
+                <DelegatePicker
+                  id="sro-hand-over-select-delegate"
+                  delegates={delegates}
+                  value={handOverTo}
+                  onChange={setHandOverTo}
+                />
+              </div>
+              <Box sx={{ display: "flex", gap: 1 }}>
+                <Button
+                  variant="contained"
+                  disabled={!handOverTo}
+                  onClick={confirmHandOver}>
+                  {tOrgProfile("sroHandOverSubmitButton")}
+                </Button>
+                <Button variant="text" onClick={stopHandingOver}>
+                  {tOrgProfile("sroHandOverCancelButton")}
+                </Button>
+              </Box>
+            </Box>
+          )}
           <FormActions>
             <ProfileNavigationFooter
               previousHref={
@@ -438,32 +588,11 @@ export default function SroInvite() {
               </Grid>
             ) : (
               <Grid size={{ xs: 12 }}>
-                <Typography
-                  component="label"
-                  htmlFor="sro-invite-select-delegate"
-                  sx={{ display: "block", mb: 1 }}>
-                  {tOrgProfile("sroInviteSelectDelegateLabel")}{" "}
-                  <span style={{ color: "red" }}>*</span>
-                </Typography>
-                <Autocomplete
+                <DelegatePicker
                   id="sro-invite-select-delegate"
-                  options={delegates}
-                  getOptionLabel={option => getName(option)}
-                  isOptionEqualToValue={(option, selected) =>
-                    option.id === selected.id
-                  }
+                  delegates={delegates}
                   value={selectedDelegate}
-                  onChange={(_, newValue) => setSelectedDelegate(newValue)}
-                  renderInput={params => (
-                    <TextField
-                      {...params}
-                      variant="outlined"
-                      required
-                      placeholder={tOrgProfile(
-                        "sroInviteSelectDelegatePlaceholder"
-                      )}
-                    />
-                  )}
+                  onChange={setSelectedDelegate}
                 />
               </Grid>
             )}
