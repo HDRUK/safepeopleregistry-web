@@ -238,6 +238,33 @@ describe("<SroInvite />", () => {
       expect(screen.queryByText("Appoint a new SRO?")).not.toBeInTheDocument();
       expect(putOrganisationSro).not.toHaveBeenCalled();
     });
+
+    it("only offers delegates who have created their account", async () => {
+      (getOrganisationDelegates as jest.Mock).mockResolvedValue({
+        data: [
+          delegate,
+          mockedUser({
+            id: 43,
+            first_name: "Ivy",
+            last_name: "Invited",
+            unclaimed: true,
+          }),
+        ],
+      });
+      const { user } = setupTest();
+
+      fireEvent.click(
+        screen.getByRole("radio", { name: "Select from existing Delegates" })
+      );
+      await user.click(screen.getByRole("combobox"));
+
+      expect(
+        await screen.findByRole("option", { name: "Jane Doe" })
+      ).toBeInTheDocument();
+      expect(
+        screen.queryByRole("option", { name: "Ivy Invited" })
+      ).not.toBeInTheDocument();
+    });
   });
 
   describe("inviting a new SRO", () => {
@@ -448,6 +475,33 @@ describe("<SroInvite />", () => {
       await user.type(
         screen.getByLabelText(/Email address/),
         "jane.doe@example.com"
+      );
+      await user.click(screen.getByRole("button", { name: "Invite & Save" }));
+
+      expect(
+        await screen.findByText(
+          /Sam Senior's invitation will still work, but they'll join as a Delegate instead/
+        )
+      ).toBeInTheDocument();
+    });
+
+    it("warns that the invitee will join as a delegate if an existing delegate is appointed", async () => {
+      (getOrganisationDelegates as jest.Mock).mockResolvedValue({
+        data: [
+          mockedUser({ id: 44, first_name: "Dana", last_name: "Delegate" }),
+        ],
+      });
+      const { user } = setupTest();
+
+      await user.click(
+        screen.getByRole("button", { name: "Invite someone else instead" })
+      );
+      fireEvent.click(
+        screen.getByRole("radio", { name: "Select from existing Delegates" })
+      );
+      await user.click(screen.getByRole("combobox"));
+      await user.click(
+        await screen.findByRole("option", { name: "Dana Delegate" })
       );
       await user.click(screen.getByRole("button", { name: "Invite & Save" }));
 
@@ -721,6 +775,19 @@ describe("<SroInvite />", () => {
       expect(
         screen.queryByRole("button", { name: "Resend invitation" })
       ).not.toBeInTheDocument();
+    });
+
+    it("warns that a pending replacement will join as a delegate if the role is handed over", async () => {
+      mockStore(sro, replacement);
+      const user = await chooseDelegate();
+
+      await user.click(screen.getByRole("button", { name: "Hand over" }));
+
+      expect(
+        await screen.findByText(
+          /Alex Next's invitation will still work, but they'll join as a Delegate instead/
+        )
+      ).toBeInTheDocument();
     });
   });
 });

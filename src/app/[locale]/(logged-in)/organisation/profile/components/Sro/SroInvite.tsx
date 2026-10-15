@@ -196,7 +196,10 @@ export default function SroInvite() {
       Boolean(organisation?.id)
     )
   );
-  const delegates = delegatesData?.data || [];
+  // Only claimed delegates can be appointed; the list also includes invited ones.
+  const delegates = (delegatesData?.data || []).filter(
+    delegate => !delegate.unclaimed
+  );
 
   const formOptions = {
     defaultValues: {
@@ -282,9 +285,15 @@ export default function SroInvite() {
     showAlert({
       severity: "warning",
       title: tOrgProfile("sroHandOverConfirmTitle"),
-      text: tOrgProfile("sroHandOverConfirmText", {
-        name: getName(handOverTo),
-      }),
+      // A pending invitee, such as an invited replacement, will join as a delegate instead.
+      text: pendingSro
+        ? tOrgProfile("sroHandOverReplacesPendingConfirmText", {
+            name: getName(handOverTo),
+            pendingName: getName(pendingSro),
+          })
+        : tOrgProfile("sroHandOverConfirmText", {
+            name: getName(handOverTo),
+          }),
       confirmButtonText: tOrgProfile("sroHandOverConfirmButton"),
       cancelButtonText: tOrgProfile("sroHandOverCancelButton"),
       onConfirm: async () => {
@@ -442,9 +451,15 @@ export default function SroInvite() {
     showAlert({
       severity: "warning",
       title: tOrgProfile("sroAppointDelegateConfirmTitle"),
-      text: tOrgProfile("sroAppointDelegateConfirmText", {
-        name: getName(selectedDelegate),
-      }),
+      // A pending invitee will join as a delegate instead.
+      text: pendingSro
+        ? tOrgProfile("sroAppointDelegateReplacesPendingConfirmText", {
+            name: getName(selectedDelegate),
+            pendingName: getName(pendingSro),
+          })
+        : tOrgProfile("sroAppointDelegateConfirmText", {
+            name: getName(selectedDelegate),
+          }),
       confirmButtonText: tOrgProfile("sroAppointDelegateConfirmButton"),
       cancelButtonText: tOrgProfile("sroAppointDelegateCancelButton"),
       onConfirm: async () => {
