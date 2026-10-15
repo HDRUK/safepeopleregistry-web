@@ -1,6 +1,7 @@
 "use client";
 
 import postOrganisationSroInvite from "@/app/actions/organisations/postOrganisationSroInvite";
+import postOrganisationSroResendInvite from "@/app/actions/organisations/postOrganisationSroResendInvite";
 import putOrganisationSro from "@/app/actions/organisations/putOrganisationSro";
 import ErrorMessage from "@/components/ErrorMessage";
 import Form from "@/components/Form/Form";
@@ -15,8 +16,11 @@ import useOrganisationStore from "@/queries/useOrganisationStore";
 import getOrganisationDelegatesQuery from "@/services/organisations/getOrganisationDelegatesQuery";
 import { User } from "@/types/application";
 import { getName } from "@/utils/application";
+import { formatDisplayLongDate } from "@/utils/date";
 import {
   Autocomplete,
+  Button,
+  Chip,
   FormControlLabel,
   Grid,
   Radio,
@@ -39,17 +43,65 @@ export interface SroInviteFormValues {
   email?: string | null;
 }
 
-interface SroInviteProps {
-  hasSroAssigned: boolean;
+// An invited SRO has not filled in their profile yet, so has no department or job title to show.
+function SroDetails({
+  sro,
+  showProfile = true,
+}: {
+  sro: User;
+  showProfile?: boolean;
+}) {
+  const tOrgProfile = useTranslations(NAMESPACE_TRANSLATION_ORG_PROFILE);
+
+  return (
+    <Grid container rowSpacing={3}>
+      <Grid size={{ xs: 12 }}>
+        <Typography sx={{ fontWeight: "bold" }}>
+          {tOrgProfile("sroAssignedName")}
+        </Typography>
+        <Typography>
+          {sro.first_name} {sro.last_name}
+        </Typography>
+      </Grid>
+      <Grid size={{ xs: 12 }}>
+        <Typography sx={{ fontWeight: "bold" }}>
+          {tOrgProfile("sroAssignedEmail")}
+        </Typography>
+        <Typography>{sro.email || "-"}</Typography>
+      </Grid>
+      {showProfile && (
+        <>
+          <Grid size={{ xs: 12 }}>
+            <Typography sx={{ fontWeight: "bold" }}>
+              {tOrgProfile("sroAssignedDepartment")}
+            </Typography>
+            <Typography>{sro.departments?.[0]?.name || "-"}</Typography>
+          </Grid>
+          <Grid size={{ xs: 12 }}>
+            <Typography sx={{ fontWeight: "bold" }}>
+              {tOrgProfile("sroAssignedJobTitle")}
+            </Typography>
+            <Typography>{sro.role || "-"}</Typography>
+          </Grid>
+        </>
+      )}
+    </Grid>
+  );
 }
 
-export default function SroInvite({ hasSroAssigned }: SroInviteProps) {
+// Shows the organisation's claimed SRO; otherwise its invited SRO, with resend; otherwise the
+// form to invite or appoint one.
+export default function SroInvite() {
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
   const tOrgProfile = useTranslations(NAMESPACE_TRANSLATION_ORG_PROFILE);
   const { organisation, refetch: refetchOrganisation } = useOrganisationStore();
   const { showAlert, hideAlert } = useAlertModal();
 
   const claimedSro = organisation?.claimed_sro;
+  const pendingSro = organisation?.pending_sro;
+
+  // While an SRO invitation is pending, the form is only shown to invite someone else instead.
+  const [isReplacingPendingSro, setIsReplacingPendingSro] = useState(false);
 
   const [mode, setMode] = useState<SroInviteMode>("new");
   const [selectedDelegate, setSelectedDelegate] = useState<User | null>(null);
@@ -163,6 +215,40 @@ export default function SroInvite({ hasSroAssigned }: SroInviteProps) {
       onConfirm: async () => hideAlert(),
     });
 
+    setIsReplacingPendingSro(false);
+    await refetchOrganisation();
+  };
+
+  const resendInvite = async (invitee: User) => {
+    let response;
+
+    try {
+      response = await postOrganisationSroResendInvite(
+        organisation?.id as number,
+        { suppressThrow: true }
+      );
+    } catch {
+      response = undefined;
+    }
+
+    if (!response?.ok) {
+      showAlert({
+        severity: "error",
+        text: <ErrorMessage t={tOrgProfile} tKey="sroResendInviteError" />,
+        confirmButtonText: tOrgProfile("sroInviteDoneButton"),
+        onConfirm: async () => hideAlert(),
+      });
+      return;
+    }
+
+    showAlert({
+      severity: "success",
+      text: tOrgProfile("sroResendInviteSuccess", { name: getName(invitee) }),
+      confirmButtonText: tOrgProfile("sroInviteDoneButton"),
+      onConfirm: async () => hideAlert(),
+    });
+
+    // Updates when the invitation was last sent.
     await refetchOrganisation();
   };
 
@@ -179,7 +265,13 @@ export default function SroInvite({ hasSroAssigned }: SroInviteProps) {
       showAlert({
         severity: "warning",
         title: tOrgProfile("sroInviteConfirmTitle"),
-        text: tOrgProfile("sroInviteConfirmText", { name: getName(invitee) }),
+        // Replacing a pending invitation: the earlier invitee will join as a delegate instead.
+        text: pendingSro
+          ? tOrgProfile("sroInviteReplacesPendingConfirmText", {
+              name: getName(invitee),
+              pendingName: getName(pendingSro),
+            })
+          : tOrgProfile("sroInviteConfirmText", { name: getName(invitee) }),
         confirmButtonText: tOrgProfile("sroInviteConfirmButton"),
         cancelButtonText: tOrgProfile("sroInviteCancelButton"),
         onConfirm: async () => {
@@ -213,41 +305,55 @@ export default function SroInvite({ hasSroAssigned }: SroInviteProps) {
     });
   };
 
-  if (hasSroAssigned) {
+  if (claimedSro) {
     return (
       <PageBody heading={tOrgProfile("sroInviteTitle")}>
         <PageSection description={tOrgProfile("sroAssignedDescription")}>
           <Typography sx={{ mt: 2, mb: 2 }}>
             {tOrgProfile("sroAssignedIntro")}
           </Typography>
-          <Grid container rowSpacing={3}>
-            <Grid size={{ xs: 12 }}>
-              <Typography sx={{ fontWeight: "bold" }}>
-                {tOrgProfile("sroAssignedName")}
-              </Typography>
-              <Typography>
-                {claimedSro?.first_name} {claimedSro?.last_name}
-              </Typography>
+          <SroDetails sro={claimedSro} />
+          <FormActions>
+            <ProfileNavigationFooter
+              previousHref={
+                ROUTES.profileOrganisationDetailsSecurityCompliance.path
+              }
+              hideSubmitButton
+            />
+          </FormActions>
+        </PageSection>
+      </PageBody>
+    );
+  }
+
+  if (pendingSro && !isReplacingPendingSro) {
+    return (
+      <PageBody heading={tOrgProfile("sroInviteTitle")}>
+        <PageSection description={tOrgProfile("sroAssignedDescription")}>
+          <Typography sx={{ mt: 2, mb: 2 }}>
+            {tOrgProfile("sroPendingIntro")}
+          </Typography>
+          <SroDetails sro={pendingSro} showProfile={false} />
+          <Grid
+            container
+            sx={{ pt: "29px" }}
+            direction="column"
+            alignItems="flex-start"
+            spacing={2}>
+            <Grid>
+              <Chip
+                color="success"
+                label={`${tOrgProfile("sroInviteSentChip")} ${formatDisplayLongDate(
+                  pendingSro.pending_sro_invite?.invite_sent_at
+                )}`}
+              />
             </Grid>
-            <Grid size={{ xs: 12 }}>
-              <Typography sx={{ fontWeight: "bold" }}>
-                {tOrgProfile("sroAssignedEmail")}
-              </Typography>
-              <Typography>{claimedSro?.email || "-"}</Typography>
-            </Grid>
-            <Grid size={{ xs: 12 }}>
-              <Typography sx={{ fontWeight: "bold" }}>
-                {tOrgProfile("sroAssignedDepartment")}
-              </Typography>
-              <Typography>
-                {claimedSro?.departments?.[0]?.name || "-"}
-              </Typography>
-            </Grid>
-            <Grid size={{ xs: 12 }}>
-              <Typography sx={{ fontWeight: "bold" }}>
-                {tOrgProfile("sroAssignedJobTitle")}
-              </Typography>
-              <Typography>{claimedSro?.role || "-"}</Typography>
+            <Grid>
+              <Button
+                variant="outlined"
+                onClick={() => setIsReplacingPendingSro(true)}>
+                {tOrgProfile("sroInviteSomeoneElseButton")}
+              </Button>
             </Grid>
           </Grid>
           <FormActions>
@@ -255,7 +361,8 @@ export default function SroInvite({ hasSroAssigned }: SroInviteProps) {
               previousHref={
                 ROUTES.profileOrganisationDetailsSecurityCompliance.path
               }
-              hideSubmitButton
+              onClick={() => resendInvite(pendingSro)}
+              submitButtonText={tOrgProfile("sroResendInviteButton")}
             />
           </FormActions>
         </PageSection>
@@ -271,6 +378,16 @@ export default function SroInvite({ hasSroAssigned }: SroInviteProps) {
         {...formOptions}
         onSubmit={handleSendInvite}>
         <PageSection description={tOrgProfile("sroInviteNoOfficerDescription")}>
+          {pendingSro && (
+            <Button
+              variant="text"
+              sx={{ mb: 2 }}
+              onClick={() => setIsReplacingPendingSro(false)}>
+              {tOrgProfile("sroKeepPendingInviteButton", {
+                name: getName(pendingSro),
+              })}
+            </Button>
+          )}
           <Grid container rowSpacing={3}>
             <Grid size={{ xs: 12 }}>
               <Typography sx={{ fontWeight: "bold" }}>

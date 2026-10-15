@@ -33,12 +33,7 @@ jest.mock("./SroForm", () => ({
 
 jest.mock("./SroInvite", () => ({
   __esModule: true,
-  default: ({ hasSroAssigned }: { hasSroAssigned: boolean }) => (
-    <div>
-      SroInvite content
-      <span>{hasSroAssigned ? "SRO assigned" : "No SRO assigned"}</span>
-    </div>
-  ),
+  default: () => <div>SroInvite content</div>,
 }));
 
 const mockOrganisation = (
@@ -143,22 +138,15 @@ describe("<Sro />", () => {
     }
   );
 
-  it.each([
-    { claimed_sro: mockedUser(), expected: "SRO assigned" },
-    { claimed_sro: null, expected: "No SRO assigned" },
-    { claimed_sro: undefined, expected: "No SRO assigned" },
-  ])(
-    "shows SroInvite's assigned SRO only when the claimed SRO is loaded ($expected)",
-    ({ claimed_sro, expected }) => {
-      (useFeatures as jest.Mock).mockReturnValue({
-        isSroRequirementEnabled: false,
-      });
-      // has_claimed_sro alone is not enough: the card needs the SRO's details.
-      mockOrganisation({ has_claimed_sro: true, claimed_sro });
+  // SroInvite works out from the organisation whether to show the SRO, the invitee or the form.
+  it("shows SroInvite when the SRO requirement is off", () => {
+    (useFeatures as jest.Mock).mockReturnValue({
+      isSroRequirementEnabled: false,
+    });
+    mockOrganisation({ has_claimed_sro: true, claimed_sro: mockedUser() });
 
-      render(<Sro />);
+    render(<Sro />);
 
-      expect(screen.getByText(expected)).toBeInTheDocument();
-    }
-  );
+    expect(screen.getByText("SroInvite content")).toBeInTheDocument();
+  });
 });

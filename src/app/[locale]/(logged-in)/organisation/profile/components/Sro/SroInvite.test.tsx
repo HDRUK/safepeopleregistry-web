@@ -1,8 +1,10 @@
 import getOrganisationDelegates from "@/app/actions/organisations/getOrganisationDelegates";
 import postOrganisationSroInvite from "@/app/actions/organisations/postOrganisationSroInvite";
+import postOrganisationSroResendInvite from "@/app/actions/organisations/postOrganisationSroResendInvite";
 import putOrganisationSro from "@/app/actions/organisations/putOrganisationSro";
 import { mockedOrganisation } from "@/mocks/data/organisation";
 import { mockedUser } from "@/mocks/data/user";
+import { formatDisplayLongDate } from "@/utils/date";
 import { fireEvent, render, screen, waitFor } from "@/utils/testUtils";
 import SroInvite from "./SroInvite";
 
@@ -16,15 +18,21 @@ jest.mock("@/app/actions/organisations/postOrganisationSroInvite", () => ({
   default: jest.fn(),
 }));
 
+jest.mock(
+  "@/app/actions/organisations/postOrganisationSroResendInvite",
+  () => ({
+    __esModule: true,
+    default: jest.fn(),
+  })
+);
+
 jest.mock("@/app/actions/organisations/getOrganisationDelegates", () => ({
   __esModule: true,
   default: jest.fn(),
 }));
 
-function setupTest({
-  hasSroAssigned = false,
-}: { hasSroAssigned?: boolean } = {}) {
-  return render(<SroInvite hasSroAssigned={hasSroAssigned} />);
+function setupTest() {
+  return render(<SroInvite />);
 }
 
 const organisation = mockedOrganisation();
@@ -44,7 +52,7 @@ describe("<SroInvite />", () => {
     });
 
     it("renders the invite-an-SRO content instead of the full form", () => {
-      setupTest({ hasSroAssigned: false });
+      setupTest();
 
       expect(
         screen.getByText(/There's no SRO currently assigned/)
@@ -58,7 +66,7 @@ describe("<SroInvite />", () => {
     });
 
     it("keeps the send invite button enabled as a placeholder", () => {
-      setupTest({ hasSroAssigned: false });
+      setupTest();
 
       expect(
         screen.getByRole("button", { name: "Invite & Save" })
@@ -66,7 +74,7 @@ describe("<SroInvite />", () => {
     });
 
     it("defaults to the 'enter new SRO details' mode", () => {
-      setupTest({ hasSroAssigned: false });
+      setupTest();
 
       expect(
         screen.getByRole("radio", { name: "Enter new SRO details" })
@@ -75,7 +83,7 @@ describe("<SroInvite />", () => {
     });
 
     it("switches to a delegate picker when 'select from existing Delegates' is chosen", () => {
-      setupTest({ hasSroAssigned: false });
+      setupTest();
 
       fireEvent.click(
         screen.getByRole("radio", { name: "Select from existing Delegates" })
@@ -103,7 +111,7 @@ describe("<SroInvite />", () => {
     });
 
     it("shows the claimed SRO's details", () => {
-      setupTest({ hasSroAssigned: true });
+      setupTest();
 
       expect(screen.getByText("Jane Doe")).toBeInTheDocument();
       expect(screen.getByText("jane.doe@example.com")).toBeInTheDocument();
@@ -111,7 +119,7 @@ describe("<SroInvite />", () => {
     });
 
     it("does not offer to resend an invite", () => {
-      setupTest({ hasSroAssigned: true });
+      setupTest();
 
       expect(
         screen.queryByText(/Invite successfully sent on/)
@@ -122,7 +130,7 @@ describe("<SroInvite />", () => {
     });
 
     it("only offers to go back", () => {
-      setupTest({ hasSroAssigned: true });
+      setupTest();
 
       expect(
         screen.getByRole("link", { name: "Previous" })
@@ -153,7 +161,7 @@ describe("<SroInvite />", () => {
     });
 
     const chooseDelegateAndSubmit = async () => {
-      const { user } = setupTest({ hasSroAssigned: false });
+      const { user } = setupTest();
 
       fireEvent.click(
         screen.getByRole("radio", { name: "Select from existing Delegates" })
@@ -211,7 +219,7 @@ describe("<SroInvite />", () => {
     });
 
     it("does not appoint anyone when inviting a new person", async () => {
-      const { user } = setupTest({ hasSroAssigned: false });
+      const { user } = setupTest();
 
       await user.type(screen.getByLabelText(/First name/), "Sam");
       await user.type(screen.getByLabelText(/Last name/), "Senior");
@@ -242,7 +250,7 @@ describe("<SroInvite />", () => {
     });
 
     const fillInAndSubmit = async () => {
-      const { user } = setupTest({ hasSroAssigned: false });
+      const { user } = setupTest();
 
       await user.type(screen.getByLabelText(/First name/), "Sam");
       await user.type(screen.getByLabelText(/Last name/), "Senior");
@@ -324,6 +332,123 @@ describe("<SroInvite />", () => {
 
       expect(
         await screen.findByText(/We couldn't send the invitation/)
+      ).toBeInTheDocument();
+    });
+  });
+
+  describe("when an SRO has been invited", () => {
+    const pendingSro = {
+      ...mockedUser({
+        first_name: "Sam",
+        last_name: "Senior",
+        email: "sam.senior@example.com",
+      }),
+      pending_sro_invite: { invite_sent_at: "2026-10-01 09:00:00" },
+    };
+
+    beforeEach(() => {
+      mockUseStore({
+        config: {
+          organisation: {
+            ...organisation,
+            claimed_sro: null,
+            pending_sro: pendingSro,
+          },
+        },
+      });
+      (getOrganisationDelegates as jest.Mock).mockResolvedValue({ data: [] });
+      (postOrganisationSroResendInvite as jest.Mock).mockResolvedValue({
+        ok: true,
+        status: 200,
+      });
+    });
+
+    it("shows who was invited and when", () => {
+      setupTest();
+
+      expect(screen.getByText("Sam Senior")).toBeInTheDocument();
+      expect(screen.getByText("sam.senior@example.com")).toBeInTheDocument();
+      expect(
+        screen.getByText(
+          `Invite successfully sent on ${formatDisplayLongDate("2026-10-01 09:00:00")}`
+        )
+      ).toBeInTheDocument();
+      expect(screen.queryByLabelText(/First name/)).not.toBeInTheDocument();
+    });
+
+    it("does not show a department or job title for the invitee", () => {
+      setupTest();
+
+      expect(screen.queryByText("Department")).not.toBeInTheDocument();
+      expect(screen.queryByText("Job title")).not.toBeInTheDocument();
+    });
+
+    it("resends the invitation", async () => {
+      const { user } = setupTest();
+
+      await user.click(screen.getByRole("button", { name: "Reinvite & Save" }));
+
+      await waitFor(() => {
+        expect(postOrganisationSroResendInvite).toHaveBeenCalledWith(
+          organisation.id,
+          { suppressThrow: true }
+        );
+      });
+      expect(
+        await screen.findByText(
+          "The invitation has been sent to Sam Senior again."
+        )
+      ).toBeInTheDocument();
+    });
+
+    it("shows an error when the invitation cannot be resent", async () => {
+      (postOrganisationSroResendInvite as jest.Mock).mockResolvedValue({
+        ok: false,
+        status: 404,
+      });
+      const { user } = setupTest();
+
+      await user.click(screen.getByRole("button", { name: "Reinvite & Save" }));
+
+      expect(
+        await screen.findByText(/We couldn't resend the invitation/)
+      ).toBeInTheDocument();
+    });
+
+    it("lets someone else be invited instead, or the invitation be kept", async () => {
+      const { user } = setupTest();
+
+      await user.click(
+        screen.getByRole("button", { name: "Invite someone else instead" })
+      );
+      expect(screen.getByLabelText(/First name/)).toBeInTheDocument();
+
+      await user.click(
+        screen.getByRole("button", { name: "Keep Sam Senior's invitation" })
+      );
+      expect(
+        screen.getByRole("button", { name: "Reinvite & Save" })
+      ).toBeInTheDocument();
+    });
+
+    it("warns that the earlier invitee will join as a delegate", async () => {
+      const { user } = setupTest();
+
+      await user.click(
+        screen.getByRole("button", { name: "Invite someone else instead" })
+      );
+      await user.type(screen.getByLabelText(/First name/), "Jane");
+      await user.type(screen.getByLabelText(/Last name/), "Doe");
+      await user.type(
+        screen.getByLabelText(/Email address/),
+        "jane.doe@example.com"
+      );
+      await user.click(screen.getByRole("button", { name: "Invite & Save" }));
+
+      expect(
+        await screen.findByText(
+          /Sam Senior's invitation will still work, but they'll join as a Delegate instead/
+        )
       ).toBeInTheDocument();
     });
   });
