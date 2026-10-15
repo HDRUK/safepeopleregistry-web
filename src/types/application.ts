@@ -231,6 +231,14 @@ type User = WithModelState<{
   t_and_c_agreed?: boolean;
   invited_by?: User;
 }>;
+
+// Only invite_sent_at is returned from the invitation; its code stays private to the invitee.
+type PendingSro = User & {
+  pending_sro_invite?: {
+    invite_sent_at: string;
+  };
+};
+
 interface AddressFields {
   postcode?: string;
   address_1?: string;
@@ -319,6 +327,8 @@ type Organisation = OrganisationIdvt &
     sro_profile_uri?: string;
     sro_officer?: User;
     claimed_sro?: User | null;
+    // The invited SRO who has not yet claimed their account. Only returned by GET /organisations/{id}.
+    pending_sro?: PendingSro | null;
     // Only returned by GET /organisations/{id}.
     has_claimed_sro?: boolean;
     files?: File[];
@@ -646,6 +656,7 @@ export type {
   SystemConfig,
   Translations,
   User,
+  PendingSro,
   UserPermission,
   UserProfileCompletionFields,
   UserProfileCompletionJson,
