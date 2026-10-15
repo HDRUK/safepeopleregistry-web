@@ -626,6 +626,36 @@ describe("<SroDetailsPanel />", () => {
       ).toBeInTheDocument();
     });
 
+    it("refreshes the signed-in user, who is now a delegate", async () => {
+      // The rest of the app reads the user's role from the store, which the layout only
+      // fills on a full page load.
+      const setUser = jest.fn();
+      mockUseStore({
+        setUser,
+        config: {
+          organisation: {
+            ...organisation,
+            claimed_sro: sro,
+            pending_sro: null,
+          },
+          user: sro,
+        },
+      });
+      const user = await chooseDelegate();
+
+      await user.click(screen.getByRole("button", { name: "Hand over" }));
+      await user.click(
+        within(await screen.findByRole("dialog")).getByRole("button", {
+          name: "Hand over",
+        })
+      );
+
+      await waitFor(() => {
+        expect(getUser).toHaveBeenCalledWith(sro.id, expect.anything());
+        expect(setUser).toHaveBeenCalledWith({ ...sro, is_sro: false });
+      });
+    });
+
     it("does not hand over when cancelled", async () => {
       const user = await chooseDelegate();
 
