@@ -1,3 +1,4 @@
+import putOrganisationSro from "@/app/actions/organisations/putOrganisationSro";
 import { mockedOrganisation } from "@/mocks/data/organisation";
 import { FileStatus, FileType } from "@/consts/files";
 import { fireEvent, render, screen, waitFor } from "@/utils/testUtils";
@@ -9,6 +10,11 @@ const putProps = {
   error: null,
   onSubmit: jest.fn().mockResolvedValue(null),
 };
+
+jest.mock("@/app/actions/organisations/putOrganisationSro", () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
 
 jest.mock("../../hooks/useUpdateOrganisation", () => ({
   __esModule: true,
@@ -53,6 +59,7 @@ describe("<SroForm />", () => {
     });
     mutateUserMock.mockClear();
     putProps.onSubmit.mockClear();
+    (putOrganisationSro as jest.Mock).mockResolvedValue({ data: null });
   });
 
   afterEach(() => {
@@ -66,19 +73,76 @@ describe("<SroForm />", () => {
     expect(screen.getAllByLabelText(/Last name/)[0]).toBeInTheDocument();
   });
 
-  it("submits the form when values are filled", async () => {
-    setupTest();
-
+  const submitForm = async () => {
     const form = await screen.findByRole("form", {
       name: "Senior Responsible Officer (SRO) contact information",
     });
     fireEvent.submit(form);
+  };
+
+  it("saves the SRO's details without trying to set is_sro", async () => {
+    setupTest();
+
+    await submitForm();
 
     await waitFor(() => {
       expect(mutateUserMock).toHaveBeenCalledWith(
-        expect.objectContaining({ is_sro: true })
+        expect.objectContaining({ first_name: "first", department_id: 123 })
       );
     });
+    expect(mutateUserMock.mock.calls[0][0]).not.toHaveProperty("is_sro");
+  });
+
+  it("does not re-appoint an SRO who is updating their own details", async () => {
+    setupTest({ isDelegate: false, hasSroAssigned: true });
+
+    await submitForm();
+
+    await waitFor(() => {
+      expect(mutateUserMock).toHaveBeenCalled();
+    });
+    expect(putOrganisationSro).not.toHaveBeenCalled();
+  });
+
+  it("does not try to appoint a delegate once an SRO is assigned", async () => {
+    setupTest({ isDelegate: true, hasSroAssigned: true });
+
+    await submitForm();
+
+    await waitFor(() => {
+      expect(putProps.onSubmit).toHaveBeenCalled();
+    });
+    expect(putOrganisationSro).not.toHaveBeenCalled();
+  });
+
+  it("appoints a delegate as SRO before saving their details", async () => {
+    setupTest({ isDelegate: true, hasSroAssigned: false });
+
+    await submitForm();
+
+    await waitFor(() => {
+      expect(mutateUserMock).toHaveBeenCalled();
+    });
+    expect(putOrganisationSro).toHaveBeenCalledWith(
+      organisation.id,
+      userData.id
+    );
+    expect(
+      (putOrganisationSro as jest.Mock).mock.invocationCallOrder[0]
+    ).toBeLessThan(putProps.onSubmit.mock.invocationCallOrder[0]);
+  });
+
+  it("saves nothing and shows an error when the appointment is refused", async () => {
+    (putOrganisationSro as jest.Mock).mockRejectedValue(new Error("Forbidden"));
+    setupTest({ isDelegate: true, hasSroAssigned: false });
+
+    await submitForm();
+
+    expect(
+      await screen.findByText(/We couldn't make you the SRO/)
+    ).toBeInTheDocument();
+    expect(putProps.onSubmit).not.toHaveBeenCalled();
+    expect(mutateUserMock).not.toHaveBeenCalled();
   });
 
   it("makes the fields read-only for a delegate once an SRO is assigned", () => {

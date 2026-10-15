@@ -1,11 +1,14 @@
 "use client";
 
+import putOrganisationSro from "@/app/actions/organisations/putOrganisationSro";
+import ErrorMessage from "@/components/ErrorMessage";
 import Form from "@/components/Form/Form";
 import FormActions from "@/components/FormActions";
 import FormControlWrapper from "@/components/FormControlWrapper";
 import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
 import yup from "@/config/yup";
 import { ROUTES } from "@/consts/router";
+import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
 import { PageBody, PageSection } from "@/modules";
 import useOrganisationStore from "@/queries/useOrganisationStore";
 import getOrganisationDelegatesQuery from "@/services/organisations/getOrganisationDelegatesQuery";
@@ -42,7 +45,8 @@ interface SroInviteProps {
 export default function SroInvite({ hasSroAssigned }: SroInviteProps) {
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
   const tOrgProfile = useTranslations(NAMESPACE_TRANSLATION_ORG_PROFILE);
-  const { organisation } = useOrganisationStore();
+  const { organisation, refetch: refetchOrganisation } = useOrganisationStore();
+  const { showAlert, hideAlert } = useAlertModal();
 
   const claimedSro = organisation?.claimed_sro;
 
@@ -71,7 +75,7 @@ export default function SroInvite({ hasSroAssigned }: SroInviteProps) {
     [tForm, mode]
   );
 
-  const { data: delegatesData } = useQuery(
+  const { data: delegatesData, refetch: refetchDelegates } = useQuery(
     getOrganisationDelegatesQuery(
       organisation?.id as number,
       Boolean(organisation?.id)
@@ -89,9 +93,55 @@ export default function SroInvite({ hasSroAssigned }: SroInviteProps) {
 
   const isDelegateMissing = mode === "existingDelegate" && !selectedDelegate;
 
-  // Need backend: send SRO invite endpoint
+  const appointDelegate = async (delegate: User) => {
+    try {
+      await putOrganisationSro(organisation?.id as number, delegate.id);
+    } catch {
+      showAlert({
+        severity: "error",
+        text: <ErrorMessage t={tOrgProfile} tKey="sroAppointDelegateError" />,
+        confirmButtonText: tOrgProfile("sroAppointDelegateDoneButton"),
+        onConfirm: async () => hideAlert(),
+      });
+      return;
+    }
+
+    showAlert({
+      severity: "success",
+      text: tOrgProfile("sroAppointDelegateSuccess", {
+        name: getName(delegate),
+      }),
+      confirmButtonText: tOrgProfile("sroAppointDelegateDoneButton"),
+      onConfirm: async () => hideAlert(),
+    });
+
+    // The organisation now has a claimed SRO, so Sro shows the assigned SRO instead of this form.
+    await Promise.all([refetchOrganisation(), refetchDelegates()]);
+  };
+
+  // Need backend: inviting a new SRO (mode "new") needs the SRO invite endpoint.
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleSendInvite = (values: SroInviteFormValues) => {};
+  const handleSendInvite = (values: SroInviteFormValues) => {
+    if (mode !== "existingDelegate" || !selectedDelegate) {
+      return;
+    }
+
+    // Appointing changes someone's role and emails the organisation, so confirm first.
+    showAlert({
+      severity: "warning",
+      title: tOrgProfile("sroAppointDelegateConfirmTitle"),
+      text: tOrgProfile("sroAppointDelegateConfirmText", {
+        name: getName(selectedDelegate),
+      }),
+      confirmButtonText: tOrgProfile("sroAppointDelegateConfirmButton"),
+      cancelButtonText: tOrgProfile("sroAppointDelegateCancelButton"),
+      onConfirm: async () => {
+        hideAlert();
+        await appointDelegate(selectedDelegate);
+      },
+      onCancel: () => hideAlert(),
+    });
+  };
 
   if (hasSroAssigned) {
     return (

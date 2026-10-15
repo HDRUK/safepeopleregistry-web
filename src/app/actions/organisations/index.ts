@@ -22,6 +22,7 @@ import postOrganisationUnclaimed from "@/app/actions/organisations/postOrganisat
 import postOrganisationUnclaimedBeforeSuperadminInvitation from "@/app/actions/organisations/postOrganisationUnclaimedBeforeSuperadminInvitation";
 import putOrganisation from "@/app/actions/organisations/putOrganisation";
 import putOrganisationApproved from "@/app/actions/organisations/putOrganisationApproved";
+import putOrganisationSro from "@/app/actions/organisations/putOrganisationSro";
 import { postPermissions } from "@/app/actions/users";
 
 export {
@@ -37,6 +38,7 @@ export {
   postOrganisation,
   postOrganisationNewAccount,
   putOrganisationApproved,
+  putOrganisationSro,
   postOrganisationUnclaimed,
   postOrganisationUnclaimedBeforeSuperadminInvitation,
   getOrganisationRegistries,
