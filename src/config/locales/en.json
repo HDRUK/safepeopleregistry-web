@@ -599,7 +599,6 @@
     "sroAppointDelegateCancelButton": "Cancel",
     "sroAppointDelegateSuccess": "{name} is now your Organisation's SRO.",
     "sroAppointDelegateError": "We couldn't appoint the SRO. Please refresh the page and try again, or contact us at <contactLink></contactLink>.",
-    "sroAppointDelegateDoneButton": "OK",
     "sroAppointmentError": "We couldn't make you the SRO. Please refresh the page and try again, or contact us at <contactLink></contactLink>.",
     "sroDeclarationPendingApprovalChip": "SRO declaration pending approval",
     "sroDeclarationApprovedChip": "SRO declaration approved on {date}",

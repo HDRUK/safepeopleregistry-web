@@ -6,7 +6,7 @@ import { useStore } from "@/data/store";
 import useOrganisationStore from "@/queries/useOrganisationStore";
 import { getOrganisationRole } from "@/utils/organisationRole";
 import SroForm from "./SroForm";
-import SroInvite from "./SroInvite";
+import SroDetailsPanel from "./SroDetailsPanel";
 
 export default function Sro() {
   const { isSroRequirementEnabled } = useFeatures();
@@ -23,6 +23,6 @@ export default function Sro() {
   return isSroRequirementEnabled ? (
     <SroForm isDelegate={isDelegate} hasSroAssigned={hasClaimedSro} />
   ) : (
-    <SroInvite />
+    <SroDetailsPanel />
   );
 }

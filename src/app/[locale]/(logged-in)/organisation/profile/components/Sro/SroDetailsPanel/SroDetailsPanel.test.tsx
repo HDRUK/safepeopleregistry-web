@@ -7,7 +7,7 @@ import { mockedOrganisation } from "@/mocks/data/organisation";
 import { mockedUser } from "@/mocks/data/user";
 import { formatDisplayLongDate } from "@/utils/date";
 import { fireEvent, render, screen, waitFor, within } from "@/utils/testUtils";
-import SroInvite from "./SroInvite";
+import SroDetailsPanel from "./SroDetailsPanel";
 
 jest.mock("@/app/actions/organisations/putOrganisationSro", () => ({
   __esModule: true,
@@ -38,12 +38,12 @@ jest.mock("@/app/actions/organisations/getOrganisationDelegates", () => ({
 }));
 
 function setupTest() {
-  return render(<SroInvite />);
+  return render(<SroDetailsPanel />);
 }
 
 const organisation = mockedOrganisation();
 
-describe("<SroInvite />", () => {
+describe("<SroDetailsPanel />", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });

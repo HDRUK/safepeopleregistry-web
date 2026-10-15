@@ -31,9 +31,9 @@ jest.mock("./SroForm", () => ({
   ),
 }));
 
-jest.mock("./SroInvite", () => ({
+jest.mock("./SroDetailsPanel", () => ({
   __esModule: true,
-  default: () => <div>SroInvite content</div>,
+  default: () => <div>SroDetailsPanel content</div>,
 }));
 
 const mockOrganisation = (
@@ -62,17 +62,19 @@ describe("<Sro />", () => {
     render(<Sro />);
 
     expect(screen.getByText(/SroForm content/)).toBeInTheDocument();
-    expect(screen.queryByText("SroInvite content")).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("SroDetailsPanel content")
+    ).not.toBeInTheDocument();
   });
 
-  it("renders SroInvite when the SRO requirement feature is disabled", () => {
+  it("renders SroDetailsPanel when the SRO requirement feature is disabled", () => {
     (useFeatures as jest.Mock).mockReturnValue({
       isSroRequirementEnabled: false,
     });
 
     render(<Sro />);
 
-    expect(screen.getByText(/SroInvite content/)).toBeInTheDocument();
+    expect(screen.getByText(/SroDetailsPanel content/)).toBeInTheDocument();
     expect(screen.queryByText(/SroForm content/)).not.toBeInTheDocument();
   });
 
@@ -138,8 +140,8 @@ describe("<Sro />", () => {
     }
   );
 
-  // SroInvite works out from the organisation whether to show the SRO, the invitee or the form.
-  it("shows SroInvite when the SRO requirement is off", () => {
+  // SroDetailsPanel works out from the organisation whether to show the SRO, the invitee or the form.
+  it("shows SroDetailsPanel when the SRO requirement is off", () => {
     (useFeatures as jest.Mock).mockReturnValue({
       isSroRequirementEnabled: false,
     });
@@ -147,6 +149,6 @@ describe("<Sro />", () => {
 
     render(<Sro />);
 
-    expect(screen.getByText("SroInvite content")).toBeInTheDocument();
+    expect(screen.getByText("SroDetailsPanel content")).toBeInTheDocument();
   });
 });
