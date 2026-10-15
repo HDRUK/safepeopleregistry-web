@@ -1,5 +1,6 @@
 "use client";
 
+import postOrganisationSroInvite from "@/app/actions/organisations/postOrganisationSroInvite";
 import putOrganisationSro from "@/app/actions/organisations/putOrganisationSro";
 import ErrorMessage from "@/components/ErrorMessage";
 import Form from "@/components/Form/Form";
@@ -119,10 +120,79 @@ export default function SroInvite({ hasSroAssigned }: SroInviteProps) {
     await Promise.all([refetchOrganisation(), refetchDelegates()]);
   };
 
-  // Need backend: inviting a new SRO (mode "new") needs the SRO invite endpoint.
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const inviteSro = async (invitee: {
+    first_name: string;
+    last_name: string;
+    email: string;
+  }) => {
+    const showError = (tKey: string) =>
+      showAlert({
+        severity: "error",
+        text: <ErrorMessage t={tOrgProfile} tKey={tKey} />,
+        confirmButtonText: tOrgProfile("sroInviteDoneButton"),
+        onConfirm: async () => hideAlert(),
+      });
+
+    let response;
+
+    try {
+      response = await postOrganisationSroInvite(
+        organisation?.id as number,
+        invitee,
+        { suppressThrow: true }
+      );
+    } catch {
+      showError("sroInviteError");
+      return;
+    }
+
+    if (!response.ok) {
+      // 409: the email already has an account, so they should be appointed instead.
+      showError(
+        response.status === 409
+          ? "sroInviteExistingAccountError"
+          : "sroInviteError"
+      );
+      return;
+    }
+
+    showAlert({
+      severity: "success",
+      text: tOrgProfile("sroInviteSuccess", { name: getName(invitee) }),
+      confirmButtonText: tOrgProfile("sroInviteDoneButton"),
+      onConfirm: async () => hideAlert(),
+    });
+
+    await refetchOrganisation();
+  };
+
   const handleSendInvite = (values: SroInviteFormValues) => {
-    if (mode !== "existingDelegate" || !selectedDelegate) {
+    if (mode === "new") {
+      // The schema requires all three in this mode.
+      const invitee = {
+        first_name: values.first_name as string,
+        last_name: values.last_name as string,
+        email: values.email as string,
+      };
+
+      // Inviting emails someone outside the organisation, so confirm first.
+      showAlert({
+        severity: "warning",
+        title: tOrgProfile("sroInviteConfirmTitle"),
+        text: tOrgProfile("sroInviteConfirmText", { name: getName(invitee) }),
+        confirmButtonText: tOrgProfile("sroInviteConfirmButton"),
+        cancelButtonText: tOrgProfile("sroInviteCancelButton"),
+        onConfirm: async () => {
+          hideAlert();
+          await inviteSro(invitee);
+        },
+        onCancel: () => hideAlert(),
+      });
+
+      return;
+    }
+
+    if (!selectedDelegate) {
       return;
     }
 

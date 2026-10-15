@@ -1,4 +1,5 @@
 import getOrganisationDelegates from "@/app/actions/organisations/getOrganisationDelegates";
+import postOrganisationSroInvite from "@/app/actions/organisations/postOrganisationSroInvite";
 import putOrganisationSro from "@/app/actions/organisations/putOrganisationSro";
 import { mockedOrganisation } from "@/mocks/data/organisation";
 import { mockedUser } from "@/mocks/data/user";
@@ -6,6 +7,11 @@ import { fireEvent, render, screen, waitFor } from "@/utils/testUtils";
 import SroInvite from "./SroInvite";
 
 jest.mock("@/app/actions/organisations/putOrganisationSro", () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
+
+jest.mock("@/app/actions/organisations/postOrganisationSroInvite", () => ({
   __esModule: true,
   default: jest.fn(),
 }));
@@ -217,6 +223,108 @@ describe("<SroInvite />", () => {
 
       expect(screen.queryByText("Appoint a new SRO?")).not.toBeInTheDocument();
       expect(putOrganisationSro).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("inviting a new SRO", () => {
+    beforeEach(() => {
+      mockUseStore({
+        config: {
+          organisation: { ...organisation, claimed_sro: null },
+        },
+      });
+      (getOrganisationDelegates as jest.Mock).mockResolvedValue({ data: [] });
+      (postOrganisationSroInvite as jest.Mock).mockResolvedValue({
+        ok: true,
+        status: 201,
+        data: 99,
+      });
+    });
+
+    const fillInAndSubmit = async () => {
+      const { user } = setupTest({ hasSroAssigned: false });
+
+      await user.type(screen.getByLabelText(/First name/), "Sam");
+      await user.type(screen.getByLabelText(/Last name/), "Senior");
+      await user.type(
+        screen.getByLabelText(/Email address/),
+        "sam.senior@example.com"
+      );
+      await user.click(screen.getByRole("button", { name: "Invite & Save" }));
+
+      return user;
+    };
+
+    it("asks for confirmation before sending the invitation", async () => {
+      await fillInAndSubmit();
+
+      expect(await screen.findByText("Invite a new SRO?")).toBeInTheDocument();
+      expect(postOrganisationSroInvite).not.toHaveBeenCalled();
+    });
+
+    it("sends the invitation once confirmed", async () => {
+      const user = await fillInAndSubmit();
+
+      await user.click(
+        await screen.findByRole("button", { name: "Send invite" })
+      );
+
+      await waitFor(() => {
+        expect(postOrganisationSroInvite).toHaveBeenCalledWith(
+          organisation.id,
+          {
+            first_name: "Sam",
+            last_name: "Senior",
+            email: "sam.senior@example.com",
+          },
+          { suppressThrow: true }
+        );
+      });
+      expect(
+        await screen.findByText(
+          "Sam Senior has been invited to be your Organisation's SRO."
+        )
+      ).toBeInTheDocument();
+    });
+
+    it("does not send the invitation when cancelled", async () => {
+      const user = await fillInAndSubmit();
+
+      await user.click(await screen.findByRole("button", { name: "Cancel" }));
+
+      expect(postOrganisationSroInvite).not.toHaveBeenCalled();
+    });
+
+    it("explains what to do when the email already has an account", async () => {
+      (postOrganisationSroInvite as jest.Mock).mockResolvedValue({
+        ok: false,
+        status: 409,
+      });
+      const user = await fillInAndSubmit();
+
+      await user.click(
+        await screen.findByRole("button", { name: "Send invite" })
+      );
+
+      expect(
+        await screen.findByText(/This email address already has an account/)
+      ).toBeInTheDocument();
+    });
+
+    it("shows a general error when the invitation fails", async () => {
+      (postOrganisationSroInvite as jest.Mock).mockResolvedValue({
+        ok: false,
+        status: 500,
+      });
+      const user = await fillInAndSubmit();
+
+      await user.click(
+        await screen.findByRole("button", { name: "Send invite" })
+      );
+
+      expect(
+        await screen.findByText(/We couldn't send the invitation/)
+      ).toBeInTheDocument();
     });
   });
 });
