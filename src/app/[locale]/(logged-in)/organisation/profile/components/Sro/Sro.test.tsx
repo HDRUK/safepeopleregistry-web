@@ -31,14 +31,9 @@ jest.mock("./SroForm", () => ({
   ),
 }));
 
-jest.mock("./SroInvite", () => ({
+jest.mock("./SroDetailsPanel", () => ({
   __esModule: true,
-  default: ({ hasSroAssigned }: { hasSroAssigned: boolean }) => (
-    <div>
-      SroInvite content
-      <span>{hasSroAssigned ? "SRO assigned" : "No SRO assigned"}</span>
-    </div>
-  ),
+  default: () => <div>SroDetailsPanel content</div>,
 }));
 
 const mockOrganisation = (
@@ -67,17 +62,19 @@ describe("<Sro />", () => {
     render(<Sro />);
 
     expect(screen.getByText(/SroForm content/)).toBeInTheDocument();
-    expect(screen.queryByText("SroInvite content")).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("SroDetailsPanel content")
+    ).not.toBeInTheDocument();
   });
 
-  it("renders SroInvite when the SRO requirement feature is disabled", () => {
+  it("renders SroDetailsPanel when the SRO requirement feature is disabled", () => {
     (useFeatures as jest.Mock).mockReturnValue({
       isSroRequirementEnabled: false,
     });
 
     render(<Sro />);
 
-    expect(screen.getByText(/SroInvite content/)).toBeInTheDocument();
+    expect(screen.getByText(/SroDetailsPanel content/)).toBeInTheDocument();
     expect(screen.queryByText(/SroForm content/)).not.toBeInTheDocument();
   });
 
@@ -143,22 +140,15 @@ describe("<Sro />", () => {
     }
   );
 
-  it.each([
-    { claimed_sro: mockedUser(), expected: "SRO assigned" },
-    { claimed_sro: null, expected: "No SRO assigned" },
-    { claimed_sro: undefined, expected: "No SRO assigned" },
-  ])(
-    "shows SroInvite's assigned SRO only when the claimed SRO is loaded ($expected)",
-    ({ claimed_sro, expected }) => {
-      (useFeatures as jest.Mock).mockReturnValue({
-        isSroRequirementEnabled: false,
-      });
-      // has_claimed_sro alone is not enough: the card needs the SRO's details.
-      mockOrganisation({ has_claimed_sro: true, claimed_sro });
+  // SroDetailsPanel works out from the organisation whether to show the SRO, the invitee or the form.
+  it("shows SroDetailsPanel when the SRO requirement is off", () => {
+    (useFeatures as jest.Mock).mockReturnValue({
+      isSroRequirementEnabled: false,
+    });
+    mockOrganisation({ has_claimed_sro: true, claimed_sro: mockedUser() });
 
-      render(<Sro />);
+    render(<Sro />);
 
-      expect(screen.getByText(expected)).toBeInTheDocument();
-    }
-  );
+    expect(screen.getByText("SroDetailsPanel content")).toBeInTheDocument();
+  });
 });
