@@ -563,7 +563,7 @@
     "sroAssignedDepartment": "Department",
     "sroAssignedJobTitle": "Job title",
     "sroInviteReplacementButton": "Invite a replacement",
-    "sroInviteReplacementBackButton": "Back",
+    "sroInviteReplacementBackButton": "Cancel inviting a replacement",
     "sroInviteReplacementDescription": "Invite someone to replace you as your Organisation's Senior Responsible Officer (SRO). You stay the SRO until they create their account, then you will become a Delegate.",
     "sroInviteReplacementConfirmText": "{name} will be emailed an invitation to replace you as your Organisation's Senior Responsible Officer (SRO). You stay the SRO until they create their account, then you will become a Delegate.",
     "sroInviteReplacementReplacesPendingConfirmText": "{name} will be emailed an invitation to replace you as your Organisation's Senior Responsible Officer (SRO). You stay the SRO until they create their account, then you will become a Delegate. {pendingName}'s invitation will still work, but they'll join as a Delegate instead.",

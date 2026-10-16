@@ -120,13 +120,8 @@ export default function SroInviteForm({
               ? "sroInviteReplacementDescription"
               : "sroInviteNoOfficerDescription"
           )}>
-          {purpose === "replacement" && (
-            <Button variant="text" sx={{ mb: 2 }} onClick={onBack}>
-              {tOrgProfile("sroInviteReplacementBackButton")}
-            </Button>
-          )}
           {purpose === "replacePending" && pendingSro && (
-            <Button variant="text" sx={{ mb: 2 }} onClick={onBack}>
+            <Button variant="outlined" sx={{ mb: 2 }} onClick={onBack}>
               {tOrgProfile("sroKeepPendingInviteButton", {
                 name: getName(pendingSro),
               })}
@@ -192,7 +187,11 @@ export default function SroInviteForm({
                 />
               </Grid>
             )}
-
+            {purpose === "replacement" && (
+              <Button variant="outlined" sx={{ mb: 2 }} onClick={onBack}>
+                {tOrgProfile("sroInviteReplacementBackButton")}
+              </Button>
+            )}
             {mode === "existingDelegate" && selectedDelegate && (
               <>
                 <Grid size={{ xs: 12 }}>
