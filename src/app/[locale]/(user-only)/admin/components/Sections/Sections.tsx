@@ -127,7 +127,10 @@ export default function Sections() {
       heading: t("inviteOrganisationModalHeading"),
       component: (
         <SendInviteOrganisation
-          onSuccess={handleInviteSuccess}
+          onSuccess={() => {
+            setOpenModal(null);
+            handleInviteSuccess();
+          }}
           actions={{ onCancel: () => setOpenModal(null) }}
         />
       ),
