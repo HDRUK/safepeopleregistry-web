@@ -9,6 +9,7 @@ import { useState } from "react";
 import DelegatePicker from "./DelegatePicker";
 import { SentChip } from "./PendingSroCard";
 import SroDetails from "./SroDetails";
+import { MAX_FORM_WIDTH } from "@/consts/form";
 
 const NAMESPACE_TRANSLATION_ORG_PROFILE = "ProfileOrganisation";
 
@@ -65,7 +66,8 @@ export default function ClaimedSroCard({
         )}
 
         {isSignedInSro && isHandingOver && (
-          <Box sx={{ pt: 3, display: "grid", gap: 2, maxWidth: 480 }}>
+          <Box
+            sx={{ pt: 3, display: "grid", gap: 2, maxWidth: MAX_FORM_WIDTH }}>
             <div>
               <DelegatePicker
                 id="sro-hand-over-select-delegate"

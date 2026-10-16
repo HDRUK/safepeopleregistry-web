@@ -46,7 +46,7 @@ export default function PendingSroCard({
         <SroDetails sro={sro} showProfile={false} />
         <Grid
           container
-          sx={{ pt: "29px" }}
+          sx={{ pt: 3 }}
           direction="column"
           alignItems="flex-start"
           spacing={2}>
