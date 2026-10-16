@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import OrganisationsTable, {
   OrganisationsTableProps,
 } from "./OrganisationsTable";
+import { Status } from "@/consts/application";
 
 const organisation = mockedOrganisation();
 
@@ -50,12 +51,20 @@ describe("<OrganisationsTable />", () => {
   it.each([
     ["Account created", { unclaimed: false }],
     [
-      "Invited by Admin",
-      { unclaimed: true, sro_officer: sroInvitedBy(UserGroup.ADMINS) },
+      "Invited by admin",
+      {
+        unclaimed: true,
+        model_state: { state: { slug: Status.ORGANISATION_INVITED_BY_ADMIN } },
+      },
     ],
     [
       "Invited by non-admin",
-      { unclaimed: true, sro_officer: sroInvitedBy(UserGroup.CUSTODIANS) },
+      {
+        unclaimed: true,
+        model_state: {
+          state: { slug: Status.ORGANISATION_INVITED_BY_NONADMIN },
+        },
+      },
     ],
     ["Placeholder", { unclaimed: true }],
   ])("renders the %s status", (label, overrides) => {
