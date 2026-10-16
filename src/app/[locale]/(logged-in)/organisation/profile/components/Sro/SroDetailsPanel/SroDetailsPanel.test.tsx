@@ -701,7 +701,9 @@ describe("<SroDetailsPanel />", () => {
         screen.queryByRole("radio", { name: "Select from existing Delegates" })
       ).not.toBeInTheDocument();
 
-      await user.click(screen.getByRole("button", { name: "Back" }));
+      await user.click(
+        screen.getByRole("button", { name: "Cancel inviting a replacement" })
+      );
       expect(
         screen.getByRole("button", { name: "Invite a replacement" })
       ).toBeInTheDocument();
