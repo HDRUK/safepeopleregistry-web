@@ -1,16 +1,12 @@
-import { UserGroup } from "@/consts/user";
 import { mockedOrganisation } from "@/mocks/data/organisation";
-import { mockedUser } from "@/mocks/data/user";
 import { commonAccessibilityTests, render, screen } from "@/utils/testUtils";
 import { useTranslations } from "next-intl";
 import OrganisationsTable, {
   OrganisationsTableProps,
 } from "./OrganisationsTable";
+import { Status } from "@/consts/application";
 
 const organisation = mockedOrganisation();
-
-const sroInvitedBy = (userGroup: UserGroup) =>
-  mockedUser({ invited_by: mockedUser({ user_group: userGroup }) });
 
 const TestComponent = (props?: Partial<OrganisationsTableProps>) => {
   const t = useTranslations("OrganisationsList");
@@ -50,12 +46,20 @@ describe("<OrganisationsTable />", () => {
   it.each([
     ["Account created", { unclaimed: false }],
     [
-      "Invited by Admin",
-      { unclaimed: true, sro_officer: sroInvitedBy(UserGroup.ADMINS) },
+      "Invited by admin",
+      {
+        unclaimed: true,
+        model_state: { state: { slug: Status.ORGANISATION_INVITED_BY_ADMIN } },
+      },
     ],
     [
       "Invited by non-admin",
-      { unclaimed: true, sro_officer: sroInvitedBy(UserGroup.CUSTODIANS) },
+      {
+        unclaimed: true,
+        model_state: {
+          state: { slug: Status.ORGANISATION_INVITED_BY_NONADMIN },
+        },
+      },
     ],
     ["Placeholder", { unclaimed: true }],
   ])("renders the %s status", (label, overrides) => {

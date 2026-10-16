@@ -1,7 +1,6 @@
 import { Status } from "@/consts/application";
 import { UserGroup } from "@/consts/user";
 import { mockedOrganisation } from "@/mocks/data/organisation";
-import { mockedUser } from "@/mocks/data/user";
 import { Organisation } from "@/types/application";
 import { mock200Json, mockPagedResults } from "jest.utils";
 import {
@@ -16,10 +15,14 @@ import OrganisationsList from "./OrganisationsList";
 const mockedInvitedOrganisation = (userGroup: UserGroup) =>
   mockedOrganisation({
     unclaimed: true,
-    model_state: { state: { slug: Status.INVITED } },
-    sro_officer: mockedUser({
-      invited_by: mockedUser({ user_group: userGroup }),
-    }),
+    model_state: {
+      state: {
+        slug:
+          userGroup === UserGroup.ADMINS
+            ? Status.ORGANISATION_INVITED_BY_ADMIN
+            : Status.ORGANISATION_INVITED_BY_NONADMIN,
+      },
+    },
   });
 
 const setupTest = (organisation: Organisation) => {

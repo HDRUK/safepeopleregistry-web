@@ -45,16 +45,13 @@ function getOrganisationAccountStatus(organisation: Organisation): Status {
     return Status.ORGANISATION_ACCOUNT_CREATED;
   }
 
-  const invitedBy = organisation.sro_officer?.invited_by;
-
-  if (invitedBy) {
-    return invitedBy.user_group === UserGroup.ADMINS
-      ? Status.ORGANISATION_INVITED_BY_ADMIN
-      : Status.ORGANISATION_INVITED_BY_NONADMIN;
-  }
-
-  if (organisation.model_state?.state?.slug === Status.INVITED) {
-    return Status.ORGANISATION_INVITED_BY_NONADMIN;
+  if (
+    [
+      Status.ORGANISATION_INVITED_BY_NONADMIN,
+      Status.ORGANISATION_INVITED_BY_ADMIN,
+    ].includes(organisation.model_state?.state?.slug as Status)
+  ) {
+    return organisation.model_state.state.slug as Status;
   }
 
   return Status.ORGANISATION_PLACEHOLDER;
