@@ -1,7 +1,6 @@
 import { Status } from "@/consts/application";
 import { UserGroup } from "@/consts/user";
 import { mockedOrganisation } from "@/mocks/data/organisation";
-import { mockedUser } from "@/mocks/data/user";
 import { Organisation } from "@/types/application";
 import { mock200Json, mockPagedResults } from "jest.utils";
 import {

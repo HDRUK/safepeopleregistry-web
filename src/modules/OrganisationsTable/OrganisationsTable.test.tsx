@@ -1,6 +1,4 @@
-import { UserGroup } from "@/consts/user";
 import { mockedOrganisation } from "@/mocks/data/organisation";
-import { mockedUser } from "@/mocks/data/user";
 import { commonAccessibilityTests, render, screen } from "@/utils/testUtils";
 import { useTranslations } from "next-intl";
 import OrganisationsTable, {
@@ -9,9 +7,6 @@ import OrganisationsTable, {
 import { Status } from "@/consts/application";
 
 const organisation = mockedOrganisation();
-
-const sroInvitedBy = (userGroup: UserGroup) =>
-  mockedUser({ invited_by: mockedUser({ user_group: userGroup }) });
 
 const TestComponent = (props?: Partial<OrganisationsTableProps>) => {
   const t = useTranslations("OrganisationsList");
