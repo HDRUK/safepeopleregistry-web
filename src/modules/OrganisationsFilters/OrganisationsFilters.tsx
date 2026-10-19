@@ -11,7 +11,8 @@ import { Organisation } from "../../types/application";
 import SearchActionMenu from "../SearchActionMenu";
 import SearchBar from "../SearchBar";
 
-const NAMESPACE_TRANSLATIONS_ORGANISATIONS = "Admin.OrganisationsFilters";
+const NAMESPACE_TRANSLATIONS_FILTERS = "Admin.OrganisationsFilters";
+const NAMESPACE_TRANSLATIONS_ORGANISATIONS = "Organisations";
 const NAMESPACE_TRANSLATIONS_APPLICATION = "Application";
 
 export enum OrganisationsFiltersKeys {
@@ -51,7 +52,8 @@ export default function OrganisationsFilters({
     OrganisationsFiltersKeys.SYSTEM_APPROVED,
   ],
 }: OrganisationsFiltersProps) {
-  const t = useTranslations(NAMESPACE_TRANSLATIONS_ORGANISATIONS);
+  const t = useTranslations(NAMESPACE_TRANSLATIONS_FILTERS);
+  const tOrganisations = useTranslations(NAMESPACE_TRANSLATIONS_ORGANISATIONS);
   const tApplication = useTranslations(NAMESPACE_TRANSLATIONS_APPLICATION);
 
   const hasFilter = (key: OrganisationsFiltersKeys) => {
@@ -68,7 +70,7 @@ export default function OrganisationsFilters({
     queryParams,
     items: [
       {
-        label: t("sortByOrganisationName"),
+        label: tApplication("organisationName"),
         key: "organisation_name",
       },
     ],
@@ -125,7 +127,7 @@ export default function OrganisationsFilters({
           "organisation_name[]": text,
         });
       }}
-      placeholder={t("searchPlaceholder")}>
+      placeholder={tOrganisations("searchPlaceholder")}>
       <SearchActionMenu
         actions={sortActions}
         startIcon={<SortIcon />}
