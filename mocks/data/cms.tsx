@@ -66,20 +66,7 @@ export const mockedOrganisationHomeIntro = (
 export const mockedOrganisationDelegateHomeIntro = (
   <>
     <Typography mb={2}>
-      You'll see a list of tasks below to complete your profile.
-    </Typography>
-    <Typography mb={2}>
-      The Organisation account is set up by a SRO (Senior Responsible Officer),
-      who is required to get a declaration signed on behalf of their
-      Organisation and upload this. The SRO must have a position of seniority,
-      as they are held accountable for the data.
-    </Typography>
-    <Typography mb={2}>
-      Delegates act on behalf of the SRO, including updating the Organisation
-      profile and affiliating Users.
-    </Typography>
-    <Typography mb={2}>
-      Please see actions below to finish setting up the account.
+      You'll see a list of tasks below to complete your Organisation's profile.
     </Typography>
   </>
 );
