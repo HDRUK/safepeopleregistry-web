@@ -321,7 +321,12 @@ describe("useOrganisationInvite", () => {
       expect(onError).not.toHaveBeenCalled();
     });
 
-    it.each(["claimed_duplicate", "unclaimed_duplicate"] as const)(
+    it.each([
+      "claimed_duplicate",
+      "unclaimed_duplicate",
+      "claimed_duplicate_without_email",
+      "unclaimed_duplicate_without_email",
+    ] as const)(
       "reports a %s conflict and does not notify the superadmin",
       async reason => {
         mockedPostOrganisationUnclaimedBeforeSuperadminInvitation.mockResolvedValue(

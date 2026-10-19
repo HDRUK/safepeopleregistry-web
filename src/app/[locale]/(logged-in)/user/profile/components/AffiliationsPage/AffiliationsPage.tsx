@@ -34,6 +34,7 @@ import { ResearcherAffiliation } from "@/types/application";
 import { QueryState } from "@/types/form";
 import { formatDBDateTime } from "@/utils/date";
 import { getCombinedQueryState } from "@/utils/query";
+import { getOrganisationConflictErrorKey } from "@/utils/organisationConflictError";
 import { renderErrorToString } from "@/utils/translations";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
@@ -48,6 +49,7 @@ import AffiliationsForm from "../AffiliationsForm";
 
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";
 const NAMESPACE_TRANSLATION_AFFILIATIONS = "Affiliations";
+const NAMESPACE_TRANSLATION_APPLICATION = "Application";
 
 type AffiliationsPageProps = {
   queryState: QueryState<ResearcherAffiliation>;
@@ -58,6 +60,7 @@ export default function AffiliationsPage({
 }: AffiliationsPageProps) {
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
   const t = useTranslations(NAMESPACE_TRANSLATION_AFFILIATIONS);
+  const tApplication = useTranslations(NAMESPACE_TRANSLATION_APPLICATION);
   const router = useRouter();
   const { showAlert, hideAlert } = useAlertModal();
 
@@ -99,10 +102,14 @@ export default function AffiliationsPage({
     handleSubmit: handleCreateAndInviteOrganisation,
     mutateOrganisationInvite,
   } = useOrganisationInvite({
-    onError: () => {
+    onError: (error: unknown) => {
+      const conflictErrorKey = getOrganisationConflictErrorKey(error);
+
       showAlert({
         severity: "error",
-        text: renderErrorToString(tProfile, "affiliationActionError"),
+        text: conflictErrorKey
+          ? renderErrorToString(tApplication, conflictErrorKey)
+          : renderErrorToString(tProfile, "affiliationActionError"),
         confirmButtonText: tProfile("affiliationActionErrorButton"),
         onConfirm: async () => {
           hideAlert();

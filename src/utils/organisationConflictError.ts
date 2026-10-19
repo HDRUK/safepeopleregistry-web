@@ -7,6 +7,8 @@ const ORGANISATION_CONFLICT_REASONS = [
   "email_in_use",
   "claimed_duplicate",
   "unclaimed_duplicate",
+  "claimed_duplicate_without_email",
+  "unclaimed_duplicate_without_email",
 ] as const;
 
 type OrganisationConflictReason =
@@ -65,7 +67,9 @@ type OrganisationConflictErrorKey =
   | "organisationConflictDuplicate"
   | "organisationConflictEmailInUse"
   | "organisationConflictClaimedDuplicate"
-  | "organisationConflictUnclaimedDuplicate";
+  | "organisationConflictUnclaimedDuplicate"
+  | "organisationConflictClaimedDuplicateWithoutEmail"
+  | "organisationConflictUnclaimedDuplicateWithoutEmail";
 
 // Keys live in the Application namespace. Returns undefined when there is no
 // known conflict, so callers keep their default error text.
@@ -90,6 +94,10 @@ function getOrganisationConflictErrorKey(
       return "organisationConflictClaimedDuplicate";
     case "unclaimed_duplicate":
       return "organisationConflictUnclaimedDuplicate";
+    case "claimed_duplicate_without_email":
+      return "organisationConflictClaimedDuplicateWithoutEmail";
+    case "unclaimed_duplicate_without_email":
+      return "organisationConflictUnclaimedDuplicateWithoutEmail";
     case "unknown":
       return undefined;
     default: {

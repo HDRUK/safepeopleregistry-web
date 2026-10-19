@@ -14,6 +14,8 @@ describe("isOrganisationConflictReason", () => {
     "email_in_use",
     "claimed_duplicate",
     "unclaimed_duplicate",
+    "claimed_duplicate_without_email",
+    "unclaimed_duplicate_without_email",
   ])("accepts %s", reason => {
     expect(isOrganisationConflictReason(reason)).toBe(true);
   });
@@ -32,6 +34,8 @@ describe("OrganisationConflictError", () => {
     "email_in_use",
     "claimed_duplicate",
     "unclaimed_duplicate",
+    "claimed_duplicate_without_email",
+    "unclaimed_duplicate_without_email",
   ] as const)("keeps the known reason %s", reason => {
     const error = new OrganisationConflictError(reason);
 
@@ -72,6 +76,14 @@ describe("getOrganisationConflictErrorKey", () => {
     ["email_in_use", "organisationConflictEmailInUse"],
     ["claimed_duplicate", "organisationConflictClaimedDuplicate"],
     ["unclaimed_duplicate", "organisationConflictUnclaimedDuplicate"],
+    [
+      "claimed_duplicate_without_email",
+      "organisationConflictClaimedDuplicateWithoutEmail",
+    ],
+    [
+      "unclaimed_duplicate_without_email",
+      "organisationConflictUnclaimedDuplicateWithoutEmail",
+    ],
   ] as const)("maps %s to %s", (reason, key) => {
     expect(
       getOrganisationConflictErrorKey(new OrganisationConflictError(reason))

@@ -132,6 +132,14 @@ describe("<SendInviteOrganisation />", () => {
     it.each([
       ["claimed_duplicate", /is already registered/],
       ["unclaimed_duplicate", /has already been invited and has not yet/],
+      [
+        "claimed_duplicate_without_email",
+        /with this name is already registered/,
+      ],
+      [
+        "unclaimed_duplicate_without_email",
+        /with this name has already been invited/,
+      ],
     ])("shows why a %s conflict failed", async (reason, text) => {
       global.fetch.mockImplementation((url: string) => {
         if (
