@@ -1,5 +1,5 @@
 import { SearchDirections } from "@/consts/search";
-import { renderHook } from "../../utils/testUtils";
+import { renderHook } from "@/utils/testUtils";
 import useSort from "./useSort";
 
 type Item = Parameters<typeof useSort>[0]["items"][number];
