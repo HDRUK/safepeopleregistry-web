@@ -69,6 +69,7 @@ export default function useOrganisationInvite({
     ): Promise<number | undefined> => {
       try {
         if (existingOrganisation) {
+          // This branch only triggered by admin row-invite. This should allow all edits since we modify the existing supplied org by ID
           const { id } = existingOrganisation;
           const { organisation_name, lead_applicant_email } = organisation;
 
@@ -76,6 +77,7 @@ export default function useOrganisationInvite({
             organisation_name !== existingOrganisation.organisation_name ||
             lead_applicant_email !== existingOrganisation.lead_applicant_email
           ) {
+            // TODO: insert check that email doesn't already exist in another organisation
             await mutateOrganisation({
               params: { organisationId: id },
               payload: { organisation_name, lead_applicant_email },
@@ -90,6 +92,9 @@ export default function useOrganisationInvite({
         }
 
         if (shouldInviteSroDirectly) {
+          // this branch is triggered by the superadmin invite form, which creates the Organisation and invites the SRO directly.
+          // The lead applicant email is required to be supplied in this case, since the SRO is invited directly.
+          // However the lead applicant email should be unique to the organisation, so we should not allow the superadmin to invite an organisation that already exists with the same lead applicant email.
           const { organisation_name, lead_applicant_email } = organisation;
 
           if (!lead_applicant_email) {
@@ -103,11 +108,12 @@ export default function useOrganisationInvite({
           }
 
           const { data: organisationId } = await mutateOrganisationUnclaimed({
+            //unclaimed = storeUnclaimed()
             organisation_name,
             lead_applicant_email,
           });
 
-          await mutateOrganisationInvite(organisationId);
+          await mutateOrganisationInvite(organisationId); //organisations/{id}/invite = invite(organisationId)
 
           onSuccess?.();
 
@@ -118,12 +124,15 @@ export default function useOrganisationInvite({
         // and the superadmin is notified to go and make contact. If an address
         // was supplied, the invitee is additionally emailed asking them to get
         // in touch with the superadmin.
-        const { data: organisationId } =
+        const {
+          data: organisationId,
+        } = //organisations/unclaimed_before_superadmin_invitation = storeUnclaimedBeforeSuperadminInvitation()
           await mutateOrganisationUnclaimedBeforeSuperadminInvitation(
             organisation
           );
 
         await mutateOrganisationInviteToContactSuperadmin({
+          //organisations/{id}/invite_to_contact_superadmin = inviteToContactSuperadmin()
           organisationId,
           payload: {},
         });
