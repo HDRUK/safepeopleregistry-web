@@ -30,9 +30,43 @@ function isOrganisationConflictError(
   return error instanceof OrganisationConflictError;
 }
 
-export type { OrganisationConflictReason };
+type OrganisationConflictErrorKey =
+  | "organisationConflictDuplicate"
+  | "organisationConflictEmailInUse";
+
+// Keys live in the Application namespace. Returns undefined when there is no
+// known conflict, so callers keep their default error text.
+function getOrganisationConflictErrorKey(
+  error: unknown
+): OrganisationConflictErrorKey | undefined {
+  const errors = Array.isArray(error) ? error : [error];
+  const conflictError = errors.find(isOrganisationConflictError);
+
+  if (!conflictError) {
+    return undefined;
+  }
+
+  const { reason } = conflictError;
+
+  switch (reason) {
+    case "duplicate":
+      return "organisationConflictDuplicate";
+    case "email_in_use":
+      return "organisationConflictEmailInUse";
+    case "unknown":
+      return undefined;
+    default: {
+      const unhandled: never = reason;
+
+      return unhandled;
+    }
+  }
+}
+
+export type { OrganisationConflictErrorKey, OrganisationConflictReason };
 
 export {
+  getOrganisationConflictErrorKey,
   ORGANISATION_CONFLICT_REASONS,
   isOrganisationConflictError,
   isOrganisationConflictReason,
