@@ -28,9 +28,13 @@ const selectFilter = (menu: RegExp, option: string) => {
 };
 
 const clearFilter = (menu: RegExp) => {
-  const field = getFilterMenu(menu).closest(".MuiInputBase-root") as HTMLElement;
+  const field = getFilterMenu(menu).closest(
+    ".MuiInputBase-root"
+  ) as HTMLElement;
 
-  fireEvent.click(within(field).getByRole("button", { name: "clear selection" }));
+  fireEvent.click(
+    within(field).getByRole("button", { name: "clear selection" })
+  );
 };
 
 const mockedInvitedOrganisation = (userGroup: UserGroup) =>
@@ -150,27 +154,44 @@ describe("<OrganisationsList />", () => {
     });
 
     it.each([
-      [/Filter by account status/, "Account created", "account_status=organisation_account_created"],
-      [/Filter by account status/, "Invited by admin", "account_status=organisation_invited_by_admin"],
-      [/Filter by account status/, "Invited by non-admin", "account_status=organisation_invited_by_nonadmin"],
-      [/Filter by account status/, "Placeholder", "account_status=organisation_placeholder"],
+      [
+        /Filter by account status/,
+        "Account created",
+        "account_status=organisation_account_created",
+      ],
+      [
+        /Filter by account status/,
+        "Invited by admin",
+        "account_status=organisation_invited_by_admin",
+      ],
+      [
+        /Filter by account status/,
+        "Invited by non-admin",
+        "account_status=organisation_invited_by_nonadmin",
+      ],
+      [
+        /Filter by account status/,
+        "Placeholder",
+        "account_status=organisation_placeholder",
+      ],
       [/Filter by SRO status/, "SRO claimed", "sro_status=claimed"],
-      [/Filter by SRO status/, "SRO invited (delegates acting)", "sro_status=invited"],
+      [
+        /Filter by SRO status/,
+        "SRO invited (delegates acting)",
+        "sro_status=invited",
+      ],
       [/Filter by SRO status/, "No SRO (delegates acting)", "sro_status=none"],
       [/Filter by approval/, "Approved", "system_approved=1"],
       [/Filter by approval/, "Not approved", "system_approved=0"],
-    ])(
-      "%p %p requests %p",
-      async (menu, option, expectedParam) => {
-        setupTest(mockedOrganisation());
+    ])("%p %p requests %p", async (menu, option, expectedParam) => {
+      setupTest(mockedOrganisation());
 
-        selectFilter(menu, option);
+      selectFilter(menu, option);
 
-        await waitFor(() => {
-          expect(getOrganisationsUrls().at(-1)).toContain(expectedParam);
-        });
-      }
-    );
+      await waitFor(() => {
+        expect(getOrganisationsUrls().at(-1)).toContain(expectedParam);
+      });
+    });
 
     it("stops filtering once a filter is cleared", async () => {
       setupTest(mockedOrganisation());

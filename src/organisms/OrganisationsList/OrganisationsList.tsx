@@ -5,6 +5,7 @@ import FormModal from "@/components/FormModal";
 import { Status } from "@/consts/application";
 import useColumns from "@/hooks/useColumns";
 import { OrganisationsTable, PageSection } from "@/modules";
+import OrganisationsFilters from "@/modules/OrganisationsFilters";
 import SendInviteOrganisation from "@/modules/SendInviteOrganisation";
 import {
   Organisation,
@@ -94,23 +95,28 @@ export default function OrganisationsList() {
   ];
 
   return (
-    <PageSection>
-      <OrganisationsTable extraColumns={extraColumns} {...query} t={t} />
-      {organisationToInvite && (
-        <FormModal
-          heading={t("inviteModalHeading")}
-          open
-          onClose={() => setOrganisationToInvite(null)}>
-          <SendInviteOrganisation
-            organisation={organisationToInvite}
-            onSuccess={() => {
-              setOrganisationToInvite(null);
-              refetch();
-            }}
-            actions={{ onCancel: () => setOrganisationToInvite(null) }}
-          />
-        </FormModal>
-      )}
-    </PageSection>
+    <div>
+      <PageSection>
+        <OrganisationsFilters {...query} />
+      </PageSection>
+      <PageSection>
+        <OrganisationsTable extraColumns={extraColumns} {...query} t={t} />
+        {organisationToInvite && (
+          <FormModal
+            heading={t("inviteModalHeading")}
+            open
+            onClose={() => setOrganisationToInvite(null)}>
+            <SendInviteOrganisation
+              organisation={organisationToInvite}
+              onSuccess={() => {
+                setOrganisationToInvite(null);
+                refetch();
+              }}
+              actions={{ onCancel: () => setOrganisationToInvite(null) }}
+            />
+          </FormModal>
+        )}
+      </PageSection>
+    </div>
   );
 }
