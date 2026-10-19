@@ -9,7 +9,12 @@ import {
 } from "./organisationConflictError";
 
 describe("isOrganisationConflictReason", () => {
-  it.each(["duplicate", "email_in_use"])("accepts %s", reason => {
+  it.each([
+    "duplicate",
+    "email_in_use",
+    "claimed_duplicate",
+    "unclaimed_duplicate",
+  ])("accepts %s", reason => {
     expect(isOrganisationConflictReason(reason)).toBe(true);
   });
 
@@ -22,15 +27,17 @@ describe("isOrganisationConflictReason", () => {
 });
 
 describe("OrganisationConflictError", () => {
-  it.each(["duplicate", "email_in_use"] as const)(
-    "keeps the known reason %s",
-    reason => {
-      const error = new OrganisationConflictError(reason);
+  it.each([
+    "duplicate",
+    "email_in_use",
+    "claimed_duplicate",
+    "unclaimed_duplicate",
+  ] as const)("keeps the known reason %s", reason => {
+    const error = new OrganisationConflictError(reason);
 
-      expect(error.reason).toBe(reason);
-      expect(error.status).toBe(409);
-    }
-  );
+    expect(error.reason).toBe(reason);
+    expect(error.status).toBe(409);
+  });
 
   it.each([null, undefined, "other", 1])(
     "falls back to unknown for %p",
@@ -63,6 +70,8 @@ describe("getOrganisationConflictErrorKey", () => {
   it.each([
     ["duplicate", "organisationConflictDuplicate"],
     ["email_in_use", "organisationConflictEmailInUse"],
+    ["claimed_duplicate", "organisationConflictClaimedDuplicate"],
+    ["unclaimed_duplicate", "organisationConflictUnclaimedDuplicate"],
   ] as const)("maps %s to %s", (reason, key) => {
     expect(
       getOrganisationConflictErrorKey(new OrganisationConflictError(reason))

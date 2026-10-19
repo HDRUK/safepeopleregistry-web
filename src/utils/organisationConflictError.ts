@@ -1,6 +1,13 @@
 // Mirrors the reasons the API returns in the body of a 409 from
-// POST /organisations/unclaimed. Kept in sync by hand.
-const ORGANISATION_CONFLICT_REASONS = ["duplicate", "email_in_use"] as const;
+// POST /organisations/unclaimed, PUT /organisations/{id} and
+// POST /organisations/unclaimed_before_superadmin_invitation. Kept in sync by
+// hand.
+const ORGANISATION_CONFLICT_REASONS = [
+  "duplicate",
+  "email_in_use",
+  "claimed_duplicate",
+  "unclaimed_duplicate",
+] as const;
 
 type OrganisationConflictReason =
   (typeof ORGANISATION_CONFLICT_REASONS)[number];
@@ -56,7 +63,9 @@ function assertOrganisationResponseOk<T extends OrganisationResponse>(
 
 type OrganisationConflictErrorKey =
   | "organisationConflictDuplicate"
-  | "organisationConflictEmailInUse";
+  | "organisationConflictEmailInUse"
+  | "organisationConflictClaimedDuplicate"
+  | "organisationConflictUnclaimedDuplicate";
 
 // Keys live in the Application namespace. Returns undefined when there is no
 // known conflict, so callers keep their default error text.
@@ -77,6 +86,10 @@ function getOrganisationConflictErrorKey(
       return "organisationConflictDuplicate";
     case "email_in_use":
       return "organisationConflictEmailInUse";
+    case "claimed_duplicate":
+      return "organisationConflictClaimedDuplicate";
+    case "unclaimed_duplicate":
+      return "organisationConflictUnclaimedDuplicate";
     case "unknown":
       return undefined;
     default: {

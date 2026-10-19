@@ -1,5 +1,7 @@
 import postOrganisationInvite from "@/app/actions/organisations/postOrganisationInvite";
+import postOrganisationInviteToContactSuperadmin from "@/app/actions/organisations/postOrganisationInviteToContactSuperadmin";
 import postOrganisationUnclaimed from "@/app/actions/organisations/postOrganisationUnclaimed";
+import postOrganisationUnclaimedBeforeSuperadminInvitation from "@/app/actions/organisations/postOrganisationUnclaimedBeforeSuperadminInvitation";
 import putOrganisation from "@/app/actions/organisations/putOrganisation";
 import { mockedOrganisation } from "@/mocks/data/organisation";
 import { Organisation } from "@/types/application";
@@ -10,8 +12,10 @@ import {
 import { act, renderHook, waitFor } from "../../utils/testUtils";
 import useOrganisationInvite from "./useOrganisationInvite";
 
+const mockUseFeatures = jest.fn(() => ({ isSroRequirementEnabled: true }));
+
 jest.mock("@/components/FeatureProvider", () => ({
-  useFeatures: () => ({ isSroRequirementEnabled: true }),
+  useFeatures: () => mockUseFeatures(),
 }));
 
 jest.mock("@/app/actions/organisations/postOrganisationUnclaimed", () => ({
@@ -24,14 +28,36 @@ jest.mock("@/app/actions/organisations/postOrganisationInvite", () => ({
   default: jest.fn(),
 }));
 
-const mockedPostOrganisationUnclaimed = jest.mocked(postOrganisationUnclaimed);
 jest.mock("@/app/actions/organisations/putOrganisation", () => ({
   __esModule: true,
   default: jest.fn(),
 }));
 
+jest.mock(
+  "@/app/actions/organisations/postOrganisationUnclaimedBeforeSuperadminInvitation",
+  () => ({
+    __esModule: true,
+    default: jest.fn(),
+  })
+);
+
+jest.mock(
+  "@/app/actions/organisations/postOrganisationInviteToContactSuperadmin",
+  () => ({
+    __esModule: true,
+    default: jest.fn(),
+  })
+);
+
+const mockedPostOrganisationUnclaimed = jest.mocked(postOrganisationUnclaimed);
 const mockedPostOrganisationInvite = jest.mocked(postOrganisationInvite);
 const mockedPutOrganisation = jest.mocked(putOrganisation);
+const mockedPostOrganisationUnclaimedBeforeSuperadminInvitation = jest.mocked(
+  postOrganisationUnclaimedBeforeSuperadminInvitation
+);
+const mockedPostOrganisationInviteToContactSuperadmin = jest.mocked(
+  postOrganisationInviteToContactSuperadmin
+);
 
 const organisation = {
   organisation_name: "Example Organisation",
@@ -247,6 +273,107 @@ describe("useOrganisationInvite", () => {
       });
 
       expect(mockedPostOrganisationInvite).not.toHaveBeenCalled();
+      expect(onError).toHaveBeenCalledWith(expect.any(Error));
+      expect(isOrganisationConflictError(onError.mock.calls[0][0])).toBe(false);
+      expect(onSuccess).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("when asking the superadmin to contact the Organisation", () => {
+    beforeEach(() => {
+      mockUseFeatures.mockReturnValue({ isSroRequirementEnabled: false });
+
+      mockedPostOrganisationInviteToContactSuperadmin.mockResolvedValue({
+        ok: true,
+        status: 200,
+        message: "success",
+        data: null,
+      } as never);
+    });
+
+    afterEach(() => {
+      mockUseFeatures.mockReturnValue({ isSroRequirementEnabled: true });
+    });
+
+    it("creates the Organisation and notifies the superadmin", async () => {
+      mockedPostOrganisationUnclaimedBeforeSuperadminInvitation.mockResolvedValue(
+        {
+          ok: true,
+          status: 201,
+          message: "success",
+          data: 3,
+        } as never
+      );
+
+      const { result, onSuccess, onError } = setupUseOrganisationInvite();
+
+      let organisationId: number | undefined;
+
+      await act(async () => {
+        organisationId = await result.current.handleSubmit(organisation);
+      });
+
+      expect(organisationId).toBe(3);
+      expect(
+        mockedPostOrganisationInviteToContactSuperadmin
+      ).toHaveBeenCalledWith(3, expect.anything(), expect.anything());
+      expect(onSuccess).toHaveBeenCalled();
+      expect(onError).not.toHaveBeenCalled();
+    });
+
+    it.each(["claimed_duplicate", "unclaimed_duplicate"] as const)(
+      "reports a %s conflict and does not notify the superadmin",
+      async reason => {
+        mockedPostOrganisationUnclaimedBeforeSuperadminInvitation.mockResolvedValue(
+          {
+            ok: false,
+            status: 409,
+            message: "conflict",
+            data: reason,
+          } as never
+        );
+
+        const { result, onSuccess, onError } = setupUseOrganisationInvite();
+
+        let organisationId: number | undefined;
+
+        await act(async () => {
+          organisationId = await result.current.handleSubmit(organisation);
+        });
+
+        expect(organisationId).toBeUndefined();
+        expect(
+          mockedPostOrganisationInviteToContactSuperadmin
+        ).not.toHaveBeenCalled();
+        expect(onError).toHaveBeenCalledWith(
+          expect.objectContaining({ reason })
+        );
+        expect(onError.mock.calls[0][0]).toBeInstanceOf(
+          OrganisationConflictError
+        );
+        expect(onSuccess).not.toHaveBeenCalled();
+      }
+    );
+
+    it("reports any other failure without a conflict reason", async () => {
+      mockedPostOrganisationUnclaimedBeforeSuperadminInvitation.mockResolvedValue(
+        {
+          ok: false,
+          status: 500,
+          message: "failed",
+          data: null,
+        } as never
+      );
+
+      const { result, onSuccess, onError } = setupUseOrganisationInvite();
+
+      await act(async () => {
+        await result.current.handleSubmit(organisation);
+      });
+
+      expect(
+        mockedPostOrganisationInviteToContactSuperadmin
+      ).not.toHaveBeenCalled();
       expect(onError).toHaveBeenCalledWith(expect.any(Error));
       expect(isOrganisationConflictError(onError.mock.calls[0][0])).toBe(false);
       expect(onSuccess).not.toHaveBeenCalled();

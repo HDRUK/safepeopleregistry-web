@@ -1,12 +1,12 @@
 "use server";
 
-import { PostOrganisationPayload } from "@/services/organisations";
+import { PostOrganisationUnclaimedBeforeSuperadminInvitationPayload } from "@/services/organisations";
 import { handleJsonResponse } from "@/services/requestHelpers";
 import { postRequest } from "@/services/requests";
 import { ResponseOptions, ResponseJson } from "@/types/requests";
 
 export default async (
-  payload: PostOrganisationPayload,
+  payload: PostOrganisationUnclaimedBeforeSuperadminInvitationPayload,
   options: ResponseOptions
 ): Promise<ResponseJson<number>> => {
   const response = await postRequest(
