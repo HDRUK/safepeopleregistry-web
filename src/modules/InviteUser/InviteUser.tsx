@@ -10,7 +10,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { getUsers } from "@/app/actions/users";
+import ErrorMessage from "@/components/ErrorMessage";
 import { useFeatures } from "@/components/FeatureProvider";
+import { getOrganisationConflictErrorKey } from "@/utils/organisationConflictError";
 import Form from "../../components/Form";
 import FormActions from "../../components/FormActions";
 import FormControlWrapper from "../../components/FormControlWrapper";
@@ -28,6 +30,7 @@ import { getCombinedQueryState } from "../../utils/query";
 const NAMESPACE_TRANSLATION_FORM = "Form";
 const NAMESPACE_TRANSLATION_ORGANISATION = "Users.InviteUser";
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";
+const NAMESPACE_TRANSLATION_APPLICATION = "Application";
 
 export interface InviteUserFormProps {
   onSuccess?: (id: number, roleId: number) => void;
@@ -56,6 +59,7 @@ export default function InviteUser({
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
   const tUser = useTranslations(NAMESPACE_TRANSLATION_ORGANISATION);
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
+  const tApplication = useTranslations(NAMESPACE_TRANSLATION_APPLICATION);
   const { isSroRequirementEnabled } = useFeatures();
 
   const queryClient = useQueryClient();
@@ -79,7 +83,15 @@ export default function InviteUser({
     combinedSuccess
   );
 
-  useQueryAlerts(combinedQueryState);
+  const conflictErrorKey = getOrganisationConflictErrorKey(
+    combinedQueryState.error
+  );
+
+  useQueryAlerts(combinedQueryState, {
+    errorAlertProps: conflictErrorKey && {
+      text: <ErrorMessage t={tApplication} tKey={conflictErrorKey} />,
+    },
+  });
 
   const checkEmailExists = async (email: string, useCache = false) => {
     const queryKey = ["getUsersByEmail", email];
@@ -176,6 +188,12 @@ export default function InviteUser({
       };
 
       organisationId = await handleCreateAndInviteOrganisation(invitePayload);
+
+      // The Organisation could not be created, so there is nothing to invite
+      // the user to. The failure is already shown via useQueryAlerts.
+      if (organisationId === undefined) {
+        return;
+      }
     }
 
     let results;
