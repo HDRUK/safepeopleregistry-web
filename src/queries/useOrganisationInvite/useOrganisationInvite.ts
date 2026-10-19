@@ -77,7 +77,6 @@ export default function useOrganisationInvite({
             organisation_name !== existingOrganisation.organisation_name ||
             lead_applicant_email !== existingOrganisation.lead_applicant_email
           ) {
-            // TODO: insert check that email doesn't already exist in another organisation
             await mutateOrganisation({
               params: { organisationId: id },
               payload: { organisation_name, lead_applicant_email },
@@ -108,12 +107,11 @@ export default function useOrganisationInvite({
           }
 
           const { data: organisationId } = await mutateOrganisationUnclaimed({
-            //unclaimed = storeUnclaimed()
             organisation_name,
             lead_applicant_email,
           });
 
-          await mutateOrganisationInvite(organisationId); //organisations/{id}/invite = invite(organisationId)
+          await mutateOrganisationInvite(organisationId);
 
           onSuccess?.();
 
@@ -124,15 +122,12 @@ export default function useOrganisationInvite({
         // and the superadmin is notified to go and make contact. If an address
         // was supplied, the invitee is additionally emailed asking them to get
         // in touch with the superadmin.
-        const {
-          data: organisationId,
-        } = //organisations/unclaimed_before_superadmin_invitation = storeUnclaimedBeforeSuperadminInvitation()
+        const { data: organisationId } =
           await mutateOrganisationUnclaimedBeforeSuperadminInvitation(
             organisation
           );
 
         await mutateOrganisationInviteToContactSuperadmin({
-          //organisations/{id}/invite_to_contact_superadmin = inviteToContactSuperadmin()
           organisationId,
           payload: {},
         });
