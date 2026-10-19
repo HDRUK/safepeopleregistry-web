@@ -1,6 +1,6 @@
 import { mockedPendingInvite } from "@/mocks/data/user";
 import { mock200Json, mockPagedResults } from "jest.utils";
-import { fireEvent, render, screen, waitFor } from "../../utils/testUtils";
+import { fireEvent, render, screen, waitFor } from "@/utils/testUtils";
 import InvitesList from "./InvitesList";
 
 const getPendingInvitesUrls = () =>
