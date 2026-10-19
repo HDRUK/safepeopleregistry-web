@@ -5,9 +5,11 @@ import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
 import InviteOrganisation from "../InviteOrganisation";
 import useOrganisationInvite from "@/queries/useOrganisationInvite/useOrganisationInvite";
 import { Organisation } from "@/types/application";
+import { getOrganisationConflictErrorKey } from "@/utils/organisationConflictError";
 
 const NAMESPACE_TRANSLATIONS_ORGANISATION = "Organisation";
 const NAMESPACE_TRANSLATIONS_FORM = "Form";
+const NAMESPACE_TRANSLATIONS_APPLICATION = "Application";
 
 export interface SendInviteOrganisationProps {
   onSuccess?: () => void;
@@ -25,11 +27,18 @@ export default function SendInviteOrganisation({
   const { showAlert, hideAlert } = useAlertModal();
   const t = useTranslations(NAMESPACE_TRANSLATIONS_ORGANISATION);
   const tForm = useTranslations(NAMESPACE_TRANSLATIONS_FORM);
+  const tApplication = useTranslations(NAMESPACE_TRANSLATIONS_APPLICATION);
 
-  const handleErrorAlert = () => {
+  const handleErrorAlert = (error: unknown) => {
+    const conflictErrorKey = getOrganisationConflictErrorKey(error);
+
     showAlert({
       severity: "error",
-      text: <ErrorMessage t={t} tKey="inviteOrganisationError" />,
+      text: conflictErrorKey ? (
+        <ErrorMessage t={tApplication} tKey={conflictErrorKey} />
+      ) : (
+        <ErrorMessage t={t} tKey="inviteOrganisationError" />
+      ),
       confirmButtonText: t("inviteOrganisationErrorButton"),
       onConfirm: async () => {
         hideAlert();

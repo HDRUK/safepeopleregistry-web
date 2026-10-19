@@ -100,7 +100,12 @@ describe("useOrganisationInvite", () => {
 
         expect(organisationId).toBeUndefined();
         expect(mockedPostOrganisationInvite).not.toHaveBeenCalled();
-        expect(onError).toHaveBeenCalled();
+        expect(onError).toHaveBeenCalledWith(
+          expect.objectContaining({ reason })
+        );
+        expect(onError.mock.calls[0][0]).toBeInstanceOf(
+          OrganisationConflictError
+        );
         expect(onSuccess).not.toHaveBeenCalled();
 
         await waitFor(() => {
@@ -131,7 +136,8 @@ describe("useOrganisationInvite", () => {
       });
 
       expect(mockedPostOrganisationInvite).not.toHaveBeenCalled();
-      expect(onError).toHaveBeenCalled();
+      expect(onError).toHaveBeenCalledWith(expect.any(Error));
+      expect(isOrganisationConflictError(onError.mock.calls[0][0])).toBe(false);
       expect(onSuccess).not.toHaveBeenCalled();
 
       await waitFor(() => {

@@ -18,7 +18,7 @@ import { Organisation } from "@/types/application";
 interface UseOrganisationInviteProps {
   organisation?: Organisation;
   onSuccess?: () => void;
-  onError?: () => void;
+  onError?: (error: unknown) => void;
 }
 
 export default function useOrganisationInvite({
@@ -140,8 +140,8 @@ export default function useOrganisationInvite({
         onSuccess?.();
 
         return organisationId;
-      } catch (_) {
-        onError?.();
+      } catch (error) {
+        onError?.(error);
 
         return undefined;
       }
