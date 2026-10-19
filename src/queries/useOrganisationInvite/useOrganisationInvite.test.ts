@@ -1,5 +1,8 @@
 import postOrganisationInvite from "@/app/actions/organisations/postOrganisationInvite";
 import postOrganisationUnclaimed from "@/app/actions/organisations/postOrganisationUnclaimed";
+import putOrganisation from "@/app/actions/organisations/putOrganisation";
+import { mockedOrganisation } from "@/mocks/data/organisation";
+import { Organisation } from "@/types/application";
 import {
   isOrganisationConflictError,
   OrganisationConflictError,
@@ -22,19 +25,29 @@ jest.mock("@/app/actions/organisations/postOrganisationInvite", () => ({
 }));
 
 const mockedPostOrganisationUnclaimed = jest.mocked(postOrganisationUnclaimed);
+jest.mock("@/app/actions/organisations/putOrganisation", () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
+
 const mockedPostOrganisationInvite = jest.mocked(postOrganisationInvite);
+const mockedPutOrganisation = jest.mocked(putOrganisation);
 
 const organisation = {
   organisation_name: "Example Organisation",
   lead_applicant_email: "lead@example.com",
 };
 
-const setupUseOrganisationInvite = () => {
+const setupUseOrganisationInvite = (existingOrganisation?: Organisation) => {
   const onSuccess = jest.fn();
   const onError = jest.fn();
 
   const { result } = renderHook(() =>
-    useOrganisationInvite({ onSuccess, onError })
+    useOrganisationInvite({
+      organisation: existingOrganisation,
+      onSuccess,
+      onError,
+    })
   );
 
   return { result, onSuccess, onError };
@@ -149,6 +162,94 @@ describe("useOrganisationInvite", () => {
           isOrganisationConflictError
         )
       ).toBe(false);
+    });
+  });
+
+  describe("when inviting an existing Organisation", () => {
+    const existingOrganisation = mockedOrganisation({
+      id: 2,
+      organisation_name: "Example Organisation",
+      lead_applicant_email: "old@example.com",
+    });
+
+    const changedOrganisation = {
+      organisation_name: "Example Organisation",
+      lead_applicant_email: "lead@example.com",
+    };
+
+    it("updates and invites the Organisation", async () => {
+      mockedPutOrganisation.mockResolvedValue({
+        ok: true,
+        status: 200,
+        message: "success",
+        data: existingOrganisation,
+      } as never);
+
+      const { result, onSuccess, onError } =
+        setupUseOrganisationInvite(existingOrganisation);
+
+      let organisationId: number | undefined;
+
+      await act(async () => {
+        organisationId = await result.current.handleSubmit(changedOrganisation);
+      });
+
+      expect(organisationId).toBe(2);
+      expect(mockedPostOrganisationInvite).toHaveBeenCalledWith(
+        2,
+        expect.anything()
+      );
+      expect(onSuccess).toHaveBeenCalled();
+      expect(onError).not.toHaveBeenCalled();
+    });
+
+    it("reports an email_in_use conflict and does not invite", async () => {
+      mockedPutOrganisation.mockResolvedValue({
+        ok: false,
+        status: 409,
+        message: "conflict",
+        data: "email_in_use",
+      } as never);
+
+      const { result, onSuccess, onError } =
+        setupUseOrganisationInvite(existingOrganisation);
+
+      let organisationId: number | undefined;
+
+      await act(async () => {
+        organisationId = await result.current.handleSubmit(changedOrganisation);
+      });
+
+      expect(organisationId).toBeUndefined();
+      expect(mockedPostOrganisationInvite).not.toHaveBeenCalled();
+      expect(onError).toHaveBeenCalledWith(
+        expect.objectContaining({ reason: "email_in_use" })
+      );
+      expect(onError.mock.calls[0][0]).toBeInstanceOf(
+        OrganisationConflictError
+      );
+      expect(onSuccess).not.toHaveBeenCalled();
+    });
+
+    it("reports any other failure without a conflict reason", async () => {
+      mockedPutOrganisation.mockResolvedValue({
+        ok: false,
+        status: 500,
+        message: "failed",
+        data: null,
+      } as never);
+
+      const { result, onSuccess, onError } =
+        setupUseOrganisationInvite(existingOrganisation);
+
+      await act(async () => {
+        await result.current.handleSubmit(changedOrganisation);
+      });
+
+      expect(mockedPostOrganisationInvite).not.toHaveBeenCalled();
+      expect(onError).toHaveBeenCalledWith(expect.any(Error));
+      expect(isOrganisationConflictError(onError.mock.calls[0][0])).toBe(false);
+      expect(onSuccess).not.toHaveBeenCalled();
     });
   });
 });

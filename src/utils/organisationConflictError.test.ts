@@ -1,5 +1,6 @@
 import messages from "@/config/locales/en.json";
 import {
+  assertOrganisationResponseOk,
   getOrganisationConflictErrorKey,
   isOrganisationConflictError,
   isOrganisationConflictReason,
@@ -98,4 +99,40 @@ describe("getOrganisationConflictErrorKey", () => {
       expect(messages.Application).toHaveProperty(key as string);
     }
   );
+});
+
+describe("assertOrganisationResponseOk", () => {
+  it("returns an ok response unchanged", () => {
+    const response = { ok: true, status: 200, data: 1 };
+
+    expect(assertOrganisationResponseOk(response, "requestError")).toBe(
+      response
+    );
+  });
+
+  it.each(["duplicate", "email_in_use", null])(
+    "throws an OrganisationConflictError for a 409 with %p",
+    data => {
+      const response = { ok: false, status: 409, data };
+
+      expect(() =>
+        assertOrganisationResponseOk(response, "requestError")
+      ).toThrow(OrganisationConflictError);
+    }
+  );
+
+  it("throws an Error with the given message for any other failure", () => {
+    const response = { ok: false, status: 500, data: null };
+
+    let thrown: unknown;
+
+    try {
+      assertOrganisationResponseOk(response, "requestError");
+    } catch (error) {
+      thrown = error;
+    }
+
+    expect(thrown).toEqual(new Error("requestError"));
+    expect(isOrganisationConflictError(thrown)).toBe(false);
+  });
 });

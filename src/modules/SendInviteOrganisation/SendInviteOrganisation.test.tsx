@@ -128,6 +128,35 @@ describe("<SendInviteOrganisation />", () => {
     });
   });
 
+  it("shows why an existing organisation's email change conflicted", async () => {
+    global.fetch.mockImplementation((url: string) => {
+      if (url.endsWith(`/organisations/${organisation.id}`)) {
+        return mockFailedJson("email_in_use", 409);
+      }
+
+      return mock200Json(null);
+    });
+
+    renderSendInviteOrganisation({ organisation });
+
+    fireEvent.change(screen.getByRole("textbox", { name: /Email/i }), {
+      target: { value: "lead@example.com" },
+    });
+
+    await act(() => {
+      fireEvent.submit(screen.getByRole("button", { name: /invite/i }));
+    });
+
+    expect(
+      await screen.findByText(
+        /already the lead applicant for another Organisation/
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText(/You have successfully invited the Organisation/i)
+    ).not.toBeInTheDocument();
+  });
+
   it("has no accessibility violations", async () => {
     commonAccessibilityTests(renderSendInviteOrganisation());
   });

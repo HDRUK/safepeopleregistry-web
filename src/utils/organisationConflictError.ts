@@ -30,6 +30,30 @@ function isOrganisationConflictError(
   return error instanceof OrganisationConflictError;
 }
 
+interface OrganisationResponse {
+  ok: boolean;
+  status: number;
+  data?: unknown;
+}
+
+// For actions called with suppressThrow. Errors thrown inside a server action
+// lose their message in production, so failures are turned into errors here,
+// on the client, where the 409 reason survives.
+function assertOrganisationResponseOk<T extends OrganisationResponse>(
+  response: T,
+  errorMessage: string
+): T {
+  if (response.status === 409) {
+    throw new OrganisationConflictError(response.data);
+  }
+
+  if (!response.ok) {
+    throw new Error(errorMessage);
+  }
+
+  return response;
+}
+
 type OrganisationConflictErrorKey =
   | "organisationConflictDuplicate"
   | "organisationConflictEmailInUse";
@@ -66,6 +90,7 @@ function getOrganisationConflictErrorKey(
 export type { OrganisationConflictErrorKey, OrganisationConflictReason };
 
 export {
+  assertOrganisationResponseOk,
   getOrganisationConflictErrorKey,
   ORGANISATION_CONFLICT_REASONS,
   isOrganisationConflictError,
