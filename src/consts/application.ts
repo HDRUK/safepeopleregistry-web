@@ -70,6 +70,13 @@ enum Status {
   SRO_REJECTED = "sro_rejected",
 }
 
+// Mirrors the API's OrganisationSroStatus, used to filter organisations.
+enum OrganisationSroStatus {
+  CLAIMED = "claimed",
+  INVITED = "invited",
+  NONE = "none",
+}
+
 const PAGINATION_UPPER_LIMIT = 1000;
 const JOB_DELAY = 4000;
 
@@ -78,6 +85,7 @@ export {
   EMAIL_TEMPLATE,
   PendingInvite,
   Status,
+  OrganisationSroStatus,
   PAGINATION_UPPER_LIMIT,
   JOB_DELAY,
 };
