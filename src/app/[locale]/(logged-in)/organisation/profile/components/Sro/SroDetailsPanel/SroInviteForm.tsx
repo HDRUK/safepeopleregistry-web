@@ -2,10 +2,11 @@ import Form from "@/components/Form/Form";
 import FormActions from "@/components/FormActions";
 import FormControlWrapper from "@/components/FormControlWrapper";
 import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
+import SelectDepartments from "@/components/SelectDepartments";
 import yup from "@/config/yup";
 import { ROUTES } from "@/consts/router";
 import { PageBody, PageSection } from "@/modules";
-import { PendingSro, User } from "@/types/application";
+import { Organisation, PendingSro, User } from "@/types/application";
 import { getName } from "@/utils/application";
 import {
   Button,
@@ -29,6 +30,8 @@ type SroInviteMode = "new" | "existingDelegate";
 export interface SroInviteFormValues {
   first_name?: string | null;
   last_name?: string | null;
+  department_name?: string | null;
+  job_title?: string | null;
   email?: string | null;
 }
 
@@ -37,6 +40,7 @@ interface SroInviteFormProps {
   // invitee. replacement: the SRO inviting their own replacement, new person only.
   purpose: "first" | "replacePending" | "replacement";
   pendingSro?: PendingSro | null;
+  organisation?: Organisation;
   delegates: User[];
   onBack: () => void;
   onInvite: (invitee: SroInvitee) => void;
@@ -46,6 +50,7 @@ interface SroInviteFormProps {
 export default function SroInviteForm({
   purpose,
   pendingSro,
+  organisation,
   delegates,
   onBack,
   onInvite,
@@ -70,6 +75,11 @@ export default function SroInviteForm({
           mode === "new"
             ? yup.string().required(tForm("lastNameRequiredInvalid"))
             : yup.string().nullable(),
+        department_name: yup.string().nullable(),
+        job_title:
+          mode === "new"
+            ? yup.string().required(tForm("jobTitleRequiredInvalid"))
+            : yup.string().nullable(),
         email:
           mode === "new"
             ? yup
@@ -85,6 +95,8 @@ export default function SroInviteForm({
     defaultValues: {
       first_name: "",
       last_name: "",
+      department_name: "",
+      job_title: "",
       email: "",
     },
   };
@@ -93,11 +105,15 @@ export default function SroInviteForm({
 
   const handleSubmit = (values: SroInviteFormValues) => {
     if (mode === "new") {
-      // The schema requires all three in this mode.
+      // The schema requires all but the department in this mode.
       onInvite({
         first_name: values.first_name as string,
         last_name: values.last_name as string,
         email: values.email as string,
+        role: values.job_title as string,
+        department_id: values.department_name
+          ? Number(values.department_name)
+          : undefined,
       });
       return;
     }
@@ -168,6 +184,28 @@ export default function SroInviteForm({
                   </Grid>
                   <Grid size={{ xs: 12 }}>
                     <FormControlWrapper
+                      name="department_name"
+                      label={tOrgProfile("sroInviteDepartment")}
+                      renderField={fieldProps => (
+                        <SelectDepartments
+                          organisation={organisation}
+                          {...fieldProps}
+                          inputProps={{
+                            "aria-label": tForm("departmentNameAriaLabel"),
+                          }}
+                        />
+                      )}
+                    />
+                  </Grid>
+                  <Grid size={{ xs: 12 }}>
+                    <FormControlWrapper
+                      name="job_title"
+                      label={tOrgProfile("sroInviteJobTitle")}
+                      renderField={fieldProps => <TextField {...fieldProps} />}
+                    />
+                  </Grid>
+                  <Grid size={{ xs: 12 }}>
+                    <FormControlWrapper
                       name="email"
                       label={tOrgProfile("sroInviteEmailAddress")}
                       renderField={fieldProps => (
@@ -220,6 +258,34 @@ export default function SroInviteForm({
                     fullWidth
                     disabled
                     value={selectedDelegate.last_name}
+                  />
+                </Grid>
+                <Grid size={{ xs: 12 }}>
+                  <Typography
+                    component="label"
+                    htmlFor="sro-invite-selected-delegate-department"
+                    sx={{ display: "block", mb: 1 }}>
+                    {tOrgProfile("sroInviteDepartment")}
+                  </Typography>
+                  <TextField
+                    id="sro-invite-selected-delegate-department"
+                    fullWidth
+                    disabled
+                    value={selectedDelegate.departments?.[0]?.name ?? ""}
+                  />
+                </Grid>
+                <Grid size={{ xs: 12 }}>
+                  <Typography
+                    component="label"
+                    htmlFor="sro-invite-selected-delegate-job-title"
+                    sx={{ display: "block", mb: 1 }}>
+                    {tOrgProfile("sroInviteJobTitle")}
+                  </Typography>
+                  <TextField
+                    id="sro-invite-selected-delegate-job-title"
+                    fullWidth
+                    disabled
+                    value={selectedDelegate.role ?? ""}
                   />
                 </Grid>
                 <Grid size={{ xs: 12 }}>

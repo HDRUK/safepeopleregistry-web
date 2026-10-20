@@ -3,6 +3,7 @@ import postOrganisationSroInvite from "@/app/actions/organisations/postOrganisat
 import postOrganisationSroResendInvite from "@/app/actions/organisations/postOrganisationSroResendInvite";
 import putOrganisationSro from "@/app/actions/organisations/putOrganisationSro";
 import getUser from "@/app/actions/users/getUser";
+import { mockedDepartment } from "@/mocks/data/departments";
 import { mockedOrganisation } from "@/mocks/data/organisation";
 import { mockedUser } from "@/mocks/data/user";
 import { formatDisplayLongDate } from "@/utils/date";
@@ -65,6 +66,10 @@ describe("<SroDetailsPanel />", () => {
       ).toBeInTheDocument();
       expect(screen.getByLabelText(/First name/)).toBeInTheDocument();
       expect(screen.getByLabelText(/Last name/)).toBeInTheDocument();
+      expect(
+        screen.getByRole("combobox", { name: "Select department" })
+      ).toBeInTheDocument();
+      expect(screen.getByLabelText(/Job title/)).toBeInTheDocument();
       expect(screen.getByLabelText(/Email address/)).toBeInTheDocument();
       expect(
         screen.getByRole("button", { name: "Invite & Save" })
@@ -152,6 +157,8 @@ describe("<SroDetailsPanel />", () => {
       id: 42,
       first_name: "Jane",
       last_name: "Doe",
+      role: "Head of Research",
+      departments: [mockedDepartment({ id: 7, name: "Clinical Research" })],
     });
 
     beforeEach(() => {
@@ -178,6 +185,25 @@ describe("<SroDetailsPanel />", () => {
 
       return user;
     };
+
+    it("shows the chosen delegate's details, read-only", async () => {
+      const { user } = setupTest();
+
+      fireEvent.click(
+        screen.getByRole("radio", { name: "Select from existing Delegates" })
+      );
+      await user.click(screen.getByRole("combobox"));
+      await user.click(await screen.findByRole("option", { name: "Jane Doe" }));
+
+      expect(screen.getByLabelText("Department")).toHaveValue(
+        "Clinical Research"
+      );
+      expect(screen.getByLabelText("Department")).toBeDisabled();
+      expect(screen.getByLabelText("Job title")).toHaveValue(
+        "Head of Research"
+      );
+      expect(screen.getByLabelText("Job title")).toBeDisabled();
+    });
 
     it("asks for confirmation before appointing", async () => {
       await chooseDelegateAndSubmit();
@@ -229,6 +255,7 @@ describe("<SroDetailsPanel />", () => {
 
       await user.type(screen.getByLabelText(/First name/), "Sam");
       await user.type(screen.getByLabelText(/Last name/), "Senior");
+      await user.type(screen.getByLabelText(/Job title/), "Head of Research");
       await user.type(
         screen.getByLabelText(/Email address/),
         "sam.senior@example.com"
@@ -271,7 +298,13 @@ describe("<SroDetailsPanel />", () => {
     beforeEach(() => {
       mockUseStore({
         config: {
-          organisation: { ...organisation, claimed_sro: null },
+          organisation: {
+            ...organisation,
+            claimed_sro: null,
+            departments: [
+              mockedDepartment({ id: 7, name: "Clinical Research" }),
+            ],
+          },
         },
       });
       (getOrganisationDelegates as jest.Mock).mockResolvedValue({ data: [] });
@@ -287,6 +320,13 @@ describe("<SroDetailsPanel />", () => {
 
       await user.type(screen.getByLabelText(/First name/), "Sam");
       await user.type(screen.getByLabelText(/Last name/), "Senior");
+      await user.click(
+        screen.getByRole("combobox", { name: "Select department" })
+      );
+      await user.click(
+        await screen.findByRole("option", { name: "Clinical Research" })
+      );
+      await user.type(screen.getByLabelText(/Job title/), "Head of Research");
       await user.type(
         screen.getByLabelText(/Email address/),
         "sam.senior@example.com"
@@ -295,6 +335,23 @@ describe("<SroDetailsPanel />", () => {
 
       return user;
     };
+
+    it("requires a job title", async () => {
+      const { user } = setupTest();
+
+      await user.type(screen.getByLabelText(/First name/), "Sam");
+      await user.type(screen.getByLabelText(/Last name/), "Senior");
+      await user.type(
+        screen.getByLabelText(/Email address/),
+        "sam.senior@example.com"
+      );
+      await user.click(screen.getByRole("button", { name: "Invite & Save" }));
+
+      expect(
+        await screen.findByText("Job title is required")
+      ).toBeInTheDocument();
+      expect(screen.queryByText("Invite a new SRO?")).not.toBeInTheDocument();
+    });
 
     it("asks for confirmation before sending the invitation", async () => {
       await fillInAndSubmit();
@@ -317,6 +374,8 @@ describe("<SroDetailsPanel />", () => {
             first_name: "Sam",
             last_name: "Senior",
             email: "sam.senior@example.com",
+            role: "Head of Research",
+            department_id: 7,
           },
           { suppressThrow: true }
         );
@@ -472,6 +531,7 @@ describe("<SroDetailsPanel />", () => {
       );
       await user.type(screen.getByLabelText(/First name/), "Jane");
       await user.type(screen.getByLabelText(/Last name/), "Doe");
+      await user.type(screen.getByLabelText(/Job title/), "Head of Research");
       await user.type(
         screen.getByLabelText(/Email address/),
         "jane.doe@example.com"
@@ -721,6 +781,7 @@ describe("<SroDetailsPanel />", () => {
       );
       await user.type(screen.getByLabelText(/First name/), "Alex");
       await user.type(screen.getByLabelText(/Last name/), "Next");
+      await user.type(screen.getByLabelText(/Job title/), "Research Lead");
       await user.type(
         screen.getByLabelText(/Email address/),
         "alex.next@example.com"
@@ -742,6 +803,8 @@ describe("<SroDetailsPanel />", () => {
             first_name: "Alex",
             last_name: "Next",
             email: "alex.next@example.com",
+            role: "Research Lead",
+            department_id: undefined,
           },
           { suppressThrow: true }
         );
@@ -783,6 +846,7 @@ describe("<SroDetailsPanel />", () => {
       );
       await user.type(screen.getByLabelText(/First name/), "Sam");
       await user.type(screen.getByLabelText(/Last name/), "Senior");
+      await user.type(screen.getByLabelText(/Job title/), "Head of Research");
       await user.type(
         screen.getByLabelText(/Email address/),
         "sam.senior@example.com"

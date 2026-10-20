@@ -22,6 +22,8 @@ export interface SroInvitee {
   first_name: string;
   last_name: string;
   email: string;
+  role: string;
+  department_id?: number;
 }
 
 // Translation key prefixes. An action's dialog uses <action>ConfirmTitle, <action>ConfirmButton
