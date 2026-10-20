@@ -69,6 +69,7 @@ const getColorForStatus = (status?: Status): string => {
       Status.EMAIL_SUCCESSFUL,
       Status.ORGANISATION_ACCOUNT_CREATED,
       Status.SRO_APPROVED,
+      Status.SRO_CLAIMED,
     ].includes(status!)
   )
     return "success";
@@ -101,6 +102,7 @@ const getColorForStatus = (status?: Status): string => {
       Status.AFFILIATION_PENDING,
       Status.SPONSORSHIP_PENDING,
       Status.ORGANISATION_PLACEHOLDER,
+      Status.SRO_NONE,
     ].includes(status!)
   )
     return "warning";
@@ -114,6 +116,7 @@ const getColorForStatus = (status?: Status): string => {
     return "neutral-light";
 
   if (status === Status.SRO_PENDING) return "primary";
+  if (status === Status.SRO_INVITED) return "primary";
 
   return "neutral";
 };

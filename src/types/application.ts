@@ -1,4 +1,4 @@
-import { Status } from "@/consts/application";
+import { OrganisationSroStatus, Status } from "@/consts/application";
 import { FileStatus, FileType } from "@/consts/files";
 import { RequestFrequency } from "@/consts/projects";
 import {
@@ -322,8 +322,8 @@ type Organisation = OrganisationIdvt &
     organisation_size?: number;
     project?: WithModelState<ResearcherProject>;
     system_approved?: boolean;
-    // needs backend
-    sro_status?: "approved" | "pending" | "rejected";
+    // Only in the organisations index response.
+    sro_status?: OrganisationSroStatus;
     sro_profile_uri?: string;
     sro_officer?: User;
     claimed_sro?: User | null;

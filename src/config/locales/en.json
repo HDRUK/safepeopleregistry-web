@@ -101,6 +101,11 @@
       "filterByUserGroup_users": "Users",
       "filterByStatus": "Filter by status",
       "sortByInviteSentAt": "Date invite sent"
+    },
+    "OrganisationsFilters": {
+      "filterByAccountStatus": "Filter by account status",
+      "filterBySroStatus": "Filter by SRO status",
+      "filterByApproved": "Filter by approval"
     }
   },
   "Application": {
@@ -120,6 +125,9 @@
       "sro_approved": "Approved",
       "sro_pending": "Pending",
       "sro_rejected": "Rejected",
+      "sro_claimed": "SRO claimed",
+      "sro_invited": "SRO invited (delegates acting)",
+      "sro_none": "No SRO (delegates acting)",
       "invite_sent": "Invite sent",
       "affiliated": "Affiliated",
       "pending": "Pending Validation",

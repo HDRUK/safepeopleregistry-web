@@ -1,4 +1,4 @@
-import { Status } from "@/consts/application";
+import { OrganisationSroStatus, Status } from "@/consts/application";
 import { UserGroup } from "@/consts/user";
 import { EntityType } from "@/types/api";
 import { Organisation, User } from "@/types/application";
@@ -57,14 +57,16 @@ function getOrganisationAccountStatus(organisation: Organisation): Status {
   return Status.ORGANISATION_PLACEHOLDER;
 }
 
-// needs backend: SRO approval status (approved/pending/rejected)
-const SRO_STATUSES = {
-  approved: Status.SRO_APPROVED,
-  pending: Status.SRO_PENDING,
-  rejected: Status.SRO_REJECTED,
+// A Record, so adding an OrganisationSroStatus without a Status fails to compile.
+const SRO_STATUSES: Record<OrganisationSroStatus, Status> = {
+  [OrganisationSroStatus.CLAIMED]: Status.SRO_CLAIMED,
+  [OrganisationSroStatus.INVITED]: Status.SRO_INVITED,
+  [OrganisationSroStatus.NONE]: Status.SRO_NONE,
 };
 
-function getSroStatus({ sro_status }: Organisation): Status | undefined {
+function getSroStatus({
+  sro_status,
+}: Pick<Organisation, "sro_status">): Status | undefined {
   return sro_status ? SRO_STATUSES[sro_status] : undefined;
 }
 

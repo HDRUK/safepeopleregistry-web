@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import OrganisationsTable, {
   OrganisationsTableProps,
 } from "./OrganisationsTable";
-import { Status } from "@/consts/application";
+import { OrganisationSroStatus, Status } from "@/consts/application";
 
 const organisation = mockedOrganisation();
 
@@ -72,10 +72,10 @@ describe("<OrganisationsTable />", () => {
   });
 
   it.each([
-    ["Approved", "approved"],
-    ["Pending", "pending"],
-    ["Rejected", "rejected"],
-  ] as const)("renders the %s SRO status", (label, sroStatus) => {
+    ["SRO claimed", OrganisationSroStatus.CLAIMED],
+    ["SRO invited (delegates acting)", OrganisationSroStatus.INVITED],
+    ["No SRO (delegates acting)", OrganisationSroStatus.NONE],
+  ])("renders the %s SRO status", (label, sroStatus) => {
     setupTest({
       includeColumns: ["sroStatus"],
       data: [mockedOrganisation({ sro_status: sroStatus })],
