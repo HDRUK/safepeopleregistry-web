@@ -9,8 +9,8 @@ import Link from "next/link";
 import { Grid } from "@mui/material";
 import { FileType } from "@/consts/files";
 
-const NAMESPACE_TRANSLATION = "Organisations.SroDeclaratation";
-const SRO_DELCLARATION_FILE = "/Registry_SRO_Declaration.pdf";
+const NAMESPACE_TRANSLATION = "Organisations.SroDeclaration";
+const SRO_DECLARATION_FILE = "/Registry_SRO_Declaration.pdf";
 
 interface SroDeclarationProps {
   isDelegate: boolean;
@@ -37,7 +37,7 @@ export default function SroDeclaration({ isDelegate }: SroDeclarationProps) {
       <Grid container rowSpacing={2}>
         <Grid size={{ xs: 12 }}>
           <Link
-            href={SRO_DELCLARATION_FILE}
+            href={SRO_DECLARATION_FILE}
             locale={false}
             prefetch={false}
             target="_blank">

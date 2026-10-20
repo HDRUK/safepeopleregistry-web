@@ -18,7 +18,7 @@ interface SroDeclarationUploaderProps {
   onChange?: (value: number) => void;
 }
 
-const NAMESPACE_TRANSLATION = "Organisations.SroDeclaratationUpload";
+const NAMESPACE_TRANSLATION = "Organisations.SroDeclarationUpload";
 
 const SroDeclarationUploader = ({
   name,
