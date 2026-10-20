@@ -22,10 +22,7 @@ export default function SroDeclaration({ isDelegate }: SroDeclarationProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION);
 
   const latestSroFile = organisation?.files
-    ?.filter(
-      file =>
-        file.status === "processed" && file.type === FileType.DECLARATION_SRO
-    )
+    ?.filter(file => file.type === FileType.DECLARATION_SRO)
     ?.sort(
       (a, b) =>
         Date.parse(b.updated_at ?? b.created_at) -
