@@ -14,8 +14,8 @@ import { getAcceptAttribute } from "@/utils/file";
 
 interface SroDeclarationUploaderProps {
   name: string;
-  value: number;
-  onChange: (value: number) => void;
+  value?: number;
+  onChange?: (value: number) => void;
 }
 
 const NAMESPACE_TRANSLATION = "Organisations.SroDeclaratationUpload";
@@ -51,7 +51,7 @@ const SroDeclarationUploader = ({
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const data = await uploadFile("", e);
     if (data?.id) {
-      onChange(data.id);
+      onChange?.(data.id);
     }
   };
 

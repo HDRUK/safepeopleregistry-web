@@ -635,6 +635,30 @@ describe("<SroDetailsPanel />", () => {
       return user;
     };
 
+    it("lets the SRO download and upload the SRO declaration", () => {
+      setupTest();
+
+      expect(
+        screen.getByRole("link", { name: "Download SRO Declaration Form" })
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText("Upload SRO Declaration Form")
+      ).toBeInTheDocument();
+    });
+
+    it("only shows the SRO declaration to the SRO themselves", () => {
+      mockStore(delegate);
+
+      setupTest();
+
+      expect(
+        screen.queryByRole("link", { name: "Download SRO Declaration Form" })
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByText("Upload SRO Declaration Form")
+      ).not.toBeInTheDocument();
+    });
+
     it("only offers the handover to the SRO themselves", () => {
       mockStore(delegate);
 

@@ -4,7 +4,6 @@ import { useStore } from "@/data/store";
 import { PageSection } from "@/modules";
 import { useTranslations } from "next-intl";
 
-import FormControlWrapper from "@/components/FormControlWrapper";
 import SroDeclarationUploader from "@/app/[locale]/(logged-in)/organisation/profile/components/Sro/SroDeclarationUploader";
 import Link from "next/link";
 import { Grid } from "@mui/material";
@@ -36,25 +35,22 @@ export default function SroDeclaration({ isDelegate }: SroDeclarationProps) {
   return (
     <PageSection heading={t("heading")} description={t("intro")}>
       <Grid container rowSpacing={2}>
-        <Link
-          href={SRO_DELCLARATION_FILE}
-          locale={false}
-          prefetch={false}
-          target="_blank">
-          {t("downloadTemplate")}
-        </Link>
+        <Grid size={{ xs: 12 }}>
+          <Link
+            href={SRO_DELCLARATION_FILE}
+            locale={false}
+            prefetch={false}
+            target="_blank">
+            {t("downloadTemplate")}
+          </Link>
+        </Grid>
         {!isDelegate && (
-          <FormControlWrapper
-            name="sro_declaration"
-            displayLabel={false}
-            renderField={fieldProps => (
-              <SroDeclarationUploader
-                name="sro_declaration"
-                value={latestSroFile?.id}
-                onChange={fieldProps.onChange}
-              />
-            )}
-          />
+          <Grid size={{ xs: 12 }}>
+            <SroDeclarationUploader
+              name="sro_declaration"
+              value={latestSroFile?.id}
+            />
+          </Grid>
         )}
       </Grid>
     </PageSection>

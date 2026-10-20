@@ -2,6 +2,7 @@ import FormActions from "@/components/FormActions";
 import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
 import { ROUTES } from "@/consts/router";
 import { PageBody, PageSection } from "@/modules";
+import SroDeclaration from "@/organisms/SroDeclaration";
 import { PendingSro, User } from "@/types/application";
 import { Box, Button, Typography } from "@mui/material";
 import { useTranslations } from "next-intl";
@@ -109,6 +110,12 @@ export default function ClaimedSroCard({
                 {tOrgProfile("sroInviteSomeoneElseButton")}
               </Button>
             </Box>
+          </Box>
+        )}
+
+        {isSignedInSro && (
+          <Box sx={{ pt: 4 }}>
+            <SroDeclaration isDelegate={false} />
           </Box>
         )}
 
