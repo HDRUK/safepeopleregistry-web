@@ -1,6 +1,6 @@
 "use client";
 
-import { useStore } from "@/data/store";
+import useOrganisationStore from "@/queries/useOrganisationStore";
 import { PageSection } from "@/modules";
 import { useTranslations } from "next-intl";
 
@@ -17,7 +17,8 @@ interface SroDeclarationProps {
 }
 
 export default function SroDeclaration({ isDelegate }: SroDeclarationProps) {
-  const organisation = useStore(state => state.config.organisation);
+  // Reload after uploads and scans so the organisation's files stay current.
+  const { organisation, refetch: refetchOrganisation } = useOrganisationStore();
 
   const t = useTranslations(NAMESPACE_TRANSLATION);
 
@@ -40,6 +41,8 @@ export default function SroDeclaration({ isDelegate }: SroDeclarationProps) {
             <SroDeclarationUploader
               name="sro_declaration"
               value={latestSroFile?.id}
+              onChange={() => refetchOrganisation()}
+              onScanFinished={() => refetchOrganisation()}
             />
           </Grid>
         )}

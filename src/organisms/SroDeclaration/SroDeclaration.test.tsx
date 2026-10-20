@@ -27,10 +27,12 @@ const SCAN_POLL_INTERVAL_MS = 2000;
 const renderWithFiles = (files: File[]) => {
   const organisation = mockedOrganisation({ id: ORGANISATION_ID, files });
 
+  // The real setter freezes the store, which mockUseStore then can't mutate.
   mockUseStore({
     config: {
       organisation,
     },
+    setOrganisation: jest.fn(),
   });
 
   (getOrganisation as jest.Mock).mockResolvedValue({ data: organisation });

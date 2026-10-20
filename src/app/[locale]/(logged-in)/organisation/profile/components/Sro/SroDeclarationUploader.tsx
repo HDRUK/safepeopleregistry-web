@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect, useRef } from "react";
 import useFileUpload from "@/hooks/useFileUpload";
 import FileLink from "@/components/FileLink";
 import {
@@ -18,6 +18,8 @@ interface SroDeclarationUploaderProps {
   name: string;
   value?: number;
   onChange?: (value: number) => void;
+  // Called once when a file's scan stops pending, whether it passed or failed.
+  onScanFinished?: () => void;
 }
 
 const NAMESPACE_TRANSLATION = "Organisations.SroDeclarationUpload";
@@ -26,6 +28,7 @@ const SroDeclarationUploader = ({
   name,
   value,
   onChange,
+  onScanFinished,
 }: SroDeclarationUploaderProps) => {
   const organisation = useStore(state => state.config.organisation);
   const t = useTranslations(NAMESPACE_TRANSLATION);
@@ -44,6 +47,18 @@ const SroDeclarationUploader = ({
     initialFileId: value,
     allowedExtensions: DEFAULT_ACCEPTED_DOCUMENT_FILE_EXTENSIONS,
   });
+
+  // Polling re-renders with the same status, so compare against the last one
+  // seen to only report the change from scanning to finished.
+  const wasScanning = useRef(false);
+
+  useEffect(() => {
+    if (wasScanning.current && !isScanning) {
+      onScanFinished?.();
+    }
+
+    wasScanning.current = isScanning;
+  }, [isScanning]);
 
   const uploadFile = useOrganisationFileUpload({
     organisation: organisation!,
