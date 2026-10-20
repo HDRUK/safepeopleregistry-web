@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+.yarn/
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build artefacts
+.next/
+.swc/
+out/
+build/
+dist/
+storybook-static/
+*.tsbuildinfo
+next-env.d.ts
+
+# Test output
+coverage/
+runner-results/
+cypress/downloads/
+cypress/backups/
+cypress/screenshots/
+cypress/videos/
+
+# Logs
+*.log
+
+# Secrets (.env.example is safe to keep)
+.env
+.env.test
+.env*.local
+*.pem
+
+# Misc
+.DS_Store
+.vercel/
