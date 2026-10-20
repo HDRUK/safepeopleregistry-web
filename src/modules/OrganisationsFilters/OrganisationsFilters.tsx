@@ -5,10 +5,10 @@ import useFilter from "@/hooks/useFilter";
 import useSort from "@/hooks/useSort";
 import SortIcon from "@mui/icons-material/Sort";
 import { useTranslations } from "next-intl";
-import { FilterIcon } from "../../consts/icons";
-import { PaginatedQueryReturn } from "../../hooks/usePaginatedQuery";
-import { Organisation } from "../../types/application";
-import { getSroStatus } from "../../utils/organisation";
+import { FilterIcon } from "@/consts/icons";
+import { PaginatedQueryReturn } from "@/hooks/usePaginatedQuery";
+import { Organisation } from "@/types/application";
+import { getSroStatus } from "@/utils/organisation";
 import SearchActionMenu from "../SearchActionMenu";
 import SearchBar from "../SearchBar";
 
