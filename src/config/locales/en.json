@@ -558,6 +558,8 @@
     "sroInviteSelectDelegatePlaceholder": "Choose an existing delegate",
     "sroInviteFirstName": "First name",
     "sroInviteLastName": "Last name",
+    "sroInviteDepartment": "Department",
+    "sroInviteJobTitle": "Job title",
     "sroInviteEmailAddress": "Email address",
     "sroInviteSendButton": "Invite & Save",
     "sroResendInviteButton": "Reinvite & Save",

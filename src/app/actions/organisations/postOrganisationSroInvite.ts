@@ -8,6 +8,8 @@ export interface PostOrganisationSroInvitePayload {
   first_name: string;
   last_name: string;
   email: string;
+  role: string;
+  department_id?: number;
 }
 
 // Invites someone new to be the organisation's SRO. The current SRO keeps the role until the

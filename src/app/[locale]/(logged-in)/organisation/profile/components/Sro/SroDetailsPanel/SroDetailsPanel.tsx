@@ -34,6 +34,7 @@ export default function SroDetailsPanel() {
       <SroInviteForm
         purpose="replacement"
         pendingSro={pendingSro}
+        organisation={organisation}
         delegates={actions.delegates}
         onBack={showDetails}
         onInvite={invitee =>
@@ -76,6 +77,7 @@ export default function SroDetailsPanel() {
     <SroInviteForm
       purpose={pendingSro ? "replacePending" : "first"}
       pendingSro={pendingSro}
+      organisation={organisation}
       delegates={actions.delegates}
       onBack={showDetails}
       onInvite={invitee => actions.invite(invitee, { onSuccess: showDetails })}
