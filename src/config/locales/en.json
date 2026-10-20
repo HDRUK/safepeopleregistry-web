@@ -1772,7 +1772,9 @@
     },
     "SroDeclarationUpload": {
       "buttonText": "Upload SRO Declaration Form",
-      "buttonTextAlt": "Re-upload SRO Declaration Form"
+      "buttonTextAlt": "Re-upload SRO Declaration Form",
+      "downloadError": "An error occurred while downloading the SRO declaration. Please try again or <contactLink>contact support</contactLink> if the problem persists.",
+      "downloadErrorButton": "Try Again"
     },
     "People": {
       "heading": "Users",

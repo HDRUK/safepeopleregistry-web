@@ -10,7 +10,9 @@ import useOrganisationFileUpload from "@/hooks/useOrganisationFileUpload";
 import { useStore } from "@/data/store";
 import { useTranslations } from "next-intl";
 import { downloadFile } from "@/app/actions/files";
-import { getAcceptAttribute } from "@/utils/file";
+import { downloadBlob, getAcceptAttribute } from "@/utils/file";
+import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
+import ErrorMessage from "@/components/ErrorMessage";
 
 interface SroDeclarationUploaderProps {
   name: string;
@@ -27,6 +29,7 @@ const SroDeclarationUploader = ({
 }: SroDeclarationUploaderProps) => {
   const organisation = useStore(state => state.config.organisation);
   const t = useTranslations(NAMESPACE_TRANSLATION);
+  const { showAlert, hideAlert } = useAlertModal();
 
   const {
     upload,
@@ -55,6 +58,26 @@ const SroDeclarationUploader = ({
     }
   };
 
+  const handleDownload = async (fileId: number) => {
+    try {
+      const { blob, fileName } = await downloadFile(fileId);
+      downloadBlob(blob, fileName);
+    } catch {
+      showAlert({
+        severity: "error",
+        text: <ErrorMessage t={t} tKey="downloadError" />,
+        confirmButtonText: t("downloadErrorButton"),
+        onConfirm: async () => {
+          hideAlert();
+        },
+      });
+    }
+  };
+
+  // Files can only be downloaded once they've passed their scan.
+  const onDownload =
+    file && isScanComplete ? () => handleDownload(file.id) : undefined;
+
   return (
     <Grid container spacing={3} sx={{ mt: 1 }}>
       <Grid size={{ xs: 5 }}>
@@ -70,7 +93,7 @@ const SroDeclarationUploader = ({
           isScanFailed={isScanFailed}
           isUploading={isUploading}
           onFileChange={handleFileChange}
-          onDownload={() => downloadFile(file?.id as number)}
+          onDownload={onDownload}
           includeStatus
         />
       </Grid>
