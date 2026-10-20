@@ -1773,14 +1773,16 @@
       "countyRequiredInvalid": "County is required",
       "countryRequiredInvalid": "Country is required"
     },
-    "SroDeclaratation": {
+    "SroDeclaration": {
       "heading": "SRO Declaration",
       "intro": "In order to grant you full Organisation account privileges (including adding Users from your Organisation and those Users being validated by Data Custodians), you will need to complete and upload the form below.",
       "downloadTemplate": "Download SRO Declaration Form"
     },
-    "SroDeclaratationUpload": {
+    "SroDeclarationUpload": {
       "buttonText": "Upload SRO Declaration Form",
-      "buttonTextAlt": "Re-upload SRO Declaration Form"
+      "buttonTextAlt": "Re-upload SRO Declaration Form",
+      "downloadError": "An error occurred while downloading the SRO declaration. Please try again or <contactLink>contact support</contactLink> if the problem persists.",
+      "downloadErrorButton": "Try Again"
     },
     "People": {
       "heading": "Users",

@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect, useRef } from "react";
 import useFileUpload from "@/hooks/useFileUpload";
 import FileLink from "@/components/FileLink";
 import {
@@ -10,23 +10,29 @@ import useOrganisationFileUpload from "@/hooks/useOrganisationFileUpload";
 import { useStore } from "@/data/store";
 import { useTranslations } from "next-intl";
 import { downloadFile } from "@/app/actions/files";
-import { getAcceptAttribute } from "@/utils/file";
+import { downloadBlob, getAcceptAttribute } from "@/utils/file";
+import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
+import ErrorMessage from "@/components/ErrorMessage";
 
 interface SroDeclarationUploaderProps {
   name: string;
   value?: number;
   onChange?: (value: number) => void;
+  // Called once when a file's scan stops pending, whether it passed or failed.
+  onScanFinished?: () => void;
 }
 
-const NAMESPACE_TRANSLATION = "Organisations.SroDeclaratationUpload";
+const NAMESPACE_TRANSLATION = "Organisations.SroDeclarationUpload";
 
 const SroDeclarationUploader = ({
   name,
   value,
   onChange,
+  onScanFinished,
 }: SroDeclarationUploaderProps) => {
   const organisation = useStore(state => state.config.organisation);
   const t = useTranslations(NAMESPACE_TRANSLATION);
+  const { showAlert, hideAlert } = useAlertModal();
 
   const {
     upload,
@@ -42,6 +48,18 @@ const SroDeclarationUploader = ({
     allowedExtensions: DEFAULT_ACCEPTED_DOCUMENT_FILE_EXTENSIONS,
   });
 
+  // Polling re-renders with the same status, so compare against the last one
+  // seen to only report the change from scanning to finished.
+  const wasScanning = useRef(false);
+
+  useEffect(() => {
+    if (wasScanning.current && !isScanning) {
+      onScanFinished?.();
+    }
+
+    wasScanning.current = isScanning;
+  }, [isScanning]);
+
   const uploadFile = useOrganisationFileUpload({
     organisation: organisation!,
     fileType: FileType.DECLARATION_SRO,
@@ -54,6 +72,26 @@ const SroDeclarationUploader = ({
       onChange?.(data.id);
     }
   };
+
+  const handleDownload = async (fileId: number) => {
+    try {
+      const { blob, fileName } = await downloadFile(fileId);
+      downloadBlob(blob, fileName);
+    } catch {
+      showAlert({
+        severity: "error",
+        text: <ErrorMessage t={t} tKey="downloadError" />,
+        confirmButtonText: t("downloadErrorButton"),
+        onConfirm: async () => {
+          hideAlert();
+        },
+      });
+    }
+  };
+
+  // Files can only be downloaded once they've passed their scan.
+  const onDownload =
+    file && isScanComplete ? () => handleDownload(file.id) : undefined;
 
   return (
     <Grid container spacing={3} sx={{ mt: 1 }}>
@@ -70,7 +108,7 @@ const SroDeclarationUploader = ({
           isScanFailed={isScanFailed}
           isUploading={isUploading}
           onFileChange={handleFileChange}
-          onDownload={() => downloadFile(file?.id as number)}
+          onDownload={onDownload}
           includeStatus
         />
       </Grid>
