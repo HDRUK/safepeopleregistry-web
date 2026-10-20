@@ -18,7 +18,7 @@ import { Organisation } from "@/types/application";
 interface UseOrganisationInviteProps {
   organisation?: Organisation;
   onSuccess?: () => void;
-  onError?: () => void;
+  onError?: (error: unknown) => void;
 }
 
 export default function useOrganisationInvite({
@@ -69,6 +69,7 @@ export default function useOrganisationInvite({
     ): Promise<number | undefined> => {
       try {
         if (existingOrganisation) {
+          // This branch only triggered by admin row-invite. This should allow all edits since we modify the existing supplied org by ID
           const { id } = existingOrganisation;
           const { organisation_name, lead_applicant_email } = organisation;
 
@@ -90,6 +91,9 @@ export default function useOrganisationInvite({
         }
 
         if (shouldInviteSroDirectly) {
+          // this branch is triggered by the superadmin invite form, which creates the Organisation and invites the SRO directly.
+          // The lead applicant email is required to be supplied in this case, since the SRO is invited directly.
+          // However the lead applicant email should be unique to the organisation, so we should not allow the superadmin to invite an organisation that already exists with the same lead applicant email.
           const { organisation_name, lead_applicant_email } = organisation;
 
           if (!lead_applicant_email) {
@@ -131,8 +135,8 @@ export default function useOrganisationInvite({
         onSuccess?.();
 
         return organisationId;
-      } catch (_) {
-        onError?.();
+      } catch (error) {
+        onError?.(error);
 
         return undefined;
       }

@@ -1,6 +1,7 @@
 import { MutateWithArgs, QueryOptions } from "@/types/requests";
 import { UseMutationOptions } from "@tanstack/react-query";
 import putOrganisation from "@/app/actions/organisations/putOrganisation";
+import { assertOrganisationResponseOk } from "@/utils/organisationConflictError";
 import { PutOrganisationPayload } from "./types";
 
 type PutOrganisationMutationArgs = MutateWithArgs<
@@ -11,11 +12,23 @@ type PutOrganisationMutationArgs = MutateWithArgs<
 export default function putOrganisationQuery(options?: QueryOptions) {
   return {
     mutationKey: ["putOrganisation", ...(options?.queryKeySuffix || [])],
-    mutationFn: ({ params, payload }: PutOrganisationMutationArgs) => {
-      return putOrganisation(params.organisationId, payload, {
+    mutationFn: async ({ params, payload }: PutOrganisationMutationArgs) => {
+      const responseOptions = {
         error: { message: "putOrganisationError" },
         ...options?.responseOptions,
-      });
+        suppressThrow: true,
+      };
+
+      const response = await putOrganisation(
+        params.organisationId,
+        payload,
+        responseOptions
+      );
+
+      return assertOrganisationResponseOk(
+        response,
+        responseOptions.error?.message ?? "putOrganisationError"
+      );
     },
     ...options,
   } as UseMutationOptions<
