@@ -13,10 +13,23 @@ function getUploadedCertification(files: FileResponse[] | undefined) {
     .find(file => file.type === FileType.CERTIFICATION);
 }
 
+// Ordered by upload time rather than updated_at, which changes when a scan
+// finishes. Ids break ties as timestamps are only accurate to the second.
+function isUploadedAfter(a: FileResponse, b: FileResponse) {
+  const difference = Date.parse(a.created_at) - Date.parse(b.created_at);
+
+  return difference === 0 ? a.id > b.id : difference > 0;
+}
+
 function getLatestSRODeclaration(files: FileResponse[] | undefined) {
-  return [...(files || [])]
-    .reverse()
-    .find(file => file.type === FileType.DECLARATION_SRO);
+  return (files || []).reduce<FileResponse | undefined>(
+    (latest, file) =>
+      file.type === FileType.DECLARATION_SRO &&
+      (!latest || isUploadedAfter(file, latest))
+        ? file
+        : latest,
+    undefined
+  );
 }
 
 function isFileScanning(file: FileResponse | undefined) {

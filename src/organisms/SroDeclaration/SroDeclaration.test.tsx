@@ -87,13 +87,13 @@ describe("<SroDeclaration />", () => {
           id: 1,
           name: "older.pdf",
           status: FileStatus.PROCESSED,
-          updated_at: "2026-01-01T00:00:00Z",
+          created_at: "2026-01-01T00:00:00Z",
         }),
         mockedSroDeclarationFile({
           id: 2,
           name: "newer.pdf",
           status: FileStatus.PENDING,
-          updated_at: "2026-02-01T00:00:00Z",
+          created_at: "2026-02-01T00:00:00Z",
         }),
       ]);
 
@@ -115,13 +115,13 @@ describe("<SroDeclaration />", () => {
           id: 1,
           name: "older.pdf",
           status: FileStatus.PROCESSED,
-          updated_at: "2026-01-01T00:00:00Z",
+          created_at: "2026-01-01T00:00:00Z",
         }),
         mockedSroDeclarationFile({
           id: 2,
           name: "newer.pdf",
           status: FileStatus.FAILED,
-          updated_at: "2026-02-01T00:00:00Z",
+          created_at: "2026-02-01T00:00:00Z",
         }),
       ]);
 

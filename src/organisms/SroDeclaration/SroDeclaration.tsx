@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import SroDeclarationUploader from "@/app/[locale]/(logged-in)/organisation/profile/components/Sro/SroDeclarationUploader";
 import Link from "next/link";
 import { Grid } from "@mui/material";
-import { FileType } from "@/consts/files";
+import { getLatestSRODeclaration } from "@/utils/file";
 
 const NAMESPACE_TRANSLATION = "Organisations.SroDeclaration";
 const SRO_DECLARATION_FILE = "/Registry_SRO_Declaration.pdf";
@@ -21,13 +21,7 @@ export default function SroDeclaration({ isDelegate }: SroDeclarationProps) {
 
   const t = useTranslations(NAMESPACE_TRANSLATION);
 
-  const latestSroFile = organisation?.files
-    ?.filter(file => file.type === FileType.DECLARATION_SRO)
-    ?.sort(
-      (a, b) =>
-        Date.parse(b.updated_at ?? b.created_at) -
-        Date.parse(a.updated_at ?? a.created_at)
-    )?.[0];
+  const latestSroFile = getLatestSRODeclaration(organisation?.files);
 
   return (
     <PageSection heading={t("heading")} description={t("intro")}>
