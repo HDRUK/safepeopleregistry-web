@@ -65,12 +65,18 @@ enum Status {
   ORGANISATION_INVITED_BY_ADMIN = "organisation_invited_by_admin",
   ORGANISATION_INVITED_BY_NONADMIN = "organisation_invited_by_nonadmin",
   ORGANISATION_PLACEHOLDER = "organisation_placeholder",
+  // Placeholders for an SRO approval workflow (see 9535cef9). Not sent by the API yet and
+  // not used by the SRO status column; kept until that workflow is confirmed.
   SRO_APPROVED = "sro_approved",
   SRO_PENDING = "sro_pending",
   SRO_REJECTED = "sro_rejected",
+  // The SRO status column: the API's sro_status (claimed/invited/none), see OrganisationSroStatus.
+  SRO_CLAIMED = "sro_claimed",
+  SRO_INVITED = "sro_invited",
+  SRO_NONE = "sro_none",
 }
 
-// Mirrors the API's OrganisationSroStatus, used to filter organisations.
+// Mirrors the API's OrganisationSroStatus: an Organisation's sro_status, and its filter values.
 enum OrganisationSroStatus {
   CLAIMED = "claimed",
   INVITED = "invited",

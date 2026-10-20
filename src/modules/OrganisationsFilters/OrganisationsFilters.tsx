@@ -8,6 +8,7 @@ import { useTranslations } from "next-intl";
 import { FilterIcon } from "../../consts/icons";
 import { PaginatedQueryReturn } from "../../hooks/usePaginatedQuery";
 import { Organisation } from "../../types/application";
+import { getSroStatus } from "../../utils/organisation";
 import SearchActionMenu from "../SearchActionMenu";
 import SearchBar from "../SearchBar";
 
@@ -91,7 +92,7 @@ export default function OrganisationsFilters({
   const { actions: filterSroStatusActions } = useFilter({
     queryParams,
     items: Object.values(OrganisationSroStatus).map(status => ({
-      label: t(`filterBySroStatus_${status}`),
+      label: tApplication(`Status.${getSroStatus({ sro_status: status })}`),
       key: OrganisationsFiltersKeys.SRO_STATUS,
       value: status,
     })),
