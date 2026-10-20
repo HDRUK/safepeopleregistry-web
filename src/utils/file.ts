@@ -58,6 +58,29 @@ function getAcceptAttribute(extensions: string[]) {
   return extensions.map(extension => `.${extension.toLowerCase()}`).join(",");
 }
 
+const ENCODED_FILENAME = /filename\*\s*=\s*utf-8''([^;\s]+)/i;
+const FILENAME = /(?:^|;)\s*filename\s*=\s*(?:"((?:\\.|[^"\\])*)"|([^;]+))/i;
+
+// filename* (RFC 6266) carries non-ASCII names; filename is their ASCII
+// fallback, quoted with backslash escapes when it isn't a plain token.
+function getFileNameFromContentDisposition(header: string | null) {
+  if (!header) return undefined;
+
+  const encoded = header.match(ENCODED_FILENAME)?.[1];
+
+  if (encoded) {
+    try {
+      return decodeURIComponent(encoded);
+    } catch {
+      // Malformed encoding, so use the fallback below.
+    }
+  }
+
+  const [, quoted, token] = header.match(FILENAME) ?? [];
+
+  return quoted?.replace(/\\(.)/g, "$1") ?? (token?.trim() || undefined);
+}
+
 function downloadBlob(blob: Blob, fileName: string) {
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
@@ -89,6 +112,7 @@ export {
   getAcceptAttribute,
   getFileExtension,
   getFileFromEvent,
+  getFileNameFromContentDisposition,
   getFileHref,
   getLatestCV,
   getUploadedCertification,
