@@ -4,7 +4,7 @@ import putOrganisationSro from "@/app/actions/organisations/putOrganisationSro";
 import { mockedSroDeclarationFile } from "@/mocks/data/file";
 import { mockedOrganisation } from "@/mocks/data/organisation";
 import { FileStatus } from "@/consts/files";
-import { File } from "@/types/application";
+import { FileDetails } from "@/types/application";
 import { fireEvent, render, screen, waitFor } from "@/utils/testUtils";
 import SroForm from "./SroForm";
 
@@ -60,7 +60,7 @@ const userData = {
 // The API hides an organisation's files.
 const organisation = mockedOrganisation({ files: undefined });
 
-const mockLatestSroDeclaration = (latest: File | null) => {
+const mockLatestSroDeclaration = (latest: FileDetails | null) => {
   (getOrganisationSroDeclarationDetails as jest.Mock).mockResolvedValue({
     data: latest,
   });

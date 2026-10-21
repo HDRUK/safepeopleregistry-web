@@ -32,15 +32,18 @@ function getLatestSRODeclaration(files: FileResponse[] | undefined) {
   );
 }
 
-function isFileScanning(file: FileResponse | undefined) {
+// Only the scan status is read, so file details without a path will do.
+type FileWithStatus = Pick<FileResponse, "status"> | null | undefined;
+
+function isFileScanning(file: FileWithStatus) {
   return file?.status === FileStatus.PENDING;
 }
 
-function isFileScanComplete(file: FileResponse | undefined) {
+function isFileScanComplete(file: FileWithStatus) {
   return file?.status === FileStatus.PROCESSED;
 }
 
-function isFileScanFailed(file: FileResponse | undefined) {
+function isFileScanFailed(file: FileWithStatus) {
   return file?.status === FileStatus.FAILED;
 }
 
