@@ -14,19 +14,14 @@ function filterOrganisationsList(
     return organisation.id === entityId;
   }
 
-  if (entityType === EntityType.ADMIN) {
+  // Custodians see unapproved organisations too (shown as pending approval),
+  // so they can work with users affiliated to newly created organisations
+  if (entityType === EntityType.ADMIN || entityType === EntityType.CUSTODIAN) {
     return true;
   }
 
   if (!invitingUser) {
     return organisation.system_approved;
-  }
-
-  if (entityType === EntityType.CUSTODIAN) {
-    return (
-      invitingUser?.user_group === UserGroup.ADMINS ||
-      entityId === invitingUser.custodian_user?.custodian_id
-    );
   }
 
   if (entityType === EntityType.USER) {

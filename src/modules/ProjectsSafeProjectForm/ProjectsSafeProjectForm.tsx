@@ -162,6 +162,9 @@ export default function ProjectsSafeProjectForm({
                               <SelectOrganisation
                                 entityType={entityType}
                                 entityId={entityId}
+                                showNotApprovedText={
+                                  entityType === EntityType.CUSTODIAN
+                                }
                                 hasEmpty
                                 key={organisation?.organisation_name}
                                 {...fieldProps}

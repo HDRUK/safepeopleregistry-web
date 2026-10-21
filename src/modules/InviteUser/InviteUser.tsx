@@ -264,7 +264,10 @@ export default function InviteUser({
                           entityId={entityId}
                           entityType={entityType}
                           {...fieldProps}
-                          showNotApprovedText={entityType === EntityType.USER}
+                          showNotApprovedText={
+                            entityType === EntityType.USER ||
+                            entityType === EntityType.CUSTODIAN
+                          }
                         />
                       )}
                       description={tProfile.rich("organisationNotListed", {
