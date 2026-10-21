@@ -1,6 +1,10 @@
+import getFile from "@/app/actions/files/getFile";
+import getOrganisationSroDeclarationDetails from "@/app/actions/organisations/getOrganisationSroDeclarationDetails";
 import putOrganisationSro from "@/app/actions/organisations/putOrganisationSro";
+import { mockedSroDeclarationFile } from "@/mocks/data/file";
 import { mockedOrganisation } from "@/mocks/data/organisation";
-import { FileStatus, FileType } from "@/consts/files";
+import { FileStatus } from "@/consts/files";
+import { File } from "@/types/application";
 import { fireEvent, render, screen, waitFor } from "@/utils/testUtils";
 import SroForm from "./SroForm";
 
@@ -10,6 +14,9 @@ const putProps = {
   error: null,
   onSubmit: jest.fn().mockResolvedValue(null),
 };
+
+jest.mock("@/app/actions/files/getFile");
+jest.mock("@/app/actions/organisations/getOrganisationSroDeclarationDetails");
 
 jest.mock("@/app/actions/organisations/putOrganisationSro", () => ({
   __esModule: true,
@@ -50,7 +57,15 @@ const userData = {
   departments: [{ id: 123, name: "Research" }],
 };
 
-const organisation = mockedOrganisation();
+// The API hides an organisation's files.
+const organisation = mockedOrganisation({ files: undefined });
+
+const mockLatestSroDeclaration = (latest: File | null) => {
+  (getOrganisationSroDeclarationDetails as jest.Mock).mockResolvedValue({
+    data: latest,
+  });
+  (getFile as jest.Mock).mockResolvedValue({ data: latest });
+};
 
 describe("<SroForm />", () => {
   beforeEach(() => {
@@ -173,42 +188,56 @@ describe("<SroForm />", () => {
     expect(screen.getAllByLabelText(/First name/)[0]).toBeInTheDocument();
   });
 
-  it("shows a pending-approval chip when no SRO declaration has been uploaded yet", () => {
+  it("shows a pending-approval chip when no SRO declaration has been uploaded yet", async () => {
+    mockLatestSroDeclaration(null);
+
     setupTest();
 
+    await waitFor(() =>
+      expect(getOrganisationSroDeclarationDetails).toHaveBeenCalled()
+    );
     expect(
       screen.getByText("SRO declaration pending approval")
     ).toBeInTheDocument();
   });
 
-  it("shows an approved chip with the processed date once the SRO declaration has been processed", () => {
-    mockUseStore({
-      config: {
-        organisation: {
-          ...organisation,
-          files: [
-            {
-              id: 1,
-              name: "declaration.pdf",
-              path: "",
-              status: FileStatus.PROCESSED,
-              type: FileType.DECLARATION_SRO,
-              created_at: "2026-01-01",
-              updated_at: "2026-01-15T13:00:00",
-            },
-          ],
-        },
-        user: userData,
-      },
-    });
+  it.each([FileStatus.PENDING, FileStatus.FAILED])(
+    "shows a pending-approval chip while the latest SRO declaration is %s",
+    async status => {
+      mockLatestSroDeclaration(
+        mockedSroDeclarationFile({ id: 1, name: "declaration.pdf", status })
+      );
+
+      setupTest();
+
+      // Wait for the declaration to load before checking the chip.
+      expect(await screen.findByText("declaration.pdf")).toBeInTheDocument();
+      expect(
+        screen.getByText("SRO declaration pending approval")
+      ).toBeInTheDocument();
+    }
+  );
+
+  it("shows an approved chip with the processed date once the latest SRO declaration has been processed", async () => {
+    mockLatestSroDeclaration(
+      mockedSroDeclarationFile({
+        id: 1,
+        name: "declaration.pdf",
+        status: FileStatus.PROCESSED,
+        created_at: "2026-01-01",
+        updated_at: "2026-01-15T13:00:00",
+      })
+    );
 
     setupTest();
 
     expect(
+      await screen.findByText(
+        /SRO declaration approved on 15 Jan 2026 at 13:00/
+      )
+    ).toBeInTheDocument();
+    expect(
       screen.queryByText("SRO declaration pending approval")
     ).not.toBeInTheDocument();
-    expect(
-      screen.getByText(/SRO declaration approved on 15 Jan 2026 at 13:00/)
-    ).toBeInTheDocument();
   });
 });
