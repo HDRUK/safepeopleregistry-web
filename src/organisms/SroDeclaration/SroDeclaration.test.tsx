@@ -6,7 +6,7 @@ import getOrganisationSroDeclarationDetails from "@/app/actions/organisations/ge
 import { FileStatus } from "@/consts/files";
 import { mockedSroDeclarationFile } from "@/mocks/data/file";
 import { mockedOrganisation } from "@/mocks/data/organisation";
-import { File } from "@/types/application";
+import { FileDetails } from "@/types/application";
 import { downloadBlob } from "@/utils/file";
 import { act, fireEvent, render, screen, waitFor } from "@/utils/testUtils";
 import { mockUseStore } from "jest.setup";
@@ -28,7 +28,7 @@ const SCAN_POLL_INTERVAL_MS = 2000;
 
 // The API hides an organisation's files, so the latest declaration comes
 // from its own endpoint.
-const renderWithDeclaration = (latest: File | null) => {
+const renderWithDeclaration = (latest: FileDetails | null) => {
   const organisation = mockedOrganisation({
     id: ORGANISATION_ID,
     files: undefined,

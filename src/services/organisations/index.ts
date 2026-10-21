@@ -1,6 +1,5 @@
 import getOrganisationDelegatesQuery from "@/services/organisations/getOrganisationDelegatesQuery";
 import getOrganisationQuery from "@/services/organisations/getOrganisationQuery";
-import getOrganisationSroDeclarationQuery from "@/services/organisations/getOrganisationSroDeclarationQuery";
 import getOrganisationSroDeclarationDetailsQuery from "@/services/organisations/getOrganisationSroDeclarationDetailsQuery";
 import getOrganisationRegistriesQuery from "@/services/organisations/getOrganisationRegistriesQuery";
 import postCustodianInviteUserQuery from "@/services/organisations/postCustodianInviteUserQuery";
@@ -18,7 +17,6 @@ export {
   putOrganisationApprovedQuery,
   putOrganisationQuery,
   getOrganisationQuery,
-  getOrganisationSroDeclarationQuery,
   getOrganisationSroDeclarationDetailsQuery,
   postOrganisationInviteUserQuery,
   postOrganisationInviteToContactSuperadminQuery,
