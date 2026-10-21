@@ -9,7 +9,7 @@ import {
   render,
   screen,
   waitFor,
-} from "../../utils/testUtils";
+} from "@/utils/testUtils";
 import InviteUser from "./InviteUser";
 
 jest.mock("@/data/store");
