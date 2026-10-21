@@ -14,6 +14,11 @@
     "scanErrorText": "Your file file may have a virus",
     "FileDownloadText": "Download File"
   },
+  "SroDeclarationDownloadLink": {
+    "linkText": "Download SRO Declaration form",
+    "downloadError": "An error occurred while downloading the SRO declaration. Please try again or <contactLink>contact support</contactLink> if the problem persists.",
+    "downloadErrorButton": "Try Again"
+  },
   "Admin": {
     "SuperAdminList": {
       "name": "Name",
@@ -1832,7 +1837,6 @@
     "SroDetails": {
       "sroOfficerContact": "Senior Responsible Officer (SRO) contact information",
       "sroOfficierContactInfo": "Senior Responsible Officers (SROs) are legally signed off by their Organisation to be accountable for the overall administration of an Organisation account.",
-      "signedDeclaration": "Signed declaration",
       "profileLink": "Profile link of signatory",
       "sroDeclarationForm": "SRO Declaration form"
     },

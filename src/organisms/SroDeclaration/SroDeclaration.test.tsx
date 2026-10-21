@@ -2,10 +2,11 @@ import downloadFile from "@/app/actions/files/downloadFile";
 import getFile from "@/app/actions/files/getFile";
 import postFile from "@/app/actions/files/postFile";
 import getOrganisation from "@/app/actions/organisations/getOrganisation";
+import getOrganisationSroDeclarationDetails from "@/app/actions/organisations/getOrganisationSroDeclarationDetails";
 import { FileStatus } from "@/consts/files";
 import { mockedSroDeclarationFile } from "@/mocks/data/file";
 import { mockedOrganisation } from "@/mocks/data/organisation";
-import { File } from "@/types/application";
+import { FileDetails } from "@/types/application";
 import { downloadBlob } from "@/utils/file";
 import { act, fireEvent, render, screen, waitFor } from "@/utils/testUtils";
 import { mockUseStore } from "jest.setup";
@@ -15,6 +16,7 @@ jest.mock("@/app/actions/files/downloadFile");
 jest.mock("@/app/actions/files/getFile");
 jest.mock("@/app/actions/files/postFile");
 jest.mock("@/app/actions/organisations/getOrganisation");
+jest.mock("@/app/actions/organisations/getOrganisationSroDeclarationDetails");
 jest.mock("@/utils/file", () => ({
   ...jest.requireActual("@/utils/file"),
   downloadBlob: jest.fn(),
@@ -24,8 +26,13 @@ const DOWNLOAD_ERROR = /error occurred while downloading the SRO declaration/i;
 const ORGANISATION_ID = 1;
 const SCAN_POLL_INTERVAL_MS = 2000;
 
-const renderWithFiles = (files: File[]) => {
-  const organisation = mockedOrganisation({ id: ORGANISATION_ID, files });
+// The API hides an organisation's files, so the latest declaration comes
+// from its own endpoint.
+const renderWithDeclaration = (latest: FileDetails | null) => {
+  const organisation = mockedOrganisation({
+    id: ORGANISATION_ID,
+    files: undefined,
+  });
 
   // The real setter freezes the store, which mockUseStore then can't mutate.
   mockUseStore({
@@ -36,8 +43,11 @@ const renderWithFiles = (files: File[]) => {
   });
 
   (getOrganisation as jest.Mock).mockResolvedValue({ data: organisation });
+  (getOrganisationSroDeclarationDetails as jest.Mock).mockResolvedValue({
+    data: latest,
+  });
   (getFile as jest.Mock).mockImplementation((id: number) =>
-    Promise.resolve({ data: files.find(file => file.id === id) })
+    Promise.resolve({ data: id === latest?.id ? latest : undefined })
   );
 
   return render(<SroDeclaration isDelegate={false} />);
@@ -71,6 +81,28 @@ const uploadDeclaration = async (scannedStatus: FileStatus) => {
   fireEvent.click(await screen.findByRole("button", { name: "Close" }));
 };
 
+const expectReloaded = async () => {
+  await waitFor(() => {
+    expect(getOrganisation).toHaveBeenCalledWith(
+      ORGANISATION_ID,
+      expect.anything()
+    );
+    expect(getOrganisationSroDeclarationDetails).toHaveBeenCalledWith(
+      ORGANISATION_ID,
+      expect.anything()
+    );
+  });
+};
+
+const waitForFirstLoad = async () => {
+  await waitFor(() => {
+    expect(getOrganisation).toHaveBeenCalled();
+    expect(getOrganisationSroDeclarationDetails).toHaveBeenCalled();
+  });
+  (getOrganisation as jest.Mock).mockClear();
+  (getOrganisationSroDeclarationDetails as jest.Mock).mockClear();
+};
+
 const finishScan = () =>
   act(() => jest.advanceTimersByTimeAsync(SCAN_POLL_INTERVAL_MS));
 
@@ -78,6 +110,18 @@ describe("<SroDeclaration />", () => {
   afterEach(() => {
     jest.clearAllMocks();
     jest.useRealTimers();
+  });
+
+  it("shows a previously uploaded declaration after the page is reloaded", async () => {
+    renderWithDeclaration(
+      mockedSroDeclarationFile({
+        id: 1,
+        name: "uploaded-earlier.pdf",
+        status: FileStatus.PROCESSED,
+      })
+    );
+
+    expect(await findDownloadLink("uploaded-earlier.pdf")).toBeEnabled();
   });
 
   describe("when the latest declaration has been processed", () => {
@@ -95,7 +139,7 @@ describe("<SroDeclaration />", () => {
         contentType: "application/pdf",
       });
 
-      renderWithFiles([file]);
+      renderWithDeclaration(file);
 
       fireEvent.click(await findDownloadLink("declaration.pdf"));
 
@@ -108,7 +152,7 @@ describe("<SroDeclaration />", () => {
     it("shows an error when the download fails", async () => {
       (downloadFile as jest.Mock).mockRejectedValue(new Error());
 
-      renderWithFiles([file]);
+      renderWithDeclaration(file);
 
       fireEvent.click(await findDownloadLink("declaration.pdf"));
 
@@ -119,22 +163,15 @@ describe("<SroDeclaration />", () => {
 
   describe("when the latest declaration is still being scanned", () => {
     it("shows the file but does not allow it to be downloaded", async () => {
-      renderWithFiles([
-        mockedSroDeclarationFile({
-          id: 1,
-          name: "older.pdf",
-          status: FileStatus.PROCESSED,
-          created_at: "2026-01-01T00:00:00Z",
-        }),
+      renderWithDeclaration(
         mockedSroDeclarationFile({
           id: 2,
-          name: "newer.pdf",
+          name: "scanning.pdf",
           status: FileStatus.PENDING,
-          created_at: "2026-02-01T00:00:00Z",
-        }),
-      ]);
+        })
+      );
 
-      const link = await findDownloadLink("newer.pdf");
+      const link = await findDownloadLink("scanning.pdf");
 
       expect(link).toBeDisabled();
       expect(screen.getByRole("progressbar")).toBeInTheDocument();
@@ -147,26 +184,18 @@ describe("<SroDeclaration />", () => {
 
   describe("when the latest declaration failed its scan", () => {
     it("shows the failed file but does not allow it to be downloaded", async () => {
-      renderWithFiles([
-        mockedSroDeclarationFile({
-          id: 1,
-          name: "older.pdf",
-          status: FileStatus.PROCESSED,
-          created_at: "2026-01-01T00:00:00Z",
-        }),
+      renderWithDeclaration(
         mockedSroDeclarationFile({
           id: 2,
-          name: "newer.pdf",
+          name: "failed.pdf",
           status: FileStatus.FAILED,
-          created_at: "2026-02-01T00:00:00Z",
-        }),
-      ]);
+        })
+      );
 
-      const link = await findDownloadLink("newer.pdf");
+      const link = await findDownloadLink("failed.pdf");
 
       expect(link).toBeDisabled();
       expect(screen.getByTestId("GppBadIcon")).toBeInTheDocument();
-      expect(screen.queryByText("older.pdf")).not.toBeInTheDocument();
     });
   });
 
@@ -174,7 +203,7 @@ describe("<SroDeclaration />", () => {
     it("allows the file to be downloaded once it has been processed", async () => {
       jest.useFakeTimers();
 
-      renderWithFiles([]);
+      renderWithDeclaration(null);
 
       await uploadDeclaration(FileStatus.PROCESSED);
 
@@ -187,52 +216,40 @@ describe("<SroDeclaration />", () => {
       });
     });
 
-    it("reloads the organisation once the declaration has been uploaded", async () => {
+    it("reloads the organisation and its declaration details once the declaration has been uploaded", async () => {
       jest.useFakeTimers();
-      renderWithFiles([]);
-      await waitFor(() => expect(getOrganisation).toHaveBeenCalled());
-      (getOrganisation as jest.Mock).mockClear();
+      renderWithDeclaration(null);
+      await waitForFirstLoad();
 
       await uploadDeclaration(FileStatus.PROCESSED);
 
-      await waitFor(() => {
-        expect(getOrganisation).toHaveBeenCalledWith(
-          ORGANISATION_ID,
-          expect.anything()
-        );
-      });
+      await expectReloaded();
     });
 
     it.each([FileStatus.PROCESSED, FileStatus.FAILED])(
-      "reloads the organisation again once the scan has finished as %s",
+      "reloads the organisation and its declaration details again once the scan has finished as %s",
       async scannedStatus => {
         jest.useFakeTimers();
-        renderWithFiles([]);
+        renderWithDeclaration(null);
         await uploadDeclaration(scannedStatus);
-        await waitFor(() => expect(getOrganisation).toHaveBeenCalled());
-        (getOrganisation as jest.Mock).mockClear();
+        await waitForFirstLoad();
 
         await finishScan();
 
-        await waitFor(() => {
-          expect(getOrganisation).toHaveBeenCalledWith(
-            ORGANISATION_ID,
-            expect.anything()
-          );
-        });
+        await expectReloaded();
       }
     );
 
-    it("does not reload the organisation while the scan is still running", async () => {
+    it("does not reload the organisation or its declaration details while the scan is still running", async () => {
       jest.useFakeTimers();
-      renderWithFiles([]);
+      renderWithDeclaration(null);
       await uploadDeclaration(FileStatus.PENDING);
-      await waitFor(() => expect(getOrganisation).toHaveBeenCalled());
-      (getOrganisation as jest.Mock).mockClear();
+      await waitForFirstLoad();
 
       await finishScan();
 
       expect(getOrganisation).not.toHaveBeenCalled();
+      expect(getOrganisationSroDeclarationDetails).not.toHaveBeenCalled();
     });
   });
 });

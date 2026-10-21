@@ -12,10 +12,11 @@ import { useStore } from "@/data/store";
 import { PageBody } from "@/modules";
 import SroDeclaration from "@/organisms/SroDeclaration";
 import useOrganisationStore from "@/queries/useOrganisationStore";
+import { getOrganisationSroDeclarationDetailsQuery } from "@/services/organisations";
 import { getUserQuery, putUserQuery } from "@/services/users";
 import { KeyContactFormValues } from "@/types/form";
 import { formatDisplayLongDateTime } from "@/utils/date";
-import { getLatestSRODeclaration, isFileScanComplete } from "@/utils/file";
+import { isFileScanComplete } from "@/utils/file";
 import { pick } from "@/utils/json";
 import { Chip, Grid, TextField, Typography } from "@mui/material";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -43,7 +44,12 @@ export default function SroForm({ isDelegate, hasSroAssigned }: SroFormProps) {
     setUser: state.setUser,
   }));
 
-  const latestSroDeclaration = getLatestSRODeclaration(organisation?.files);
+  // The API hides an organisation's files, so ask for the latest declaration.
+  // Shares its cache with SroDeclaration, which reloads it after uploads.
+  const { data: sroDeclarationDetails } = useQuery(
+    getOrganisationSroDeclarationDetailsQuery(organisation?.id)
+  );
+  const latestSroDeclaration = sroDeclarationDetails?.data;
   const hasCompletedSroDeclaration = isFileScanComplete(latestSroDeclaration);
 
   const {

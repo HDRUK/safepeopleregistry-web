@@ -6,6 +6,7 @@ import deleteOrganisationDelegate from "@/app/actions/organisations/deleteOrgani
 import getOrganisation from "@/app/actions/organisations/getOrganisation";
 import getOrganisationDelegates from "@/app/actions/organisations/getOrganisationDelegates";
 import getOrganisationSroDeclaration from "./getOrganisationSroDeclaration";
+import getOrganisationSroDeclarationDetails from "./getOrganisationSroDeclarationDetails";
 import getOrganisationIdvt from "@/app/actions/organisations/getOrganisationIdvt";
 import getOrganisationRegistries from "@/app/actions/organisations/getOrganisationRegistries";
 import getOrganisations from "@/app/actions/organisations/getOrganisations";
@@ -32,6 +33,7 @@ export {
   postPermissions,
   getSponsoredProjects,
   getOrganisationSroDeclaration,
+  getOrganisationSroDeclarationDetails,
   getOrganisationUsers,
   postOrganisationInviteUser,
   postOrganisationInvite,

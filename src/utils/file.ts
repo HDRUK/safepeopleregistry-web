@@ -13,34 +13,18 @@ function getUploadedCertification(files: FileResponse[] | undefined) {
     .find(file => file.type === FileType.CERTIFICATION);
 }
 
-// Ordered by upload time rather than updated_at, which changes when a scan
-// finishes. Ids break ties as timestamps are only accurate to the second.
-function isUploadedAfter(a: FileResponse, b: FileResponse) {
-  const difference = Date.parse(a.created_at) - Date.parse(b.created_at);
+// Only the scan status is read, so file details without a path will do.
+type FileWithStatus = Pick<FileResponse, "status"> | null | undefined;
 
-  return difference === 0 ? a.id > b.id : difference > 0;
-}
-
-function getLatestSRODeclaration(files: FileResponse[] | undefined) {
-  return (files || []).reduce<FileResponse | undefined>(
-    (latest, file) =>
-      file.type === FileType.DECLARATION_SRO &&
-      (!latest || isUploadedAfter(file, latest))
-        ? file
-        : latest,
-    undefined
-  );
-}
-
-function isFileScanning(file: FileResponse | undefined) {
+function isFileScanning(file: FileWithStatus) {
   return file?.status === FileStatus.PENDING;
 }
 
-function isFileScanComplete(file: FileResponse | undefined) {
+function isFileScanComplete(file: FileWithStatus) {
   return file?.status === FileStatus.PROCESSED;
 }
 
-function isFileScanFailed(file: FileResponse | undefined) {
+function isFileScanFailed(file: FileWithStatus) {
   return file?.status === FileStatus.FAILED;
 }
 
@@ -116,7 +100,6 @@ export {
   getFileHref,
   getLatestCV,
   getUploadedCertification,
-  getLatestSRODeclaration,
   isFileScanComplete,
   isFileScanFailed,
   isFileScanning,

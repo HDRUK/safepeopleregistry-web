@@ -67,6 +67,9 @@ interface File {
   updated_at: string;
 }
 
+// What the API shares about a file outside its owner's records: no path.
+type FileDetails = Omit<File, "path">;
+
 interface Sector {
   name: string;
   id: string;
@@ -627,6 +630,7 @@ export type {
   CustodianUser,
   Department,
   File,
+  FileDetails,
   Identity,
   ModelState,
   Organisation,
