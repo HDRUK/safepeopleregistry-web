@@ -73,7 +73,7 @@ export default function ProjectUsers({
       onMove={handleMove}
       options={options}
       queryState={updateQueryState}
-      disabledContainers={DISABLED_USER_STATUS}
+      readOnlyContainers={DISABLED_USER_STATUS}
       rollbackVersion={rollbackVersion}
     />
   );
