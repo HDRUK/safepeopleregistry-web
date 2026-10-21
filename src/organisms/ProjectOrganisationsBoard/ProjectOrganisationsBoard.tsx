@@ -90,8 +90,7 @@ export default function ProjectOrganisationsBoard({
       queryState={updateQueryState}
       isDisabledItem={isDisabledItem}
       isDroppableItem={isDroppableItem}
-      disabledContainers={[Status.SYSTEM_APPROVAL]}
-      readOnlyContainers={[Status.INVITED]}
+      disabledContainers={[Status.INVITED, Status.SYSTEM_APPROVAL]}
       rollbackVersion={rollbackVersion}
     />
   );

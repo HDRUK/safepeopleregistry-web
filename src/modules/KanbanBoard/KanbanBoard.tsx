@@ -81,10 +81,7 @@ export interface KanbanBoardProps<T> extends WithQueryState<
   options: Partial<UseDroppableSortItemsFnOptions<T>> | undefined;
   isDisabledItem?: (data: T) => boolean;
   isDroppableItem?: (data: T) => boolean;
-  // Columns not rendered at all
   disabledContainers?: string[];
-  // Columns rendered, but nothing can be dragged into or out of them
-  readOnlyContainers?: string[];
   rollbackVersion?: number;
 }
 
@@ -111,7 +108,6 @@ export default function KanbanBoard<T>({
   isDisabledItem,
   isDroppableItem,
   disabledContainers,
-  readOnlyContainers,
   rollbackVersion,
   ...restProps
 }: KanbanBoardProps<T>) {
@@ -307,9 +303,7 @@ export default function KanbanBoard<T>({
       modifiers={modifiers}>
       <KanbanBoardColumns sx={{ maxHeight: "90vh" }}>
         {containers.map(containerId => {
-          const containerDisabled = readOnlyContainers?.includes(
-            containerId as string
-          );
+          const containerDisabled = disabledContainers?.includes(containerId);
 
           return (
             <DndDroppableContainer key={containerId} id={containerId}>
