@@ -37,20 +37,10 @@ export default function SubTabsSections({
   const subTabs: SubTabsMap = {
     [PageTabs.DETAILS]: [
       {
-        label: "Name & Senior Responsible Officer",
-        value: DetailsPageSubTabs.NAME_AND_SRO,
+        label: "Name & Address",
+        value: DetailsPageSubTabs.NAME_AND_ADDRESS,
         href: injectParamsIntoPath(
-          routes.profileOrganisationDetailsNameAndSRO.path,
-          {
-            id,
-          }
-        ),
-      },
-      {
-        label: "Address",
-        value: DetailsPageSubTabs.ADDRESS,
-        href: injectParamsIntoPath(
-          routes.profileOrganisationDetailsAddress.path,
+          routes.profileOrganisationDetailsNameAndAddress.path,
           {
             id,
           }
@@ -98,6 +88,13 @@ export default function SubTabsSections({
             },
           ]
         : []),
+      {
+        label: "Senior Responsible Officer",
+        value: DetailsPageSubTabs.SRO,
+        href: injectParamsIntoPath(routes.profileOrganisationDetailsSro.path, {
+          id,
+        }),
+      },
     ],
     [PageTabs.PROJECTS]: [
       {

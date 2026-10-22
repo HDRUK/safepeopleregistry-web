@@ -38,6 +38,11 @@ jest.mock("@/i18n/routing", () => ({
 
 jest.mock("@/data/store");
 
+jest.mock("../NotificationsMenu", () => ({
+  __esModule: true,
+  default: () => <div data-testid="notifications-menu-stub" />,
+}));
+
 jest.mock("@/app/actions/auth/getMe", () => ({
   __esModule: true,
   default: jest.fn(),
@@ -217,4 +222,29 @@ describe("NavBar Component", () => {
       })
     ).toBeInTheDocument();
   });
+
+  it.each([
+    ["shows", false, true],
+    ["hides", true, false],
+  ])(
+    "%s notifications when the user's unclaimed is %s",
+    (_, unclaimed, isShown) => {
+      mockUseStore.mockImplementation(selector =>
+        selector({
+          getUser: () => mockedUser({ unclaimed }),
+          setUser: jest.fn(),
+          config: {
+            organisation: undefined,
+            custodian: undefined,
+          },
+        } as unknown as StoreState)
+      );
+
+      render(<NavBar loggedIn />);
+
+      expect(screen.queryByTestId("notifications-menu-stub") !== null).toBe(
+        isShown
+      );
+    }
+  );
 });

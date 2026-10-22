@@ -27,6 +27,7 @@ import {
   User,
 } from "../types/application";
 import { formatShortDate } from "./date";
+import { getOrganisationAccountStatus, getSroStatus } from "./organisation";
 
 function renderAffiliationRelationship(
   info: CellContext<ResearcherAffiliation, unknown>,
@@ -219,6 +220,14 @@ const renderOrganisationValidatedCell = (
   );
 };
 
+const renderOrganisationAccountStatusCell = (
+  info: CellContext<Organisation, unknown>
+) => <ChipStatus status={getOrganisationAccountStatus(info.row.original)} />;
+
+const renderSroStatusCell = (info: CellContext<Organisation, unknown>) => (
+  <ChipStatus status={getSroStatus(info.row.original)} />
+);
+
 const renderSelectRoleCell = (
   info: CellContext<ProjectAllUser, unknown>,
   props: {
@@ -260,12 +269,14 @@ export {
   renderLinkNameCell,
   renderListNameCell,
   renderOrganisationsNameCell,
+  renderOrganisationAccountStatusCell,
   renderOrganisationsStatusCell,
   renderOrganisationValidatedCell,
   renderProjectNameCell,
   renderProjectsNameCell,
   renderProjectUserNameCell,
   renderSelectRoleCell,
+  renderSroStatusCell,
   renderStatusCell,
   renderUserNameCell,
   renderUserOrganisationsNameCell,

@@ -8,21 +8,18 @@ import GoogleAutocomplete from "@/components/GoogleAutocomplete";
 import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
 import yup from "@/config/yup";
 import { ROUTES } from "@/consts/router";
-import { useStore } from "@/data/store";
 import { PageBody, PageSection } from "@/modules";
 import useOrganisationStore from "@/queries/useOrganisationStore";
-import { getUserQuery } from "@/services/users";
 import { AddressFields } from "@/types/application";
-import { KeyContactFormValues } from "@/types/form";
 import { pick } from "@/utils/json";
 import { Grid, TextField } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import useUpdateOrganisation from "../../hooks/useUpdateOrganisation";
 
-export interface AddressFormValues {
+export interface NameAndAddressFormValues {
+  organisation_name: string;
   address_1: string;
   address_2?: string | null;
   town: string;
@@ -36,6 +33,7 @@ const NAMESPACE_TRANSLATION_PROFILE = "Profile";
 const NAMESPACE_TRANSLATION_ORG_PROFILE = "ProfileOrganisation";
 
 const ORG_KEYS = [
+  "organisation_name",
   "address_1",
   "address_2",
   "town",
@@ -44,14 +42,9 @@ const ORG_KEYS = [
   "postcode",
 ];
 
-export default function Address() {
+export default function NameAndAddress() {
   const { organisation } = useOrganisationStore();
   const router = useRouter();
-
-  const { user, setUser } = useStore(state => ({
-    user: state.getUser(),
-    setUser: state.setUser,
-  }));
 
   const {
     isError,
@@ -62,11 +55,6 @@ export default function Address() {
     id: organisation?.id,
   });
 
-  const { data: userData, refetch: refetchUserData } = useQuery({
-    ...getUserQuery(user?.id as number),
-    enabled: false,
-  });
-
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
   const tOrgProfile = useTranslations(NAMESPACE_TRANSLATION_ORG_PROFILE);
@@ -74,6 +62,9 @@ export default function Address() {
   const schema = useMemo(
     () =>
       yup.object().shape({
+        organisation_name: yup
+          .string()
+          .required(tForm("organisationNameRequiredInvalid")),
         address_1: yup.string().required(tForm("address1RequiredInvalid")),
         address_2: yup.string().nullable(),
         town: yup.string().required(tForm("townRequiredInvalid")),
@@ -83,8 +74,10 @@ export default function Address() {
       }),
     [tForm]
   );
+
   const formOptions = {
     defaultValues: {
+      organisation_name: organisation?.organisation_name,
       address_1: organisation?.address_1,
       address_2: organisation?.address_2,
       town: organisation?.town,
@@ -95,31 +88,21 @@ export default function Address() {
     error: isError && <ErrorMessage t={tProfile} tKey={error} />,
   };
 
-  const handleSubmit = async (
-    formData: Partial<AddressFormValues & KeyContactFormValues>
-  ) => {
+  const handleSubmit = async (formData: Partial<NameAndAddressFormValues>) => {
     const organisationPayload = pick(
       formData,
       ORG_KEYS
-    ) as Partial<AddressFormValues>;
+    ) as Partial<NameAndAddressFormValues>;
 
     await onSubmitOrganisation(organisationPayload);
-
-    refetchUserData();
 
     router.push(ROUTES.profileOrganisationDetailsOrganisationDetails.path);
   };
 
-  useEffect(() => {
-    if (userData?.data) {
-      setUser(userData.data);
-    }
-  }, [userData, setUser]);
-
   return (
     <PageBody>
       <Form
-        aria-label={tOrgProfile("addressTitle")}
+        aria-label={tOrgProfile("nameAndAddressTitle")}
         schema={schema}
         onSubmit={handleSubmit}
         {...formOptions}
@@ -127,19 +110,34 @@ export default function Address() {
         {({ setValue }) => {
           const handleFindAddress = (address: AddressFields) => {
             Object.entries(address).forEach(([key, value]) => {
-              setValue(key as keyof AddressFormValues, value ?? "");
+              setValue(key as keyof NameAndAddressFormValues, value ?? "");
             });
           };
 
           return (
             <>
-              <PageSection heading={tOrgProfile("addressTitle")}>
+              <PageSection
+                heading={tOrgProfile("organisationName")}
+                description={tOrgProfile.rich("nameAndSRODescription", {
+                  bold: chunks => <strong>{chunks}</strong>,
+                })}>
+                <Grid container rowSpacing={3}>
+                  <Grid size={{ xs: 12 }}>
+                    <FormControlWrapper
+                      name="organisation_name"
+                      renderField={fieldProps => <TextField {...fieldProps} />}
+                    />
+                  </Grid>
+                </Grid>
+              </PageSection>
+              <PageSection
+                heading={tOrgProfile("addressTitle")}
+                description={tOrgProfile("addressDescription")}>
                 <Grid container rowSpacing={3}>
                   <Grid size={{ xs: 12 }}>
                     <FormControlWrapper
                       name="address"
                       displayPlaceholder={false}
-                      description={tOrgProfile("addressDescription")}
                       renderField={() => (
                         <GoogleAutocomplete
                           name="address"
@@ -196,9 +194,6 @@ export default function Address() {
               </PageSection>
               <FormActions>
                 <ProfileNavigationFooter
-                  previousHref={
-                    ROUTES.profileOrganisationDetailsNameAndSRO.path
-                  }
                   nextStepText={tOrgProfile("nextStepOrganisationDetails")}
                   isLoading={isLoading}
                 />

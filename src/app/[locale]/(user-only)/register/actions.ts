@@ -30,36 +30,59 @@ async function registerOrganisation(tokenUser: Partial<User>) {
     lead_applicant_email: tokenUser.email,
     first_name: tokenUser.given_name,
     last_name: tokenUser.family_name,
-    unclaimed: 0,
+    unclaimed: false,
     t_and_c_agreed: true,
   });
 
   await setAcceptTCs(false, UserGroup.ORGANISATIONS);
 }
 
-async function registerInvite(unclaimedUser: User, userGroup: UserGroup) {
-  const cookieStore = await cookies();
+// Returned rather than thrown: production builds hide the message of errors thrown
+// from server actions, so the caller could not tell the user what went wrong.
+type RegisterInviteResult = { ok: boolean };
 
-  cookieStore.delete("account_type");
-  cookieStore.delete("invite_code");
+async function registerInvite(
+  unclaimedUser: User,
+  userGroup: UserGroup
+): Promise<RegisterInviteResult> {
+  const cookieStore = await cookies();
 
   const orgId = unclaimedUser?.organisation_id ?? null;
 
   if (orgId) {
-    await postClaimUser(unclaimedUser.id);
+    // The API only lets an invitee claim the account their emailed invite code belongs to.
+    const inviteCode = cookieStore.get("invite_code")?.value;
 
+    if (!inviteCode) {
+      return { ok: false };
+    }
+
+    try {
+      await postClaimUser(unclaimedUser.id, inviteCode);
+    } catch {
+      return { ok: false };
+    }
+
+    // Cleared only once claimed, so a failed claim can be retried with the same invite.
+    cookieStore.delete("account_type");
+    cookieStore.delete("invite_code");
     cookieStore.delete("account_digi_ident");
 
-    if (!unclaimedUser.is_delegate) {
-      await putOrganisation(orgId, { unclaimed: 0 });
+    if (unclaimedUser.is_delegate || unclaimedUser.is_sro) {
+      await putOrganisation(orgId, { unclaimed: false });
     }
 
     await setAcceptTCs(false, UserGroup.ORGANISATIONS);
   } else {
+    cookieStore.delete("account_type");
+    cookieStore.delete("invite_code");
+
     await registerUser(userGroup);
 
     await setAcceptTCs(false, UserGroup.USERS);
   }
+
+  return { ok: true };
 }
 
 async function acceptTCs(userGroup: UserGroup) {

@@ -1,26 +1,38 @@
-import { renderHook, act } from "../../utils/testUtils";
-import useFileDownload from ".";
+import { getRequest } from "@/services/requests";
+import downloadFile from "@/app/actions/files/downloadFile";
 
-describe("useFileDownload", () => {
+jest.mock("@/services/requests");
+
+describe("downloadFile", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    global.URL.createObjectURL = jest.fn(() => "mock-object-url");
   });
 
-  it("should successfully download a file", async () => {
-    const { result } = renderHook(() => useFileDownload(1));
-
-    await act(async () => {
-      await result.current.downloadFile();
+  it("should download and process the file response", async () => {
+    const mockBlob = new Blob(["Hello world"], {
+      type: "text/plain",
     });
 
-    expect(global.fetch).toHaveBeenCalledWith(
-      `${process.env.NEXT_PUBLIC_API_V1_URL}/files/1/download`,
-      expect.any(Object)
-    );
+    const mockResponse = {
+      ok: true,
+      blob: jest.fn().mockResolvedValue(mockBlob),
+      headers: new Headers({
+        "Content-Type": "text/plain",
+        "Content-Disposition": 'attachment; filename="mockfile.txt"',
+      }),
+    };
 
-    const anchor = document.querySelector("a") as HTMLAnchorElement;
-    expect(anchor).toBeTruthy();
-    expect(anchor.download).toBe("mockfile.txt");
+    (getRequest as jest.Mock).mockResolvedValue(mockResponse);
+
+    const result = await downloadFile(1);
+
+    expect(getRequest).toHaveBeenCalledWith("/files/1/download");
+
+    expect(mockResponse.blob).toHaveBeenCalled();
+    expect(result).toEqual({
+      blob: mockBlob,
+      fileName: "mockfile.txt",
+      contentType: "text/plain",
+    });
   });
 });

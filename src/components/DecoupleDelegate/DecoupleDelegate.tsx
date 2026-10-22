@@ -2,32 +2,29 @@ import { useStore } from "@/data/store";
 import useQueryConfirmAlerts from "@/hooks/useQueryConfirmAlerts";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { putUser } from "@/app/actions/users";
+import deleteOrganisationDelegate from "@/app/actions/organisations/deleteOrganisationDelegate";
 import { TrashIcon } from "../../consts/icons";
-import { PutUserPayload } from "../../services/users";
 import { User } from "../../types/application";
 import { ActionMenuItem } from "../ActionMenu";
 
 interface DecoupleUserProps {
   user: User;
   onSuccess: () => void;
-  payload: PutUserPayload;
   namespace: string;
 }
 
 const DecoupleDelegate = ({
   user,
   onSuccess,
-  payload,
   namespace,
 }: DecoupleUserProps) => {
   const t = useTranslations(namespace);
   const organisation = useStore(state => state.config.organisation);
 
   const { mutateAsync, ...mutationState } = useMutation({
-    mutationKey: ["putUser"],
-    mutationFn: (payload: PutUserPayload) =>
-      putUser(user.id, payload, {
+    mutationKey: ["deleteOrganisationDelegate", user.id],
+    mutationFn: () =>
+      deleteOrganisationDelegate(organisation?.id as number, user.id, {
         error: {
           message: "submitError",
         },
@@ -47,8 +44,8 @@ const DecoupleDelegate = ({
       title: t("alertTitle"),
       confirmButtonText: t("alertConfirm"),
       cancelButtonText: t("alertCancel"),
-      onConfirm: async payload => {
-        await mutateAsync(payload as User);
+      onConfirm: async () => {
+        await mutateAsync();
 
         onSuccess();
       },
@@ -58,7 +55,7 @@ const DecoupleDelegate = ({
   return (
     <ActionMenuItem
       sx={{ color: "error.main" }}
-      onClick={() => showConfirm(payload)}
+      onClick={() => showConfirm(undefined)}
       icon={<TrashIcon />}>
       {t("title")}
     </ActionMenuItem>

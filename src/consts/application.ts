@@ -61,6 +61,23 @@ enum Status {
   SPONSORSHIP_PENDING = "sponsorship_pending",
   SPONSORSHIP_APPROVED = "sponsorship_approved",
   SPONSORSHIP_REJECTED = "sponsorship_rejected",
+  ORGANISATION_ACCOUNT_CREATED = "organisation_account_created",
+  ORGANISATION_INVITED_BY_ADMIN = "organisation_invited_by_admin",
+  ORGANISATION_INVITED_BY_NONADMIN = "organisation_invited_by_nonadmin",
+  ORGANISATION_PLACEHOLDER = "organisation_placeholder",
+  SRO_APPROVED = "sro_approved",
+  SRO_PENDING = "sro_pending",
+  SRO_REJECTED = "sro_rejected",
+  SRO_CLAIMED = "sro_claimed",
+  SRO_INVITED = "sro_invited",
+  SRO_NONE = "sro_none",
+}
+
+// Mirrors the API's OrganisationSroStatus: an Organisation's sro_status, and its filter values.
+enum OrganisationSroStatus {
+  CLAIMED = "claimed",
+  INVITED = "invited",
+  NONE = "none",
 }
 
 const PAGINATION_UPPER_LIMIT = 1000;
@@ -71,6 +88,7 @@ export {
   EMAIL_TEMPLATE,
   PendingInvite,
   Status,
+  OrganisationSroStatus,
   PAGINATION_UPPER_LIMIT,
   JOB_DELAY,
 };

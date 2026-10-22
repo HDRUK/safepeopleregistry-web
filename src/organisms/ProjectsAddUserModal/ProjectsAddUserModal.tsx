@@ -1,3 +1,4 @@
+import { PAGINATION_UPPER_LIMIT, Status } from "@/consts/application";
 import { useStore } from "@/data/store";
 import { EntityType } from "@/types/api";
 import { getAbbreviatedListWithCount, getName } from "@/utils/application";
@@ -61,6 +62,16 @@ export default function ProjectsAddUserModal({
     defaultQueryParams: { "user_group__and[]": "USERS" },
   });
 
+  const { data: projectInvitedUsers } = useGetProjectAllUsers(projectId, {
+    queryKeyBase: ["getAllProjectInvitedUsers", projectId],
+    defaultQueryParams: {
+      "user_group__and[]": "USERS",
+      filter: Status.INVITED,
+      user_project_filter: "IN",
+      per_page: PAGINATION_UPPER_LIMIT,
+    },
+  });
+
   useEffect(() => {
     if (usersData) {
       setProjectUsers(usersData);
@@ -90,6 +101,10 @@ export default function ProjectsAddUserModal({
 
       queryClient.refetchQueries({
         queryKey: ["getAllProjectUsers", projectId],
+      });
+
+      queryClient.refetchQueries({
+        queryKey: ["getAllProjectInvitedUsers", projectId],
       });
 
       if (!openInviteUser) onClose?.();
@@ -166,7 +181,7 @@ export default function ProjectsAddUserModal({
         )}
 
         <ProjectsAddUserForm
-          invitedUsers={invitedUsers}
+          invitedUsers={projectInvitedUsers ?? []}
           projectUsers={projectUsers}
           projectRoles={projectRoles}
           mutationState={putProjectUsersMutationState}

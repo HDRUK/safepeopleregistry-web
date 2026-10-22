@@ -41,6 +41,24 @@ const inviteOrganisation = (invite: InviteOrganisationFormValues) => {
   cy.clickAlertModal("Close");
 };
 
+const openInviteOrganisationModal = () => {
+  cy.contains("button", "Invite Organisation").click();
+};
+
+// The superadmin "Invite Organisation" flow, which creates a brand new
+// unclaimed Organisation rather than selecting an existing one.
+const inviteNewOrganisationAsAdmin = (invite: InviteOrganisationFormValues) => {
+  openInviteOrganisationModal();
+
+  inviteOrganisationForm(invite);
+
+  cy.get(dataCy("form-modal")).within(() => {
+    cy.contains("button", "Invite").click();
+  });
+
+  cy.clickAlertModal("Ok");
+};
+
 const inviteNewOrganisationForm = (invite: InviteUserFormValues) => {
   cy.get("#first_name").clear().type(invite.first_name);
   cy.get("#last_name").clear().type(invite.last_name);
@@ -78,9 +96,11 @@ export {
   inviteNewCustodian,
   inviteNewCustodianForm,
   inviteNewOrganisation,
+  inviteNewOrganisationAsAdmin,
   inviteNewOrganisationForm,
   inviteNewUser,
   inviteNewUserForm,
   inviteOrganisation,
   inviteOrganisationForm,
+  openInviteOrganisationModal,
 };

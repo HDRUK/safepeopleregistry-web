@@ -17,6 +17,7 @@ interface RouteConfig {
 interface Routes {
   invite: RouteConfig;
   register: RouteConfig;
+  noOrganisation: RouteConfig;
   homepage: RouteConfig;
   about: RouteConfig;
   faq: RouteConfig;
@@ -74,11 +75,11 @@ interface Routes {
   profileOrganisation: RouteConfig;
   profileOrganisationActions: RouteConfig;
   profileOrganisationDetails: RouteConfig;
-  profileOrganisationDetailsNameAndSRO: RouteConfig;
-  profileOrganisationDetailsAddress: RouteConfig;
+  profileOrganisationDetailsNameAndAddress: RouteConfig;
   profileOrganisationDetailsOrganisationDetails: RouteConfig;
   profileOrganisationDetailsDigitalIdentifiers: RouteConfig;
   profileOrganisationDetailsSecurityCompliance: RouteConfig;
+  profileOrganisationDetailsSro: RouteConfig;
   profileOrganisationUserAdministration: RouteConfig;
   profileOrganisationTeamAdministration: RouteConfig;
   profileOrganisationUserAdministrationDelegates: RouteConfig;

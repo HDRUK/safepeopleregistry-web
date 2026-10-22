@@ -1,54 +1,77 @@
 "use client";
 
+import { OrganisationSroStatus, Status } from "@/consts/application";
+import useFilter from "@/hooks/useFilter";
 import useSort from "@/hooks/useSort";
 import SortIcon from "@mui/icons-material/Sort";
 import { useTranslations } from "next-intl";
-import useFilter from "@/hooks/useFilter";
-import { Status } from "@/consts/application";
-import { FilterIcon } from "../../consts/icons";
-import { PaginatedQueryReturn } from "../../hooks/usePaginatedQuery";
-import { Organisation } from "../../types/application";
+import { FilterIcon } from "@/consts/icons";
+import { PaginatedQueryReturn } from "@/hooks/usePaginatedQuery";
+import { Organisation } from "@/types/application";
+import { getSroStatus } from "@/utils/organisation";
 import SearchActionMenu from "../SearchActionMenu";
 import SearchBar from "../SearchBar";
 
-const NAMESPACE_TRANSLATIONS_PROJECTS = "Organisations";
+const NAMESPACE_TRANSLATIONS_FILTERS = "Admin.OrganisationsFilters";
+const NAMESPACE_TRANSLATIONS_ORGANISATIONS = "Organisations";
 const NAMESPACE_TRANSLATIONS_APPLICATION = "Application";
 
-export enum OrganisationsFilterKeys {
-  STATUS = "status",
+export enum OrganisationsFiltersKeys {
+  ACCOUNT_STATUS = "account_status",
+  SRO_STATUS = "sro_status",
+  SYSTEM_APPROVED = "system_approved",
 }
 
-export interface OrganisationsFilterProps extends Pick<
+// The API validates system_approved as a boolean, which accepts 1/0 but not "true"/"false".
+enum SystemApproved {
+  APPROVED = "1",
+  NOT_APPROVED = "0",
+}
+
+const ACCOUNT_STATUSES = [
+  Status.ORGANISATION_ACCOUNT_CREATED,
+  Status.ORGANISATION_INVITED_BY_ADMIN,
+  Status.ORGANISATION_INVITED_BY_NONADMIN,
+  Status.ORGANISATION_PLACEHOLDER,
+];
+
+export interface OrganisationsFiltersProps extends Pick<
   PaginatedQueryReturn<Organisation>,
-  | "updateQueryParams"
-  | "resetQueryParams"
-  | "handleSortToggle"
-  | "handleFieldToggle"
-  | "queryParams"
+  "updateQueryParams" | "handleSortToggle" | "handleFieldToggle" | "queryParams"
 > {
-  includeFilters?: OrganisationsFilterKeys[];
+  includeFilters?: OrganisationsFiltersKeys[];
 }
 
 export default function OrganisationsFilters({
   handleSortToggle,
   handleFieldToggle,
-  resetQueryParams,
   updateQueryParams,
   queryParams,
-  includeFilters = [OrganisationsFilterKeys.STATUS],
-}: OrganisationsFilterProps) {
-  const t = useTranslations(NAMESPACE_TRANSLATIONS_PROJECTS);
+  includeFilters = [
+    OrganisationsFiltersKeys.ACCOUNT_STATUS,
+    OrganisationsFiltersKeys.SRO_STATUS,
+    OrganisationsFiltersKeys.SYSTEM_APPROVED,
+  ],
+}: OrganisationsFiltersProps) {
+  const t = useTranslations(NAMESPACE_TRANSLATIONS_FILTERS);
+  const tOrganisations = useTranslations(NAMESPACE_TRANSLATIONS_ORGANISATIONS);
   const tApplication = useTranslations(NAMESPACE_TRANSLATIONS_APPLICATION);
 
-  const hasFilter = (key: OrganisationsFilterKeys) => {
+  const hasFilter = (key: OrganisationsFiltersKeys) => {
     return includeFilters.includes(key);
   };
+
+  const onFilter = (key: string, value: string) =>
+    handleFieldToggle(key, [value, undefined]);
+
+  const clearFilter = (key: OrganisationsFiltersKeys) =>
+    handleFieldToggle(key, [undefined, undefined]);
 
   const { actions: sortActions } = useSort({
     queryParams,
     items: [
       {
-        label: t("sortByOrganisationName"),
+        label: tApplication("organisationName"),
         key: "organisation_name",
       },
     ],
@@ -56,38 +79,56 @@ export default function OrganisationsFilters({
       handleSortToggle(key, direction),
   });
 
-  const { actions: filterStatusActions } = useFilter({
+  const { actions: filterAccountStatusActions } = useFilter({
+    queryParams,
+    items: ACCOUNT_STATUSES.map(status => ({
+      label: tApplication(`Status.${status}`),
+      key: OrganisationsFiltersKeys.ACCOUNT_STATUS,
+      value: status,
+    })),
+    onFilter,
+  });
+
+  const { actions: filterSroStatusActions } = useFilter({
+    queryParams,
+    items: Object.values(OrganisationSroStatus).map(status => ({
+      label: tApplication(`Status.${getSroStatus({ sro_status: status })}`),
+      key: OrganisationsFiltersKeys.SRO_STATUS,
+      value: status,
+    })),
+    onFilter,
+  });
+
+  const { actions: filterSystemApprovedActions } = useFilter({
     queryParams,
     items: [
       {
-        label: t("Status.approved"),
-        key: "filter",
-        value: Status.PROJECT_APPROVED,
+        label: tApplication(`Status.${Status.ORGANISATION_VALIDATED}`),
+        key: OrganisationsFiltersKeys.SYSTEM_APPROVED,
+        value: SystemApproved.APPROVED,
       },
       {
-        label: t("Status.pending"),
-        key: "filter",
-        value: Status.PROJECT_PENDING,
-      },
-      {
-        label: t("Status.completed"),
-        key: "filter",
-        value: Status.PROJECT_COMPLETED,
+        label: tApplication(`Status.${Status.ORGANISATION_NOT_VALIDATED}`),
+        key: OrganisationsFiltersKeys.SYSTEM_APPROVED,
+        value: SystemApproved.NOT_APPROVED,
       },
     ],
-    onFilter: (key: string, value: string) =>
-      handleFieldToggle(key, [value, ""]),
+    onFilter,
   });
 
   return (
     <SearchBar
-      onClear={resetQueryParams}
-      onSearch={(text: string) => {
+      onClear={() => {
         updateQueryParams({
-          "name[]": text,
+          "organisation_name[]": undefined,
         });
       }}
-      placeholder={t("searchPlaceholder")}>
+      onSearch={(text: string) => {
+        updateQueryParams({
+          "organisation_name[]": text,
+        });
+      }}
+      placeholder={tOrganisations("searchPlaceholder")}>
       <SearchActionMenu
         actions={sortActions}
         startIcon={<SortIcon />}
@@ -95,13 +136,37 @@ export default function OrganisationsFilters({
         renderedDefaultLabel={tApplication("sortBy")}
         aria-label={tApplication("sortBy")}
       />
-      {hasFilter(OrganisationsFilterKeys.STATUS) && (
+      {hasFilter(OrganisationsFiltersKeys.ACCOUNT_STATUS) && (
         <SearchActionMenu
-          actions={filterStatusActions}
+          id="filterByAccountStatus"
+          actions={filterAccountStatusActions}
+          onClear={() => clearFilter(OrganisationsFiltersKeys.ACCOUNT_STATUS)}
           startIcon={<FilterIcon />}
           renderedSelectedLabel={tApplication("filteredBy")}
-          renderedDefaultLabel={t("Search.filterByProjectStatus")}
-          aria-label={t("Search.filterByProjectStatus")}
+          renderedDefaultLabel={t("filterByAccountStatus")}
+          aria-label={t("filterByAccountStatus")}
+        />
+      )}
+      {hasFilter(OrganisationsFiltersKeys.SRO_STATUS) && (
+        <SearchActionMenu
+          id="filterBySroStatus"
+          actions={filterSroStatusActions}
+          onClear={() => clearFilter(OrganisationsFiltersKeys.SRO_STATUS)}
+          startIcon={<FilterIcon />}
+          renderedSelectedLabel={tApplication("filteredBy")}
+          renderedDefaultLabel={t("filterBySroStatus")}
+          aria-label={t("filterBySroStatus")}
+        />
+      )}
+      {hasFilter(OrganisationsFiltersKeys.SYSTEM_APPROVED) && (
+        <SearchActionMenu
+          id="filterBySystemApproved"
+          actions={filterSystemApprovedActions}
+          onClear={() => clearFilter(OrganisationsFiltersKeys.SYSTEM_APPROVED)}
+          startIcon={<FilterIcon />}
+          renderedSelectedLabel={tApplication("filteredBy")}
+          renderedDefaultLabel={t("filterByApproved")}
+          aria-label={t("filterByApproved")}
         />
       )}
     </SearchBar>

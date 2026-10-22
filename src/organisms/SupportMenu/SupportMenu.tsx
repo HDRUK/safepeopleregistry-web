@@ -3,7 +3,6 @@
 import {
   BookIcon,
   CodeIcon,
-  DiversityIcon,
   MailIcon,
   MessageIcon,
   QuizIcon,
@@ -67,11 +66,6 @@ export default function SupportMenu() {
       icon: <CodeIcon fontSize="small" />,
       label: t("supportDeveloperResources"),
       href: ROUTES.developerResources.path,
-    },
-    {
-      icon: <DiversityIcon fontSize="small" />,
-      label: t("supportGetInvolved"),
-      href: ROUTES.getInvolved.path,
     },
     {
       icon: <MessageIcon fontSize="small" />,

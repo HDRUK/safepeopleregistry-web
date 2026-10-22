@@ -7,12 +7,12 @@ enum PageTabs {
 }
 
 enum DetailsPageSubTabs {
-  NAME_AND_SRO = "name-and-sro",
-  ADDRESS = "address",
+  NAME_AND_ADDRESS = "name-and-address",
   ORGANISATION_DETAILS = "organisation-details",
   DIGITAL_IDENTIFIERS = "digital-identifiers",
   SECURITY_COMPLIANCE = "security-compliance",
   SSO = "sso",
+  SRO = "sro",
 }
 
 enum UserAdminPageSubTabs {

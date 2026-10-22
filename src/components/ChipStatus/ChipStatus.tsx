@@ -50,6 +50,16 @@ const getColors = (indexColor: string, theme: Theme) => {
       color: "#fff",
       backgroundColor: theme.palette[`${indexColor}-700`].main,
     };
+  } else if (indexColor === "primary") {
+    colors = {
+      color: "#fff",
+      backgroundColor: theme.palette.primary.main,
+    };
+  } else if (indexColor === "neutral-light") {
+    colors = {
+      color: "#000",
+      backgroundColor: theme.palette["neutral-100"].main,
+    };
   } else if (indexColor === "error") {
     colors = {
       color: "#fff",

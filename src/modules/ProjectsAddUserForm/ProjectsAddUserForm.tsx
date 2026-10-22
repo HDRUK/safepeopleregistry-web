@@ -102,7 +102,7 @@ export default function ProjectsAddUserForm({
     <>
       <FormModalBody>
         <SearchBar
-          disabled={!!invitedUsers.length}
+          disabled={showInvitedUsers}
           onClear={resetQueryParams}
           onSearch={(text: string) => {
             updateQueryParams({
@@ -119,7 +119,7 @@ export default function ProjectsAddUserForm({
                     badgeContent={invitedUsers.length}
                     color="primary"
                     sx={{
-                      ml: 1,
+                      ml: 2,
                     }}
                   />
                 }>
@@ -137,10 +137,7 @@ export default function ProjectsAddUserForm({
           errorMessage={
             <ErrorMessage t={t} tKey="professionalRegistrationsErrorMessage" />
           }
-          total={total}
-          page={page}
-          setPage={setPage}
-          last_page={last_page}
+          {...(!showInvitedUsers && { total, page, setPage, last_page })}
         />
       </FormModalBody>
       <FormActions>

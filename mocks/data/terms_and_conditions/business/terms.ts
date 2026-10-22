@@ -58,7 +58,7 @@ export const safePeopleRegistryTermsSection3 = `
 
 ## 3.2 Subject to these Terms, you may access and use the Safe People Registry for the following purposes:
 
-### 3.2.1 to populate data fields in your Safe People Registry profile such as data in relation to your organisation's name and address, your organisation identifiers, your data security compliance, details of your nominated Senior Responsible Officer ("SRO") and any of your authorised delegates
+### 3.2.1 to populate data fields in your Safe People Registry profile such as data in relation to your organisation's name and address, your organisation identifiers, your data security compliance, details of an optional nominated Senior Responsible Officer ("SRO") and any of your authorised delegates
 
 ### 3.2.2 to view the data that you have provided in your Account;
 

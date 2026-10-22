@@ -2,8 +2,11 @@ import {
   getProjectOrganisationStatus,
   getOrganisationStatus,
 } from "@/app/actions/custodians";
+import deleteOrganisationDelegate from "@/app/actions/organisations/deleteOrganisationDelegate";
 import getOrganisation from "@/app/actions/organisations/getOrganisation";
 import getOrganisationDelegates from "@/app/actions/organisations/getOrganisationDelegates";
+import getOrganisationSroDeclaration from "./getOrganisationSroDeclaration";
+import getOrganisationSroDeclarationDetails from "./getOrganisationSroDeclarationDetails";
 import getOrganisationIdvt from "@/app/actions/organisations/getOrganisationIdvt";
 import getOrganisationRegistries from "@/app/actions/organisations/getOrganisationRegistries";
 import getOrganisations from "@/app/actions/organisations/getOrganisations";
@@ -17,13 +20,20 @@ import postOrganisationInvite from "@/app/actions/organisations/postOrganisation
 import postOrganisationInviteUser from "@/app/actions/organisations/postOrganisationInviteUser";
 import postOrganisationNewAccount from "@/app/actions/organisations/postOrganisationNewAccount";
 import postOrganisationUnclaimed from "@/app/actions/organisations/postOrganisationUnclaimed";
+import postOrganisationUnclaimedBeforeSuperadminInvitation from "@/app/actions/organisations/postOrganisationUnclaimedBeforeSuperadminInvitation";
 import putOrganisation from "@/app/actions/organisations/putOrganisation";
 import putOrganisationApproved from "@/app/actions/organisations/putOrganisationApproved";
+import putOrganisationSro from "@/app/actions/organisations/putOrganisationSro";
+import postOrganisationSroInvite from "@/app/actions/organisations/postOrganisationSroInvite";
+import postOrganisationSroResendInvite from "@/app/actions/organisations/postOrganisationSroResendInvite";
 import { postPermissions } from "@/app/actions/users";
 
 export {
+  deleteOrganisationDelegate,
   postPermissions,
   getSponsoredProjects,
+  getOrganisationSroDeclaration,
+  getOrganisationSroDeclarationDetails,
   getOrganisationUsers,
   postOrganisationInviteUser,
   postOrganisationInvite,
@@ -32,7 +42,11 @@ export {
   postOrganisation,
   postOrganisationNewAccount,
   putOrganisationApproved,
+  putOrganisationSro,
+  postOrganisationSroInvite,
+  postOrganisationSroResendInvite,
   postOrganisationUnclaimed,
+  postOrganisationUnclaimedBeforeSuperadminInvitation,
   getOrganisationRegistries,
   putOrganisation,
   getOrganisationIdvt,

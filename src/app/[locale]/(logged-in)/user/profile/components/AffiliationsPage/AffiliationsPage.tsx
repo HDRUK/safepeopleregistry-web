@@ -34,6 +34,7 @@ import { ResearcherAffiliation } from "@/types/application";
 import { QueryState } from "@/types/form";
 import { formatDBDateTime } from "@/utils/date";
 import { getCombinedQueryState } from "@/utils/query";
+import { getOrganisationConflictErrorKey } from "@/utils/organisationConflictError";
 import { renderErrorToString } from "@/utils/translations";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
@@ -48,6 +49,7 @@ import AffiliationsForm from "../AffiliationsForm";
 
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";
 const NAMESPACE_TRANSLATION_AFFILIATIONS = "Affiliations";
+const NAMESPACE_TRANSLATION_APPLICATION = "Application";
 
 type AffiliationsPageProps = {
   queryState: QueryState<ResearcherAffiliation>;
@@ -58,6 +60,7 @@ export default function AffiliationsPage({
 }: AffiliationsPageProps) {
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
   const t = useTranslations(NAMESPACE_TRANSLATION_AFFILIATIONS);
+  const tApplication = useTranslations(NAMESPACE_TRANSLATION_APPLICATION);
   const router = useRouter();
   const { showAlert, hideAlert } = useAlertModal();
 
@@ -98,7 +101,22 @@ export default function AffiliationsPage({
     queryState: inviteQueryState,
     handleSubmit: handleCreateAndInviteOrganisation,
     mutateOrganisationInvite,
-  } = useOrganisationInvite();
+  } = useOrganisationInvite({
+    onError: (error: unknown) => {
+      const conflictErrorKey = getOrganisationConflictErrorKey(error);
+
+      showAlert({
+        severity: "error",
+        text: conflictErrorKey
+          ? renderErrorToString(tApplication, conflictErrorKey)
+          : renderErrorToString(tProfile, "affiliationActionError"),
+        confirmButtonText: tProfile("affiliationActionErrorButton"),
+        onConfirm: async () => {
+          hideAlert();
+        },
+      });
+    },
+  });
 
   const combinedQueryState = getCombinedQueryState(
     [inviteQueryState, postAffiliationQueryState, putAffiliationQueryState],
@@ -294,10 +312,15 @@ export default function AffiliationsPage({
       if (!organisation_id) {
         const invitePayload = {
           organisation_name: fields.organisation_name as string,
-          lead_applicant_email: fields.organisation_email as string,
+          lead_applicant_email: fields.organisation_email,
         };
         organisation_id =
           await handleCreateAndInviteOrganisation(invitePayload);
+
+        // The Organisation couldn't be created, so there is nothing to affiliate
+        // to. onError has already told the user; saving the affiliation anyway
+        // would send organisation_id: undefined and reject unhandled.
+        if (!organisation_id) return;
       }
 
       const {

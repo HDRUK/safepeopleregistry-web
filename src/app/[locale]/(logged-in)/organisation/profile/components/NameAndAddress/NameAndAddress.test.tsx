@@ -1,6 +1,6 @@
 import { mockedOrganisation } from "@/mocks/data/organisation";
 import { fireEvent, render, screen, waitFor } from "@/utils/testUtils";
-import NameAndSRO from "./NameAndSRO";
+import NameAndAddress from "./NameAndAddress";
 
 const putProps = {
   isError: false,
@@ -14,19 +14,8 @@ jest.mock("../../hooks/useUpdateOrganisation", () => ({
   default: () => putProps,
 }));
 
-const mutateUserMock = jest.fn().mockResolvedValue(null);
-jest.mock("@tanstack/react-query", () => {
-  const actual = jest.requireActual("@tanstack/react-query");
-  return {
-    ...actual,
-    useMutation: jest.fn(() => ({
-      mutateAsync: mutateUserMock,
-    })),
-  };
-});
-
 function setupTest() {
-  return render(<NameAndSRO />);
+  return render(<NameAndAddress />);
 }
 
 const userData = {
@@ -39,17 +28,24 @@ const userData = {
 };
 
 function getAllInputs() {
-  return [/Organisation name/];
+  return [
+    /Organisation name/,
+    /Address 1/,
+    /Address 2/,
+    /Town/,
+    /County/,
+    /Country/,
+    /Postcode/,
+  ];
 }
 
 const organisation = mockedOrganisation();
 
-describe("<NameAndSRO />", () => {
+describe("<NameAndAddress />", () => {
   beforeEach(() => {
     mockUseStore({
       config: { organisation, user: userData },
     });
-    mutateUserMock.mockClear();
     putProps.onSubmit.mockClear();
   });
 
@@ -57,7 +53,7 @@ describe("<NameAndSRO />", () => {
     jest.clearAllMocks();
   });
 
-  it("renders all name/SRO fields", () => {
+  it("renders all name/address fields", () => {
     setupTest();
 
     const inputs = getAllInputs();
@@ -70,22 +66,29 @@ describe("<NameAndSRO />", () => {
   it("submits the form when values are filled", async () => {
     setupTest();
 
-    const form = await screen.findByRole("form", { name: "Name and SRO" });
+    const form = await screen.findByRole("form", { name: "Name & Address" });
     fireEvent.submit(form);
 
-    const { organisation_name, sro_profile_uri } = organisation;
+    const {
+      organisation_name,
+      address_1,
+      address_2,
+      county,
+      country,
+      town,
+      postcode,
+    } = organisation;
 
     await waitFor(() => {
       expect(putProps.onSubmit).toHaveBeenCalledWith({
         organisation_name,
-        sro_profile_uri,
+        address_1,
+        address_2,
+        county,
+        country,
+        town,
+        postcode,
       });
-    });
-
-    await waitFor(() => {
-      expect(mutateUserMock).toHaveBeenCalledWith(
-        expect.objectContaining({ is_sro: true })
-      );
     });
   });
 
@@ -94,7 +97,7 @@ describe("<NameAndSRO />", () => {
 
     clearInputsByLabelText(getAllInputs());
 
-    const form = await screen.findByRole("form", { name: "Name and SRO" });
+    const form = await screen.findByRole("form", { name: "Name & Address" });
     fireEvent.submit(form);
 
     await waitFor(() => {

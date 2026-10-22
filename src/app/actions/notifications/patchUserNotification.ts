@@ -2,7 +2,7 @@
 
 import { NotificationPutType } from "@/services/notifications/types";
 import { handleJsonResponse } from "@/services/requestHelpers";
-import { putRequest } from "@/services/requests";
+import { patchRequest } from "@/services/requests";
 import { ResponseOptions } from "@/types/requests";
 
 export default async (
@@ -11,7 +11,7 @@ export default async (
   type: NotificationPutType,
   options: ResponseOptions
 ) => {
-  const response = await putRequest(
+  const response = await patchRequest(
     `/users/${userId}/notifications/${notificationId}/${type}`,
     {}
   );

@@ -1,9 +1,10 @@
 import { SearchParams } from "@/types/query";
-import { ReactNode, useMemo } from "react";
+import { useMemo } from "react";
 
 interface UseFilterProps {
   items: {
-    label: ReactNode;
+    // A string, as SearchActionMenu uses it as the option's value and aria-label.
+    label: string;
     key: string;
     value: string;
   }[];

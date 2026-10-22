@@ -10,11 +10,13 @@ const NAMESPACE_TRANSLATION_PROFILE = "Profile";
 
 export type ProfileNavigationFooterProps = {
   nextStepText?: string;
+  submitButtonText?: string;
   isLoading?: boolean;
   previousHref?: string;
   nextHref?: string;
   isDisabled?: boolean;
   isLastStep?: boolean;
+  hideSubmitButton?: boolean;
   onClick?: () => void;
 };
 
@@ -22,18 +24,22 @@ export default function ProfileNavigationFooter({
   previousHref,
   nextHref,
   nextStepText,
+  submitButtonText,
   isLoading,
   isDisabled = false,
   isLastStep = false,
+  hideSubmitButton = false,
   onClick,
 }: ProfileNavigationFooterProps) {
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
 
-  const nextButtonText = isLastStep
-    ? tProfile("finishLinkText")
-    : nextStepText
-      ? tProfile("submitAndContinueButton")
-      : tProfile("submitButton");
+  const nextButtonText = submitButtonText
+    ? submitButtonText
+    : isLastStep
+      ? tProfile("finishLinkText")
+      : nextStepText
+        ? tProfile("submitAndContinueButton")
+        : tProfile("submitButton");
 
   return (
     <Grid container spacing={2} alignItems="center" sx={{ width: "100%" }}>
@@ -71,23 +77,24 @@ export default function ProfileNavigationFooter({
       <Grid
         size={{ xs: 3 }}
         sx={{ display: "flex", justifyContent: "flex-end" }}>
-        {!nextHref ? (
-          <ButtonSave
-            isLoading={isLoading}
-            sx={{ my: 1 }}
-            disabled={isDisabled}
-            onClick={onClick && (() => onClick())}>
-            {nextButtonText}
-          </ButtonSave>
-        ) : (
-          <ButtonSave
-            href={nextHref}
-            component="a"
-            sx={{ my: 1 }}
-            disabled={isDisabled}>
-            {nextButtonText}
-          </ButtonSave>
-        )}
+        {!hideSubmitButton &&
+          (!nextHref ? (
+            <ButtonSave
+              isLoading={isLoading}
+              sx={{ my: 1 }}
+              disabled={isDisabled}
+              onClick={onClick && (() => onClick())}>
+              {nextButtonText}
+            </ButtonSave>
+          ) : (
+            <ButtonSave
+              href={nextHref}
+              component="a"
+              sx={{ my: 1 }}
+              disabled={isDisabled}>
+              {nextButtonText}
+            </ButtonSave>
+          ))}
       </Grid>
     </Grid>
   );

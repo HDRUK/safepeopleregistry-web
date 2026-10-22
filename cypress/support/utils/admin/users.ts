@@ -19,10 +19,33 @@ const hasUser = (pendingInvite: PendingInvite, status: Status) => {
   });
 };
 
+const hasOrganisationInvite = (leadApplicantEmail: string) => {
+  cy.contains("Invites").click();
+
+  cy.selectValue("#filterByUser", "Organisations");
+  cy.get("#searchByText").clear().type(leadApplicantEmail);
+
+  cy.getResultsRowByValue(leadApplicantEmail).within(() => {
+    cy.contains("td", leadApplicantEmail);
+    cy.contains("td", getStatus(Status.INVITED));
+  });
+};
+
 const hasNoPendingInvites = () => {
   cy.contains("There are no pending invites for these search filters").should(
     "exist"
   );
+};
+
+// Asserts the explicit empty state rather than the absence of a row, so this
+// can't pass just because the table failed to render.
+const hasNoOrganisationInvite = (leadApplicantEmail: string) => {
+  cy.contains("Invites").click();
+
+  cy.selectValue("#filterByUser", "Organisations");
+  cy.get("#searchByText").clear().type(leadApplicantEmail);
+
+  hasNoPendingInvites();
 };
 
 const inviteUser = (invite: InviteUserFormValues) => {
@@ -40,4 +63,10 @@ const inviteUser = (invite: InviteUserFormValues) => {
   // cy.clickAlertModal("Close");
 };
 
-export { hasUser, hasNoPendingInvites, inviteUser };
+export {
+  hasUser,
+  hasNoOrganisationInvite,
+  hasNoPendingInvites,
+  hasOrganisationInvite,
+  inviteUser,
+};

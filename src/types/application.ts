@@ -1,4 +1,4 @@
-import { Status } from "@/consts/application";
+import { OrganisationSroStatus, Status } from "@/consts/application";
 import { FileStatus, FileType } from "@/consts/files";
 import { RequestFrequency } from "@/consts/projects";
 import {
@@ -66,6 +66,9 @@ interface File {
   created_at: string;
   updated_at: string;
 }
+
+// What the API shares about a file outside its owner's records: no path.
+type FileDetails = Omit<File, "path">;
 
 interface Sector {
   name: string;
@@ -209,7 +212,8 @@ type User = WithModelState<{
   orcid_scanning_completed_at: string | null;
   created_at: string;
   feed_source?: UserFeedSource;
-  unclaimed?: number;
+  // The API casts users.unclaimed to a boolean (organisations.unclaimed is still a number).
+  unclaimed?: boolean;
   registry: {
     digi_ident: string;
     files?: File[];
@@ -220,6 +224,8 @@ type User = WithModelState<{
     identity?: Identity;
   };
   is_delegate: number;
+  // The API casts is_sro to a boolean; is_delegate is not cast, and we plan to remove it in a PR soon.
+  is_sro: boolean;
   departments?: Department[];
   role?: string;
   location?: string;
@@ -228,6 +234,14 @@ type User = WithModelState<{
   t_and_c_agreed?: boolean;
   invited_by?: User;
 }>;
+
+// Only invite_sent_at is returned from the invitation; its code stays private to the invitee.
+type PendingSro = User & {
+  pending_sro_invite?: {
+    invite_sent_at: string;
+  };
+};
+
 interface AddressFields {
   postcode?: string;
   address_1?: string;
@@ -311,8 +325,15 @@ type Organisation = OrganisationIdvt &
     organisation_size?: number;
     project?: WithModelState<ResearcherProject>;
     system_approved?: boolean;
+    // Only in the organisations index response.
+    sro_status?: OrganisationSroStatus;
     sro_profile_uri?: string;
     sro_officer?: User;
+    claimed_sro?: User | null;
+    // The invited SRO who has not yet claimed their account. Only returned by GET /organisations/{id}.
+    pending_sro?: PendingSro | null;
+    // Only returned by GET /organisations/{id}.
+    has_claimed_sro?: boolean;
     files?: File[];
     ods_id: string;
     ico_registration_id: string;
@@ -609,6 +630,7 @@ export type {
   CustodianUser,
   Department,
   File,
+  FileDetails,
   Identity,
   ModelState,
   Organisation,
@@ -638,6 +660,7 @@ export type {
   SystemConfig,
   Translations,
   User,
+  PendingSro,
   UserPermission,
   UserProfileCompletionFields,
   UserProfileCompletionJson,

@@ -11,15 +11,19 @@ import { MAX_FORM_WIDTH } from "../../consts/form";
 import { InviteOrganisationFormValues, MutationState } from "../../types/form";
 
 export type InviteOrganisationFormProps = WithTranslations<{
-  onSubmit: (organisation: InviteOrganisationFormValues) => void;
+  onSubmit: (
+    organisation: InviteOrganisationFormValues
+  ) => void | Promise<void>;
   onCancel: () => void;
   queryState: MutationState;
+  defaultValues?: Partial<InviteOrganisationFormValues>;
 }>;
 
 export default function InviteOrganisationForm({
   onSubmit,
   onCancel,
   queryState,
+  defaultValues,
   t,
 }: InviteOrganisationFormProps) {
   const schema = useMemo(
@@ -40,6 +44,7 @@ export default function InviteOrganisationForm({
     defaultValues: {
       organisation_name: "",
       lead_applicant_email: "",
+      ...defaultValues,
     },
   };
 
