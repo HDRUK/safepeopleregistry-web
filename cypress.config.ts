@@ -9,9 +9,9 @@ dotenv.config();
 // Locally, with E2E_SHARD unset, everything runs in this order.
 //  1 - SRO-disabled specs, admin and custodian configuration
 //  2 - admin/sro approves the test Organisation (shared with the unapproved
-//      Organisation login), which unlocks its Users and Projects tabs, and
-//      custodians/projects creates "Test project", which goToProjectUsersList()
-//      opens by default
+//      Organisation login), which unlocks its Users and Projects tabs and
+//      lets addNewProject() pick it as sponsor, and custodians/projects
+//      creates "Test project", which goToProjectUsersList() opens by default
 //  3 - User journeys, plus Organisation pages that don't need SRO approval
 //  4 - Invite and registration journeys
 const SPECS: [spec: string, shard: number][] = [
@@ -40,7 +40,7 @@ const SPECS: [spec: string, shard: number][] = [
   ["auth/redirects.cy.ts", 3],
   ["custodians/mandatoryChecksOnProjectUserPage.cy.ts", 2],
   ["custodians/manualChecksConfiguration.cy.ts", 1],
-  ["users/projects.cy.ts", 3],
+  ["users/projects.cy.ts", 2],
 
   ["users/training.cy.ts", 3],
   ["users/professionalRegistrations.cy.ts", 3],
