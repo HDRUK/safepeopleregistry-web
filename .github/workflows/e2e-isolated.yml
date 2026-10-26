@@ -385,9 +385,9 @@ jobs:
           headless: true
           install: false
 
-      - name: Upload Cypress video
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: cypress-video
-          path: cypress/videos
+      # - name: Upload Cypress video
+      #   uses: actions/upload-artifact@v4
+      #   if: always()
+      #   with:
+      #     name: cypress-video
+      #     path: cypress/videos

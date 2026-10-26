@@ -86,7 +86,7 @@ export default defineConfig({
     viewportWidth: 1920,
     viewportHeight: 1080,
     numTestsKeptInMemory: 20,
-    video: true,
+    video: false,
     videosFolder: "cypress/videos",
     specPattern: [
       // First in the run: each toggles SroRequirementEnabled off and restores
