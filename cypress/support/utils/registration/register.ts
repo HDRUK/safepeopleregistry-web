@@ -43,9 +43,7 @@ function registerAndLogin(registration: RegistrationValues) {
     });
 
     // cy.contains("a", /Click here to proceed/i).click();
-    cy.get("#password-new").type(registration.password);
-    cy.get("#password-confirm").type(registration.password_confirm);
-    cy.get("#kc-submit").click();
+    setKeycloakPassword(registration);
 
     cy.login(registration.email, registration.password);
 
@@ -58,6 +56,16 @@ function registerAndLogin(registration: RegistrationValues) {
 
     acceptTermsAndConditions();
   });
+}
+
+// The email verification link lands on Keycloak's "Set your password" page.
+function setKeycloakPassword(user: {
+  password: string;
+  password_confirm: string;
+}) {
+  cy.get("#password-new").type(user.password);
+  cy.get("#password-confirm").type(user.password_confirm);
+  cy.get("#kc-submit").click();
 }
 
 function openUserTermsAndConditions() {
@@ -94,7 +102,16 @@ function registerKeycloak(user: {
 }) {
   cy.get("#firstName").clear().type(user.first_name);
   cy.get("#lastName").clear().type(user.last_name);
-  cy.get("#email").clear().type(user.email);
+
+  // Invite links pass login_hint, which the theme uses to prefill the email
+  // and make it readonly. Manual sign up leaves it empty and editable.
+  cy.get("#email").then($email => {
+    if ($email.prop("readOnly")) {
+      cy.wrap($email).should("have.value", user.email);
+    } else {
+      cy.wrap($email).clear().type(user.email);
+    }
+  });
   // cy.get("#password").clear().type(user.password);
   // cy.get("#password-confirm").clear().type(user.password_confirm);
 
@@ -124,4 +141,5 @@ export {
   openCustodianTermsAndConditions,
   registerAndLogin,
   ignoreKeycloakPasswordValidatorError,
+  setKeycloakPassword,
 };

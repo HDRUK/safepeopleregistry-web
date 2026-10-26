@@ -9,6 +9,7 @@ import {
   ignoreKeycloakPasswordValidatorError,
   openUserTermsAndConditions,
   registerKeycloak,
+  setKeycloakPassword,
 } from "cypress/support/utils/registration/register";
 
 const registration = mockedRegistration();
@@ -88,6 +89,8 @@ describe("Register user journey", () => {
     actionMessage(EMAIL_REGISTER_VERIFICATION_LABEL, {
       to: registration.email,
     });
+
+    setKeycloakPassword(registration);
 
     shouldBeUserProfile();
   });
