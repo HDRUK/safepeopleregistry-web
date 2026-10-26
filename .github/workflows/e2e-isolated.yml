@@ -150,10 +150,16 @@ env:
   isTest: "true"
 
 jobs:
-  e2e-tests:
+  e2e-shard:
     if: ${{ (github.event_name != 'pull_request' || (github.event.pull_request.state == 'open' && github.event.pull_request.draft == false)) && github.actor != 'dependabot[bot]' }}
     runs-on: ubuntu-latest
     environment: cypress_dev
+    # Each shard brings up its own stack and runs the specs assigned to it in
+    # cypress.config.ts. Keep the shard list in sync with that file.
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
 
     services:
       mysql:
@@ -221,7 +227,16 @@ jobs:
       - name: Checkout web
         uses: actions/checkout@v4
 
+      - name: Cache Keycloak SQL file
+        id: cache-keycloak-sql
+        uses: actions/cache@v4
+        with:
+          path: ./keycloak.sql
+          key: ${{ runner.os }}-keycloak-sql-v1
+
+      # gcloud is only needed to download the Keycloak SQL file on a cache miss
       - name: Google Auth
+        if: steps.cache-keycloak-sql.outputs.cache-hit != 'true'
         id: auth
         uses: "google-github-actions/auth@v2"
         with:
@@ -230,14 +245,8 @@ jobs:
           service_account: "${{ secrets.WIF_SERVICE_ACCOUNT }}"
 
       - name: Setup gcloud cli
+        if: steps.cache-keycloak-sql.outputs.cache-hit != 'true'
         uses: "google-github-actions/setup-gcloud@v2"
-
-      - name: Cache Keycloak SQL file
-        id: cache-keycloak-sql
-        uses: actions/cache@v4
-        with:
-          path: ./keycloak.sql
-          key: ${{ runner.os }}-keycloak-sql-v1
 
       - name: Download Keycloak SQL file
         if: steps.cache-keycloak-sql.outputs.cache-hit != 'true'
@@ -246,7 +255,8 @@ jobs:
 
       - name: Update Keycloak DB
         run: |
-          sudo apt-get update && sudo apt-get install -y postgresql-client
+          # psql ships with the ubuntu-latest image; only install it if missing
+          command -v psql >/dev/null || { sudo apt-get update && sudo apt-get install -y postgresql-client; }
 
           until pg_isready -h localhost -p 5432; do
             echo "Waiting for Postgres service..."
@@ -265,12 +275,12 @@ jobs:
           ref: main
           token: ${{ steps.generate-deployment-token.outputs.token }}
 
+      # Builds and starts in the background so the API and web setup below run
+      # alongside it. "Wait for Keycloak" blocks on it before the tests start.
       - name: Build and Start Keycloak
         working-directory: ./hdruk-keycloak
         run: |
-          docker build -t keycloak .
-
-          docker run -d \
+          nohup sh -c 'docker build -t keycloak . && docker run -d \
             --name keycloak \
             -p 8080:8080 \
             --add-host=host.docker.internal:host-gateway \
@@ -281,23 +291,8 @@ jobs:
             -e KC_BOOTSTRAP_ADMIN_USERNAME=admin \
             -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin \
             keycloak \
-            start-dev --health-enabled=true --http-enabled=true --hostname-strict=false
-
-      - name: Wait for Keycloak
-        run: |
-          echo "Waiting for Keycloak to be ready..."
-          # Retries for up to 60 seconds
-          for _ in {1..30}; do
-            if curl -s http://localhost:8080/health/live; then
-              echo "Keycloak is up!"
-              exit 0
-            fi
-            echo "Still waiting..."
-            sleep 2
-          done
-          echo "Keycloak failed to start in time"
-          docker logs keycloak
-          exit 1
+            start-dev --health-enabled=true --http-enabled=true --hostname-strict=false' \
+            > "$GITHUB_WORKSPACE/keycloak-start.log" 2>&1 &
 
       - name: Checkout api
         uses: actions/checkout@v4
@@ -355,9 +350,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
 
       - name: Install Node deps
-        run: npm install
+        run: npm ci
 
       - name: Cache Cypress binary
         uses: actions/cache@v4
@@ -374,16 +370,35 @@ jobs:
         run: npm run build
 
       - name: Start Next.js
+        run: nohup npm start > next.log 2>&1 &
+
+      - name: Wait for Keycloak
         run: |
-          nohup npm start > next.log 2>&1 &
-          sleep 10
+          echo "Waiting for Keycloak to be ready..."
+          # Retries for up to 3 minutes, as the image may still be building
+          for _ in {1..90}; do
+            if curl -s http://localhost:8080/health/live; then
+              echo "Keycloak is up!"
+              exit 0
+            fi
+            echo "Still waiting..."
+            sleep 2
+          done
+          echo "Keycloak failed to start in time"
+          cat keycloak-start.log
+          docker logs keycloak
+          exit 1
 
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
+        env:
+          E2E_SHARD: ${{ matrix.shard }}
         with:
           browser: chrome
           headless: true
           install: false
+          wait-on: "http://localhost:3000/en"
+          wait-on-timeout: 120
 
       # - name: Upload Cypress video
       #   uses: actions/upload-artifact@v4
@@ -391,3 +406,17 @@ jobs:
       #   with:
       #     name: cypress-video
       #     path: cypress/videos
+
+  # Branch protection requires a check named "e2e-tests", so this reports the
+  # combined result of the shards under that name.
+  e2e-tests:
+    needs: e2e-shard
+    if: ${{ always() && needs.e2e-shard.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check shard results
+        run: |
+          if [ "${{ needs.e2e-shard.result }}" != "success" ]; then
+            echo "One or more e2e shards did not pass: ${{ needs.e2e-shard.result }}"
+            exit 1
+          fi

@@ -3,6 +3,65 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+// Run order, and the CI shard each spec runs in. CI runs each shard in its
+// own job against a freshly seeded stack, so specs that depend on state left
+// behind by another spec must share its shard (a shard keeps this order).
+// Locally, with E2E_SHARD unset, everything runs in this order.
+//  1 - SRO-disabled specs, admin and custodian configuration
+//  2 - admin/sro approves the test Organisation (shared with the unapproved
+//      Organisation login), which unlocks its Users and Projects tabs, and
+//      custodians/projects creates "Test project", which goToProjectUsersList()
+//      opens by default
+//  3 - User journeys, plus Organisation pages that don't need SRO approval
+//  4 - Invite and registration journeys
+const SPECS: [spec: string, shard: number][] = [
+  // First in the run: each toggles SroRequirementEnabled off and restores
+  // it afterwards, and they need identities that later specs leave in a
+  // changed state. Self-contained - they create whatever data they need.
+  ["features/sroDisabledUserAffiliation.cy.ts", 1],
+  ["features/sroDisabledCustodianSponsor.cy.ts", 1],
+  ["features/sroDisabledCustodianUserInvite.cy.ts", 1],
+  ["features/sroDisabledSuperadminInvite.cy.ts", 1],
+  ["admin/features.cy.ts", 1],
+  ["admin/users.cy.ts", 1],
+  ["admin/sro.cy.ts", 2],
+  ["admin/emails.cy.ts", 1],
+  ["users/affiliations.cy.ts", 3],
+  ["organisations/delegates.cy.ts", 3],
+  ["organisations/affiliations.cy.ts", 2],
+  ["organisations/projects.cy.ts", 2],
+  ["custodians/projects.cy.ts", 2],
+  ["custodians/projectsSafePeople.cy.ts", 2],
+  ["custodians/projectsOrganisations.cy.ts", 2],
+  ["custodians/projectsUsers.cy.ts", 2],
+  ["custodians/team.cy.ts", 3],
+  ["custodians/users.cy.ts", 2],
+  ["custodians/configuration.cy.ts", 1],
+  ["auth/redirects.cy.ts", 3],
+  ["custodians/mandatoryChecksOnProjectUserPage.cy.ts", 2],
+  ["custodians/manualChecksConfiguration.cy.ts", 1],
+  ["users/projects.cy.ts", 3],
+
+  ["users/training.cy.ts", 3],
+  ["users/professionalRegistrations.cy.ts", 3],
+  ["users/notifications.cy.ts", 3],
+  ["organisations/subsidiaries.cy.ts", 3],
+  ["custodians/webhooks.cy.ts", 3],
+
+  ["admin/inviteCustodian.cy.ts", 4],
+  ["admin/inviteOrganisation.cy.ts", 4],
+  ["admin/inviteUser.cy.ts", 4],
+  ["registration/registerUser.cy.ts", 4],
+  ["registration/registerOrganisation.cy.ts", 4],
+  ["registration/registerCustodian.cy.ts", 4],
+  // Must stay last. It signs out (clearing every cached session) and changes
+  // the test user's login email, submitting the revert without confirming
+  // it, so any loginUser() in a later spec fails to authenticate.
+  ["users/profile.cy.ts", 3],
+];
+
+const shard = Number(process.env.E2E_SHARD) || undefined;
+
 export default defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
@@ -88,51 +147,9 @@ export default defineConfig({
     numTestsKeptInMemory: 20,
     video: false,
     videosFolder: "cypress/videos",
-    specPattern: [
-      // First in the run: each toggles SroRequirementEnabled off and restores
-      // it afterwards, and they need identities that later specs leave in a
-      // changed state. Self-contained - they create whatever data they need.
-      "cypress/e2e/user-journeys/features/sroDisabledUserAffiliation.cy.ts",
-      "cypress/e2e/user-journeys/features/sroDisabledCustodianSponsor.cy.ts",
-      "cypress/e2e/user-journeys/features/sroDisabledCustodianUserInvite.cy.ts",
-      "cypress/e2e/user-journeys/features/sroDisabledSuperadminInvite.cy.ts",
-      "cypress/e2e/user-journeys/admin/features.cy.ts",
-      "cypress/e2e/user-journeys/admin/users.cy.ts",
-      "cypress/e2e/user-journeys/admin/sro.cy.ts",
-      "cypress/e2e/user-journeys/admin/emails.cy.ts",
-      "cypress/e2e/user-journeys/users/affiliations.cy.ts",
-      "cypress/e2e/user-journeys/organisations/delegates.cy.ts",
-      "cypress/e2e/user-journeys/organisations/affiliations.cy.ts",
-      "cypress/e2e/user-journeys/organisations/projects.cy.ts",
-      "cypress/e2e/user-journeys/custodians/projects.cy.ts",
-      "cypress/e2e/user-journeys/custodians/projectsSafePeople.cy.ts",
-      "cypress/e2e/user-journeys/custodians/projectsOrganisations.cy.ts",
-      "cypress/e2e/user-journeys/custodians/projectsUsers.cy.ts",
-      "cypress/e2e/user-journeys/custodians/team.cy.ts",
-      "cypress/e2e/user-journeys/custodians/users.cy.ts",
-      "cypress/e2e/user-journeys/custodians/configuration.cy.ts",
-      "cypress/e2e/user-journeys/auth/redirects.cy.ts",
-      "cypress/e2e/user-journeys/custodians/mandatoryChecksOnProjectUserPage.cy.ts",
-      "cypress/e2e/user-journeys/custodians/manualChecksConfiguration.cy.ts",
-      "cypress/e2e/user-journeys/users/projects.cy.ts",
-
-      "cypress/e2e/user-journeys/users/training.cy.ts",
-      "cypress/e2e/user-journeys/users/professionalRegistrations.cy.ts",
-      "cypress/e2e/user-journeys/users/notifications.cy.ts",
-      "cypress/e2e/user-journeys/organisations/subsidiaries.cy.ts",
-      "cypress/e2e/user-journeys/custodians/webhooks.cy.ts",
-
-      "cypress/e2e/user-journeys/admin/inviteCustodian.cy.ts",
-      "cypress/e2e/user-journeys/admin/inviteOrganisation.cy.ts",
-      "cypress/e2e/user-journeys/admin/inviteUser.cy.ts",
-      "cypress/e2e/user-journeys/registration/registerUser.cy.ts",
-      "cypress/e2e/user-journeys/registration/registerOrganisation.cy.ts",
-      "cypress/e2e/user-journeys/registration/registerCustodian.cy.ts",
-      // Must stay last. It signs out (clearing every cached session) and changes
-      // the test user's login email, submitting the revert without confirming
-      // it, so any loginUser() in a later spec fails to authenticate.
-      "cypress/e2e/user-journeys/users/profile.cy.ts",
-    ],
+    specPattern: SPECS.filter(
+      ([, specShard]) => !shard || specShard === shard
+    ).map(([spec]) => `cypress/e2e/user-journeys/${spec}`),
     // supportFile: "cypress/support/index.ts",
   },
 });
