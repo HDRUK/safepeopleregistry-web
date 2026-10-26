@@ -42,7 +42,7 @@ function registerAndLogin(registration: RegistrationValues) {
       to: registration.email,
     });
 
-    // cy.contains("a", /Click here to proceed/i).click();
+    cy.contains("a", /Click here to proceed/i).click();
     setKeycloakPassword(registration);
 
     cy.login(registration.email, registration.password);
