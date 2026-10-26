@@ -391,8 +391,19 @@ jobs:
       - name: Build Next.js
         run: npm run build
 
-      - name: Start Next.js
-        run: nohup npm start > next.log 2>&1 &
+      - name: Start Next.js and wait for readiness
+        run: |
+          nohup npm start > next.log 2>&1 &
+          for _ in {1..60}; do
+            if curl -s -o /dev/null http://localhost:3000/en; then
+              echo "Next.js is up!"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "Next.js failed to start in time"
+          cat next.log
+          exit 1
 
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
@@ -402,8 +413,6 @@ jobs:
           browser: chrome
           headless: true
           install: false
-          wait-on: "http://localhost:3000/en"
-          wait-on-timeout: 120
 
       # - name: Upload Cypress video
       #   uses: actions/upload-artifact@v4
