@@ -97,8 +97,6 @@ function registerKeycloak(user: {
   first_name: string;
   last_name: string;
   email: string;
-  // password: string;
-  // password_confirm: string;
 }) {
   cy.get("#firstName").clear().type(user.first_name);
   cy.get("#lastName").clear().type(user.last_name);
@@ -112,8 +110,6 @@ function registerKeycloak(user: {
       cy.wrap($email).clear().type(user.email);
     }
   });
-  // cy.get("#password").clear().type(user.password);
-  // cy.get("#password-confirm").clear().type(user.password_confirm);
 
   // cy.solveGoogleReCAPTCHA();
 
