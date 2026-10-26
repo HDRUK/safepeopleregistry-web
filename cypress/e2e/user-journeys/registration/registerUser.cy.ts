@@ -6,8 +6,10 @@ import { actionMessage } from "cypress/support/utils/mail";
 import {
   acceptTermsAndConditions,
   checkTermsAndConditionsContent,
+  ignoreKeycloakPasswordValidatorError,
   openUserTermsAndConditions,
   registerKeycloak,
+  setKeycloakPassword,
 } from "cypress/support/utils/registration/register";
 
 const registration = mockedRegistration();
@@ -78,6 +80,8 @@ describe("Register user journey", () => {
   it("Registers the user", () => {
     openUserTermsAndConditions();
 
+    ignoreKeycloakPasswordValidatorError();
+
     acceptTermsAndConditions();
 
     registerKeycloak(registration);
@@ -85,6 +89,8 @@ describe("Register user journey", () => {
     actionMessage(EMAIL_REGISTER_VERIFICATION_LABEL, {
       to: registration.email,
     });
+
+    setKeycloakPassword(registration);
 
     shouldBeUserProfile();
   });
