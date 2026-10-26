@@ -6,6 +6,7 @@ import { actionMessage } from "cypress/support/utils/mail";
 import {
   acceptTermsAndConditions,
   checkTermsAndConditionsContent,
+  ignoreKeycloakPasswordValidatorError,
   openUserTermsAndConditions,
   registerKeycloak,
 } from "cypress/support/utils/registration/register";
@@ -77,6 +78,8 @@ describe("Register user journey", () => {
 
   it("Registers the user", () => {
     openUserTermsAndConditions();
+
+    ignoreKeycloakPasswordValidatorError();
 
     acceptTermsAndConditions();
 

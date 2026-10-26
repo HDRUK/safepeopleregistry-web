@@ -3,6 +3,7 @@ import { ROUTES } from "@/consts/router";
 import { dataCy, signout } from "../common";
 import { actionMessage } from "../mail";
 import { EMAIL_REGISTER_VERIFICATION_LABEL } from "../data";
+import { KEYCLOAK_PASSWORD_VALIDATOR_ERROR } from "../../consts";
 
 function checkTermsAndConditionsContent(
   label: string | RegExp,
@@ -17,6 +18,18 @@ function checkTermsAndConditionsContent(
   });
 }
 
+// TEMPORARY: see KEYCLOAK_PASSWORD_VALIDATOR_ERROR. Errors thrown on the
+// Keycloak origin are only passed to handlers registered inside cy.origin.
+function ignoreKeycloakPasswordValidatorError() {
+  cy.origin(
+    Cypress.env("keycloakBaseUrl"),
+    { args: { source: KEYCLOAK_PASSWORD_VALIDATOR_ERROR.source } },
+    ({ source }) => {
+      cy.on("uncaught:exception", err => !new RegExp(source).test(err.message));
+    }
+  );
+}
+
 function registerAndLogin(registration: RegistrationValues) {
   registerKeycloak(registration);
 
@@ -29,7 +42,10 @@ function registerAndLogin(registration: RegistrationValues) {
       to: registration.email,
     });
 
-    cy.contains("a", /Click here to proceed/i).click();
+    // cy.contains("a", /Click here to proceed/i).click();
+    cy.get("#password-new").type(registration.password);
+    cy.get("#password-confirm").type(registration.password_confirm);
+    cy.get("#kc-submit").click();
 
     cy.login(registration.email, registration.password);
 
@@ -73,14 +89,14 @@ function registerKeycloak(user: {
   first_name: string;
   last_name: string;
   email: string;
-  password: string;
-  password_confirm: string;
+  // password: string;
+  // password_confirm: string;
 }) {
   cy.get("#firstName").clear().type(user.first_name);
   cy.get("#lastName").clear().type(user.last_name);
   cy.get("#email").clear().type(user.email);
-  cy.get("#password").clear().type(user.password);
-  cy.get("#password-confirm").clear().type(user.password_confirm);
+  // cy.get("#password").clear().type(user.password);
+  // cy.get("#password-confirm").clear().type(user.password_confirm);
 
   // cy.solveGoogleReCAPTCHA();
 
@@ -107,4 +123,5 @@ export {
   openOrganisationTermsAndConditions,
   openCustodianTermsAndConditions,
   registerAndLogin,
+  ignoreKeycloakPasswordValidatorError,
 };
