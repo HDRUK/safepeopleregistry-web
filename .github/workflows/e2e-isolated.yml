@@ -294,6 +294,26 @@ jobs:
             start-dev --health-enabled=true --http-enabled=true --hostname-strict=false' \
             > "$GITHUB_WORKSPACE/keycloak-start.log" 2>&1 &
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install Node deps
+        run: npm ci
+
+      - name: Cache Cypress binary
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/Cypress
+          key: e2e-cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            e2e-cypress-${{ runner.os }}-
+
+      - name: Ensure Cypress binary is installed
+        run: npx cypress install
+
       - name: Checkout api
         uses: actions/checkout@v4
         with:
@@ -319,7 +339,7 @@ jobs:
           cd safepeopleregistry-api
           composer install --no-interaction --prefer-dist
 
-      - name: Configure Laravel .env + run migrations/seed
+      - name: Configure Laravel .env + run migrations
         run: |
           cd safepeopleregistry-api
           cp .env.example .env
@@ -327,6 +347,28 @@ jobs:
           sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=root/' .env
           php artisan key:generate
           php artisan migrate --force
+
+      - name: Wait for Keycloak
+        run: |
+          echo "Waiting for Keycloak to be ready..."
+          # Retries for up to 3 minutes, as the image may still be building
+          for _ in {1..90}; do
+            if curl -s http://localhost:8080/health/live; then
+              echo "Keycloak is up!"
+              exit 0
+            fi
+            echo "Still waiting..."
+            sleep 2
+          done
+          echo "Keycloak failed to start in time"
+          cat "$GITHUB_WORKSPACE/keycloak-start.log"
+          docker logs keycloak
+          exit 1
+
+      # Seeding creates users through Keycloak, so it has to wait for it
+      - name: Seed database
+        run: |
+          cd safepeopleregistry-api
           php artisan db:seed --force
           php artisan db:seed --class=TestSeeder
 
@@ -346,48 +388,11 @@ jobs:
           tail -n 20 laravel.log
           php artisan queue:work --daemon > queue.log 2>&1 &
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-
-      - name: Install Node deps
-        run: npm ci
-
-      - name: Cache Cypress binary
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/Cypress
-          key: e2e-cypress-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            e2e-cypress-${{ runner.os }}-
-
-      - name: Ensure Cypress binary is installed
-        run: npx cypress install
-
       - name: Build Next.js
         run: npm run build
 
       - name: Start Next.js
         run: nohup npm start > next.log 2>&1 &
-
-      - name: Wait for Keycloak
-        run: |
-          echo "Waiting for Keycloak to be ready..."
-          # Retries for up to 3 minutes, as the image may still be building
-          for _ in {1..90}; do
-            if curl -s http://localhost:8080/health/live; then
-              echo "Keycloak is up!"
-              exit 0
-            fi
-            echo "Still waiting..."
-            sleep 2
-          done
-          echo "Keycloak failed to start in time"
-          cat keycloak-start.log
-          docker logs keycloak
-          exit 1
 
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
