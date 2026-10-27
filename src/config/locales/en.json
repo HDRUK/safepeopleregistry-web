@@ -110,7 +110,8 @@
     "OrganisationsFilters": {
       "filterByAccountStatus": "Filter by account status",
       "filterBySroStatus": "Filter by SRO status",
-      "filterByApproved": "Filter by approval"
+      "filterByApproved": "Filter by approval",
+      "sortByInviteSentAt": "Date invite sent"
     }
   },
   "Application": {

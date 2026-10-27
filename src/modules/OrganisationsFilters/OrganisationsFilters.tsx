@@ -1,6 +1,7 @@
 "use client";
 
 import { OrganisationSroStatus, Status } from "@/consts/application";
+import { SearchDirections } from "@/consts/search";
 import useFilter from "@/hooks/useFilter";
 import useSort from "@/hooks/useSort";
 import SortIcon from "@mui/icons-material/Sort";
@@ -73,6 +74,12 @@ export default function OrganisationsFilters({
       {
         label: tApplication("organisationName"),
         key: "organisation_name",
+      },
+      {
+        label: t("sortByInviteSentAt"),
+        key: "invite_sent_at",
+        type: "date",
+        sortDirection: SearchDirections.DESC,
       },
     ],
     onSort: (key: string, direction: string) =>
