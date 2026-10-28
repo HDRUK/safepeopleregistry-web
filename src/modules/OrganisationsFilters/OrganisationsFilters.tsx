@@ -76,8 +76,8 @@ export default function OrganisationsFilters({
         key: "organisation_name",
       },
       {
-        label: t("sortByInviteSentAt"),
-        key: "invite_sent_at",
+        label: t("sortByStatusChangedAt"),
+        key: "status_changed_at",
         type: "date",
         sortDirection: SearchDirections.DESC,
       },

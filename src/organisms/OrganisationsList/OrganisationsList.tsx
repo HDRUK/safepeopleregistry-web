@@ -3,7 +3,6 @@
 import { ActionMenu, ActionMenuItem } from "@/components/ActionMenu";
 import FormModal from "@/components/FormModal";
 import { Status } from "@/consts/application";
-import { SearchDirections } from "@/consts/search";
 import useColumns from "@/hooks/useColumns";
 import { OrganisationsTable, PageSection } from "@/modules";
 import OrganisationsFilters from "@/modules/OrganisationsFilters";
@@ -27,11 +26,7 @@ export default function OrganisationsList() {
   const [organisationToInvite, setOrganisationToInvite] =
     useState<Organisation | null>(null);
 
-  const { refetch, ...query } = useOrganisationsQuery({
-    defaultQueryParams: {
-      sort: `invite_sent_at:${SearchDirections.DESC}`,
-    },
-  });
+  const { refetch, ...query } = useOrganisationsQuery();
 
   const { mutateAsync } = useMutation(putOrganisationApprovedQuery());
 
