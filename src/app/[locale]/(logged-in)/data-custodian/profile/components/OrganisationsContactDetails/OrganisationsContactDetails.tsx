@@ -18,8 +18,6 @@ export default function OrganisationsContactDetails() {
     projectOrganisation: state.getCurrentProjectOrganisation(),
   }));
 
-  console.log(projectOrganisation);
-
   return (
     <PageBody heading={t("organisationsContactDetails")}>
       <PageSection>
@@ -51,6 +49,7 @@ export default function OrganisationsContactDetails() {
           }}>
           <OrganisationsSroDetails
             organisation={projectOrganisation.organisation}
+            pendingSro={organisation.pending_sro}
           />
         </Box>
       </PageSection>

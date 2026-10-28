@@ -1838,7 +1838,9 @@
       "sroOfficerContact": "Senior Responsible Officer (SRO) contact information",
       "sroOfficierContactInfo": "Senior Responsible Officers (SROs) are legally signed off by their Organisation to be accountable for the overall administration of an Organisation account.",
       "profileLink": "Profile link of signatory",
-      "sroDeclarationForm": "SRO Declaration form"
+      "sroDeclarationForm": "SRO Declaration form",
+      "sroDeclarationMissing": "SRO declaration not available",
+      "sroChangeInProgress": "SRO change in progress – new SRO has not uploaded a declaration"
     },
     "sroOfficer": "Senior Responsible Officer",
     "subsidiaries": "UK subsidiaries",

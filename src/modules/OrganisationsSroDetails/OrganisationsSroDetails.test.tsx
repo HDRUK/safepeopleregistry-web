@@ -3,6 +3,7 @@ import getOrganisationSroDeclarationDetails from "@/app/actions/organisations/ge
 import { FileStatus } from "@/consts/files";
 import { mockedSroDeclarationFile } from "@/mocks/data/file";
 import { mockedOrganisation } from "@/mocks/data/organisation";
+import { mockedUser } from "@/mocks/data/user";
 import { FileDetails } from "@/types/application";
 import {
   commonAccessibilityTests,
@@ -30,12 +31,15 @@ const setupTest = (props?: Partial<OrganisationsSroDetailsProps>) => {
   return render(<TestComponent {...props} />);
 };
 
-const renderWithDeclaration = async (latest: FileDetails | null) => {
+const renderWithDeclaration = async (
+  latest: FileDetails | null,
+  props?: Partial<OrganisationsSroDetailsProps>
+) => {
   (getOrganisationSroDeclarationDetails as jest.Mock).mockResolvedValue({
     data: latest,
   });
 
-  setupTest();
+  setupTest(props);
 
   await waitFor(() =>
     expect(getOrganisationSroDeclarationDetails).toHaveBeenCalledWith(
@@ -69,6 +73,7 @@ describe("<OrganisationsSroDetails />", () => {
     expect(await screen.findAllByRole("button", { name: /download/i })).toEqual(
       [screen.getByRole("button", DOWNLOAD_LINK)]
     );
+    expect(screen.queryByText(/not available/)).not.toBeInTheDocument();
   });
 
   it.each([FileStatus.PENDING, FileStatus.FAILED])(
@@ -82,10 +87,30 @@ describe("<OrganisationsSroDetails />", () => {
     }
   );
 
-  it("does not offer a download when there is no declaration", async () => {
+  it("warns instead of offering a download when there is no declaration", async () => {
     await renderWithDeclaration(null);
 
     expect(screen.queryByRole("button", DOWNLOAD_LINK)).not.toBeInTheDocument();
+    expect(
+      await screen.findByText("SRO declaration not available")
+    ).toBeInTheDocument();
+  });
+
+  it("warns that an invited SRO has not yet provided a declaration", async () => {
+    await renderWithDeclaration(
+      mockedSroDeclarationFile({ id: 1, status: FileStatus.PROCESSED }),
+      {
+        pendingSro: {
+          ...mockedUser(),
+          pending_sro_invite: { invite_sent_at: "2026-10-01 09:00:00" },
+        },
+      }
+    );
+
+    expect(
+      await screen.findByText(/SRO change in progress/)
+    ).toBeInTheDocument();
+    expect(screen.getByRole("button", DOWNLOAD_LINK)).toBeInTheDocument();
   });
 
   it("does not download the declaration just to show the page", async () => {
