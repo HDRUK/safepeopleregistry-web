@@ -2213,6 +2213,9 @@
     "DelegateCheck": {
       "delegates": "Delegate contacts"
     },
+    "SroDeclarationCheck": {
+      "files": "SRO declaration: An SRO declaration has been uploaded since the current SRO was appointed"
+    },
     "IdentityVerification": {
       "registry": {
         "identity": {
