@@ -1,3 +1,50 @@
+## [1.42.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.41.0...v1.42.0) (2026-10-22)
+
+### ✨ Features
+
+* **REGISTRY-0000:** Add .claudeignore as required by org guidelines (#951) ([f7f2974](https://github.com/HDRUK/safepeopleregistry-web/commit/f7f29746fbfbd4a323578871849fbd571565d90d))
+* **REGISTRY-0000:** Sro declaration download (#952) ([2d210ad](https://github.com/HDRUK/safepeopleregistry-web/commit/2d210adb4dcb92bea11d7647473da73bbcfa88a1))
+* **REGISTRY-2580:** Add ability to view SRO Declaration in Custodian View of an organisation. (#916) ([0a2491a](https://github.com/HDRUK/safepeopleregistry-web/commit/0a2491a19e74c25951bcab4e9f80d51771ed8f26))
+* **REGISTRY-2866:** Custodian view - ability to download training certificates (#930) ([10237c6](https://github.com/HDRUK/safepeopleregistry-web/commit/10237c6c578fab413cc275c8aba89d49406f1fb6))
+* **REGISTRY-2886:** Restore notification read functionality and add mark all as read functionality (#931) ([1aee46c](https://github.com/HDRUK/safepeopleregistry-web/commit/1aee46cc3e60156e14756d3493991706a7fc446b))
+* **REGISTRY-2927:** Registration flow changes for removal of SRO requirement (#905) ([d95992f](https://github.com/HDRUK/safepeopleregistry-web/commit/d95992f6678cadcf654af66bfa7158c8a433e327))
+* **REGISTRY-2928:** Revert e2e testing api branch (#913) ([6b040d1](https://github.com/HDRUK/safepeopleregistry-web/commit/6b040d102c5250732300bab26ca1ea3f1510e98b))
+* **REGISTRY-2928:** Super admin tab for Organisation account creation (#914) ([72b57dc](https://github.com/HDRUK/safepeopleregistry-web/commit/72b57dc661b600a9ba79a7bf28b286fb9419308c))
+* **REGISTRY-2928:** superadmin org invite (#911) ([57b3572](https://github.com/HDRUK/safepeopleregistry-web/commit/57b35723b3b1ae96dabc69b17499c8fa010e476b))
+* **REGISTRY-2934:** Remove SRO information requirements (#907) ([e5b8e6b](https://github.com/HDRUK/safepeopleregistry-web/commit/e5b8e6b3f81874947f7ea8cba6e9b5ddd740a7a8))
+* **REGISTRY-2934:** Remove SRO information requirements- Corrects implementation of PR #907 (#909) ([4e07039](https://github.com/HDRUK/safepeopleregistry-web/commit/4e07039b92c5e50634629b90d932402914b3388e))
+* **REGISTRY-2935:** Content update for removal of SRO requirement (#908) ([2da837c](https://github.com/HDRUK/safepeopleregistry-web/commit/2da837c73142ed6e75e71c05d9b9b10683068cdd))
+* **REGISTRY-2938:** Fix Organisation invitation logic (#947) ([d6dfaa3](https://github.com/HDRUK/safepeopleregistry-web/commit/d6dfaa3a912e6949cd58492375afda488c2b62b0))
+* **REGISTRY-2938:** Rename an Organisation state to match BE (#929) ([53f0a6c](https://github.com/HDRUK/safepeopleregistry-web/commit/53f0a6cd6cdc69d768bd4a05318a3ed7545074b3))
+* **REGISTRY-2941:** List Delegates for the Organisation to display contact details (#910) ([694fd0e](https://github.com/HDRUK/safepeopleregistry-web/commit/694fd0eac9e237ba170c7bd9d6e47aaab1a664f6)), closes [Delegates](undefinedgates)
+* **REGISTRY-2942:**  Enable Delegates to add SRO details OR be selected from existing Delegates - Refactor (#918) ([e362f4e](https://github.com/HDRUK/safepeopleregistry-web/commit/e362f4ecc5daba2ff78a51662c47b78884b9757d)), closes [Delegates](undefinedgates) [Delegates](undefinedgates)
+* **REGISTRY-2942:** Enable Delegates to add SRO details OR be selected from existing Delegates (#912) ([997eec4](https://github.com/HDRUK/safepeopleregistry-web/commit/997eec420c3428d347242995c81688e3a61f48c4)), closes [Delegates](undefinedgates) [Delegates](undefinedgates)
+* **REGISTRY-2943:** Request and show SRO job title and department details (#949) ([9fdcffb](https://github.com/HDRUK/safepeopleregistry-web/commit/9fdcffb278fba36924f8b840412844a5a8e6d398))
+* **REGISTRY-2943:** Sro appointment (#942) ([ba84ab3](https://github.com/HDRUK/safepeopleregistry-web/commit/ba84ab3ffecce9984d8ec160aac57b91005d5139))
+* **REGISTRY-2943:** Sro invite (#943) ([171070e](https://github.com/HDRUK/safepeopleregistry-web/commit/171070e4451ed6513dfeeae7723023e26fe6b859))
+* **REGISTRY-2950:** Remove get involved from Support menu to match ticket request (#928) ([fd50500](https://github.com/HDRUK/safepeopleregistry-web/commit/fd5050039878398ec671ba7880717cfa9fccf8b5))
+* **REGISTRY-2960:** Allow delegate to update claim state (#927) ([0e9f152](https://github.com/HDRUK/safepeopleregistry-web/commit/0e9f1522fbee883cb413f671da359c6d410fd285)), closes [delegate](undefinedgate)
+* **REGISTRY-2969:** No organisation page for Organisation users removed from their Organisation (#938) ([267cd2b](https://github.com/HDRUK/safepeopleregistry-web/commit/267cd2bb911860bc5d237e95318cb76638fc401a))
+* **REGISTRY-2969:** Rewrite delegate removal process (#932) ([9e67ab7](https://github.com/HDRUK/safepeopleregistry-web/commit/9e67ab7a1f8ee9e6a8dac5bc78c4b3ff32b0cb5b)), closes [delegate](undefinedgate)
+* **REGISTRY-2977:** Add Ability to sort by Date Newest/oldest and Name A-Z/Z-A. Refactor sort behaviour to be more maintainable in the future, improve test coverage. ([741cd7b](https://github.com/HDRUK/safepeopleregistry-web/commit/741cd7b78f0abbd0e7ef4146d9f21aa36734cbb8))
+* **REGISTRY-2977:** Add Date invite sent and name to invites super admin panel.  (#946) ([0b2abb5](https://github.com/HDRUK/safepeopleregistry-web/commit/0b2abb5284ccf2b2e9b85b8763984516f3676532))
+* **REGISTRY-2980:** Re-enable SRO Declaration form upload (#950) ([cb9b102](https://github.com/HDRUK/safepeopleregistry-web/commit/cb9b1020be5b8162296143bed3a956c1d5281a6b))
+* **REGISTRY-2980:** show the claimed SRO in SroInvite (#939) ([74fd34e](https://github.com/HDRUK/safepeopleregistry-web/commit/74fd34eccb2cf5a0fdf4278b30fddfa85f0b4c2d))
+* **REGISTRY-2982:** Add Filters to Organisations super admin panel (#948) ([49b2d90](https://github.com/HDRUK/safepeopleregistry-web/commit/49b2d909481ba22ece75a0faee6ee36ce2cd5fd9))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-000:** File upload fixes (#954) ([3d5a2f1](https://github.com/HDRUK/safepeopleregistry-web/commit/3d5a2f17e788a85a6400da9211561727019320c0))
+* **REGISTRY-000:** Remove errant use of it.only() which silently turns off other e2e tests (#934) ([9e48f84](https://github.com/HDRUK/safepeopleregistry-web/commit/9e48f84ed435f4a8a04cd283e85817f4db6c980d))
+* **REGISTRY-2709:** Custodian/Projects/User | Organisation column in a User-Project table should show the Organisation with their affiliation (#940) ([10f4ea7](https://github.com/HDRUK/safepeopleregistry-web/commit/10f4ea77555f831265edfcd9e0464a9e6077e7bd))
+* **REGISTRY-2883:** Custodian view of the Org profile issues - Additional logic (#919) ([585da3c](https://github.com/HDRUK/safepeopleregistry-web/commit/585da3c0b9ee070ab289c3f567bcf6f6301ad9b8))
+* **REGISTRY-2961:** Show "show only invited users" in modal (#926) ([aa62897](https://github.com/HDRUK/safepeopleregistry-web/commit/aa6289777d86548b23e79ef9f8975d73a7147a6b))
+* **REGISTRY-2964:** Copy edits phase 2 for SRO Requirement removal (#923) ([41fd891](https://github.com/HDRUK/safepeopleregistry-web/commit/41fd891df58257d2c2abc07b26c33d7300a76c9e))
+* **REGISTRY-2968:** Fix non-functional downloads on User Training and Custodian Data Security Views (#925) ([faff258](https://github.com/HDRUK/safepeopleregistry-web/commit/faff258a706c44833b14ef41353aac493a7b65df))
+* **REGISTRY-2975:** Copy Edits (#941) ([df5a013](https://github.com/HDRUK/safepeopleregistry-web/commit/df5a013ebc8ca5c4df04cc4af009066de3b465dc))
+* **REGISTRY-2976:** Close superadmin Organisation invite modal on success (#945) ([4630832](https://github.com/HDRUK/safepeopleregistry-web/commit/463083217049be732feb04a2964b729ade633ade))
+* **REGISTRY-2981:** Fix Organisation status displayed in superadmin panel (#944) ([ffad41d](https://github.com/HDRUK/safepeopleregistry-web/commit/ffad41dc383c787eaf9d25ad9c8637e829e66c5f))
+
 ## [1.41.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.40.0...v1.41.0) (2026-09-18)
 
 ### ✨ Features
