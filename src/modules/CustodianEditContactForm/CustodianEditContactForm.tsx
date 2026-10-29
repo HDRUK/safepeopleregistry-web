@@ -107,6 +107,7 @@ export default function CustodianEditContactForm({
             <Grid size={{ xs: 12 }}>
               <FormControlWrapper
                 name="email"
+                description={null}
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />
             </Grid>

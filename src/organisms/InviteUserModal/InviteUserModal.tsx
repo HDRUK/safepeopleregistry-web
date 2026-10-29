@@ -43,6 +43,12 @@ export default function InviteUserModal({
         custodianId={custodianId}
         entityId={entityId}
         entityType={entityType}
+        emailLabel={t("emailLabel")}
+        emailDescription={
+          entityType === EntityType.ORGANISATION
+            ? t("organisationEmailDescription")
+            : null
+        }
       />
     </FormModal>
   );
