@@ -58,7 +58,7 @@ export default function InviteUser({
   entityId,
   entityType,
   emailLabel,
-  emailDescription,
+  emailDescription = null,
 }: InviteUserFormProps) {
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
   const tUser = useTranslations(NAMESPACE_TRANSLATION_ORGANISATION);
