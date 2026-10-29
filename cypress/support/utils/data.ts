@@ -159,7 +159,7 @@ const DEFAULT_UNAPPROVED_ORGANISATION = mockedOrganisation({
 
 const EMAIL_REGISTER_VERIFICATION_LABEL = "Link to e-mail address verification";
 const EMAIL_UPDATE_ACCOUNT_LABEL = "Link to account update";
-const EMAIL_SIGN_ME_UP = "Sign me up!";
+const EMAIL_SIGN_ME_UP = "Claim your account";
 
 const SRO_REQUIREMENT_FEATURE = "SroRequirementEnabled";
 
