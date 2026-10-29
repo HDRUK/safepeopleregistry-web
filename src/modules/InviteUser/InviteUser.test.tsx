@@ -9,7 +9,7 @@ import {
   render,
   screen,
   waitFor,
-} from "../../utils/testUtils";
+} from "@/utils/testUtils";
 import InviteUser from "./InviteUser";
 
 jest.mock("@/data/store");
@@ -109,6 +109,25 @@ describe("<InviteUser />", () => {
 
   it("has no accessibility violations", async () => {
     await commonAccessibilityTests(renderInviteUserComponent());
+  });
+
+  it("shows unapproved organisations to a Custodian as pending approval", async () => {
+    render(
+      <InviteUser
+        onSuccess={mockSubmit}
+        enableEmailCheck={false}
+        entityId={1}
+        entityType={EntityType.CUSTODIAN}
+      />
+    );
+
+    fireEvent.mouseDown(
+      await screen.findByRole("combobox", { name: /organisation/i })
+    );
+
+    expect(
+      await screen.findByRole("option", { name: /Organisation 1/ })
+    ).toHaveTextContent("Pending approval by HDR UK");
   });
 
   describe("when inviting to an Organisation that is not listed", () => {

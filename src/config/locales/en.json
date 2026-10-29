@@ -110,7 +110,8 @@
     "OrganisationsFilters": {
       "filterByAccountStatus": "Filter by account status",
       "filterBySroStatus": "Filter by SRO status",
-      "filterByApproved": "Filter by approval"
+      "filterByApproved": "Filter by approval",
+      "sortByStatusChangedAt": "Latest status change"
     }
   },
   "Application": {
@@ -606,7 +607,7 @@
     "sroResendInviteSuccess": "The invitation has been sent to {name} again.",
     "sroResendInviteError": "We couldn't resend the invitation. Please refresh the page and try again, or contact us at <contactLink></contactLink>.",
     "sroInviteConfirmTitle": "Invite a new SRO?",
-    "sroInviteConfirmText": "{name} will be emailed an invitation to be your Organisation's Senior Responsible Officer (SRO). They become the SRO once they create their account.",
+    "sroInviteConfirmText": "{name} will be emailed an invitation to be your Organisation's Senior Responsible Officer (SRO). They become the SRO once they create their account and upload an SRO declaration.",
     "sroInviteConfirmButton": "Send invite",
     "sroInviteCancelButton": "Cancel",
     "sroInviteSuccess": "{name} has been invited to be your Organisation's SRO.",
@@ -910,7 +911,7 @@
     "emailAddressInvalid": "Email address is not in the correct format",
     "emailAddressRequiredInvalid": "Email address is required",
     "emailAlreadyExists": "An account already exists with this email",
-    "emailDescription": "Your email address at this Organisation, which you will need to verify by clicking a link in an email automatically sent to that account.",
+    "emailDescription": "The email address of the proposed SRO at your Organisation, which they will need to verify by clicking a link in an email automatically sent to that account.",
     "departmentRequiredInvalid": "Department is required",
     "postDelegatesSuccess": "Delegate invited successfully. They should have recieved an email to register",
     "postDelegatesError": "There was a problem with inviting this Delegate. Please try again",
@@ -2211,6 +2212,9 @@
     },
     "DelegateCheck": {
       "delegates": "Delegate contacts"
+    },
+    "SroDeclarationCheck": {
+      "files": "SRO declaration: An SRO declaration has been uploaded since the current SRO was appointed"
     },
     "IdentityVerification": {
       "registry": {
