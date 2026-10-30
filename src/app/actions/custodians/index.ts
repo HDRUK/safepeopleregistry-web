@@ -1,4 +1,5 @@
 import getCustodian from "@/app/actions/custodians/getCustodian";
+import getCustodianAccessRevocations from "@/app/actions/custodians/getCustodianAccessRevocations";
 import getCustodianDecisionModel from "@/app/actions/custodians/getCustodianDecisionModel";
 import getCustodianOrganisations from "@/app/actions/custodians/getCustodianOrganisations";
 import getCustodianOrganisationUsers from "@/app/actions/custodians/getCustodianOrganisationUsers";
@@ -13,9 +14,12 @@ import postCustodianInvite from "@/app/actions/custodians/postCustodianInvite";
 import postCustodianProject from "@/app/actions/custodians/postCustodianProject";
 import putCustodian from "@/app/actions/custodians/putCustodian";
 import putCustodianActiveDecisionModel from "@/app/actions/custodians/putCustodianActiveDecisionModel";
+import putCustodianAccessRevoked from "@/app/actions/custodians/putCustodianAccessRevoked";
 import sendInvite from "@/app/actions/custodians/sendInvite";
 
 export {
+  getCustodianAccessRevocations,
+  putCustodianAccessRevoked,
   postCustodianInvite,
   getCustodianStatus,
   getCustodian,

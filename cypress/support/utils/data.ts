@@ -20,7 +20,12 @@ import { faker } from "@faker-js/faker";
 const memberId = Cypress._.random(0, 1e6).toString();
 
 const DEFAULT_FROM_DATE = "2025-01-01";
-const DEFAULT_TO_DATE = "2025-02-01";
+// Affiliations cannot be added with a past end date, so this is always a year ahead.
+const DEFAULT_TO_DATE = new Date(
+  new Date().setFullYear(new Date().getFullYear() + 1)
+)
+  .toISOString()
+  .slice(0, 10);
 const DEFAULT_DEPARTMENT = "Clinical Research";
 
 const DEFAULT_TRAINING_TITLE = "Mandatory Custodian Training";

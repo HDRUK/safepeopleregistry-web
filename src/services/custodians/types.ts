@@ -4,6 +4,7 @@ import {
   CustodianUser,
   ModelState,
   Organisation,
+  ResearcherAffiliation,
   ResearcherProject,
   User,
 } from "@/types/application";
@@ -85,6 +86,37 @@ type EntityType =
   | "user_validation_rules"
   | "org_validation_rules";
 
+// A user who left a project when their affiliation ended, whose real data access
+// the Custodian must confirm revoking.
+interface CustodianAccessRevocation {
+  id: number;
+  custodian_id: number;
+  project_has_user_id: number;
+  access_revocation_required_at: string;
+  access_revocation_reminded_at: string | null;
+  project_has_user: {
+    id: number;
+    project: Pick<ResearcherProject, "id" | "title">;
+    registry: {
+      id: number;
+      user: Pick<User, "id" | "first_name" | "last_name" | "email">;
+    };
+    affiliation: Pick<
+      ResearcherAffiliation,
+      "id" | "to" | "end_date_recorded_at" | "end_date_source"
+    > & {
+      organisation: Pick<Organisation, "id" | "organisation_name">;
+    };
+  };
+}
+
+type GetCustodianAccessRevocationsResponse = CustodianAccessRevocation[];
+
+interface PutCustodianAccessRevokedParams {
+  custodianId: number;
+  projectUserId: number;
+}
+
 type PostCustodianProjectResponse = number;
 type PostCustodianProjectPayload = ResearcherProject;
 
@@ -111,5 +143,8 @@ export type {
   GetCustodianUsersResponse,
   PostCustodianProjectResponse,
   PostCustodianProjectPayload,
+  CustodianAccessRevocation,
+  GetCustodianAccessRevocationsResponse,
+  PutCustodianAccessRevokedParams,
   GetCustodianStatusResponse,
 };

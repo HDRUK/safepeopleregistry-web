@@ -1,7 +1,6 @@
 import DateInput from "@/components/DateInput";
 import Form from "@/components/Form";
 import FormActions from "@/components/FormActions";
-import FormControlCheckbox from "@/components/FormControlCheckbox";
 import FormControlWrapper from "@/components/FormControlWrapper";
 import SelectDepartments from "@/components/SelectDepartments";
 import SelectInput from "@/components/SelectInput";
@@ -17,17 +16,19 @@ import { Box, Button, Grid, Link, TextField, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { getDate, getDateComparisonFlags } from "@/utils/date";
+import dayjs from "dayjs";
+import { getDate } from "@/utils/date";
+import { isAffiliationEndDateSetByOrganisation } from "@/utils/affiliations";
 import SelectOrganisation from "@/components/SelectOrganisation";
 import { EntityType } from "@/types/api";
-import { UseFormSetValue } from "react-hook-form";
 import { useFeatures } from "@/components/FeatureProvider";
 
 export interface AffiliationsFormProps {
   onSubmit: (affiliation: ResearcherAffiliation) => void;
   onClose: () => void;
   queryState: QueryState;
-  initialValues?: ResearcherAffiliation;
+  // Without an id, these prefill a new affiliation, e.g. when re-joining an Organisation.
+  initialValues?: Partial<ResearcherAffiliation>;
   entityId: number;
   entityType: EntityType;
 }
@@ -36,34 +37,6 @@ const NAMESPACE_TRANSLATION = "Profile";
 const NAMESPACE_TRANSLATION_FORM = "Form";
 const NAMESPACE_TRANSLATION_APPLICATION = "Application";
 
-function FormSyncEffects({
-  fromDate,
-  isCurrent,
-  toDate,
-  setValue,
-}: {
-  fromDate?: string | null;
-  isCurrent: boolean;
-  toDate?: string | null;
-  setValue: UseFormSetValue<ResearcherAffiliation>;
-}) {
-  useEffect(() => {
-    if (!toDate) return;
-
-    const { isFromInFuture, isToInFuture } = getDateComparisonFlags(
-      fromDate,
-      toDate
-    );
-
-    if (isToInFuture && !isFromInFuture && isCurrent !== true) {
-      setValue("current_employer", true, {
-        shouldValidate: true,
-      });
-    }
-  }, [toDate, isCurrent, setValue, fromDate]);
-
-  return null;
-}
 export default function AffiliationsForm({
   onSubmit,
   onClose,
@@ -81,6 +54,9 @@ export default function AffiliationsForm({
   >();
 
   const [selectOrganisation, setSelectOrganisation] = useState<boolean>(true);
+  const isEdit = !!initialValues?.id;
+  const isEndDateSetByOrganisation =
+    isAffiliationEndDateSetByOrganisation(initialValues);
 
   // keeping in some department code..
   // - this is not used, but incase we want to turn it on..
@@ -95,14 +71,16 @@ export default function AffiliationsForm({
       yup.object().shape({
         member_id: yup.string().required(tForm("memberIdRequiredInvalid")),
         from: yup.date().required(tForm("fromRequiredInvalid")),
-        to: yup
-          .date()
-          .when("current_employer", {
-            is: (value: boolean) => !!value,
-            otherwise: schema => schema.required(tForm("toRequiredInvalid")),
-            then: schema => schema.notRequired(),
-          })
-          .nullable(),
+        // Affiliations cannot be added in the past; an end date is optional, as not everyone knows it.
+        to: isEndDateSetByOrganisation
+          ? yup.date().nullable()
+          : yup
+              .date()
+              .nullable()
+              .min(
+                dayjs().startOf("day").toDate(),
+                tProfile("affiliationEndDateInPastInvalid")
+              ),
         organisation_id: selectOrganisation
           ? yup.string().required(tForm("organisationRequiredInvalid"))
           : yup.string().notRequired(),
@@ -128,13 +106,15 @@ export default function AffiliationsForm({
         email: yup
           .string()
           .required(tForm("professionalEmailRequired"))
-          .email(tForm("professionalEmailFormatInvalid"))
-          .when("current_employer", {
-            is: (value: boolean) => !!value,
-            otherwise: schema => schema.notRequired(),
-          }),
+          .email(tForm("professionalEmailFormatInvalid")),
       }),
-    [tForm, selectOrganisation, isSroRequirementEnabled]
+    [
+      tForm,
+      tProfile,
+      selectOrganisation,
+      isSroRequirementEnabled,
+      isEndDateSetByOrganisation,
+    ]
   );
 
   const formOptions = useMemo(
@@ -142,8 +122,8 @@ export default function AffiliationsForm({
       defaultValues: {
         member_id: initialValues?.member_id || "",
         organisation_id: initialValues?.organisation_id || undefined,
-        current_employer:
-          (!!initialValues?.from && !initialValues?.to) || false,
+        // Users cannot add past affiliations, so every affiliation is current until it ends.
+        current_employer: true,
         relationship: initialValues?.relationship || "",
         from: getDate(initialValues?.from) || null,
         to: getDate(initialValues?.to) || null,
@@ -210,19 +190,9 @@ export default function AffiliationsForm({
       schema={schema}
       {...formOptions}
       sx={{ mb: 3 }}>
-      {({ watch, setValue }) => {
-        const isCurrent = watch("current_employer");
-        const toDate = watch("to");
-        const fromDate = watch("from");
-
+      {() => {
         return (
           <>
-            <FormSyncEffects
-              isCurrent={isCurrent}
-              toDate={toDate}
-              fromDate={fromDate}
-              setValue={setValue}
-            />
             <Grid container rowSpacing={3}>
               {selectOrganisation ? (
                 <Grid size={{ xs: 12 }}>
@@ -366,18 +336,19 @@ export default function AffiliationsForm({
                   <Grid size={{ xs: 6 }}>
                     <FormControlWrapper
                       name="to"
+                      label={tProfile("affiliationEndDateLabel")}
+                      disabled={isEndDateSetByOrganisation}
+                      description={tProfile(
+                        isEndDateSetByOrganisation
+                          ? "affiliationEndDateSetByOrganisation"
+                          : "affiliationEndDateDescription"
+                      )}
                       renderField={fieldProps => (
                         <DateInput {...fieldProps} disablePast />
                       )}
                     />
                   </Grid>
                 </Grid>
-              </Grid>
-              <Grid size={{ xs: 12 }}>
-                <FormControlCheckbox
-                  name="current_employer"
-                  label={tForm("currentEmployer")}
-                />
               </Grid>
               <Grid size={{ xs: 12 }}>
                 <FormControlWrapper
@@ -403,27 +374,25 @@ export default function AffiliationsForm({
                   renderField={fieldProps => <TextField {...fieldProps} />}
                 />
               </Grid>
-              {isCurrent && (
-                <Grid size={{ xs: 12 }}>
-                  <FormControlWrapper
-                    name="email"
-                    label={tForm("emailAddressAtEmployer")}
-                    renderField={fieldProps => <TextField {...fieldProps} />}
-                    description={
-                      !!initialValues &&
-                      !initialValues?.email && (
-                        <Box sx={{ display: "flex", color: "warning.main" }}>
-                          <WarningIcon />
-                          <Typography>
-                            {tProfile("affiliationsEmailWarningMessage")}
-                          </Typography>
-                        </Box>
-                      )
-                    }
-                    disabled={!!initialValues && !!initialValues.email}
-                  />
-                </Grid>
-              )}
+              <Grid size={{ xs: 12 }}>
+                <FormControlWrapper
+                  name="email"
+                  label={tForm("emailAddressAtEmployer")}
+                  renderField={fieldProps => <TextField {...fieldProps} />}
+                  description={
+                    isEdit &&
+                    !initialValues?.email && (
+                      <Box sx={{ display: "flex", color: "warning.main" }}>
+                        <WarningIcon />
+                        <Typography>
+                          {tProfile("affiliationsEmailWarningMessage")}
+                        </Typography>
+                      </Box>
+                    )
+                  }
+                  disabled={isEdit && !!initialValues?.email}
+                />
+              </Grid>
             </Grid>
             <FormActions>
               <Button variant="outlined" onClick={onClose}>

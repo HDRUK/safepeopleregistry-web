@@ -57,19 +57,25 @@ const addAffiliationOrganisations = (invite: User) => {
   cy.saveFormClick("Invite");
 };
 
-const removeAffiliationOrganisations = (affiliation: ResearcherAffiliation) => {
+// Records today as the leave date, so the affiliation ends straight away.
+const recordLeaverOrganisations = (affiliation: ResearcherAffiliation) => {
   cy.getResultsActionMenu(affiliation.email).click();
 
-  cy.actionMenuClick("Remove affiliation");
+  cy.actionMenuClick("Record leaver");
 
-  cy.clickAlertModal("Go ahead", "Delete");
-  cy.clickAlertModal("Close");
+  cy.dateSelectValue("to", new Date().toISOString().slice(0, 10));
+
+  cy.saveFormClick();
+  cy.clickAlertModal();
 };
 
-const hasRemoveAffiliationOrganisations = (
-  affiliation: ResearcherAffiliation
-) => {
-  cy.getResultsRow().contains("td", affiliation.email).should("not.exist");
+// A leaver stays in the Organisation's records, as having left.
+const hasLeaverOrganisations = (affiliation: ResearcherAffiliation) => {
+  const row = cy.getResultsRowByValue(affiliation.email);
+
+  row.within(() => {
+    cy.contains("td", "Left");
+  });
 };
 
 const hasAffiliationOrganisations = (affiliation: ResearcherAffiliation) => {
@@ -94,7 +100,7 @@ export {
   hasAffiliationApprovedOrganisations,
   hasAffiliationDeclinedOrganisations,
   hasAffiliationOrganisations,
-  hasRemoveAffiliationOrganisations,
-  removeAffiliationOrganisations,
+  hasLeaverOrganisations,
+  recordLeaverOrganisations,
   hasStatus,
 };

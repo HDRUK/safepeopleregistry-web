@@ -27,8 +27,7 @@ const newAffiliation = () =>
     member_id: Cypress._.random(0, 1e6).toString(),
     from: DEFAULT_FROM_DATE,
     to: DEFAULT_TO_DATE,
-    current_employer: false,
-    email: undefined,
+    email: faker.internet.email(),
   });
 
 describe("A User affiliates to an unregistered Organisation, SRO requirement disabled", () => {
@@ -73,9 +72,10 @@ describe("A User affiliates to an unregistered Organisation, SRO requirement dis
       organisation_name: faker.company.name(),
     });
 
-    cy.clickAlertModal();
+    // Every new affiliation is current, so its professional email must be verified.
+    cy.clickAlertModal("Close", "Verification needed");
 
-    hasAffiliationUsers(affiliation, Status.AFFILIATION_PENDING);
+    hasAffiliationUsers(affiliation, Status.AFFILIATION_EMAIL_VERIFY);
   });
 
   it("Adds an affiliation naming an SRO to contact", () => {
@@ -87,8 +87,9 @@ describe("A User affiliates to an unregistered Organisation, SRO requirement dis
       organisation_email: organisation.lead_applicant_email,
     });
 
-    cy.clickAlertModal();
+    // Every new affiliation is current, so its professional email must be verified.
+    cy.clickAlertModal("Close", "Verification needed");
 
-    hasAffiliationUsers(affiliation, Status.AFFILIATION_PENDING);
+    hasAffiliationUsers(affiliation, Status.AFFILIATION_EMAIL_VERIFY);
   });
 });

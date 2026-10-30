@@ -8,6 +8,7 @@ import { Status } from "@/consts/application";
 import { HeadingLevel } from "@/consts/header";
 import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
 import { useStore } from "@/data/store";
+import AffiliationEndDateModal from "@/organisms/AffiliationEndDateModal";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
 import useQueryConfirmAlerts from "@/hooks/useQueryConfirmAlerts";
 import { mockedResearcherAffiliationsGuidance } from "@/mocks/data/cms";
@@ -32,10 +33,17 @@ import { PostAffiliationPayload } from "@/services/affiliations/types";
 import { EntityType } from "@/types/api";
 import { ResearcherAffiliation } from "@/types/application";
 import { QueryState } from "@/types/form";
+import {
+  canRecordAffiliationEndDate,
+  isAffiliationEditable,
+  isAffiliationEnded,
+} from "@/utils/affiliations";
 import { formatDBDateTime } from "@/utils/date";
 import { getCombinedQueryState } from "@/utils/query";
 import { renderErrorToString } from "@/utils/translations";
+import AddIcon from "@mui/icons-material/Add";
 import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
+import EventBusyOutlinedIcon from "@mui/icons-material/EventBusyOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EmailIcon from "@mui/icons-material/Email";
 import { Button, CircularProgress, Typography } from "@mui/material";
@@ -63,6 +71,13 @@ export default function AffiliationsPage({
 
   const [open, setOpen] = useState(false);
   const [selectedAffiliation, setSelectedAffiliation] = useState<
+    ResearcherAffiliation | undefined
+  >(undefined);
+  // A left affiliation cannot be made current again: it prefills a new one instead.
+  const [prefillAffiliation, setPrefillAffiliation] = useState<
+    Partial<ResearcherAffiliation> | undefined
+  >(undefined);
+  const [endDateAffiliation, setEndDateAffiliation] = useState<
     ResearcherAffiliation | undefined
   >(undefined);
 
@@ -129,6 +144,7 @@ export default function AffiliationsPage({
     onSuccess: () => {
       setOpen(false);
       setSelectedAffiliation(undefined);
+      setPrefillAffiliation(undefined);
     },
     successAlertProps: {
       ...(isVerification && {
@@ -233,15 +249,44 @@ export default function AffiliationsPage({
       const affiliationStatus = affiliation.model_state.state.slug;
       return (
         <ActionMenu>
-          <ActionMenuItem
-            onClick={() => {
-              setSelectedAffiliation(affiliation);
-              setOpen(true);
-            }}
-            sx={{ color: "secondary.main" }}
-            icon={<CreateOutlinedIcon sx={{ color: "secondary.main" }} />}>
-            {tProfile("viewOrEdit")}
-          </ActionMenuItem>
+          {isAffiliationEditable(affiliation) && (
+            <ActionMenuItem
+              onClick={() => {
+                setSelectedAffiliation(affiliation);
+                setPrefillAffiliation(undefined);
+                setOpen(true);
+              }}
+              sx={{ color: "secondary.main" }}
+              icon={<CreateOutlinedIcon sx={{ color: "secondary.main" }} />}>
+              {tProfile("viewOrEdit")}
+            </ActionMenuItem>
+          )}
+          {isAffiliationEnded(affiliation) && (
+            <ActionMenuItem
+              onClick={() => {
+                setSelectedAffiliation(undefined);
+                setPrefillAffiliation({
+                  organisation_id: affiliation.organisation_id,
+                  relationship: affiliation.relationship,
+                  role: affiliation.role,
+                  member_id: affiliation.member_id,
+                  email: affiliation.email,
+                });
+                setOpen(true);
+              }}
+              sx={{ color: "secondary.main" }}
+              icon={<AddIcon sx={{ color: "secondary.main" }} />}>
+              {tProfile("addAsNewAffiliation")}
+            </ActionMenuItem>
+          )}
+          {canRecordAffiliationEndDate(affiliation) && (
+            <ActionMenuItem
+              onClick={() => setEndDateAffiliation(affiliation)}
+              sx={{ color: "secondary.main" }}
+              icon={<EventBusyOutlinedIcon sx={{ color: "secondary.main" }} />}>
+              {tProfile("recordEndDate")}
+            </ActionMenuItem>
+          )}
           {status === Status.AFFILIATION_EMAIL_VERIFY && (
             <ActionMenuItem
               disabled={inviteQueryState.isLoading}
@@ -278,12 +323,14 @@ export default function AffiliationsPage({
               {tProfile("resendVerification")}
             </ActionMenuItem>
           )}
-          <ActionMenuItem
-            onClick={() => showConfirmDelete(affiliation.id)}
-            sx={{ color: "error.main" }}
-            icon={<DeleteOutlineOutlinedIcon sx={{ color: "error.main" }} />}>
-            {tProfile("delete")}
-          </ActionMenuItem>
+          {isAffiliationEditable(affiliation) && (
+            <ActionMenuItem
+              onClick={() => showConfirmDelete(affiliation.id)}
+              sx={{ color: "error.main" }}
+              icon={<DeleteOutlineOutlinedIcon sx={{ color: "error.main" }} />}>
+              {tProfile("delete")}
+            </ActionMenuItem>
+          )}
         </ActionMenu>
       );
     },
@@ -355,6 +402,7 @@ export default function AffiliationsPage({
                 isDismissable
                 onClose={() => {
                   setOpen(false);
+                  setPrefillAffiliation(undefined);
                 }}
                 heading={
                   selectedAffiliation
@@ -367,12 +415,20 @@ export default function AffiliationsPage({
                   onClose={() => {
                     setOpen(false);
                     setSelectedAffiliation(undefined);
+                    setPrefillAffiliation(undefined);
                   }}
                   onSubmit={handleDetailsSubmit}
                   queryState={combinedQueryState}
-                  initialValues={selectedAffiliation}
+                  initialValues={selectedAffiliation ?? prefillAffiliation}
                 />
               </FormModal>
+              <AffiliationEndDateModal
+                open={!!endDateAffiliation}
+                affiliation={endDateAffiliation}
+                entityType={EntityType.USER}
+                onClose={() => setEndDateAffiliation(undefined)}
+                onSuccess={() => refetch()}
+              />
               <Typography sx={{ mb: 2 }}>
                 {tProfile("affiliationsDescription")}
               </Typography>
@@ -394,6 +450,7 @@ export default function AffiliationsPage({
                 variant="outlined"
                 onClick={() => {
                   setSelectedAffiliation(undefined);
+                  setPrefillAffiliation(undefined);
                   setOpen(true);
                 }}>
                 {tProfile("addAffiliation")}

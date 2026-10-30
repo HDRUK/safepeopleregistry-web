@@ -10,6 +10,8 @@ import usePaginatedCustodianOrganisationUsers from "./usePaginatedCustodianOrgan
 import usePaginatedCustodianUsers from "./usePaginatedCustodianUsers";
 import postCustodianProjectQuery from "./postCustodianProjectQuery";
 import getCustodianStatusQuery from "./getCustodianStatusQuery";
+import usePaginatedCustodianAccessRevocations from "./usePaginatedCustodianAccessRevocations";
+import putCustodianAccessRevokedQuery from "./putCustodianAccessRevokedQuery";
 
 export {
   getCustodianQuery,
@@ -24,6 +26,8 @@ export {
   usePaginatedCustodianUsers,
   postCustodianProjectQuery,
   getCustodianStatusQuery,
+  usePaginatedCustodianAccessRevocations,
+  putCustodianAccessRevokedQuery,
 };
 
 export type * from "./types";

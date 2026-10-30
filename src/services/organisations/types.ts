@@ -68,6 +68,8 @@ interface PostOrganisationInviteUserPayload {
   is_delegate?: number;
   role?: string;
   user_group?: string;
+  // The invitee's expected end date, if the Organisation knows it.
+  to?: string | null;
 }
 
 type PostOrganisationInviteUserResponse = number;

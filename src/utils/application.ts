@@ -142,6 +142,8 @@ function getStatus(slug: string) {
       return "Affiliated";
     case Status.AFFILIATION_LEFT:
       return "Left organisation";
+    case Status.AFFILIATION_NEVER_VERIFIED:
+      return "Never verified";
     case Status.AFFILIATION_INVITED:
       return "Invited";
     case Status.ORGANISATION_NOT_VALIDATED:

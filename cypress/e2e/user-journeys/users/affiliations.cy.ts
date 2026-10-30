@@ -1,3 +1,4 @@
+import { faker } from "@faker-js/faker";
 import { mockedAffiliation } from "@/mocks/data/user";
 import { mockedOrganisation } from "@/mocks/data/organisation";
 import {
@@ -9,6 +10,7 @@ import {
   editAffiliationUsers,
   hasAffiliationUsers,
   hasRemoveAffiliationUsers,
+  recordAffiliationEndDateUsers,
   removeAffiliationUsers,
   resendAffiliationVerification,
 } from "cypress/support/utils/user/affiliations";
@@ -16,7 +18,6 @@ import { loginUser } from "cypress/support/utils/user/auth";
 import { loginAdmin } from "cypress/support/utils/admin/auth";
 import { validateSROOrganisations } from "cypress/support/utils/admin/sro";
 import { ROUTES } from "@/consts/router";
-import { Status } from "@/consts/application";
 import { logout } from "cypress/support/utils/common";
 import { hasSROOrganisation } from "cypress/support/utils/organisation/sro";
 
@@ -26,10 +27,9 @@ const dataCurrentAffiliationOrganisation = mockedOrganisation({
 });
 const dataAffiliation = {
   ...dataCurrentAffiliation,
-  current_employer: false,
   to: DEFAULT_TO_DATE,
   member_id: Cypress._.random(0, 1e6).toString(),
-  email: undefined,
+  email: faker.internet.email(),
 };
 
 const dataEditedAffiliation = {
@@ -67,10 +67,10 @@ describe("Affiliations journey", () => {
     cy.clickAlertModal("Close", "Verification needed");
   });
 
-  it("Adds an affiliation with an end date", () => {
+  it("Adds an affiliation with an expected end date", () => {
     addAffiliationUsers(dataAffiliation);
 
-    cy.clickAlertModal();
+    cy.clickAlertModal("Close", "Verification needed");
 
     hasAffiliationUsers(dataAffiliation);
   });
@@ -78,7 +78,17 @@ describe("Affiliations journey", () => {
   it("Edits an affiliation and reloads the page", () => {
     editAffiliationUsers(dataAffiliation, dataEditedAffiliation);
 
-    hasAffiliationUsers(dataEditedAffiliation, Status.AFFILIATION_PENDING);
+    hasAffiliationUsers(dataEditedAffiliation);
+  });
+
+  it("Records an end date for an affiliation", () => {
+    const endDate = new Date(new Date().setMonth(new Date().getMonth() + 6))
+      .toISOString()
+      .slice(0, 10);
+
+    recordAffiliationEndDateUsers(dataEditedAffiliation, endDate);
+
+    hasAffiliationUsers({ ...dataEditedAffiliation, to: endDate });
   });
 
   it("Resends the verification email for a current-employer affiliation", () => {

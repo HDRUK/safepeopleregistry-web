@@ -2,6 +2,7 @@ import { Status } from "@/consts/application";
 import { FileStatus, FileType } from "@/consts/files";
 import { RequestFrequency } from "@/consts/projects";
 import {
+  AffiliationEndDateSource,
   UserFeedSource,
   UserGroup,
   UserProfileCompletionCategories,
@@ -405,6 +406,11 @@ type ResearcherAffiliation = WithModelState<{
   primary_contact?: boolean;
   registryAffiliationState?: string;
   department: string;
+  end_date_recorded_at?: string | null;
+  end_date_recorded_by?: number | null;
+  end_date_source?: AffiliationEndDateSource | null;
+  end_date_warning_sent_at?: string | null;
+  left_at?: string | null;
 }>;
 
 interface ResearcherProjectApproval {

@@ -48,7 +48,7 @@ export default function UserBulkInvite({
       <Box sx={{ minWidth: "210px", maxWidth: "210px" }}>
         <FileLink
           accept={getAcceptAttribute(CSV_FILE_EXTENSIONS)}
-          fileTypesText='File type: CSV file with 3 columns labelled "firstname", "lastname", and "email"'
+          fileTypesText='File type: CSV file with 3 columns labelled "firstname", "lastname", and "email". You can add an optional 4th column labelled "end_date" (YYYY-MM-DD or DD/MM/YYYY) for users whose end date you know; their affiliation will end automatically on that date.'
           includeStatus={false}
           fileButtonText="Bulk upload users"
           isSizeInvalid={isSizeInvalid}
