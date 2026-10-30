@@ -80,14 +80,45 @@ export default function NotificationModal({
   const isDetailsObject = typeof details === "object" && details !== null;
 
   const hasOldNewStructure =
+    isDetailsObject && "old" in details && "new" in details;
+
+  const hasNestedStructure =
     isDetailsObject &&
     Object.values(details).some(
       val =>
         typeof val === "object" && val !== null && "old" in val && "new" in val
     );
+  // Ensures that the data is in a unified structure to render,
+  // until such time as notifications from the BE are unified.
+  const detailRows = hasOldNewStructure
+    ? Object.keys({
+        ...details.old,
+        ...details.new,
+      }).map(key => ({
+        field: key,
+        oldValue: details.old?.[key],
+        newValue: details.new?.[key],
+      }))
+    : hasNestedStructure
+      ? Object.entries(details)
+          .filter(
+            ([, val]) =>
+              val !== null &&
+              typeof val === "object" &&
+              !Array.isArray(val) &&
+              ("old" in val || "new" in val)
+          )
+          .map(([key, val]) => ({
+            field: key,
+            oldValue: val.old,
+            newValue: val.new,
+          }))
+      : [];
+
+  const hasComparableValues = hasOldNewStructure || hasNestedStructure;
 
   return (
-    hasOldNewStructure && (
+    (hasComparableValues || !isDetailsObject) && (
       <Modal
         data-testid="notification-modal"
         onClose={onClose}
@@ -191,7 +222,7 @@ export default function NotificationModal({
                 ))}
               </List>
             )}
-            {isDetailsObject ? (
+            {hasComparableValues ? (
               <TableContainer
                 component={Paper}
                 sx={{ marginTop: 0, width: "100%" }}>
@@ -213,29 +244,17 @@ export default function NotificationModal({
                       )}
                     </TableRow>
                   </TableHead>
+
                   <TableBody>
-                    {Object.entries(details).map(([key, value]) => (
-                      <TableRow key={key}>
+                    {detailRows.map(({ field, oldValue, newValue }) => (
+                      <TableRow key={field}>
                         <TableCell component="th" scope="row">
-                          {key}
+                          {field}
                         </TableCell>
-                        {typeof value === "object" &&
-                        value !== null &&
-                        "old" in value &&
-                        "new" in value ? (
-                          <>
-                            <TableCell align="right">
-                              {value.old ?? "—"}
-                            </TableCell>
-                            <TableCell align="right">
-                              {value.new ?? "—"}
-                            </TableCell>
-                          </>
-                        ) : (
-                          <TableCell align="right" colSpan={2}>
-                            {value ?? "—"}
-                          </TableCell>
-                        )}
+
+                        <TableCell align="right">{oldValue ?? "—"}</TableCell>
+
+                        <TableCell align="right">{newValue ?? "—"}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>

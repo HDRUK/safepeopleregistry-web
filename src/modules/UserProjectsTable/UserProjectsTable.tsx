@@ -27,6 +27,11 @@ export interface UserProjectsTableProps extends ModuleTables<
   };
 }
 
+function getAffiliatedOrganisation(row: ResearcherProject) {
+  return row.custodian_has_project_user?.[0]?.project_has_user?.affiliation
+    ?.organisation;
+}
+
 export default function UserProjectsTable({
   routes,
   t,
@@ -47,6 +52,7 @@ export default function UserProjectsTable({
         cell: info => renderProjectNameCell(info, routes?.name.path),
       }),
       createDefaultColumn("organisations", {
+        accessorFn: row => getAffiliatedOrganisation(row) ?? row.organisations,
         cell: info => renderOrganisationsNameCell(info.getValue()),
       }),
       createDefaultColumn("projectStatus", {

@@ -8,6 +8,10 @@ const ROUTES: Routes = {
   register: {
     path: "/register",
   },
+  noOrganisation: {
+    path: "/no-organisation",
+    permissions: [UserGroup.ORGANISATIONS],
+  },
   homepage: {
     path: "/",
   },

@@ -50,7 +50,9 @@ export default function InviteDelegateForm({
     async (fields: DelegatesFormValues) => {
       const payload: PostOrganisationInviteUserPayload = {
         email: fields.delegate_email,
-        department_id: Number(fields.department_name) ?? null,
+        department_id: fields.department_name
+          ? Number(fields.department_name)
+          : undefined,
         first_name: fields.delegate_first_name,
         last_name: fields.delegate_last_name,
         role: fields.delegate_job_title,

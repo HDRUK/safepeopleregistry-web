@@ -2,6 +2,7 @@
 
 import DateInput from "@/components/DateInput";
 import { PendingInvite } from "@/consts/application";
+import { SearchDirections } from "@/consts/search";
 import { UserGroup } from "@/consts/user";
 import useFilter from "@/hooks/useFilter";
 import useSort from "@/hooks/useSort";
@@ -54,8 +55,14 @@ export default function InvitesFilters({
     queryParams,
     items: [
       {
+        label: t("name"),
+        key: "users.name",
+      },
+      {
         label: t("sortByInviteSentAt"),
         key: "invite_sent_at",
+        type: "date",
+        sortDirection: SearchDirections.DESC,
       },
     ],
     onSort: (key: string, direction: string) =>

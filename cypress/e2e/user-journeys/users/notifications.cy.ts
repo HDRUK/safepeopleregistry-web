@@ -59,7 +59,7 @@ describe("Notifications journey", () => {
     });
   });
 
-  it.only("Shows notification list or empty state", () => {
+  it("Shows notification list or empty state", () => {
     openNotificationsMenu();
     cy.wait(1000); // takes a sec to open
     cy.get('[role="menu"]').then($menu => {

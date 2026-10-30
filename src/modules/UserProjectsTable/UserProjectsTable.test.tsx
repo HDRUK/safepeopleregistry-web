@@ -1,5 +1,10 @@
 import { commonAccessibilityTests, render, screen } from "@/utils/testUtils";
+import {
+  mockedCustodianHasProjectUser,
+  mockedProjectHasUser,
+} from "@/mocks/data/custodian";
 import { mockedProject } from "@/mocks/data/project";
+import { mockedAffiliation } from "@/mocks/data/user";
 import { useTranslations } from "next-intl";
 import UserProjectsTable, { UserProjectsTableProps } from "./UserProjectsTable";
 
@@ -41,6 +46,29 @@ describe("<UserProjectsTable />", () => {
     expect(
       screen.getByText(new RegExp(project.model_state.state.slug, "i"))
     ).toBeInTheDocument();
+  });
+
+  it("renders only the user's affiliated organisation", () => {
+    const affiliatedProject = mockedProject({
+      custodian_has_project_user: [
+        mockedCustodianHasProjectUser({
+          project_has_user: mockedProjectHasUser({
+            affiliation: mockedAffiliation({
+              organisation: { organisation_name: "Affiliated Org" },
+            }),
+          }),
+        }),
+      ],
+    });
+
+    setupTest({
+      data: [affiliatedProject],
+    });
+
+    expect(screen.getByText("Affiliated Org")).toBeInTheDocument();
+    expect(
+      screen.queryByText(affiliatedProject.organisations[0].organisation_name)
+    ).not.toBeInTheDocument();
   });
 
   it("has no accessibility violations", async () => {

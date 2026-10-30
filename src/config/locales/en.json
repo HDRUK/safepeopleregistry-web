@@ -14,6 +14,11 @@
     "scanErrorText": "Your file file may have a virus",
     "FileDownloadText": "Download File"
   },
+  "SroDeclarationDownloadLink": {
+    "linkText": "Download SRO Declaration form",
+    "downloadError": "An error occurred while downloading the SRO declaration. Please try again or <contactLink>contact support</contactLink> if the problem persists.",
+    "downloadErrorButton": "Try Again"
+  },
   "Admin": {
     "SuperAdminList": {
       "name": "Name",
@@ -101,6 +106,12 @@
       "filterByUserGroup_users": "Users",
       "filterByStatus": "Filter by status",
       "sortByInviteSentAt": "Date invite sent"
+    },
+    "OrganisationsFilters": {
+      "filterByAccountStatus": "Filter by account status",
+      "filterBySroStatus": "Filter by SRO status",
+      "filterByApproved": "Filter by approval",
+      "sortByStatusChangedAt": "Latest status change"
     }
   },
   "Application": {
@@ -114,12 +125,15 @@
       "sponsorship_approved": "Confirmed",
       "organisation_registered": "Registered",
       "organisation_account_created": "Account created",
-      "organisation_invited_by_admin": "Invited by Admin",
+      "organisation_invited_by_admin": "Invited by admin",
       "organisation_invited_by_nonadmin": "Invited by non-admin",
       "organisation_placeholder": "Placeholder",
       "sro_approved": "Approved",
       "sro_pending": "Pending",
       "sro_rejected": "Rejected",
+      "sro_claimed": "SRO claimed",
+      "sro_invited": "SRO invited (delegates acting)",
+      "sro_none": "No SRO (delegates acting)",
       "invite_sent": "Invite sent",
       "affiliated": "Affiliated",
       "pending": "Pending Validation",
@@ -215,6 +229,12 @@
     "alertDeleteCancelButton": "Cancel",
     "alertErrorDescription": "There has been a problem with your request. Please try again or contact us at <contactLink></contactLink>",
     "alertErrorTitle": "Error",
+    "organisationConflictDuplicate": "This Organisation has already been invited.",
+    "organisationConflictEmailInUse": "This email address is already the lead applicant for another Organisation. To invite them under a different name, use invite on that Organisation's row.",
+    "organisationConflictClaimedDuplicate": "An Organisation with this lead applicant email address is already registered, so please select the associated Organisation from the available options.",
+    "organisationConflictUnclaimedDuplicate": "An Organisation with this lead applicant email address has already been invited and has not yet registered.",
+    "organisationConflictClaimedDuplicateWithoutEmail": "An Organisation with this name is already registered, so please select the Organisation from the available options.",
+    "organisationConflictUnclaimedDuplicateWithoutEmail": "An Organisation with this name has already been invited and has not yet registered.",
     "alertSuccessDescription": "Your request has been successful",
     "alertSuccessTitle": "Success",
     "alertDeleteDescription": "Are you sure you want to delete this data? This action may be permanent.",
@@ -555,6 +575,8 @@
     "sroInviteSelectDelegatePlaceholder": "Choose an existing delegate",
     "sroInviteFirstName": "First name",
     "sroInviteLastName": "Last name",
+    "sroInviteDepartment": "Department",
+    "sroInviteJobTitle": "Job title",
     "sroInviteEmailAddress": "Email address",
     "sroInviteSendButton": "Invite & Save",
     "sroResendInviteButton": "Reinvite & Save",
@@ -565,6 +587,44 @@
     "sroAssignedEmail": "Email address",
     "sroAssignedDepartment": "Department",
     "sroAssignedJobTitle": "Job title",
+    "sroInviteReplacementButton": "Invite a replacement",
+    "sroInviteReplacementBackButton": "Cancel inviting a replacement",
+    "sroInviteReplacementDescription": "Invite someone to replace you as your Organisation's Senior Responsible Officer (SRO). You stay the SRO until they create their account, then you will become a Delegate.",
+    "sroInviteReplacementConfirmText": "{name} will be emailed an invitation to replace you as your Organisation's Senior Responsible Officer (SRO). You stay the SRO until they create their account, then you will become a Delegate.",
+    "sroInviteReplacementReplacesPendingConfirmText": "{name} will be emailed an invitation to replace you as your Organisation's Senior Responsible Officer (SRO). You stay the SRO until they create their account, then you will become a Delegate. {pendingName}'s invitation will still work, but they'll join as a Delegate instead.",
+    "sroReplacementPendingIntro": "You have invited this person to replace you as SRO:",
+    "sroResendInvitationButton": "Resend invitation",
+    "sroHandOverButton": "Hand over to a delegate",
+    "sroHandOverSubmitButton": "Hand over",
+    "sroHandOverCancelButton": "Cancel",
+    "sroHandOverConfirmTitle": "Hand over the SRO role?",
+    "sroHandOverConfirmText": "{name} will become your Organisation's Senior Responsible Officer (SRO), and you will become a Delegate. Everyone in your Organisation will be emailed about the change.",
+    "sroHandOverReplacesPendingConfirmText": "{name} will become your Organisation's Senior Responsible Officer (SRO), and you will become a Delegate. Everyone in your Organisation will be emailed about the change. {pendingName}'s invitation will still work, but they'll join as a Delegate instead.",
+    "sroHandOverConfirmButton": "Hand over",
+    "sroHandOverSuccess": "{name} is now your Organisation's SRO, and you are now a Delegate.",
+    "sroHandOverError": "We couldn't hand over the SRO role. Please refresh the page and try again, or contact us at <contactLink></contactLink>.",
+    "sroPendingIntro": "An invitation to be your Organisation's SRO has been sent to:",
+    "sroInviteSomeoneElseButton": "Invite someone else instead",
+    "sroKeepPendingInviteButton": "Keep {name}'s invitation",
+    "sroInviteReplacesPendingConfirmText": "{name} will be emailed an invitation to be your Organisation's Senior Responsible Officer (SRO), and becomes the SRO once they create their account. {pendingName}'s invitation will still work, but they'll join as a Delegate instead.",
+    "sroResendInviteSuccess": "The invitation has been sent to {name} again.",
+    "sroResendInviteError": "We couldn't resend the invitation. Please refresh the page and try again, or contact us at <contactLink></contactLink>.",
+    "sroInviteConfirmTitle": "Invite a new SRO?",
+    "sroInviteConfirmText": "{name} will be emailed an invitation to be your Organisation's Senior Responsible Officer (SRO). They become the SRO once they create their account and upload an SRO declaration.",
+    "sroInviteConfirmButton": "Send invite",
+    "sroInviteCancelButton": "Cancel",
+    "sroInviteSuccess": "{name} has been invited to be your Organisation's SRO.",
+    "sroInviteExistingAccountError": "This email address already has an account. If they're one of your Delegates, choose \"Select from existing Delegates\" instead.",
+    "sroInviteError": "We couldn't send the invitation. Please refresh the page and try again, or contact us at <contactLink></contactLink>.",
+    "sroInviteDoneButton": "OK",
+    "sroAppointDelegateConfirmTitle": "Appoint a new SRO?",
+    "sroAppointDelegateConfirmText": "{name} will become your Organisation's Senior Responsible Officer (SRO). Everyone in your Organisation will be emailed about the change.",
+    "sroAppointDelegateReplacesPendingConfirmText": "{name} will become your Organisation's Senior Responsible Officer (SRO). Everyone in your Organisation will be emailed about the change. {pendingName}'s invitation will still work, but they'll join as a Delegate instead.",
+    "sroAppointDelegateConfirmButton": "Appoint as SRO",
+    "sroAppointDelegateCancelButton": "Cancel",
+    "sroAppointDelegateSuccess": "{name} is now your Organisation's SRO.",
+    "sroAppointDelegateError": "We couldn't appoint the SRO. Please refresh the page and try again, or contact us at <contactLink></contactLink>.",
+    "sroAppointmentError": "We couldn't make you the SRO. Please refresh the page and try again, or contact us at <contactLink></contactLink>.",
     "sroDeclarationPendingApprovalChip": "SRO declaration pending approval",
     "sroDeclarationApprovedChip": "SRO declaration approved on {date}",
     "User": {
@@ -627,7 +687,7 @@
     "organisationEmail": "Email address",
     "organisationEmailPlaceholder": "Email address",
     "organisationEmailRequired": "Organisation email address is required",
-    "emailAddressAtEmployer": "Professional email address at Organisation",
+    "emailAddressAtEmployer": "Professional email address",
     "userSroEmail": "Email address for an Organisation representative (optional)",
     "userSroEmailFormatInvalid": "SRO email must be a valid format",
     "userSroEmailDescription": "Suggest an appropriately senior individual to register the organisation. Examples include: research support services mailbox, departmental head, people services mailbox, etc.",
@@ -843,7 +903,6 @@
     "delegateEmailInvalid": "Delegate email is not in the correct format",
     "delegateEmailRequiredInvalid": "Delegate email is required",
     "delegateFormTitle": "Organisation Administrative Delegate",
-    "delegateEmailSubtitle": "This email should be their Organisation email address, not personal email address.",
     "fullName": "Full Name",
     "fullNamePlaceholder": "Full Name",
     "fullNameRequiredInvalid": "Full name is required",
@@ -856,6 +915,7 @@
     "emailAddressRequiredInvalid": "Email address is required",
     "emailAlreadyExists": "An account already exists with this email",
     "emailDescription": "Your email address at this Organisation, which you will need to verify by clicking a link in an email automatically sent to that account.",
+    "sroEmailDescription": "The email address of the proposed SRO at your Organisation, which they will need to verify by clicking a link in an email automatically sent to that account.",
     "departmentRequiredInvalid": "Department is required",
     "postDelegatesSuccess": "Delegate invited successfully. They should have recieved an email to register",
     "postDelegatesError": "There was a problem with inviting this Delegate. Please try again",
@@ -1115,7 +1175,9 @@
   "NotificationsMenu": {
     "noNotifications": "You have no notifications!",
     "orcIdSuccessTitle": "ORCID scrape completed",
-    "orcIdSuccessDescription": "Employment, educaton and qualifications has been gathered from your ORCID profile. You will need to reload the page to see the updates."
+    "orcIdSuccessDescription": "Employment, education and qualifications has been gathered from your ORCID profile. You will need to reload the page to see the updates.",
+    "closeMenu": "Close Menu",
+    "markAllAsRead": "Mark all notifications as read"
   },
   "NotificationsModal": {
     "colField": "Field",
@@ -1145,7 +1207,7 @@
     "home": "Home",
     "inviteThemHere": "Invite them here",
     "organisationNameSubtitle": "Email address of an appropriately senior individual to take the role of Senior Responsible Officer, such as a Head of Department or Data Protection Officer. This may also be the person who signs the data access agreements.",
-    "organisationNotListed": "Organisation not listed? <link> Ask them to register </link>",
+    "organisationNotListed": "Organisation not listed? <link> Type it instead </link>",
     "organisationListed": "Organisation already exists? <link> Select them here </link>",
     "affiliationsDescription": "Please list all Organisations (employers or institutes) with whom you are currently employed, on an honorary contract, or enrolled with as a student. Your Organisations can use this to confirm your affiliation.",
     "postAffiliationSuccess": "You have successfully created an affiliation",
@@ -1253,6 +1315,7 @@
     "missingOrcIdMessage": "There’s some missing information from your ORCID that we need you to complete",
     "affiliationOrganisationWarningMessage": "Please complete this field as we couldn’t match the information. Sometimes the identifier of an Organisation within an ORCID profile does not exactly match the identifier of an Organisation registered within Safe People Registry therefore please select an Organisation from the dropdown box. If the Organisation is not listed, please <link> invite them here </link>",
     "affiliationsEmailWarningMessage": "Please complete this field as we couldn’t match the information.",
+    "affiliationsEmailDescription": "Your professional email address at the Organisation, which should align with their records.",
     "putOrganisationForbidden": "Your account does not have permissions to perform this update",
     "Projects": {
       "heading": "Projects",
@@ -1602,6 +1665,12 @@
     "supportAskTeam": "Ask the team (new tab)",
     "supportContactUs": "Contact us"
   },
+  "NoOrganisation": {
+    "title": "Your account is no longer linked to an organisation",
+    "description": "You have been removed as a delegate of your organisation, so you no longer have access to its Safe People Registry account.",
+    "help": "If you think you have been removed by mistake, or you need help, please contact us at <contactLink></contactLink>.",
+    "signOut": "Sign out"
+  },
   "Register": {
     "title": "What would you like to do?",
     "claimOrgAccount": "Claim your admin account",
@@ -1723,14 +1792,16 @@
       "countyRequiredInvalid": "County is required",
       "countryRequiredInvalid": "Country is required"
     },
-    "SroDeclaratation": {
+    "SroDeclaration": {
       "heading": "SRO Declaration",
       "intro": "In order to grant you full Organisation account privileges (including adding Users from your Organisation and those Users being validated by Data Custodians), you will need to complete and upload the form below.",
       "downloadTemplate": "Download SRO Declaration Form"
     },
-    "SroDeclaratationUpload": {
+    "SroDeclarationUpload": {
       "buttonText": "Upload SRO Declaration Form",
-      "buttonTextAlt": "Re-upload SRO Declaration Form"
+      "buttonTextAlt": "Re-upload SRO Declaration Form",
+      "downloadError": "An error occurred while downloading the SRO declaration. Please try again or <contactLink>contact support</contactLink> if the problem persists.",
+      "downloadErrorButton": "Try Again"
     },
     "People": {
       "heading": "Users",
@@ -1780,7 +1851,6 @@
     "SroDetails": {
       "sroOfficerContact": "Senior Responsible Officer (SRO) contact information",
       "sroOfficierContactInfo": "Senior Responsible Officers (SROs) are legally signed off by their Organisation to be accountable for the overall administration of an Organisation account.",
-      "signedDeclaration": "Signed declaration",
       "profileLink": "Profile link of signatory",
       "sroDeclarationForm": "SRO Declaration form"
     },
@@ -1814,7 +1884,7 @@
       "searchPlaceholder": "Search by Project name"
     },
     "UserProjects": {
-      "organisations": "Organisation(s)",
+      "organisations": "Organisation",
       "projectStatus": "Project status",
       "validationStatus": "Validation status",
       "title": "Project name"
@@ -2132,8 +2202,10 @@
     "invitedUsersMessage": "You have invited {users} {count, plural, =0 {} =1 {and # other} other {and # others}}."
   },
   "InviteUserModal": {
-    "heading": "Invite user",
-    "description": "Complete the fields below to invite a User to create a Safe People Registry account."
+    "heading": "Invite User",
+    "description": "Complete the fields below to invite a User to create a Safe People Registry account.",
+    "emailLabel": "Professional email address",
+    "organisationEmailDescription": "User’s professional email address at the Organisation, which should align with your records."
   },
   "VeriffTermsAndConditions": {
     "title": "This will take you to Veriff’s website to verify your identity.",
@@ -2155,6 +2227,9 @@
     },
     "DelegateCheck": {
       "delegates": "Delegate contacts"
+    },
+    "SroDeclarationCheck": {
+      "files": "SRO declaration: An SRO declaration has been uploaded since the current SRO was appointed"
     },
     "IdentityVerification": {
       "registry": {
@@ -2627,7 +2702,7 @@
         "body": "Choose to enable features like Single Sign-on for access, project approval recording, or automatic publishing of project details to a public data use register. Whatever works best for you!"
       }
     },
-    "videoIntro": "Take a deeper dive into the products with our demos",
+    "videoIntro": "Take a deeper dive into the platform with our demo playlist below",
     "InfoHero": {
       "title": "The Safe People Registry is <bold>secure</bold>, <bold>supported</bold>, <bold>open-source</bold> and <bold>free</bold>",
       "content": "We co-created the Safe People Registry with Users, Organisations and Data Custodians to make ‘safe people’ validation faster, easier, and more secure.\n\nLed by Health Data Research UK’s (HDR UK) <techLink>Technology Team</techLink> (though not health-data specific), the Safe People Registry is a free, open-source platform designed for long-term use and built with collaboration at its core.\n\nThe Safe People Registry continues to evolve in response to your needs. <helpLink>Help us develop further!</helpLink>"

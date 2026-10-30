@@ -1,5 +1,6 @@
 import { EMAIL_TEMPLATE } from "@/consts/application";
 import {
+  FileDetails,
   Organisation,
   OrganisationIdvt,
   ResearcherProject,
@@ -82,6 +83,9 @@ type PostOrganisationSubsidiaryPayload = Omit<Subsidiary, "id">;
 
 type GetProjectsResponse = ResearcherProject[];
 
+// null when the Organisation hasn't uploaded an SRO declaration.
+type GetSroDeclarationDetailsResponse = FileDetails | null;
+
 interface PatchSponsorshipStatusParams {
   organisationId: number;
 }
@@ -115,6 +119,7 @@ export type {
   PostOrganisationInviteToContactSuperadminResponse,
   PutSystemApprovedPayload,
   GetProjectsResponse,
+  GetSroDeclarationDetailsResponse,
   PatchSponsorshipStatusParams,
   PatchSponsorshipStatusPayload,
 };

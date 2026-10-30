@@ -23,7 +23,8 @@ import { formatNotificationType } from "../../utils/notifications";
 import { NotificationModal } from "../NotificationModal";
 import useGetNotificationsCount from "./hooks/useGetNotificationCounts";
 import useGetNotifications from "./hooks/useGetNotifications";
-import usePutNotification from "./hooks/usePutNotification";
+import usePatchNotification from "./hooks/usePatchNotification";
+import usePatchAllNotification from "./hooks/usePatchAllNotifications";
 import { StyledMenuItem } from "./NotificationsMenu.styles";
 
 const NAMESPACE_TRANSLATIONS = "NotificationsMenu";
@@ -31,7 +32,7 @@ const NAMESPACE_TRANSLATIONS = "NotificationsMenu";
 export default function NotificationsMenu() {
   const t = useTranslations(NAMESPACE_TRANSLATIONS);
   const user = useStore(store => store.getUser());
-  const [showNotificationModel, setShowNotificationModal] = useState(false);
+  const [showNotificationModal, setShowNotificationModal] = useState(false);
   const [currentNotification, setCurrentNotification] =
     useState<Notification>();
 
@@ -51,6 +52,7 @@ export default function NotificationsMenu() {
   } = useGetNotifications(user?.id as number);
 
   const isFirstLoad = useRef(true);
+
   useEffect(() => {
     if (isFirstLoad.current) {
       isFirstLoad.current = false;
@@ -61,7 +63,11 @@ export default function NotificationsMenu() {
     refetchNotifications();
   }, [notificationsCount?.data]);
 
-  const { mutateAsync: mutateNotification } = usePutNotification(
+  const { mutateAsync: mutateNotification } = usePatchNotification(
+    user?.id as number
+  );
+
+  const { mutateAsync: mutateAllNotifications } = usePatchAllNotification(
     user?.id as number
   );
 
@@ -89,8 +95,17 @@ export default function NotificationsMenu() {
     });
   };
 
+  const changeAllToReadStatus = () => {
+    mutateAllNotifications({ userId: user?.id as number }).then(() => {
+      refetchNotifications();
+      refetchCount();
+    });
+  };
+
   const handleViewNotification = (notif: Notification) => {
-    if (!notif.read_at) changeReadStatus(notif.id, NotificationPutType.READ);
+    if (!notif.read_at) {
+      changeReadStatus(notif.id, NotificationPutType.READ);
+    }
     setCurrentNotification(notif);
     setShowNotificationModal(true);
   };
@@ -212,7 +227,21 @@ export default function NotificationsMenu() {
             </StyledMenuItem>
           ))
         )}
-
+        <StyledMenuItem
+          data-testid="notification-mark-as-read"
+          onClick={() => {
+            changeAllToReadStatus();
+          }}>
+          <Typography
+            variant="body2"
+            sx={{
+              textAlign: "center",
+              width: "100%",
+            }}
+            color="text.primary">
+            {t("markAllAsRead")}
+          </Typography>
+        </StyledMenuItem>
         {isLoadingMoreNotifications && (
           <StyledMenuItem>
             <CircularProgress sx={{ mx: "auto" }} />
@@ -222,7 +251,8 @@ export default function NotificationsMenu() {
 
       {currentNotification && (
         <NotificationModal
-          open={showNotificationModel}
+          notification={currentNotification}
+          open={showNotificationModal}
           handleMarkAsUnread={() => {
             changeReadStatus(
               currentNotification.id,
@@ -231,7 +261,6 @@ export default function NotificationsMenu() {
             setShowNotificationModal(false);
           }}
           onClose={() => setShowNotificationModal(false)}
-          notification={currentNotification}
         />
       )}
     </Box>

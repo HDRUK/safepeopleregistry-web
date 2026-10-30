@@ -1,19 +1,15 @@
-"use client";
-
 import Form from "@/components/Form/Form";
 import FormActions from "@/components/FormActions";
 import FormControlWrapper from "@/components/FormControlWrapper";
 import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
+import SelectDepartments from "@/components/SelectDepartments";
 import yup from "@/config/yup";
 import { ROUTES } from "@/consts/router";
 import { PageBody, PageSection } from "@/modules";
-import useOrganisationStore from "@/queries/useOrganisationStore";
-import getOrganisationDelegatesQuery from "@/services/organisations/getOrganisationDelegatesQuery";
-import { User } from "@/types/application";
+import { Organisation, PendingSro, User } from "@/types/application";
 import { getName } from "@/utils/application";
 import {
-  Autocomplete,
-  Chip,
+  Button,
   FormControlLabel,
   Grid,
   Radio,
@@ -21,9 +17,10 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
+import DelegatePicker from "./DelegatePicker";
+import { SroInvitee } from "./useSroActions";
 
 const NAMESPACE_TRANSLATION_FORM = "Form";
 const NAMESPACE_TRANSLATION_ORG_PROFILE = "ProfileOrganisation";
@@ -33,20 +30,37 @@ type SroInviteMode = "new" | "existingDelegate";
 export interface SroInviteFormValues {
   first_name?: string | null;
   last_name?: string | null;
+  department_name?: string | null;
+  job_title?: string | null;
   email?: string | null;
 }
 
-interface SroInviteProps {
-  hasSroAssigned: boolean;
+interface SroInviteFormProps {
+  // first: the organisation has no SRO. replacePending: inviting someone instead of a pending
+  // invitee. replacement: the SRO inviting their own replacement, new person only.
+  purpose: "first" | "replacePending" | "replacement";
+  pendingSro?: PendingSro | null;
+  organisation?: Organisation;
+  delegates: User[];
+  onBack: () => void;
+  onInvite: (invitee: SroInvitee) => void;
+  onAppoint: (delegate: User) => void;
 }
 
-export default function SroInvite({ hasSroAssigned }: SroInviteProps) {
+export default function SroInviteForm({
+  purpose,
+  pendingSro,
+  organisation,
+  delegates,
+  onBack,
+  onInvite,
+  onAppoint,
+}: SroInviteFormProps) {
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
   const tOrgProfile = useTranslations(NAMESPACE_TRANSLATION_ORG_PROFILE);
-  const { organisation } = useOrganisationStore();
 
-  const sroOfficer = organisation?.sro_officer;
-
+  // An SRO hands over to an existing delegate from their own card instead.
+  const canChooseDelegate = purpose !== "replacement";
   const [mode, setMode] = useState<SroInviteMode>("new");
   const [selectedDelegate, setSelectedDelegate] = useState<User | null>(null);
 
@@ -61,6 +75,11 @@ export default function SroInvite({ hasSroAssigned }: SroInviteProps) {
           mode === "new"
             ? yup.string().required(tForm("lastNameRequiredInvalid"))
             : yup.string().nullable(),
+        department_name: yup.string().nullable(),
+        job_title:
+          mode === "new"
+            ? yup.string().required(tForm("jobTitleRequiredInvalid"))
+            : yup.string().nullable(),
         email:
           mode === "new"
             ? yup
@@ -72,84 +91,37 @@ export default function SroInvite({ hasSroAssigned }: SroInviteProps) {
     [tForm, mode]
   );
 
-  const { data: delegatesData } = useQuery(
-    getOrganisationDelegatesQuery(
-      organisation?.id as number,
-      Boolean(organisation?.id)
-    )
-  );
-  const delegates = delegatesData?.data || [];
-
   const formOptions = {
     defaultValues: {
       first_name: "",
       last_name: "",
+      department_name: "",
+      job_title: "",
       email: "",
     },
   };
 
   const isDelegateMissing = mode === "existingDelegate" && !selectedDelegate;
 
-  // Need backend: send SRO invite endpoint
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleSendInvite = (values: SroInviteFormValues) => {};
+  const handleSubmit = (values: SroInviteFormValues) => {
+    if (mode === "new") {
+      // The schema requires all but the department in this mode.
+      onInvite({
+        first_name: values.first_name as string,
+        last_name: values.last_name as string,
+        email: values.email as string,
+        role: values.job_title as string,
+        department_id: values.department_name
+          ? Number(values.department_name)
+          : undefined,
+      });
+      return;
+    }
 
-  // Need backend: resend SRO invite endpoint
-  const handleResendInvite = () => {};
-
-  if (hasSroAssigned) {
-    return (
-      <PageBody heading={tOrgProfile("sroInviteTitle")}>
-        <PageSection description={tOrgProfile("sroAssignedDescription")}>
-          <Typography sx={{ mt: 2, mb: 2 }}>
-            {tOrgProfile("sroAssignedIntro")}
-          </Typography>
-          <Grid container rowSpacing={3}>
-            <Grid size={{ xs: 12 }}>
-              <Typography sx={{ fontWeight: "bold" }}>
-                {tOrgProfile("sroAssignedName")}
-              </Typography>
-              <Typography>
-                {sroOfficer?.first_name} {sroOfficer?.last_name}
-              </Typography>
-            </Grid>
-            <Grid size={{ xs: 12 }}>
-              <Typography sx={{ fontWeight: "bold" }}>
-                {tOrgProfile("sroAssignedEmail")}
-              </Typography>
-              <Typography>{sroOfficer?.email}</Typography>
-            </Grid>
-            <Grid size={{ xs: 12 }}>
-              <Typography sx={{ fontWeight: "bold" }}>
-                {tOrgProfile("sroAssignedDepartment")}
-              </Typography>
-              <Typography>{sroOfficer?.departments?.[0]?.name}</Typography>
-            </Grid>
-            <Grid size={{ xs: 12 }}>
-              <Typography sx={{ fontWeight: "bold" }}>
-                {tOrgProfile("sroAssignedJobTitle")}
-              </Typography>
-              <Typography>{sroOfficer?.role}</Typography>
-            </Grid>
-          </Grid>
-          <Grid container sx={{ pt: "29px" }}>
-            <Grid size={{ xs: 12 }}>
-              <Chip color="success" label={tOrgProfile("sroInviteSentChip")} />
-            </Grid>
-          </Grid>
-          <FormActions>
-            <ProfileNavigationFooter
-              previousHref={
-                ROUTES.profileOrganisationDetailsSecurityCompliance.path
-              }
-              onClick={handleResendInvite}
-              submitButtonText={tOrgProfile("sroResendInviteButton")}
-            />
-          </FormActions>
-        </PageSection>
-      </PageBody>
-    );
-  }
+    if (selectedDelegate) {
+      onAppoint(selectedDelegate);
+    }
+  };
 
   return (
     <PageBody heading={tOrgProfile("sroInviteTitle")}>
@@ -157,29 +129,43 @@ export default function SroInvite({ hasSroAssigned }: SroInviteProps) {
         aria-label={tOrgProfile("sroInviteTitle")}
         schema={schema}
         {...formOptions}
-        onSubmit={handleSendInvite}>
-        <PageSection description={tOrgProfile("sroInviteNoOfficerDescription")}>
+        onSubmit={handleSubmit}>
+        <PageSection
+          description={tOrgProfile(
+            purpose === "replacement"
+              ? "sroInviteReplacementDescription"
+              : "sroInviteNoOfficerDescription"
+          )}>
+          {purpose === "replacePending" && pendingSro && (
+            <Button variant="outlined" sx={{ mb: 2 }} onClick={onBack}>
+              {tOrgProfile("sroKeepPendingInviteButton", {
+                name: getName(pendingSro),
+              })}
+            </Button>
+          )}
           <Grid container rowSpacing={3}>
-            <Grid size={{ xs: 12 }}>
-              <Typography sx={{ fontWeight: "bold" }}>
-                {tOrgProfile("sroInviteModeLabel")}
-              </Typography>
-              <RadioGroup
-                row
-                value={mode}
-                onChange={e => setMode(e.target.value as SroInviteMode)}>
-                <FormControlLabel
-                  value="new"
-                  control={<Radio />}
-                  label={tOrgProfile("sroInviteModeNew")}
-                />
-                <FormControlLabel
-                  value="existingDelegate"
-                  control={<Radio />}
-                  label={tOrgProfile("sroInviteModeExisting")}
-                />
-              </RadioGroup>
-            </Grid>
+            {canChooseDelegate && (
+              <Grid size={{ xs: 12 }}>
+                <Typography sx={{ fontWeight: "bold" }}>
+                  {tOrgProfile("sroInviteModeLabel")}
+                </Typography>
+                <RadioGroup
+                  row
+                  value={mode}
+                  onChange={e => setMode(e.target.value as SroInviteMode)}>
+                  <FormControlLabel
+                    value="new"
+                    control={<Radio />}
+                    label={tOrgProfile("sroInviteModeNew")}
+                  />
+                  <FormControlLabel
+                    value="existingDelegate"
+                    control={<Radio />}
+                    label={tOrgProfile("sroInviteModeExisting")}
+                  />
+                </RadioGroup>
+              </Grid>
+            )}
 
             {mode === "new" ? (
               <Grid size={{ xs: 12 }}>
@@ -198,8 +184,31 @@ export default function SroInvite({ hasSroAssigned }: SroInviteProps) {
                   </Grid>
                   <Grid size={{ xs: 12 }}>
                     <FormControlWrapper
+                      name="department_name"
+                      label={tOrgProfile("sroInviteDepartment")}
+                      renderField={fieldProps => (
+                        <SelectDepartments
+                          organisation={organisation}
+                          {...fieldProps}
+                          inputProps={{
+                            "aria-label": tForm("departmentNameAriaLabel"),
+                          }}
+                        />
+                      )}
+                    />
+                  </Grid>
+                  <Grid size={{ xs: 12 }}>
+                    <FormControlWrapper
+                      name="job_title"
+                      label={tOrgProfile("sroInviteJobTitle")}
+                      renderField={fieldProps => <TextField {...fieldProps} />}
+                    />
+                  </Grid>
+                  <Grid size={{ xs: 12 }}>
+                    <FormControlWrapper
                       name="email"
                       label={tOrgProfile("sroInviteEmailAddress")}
+                      description={null}
                       renderField={fieldProps => (
                         <TextField {...fieldProps} type="email" />
                       )}
@@ -209,36 +218,19 @@ export default function SroInvite({ hasSroAssigned }: SroInviteProps) {
               </Grid>
             ) : (
               <Grid size={{ xs: 12 }}>
-                <Typography
-                  component="label"
-                  htmlFor="sro-invite-select-delegate"
-                  sx={{ display: "block", mb: 1 }}>
-                  {tOrgProfile("sroInviteSelectDelegateLabel")}{" "}
-                  <span style={{ color: "red" }}>*</span>
-                </Typography>
-                <Autocomplete
+                <DelegatePicker
                   id="sro-invite-select-delegate"
-                  options={delegates}
-                  getOptionLabel={option => getName(option)}
-                  isOptionEqualToValue={(option, selected) =>
-                    option.id === selected.id
-                  }
+                  delegates={delegates}
                   value={selectedDelegate}
-                  onChange={(_, newValue) => setSelectedDelegate(newValue)}
-                  renderInput={params => (
-                    <TextField
-                      {...params}
-                      variant="outlined"
-                      required
-                      placeholder={tOrgProfile(
-                        "sroInviteSelectDelegatePlaceholder"
-                      )}
-                    />
-                  )}
+                  onChange={setSelectedDelegate}
                 />
               </Grid>
             )}
-
+            {purpose === "replacement" && (
+              <Button variant="outlined" sx={{ mb: 2 }} onClick={onBack}>
+                {tOrgProfile("sroInviteReplacementBackButton")}
+              </Button>
+            )}
             {mode === "existingDelegate" && selectedDelegate && (
               <>
                 <Grid size={{ xs: 12 }}>
@@ -267,6 +259,34 @@ export default function SroInvite({ hasSroAssigned }: SroInviteProps) {
                     fullWidth
                     disabled
                     value={selectedDelegate.last_name}
+                  />
+                </Grid>
+                <Grid size={{ xs: 12 }}>
+                  <Typography
+                    component="label"
+                    htmlFor="sro-invite-selected-delegate-department"
+                    sx={{ display: "block", mb: 1 }}>
+                    {tOrgProfile("sroInviteDepartment")}
+                  </Typography>
+                  <TextField
+                    id="sro-invite-selected-delegate-department"
+                    fullWidth
+                    disabled
+                    value={selectedDelegate.departments?.[0]?.name ?? ""}
+                  />
+                </Grid>
+                <Grid size={{ xs: 12 }}>
+                  <Typography
+                    component="label"
+                    htmlFor="sro-invite-selected-delegate-job-title"
+                    sx={{ display: "block", mb: 1 }}>
+                    {tOrgProfile("sroInviteJobTitle")}
+                  </Typography>
+                  <TextField
+                    id="sro-invite-selected-delegate-job-title"
+                    fullWidth
+                    disabled
+                    value={selectedDelegate.role ?? ""}
                   />
                 </Grid>
                 <Grid size={{ xs: 12 }}>

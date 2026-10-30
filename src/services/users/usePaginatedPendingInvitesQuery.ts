@@ -1,3 +1,4 @@
+import { SearchDirections } from "@/consts/search";
 import usePaginatedQuery, {
   PaginatedQueryProps,
 } from "@/hooks/usePaginatedQuery";
@@ -18,7 +19,10 @@ export default function usePaginatedPendingInvitesQuery({
   return usePaginatedQuery({
     ...getPendingInvitesQuery(),
     queryKeyBase: queryKey,
-    defaultQueryParams,
+    defaultQueryParams: {
+      sort: `invite_sent_at:${SearchDirections.DESC}`,
+      ...defaultQueryParams,
+    },
     ...restParams,
   });
 }

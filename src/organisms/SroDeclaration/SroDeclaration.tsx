@@ -1,60 +1,59 @@
 "use client";
 
-import { useStore } from "@/data/store";
+import useOrganisationStore from "@/queries/useOrganisationStore";
 import { PageSection } from "@/modules";
 import { useTranslations } from "next-intl";
 
-import FormControlWrapper from "@/components/FormControlWrapper";
 import SroDeclarationUploader from "@/app/[locale]/(logged-in)/organisation/profile/components/Sro/SroDeclarationUploader";
 import Link from "next/link";
 import { Grid } from "@mui/material";
-import { FileType } from "@/consts/files";
+import { getOrganisationSroDeclarationDetailsQuery } from "@/services/organisations";
+import { useQuery } from "@tanstack/react-query";
 
-const NAMESPACE_TRANSLATION = "Organisations.SroDeclaratation";
-const SRO_DELCLARATION_FILE = "/Registry_SRO_Declaration.pdf";
+const NAMESPACE_TRANSLATION = "Organisations.SroDeclaration";
+const SRO_DECLARATION_FILE = "/Registry_SRO_Declaration.pdf";
 
 interface SroDeclarationProps {
   isDelegate: boolean;
 }
 
 export default function SroDeclaration({ isDelegate }: SroDeclarationProps) {
-  const organisation = useStore(state => state.config.organisation);
+  const { organisation, refetch: refetchOrganisation } = useOrganisationStore();
+
+  // The API hides an organisation's files, so ask for the latest declaration.
+  const { data: sroDeclarationDetails, refetch: refetchSroDeclarationDetails } =
+    useQuery(getOrganisationSroDeclarationDetailsQuery(organisation?.id));
 
   const t = useTranslations(NAMESPACE_TRANSLATION);
 
-  const latestSroFile = organisation?.files
-    ?.filter(
-      file =>
-        file.status === "processed" && file.type === FileType.DECLARATION_SRO
-    )
-    ?.sort(
-      (a, b) =>
-        Date.parse(b.updated_at ?? b.created_at) -
-        Date.parse(a.updated_at ?? a.created_at)
-    )?.[0];
+  // Uploading and scanning change the organisation's state and its latest
+  // declaration, which other parts of the profile show.
+  const reload = () => {
+    refetchOrganisation();
+    refetchSroDeclarationDetails();
+  };
 
   return (
     <PageSection heading={t("heading")} description={t("intro")}>
       <Grid container rowSpacing={2}>
-        <Link
-          href={SRO_DELCLARATION_FILE}
-          locale={false}
-          prefetch={false}
-          target="_blank">
-          {t("downloadTemplate")}
-        </Link>
+        <Grid size={{ xs: 12 }}>
+          <Link
+            href={SRO_DECLARATION_FILE}
+            locale={false}
+            prefetch={false}
+            target="_blank">
+            {t("downloadTemplate")}
+          </Link>
+        </Grid>
         {!isDelegate && (
-          <FormControlWrapper
-            name="sro_declaration"
-            displayLabel={false}
-            renderField={fieldProps => (
-              <SroDeclarationUploader
-                name="sro_declaration"
-                value={latestSroFile?.id}
-                onChange={fieldProps.onChange}
-              />
-            )}
-          />
+          <Grid size={{ xs: 12 }}>
+            <SroDeclarationUploader
+              name="sro_declaration"
+              value={sroDeclarationDetails?.data?.id}
+              onChange={reload}
+              onScanFinished={reload}
+            />
+          </Grid>
         )}
       </Grid>
     </PageSection>

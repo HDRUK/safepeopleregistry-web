@@ -68,7 +68,7 @@ const openNewOrganisationAffiliationForm = () => {
 
   cy.get(dataCy("form-modal")).should("be.visible");
 
-  cy.buttonClick("Ask them to register");
+  cy.buttonClick("Type it instead");
 
   cy.get("#organisation_name").should("be.visible");
 };

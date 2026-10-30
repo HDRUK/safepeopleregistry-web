@@ -93,7 +93,9 @@ export default function FormControlWrapper({
   const labelWidth = fullWidth ? "100%" : "auto";
 
   const descriptionText =
-    description || getTranslationWithFallback(tForm, `${tKey}Description`);
+    description === null
+      ? null
+      : description || getTranslationWithFallback(tForm, `${tKey}Description`);
   const subtitleText =
     subtitle || getTranslationWithFallback(tForm, `${tKey}Subtitle`);
 

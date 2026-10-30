@@ -222,7 +222,8 @@ export default function NavBar({ loggedIn }: NavBarProps) {
               {loggedIn && (
                 <Chip
                   label={
-                    storedOrganisation
+                    storedOrganisation ||
+                    storedUser?.user_group === UserGroup.ORGANISATIONS
                       ? AccountType.ORGANISATION
                       : storedCustodian
                         ? AccountType.CUSTODIAN

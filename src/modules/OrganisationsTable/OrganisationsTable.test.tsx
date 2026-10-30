@@ -1,16 +1,12 @@
-import { UserGroup } from "@/consts/user";
 import { mockedOrganisation } from "@/mocks/data/organisation";
-import { mockedUser } from "@/mocks/data/user";
 import { commonAccessibilityTests, render, screen } from "@/utils/testUtils";
 import { useTranslations } from "next-intl";
 import OrganisationsTable, {
   OrganisationsTableProps,
 } from "./OrganisationsTable";
+import { OrganisationSroStatus, Status } from "@/consts/application";
 
 const organisation = mockedOrganisation();
-
-const sroInvitedBy = (userGroup: UserGroup) =>
-  mockedUser({ invited_by: mockedUser({ user_group: userGroup }) });
 
 const TestComponent = (props?: Partial<OrganisationsTableProps>) => {
   const t = useTranslations("OrganisationsList");
@@ -48,16 +44,24 @@ describe("<OrganisationsTable />", () => {
   });
 
   it.each([
-    ["Account created", { unclaimed: 0 }],
+    ["Account created", { unclaimed: false }],
     [
-      "Invited by Admin",
-      { unclaimed: 1, sro_officer: sroInvitedBy(UserGroup.ADMINS) },
+      "Invited by admin",
+      {
+        unclaimed: true,
+        model_state: { state: { slug: Status.ORGANISATION_INVITED_BY_ADMIN } },
+      },
     ],
     [
       "Invited by non-admin",
-      { unclaimed: 1, sro_officer: sroInvitedBy(UserGroup.CUSTODIANS) },
+      {
+        unclaimed: true,
+        model_state: {
+          state: { slug: Status.ORGANISATION_INVITED_BY_NONADMIN },
+        },
+      },
     ],
-    ["Placeholder", { unclaimed: 1 }],
+    ["Placeholder", { unclaimed: true }],
   ])("renders the %s status", (label, overrides) => {
     setupTest({
       includeColumns: ["status"],
@@ -68,10 +72,10 @@ describe("<OrganisationsTable />", () => {
   });
 
   it.each([
-    ["Approved", "approved"],
-    ["Pending", "pending"],
-    ["Rejected", "rejected"],
-  ] as const)("renders the %s SRO status", (label, sroStatus) => {
+    ["SRO claimed", OrganisationSroStatus.CLAIMED],
+    ["SRO invited (delegates acting)", OrganisationSroStatus.INVITED],
+    ["No SRO (delegates acting)", OrganisationSroStatus.NONE],
+  ])("renders the %s SRO status", (label, sroStatus) => {
     setupTest({
       includeColumns: ["sroStatus"],
       data: [mockedOrganisation({ sro_status: sroStatus })],

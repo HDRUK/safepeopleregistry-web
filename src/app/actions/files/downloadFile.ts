@@ -1,6 +1,7 @@
 "use server";
 
 import { getRequest } from "@/services/requests";
+import { getFileNameFromContentDisposition } from "@/utils/file";
 
 export default async (id: number) => {
   try {
@@ -15,10 +16,9 @@ export default async (id: number) => {
       response.headers.get("Content-Type") || "application/octet-stream";
 
     const fileName =
-      response.headers
-        .get("Content-Disposition")
-        ?.split("filename=")[1]
-        ?.replace(/"/g, "") || "downloaded_file";
+      getFileNameFromContentDisposition(
+        response.headers.get("Content-Disposition")
+      ) || "downloaded_file";
 
     return {
       blob,

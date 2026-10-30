@@ -21,7 +21,7 @@ describe("DelegatesForm", () => {
   const onSuccess = jest.fn();
 
   beforeEach(() => {
-    mockUseStore.mockReturnValue({
+    const state = {
       config: {
         organisation: {
           id: 1,
@@ -31,7 +31,8 @@ describe("DelegatesForm", () => {
           ],
         },
       },
-    });
+    };
+    mockUseStore.mockImplementation(selector => selector(state));
 
     mockPostOrganisationsInviteUser.mockResolvedValue(
       {} as ResponseJson<PostOrganisationInviteUserResponse>
@@ -68,17 +69,7 @@ describe("DelegatesForm", () => {
     expect(screen.getByRole("textbox", { name: /Email/i })).toBeInTheDocument();
   });
 
-  it("submits the form with valid data", async () => {
-    renderComponent();
-
-    const selectElement = screen.getByLabelText(/Department/i);
-    fireEvent.mouseDown(selectElement);
-
-    const option = screen.getByRole("listbox");
-    fireEvent.click(option);
-    fireEvent.mouseDown(document.body);
-    fireEvent.keyDown(selectElement, { key: "Tab", code: "Tab" });
-
+  const fillRequiredFields = () => {
     fireEvent.change(
       screen.getByTestId("delegate_first_name").querySelector("input")!,
       { target: { value: "John" } }
@@ -95,25 +86,47 @@ describe("DelegatesForm", () => {
       screen.getByTestId("delegate_email").querySelector("input")!,
       { target: { value: "john@example.com" } }
     );
+  };
 
-    const inviteButton = screen.getByText(/invite/i);
-    expect(inviteButton).toBeInTheDocument();
-    expect(inviteButton).toBeEnabled();
-    fireEvent.click(inviteButton);
+  const expectedPayload = {
+    email: "john@example.com",
+    first_name: "John",
+    last_name: "Doe",
+    role: "Manager",
+    user_group: UserGroup.ORGANISATIONS,
+    is_delegate: 1,
+    identifier: "delegate_invite",
+  };
+
+  it("submits the selected department's id", async () => {
+    renderComponent();
+
+    fireEvent.mouseDown(screen.getByLabelText(/Department/i));
+    fireEvent.click(screen.getByRole("option", { name: "Department 2" }));
+    fillRequiredFields();
+
+    fireEvent.click(screen.getByText(/invite/i));
 
     await waitFor(() => {
       expect(mockPostOrganisationsInviteUser).toHaveBeenCalledWith(
-        undefined,
-        {
-          email: "john@example.com",
-          department_id: 0,
-          first_name: "John",
-          last_name: "Doe",
-          role: "Manager",
-          user_group: UserGroup.ORGANISATIONS,
-          is_delegate: 1,
-          identifier: "delegate_invite",
-        },
+        1,
+        { ...expectedPayload, department_id: 2 },
+        expect.any(Object)
+      );
+    });
+  });
+
+  it("submits no department when none is selected", async () => {
+    renderComponent();
+
+    fillRequiredFields();
+
+    fireEvent.click(screen.getByText(/invite/i));
+
+    await waitFor(() => {
+      expect(mockPostOrganisationsInviteUser).toHaveBeenCalledWith(
+        1,
+        { ...expectedPayload, department_id: undefined },
         expect.any(Object)
       );
     });

@@ -387,15 +387,17 @@ export default function AffiliationsForm({
                   label={tForm("emailAddressAtEmployer")}
                   renderField={fieldProps => <TextField {...fieldProps} />}
                   description={
-                    isEdit &&
-                    !initialValues?.email && (
-                      <Box sx={{ display: "flex", color: "warning.main" }}>
-                        <WarningIcon />
-                        <Typography>
-                          {tProfile("affiliationsEmailWarningMessage")}
-                        </Typography>
-                      </Box>
-                    )
+                    <>
+                      {tProfile("affiliationsEmailDescription")}
+                      {isEdit && !initialValues?.email && (
+                        <Box sx={{ display: "flex", color: "warning.main" }}>
+                          <WarningIcon />
+                          <Typography>
+                            {tProfile("affiliationsEmailWarningMessage")}
+                          </Typography>
+                        </Box>
+                      )}
+                    </>
                   }
                   disabled={isEdit && !!initialValues?.email}
                 />

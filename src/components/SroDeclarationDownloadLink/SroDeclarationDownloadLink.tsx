@@ -1,34 +1,42 @@
-import useSroDeclarationDownload from "@/hooks/useSroDeclarationDownload/useSroDeclarationDownload";
+import getOrganisationSroDeclaration from "@/app/actions/organisations/getOrganisationSroDeclaration";
+import ErrorMessage from "@/components/ErrorMessage";
+import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
+import { downloadBlob } from "@/utils/file";
+import { Link } from "@mui/material";
+import { useTranslations } from "next-intl";
 
 export interface SroDeclarationDownloadLinkProps {
   organisationId: number;
 }
-export default function sroDeclarationDownloadLink({
+
+const NAMESPACE_TRANSLATION = "SroDeclarationDownloadLink";
+
+export default function SroDeclarationDownloadLink({
   organisationId,
 }: SroDeclarationDownloadLinkProps) {
-  const { sroDeclarationDownload } = useSroDeclarationDownload(organisationId);
+  const t = useTranslations(NAMESPACE_TRANSLATION);
+  const { showAlert, hideAlert } = useAlertModal();
 
-  const handleSroDownload = async () => {
-    const { data } = await sroDeclarationDownload();
-    if (data) {
-      const blob = new Blob([data.blob], { type: data.contentType });
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = data.fileName;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
+  const handleDownload = async () => {
+    try {
+      const { blob, fileName } =
+        await getOrganisationSroDeclaration(organisationId);
+      downloadBlob(blob, fileName);
+    } catch {
+      showAlert({
+        severity: "error",
+        text: <ErrorMessage t={t} tKey="downloadError" />,
+        confirmButtonText: t("downloadErrorButton"),
+        onConfirm: async () => {
+          hideAlert();
+        },
+      });
     }
   };
+
   return (
-    <a
-      href="#"
-      onClick={() => {
-        handleSroDownload();
-      }}>
-      Download SRO Declaration form
-    </a>
+    <Link component="button" onClick={handleDownload}>
+      {t("linkText")}
+    </Link>
   );
 }

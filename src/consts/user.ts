@@ -44,7 +44,14 @@ enum AffiliationEndDateSource {
 // How far ahead of an affiliation's end date its user is warned.
 const AFFILIATION_END_WARNING_DAYS = 30;
 
+// Mirrors the API's App\Enums\OrganisationRole.
+enum OrganisationRole {
+  SRO = "SRO",
+  DELEGATE = "DELEGATE",
+}
+
 export {
+  OrganisationRole,
   UserGroup,
   UserProvider,
   UserProfileCompletionCategories,
