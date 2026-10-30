@@ -38,6 +38,7 @@ enum Status {
   AFFILIATION_APPROVED = "affiliation_approved",
   AFFILIATION_REJECTED = "affiliation_rejected",
   AFFILIATION_LEFT = "affiliation_left",
+  AFFILIATION_NEVER_VERIFIED = "affiliation_never_verified",
   AFFILIATION_ACCOUNT_IN_PROGRESS = "affiliation_account_in_progress",
   AFFILIATION_INFO_REQUIRED = "affiliation_info_required",
   AFFILIATION_ORGANISATION_INVITED = "affiliation_organisation_invited",

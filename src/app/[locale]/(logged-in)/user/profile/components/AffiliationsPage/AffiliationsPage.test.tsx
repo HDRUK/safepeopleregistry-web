@@ -1,10 +1,12 @@
 import {
   act,
   commonAccessibilityTests,
+  fireEvent,
   render,
   screen,
   waitFor,
 } from "@/utils/testUtils";
+import { Status } from "@/consts/application";
 import { OrganisationConflictError } from "@/utils/organisationConflictError";
 import { mockedAffiliation } from "@/mocks/data/user";
 import { useQuery, useMutation } from "@tanstack/react-query";
@@ -146,6 +148,47 @@ describe("<AffiliationsPage />", () => {
     await waitFor(() => {
       expect(screen.getAllByRole("columnheader")).toHaveLength(7);
     });
+  });
+
+  it("offers a left affiliation as a new affiliation, not an edit", async () => {
+    mockUseQuery.mockReturnValue({
+      data: {
+        data: mockPagedResults([
+          mockedAffiliation({
+            model_state: { state: { slug: Status.AFFILIATION_LEFT } },
+          }),
+        ]),
+      },
+      refetch: jest.fn(),
+      isLoading: false,
+      isError: false,
+    } as unknown as ReturnType<typeof useQuery>);
+
+    renderTest();
+
+    fireEvent.click(await screen.findByRole("button", { name: "Actions" }));
+
+    expect(screen.getByText("Add as a new affiliation")).toBeInTheDocument();
+    expect(screen.queryByText("View or edit")).not.toBeInTheDocument();
+    expect(screen.queryByText("Record end date")).not.toBeInTheDocument();
+    expect(screen.queryByText("Delete")).not.toBeInTheDocument();
+  });
+
+  it("only lets an affiliated affiliation have its end date recorded", async () => {
+    mockUseQuery.mockReturnValue({
+      data: { data: mockPagedResults([mockedAffiliation()]) },
+      refetch: jest.fn(),
+      isLoading: false,
+      isError: false,
+    } as unknown as ReturnType<typeof useQuery>);
+
+    renderTest();
+
+    fireEvent.click(await screen.findByRole("button", { name: "Actions" }));
+
+    expect(screen.getByText("Record end date")).toBeInTheDocument();
+    expect(screen.queryByText("View or edit")).not.toBeInTheDocument();
+    expect(screen.queryByText("Delete")).not.toBeInTheDocument();
   });
 
   it("has no accessibility violations", async () => {

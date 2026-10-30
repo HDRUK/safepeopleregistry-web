@@ -46,6 +46,7 @@ interface InviteUserFormValues {
   organisation_id?: number;
   organisation_name?: string;
   organisation_email?: string;
+  to?: Date | null;
 }
 
 interface KeyContactFormValues {

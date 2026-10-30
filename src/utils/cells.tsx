@@ -4,7 +4,7 @@ import { Status } from "@/consts/application";
 import { Link } from "@/i18n/routing";
 import { getName, injectParamsIntoPath } from "@/utils/application";
 import WarningAmberOutlinedIcon from "@mui/icons-material/WarningAmberOutlined";
-import { Link as MuiLink, Typography } from "@mui/material";
+import { Link as MuiLink, Tooltip, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { CellContext } from "@tanstack/react-table";
 import ChipStatus from "../components/ChipStatus";
@@ -26,6 +26,7 @@ import {
   Translations,
   User,
 } from "../types/application";
+import { isAffiliationEndingSoon } from "./affiliations";
 import { formatShortDate } from "./date";
 import { getOrganisationAccountStatus, getSroStatus } from "./organisation";
 
@@ -44,10 +45,23 @@ function renderAffiliationDateRangeCell<T extends ResearcherAffiliation>(
 
   if (!from) return null;
 
+  const isEndingSoon = isAffiliationEndingSoon(info.row.original);
+
   return (
-    <Typography>
-      {formatShortDate(from)} - {to ? formatShortDate(to) : "Present"}
-    </Typography>
+    <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+      <Typography>
+        {formatShortDate(from)} - {to ? formatShortDate(to) : "Present"}
+      </Typography>
+      {isEndingSoon && (
+        <Tooltip title="Ending soon">
+          <WarningAmberOutlinedIcon
+            aria-label="Ending soon"
+            fontSize="small"
+            sx={{ color: "warning.main" }}
+          />
+        </Tooltip>
+      )}
+    </Box>
   );
 }
 

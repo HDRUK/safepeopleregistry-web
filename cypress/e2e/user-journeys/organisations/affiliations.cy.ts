@@ -12,9 +12,9 @@ import {
   approveAffiliationOrganisations,
   declineAffiliationOrganisations,
   hasAffiliationOrganisations,
-  hasRemoveAffiliationOrganisations,
+  hasLeaverOrganisations,
   hasStatus,
-  removeAffiliationOrganisations,
+  recordLeaverOrganisations,
 } from "cypress/support/utils/organisation/affiliations";
 import { loginOrganisation } from "cypress/support/utils/organisation/auth";
 
@@ -73,9 +73,14 @@ describe("Affiliations journey", () => {
     hasStatus(Status.AFFILIATION_REJECTED);
   });
 
-  it("Removes an affiliation and reloads the page", () => {
-    removeAffiliationOrganisations(dataAffiliation);
+  it("Records a leaver and keeps them in the Organisation's records", () => {
+    // A declined affiliation cannot be given a leave date, so re-confirm it first.
+    cy.contains("a", getName(dataUser)).click();
+    approveAffiliationOrganisations();
+    cy.go("back");
 
-    hasRemoveAffiliationOrganisations(dataAffiliation);
+    recordLeaverOrganisations(dataAffiliation);
+
+    hasLeaverOrganisations(dataAffiliation);
   });
 });
