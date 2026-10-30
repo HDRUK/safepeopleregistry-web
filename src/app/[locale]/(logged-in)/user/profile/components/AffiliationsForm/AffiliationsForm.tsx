@@ -55,6 +55,7 @@ export default function AffiliationsForm({
 
   const [selectOrganisation, setSelectOrganisation] = useState<boolean>(true);
   const isEdit = !!initialValues?.id;
+  const initialEndDate = isEdit ? initialValues?.to : null;
   const isEndDateSetByOrganisation =
     isAffiliationEndDateSetByOrganisation(initialValues);
 
@@ -72,14 +73,19 @@ export default function AffiliationsForm({
         member_id: yup.string().required(tForm("memberIdRequiredInvalid")),
         from: yup.date().required(tForm("fromRequiredInvalid")),
         // Affiliations cannot be added in the past; an end date is optional, as not everyone knows it.
+        // An unchanged end date is left alone, so an existing one that has passed does not block other edits.
         to: isEndDateSetByOrganisation
           ? yup.date().nullable()
           : yup
               .date()
               .nullable()
-              .min(
-                dayjs().startOf("day").toDate(),
-                tProfile("affiliationEndDateInPastInvalid")
+              .test(
+                "notInPast",
+                tProfile("affiliationEndDateInPastInvalid"),
+                value =>
+                  !value ||
+                  dayjs(value).isSame(initialEndDate, "day") ||
+                  !dayjs(value).isBefore(dayjs(), "day")
               ),
         organisation_id: selectOrganisation
           ? yup.string().required(tForm("organisationRequiredInvalid"))
@@ -114,6 +120,7 @@ export default function AffiliationsForm({
       selectOrganisation,
       isSroRequirementEnabled,
       isEndDateSetByOrganisation,
+      initialEndDate,
     ]
   );
 

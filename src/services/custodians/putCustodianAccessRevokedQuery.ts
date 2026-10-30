@@ -16,7 +16,7 @@ export default function putCustodianAccessRevokedQuery(
       mutationFn: ({ params }, responseOptions) => {
         return putCustodianAccessRevoked(
           params?.custodianId as number,
-          params?.projectUserId as number,
+          params?.custodianProjectUserId as number,
           responseOptions
         );
       },

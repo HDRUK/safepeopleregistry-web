@@ -114,7 +114,7 @@ type GetCustodianAccessRevocationsResponse = CustodianAccessRevocation[];
 
 interface PutCustodianAccessRevokedParams {
   custodianId: number;
-  projectUserId: number;
+  custodianProjectUserId: number;
 }
 
 type PostCustodianProjectResponse = number;

@@ -6,11 +6,11 @@ import { ResponseJson, ResponseOptions } from "@/types/requests";
 
 export default async (
   custodianId: number,
-  projectUserId: number,
+  custodianProjectUserId: number,
   options?: ResponseOptions
 ): Promise<ResponseJson<boolean>> => {
   const response = await putRequest(
-    `/custodians/${custodianId}/access_revocations/${projectUserId}`
+    `/custodians/${custodianId}/access_revocations/${custodianProjectUserId}`
   );
 
   return handleJsonResponse(response, options);

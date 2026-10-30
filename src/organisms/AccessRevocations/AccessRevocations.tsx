@@ -46,9 +46,12 @@ export default function AccessRevocations({
       text: t("confirmDescription"),
       confirmButtonText: t("confirmButton"),
       confirmButtonColor: "primary",
-      onConfirm: async projectUserId => {
+      onConfirm: async custodianProjectUserId => {
         await confirmAccessRevoked({
-          params: { custodianId, projectUserId: projectUserId as number },
+          params: {
+            custodianId,
+            custodianProjectUserId: custodianProjectUserId as number,
+          },
         });
       },
     },
@@ -94,7 +97,8 @@ export default function AccessRevocations({
     [t, showConfirm]
   );
 
-  if (!total) return null;
+  // Only hide the panel once it is known there is nothing to revoke, so a load error is still shown.
+  if (!queryState.isLoading && !queryState.isError && !total) return null;
 
   return (
     <PageSection>

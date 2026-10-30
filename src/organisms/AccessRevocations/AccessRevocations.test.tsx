@@ -82,6 +82,25 @@ describe("<AccessRevocations />", () => {
     ).not.toBeInTheDocument();
   });
 
+  it("shows a load error rather than hiding the panel", () => {
+    mockUsePaginated.mockReturnValue({
+      data: [],
+      total: undefined,
+      last_page: 1,
+      page: 1,
+      setPage: jest.fn(),
+      refetch: jest.fn(),
+      isLoading: false,
+      isError: true,
+    } as unknown as ReturnType<typeof usePaginatedCustodianAccessRevocations>);
+
+    renderAccessRevocations();
+
+    expect(
+      screen.getByText("Leavers: data access to revoke")
+    ).toBeInTheDocument();
+  });
+
   it("lists the users whose access must be revoked", () => {
     mockPaginated([revocation]);
 
