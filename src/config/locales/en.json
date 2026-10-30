@@ -1204,7 +1204,7 @@
     "home": "Home",
     "inviteThemHere": "Invite them here",
     "organisationNameSubtitle": "Email address of an appropriately senior individual to take the role of Senior Responsible Officer, such as a Head of Department or Data Protection Officer. This may also be the person who signs the data access agreements.",
-    "organisationNotListed": "Organisation not listed? <link> Ask them to register </link>",
+    "organisationNotListed": "Organisation not listed? <link> Type it instead </link>",
     "organisationListed": "Organisation already exists? <link> Select them here </link>",
     "affiliationsDescription": "Please list all Organisations (employers or institutes) with whom you are currently employed, on an honorary contract, or enrolled with as a student. Your Organisations can use this to confirm your affiliation.",
     "postAffiliationSuccess": "You have successfully created an affiliation",

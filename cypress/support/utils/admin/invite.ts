@@ -69,7 +69,7 @@ const inviteNewOrganisationForm = (invite: InviteUserFormValues) => {
 
 const inviteNewOrganisation = (invite: InviteUserFormValues) => {
   cy.contains("Invite User").click();
-  cy.contains("button", "Ask them to register").click();
+  cy.contains("button", "Type it instead").click();
 
   inviteNewOrganisationForm(invite);
 
