@@ -683,7 +683,7 @@
     "organisationEmail": "Email address",
     "organisationEmailPlaceholder": "Email address",
     "organisationEmailRequired": "Organisation email address is required",
-    "emailAddressAtEmployer": "Professional email address at Organisation",
+    "emailAddressAtEmployer": "Professional email address",
     "userSroEmail": "Email address for an Organisation representative (optional)",
     "userSroEmailFormatInvalid": "SRO email must be a valid format",
     "userSroEmailDescription": "Suggest an appropriately senior individual to register the organisation. Examples include: research support services mailbox, departmental head, people services mailbox, etc.",
@@ -911,7 +911,8 @@
     "emailAddressInvalid": "Email address is not in the correct format",
     "emailAddressRequiredInvalid": "Email address is required",
     "emailAlreadyExists": "An account already exists with this email",
-    "emailDescription": "The email address of the proposed SRO at your Organisation, which they will need to verify by clicking a link in an email automatically sent to that account.",
+    "emailDescription": "Your email address at this Organisation, which you will need to verify by clicking a link in an email automatically sent to that account.",
+    "sroEmailDescription": "The email address of the proposed SRO at your Organisation, which they will need to verify by clicking a link in an email automatically sent to that account.",
     "departmentRequiredInvalid": "Department is required",
     "postDelegatesSuccess": "Delegate invited successfully. They should have recieved an email to register",
     "postDelegatesError": "There was a problem with inviting this Delegate. Please try again",
@@ -1305,6 +1306,7 @@
     "missingOrcIdMessage": "There’s some missing information from your ORCID that we need you to complete",
     "affiliationOrganisationWarningMessage": "Please complete this field as we couldn’t match the information. Sometimes the identifier of an Organisation within an ORCID profile does not exactly match the identifier of an Organisation registered within Safe People Registry therefore please select an Organisation from the dropdown box. If the Organisation is not listed, please <link> invite them here </link>",
     "affiliationsEmailWarningMessage": "Please complete this field as we couldn’t match the information.",
+    "affiliationsEmailDescription": "Your professional email address at the Organisation, which should align with their records.",
     "putOrganisationForbidden": "Your account does not have permissions to perform this update",
     "Projects": {
       "heading": "Projects",
@@ -2189,8 +2191,10 @@
     "invitedUsersMessage": "You have invited {users} {count, plural, =0 {} =1 {and # other} other {and # others}}."
   },
   "InviteUserModal": {
-    "heading": "Invite user",
-    "description": "Complete the fields below to invite a User to create a Safe People Registry account."
+    "heading": "Invite User",
+    "description": "Complete the fields below to invite a User to create a Safe People Registry account.",
+    "emailLabel": "Professional email address",
+    "organisationEmailDescription": "User’s professional email address at the Organisation, which should align with your records."
   },
   "VeriffTermsAndConditions": {
     "title": "This will take you to Veriff’s website to verify your identity.",

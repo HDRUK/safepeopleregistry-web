@@ -43,6 +43,8 @@ export interface InviteUserFormProps {
   combinedSuccess?: boolean;
   entityId: number;
   entityType: EntityType;
+  emailLabel?: string;
+  emailDescription?: React.ReactNode;
 }
 
 export default function InviteUser({
@@ -55,6 +57,8 @@ export default function InviteUser({
   combinedSuccess = true,
   entityId,
   entityType,
+  emailLabel,
+  emailDescription = null,
 }: InviteUserFormProps) {
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
   const tUser = useTranslations(NAMESPACE_TRANSLATION_ORGANISATION);
@@ -239,6 +243,8 @@ export default function InviteUser({
               <Grid size={{ xs: 12 }}>
                 <FormControlWrapper
                   name="email"
+                  label={emailLabel}
+                  description={emailDescription}
                   renderField={fieldProps => <TextField {...fieldProps} />}
                 />
               </Grid>

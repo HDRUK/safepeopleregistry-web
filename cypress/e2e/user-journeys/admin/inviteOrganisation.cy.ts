@@ -14,7 +14,7 @@ import {
   dataCy,
   shouldBeOrganisationProfile,
 } from "cypress/support/utils/common";
-import { EMAIL_SIGN_ME_UP } from "cypress/support/utils/data";
+import { EMAIL_CLAIM_YOUR_ACCOUNT } from "cypress/support/utils/data";
 import { actionMessage } from "cypress/support/utils/mail";
 import {
   ignoreKeycloakPasswordValidatorError,
@@ -96,7 +96,7 @@ describe("Invite organisation", () => {
 
     ignoreKeycloakPasswordValidatorError();
 
-    actionMessage(new RegExp(EMAIL_SIGN_ME_UP, "m"), {
+    actionMessage(new RegExp(EMAIL_CLAIM_YOUR_ACCOUNT, "m"), {
       to: dataInviteUser.organisation_email,
     });
 

@@ -208,6 +208,7 @@ export default function SroInviteForm({
                     <FormControlWrapper
                       name="email"
                       label={tOrgProfile("sroInviteEmailAddress")}
+                      description={null}
                       renderField={fieldProps => (
                         <TextField {...fieldProps} type="email" />
                       )}
