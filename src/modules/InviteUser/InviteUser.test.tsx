@@ -141,7 +141,7 @@ describe("<InviteUser />", () => {
         />
       );
 
-      fireEvent.click(screen.getByRole("button", { name: /register/i }));
+      fireEvent.click(screen.getByRole("button", { name: /type it instead/i }));
 
       [
         ["First name", "Jane"],
