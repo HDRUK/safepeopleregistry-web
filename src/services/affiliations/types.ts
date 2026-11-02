@@ -10,6 +10,15 @@ interface PutVerifyEmailParams {
   verificationCode: string;
 }
 
+interface PutAffiliationEndDateParams {
+  affiliationId: number;
+}
+
+interface PutAffiliationEndDatePayload {
+  // Null removes the end date.
+  to: string | null;
+}
+
 export enum AffiliationStatus {
   Approved = "approved",
   Rejected = "rejected",
@@ -22,4 +31,6 @@ export type {
   PutAffiliationsPayload,
   PutAffiliationsResponse,
   PutVerifyEmailParams,
+  PutAffiliationEndDateParams,
+  PutAffiliationEndDatePayload,
 };

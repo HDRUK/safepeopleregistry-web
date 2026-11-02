@@ -35,6 +35,15 @@ enum AffiliationRelationship {
   HONORARY_CONTRACT = "honoraryContract",
 }
 
+// Who recorded an affiliation's end date. The Organisation's date wins.
+enum AffiliationEndDateSource {
+  USER = "user",
+  ORGANISATION = "organisation",
+}
+
+// How far ahead of an affiliation's end date its user is warned.
+const AFFILIATION_END_WARNING_DAYS = 30;
+
 // Mirrors the API's App\Enums\OrganisationRole.
 enum OrganisationRole {
   SRO = "SRO",
@@ -49,4 +58,6 @@ export {
   UserFeedSource,
   UserHistoryLog,
   AffiliationRelationship,
+  AffiliationEndDateSource,
+  AFFILIATION_END_WARNING_DAYS,
 };

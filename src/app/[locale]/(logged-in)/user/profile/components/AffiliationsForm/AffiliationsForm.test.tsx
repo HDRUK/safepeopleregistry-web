@@ -7,6 +7,9 @@ import {
   waitFor,
 } from "@/utils/testUtils";
 import { faker } from "@faker-js/faker";
+import { AffiliationEndDateSource } from "@/consts/user";
+import { mockedAffiliation } from "@/mocks/data/user";
+import { EntityType } from "@/types/api";
 import AffiliationsForm from "./AffiliationsForm";
 
 const mockSubmit = jest.fn();
@@ -61,6 +64,38 @@ describe("<AffiliationsForm />", () => {
       }
     }
   );
+
+  it("does not ask whether the affiliation is current", () => {
+    renderAffiliationsComponent();
+
+    expect(
+      screen.queryByLabelText(/current employer/i)
+    ).not.toBeInTheDocument();
+  });
+
+  it("locks the end date once the Organisation has recorded it", () => {
+    render(
+      <AffiliationsForm
+        onSubmit={mockSubmit}
+        queryState={{
+          isPending: false,
+          isError: false,
+          error: "",
+        }}
+        onClose={mockOnClose}
+        entityId={1}
+        entityType={EntityType.USER}
+        initialValues={mockedAffiliation({
+          to: "2030-06-30",
+          end_date_source: AffiliationEndDateSource.ORGANISATION,
+        })}
+      />
+    );
+
+    expect(
+      screen.getByText(/Your Organisation has recorded this end date/)
+    ).toBeInTheDocument();
+  });
 
   it("has no accessibility violations", async () => {
     commonAccessibilityTests(renderAffiliationsComponent());

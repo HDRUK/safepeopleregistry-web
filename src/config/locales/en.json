@@ -163,6 +163,8 @@
       "affiliation_rejected_short": "Declined",
       "affiliation_left": "Left Organisation",
       "affiliation_left_short": "Left",
+      "affiliation_never_verified": "Ended before the email was verified",
+      "affiliation_never_verified_short": "Never verified",
       "affiliation_review": "Org Account under Review",
       "notSet": "None",
       "form_received": "Invite sent",
@@ -465,7 +467,7 @@
     "dataSecurityCompliance": "Data Security Compliance"
   },
   "ProfileOrganisation": {
-    "removeAffiliationButton": "Remove affiliation",
+    "recordLeaverButton": "Record leaver",
     "title": "Profile",
     "userAdministration": "Users and Delegates",
     "companyValid": "Organisation validated",
@@ -554,6 +556,7 @@
     "uploadCertification": "Upload Certificate",
     "employeeName": "Employee / Student name",
     "affiliationStatus": "Affiliation status",
+    "endDate": "End date",
     "emailAddress": "Email Address",
     "inviteSent": "Invite Sent",
     "actions": "Actions",
@@ -631,7 +634,8 @@
       "identity": "Identity",
       "projects": "Projects",
       "affiliations": "Affiliations",
-      "heading": "User"
+      "heading": "User",
+      "recordLeaverButton": "Record leaver"
     },
     "InviteDelegate": {
       "heading": "Invite a delegate"
@@ -1299,6 +1303,12 @@
     "delete": "Delete",
     "reinviteOrganisation": "Resend invitiation",
     "resendVerification": "Resend verification email",
+    "recordEndDate": "Record end date",
+    "addAsNewAffiliation": "Add as a new affiliation",
+    "affiliationEndDateLabel": "Expected end date (optional)",
+    "affiliationEndDateDescription": "Leave blank if you don't know it. We will remind you a month before.",
+    "affiliationEndDateSetByOrganisation": "Your Organisation has recorded this end date, so only they can change it.",
+    "affiliationEndDateInPastInvalid": "An affiliation cannot be added with an end date in the past",
     "resendInviteSuccess": "An invite has been sent to the organisation again!",
     "resendAffiliationSuccess": "A verification email has been sent again!",
     "resendAffiliationError": "Failed to resend verification email. Please try again",
@@ -1488,6 +1498,8 @@
     },
     "InviteUser": {
       "inviteUserTitle": "Request User to be invited to create a Safe People Registry account",
+      "endDateLabel": "Expected end date (optional)",
+      "endDateDescription": "If you know when this user will leave, their affiliation will end automatically on that date. Only your Organisation can change it.",
       "inviteUser": "Invite User",
       "postUserError": "Unable to invite the User",
       "postUserInviteError": "Unable to invite the User",
@@ -2305,6 +2317,43 @@
     "heading": "Pending affiliations",
     "confirmAffiliationButton": "Confirm affiliation",
     "declineAffiliationButton": "Decline affiliation"
+  },
+  "AccessRevocations": {
+    "heading": "Leavers: data access to revoke",
+    "description": "These users have left their Organisation, so they have left your projects on the Safe People Registry. This does not revoke any access to data they hold outside the Registry. Please revoke their access, then confirm you have done so.",
+    "name": "Name",
+    "organisation": "Organisation",
+    "project": "Project",
+    "leaveDate": "Leave date",
+    "recordedDate": "Recorded on",
+    "actions": "Actions",
+    "confirmButton": "Confirm access revoked",
+    "confirmTitle": "Confirm access revoked",
+    "confirmDescription": "Please confirm you have revoked any data access this user has for this project. This will be recorded against your name.",
+    "successDescription": "Thank you. The revocation has been recorded.",
+    "errorDescription": "The revocation could not be recorded. Please try again or <contactLink>contact us</contactLink> if the problem persists.",
+    "errorMessage": "The users awaiting data access revocation could not be loaded. Please try again or <contactLink>contact us</contactLink> if the problem persists."
+  },
+  "AffiliationEndDateModal": {
+    "headingUser": "Record your end date",
+    "headingOrganisation": "Record leaver",
+    "descriptionUser": "Record when you left, or will leave, {organisationName}.",
+    "descriptionOrganisation": "Record when {userName} left, or will leave, {organisationName}.",
+    "toLabelUser": "End date",
+    "toLabelOrganisation": "Leave date",
+    "toRequiredInvalid": "Enter an end date",
+    "toBeforeFromInvalid": "The end date cannot be before the start date",
+    "consequencesUser": "If this date is today or earlier, the affiliation ends straight away. You will leave any projects you are on through it, and their Data Custodians will be told. A later date ends it automatically on that day, and you will be reminded a month before. Your affiliation history is kept.",
+    "consequencesOrganisation": "If this date is today or earlier, the affiliation ends straight away. They will leave any projects they are on through it, and their Data Custodians will be told. A later date ends it automatically on that day. Their affiliation history with your Organisation is kept.",
+    "organisationWins": "If the user has recorded a different date, yours will replace it.",
+    "lockedForUser": "{organisationName} has recorded the end date of this affiliation, so only they can change it. If it is wrong, please contact them.",
+    "successDescription": "The end date has been recorded.",
+    "removedSuccessDescription": "The end date has been removed.",
+    "errorDescription": "The end date could not be recorded. Please try again or <contactLink>contact us</contactLink> if the problem persists.",
+    "cancelButton": "Cancel",
+    "closeButton": "Close",
+    "removeButton": "Remove end date",
+    "saveButton": "Save"
   },
   "Mutations": {
     "WithConfirmation": {

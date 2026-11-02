@@ -1,13 +1,16 @@
 import { useStore } from "@/data/store";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import OrganisationUsersTable from "@/modules/OrganisationUsersTable";
+import AffiliationEndDateModal from "@/organisms/AffiliationEndDateModal";
+import { EntityType } from "@/types/api";
+import { ResearcherAffiliation, User } from "@/types/application";
+import { getName } from "@/utils/application";
 import { SearchDirections } from "../../consts/search";
 import usePaginatedQuery from "../../hooks/usePaginatedQuery";
 import { PageBody, PageSection } from "../../modules";
 import OrganisationUsersBulkInvite from "../../modules/OrganisationUsersBulkInvite";
 import OrganisationUsersFilters from "../../modules/OrganisationUsersFilters";
-import useMutationWithConfirmation from "../../queries/useMutationWithConfirmation";
-import { deleteAffiliationQuery } from "../../services/affiliations";
 import { getOrganisationRegistriesQuery } from "../../services/organisations";
 
 const NAMESPACE_TRANSLATION_PROFILE = "ProfileOrganisation";
@@ -40,14 +43,10 @@ export default function OrganisationUsers() {
     enabled: !!organisation,
   });
 
-  const { showConfirm } = useMutationWithConfirmation(
-    deleteAffiliationQuery(),
-    {
-      onSuccess: () => {
-        refetchOrganisationUsers();
-      },
-    }
-  );
+  const [leaver, setLeaver] = useState<{
+    user: User;
+    affiliation: ResearcherAffiliation;
+  }>();
 
   return (
     <PageBody heading={t("employeeStudentAdminTitle")}>
@@ -69,7 +68,9 @@ export default function OrganisationUsers() {
           last_page={last_page}
           data={usersData || []}
           queryState={userDataQueryState}
-          onRemove={id => showConfirm(id)}
+          onRecordLeaver={(user, affiliation) =>
+            setLeaver({ user, affiliation })
+          }
           routes={{
             name: routes.profileOrganisationUsersIdentity,
           }}
@@ -78,6 +79,19 @@ export default function OrganisationUsers() {
         <OrganisationUsersBulkInvite
           organisation={organisation}
           onSuccess={refetchOrganisationUsers}
+        />
+        <AffiliationEndDateModal
+          open={!!leaver}
+          affiliation={
+            leaver && {
+              ...leaver.affiliation,
+              organisation: organisation ?? {},
+            }
+          }
+          userName={leaver && getName(leaver.user)}
+          entityType={EntityType.ORGANISATION}
+          onClose={() => setLeaver(undefined)}
+          onSuccess={() => refetchOrganisationUsers()}
         />
       </PageSection>
     </PageBody>

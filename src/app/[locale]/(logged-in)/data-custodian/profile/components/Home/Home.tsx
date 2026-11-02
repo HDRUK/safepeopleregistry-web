@@ -9,6 +9,7 @@ import {
   PageColumns,
   PageSection,
 } from "@/modules";
+import AccessRevocations from "@/organisms/AccessRevocations";
 import ActionLogs from "@/organisms/ActionLogs";
 import { Custodian } from "@/types/application";
 import { Typography } from "@mui/material";
@@ -32,6 +33,7 @@ export default function Home({ custodian }: HomeProps) {
     <PageBodyContainer heading={t("home")}>
       <PageColumns>
         <PageColumnBody size={{ lg: 8 }}>
+          <AccessRevocations custodianId={custodian.id} />
           <PageSection>
             <Typography sx={{ mb: 4 }}>{t("homeIntro")}</Typography>
             <ActionLogs

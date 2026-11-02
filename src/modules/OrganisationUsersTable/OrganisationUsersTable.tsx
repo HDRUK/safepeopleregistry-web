@@ -2,28 +2,34 @@ import { ActionMenu, ActionMenuItem } from "@/components/ActionMenu";
 import ChipStatus from "@/components/ChipStatus";
 import useColumns from "@/hooks/useColumns";
 import { ModuleTables } from "@/types/modules";
+import { canRecordAffiliationEndDate } from "@/utils/affiliations";
 import { formatShortDate } from "@/utils/date";
+import EventBusyOutlinedIcon from "@mui/icons-material/EventBusyOutlined";
 import { filterColumns } from "@/utils/table";
 import { Box } from "@mui/system";
 import { CellContext, ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
 import Table from "../../components/Table";
 import Text from "../../components/Text";
-import { TrashIcon } from "../../consts/icons";
-import { User, WithRoutes } from "../../types/application";
+import {
+  ResearcherAffiliation,
+  User,
+  WithRoutes,
+} from "../../types/application";
 import { renderUserNameCell } from "../../utils/cells";
 
 export type OrganisationUsersTableColumns =
   | "employeeName"
   | "emailAddress"
   | "affiliationStatus"
+  | "endDate"
   | "inviteSent"
   | "actions";
 
 export interface OrganisationUsersTableProps extends WithRoutes<
   ModuleTables<User, OrganisationUsersTableColumns>
 > {
-  onRemove: (id: number) => void;
+  onRecordLeaver: (user: User, affiliation: ResearcherAffiliation) => void;
 }
 
 export default function OrganisationUsersTable({
@@ -33,11 +39,12 @@ export default function OrganisationUsersTable({
     "employeeName",
     "emailAddress",
     "affiliationStatus",
+    "endDate",
     "inviteSent",
     "actions",
   ],
   extraColumns,
-  onRemove,
+  onRecordLeaver,
   ...restProps
 }: OrganisationUsersTableProps) {
   const { createDefaultColumn } = useColumns<User>({
@@ -54,16 +61,23 @@ export default function OrganisationUsersTable({
     </Box>
   );
 
-  const renderActions = (info: CellContext<User, unknown>) => (
-    <ActionMenu>
-      <ActionMenuItem
-        onClick={() =>
-          onRemove(info.row.original.registry.affiliations?.[0].id)
-        }>
-        <Text startIcon={<TrashIcon />}>{t("removeAffiliationButton")}</Text>
-      </ActionMenuItem>
-    </ActionMenu>
-  );
+  // The API returns each user with their latest affiliation to this Organisation.
+  const renderActions = (info: CellContext<User, unknown>) => {
+    const affiliation = info.row.original.registry.affiliations?.[0];
+
+    if (!affiliation || !canRecordAffiliationEndDate(affiliation)) return null;
+
+    return (
+      <ActionMenu>
+        <ActionMenuItem
+          onClick={() => onRecordLeaver(info.row.original, affiliation)}>
+          <Text startIcon={<EventBusyOutlinedIcon />}>
+            {t("recordLeaverButton")}
+          </Text>
+        </ActionMenuItem>
+      </ActionMenu>
+    );
+  };
 
   const columns = useMemo(() => {
     const initialColumns: ColumnDef<User>[] = [
@@ -81,6 +95,11 @@ export default function OrganisationUsersTable({
       createDefaultColumn("affiliationStatus", {
         accessorKey: "registry.affiliations",
         cell: renderAffiliationStatus,
+      }),
+      createDefaultColumn("endDate", {
+        accessorKey: "registry.affiliations",
+        cell: info =>
+          formatShortDate(info.row.original.registry.affiliations?.[0]?.to),
       }),
       createDefaultColumn("inviteSent", {
         accessorKey: "created_at",
