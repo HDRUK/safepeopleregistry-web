@@ -126,7 +126,7 @@ const recordAffiliationEndDateUsers = (
   cy.dateSelectValue("to", endDate);
 
   cy.saveFormClick();
-  cy.clickAlertModal();
+  cy.clickAlertModal("Close");
 };
 
 const removeAffiliationUsers = (affiliation: ResearcherAffiliation) => {

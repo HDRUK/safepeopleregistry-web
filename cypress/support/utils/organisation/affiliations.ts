@@ -66,7 +66,7 @@ const recordLeaverOrganisations = (affiliation: ResearcherAffiliation) => {
   cy.dateSelectValue("to", new Date().toISOString().slice(0, 10));
 
   cy.saveFormClick();
-  cy.clickAlertModal();
+  cy.clickAlertModal("Close");
 };
 
 // A leaver stays in the Organisation's records, as having left.
