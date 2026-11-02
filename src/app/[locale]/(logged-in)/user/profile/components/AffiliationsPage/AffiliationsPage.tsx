@@ -44,7 +44,7 @@ import { useMutation } from "@tanstack/react-query";
 import { CellContext } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import AffiliationsForm from "../AffiliationsForm";
 
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";
@@ -82,6 +82,16 @@ export default function AffiliationsPage({
     refetch,
     ...getAffiliationsQueryState
   } = usePaginatedAffiliations(user?.registry_id);
+
+  // The API shows a researcher their current employer even before it is
+  // approved, so let those through the organisation picker's filter too.
+  const currentOrganisationIds = useMemo(
+    () =>
+      (affiliationsData ?? [])
+        .filter(affiliation => affiliation.current_employer)
+        .map(affiliation => affiliation.organisation_id),
+    [affiliationsData]
+  );
 
   const { mutateAsync: postAffiliations, ...postAffiliationQueryState } =
     useMutation(postAffiliationQuery(user));
@@ -371,6 +381,7 @@ export default function AffiliationsPage({
                 <AffiliationsForm
                   entityId={user.id}
                   entityType={EntityType.USER}
+                  currentOrganisationIds={currentOrganisationIds}
                   onClose={() => {
                     setOpen(false);
                     setSelectedAffiliation(undefined);
