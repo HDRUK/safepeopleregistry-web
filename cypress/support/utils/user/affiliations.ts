@@ -85,7 +85,13 @@ const hasAffiliationUsers = (
     cy.contains("td", capitaliseFirstLetter(affiliation.relationship));
     cy.contains("td", affiliation.member_id);
 
-    cy.contains("td", getStatus(status || Status.AFFILIATION_EMAIL_VERIFY));
+    // The status chip's label comes from the locale file, which words email verification differently to getStatus.
+    cy.contains(
+      "td",
+      status && status !== Status.AFFILIATION_EMAIL_VERIFY
+        ? getStatus(status)
+        : "Email Verification Required"
+    );
 
     cy.contains(
       "td",
