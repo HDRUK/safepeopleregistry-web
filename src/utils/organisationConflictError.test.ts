@@ -23,7 +23,7 @@ describe("isOrganisationConflictReason", () => {
   it.each([null, undefined, "", "other", "DUPLICATE", 409, {}])(
     "rejects %p",
     value => {
-      expect(isOrganisationConflictReason(value)).toBe(false);
+    expect(isOrganisationConflictReason(value)).toBe(false);
     }
   );
 });
@@ -37,10 +37,10 @@ describe("OrganisationConflictError", () => {
     "claimed_duplicate_without_email",
     "unclaimed_duplicate_without_email",
   ] as const)("keeps the known reason %s", reason => {
-    const error = new OrganisationConflictError(reason);
+      const error = new OrganisationConflictError(reason);
 
-    expect(error.reason).toBe(reason);
-    expect(error.status).toBe(409);
+      expect(error.reason).toBe(reason);
+      expect(error.status).toBe(409);
   });
 
   it.each([null, undefined, "other", 1])(

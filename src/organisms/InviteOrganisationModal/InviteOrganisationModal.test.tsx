@@ -77,7 +77,7 @@ describe("<InviteOrganisationModal />", () => {
   });
 
   it.each([
-    ["duplicate", /This Organisation has already been invited/],
+    ["duplicate", /already exists. If you cannot find it/],
     ["email_in_use", /already the lead applicant for another Organisation/],
   ])("shows why a %s conflict failed", async (reason, text) => {
     mockedPostOrganisationUnclaimed.mockResolvedValue({
