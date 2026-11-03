@@ -23,28 +23,28 @@ import {
 import { ComponentType, useEffect, useRef, useState } from "react";
 import { createPortal, unstable_batchedUpdates } from "react-dom";
 
-import DndItem from "../../components/DndItem";
+import DndItem from "@/components/DndItem";
 import useDroppableSortItems, {
   UseDroppableSortItemsFnOptions,
   UseDroppableSortItemsProps,
-} from "../../hooks/useDroppableSortItems";
+} from "@/hooks/useDroppableSortItems";
 import {
   WithRoutes,
   WithStateWorkflow,
   WithTranslations,
-} from "../../types/application";
+} from "@/types/application";
 
-import DndDroppableContainer from "../../components/DndDroppableContainer";
-import DndSortableItem from "../../components/DndSortableItem";
-import { dndDragRotate } from "../../consts/styles";
-import { DndItems, DragUpdateEventArgsInitial } from "../../types/dnd";
-import { QueryState, WithQueryState } from "../../types/form";
+import DndDroppableContainer from "@/components/DndDroppableContainer";
+import DndSortableItem from "@/components/DndSortableItem";
+import { dndDragRotate } from "@/consts/styles";
+import { DndItems, DragUpdateEventArgsInitial } from "@/types/dnd";
+import { QueryState, WithQueryState } from "@/types/form";
 import {
   filterDuplicates,
   findDroppables,
   findItem,
   findItemIndex,
-} from "../../utils/dnd";
+} from "@/utils/dnd";
 import KanbanBoardColumn from "./KanbanBoardColumn";
 import KanbanBoardColumns from "./KanbanBoardColumns";
 

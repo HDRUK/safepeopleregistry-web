@@ -13,19 +13,19 @@ import { getUsers } from "@/app/actions/users";
 import ErrorMessage from "@/components/ErrorMessage";
 import { useFeatures } from "@/components/FeatureProvider";
 import { getOrganisationConflictErrorKey } from "@/utils/organisationConflictError";
-import Form from "../../components/Form";
-import FormActions from "../../components/FormActions";
-import FormControlWrapper from "../../components/FormControlWrapper";
-import FormSection from "../../components/FormSection";
-import SelectOrganisation from "../../components/SelectOrganisation";
-import SelectRole from "../../components/SelectRole";
-import yup from "../../config/yup";
-import { MAX_FORM_WIDTH } from "../../consts/form";
-import useQueryAlerts from "../../hooks/useQueryAlerts";
-import useOrganisationInvite from "../../queries/useOrganisationInvite";
-import { Role } from "../../types/application";
-import { InviteUserFormValues } from "../../types/form";
-import { getCombinedQueryState } from "../../utils/query";
+import Form from "@/components/Form";
+import FormActions from "@/components/FormActions";
+import FormControlWrapper from "@/components/FormControlWrapper";
+import FormSection from "@/components/FormSection";
+import SelectOrganisation from "@/components/SelectOrganisation";
+import SelectRole from "@/components/SelectRole";
+import yup from "@/config/yup";
+import { MAX_FORM_WIDTH } from "@/consts/form";
+import useQueryAlerts from "@/hooks/useQueryAlerts";
+import useOrganisationInvite from "@/queries/useOrganisationInvite";
+import { Role } from "@/types/application";
+import { InviteUserFormValues } from "@/types/form";
+import { getCombinedQueryState } from "@/utils/query";
 
 const NAMESPACE_TRANSLATION_FORM = "Form";
 const NAMESPACE_TRANSLATION_ORGANISATION = "Users.InviteUser";
@@ -43,6 +43,8 @@ export interface InviteUserFormProps {
   combinedSuccess?: boolean;
   entityId: number;
   entityType: EntityType;
+  emailLabel?: string;
+  emailDescription?: React.ReactNode;
 }
 
 export default function InviteUser({
@@ -55,6 +57,8 @@ export default function InviteUser({
   combinedSuccess = true,
   entityId,
   entityType,
+  emailLabel,
+  emailDescription = null,
 }: InviteUserFormProps) {
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
   const tUser = useTranslations(NAMESPACE_TRANSLATION_ORGANISATION);
@@ -239,6 +243,8 @@ export default function InviteUser({
               <Grid size={{ xs: 12 }}>
                 <FormControlWrapper
                   name="email"
+                  label={emailLabel}
+                  description={emailDescription}
                   renderField={fieldProps => <TextField {...fieldProps} />}
                 />
               </Grid>
@@ -264,7 +270,10 @@ export default function InviteUser({
                           entityId={entityId}
                           entityType={entityType}
                           {...fieldProps}
-                          showNotApprovedText={entityType === EntityType.USER}
+                          showNotApprovedText={
+                            entityType === EntityType.USER ||
+                            entityType === EntityType.CUSTODIAN
+                          }
                         />
                       )}
                       description={tProfile.rich("organisationNotListed", {

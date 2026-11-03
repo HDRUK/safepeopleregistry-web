@@ -50,6 +50,7 @@ export default function EmailChangeForm({
       sx={{ maxWidth: MAX_FORM_WIDTH }}>
       <FormControlWrapper
         name="email"
+        description={null}
         renderField={fieldProps => (
           <TextField disabled={mutateState.isPending} {...fieldProps} />
         )}

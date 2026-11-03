@@ -160,6 +160,7 @@ const DEFAULT_UNAPPROVED_ORGANISATION = mockedOrganisation({
 const EMAIL_REGISTER_VERIFICATION_LABEL = "Link to e-mail address verification";
 const EMAIL_UPDATE_ACCOUNT_LABEL = "Link to account update";
 const EMAIL_SIGN_ME_UP = "Sign me up!";
+const EMAIL_CLAIM_YOUR_ACCOUNT = "Claim your account";
 
 const SRO_REQUIREMENT_FEATURE = "SroRequirementEnabled";
 
@@ -208,6 +209,7 @@ export {
   DEFAULT_DELEGATE_FIELDS_ORGANISATIONS,
   EMAIL_REGISTER_VERIFICATION_LABEL,
   EMAIL_SIGN_ME_UP,
+  EMAIL_CLAIM_YOUR_ACCOUNT,
   DEFAULT_PASSWORD,
   DEFAULT_USER,
   DEFAULT_ORC_ID,

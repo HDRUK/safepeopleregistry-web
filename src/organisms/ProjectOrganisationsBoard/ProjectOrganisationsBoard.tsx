@@ -12,8 +12,8 @@ import { sortStatusArray } from "@/utils/application";
 import KanbanBoard, {
   KanbanBoardEntityProps,
   KanbanBoardHelperProps,
-} from "../../modules/KanbanBoard";
-import { CustodianProjectOrganisation } from "../../types/application";
+} from "@/modules/KanbanBoard";
+import { CustodianProjectOrganisation } from "@/types/application";
 
 const NAMESPACE_TRANSLATION = "Application.Status";
 

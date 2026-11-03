@@ -222,6 +222,26 @@ describe("<OrganisationsList />", () => {
         expect(url).toContain("account_status=organisation_placeholder");
       });
     });
+
+    it("sorts by latest status change, newest then oldest first", async () => {
+      setupTest(mockedOrganisation());
+
+      selectFilter(/Sort/, "Latest status change (Newest first)");
+
+      await waitFor(() => {
+        expect(getOrganisationsUrls().at(-1)).toContain(
+          "sort=status_changed_at:desc"
+        );
+      });
+
+      selectFilter(/Sort/, "Latest status change (Oldest first)");
+
+      await waitFor(() => {
+        expect(getOrganisationsUrls().at(-1)).toContain(
+          "sort=status_changed_at:asc"
+        );
+      });
+    });
   });
 
   it("has no accessibility violations", async () => {

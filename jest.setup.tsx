@@ -82,6 +82,7 @@ jest.mock("@/i18n/routing", () => ({
 
 export const mockUseSearchParams = {
   get: jest.fn(),
+  has: jest.fn(() => false),
   entries: jest.fn(() => []),
   toString: jest.fn(() => ""),
 };

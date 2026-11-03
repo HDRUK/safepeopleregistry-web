@@ -14,9 +14,12 @@ import {
   dataCy,
   shouldBeOrganisationProfile,
 } from "cypress/support/utils/common";
-import { EMAIL_SIGN_ME_UP } from "cypress/support/utils/data";
+import { EMAIL_CLAIM_YOUR_ACCOUNT } from "cypress/support/utils/data";
 import { actionMessage } from "cypress/support/utils/mail";
-import { registerAndLogin } from "cypress/support/utils/registration/register";
+import {
+  ignoreKeycloakPasswordValidatorError,
+  registerAndLogin,
+} from "cypress/support/utils/registration/register";
 
 describe("Invite organisation as a superadmin", () => {
   beforeEach(() => {
@@ -91,7 +94,9 @@ describe("Invite organisation", () => {
 
     inviteNewOrganisation(dataInviteUser);
 
-    actionMessage(new RegExp(EMAIL_SIGN_ME_UP, "m"), {
+    ignoreKeycloakPasswordValidatorError();
+
+    actionMessage(new RegExp(EMAIL_CLAIM_YOUR_ACCOUNT, "m"), {
       to: dataInviteUser.organisation_email,
     });
 

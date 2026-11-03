@@ -68,6 +68,7 @@ export default function SroFields({
             <Grid size={{ xs: 12 }}>
               <FormControlWrapper
                 name="email"
+                description={t("sroEmailDescription")}
                 renderField={fieldProps => <TextField {...fieldProps} />}
               />
             </Grid>
@@ -121,6 +122,7 @@ export default function SroFields({
             <Grid size={{ xs: 12 }}>
               <FormControlWrapper
                 name="email"
+                description={null}
                 renderField={fieldProps => (
                   <Typography>{fieldProps.value}</Typography>
                 )}

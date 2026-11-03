@@ -12,6 +12,7 @@ export enum RuleName {
   UK_DATA_PROTECTION = "UKDataProtection",
   AFFILIATED_ORGANISATION = "AffiliatedOrganisation",
   SANCTIONS_CHECK = "SanctionsCheck",
+  SRO_DECLARATION_CHECK = "SroDeclarationCheck",
 }
 
 export interface RuleState {

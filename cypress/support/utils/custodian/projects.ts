@@ -199,7 +199,7 @@ const openNewProjectUserForNewOrganisationForm = () => {
     /invite them to create a Safe People Registry account here/i
   ).click();
 
-  cy.buttonClick("Ask them to register");
+  cy.buttonClick("Type it instead");
 
   cy.get("#organisation_name").should("be.visible");
 };

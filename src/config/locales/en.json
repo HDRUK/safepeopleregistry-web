@@ -110,7 +110,8 @@
     "OrganisationsFilters": {
       "filterByAccountStatus": "Filter by account status",
       "filterBySroStatus": "Filter by SRO status",
-      "filterByApproved": "Filter by approval"
+      "filterByApproved": "Filter by approval",
+      "sortByStatusChangedAt": "Latest status change"
     }
   },
   "Application": {
@@ -606,7 +607,7 @@
     "sroResendInviteSuccess": "The invitation has been sent to {name} again.",
     "sroResendInviteError": "We couldn't resend the invitation. Please refresh the page and try again, or contact us at <contactLink></contactLink>.",
     "sroInviteConfirmTitle": "Invite a new SRO?",
-    "sroInviteConfirmText": "{name} will be emailed an invitation to be your Organisation's Senior Responsible Officer (SRO). They become the SRO once they create their account.",
+    "sroInviteConfirmText": "{name} will be emailed an invitation to be your Organisation's Senior Responsible Officer (SRO). They become the SRO once they create their account and upload an SRO declaration.",
     "sroInviteConfirmButton": "Send invite",
     "sroInviteCancelButton": "Cancel",
     "sroInviteSuccess": "{name} has been invited to be your Organisation's SRO.",
@@ -682,7 +683,7 @@
     "organisationEmail": "Email address",
     "organisationEmailPlaceholder": "Email address",
     "organisationEmailRequired": "Organisation email address is required",
-    "emailAddressAtEmployer": "Professional email address at Organisation",
+    "emailAddressAtEmployer": "Professional email address",
     "userSroEmail": "Email address for an Organisation representative (optional)",
     "userSroEmailFormatInvalid": "SRO email must be a valid format",
     "userSroEmailDescription": "Suggest an appropriately senior individual to register the organisation. Examples include: research support services mailbox, departmental head, people services mailbox, etc.",
@@ -898,7 +899,6 @@
     "delegateEmailInvalid": "Delegate email is not in the correct format",
     "delegateEmailRequiredInvalid": "Delegate email is required",
     "delegateFormTitle": "Organisation Administrative Delegate",
-    "delegateEmailSubtitle": "This email should be their Organisation email address, not personal email address.",
     "fullName": "Full Name",
     "fullNamePlaceholder": "Full Name",
     "fullNameRequiredInvalid": "Full name is required",
@@ -911,6 +911,7 @@
     "emailAddressRequiredInvalid": "Email address is required",
     "emailAlreadyExists": "An account already exists with this email",
     "emailDescription": "Your email address at this Organisation, which you will need to verify by clicking a link in an email automatically sent to that account.",
+    "sroEmailDescription": "The email address of the proposed SRO at your Organisation, which they will need to verify by clicking a link in an email automatically sent to that account.",
     "departmentRequiredInvalid": "Department is required",
     "postDelegatesSuccess": "Delegate invited successfully. They should have recieved an email to register",
     "postDelegatesError": "There was a problem with inviting this Delegate. Please try again",
@@ -1202,7 +1203,7 @@
     "home": "Home",
     "inviteThemHere": "Invite them here",
     "organisationNameSubtitle": "Email address of an appropriately senior individual to take the role of Senior Responsible Officer, such as a Head of Department or Data Protection Officer. This may also be the person who signs the data access agreements.",
-    "organisationNotListed": "Organisation not listed? <link> Ask them to register </link>",
+    "organisationNotListed": "Organisation not listed? <link> Type it instead </link>",
     "organisationListed": "Organisation already exists? <link> Select them here </link>",
     "affiliationsDescription": "Please list all Organisations (employers or institutes) with whom you are currently employed, on an honorary contract, or enrolled with as a student. Your Organisations can use this to confirm your affiliation.",
     "postAffiliationSuccess": "You have successfully created an affiliation",
@@ -1304,6 +1305,7 @@
     "missingOrcIdMessage": "There’s some missing information from your ORCID that we need you to complete",
     "affiliationOrganisationWarningMessage": "Please complete this field as we couldn’t match the information. Sometimes the identifier of an Organisation within an ORCID profile does not exactly match the identifier of an Organisation registered within Safe People Registry therefore please select an Organisation from the dropdown box. If the Organisation is not listed, please <link> invite them here </link>",
     "affiliationsEmailWarningMessage": "Please complete this field as we couldn’t match the information.",
+    "affiliationsEmailDescription": "Your professional email address at the Organisation, which should align with their records.",
     "putOrganisationForbidden": "Your account does not have permissions to perform this update",
     "Projects": {
       "heading": "Projects",
@@ -2188,8 +2190,10 @@
     "invitedUsersMessage": "You have invited {users} {count, plural, =0 {} =1 {and # other} other {and # others}}."
   },
   "InviteUserModal": {
-    "heading": "Invite user",
-    "description": "Complete the fields below to invite a User to create a Safe People Registry account."
+    "heading": "Invite User",
+    "description": "Complete the fields below to invite a User to create a Safe People Registry account.",
+    "emailLabel": "Professional email address",
+    "organisationEmailDescription": "User’s professional email address at the Organisation, which should align with your records."
   },
   "VeriffTermsAndConditions": {
     "title": "This will take you to Veriff’s website to verify your identity.",
@@ -2211,6 +2215,9 @@
     },
     "DelegateCheck": {
       "delegates": "Delegate contacts"
+    },
+    "SroDeclarationCheck": {
+      "files": "SRO declaration: An SRO declaration has been uploaded since the current SRO was appointed"
     },
     "IdentityVerification": {
       "registry": {

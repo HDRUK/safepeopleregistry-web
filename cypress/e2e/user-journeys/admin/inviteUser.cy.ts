@@ -6,7 +6,10 @@ import { inviteNewUser } from "cypress/support/utils/admin/invite";
 import { shouldBeUserProfile } from "cypress/support/utils/common";
 import { EMAIL_SIGN_ME_UP } from "cypress/support/utils/data";
 import { actionMessage } from "cypress/support/utils/mail";
-import { registerAndLogin } from "cypress/support/utils/registration/register";
+import {
+  ignoreKeycloakPasswordValidatorError,
+  registerAndLogin,
+} from "cypress/support/utils/registration/register";
 
 describe("Invite user", () => {
   beforeEach(() => {
@@ -19,6 +22,8 @@ describe("Invite user", () => {
     const dataInviteUser = mockedInvitedUser();
 
     inviteNewUser(dataInviteUser);
+
+    ignoreKeycloakPasswordValidatorError();
 
     actionMessage(new RegExp(EMAIL_SIGN_ME_UP), {
       to: dataInviteUser.email,

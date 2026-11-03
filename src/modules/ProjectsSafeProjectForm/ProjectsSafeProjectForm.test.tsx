@@ -5,12 +5,23 @@ import {
   screen,
   waitFor,
 } from "@/utils/testUtils";
+import { useFeatures } from "@/components/FeatureProvider";
 import { mockedProject } from "@/mocks/data/project";
+import { EntityType } from "@/types/api";
 import ProjectsSafeProjectForm, {
   ProjectsSafeProjectFormProps,
 } from "./ProjectsSafeProjectForm";
 
+jest.mock("@/components/FeatureProvider", () => ({
+  ...jest.requireActual("@/components/FeatureProvider"),
+  useFeatures: jest.fn(() => ({})),
+}));
+
+const mockedUseFeatures = jest.mocked(useFeatures);
+
 const defaultProps: ProjectsSafeProjectFormProps = {
+  entityType: EntityType.CUSTODIAN,
+  entityId: 1,
   mutateState: { isPending: false, isError: false, isSuccess: false },
   onSubmit: jest.fn(),
   defaultValues: mockedProject({
@@ -40,6 +51,10 @@ function getAllInputs() {
 }
 
 describe("<ProjectsSafeProjectForm />", () => {
+  beforeEach(() => {
+    mockedUseFeatures.mockReturnValue({});
+  });
+
   afterEach(() => {
     jest.resetAllMocks();
   });
@@ -74,15 +89,43 @@ describe("<ProjectsSafeProjectForm />", () => {
   it("does not submit the form when values are cleared", async () => {
     setupTest();
 
-    const inputs = getAllInputs();
+    const textInputs = [
+      /ID/,
+      /Name/,
+      /Lay summary/,
+      /Public benefit statement/,
+      /Technical summary/,
+    ];
 
-    clearInputsByLabelText(inputs.filter(input => typeof input !== "string"));
+    // Awaited one at a time: the shared clearInputsByLabelText helper doesn't
+    // await its clears, so they can leak into later tests
+    for (const selector of textInputs) {
+      await clearInput(screen.getAllByLabelText(selector)[0]);
+    }
 
     const form = await screen.findByRole("form", { name: "Safe project" });
     fireEvent.submit(form);
 
     await waitFor(() => {
       expect(defaultProps.onSubmit).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("when selecting a sponsor", () => {
+    beforeEach(() => {
+      mockedUseFeatures.mockReturnValue({ isSponsorship: true });
+    });
+
+    it("shows unapproved organisations to a Custodian as pending approval", async () => {
+      setupTest();
+
+      fireEvent.mouseDown(
+        await screen.findByRole("combobox", { name: /sponsor/i })
+      );
+
+      expect(
+        await screen.findByRole("option", { name: /Organisation 1/ })
+      ).toHaveTextContent("Pending approval by HDR UK");
     });
   });
 
