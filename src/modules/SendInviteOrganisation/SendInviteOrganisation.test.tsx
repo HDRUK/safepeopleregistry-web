@@ -108,7 +108,7 @@ describe("<SendInviteOrganisation />", () => {
     });
 
     it.each([
-      ["duplicate", /already exists. If you cannot find it/],
+      ["duplicate", /This Organisation has already been invited/],
       ["email_in_use", /already the lead applicant for another Organisation/],
     ])("shows why a %s conflict failed", async (reason, text) => {
       global.fetch.mockImplementation((url: string) => {
@@ -129,29 +129,35 @@ describe("<SendInviteOrganisation />", () => {
   });
 
   describe("when asking the superadmin to contact the Organisation", () => {
-    it.each([["duplicate", /already exists. If you cannot find it/]])(
-      "shows why a %s conflict failed",
-      async (reason, text) => {
-        global.fetch.mockImplementation((url: string) => {
-          if (
-            url.endsWith(
-              "/organisations/unclaimed_before_superadmin_invitation"
-            )
-          ) {
-            return mockFailedJson(reason, 409);
-          }
+    it.each([
+      ["claimed_duplicate", /is already registered/],
+      ["unclaimed_duplicate", /has already been invited and has not yet/],
+      [
+        "claimed_duplicate_without_email",
+        /with this name is already registered/,
+      ],
+      [
+        "unclaimed_duplicate_without_email",
+        /with this name has already been invited/,
+      ],
+    ])("shows why a %s conflict failed", async (reason, text) => {
+      global.fetch.mockImplementation((url: string) => {
+        if (
+          url.endsWith("/organisations/unclaimed_before_superadmin_invitation")
+        ) {
+          return mockFailedJson(reason, 409);
+        }
 
-          return mock200Json(null);
-        });
+        return mock200Json(null);
+      });
 
-        await renderSubmitted();
+      await renderSubmitted();
 
-        expect(await screen.findByText(text)).toBeInTheDocument();
-        expect(
-          screen.queryByText(/There was an error inviting the Organisation/i)
-        ).not.toBeInTheDocument();
-      }
-    );
+      expect(await screen.findByText(text)).toBeInTheDocument();
+      expect(
+        screen.queryByText(/There was an error inviting the Organisation/i)
+      ).not.toBeInTheDocument();
+    });
   });
 
   it("shows why an existing organisation's email change conflicted", async () => {

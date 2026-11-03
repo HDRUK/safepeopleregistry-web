@@ -161,7 +161,7 @@ describe("<InviteUser />", () => {
     };
 
     it.each([
-      ["duplicate", /already exists. If you cannot find it/],
+      ["duplicate", /This Organisation has already been invited/],
       ["email_in_use", /already the lead applicant for another Organisation/],
     ])(
       "shows why a %s conflict failed and does not invite the user",
