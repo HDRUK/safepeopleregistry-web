@@ -31,6 +31,8 @@ export interface AffiliationsFormProps {
   initialValues?: Partial<ResearcherAffiliation>;
   entityId: number;
   entityType: EntityType;
+  // Organisations the researcher currently works for, selectable even before approval
+  currentOrganisationIds?: number[];
 }
 
 const NAMESPACE_TRANSLATION = "Profile";
@@ -44,6 +46,7 @@ export default function AffiliationsForm({
   initialValues,
   entityId,
   entityType,
+  currentOrganisationIds,
 }: AffiliationsFormProps) {
   const tProfile = useTranslations(NAMESPACE_TRANSLATION);
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
@@ -58,6 +61,18 @@ export default function AffiliationsForm({
   const initialEndDate = isEdit ? initialValues?.to : null;
   const isEndDateSetByOrganisation =
     isAffiliationEndDateSetByOrganisation(initialValues);
+
+  // Selectable whatever their approval status: the one being edited, and the
+  // researcher's current employers
+  const selectableOrganisationIds = useMemo(
+    () => [
+      ...(initialValues?.organisation_id
+        ? [initialValues.organisation_id]
+        : []),
+      ...(currentOrganisationIds ?? []),
+    ],
+    [initialValues?.organisation_id, currentOrganisationIds]
+  );
 
   // keeping in some department code..
   // - this is not used, but incase we want to turn it on..
@@ -209,11 +224,7 @@ export default function AffiliationsForm({
                       <SelectOrganisation
                         entityId={entityId}
                         entityType={entityType}
-                        organisationsIds={
-                          initialValues?.organisation_id
-                            ? [initialValues.organisation_id]
-                            : []
-                        }
+                        organisationsIds={selectableOrganisationIds}
                         {...fieldProps}
                         onChange={e => {
                           setSelectedOrganisationId(e.target.value as number);
