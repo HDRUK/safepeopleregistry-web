@@ -1,3 +1,21 @@
+## [1.43.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.42.0...v1.43.0) (2026-11-03)
+
+### ✨ Features
+
+* **REGISTRY-2940:** Automated SRO Declaration flag and Manual SRO declaration content check (#970) ([9cee207](https://github.com/HDRUK/safepeopleregistry-web/commit/9cee207bb9d801d81dacea609ab331d386eeac81))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-2963:** Restore Custodian ability to see all users when adding them to a project (#956) ([4671d04](https://github.com/HDRUK/safepeopleregistry-web/commit/4671d04c7d5a4b4cd7d2485a03b5366499d93f50))
+* **REGISTRY-3001:** Copy change on invite SRO page (#969) ([b1378eb](https://github.com/HDRUK/safepeopleregistry-web/commit/b1378eb07e7fee74bb05eb8a9b9b42c60820df7f))
+* **REGISTRY-3017:** Super-admin | sort the Organisations tab by newest/oldest (in terms of invited onto the system) (#971) ([7bec3a3](https://github.com/HDRUK/safepeopleregistry-web/commit/7bec3a35a959f1c5f972cbce028691e4c39a6b63))
+* **REGISTRY-3034:** Change Organisation invite text in affiliation modal & user invite modal (#976) ([4085caa](https://github.com/HDRUK/safepeopleregistry-web/commit/4085caa9a43b8fefe7b0c65f3939c4e78e119877))
+* **REGISTRY-3050:** Update User professional email text (#972) ([2935c64](https://github.com/HDRUK/safepeopleregistry-web/commit/2935c645000468b84c3679570401859fe5cef91b))
+
+### ⚡ Performance Improvements
+
+* **REGISTRY-0000:** Shard e2e tests and speed up CI setup (#965) ([36af739](https://github.com/HDRUK/safepeopleregistry-web/commit/36af7390f2ff9bbd51c7347a0c9476680232e3f7))
+
 ## [1.42.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.41.0...v1.42.0) (2026-10-22)
 
 ### ✨ Features

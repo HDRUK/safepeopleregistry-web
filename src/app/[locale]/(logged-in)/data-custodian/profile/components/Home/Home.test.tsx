@@ -6,6 +6,8 @@ import Home, { HomeProps } from "./Home";
 
 jest.mock("@/services/custodians");
 jest.mock("@/data/store");
+// Tested in its own right.
+jest.mock("@/organisms/AccessRevocations", () => () => null);
 
 const defaultCustodian = mockedCustodian();
 const defaultUser = mockedUser();

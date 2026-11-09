@@ -16,8 +16,16 @@ import { getUserQuery } from "@/services/users";
 // import ActionValidationPanel from "@/modules/ActionValidationPanel";
 import { useTranslations } from "next-intl";
 import { notFound } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Box, Button } from "@mui/material";
 import ConfirmAffiliation from "@/organisms/ConfirmAffiliation";
+import AffiliationEndDateModal from "@/organisms/AffiliationEndDateModal";
+import { EntityType } from "@/types/api";
+import { getName } from "@/utils/application";
+import {
+  canRecordAffiliationEndDate,
+  isAffiliationEnded,
+} from "@/utils/affiliations";
 import { getOrganisationAffiliationQuery } from "@/services/affiliations";
 import StatusList from "@/components/StatusList";
 import { toCamelCase } from "@/utils/string";
@@ -35,6 +43,7 @@ const NAMESPACE_TRANSLATION_PROFILE = "ProfileOrganisation.User";
 function OrganisationUser({ userId, subSubTabId }: OrganisationUserProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
   const queryClient = useQueryClient();
+  const [isEndDateOpen, setIsEndDateOpen] = useState(false);
 
   const { data: userData, isFetched } = useQuery(getUserQuery(+userId));
 
@@ -106,11 +115,31 @@ function OrganisationUser({ userId, subSubTabId }: OrganisationUserProps) {
             <StatusList
               affiliationStatus={affiliation?.model_state.state.slug}
             />
-            {affiliation && (
+            {affiliation && !isAffiliationEnded(affiliation) && (
               <ConfirmAffiliation
                 affiliation={affiliation}
                 onSuccess={handleRefetch}
               />
+            )}
+            {affiliation && canRecordAffiliationEndDate(affiliation) && (
+              <Box sx={{ mt: 2 }}>
+                <Button
+                  variant="outlined"
+                  onClick={() => setIsEndDateOpen(true)}>
+                  {t("recordLeaverButton")}
+                </Button>
+                <AffiliationEndDateModal
+                  open={isEndDateOpen}
+                  affiliation={{
+                    ...affiliation,
+                    organisation: organisation ?? affiliation.organisation,
+                  }}
+                  userName={getName(user)}
+                  entityType={EntityType.ORGANISATION}
+                  onClose={() => setIsEndDateOpen(false)}
+                  onSuccess={handleRefetch}
+                />
+              </Box>
             )}
           </PageColumnDetails>
         </PageColumns>

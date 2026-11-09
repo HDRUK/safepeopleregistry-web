@@ -14,12 +14,7 @@ const addAffiliationUsers = (
   cy.get(dataCy("form-modal")).should("be.visible");
 
   cy.dateSelectValue("from", affiliation.from);
-
-  if (!affiliation.current_employer) {
-    cy.dateSelectValue("to", affiliation.to);
-  } else {
-    cy.checkboxCheck("current_employer");
-  }
+  cy.dateSelectValue("to", affiliation.to);
 
   cy.selectValue(
     "#organisation_id",
@@ -78,7 +73,7 @@ const openNewOrganisationAffiliationForm = () => {
 
   cy.get(dataCy("form-modal")).should("be.visible");
 
-  cy.buttonClick("Ask them to register");
+  cy.buttonClick("Type it instead");
 
   cy.get("#organisation_name").should("be.visible");
 };
@@ -95,19 +90,17 @@ const hasAffiliationUsers = (
     cy.contains("td", capitaliseFirstLetter(affiliation.relationship));
     cy.contains("td", affiliation.member_id);
 
+    // The status chip's label comes from the locale file, which words email verification differently to getStatus.
     cy.contains(
       "td",
-      getStatus(
-        status ||
-          (affiliation.current_employer
-            ? Status.AFFILIATION_EMAIL_VERIFY
-            : Status.AFFILIATION_PENDING)
-      )
+      status && status !== Status.AFFILIATION_EMAIL_VERIFY
+        ? getStatus(status)
+        : "Email Verification Required"
     );
 
     cy.contains(
       "td",
-      `${formatShortDate(affiliation.from)} - ${affiliation.current_employer ? "Present" : formatShortDate(affiliation.to)}`
+      `${formatShortDate(affiliation.from)} - ${affiliation.to ? formatShortDate(affiliation.to) : "Present"}`
     );
   });
 };
@@ -122,10 +115,7 @@ const editAffiliationUsers = (
   cy.actionMenuClick("View or edit");
 
   cy.dateSelectValue("from", editedAffiliation.from);
-
-  if (!affiliation.current_employer) {
-    cy.dateSelectValue("to", editedAffiliation.to);
-  }
+  cy.dateSelectValue("to", editedAffiliation.to);
 
   cy.selectValue("#relationship", editedAffiliation.relationship);
   cy.get("#role").clear().type(editedAffiliation.role);
@@ -133,6 +123,21 @@ const editAffiliationUsers = (
 
   cy.saveFormClick();
   cy.clickAlertModal();
+};
+
+const recordAffiliationEndDateUsers = (
+  affiliation: ResearcherAffiliation,
+  endDate: string
+) => {
+  cy.getLatestRowOfResults();
+  cy.getResultsActionMenu(affiliation.member_id).click();
+
+  cy.actionMenuClick("Record end date");
+
+  cy.dateSelectValue("to", endDate);
+
+  cy.saveFormClick();
+  cy.clickAlertModal("Close");
 };
 
 const removeAffiliationUsers = (affiliation: ResearcherAffiliation) => {
@@ -165,6 +170,7 @@ export {
   hasAffiliationUsers,
   hasRemoveAffiliationUsers,
   openNewOrganisationAffiliationForm,
+  recordAffiliationEndDateUsers,
   removeAffiliationUsers,
   resendAffiliationVerification,
 };

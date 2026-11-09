@@ -110,6 +110,7 @@ export default function NavBar({ loggedIn }: NavBarProps) {
   ]);
   const storedOrganisation = useStore(state => state.config.organisation);
   const storedCustodian = useStore(state => state.config.custodian);
+  const isRegistered = storedUser?.unclaimed === false;
 
   const theme = useTheme();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -219,7 +220,7 @@ export default function NavBar({ loggedIn }: NavBarProps) {
                   sx={{ mr: 4 }}
                 />
               </Link>
-              {loggedIn && (
+              {loggedIn && isRegistered && (
                 <Chip
                   label={
                     storedOrganisation ||
@@ -243,8 +244,8 @@ export default function NavBar({ loggedIn }: NavBarProps) {
               {renderButtons(left_buttons)}
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-              {storedUser?.unclaimed === false && <NotificationsMenu />}
-              {storedUser?.unclaimed === false && (
+              {isRegistered && <NotificationsMenu />}
+              {isRegistered && (
                 <MaskLabel
                   initials={`${getInitials(getName(storedUser))}`}
                   label=""
@@ -301,7 +302,7 @@ export default function NavBar({ loggedIn }: NavBarProps) {
               asMenuItem: true,
               fullWidth: true,
             })}
-            {storedUser?.unclaimed === false && (
+            {isRegistered && (
               <MenuItem
                 key="Notifications"
                 sx={{
