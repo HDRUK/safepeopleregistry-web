@@ -48,12 +48,7 @@ const addAffiliationForNewOrganisationUsers = (
   }
 
   cy.dateSelectValue("from", affiliation.from);
-
-  if (!affiliation.current_employer) {
-    cy.dateSelectValue("to", affiliation.to);
-  } else {
-    cy.checkboxCheck("current_employer");
-  }
+  cy.dateSelectValue("to", affiliation.to);
 
   cy.selectValue("#relationship", affiliation.relationship);
   cy.get("#role").clear().type(affiliation.role);
