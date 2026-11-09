@@ -98,6 +98,7 @@ describe("<AffiliationEndDateModal />", () => {
     });
 
     expect(screen.getByText(/so only they can change it/)).toBeInTheDocument();
+    expect(screen.queryByText(/Record when you left/)).not.toBeInTheDocument();
     expect(
       screen.queryByRole("button", { name: "Save" })
     ).not.toBeInTheDocument();

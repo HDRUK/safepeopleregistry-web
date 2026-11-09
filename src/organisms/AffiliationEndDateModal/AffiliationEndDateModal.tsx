@@ -108,9 +108,12 @@ export default function AffiliationEndDateModal({
     <FormModal
       heading={t(isUser ? "headingUser" : "headingOrganisation")}
       description={
-        isUser
-          ? t("descriptionUser", { organisationName })
-          : t("descriptionOrganisation", { organisationName, userName })
+        // Once the Organisation has recorded the date, the user cannot record one, so only the locked message is shown
+        isLockedForUser
+          ? undefined
+          : isUser
+            ? t("descriptionUser", { organisationName })
+            : t("descriptionOrganisation", { organisationName, userName })
       }
       variant="content"
       isDismissable
