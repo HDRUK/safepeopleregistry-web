@@ -20,6 +20,16 @@ const unapproved = mockedOrganisation({
   sro_officer: undefined,
 });
 
+// Only returned by the API to a researcher allowed to see it, e.g. their
+// current employer
+const restricted = mockedOrganisation({
+  id: 3,
+  organisation_name: "Restricted Organisation",
+  system_approved: false,
+  is_restricted: true,
+  sro_officer: undefined,
+});
+
 const renderSelectOrganisation = (organisationsIds?: number[]) =>
   render(
     <SelectOrganisation
@@ -33,7 +43,11 @@ const renderSelectOrganisation = (organisationsIds?: number[]) =>
 describe("<SelectOrganisation />", () => {
   beforeEach(() => {
     (getOrganisations as jest.Mock).mockResolvedValue({
-      data: { data: [approved, unapproved], last_page: 1, total: 2 },
+      data: {
+        data: [approved, unapproved, restricted],
+        last_page: 1,
+        total: 3,
+      },
     });
   });
 
@@ -48,11 +62,19 @@ describe("<SelectOrganisation />", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("shows an unapproved organisation that is allowed by id, e.g. a current employer", async () => {
+  it("shows an unapproved organisation that is allowed by id, e.g. the one being edited", async () => {
     renderSelectOrganisation([unapproved.id]);
 
     expect(
       await screen.findByRole("option", { name: unapproved.organisation_name })
+    ).toBeInTheDocument();
+  });
+
+  it("shows a restricted organisation the API returned to a researcher, e.g. their current employer", async () => {
+    renderSelectOrganisation();
+
+    expect(
+      await screen.findByRole("option", { name: restricted.organisation_name })
     ).toBeInTheDocument();
   });
 });

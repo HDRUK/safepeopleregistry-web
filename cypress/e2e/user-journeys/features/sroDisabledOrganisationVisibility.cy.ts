@@ -13,9 +13,12 @@ import {
 } from "cypress/support/utils/custodian/projects";
 import {
   DEFAULT_AFFILIATION_USERS,
+  DEFAULT_FROM_DATE,
   SRO_REQUIREMENT_FEATURE,
 } from "cypress/support/utils/data";
+import { addAffiliationForNewOrganisationUsers } from "cypress/support/utils/user/affiliations";
 import { loginUser } from "cypress/support/utils/user/auth";
+import { mockedAffiliation } from "@/mocks/data/user";
 
 const project = mockedProject({
   title: `Organisation visibility ${Cypress._.random(0, 1e6)}`,
@@ -106,5 +109,40 @@ describe("A Custodian's new Organisation is hidden until approved, SRO requireme
       "contain",
       sponsor.organisation_name
     );
+  });
+});
+
+// A researcher's new Organisation is restricted too, but the API lets them see
+// it once it is their current employer. The picker must offer it, wherever that
+// affiliation sits in their (paginated) affiliations list.
+describe("A researcher's restricted current employer is offered before approval, SRO requirement disabled", () => {
+  runWithFeatureFlag(SRO_REQUIREMENT_FEATURE, false);
+
+  const currentEmployerName = `Current employer ${Cypress._.random(0, 1e6)}`;
+
+  before(() => {
+    loginUser();
+
+    cy.visitFirst(ROUTES.profileResearcherAffiliations.path);
+
+    cy.waitForLoadingToFinish();
+
+    addAffiliationForNewOrganisationUsers(
+      mockedAffiliation({
+        relationship: "Employee",
+        role: "Researcher",
+        member_id: Cypress._.random(0, 1e6).toString(),
+        from: DEFAULT_FROM_DATE,
+        current_employer: true,
+        email: faker.internet.email({ provider: "example.com" }),
+      }),
+      { organisation_name: currentEmployerName }
+    );
+
+    cy.clickAlertModal();
+  });
+
+  it("Is offered to that researcher", () => {
+    openResearcherOrganisationOptions().should("contain", currentEmployerName);
   });
 });

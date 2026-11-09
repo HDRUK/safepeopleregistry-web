@@ -53,11 +53,21 @@ const addAffiliationForNewOrganisationUsers = (
   }
 
   cy.dateSelectValue("from", affiliation.from);
-  cy.dateSelectValue("to", affiliation.to);
+
+  if (!affiliation.current_employer) {
+    cy.dateSelectValue("to", affiliation.to);
+  } else {
+    cy.checkboxCheck("current_employer");
+  }
 
   cy.selectValue("#relationship", affiliation.relationship);
   cy.get("#role").clear().type(affiliation.role);
   cy.get("#member_id").clear().type(affiliation.member_id);
+
+  // A current employer needs a professional email address
+  if (affiliation.email) {
+    cy.get("#email").clear().type(affiliation.email);
+  }
 
   cy.saveFormClick();
 };
