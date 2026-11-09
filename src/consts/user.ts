@@ -27,6 +27,9 @@ enum UserHistoryLog {
   DELETED = "deleted",
   USER_REMOVED_FROM_PROJECT = "user_removed_from_project",
   USER_ADDED_TO_PROJECT = "user_added_to_project",
+  AFFILIATION_END_DATE_RECORDED = "end_date_recorded",
+  AFFILIATION_ENDED = "ended",
+  ACCESS_REVOKED = "access_revoked",
 }
 
 enum AffiliationRelationship {

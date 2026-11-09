@@ -1177,7 +1177,10 @@
     "orcIdSuccessTitle": "ORCID scrape completed",
     "orcIdSuccessDescription": "Employment, education and qualifications has been gathered from your ORCID profile. You will need to reload the page to see the updates.",
     "closeMenu": "Close Menu",
-    "markAllAsRead": "Mark all notifications as read"
+    "markAllAsRead": "Mark all notifications as read",
+    "links": {
+      "organisation_user": "Go to user profile"
+    }
   },
   "NotificationsModal": {
     "colField": "Field",
@@ -2294,6 +2297,34 @@
       "deleted": {
         "title": "Removed {name} from a project",
         "description": "Titled: \"{project_title}\""
+      }
+    },
+    "custodian_has_project_has_user": {
+      "access_revoked": {
+        "title": "Confirmed data access revoked for {name}",
+        "description": "On project \"{project_title}\""
+      }
+    },
+    "affiliation": {
+      "created": {
+        "title": "Added an affiliation",
+        "description": "A new affiliation was added"
+      },
+      "updated": {
+        "title": "Updated an affiliation",
+        "description": "The affiliation's details or status were changed"
+      },
+      "deleted": {
+        "title": "Deleted an affiliation",
+        "description": "An affiliation was deleted"
+      },
+      "end_date_recorded": {
+        "title": "Recorded an affiliation end date",
+        "description": "{attributes_to, select, none {The end date was removed} other {End date: {attributes_to}}}"
+      },
+      "ended": {
+        "title": "Affiliation ended",
+        "description": "The affiliation ended, so {name} left any projects they were on through it"
       }
     },
     "validation_check": {

@@ -26,9 +26,12 @@ export default function UserDetails({
   const role = projectUser?.role;
   const organisation =
     directOrganisation ?? projectUser?.affiliation?.organisation;
-  const orgAffiliationEmail = user?.registry?.affiliations?.find(
-    aff => aff.organisation_id === organisation?.id
-  )?.email;
+  // A user who left and re-joined has several affiliations to the Organisation, so prefer the one we were given
+  const orgAffiliationEmail =
+    affiliation?.email ??
+    user?.registry?.affiliations?.find(
+      aff => aff.organisation_id === organisation?.id
+    )?.email;
   const email =
     projectUser?.affiliation?.email ?? orgAffiliationEmail ?? user?.email;
 

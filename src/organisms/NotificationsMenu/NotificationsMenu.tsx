@@ -21,6 +21,7 @@ import { Notification } from "../../types/notifications";
 import { formatDBDateTime } from "../../utils/date";
 import { formatNotificationType } from "../../utils/notifications";
 import { NotificationModal } from "../NotificationModal";
+import NotificationLink from "./NotificationLink";
 import useGetNotificationsCount from "./hooks/useGetNotificationCounts";
 import useGetNotifications from "./hooks/useGetNotifications";
 import usePatchNotification from "./hooks/usePatchNotification";
@@ -217,6 +218,18 @@ export default function NotificationsMenu() {
               <Typography variant="body2" sx={{ fontWeight: "inherit" }}>
                 {notif.data.message}
               </Typography>
+
+              {notif.data.link && (
+                <NotificationLink
+                  link={notif.data.link}
+                  onNavigate={() => {
+                    if (!notif.read_at) {
+                      changeReadStatus(notif.id, NotificationPutType.READ);
+                    }
+                    handleClose();
+                  }}
+                />
+              )}
 
               <Typography
                 variant="caption"

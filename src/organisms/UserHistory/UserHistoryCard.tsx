@@ -3,7 +3,7 @@ import { TranslationValues, useTranslations } from "next-intl";
 import { UserHistorys } from "@/services/users";
 import MaskLabel from "../../components/MaskLabel";
 import { getInitials, getName } from "../../utils/application";
-import { formatDisplayTimeDate } from "../../utils/date";
+import { formatDisplayLongDate, formatDisplayTimeDate } from "../../utils/date";
 import { toSentenceCase } from "../../utils/string";
 
 const NAMESPACE_TRANSLATION = "UserHistory";
@@ -62,6 +62,13 @@ export const UserHistoryCard = ({ history }: { history: UserHistorys }) => {
     ...(properties.new_status && {
       new_status: tApplication(properties.new_status),
     }),
+    // An affiliation end date that was recorded, or removed
+    ...(properties.attributes &&
+      "to" in properties.attributes && {
+        attributes_to: properties.attributes.to
+          ? formatDisplayLongDate(properties.attributes.to as string)
+          : "none",
+      }),
   };
 
   return (
@@ -86,6 +93,7 @@ export const UserHistoryCard = ({ history }: { history: UserHistorys }) => {
             <Typography variant="body2">
               <b>Description:</b>{" "}
               {t(`${log_name}.${event}.description`, {
+                name: subjectName,
                 attributeKeys: changedAttributeString,
                 ...(hydratedProperties ?? {}),
               } as unknown as TranslationValues)}
