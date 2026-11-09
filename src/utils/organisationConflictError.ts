@@ -9,6 +9,8 @@ const ORGANISATION_CONFLICT_REASONS = [
   "unclaimed_duplicate",
   "claimed_duplicate_without_email",
   "unclaimed_duplicate_without_email",
+  // Matched an Organisation the user can't see, which is awaiting approval
+  "pending_approval",
 ] as const;
 
 type OrganisationConflictReason =
@@ -69,7 +71,8 @@ type OrganisationConflictErrorKey =
   | "organisationConflictClaimedDuplicate"
   | "organisationConflictUnclaimedDuplicate"
   | "organisationConflictClaimedDuplicateWithoutEmail"
-  | "organisationConflictUnclaimedDuplicateWithoutEmail";
+  | "organisationConflictUnclaimedDuplicateWithoutEmail"
+  | "organisationConflictPendingApproval";
 
 // Keys live in the Application namespace. Returns undefined when there is no
 // known conflict, so callers keep their default error text.
@@ -98,6 +101,8 @@ function getOrganisationConflictErrorKey(
       return "organisationConflictClaimedDuplicateWithoutEmail";
     case "unclaimed_duplicate_without_email":
       return "organisationConflictUnclaimedDuplicateWithoutEmail";
+    case "pending_approval":
+      return "organisationConflictPendingApproval";
     case "unknown":
       return undefined;
     default: {
