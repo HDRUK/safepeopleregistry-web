@@ -79,14 +79,27 @@ export default function OrganisationUsersTable({
     );
   };
 
+  // Each row is one of the user's affiliations to the Organisation, and a user can have several,
+  // so the link says which one to show
+  const getUserRoute = (user: User) =>
+    routes.name?.path &&
+    `${routes.name.path}${user.registry.affiliations?.[0]?.id ? "?affiliation={affiliationId}" : ""}`;
+
   const columns = useMemo(() => {
     const initialColumns: ColumnDef<User>[] = [
       createDefaultColumn("employeeName", {
         accessorKey: "name",
         cell: info =>
-          renderUserNameCell(info.row.original, routes.name?.path, {
-            userId: info.row.original.id,
-          }),
+          renderUserNameCell(
+            info.row.original,
+            getUserRoute(info.row.original),
+            {
+              userId: info.row.original.id,
+              ...(info.row.original.registry.affiliations?.[0] && {
+                affiliationId: info.row.original.registry.affiliations[0].id,
+              }),
+            }
+          ),
       }),
       createDefaultColumn("emailAddress", {
         accessorKey: "email",

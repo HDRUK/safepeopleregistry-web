@@ -36,11 +36,16 @@ import SubTabsContents from "../SubsTabContents";
 interface OrganisationUserProps {
   userId: number;
   subSubTabId: UserSubTabs;
+  affiliationId?: number;
 }
 
 const NAMESPACE_TRANSLATION_PROFILE = "ProfileOrganisation.User";
 
-function OrganisationUser({ userId, subSubTabId }: OrganisationUserProps) {
+function OrganisationUser({
+  userId,
+  subSubTabId,
+  affiliationId,
+}: OrganisationUserProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
   const queryClient = useQueryClient();
   const [isEndDateOpen, setIsEndDateOpen] = useState(false);
@@ -79,7 +84,8 @@ function OrganisationUser({ userId, subSubTabId }: OrganisationUserProps) {
       organisation?.id as number,
       {
         enabled: !!user?.registry_id,
-      }
+      },
+      affiliationId
     )
   );
 
@@ -103,7 +109,11 @@ function OrganisationUser({ userId, subSubTabId }: OrganisationUserProps) {
               organisation={organisation}
               affiliation={affiliation}
             />
-            <SubTabsSections userId={userId} subTabId={subSubTabId} />
+            <SubTabsSections
+              userId={userId}
+              subTabId={subSubTabId}
+              affiliationId={affiliationId}
+            />
             <PageBody heading={t(toCamelCase(subSubTabId))}>
               <SubTabsContents
                 registryId={user.registry.id}

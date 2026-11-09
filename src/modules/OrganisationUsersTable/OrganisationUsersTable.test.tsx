@@ -61,6 +61,25 @@ describe("<OrganisationUsersTable />", () => {
     expect(screen.getByText(/Affiliated/)).toBeInTheDocument();
   });
 
+  it("links to the row's affiliation, as a user can have several", () => {
+    const affiliation = mockedAffiliation({ id: 34 });
+    const rowUser = mockedUser({
+      id: 10,
+      registry: { ...user.registry, affiliations: [affiliation] },
+    });
+
+    setupTest({ data: [rowUser] });
+
+    expect(
+      screen.getByRole("link", { name: new RegExp(getName(rowUser)) })
+    ).toHaveAttribute(
+      "href",
+      expect.stringContaining(
+        "/organisation/profile/user-administration/employees-and-students/10/identity?affiliation=34"
+      )
+    );
+  });
+
   it("shows the affiliation's end date", () => {
     const affiliation = mockedAffiliation({ to: "2030-06-30" });
 
