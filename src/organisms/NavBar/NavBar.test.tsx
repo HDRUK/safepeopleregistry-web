@@ -141,7 +141,7 @@ describe("NavBar Component", () => {
   it("displays 'Organisation' chip when the user belongs to an organisation", () => {
     mockUseStore.mockImplementation(selector =>
       selector({
-        getUser: () => mockedUser(),
+        getUser: () => mockedUser({ unclaimed: false }),
         setUser: jest.fn(),
         config: {
           organisation: mockedOrganisation,
@@ -158,7 +158,7 @@ describe("NavBar Component", () => {
   it("displays 'Custodian' chip when the user belongs to an custodian", () => {
     mockUseStore.mockImplementation(selector =>
       selector({
-        getUser: () => mockedUser(),
+        getUser: () => mockedUser({ unclaimed: false }),
         setUser: jest.fn(),
         config: {
           organisation: undefined,
@@ -175,7 +175,8 @@ describe("NavBar Component", () => {
   it("displays 'Super-admin' chip when the user is a super admin", () => {
     mockUseStore.mockImplementation(selector =>
       selector({
-        getUser: () => mockedUser({ user_group: UserGroup.ADMINS }),
+        getUser: () =>
+          mockedUser({ user_group: UserGroup.ADMINS, unclaimed: false }),
         setUser: jest.fn(),
         config: {
           organisation: undefined,
@@ -187,6 +188,23 @@ describe("NavBar Component", () => {
     render(<NavBar loggedIn />);
 
     expect(screen.getByText(AccountType.ADMIN)).toBeInTheDocument();
+  });
+
+  it("hides the account type chip while the user is registering", () => {
+    mockUseStore.mockImplementation(selector =>
+      selector({
+        getUser: () => mockedUser({ unclaimed: true }),
+        setUser: jest.fn(),
+        config: {
+          organisation: undefined,
+          custodian: undefined,
+        },
+      } as unknown as StoreState)
+    );
+
+    render(<NavBar loggedIn />);
+
+    expect(screen.queryByText(AccountType.USER)).not.toBeInTheDocument();
   });
 
   it("displays 'My Account' and 'Sign Out' if the user is authenticated", () => {

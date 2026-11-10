@@ -29,9 +29,18 @@ const STATUS_ORDER = [
   Status.AFFILIATION_REJECTED,
   Status.ORG_LEFT_PROJECT,
   Status.AFFILIATION_LEFT,
+  Status.AFFILIATION_NEVER_VERIFIED,
   Status.USER_LEFT_PROJECT,
 ];
 
 export const STATUS_ORDER_MAP = new Map(
   STATUS_ORDER.map((key: string, index) => [key, index])
 );
+
+export enum StatusCategory {
+  USER_VALIDATION = "userValidation",
+  ORGANISATION_VALIDATION = "organisationValidation",
+  AFFILIATION = "affiliation",
+  PROJECT = "project",
+  SPONSORSHIP = "sponsorship",
+}

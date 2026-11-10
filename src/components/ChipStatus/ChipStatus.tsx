@@ -1,4 +1,6 @@
 import { Status } from "@/consts/application";
+import { StatusCategory } from "@/consts/status";
+import { statusTooltipSlotProps } from "@/consts/styles";
 import { getColorForStatus } from "@/utils/application";
 import { Chip, ChipProps, Theme, Tooltip, useTheme } from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
@@ -11,6 +13,7 @@ const STATUS_WITH_SHORT_DESCRIPTION = [
   Status.AFFILIATION_PENDING,
   Status.AFFILIATION_REJECTED,
   Status.AFFILIATION_LEFT,
+  Status.AFFILIATION_NEVER_VERIFIED,
   Status.INVITE_SENT,
   Status.VALIDATION_IN_PROGRESS,
   Status.MORE_ORG_INFO_REQ,
@@ -27,12 +30,14 @@ const STATUS_WITH_SHORT_DESCRIPTION = [
 
 export interface ChipStatusProps extends BoxProps {
   status: Status | undefined;
+  statusCategory?: StatusCategory;
   variant?: "default" | "icon";
   chipProps?: ChipProps;
   textProps?: TextProps;
 }
 
 const NAMESPACE_TRANSLATION = "Application.Status";
+const NAMESPACE_TRANSLATION_DESCRIPTION = "Application.StatusDescription";
 
 const getColors = (indexColor: string, theme: Theme) => {
   let colors = {
@@ -72,6 +77,7 @@ const getColors = (indexColor: string, theme: Theme) => {
 
 export default function ChipStatus({
   status,
+  statusCategory,
   variant = "default",
   chipProps,
   textProps,
@@ -79,6 +85,7 @@ export default function ChipStatus({
 }: ChipStatusProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION);
   const theme = useTheme();
+  const tDescription = useTranslations(NAMESPACE_TRANSLATION_DESCRIPTION);
 
   const indexColor = getColorForStatus(status);
   const colors = getColors(indexColor, theme);
@@ -99,6 +106,14 @@ export default function ChipStatus({
       : t(status)
     : t("none");
 
+  const descriptionKey = `${statusCategory}.${status}`;
+  const description =
+    status && statusCategory && tDescription.has(descriptionKey)
+      ? tDescription(descriptionKey)
+      : undefined;
+  const tooltip = description ?? (hasShortTranslation ? t(status) : undefined);
+  const tabIndex = tooltip ? 0 : undefined;
+
   const chip =
     variant === "icon" ? (
       <Text
@@ -110,6 +125,7 @@ export default function ChipStatus({
             }}
           />
         }
+        tabIndex={tabIndex}
         {...textProps}
         {...restProps}>
         {label}
@@ -118,17 +134,29 @@ export default function ChipStatus({
       <Chip
         label={label}
         size="small"
+        tabIndex={tabIndex}
         {...chipProps}
         {...restProps}
         sx={{
           ...colors,
+          "&:focus-visible": {
+            outline: "2px solid",
+            outlineColor: "neutralGrey.contrastText",
+            outlineOffset: 2,
+          },
           ...(restProps.sx || {}),
         }}
       />
     );
 
-  return hasShortTranslation ? (
-    <Tooltip title={t(status)}>{chip}</Tooltip>
+  return tooltip ? (
+    <Tooltip
+      title={tooltip}
+      describeChild={!!description}
+      arrow
+      slotProps={statusTooltipSlotProps}>
+      {chip}
+    </Tooltip>
   ) : (
     chip
   );

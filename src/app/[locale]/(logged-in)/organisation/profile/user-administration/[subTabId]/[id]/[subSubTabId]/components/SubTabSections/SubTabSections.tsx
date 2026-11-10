@@ -16,11 +16,13 @@ export interface SubTabsMap {
 interface SubTabsSectionsProps {
   userId: number;
   subTabId: UserSubTabs;
+  affiliationId?: number;
 }
 
 export default function SubTabsSections({
   userId,
   subTabId,
+  affiliationId,
 }: SubTabsSectionsProps) {
   const routes = useStore(store => store.getApplication().routes);
   const t = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
@@ -69,5 +71,16 @@ export default function SubTabsSections({
     // },
   ];
 
-  return <SubTabs current={subTabId} tabs={subTabs} />;
+  // Keep viewing the same affiliation when moving between tabs
+  const affiliationQuery = affiliationId ? `?affiliation=${affiliationId}` : "";
+
+  return (
+    <SubTabs
+      current={subTabId}
+      tabs={subTabs.map(tab => ({
+        ...tab,
+        href: `${tab.href}${affiliationQuery}`,
+      }))}
+    />
+  );
 }

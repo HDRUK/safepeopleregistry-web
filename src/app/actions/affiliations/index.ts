@@ -4,6 +4,7 @@ import getAffiliationsWorkflowTransitions from "@/app/actions/affiliations/getAf
 import getOrganisationAffiliation from "@/app/actions/affiliations/getOrganisationAffiliation";
 import postAffiliation from "@/app/actions/affiliations/postAffiliation";
 import putAffiliation from "@/app/actions/affiliations/putAffiliation";
+import putAffiliationEndDate from "@/app/actions/affiliations/putAffiliationEndDate";
 import putRegistryHasAffiliation from "@/app/actions/affiliations/putRegistryHasAffiliation";
 import putVerifyEmail from "@/app/actions/affiliations/putVerifyEmail";
 import getAffiliationResendVerification from "@/app/actions/affiliations/getAffiliationResendVerification";
@@ -16,6 +17,7 @@ export {
   getAffiliationResendVerification,
   postAffiliation,
   putAffiliation,
+  putAffiliationEndDate,
   putRegistryHasAffiliation,
   putVerifyEmail,
 };

@@ -10,16 +10,27 @@ export const metadata: Metadata = {
 };
 
 interface PageProps {
-  params: {
+  params: Promise<{
     id: number;
     subSubTabId: UserSubTabs;
-  };
+  }>;
+  searchParams?: Promise<{
+    affiliation?: string;
+  }>;
 }
 
-async function OrganisationUserPage({ params }: PageProps) {
+async function OrganisationUserPage({ params, searchParams }: PageProps) {
   const { id: userId, subSubTabId } = await params;
+  // A user can have several affiliations to the Organisation, so the one being viewed is in the URL
+  const affiliationId = Number((await searchParams)?.affiliation) || undefined;
 
-  return <OrganisationUser userId={userId} subSubTabId={subSubTabId} />;
+  return (
+    <OrganisationUser
+      userId={userId}
+      subSubTabId={subSubTabId}
+      affiliationId={affiliationId}
+    />
+  );
 }
 
 export default OrganisationUserPage;

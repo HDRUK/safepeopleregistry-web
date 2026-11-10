@@ -13,6 +13,7 @@ import { getUsers } from "@/app/actions/users";
 import ErrorMessage from "@/components/ErrorMessage";
 import { useFeatures } from "@/components/FeatureProvider";
 import { getOrganisationConflictErrorKey } from "@/utils/organisationConflictError";
+import DateInput from "@/components/DateInput";
 import Form from "@/components/Form";
 import FormActions from "@/components/FormActions";
 import FormControlWrapper from "@/components/FormControlWrapper";
@@ -26,6 +27,7 @@ import useOrganisationInvite from "@/queries/useOrganisationInvite";
 import { Role } from "@/types/application";
 import { InviteUserFormValues } from "@/types/form";
 import { getCombinedQueryState } from "@/utils/query";
+import { formatDBDate } from "@/utils/date";
 
 const NAMESPACE_TRANSLATION_FORM = "Form";
 const NAMESPACE_TRANSLATION_ORGANISATION = "Users.InviteUser";
@@ -68,6 +70,8 @@ export default function InviteUser({
 
   const queryClient = useQueryClient();
   const [selectOrganisation, setSelectOrganisation] = useState<boolean>(true);
+  // Only an Organisation knows its own users' end dates; Custodians do not.
+  const canSetEndDate = entityType === EntityType.ORGANISATION && !custodianId;
 
   const {
     mutateAsync: mutateOrganisationUserInvite,
@@ -158,6 +162,7 @@ export default function InviteUser({
                 .string()
                 .email(tForm("emailInvalid"))
                 .required(tForm("organisationEmailRequired")),
+        to: yup.date().nullable(),
       }),
     [tForm, selectOrganisation, isSroRequirementEnabled]
   );
@@ -171,6 +176,7 @@ export default function InviteUser({
       organisation_id: initialOrganisationId || "",
       organisation_name: "",
       organisation_email: "",
+      to: null,
     },
   };
 
@@ -180,8 +186,12 @@ export default function InviteUser({
       organisation_email,
       organisation_id,
       role,
-      ...payload
+      to,
+      ...rest
     } = formData;
+    const payload = canSetEndDate
+      ? { ...rest, to: to ? (formatDBDate(to) as string) : null }
+      : rest;
 
     let organisationId = organisation_id;
 
@@ -248,6 +258,19 @@ export default function InviteUser({
                   renderField={fieldProps => <TextField {...fieldProps} />}
                 />
               </Grid>
+
+              {canSetEndDate && (
+                <Grid size={{ xs: 12 }}>
+                  <FormControlWrapper
+                    name="to"
+                    label={tUser("endDateLabel")}
+                    description={tUser("endDateDescription")}
+                    renderField={fieldProps => (
+                      <DateInput {...fieldProps} disablePast />
+                    )}
+                  />
+                </Grid>
+              )}
 
               {projectRoles && (
                 <Grid size={{ xs: 12 }}>

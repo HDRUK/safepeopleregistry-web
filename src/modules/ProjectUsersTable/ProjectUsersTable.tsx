@@ -1,3 +1,4 @@
+import { StatusCategory } from "@/consts/status";
 import useColumns from "@/hooks/useColumns";
 import { ModuleTables } from "@/types/modules";
 import { filterColumns } from "@/utils/table";
@@ -80,18 +81,19 @@ export default function ProjectUsersTable({
         accessorFn: row =>
           (row as CustodianProjectUser)?.custodian_project_organisation
             ?.model_state?.state?.slug,
-        cell: renderStatusCell,
+        cell: info =>
+          renderStatusCell(info, StatusCategory.ORGANISATION_VALIDATION),
       }),
       createDefaultColumn("affiliationStatus", {
         accessorFn: row =>
           (row as CustodianProjectUser)?.project_has_user?.affiliation
             ?.model_state?.state?.slug,
-        cell: renderStatusCell,
+        cell: info => renderStatusCell(info, StatusCategory.AFFILIATION),
       }),
       createDefaultColumn("status", {
         accessorFn: row =>
           (row as CustodianProjectUser)?.model_state?.state?.slug,
-        cell: renderStatusCell,
+        cell: info => renderStatusCell(info, StatusCategory.USER_VALIDATION),
       }),
     ];
 

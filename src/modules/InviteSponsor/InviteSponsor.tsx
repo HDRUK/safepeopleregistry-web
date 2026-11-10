@@ -1,6 +1,7 @@
 import ChipStatus from "@/components/ChipStatus";
 import Text from "@/components/Text";
 import { Status } from "@/consts/application";
+import { StatusCategory } from "@/consts/status";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
 import InviteOrganisationModal from "@/organisms/InviteOrganisationModal";
 import { putResendInviteSponorshipQuery } from "@/services/projects";
@@ -46,7 +47,13 @@ export default function InviteSponsor({
           {enableChange ? (
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
               <div>
-                {status && <ChipStatus status={status} sx={{ mr: 1 }} />}
+                {status && (
+                  <ChipStatus
+                    status={status}
+                    statusCategory={StatusCategory.SPONSORSHIP}
+                    sx={{ mr: 1 }}
+                  />
+                )}
 
                 {status === Status.INVITED && (
                   <Link
@@ -79,7 +86,10 @@ export default function InviteSponsor({
           ) : (
             <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
               {status === Status.SPONSORSHIP_REJECTED && (
-                <ChipStatus status={status} />
+                <ChipStatus
+                  status={status}
+                  statusCategory={StatusCategory.SPONSORSHIP}
+                />
               )}
               <Text
                 fontSize="inherit"
@@ -99,7 +109,11 @@ export default function InviteSponsor({
           )}
         </div>
       ) : (
-        <ChipStatus status={status} sx={{ mr: 1 }} />
+        <ChipStatus
+          status={status}
+          statusCategory={StatusCategory.SPONSORSHIP}
+          sx={{ mr: 1 }}
+        />
       )}
       <InviteOrganisationModal
         open={showInviteModal}

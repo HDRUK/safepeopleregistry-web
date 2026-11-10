@@ -20,8 +20,10 @@ import {
   SortingStrategy,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import { Tooltip } from "@mui/material";
 import { ComponentType, useEffect, useRef, useState } from "react";
 import { createPortal, unstable_batchedUpdates } from "react-dom";
+import { useTranslations } from "next-intl";
 
 import DndItem from "@/components/DndItem";
 import useDroppableSortItems, {
@@ -36,7 +38,8 @@ import {
 
 import DndDroppableContainer from "@/components/DndDroppableContainer";
 import DndSortableItem from "@/components/DndSortableItem";
-import { dndDragRotate } from "@/consts/styles";
+import { StatusCategory } from "@/consts/status";
+import { dndDragRotate, statusTooltipSlotProps } from "@/consts/styles";
 import { DndItems, DragUpdateEventArgsInitial } from "@/types/dnd";
 import { QueryState, WithQueryState } from "@/types/form";
 import {
@@ -83,6 +86,7 @@ export interface KanbanBoardProps<T> extends WithQueryState<
   isDroppableItem?: (data: T) => boolean;
   disabledContainers?: string[];
   rollbackVersion?: number;
+  statusCategory?: StatusCategory;
 }
 
 export interface KanbanBoardHelperProps<T> {
@@ -109,8 +113,10 @@ export default function KanbanBoard<T>({
   isDroppableItem,
   disabledContainers,
   rollbackVersion,
+  statusCategory,
   ...restProps
 }: KanbanBoardProps<T>) {
+  const tDescription = useTranslations("Application.StatusDescription");
   const { handleDragSort, handleDragSortEnd, handleDragSortStart, handleMove } =
     useDroppableSortItems<T>({
       onDragEnd,
@@ -304,6 +310,12 @@ export default function KanbanBoard<T>({
       <KanbanBoardColumns sx={{ maxHeight: "90vh" }}>
         {containers.map(containerId => {
           const containerDisabled = disabledContainers?.includes(containerId);
+          const heading = `${t(containerId)} (${findDroppables(containerId, items).length})`;
+          const descriptionKey = `${statusCategory}.${containerId}`;
+          const description =
+            statusCategory && tDescription.has(descriptionKey)
+              ? tDescription(descriptionKey)
+              : undefined;
 
           return (
             <DndDroppableContainer key={containerId} id={containerId}>
@@ -321,7 +333,19 @@ export default function KanbanBoard<T>({
                       containerId
                     )
                   }
-                  heading={`${t(containerId)} (${findDroppables(containerId, items).length})`}
+                  heading={
+                    description ? (
+                      <Tooltip
+                        title={description}
+                        describeChild
+                        arrow
+                        slotProps={statusTooltipSlotProps}>
+                        <span tabIndex={0}>{heading}</span>
+                      </Tooltip>
+                    ) : (
+                      heading
+                    )
+                  }
                   sx={{
                     height: "100%",
                     width: "236px",
