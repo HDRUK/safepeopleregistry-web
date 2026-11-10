@@ -604,7 +604,8 @@ type ProjectAllUser = WithModelState<{
   email: string;
   professional_email: string;
   affiliation_id: number;
-  organisation_name: string;
+  // Null when the Organisation is restricted and the viewer may not see it
+  organisation_name: string | null;
   role: Partial<Role>;
   digi_ident: string;
   project_id: number;
