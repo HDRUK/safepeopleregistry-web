@@ -1,3 +1,18 @@
+## [1.44.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.43.0...v1.44.0) (2026-11-10)
+
+### ✨ Features
+
+* **REGISTRY-2380:** Changes for PO comments on leavers flow (#984) ([222ea40](https://github.com/HDRUK/safepeopleregistry-web/commit/222ea400bfc124063b3ced24c10b8e513305f9bb))
+* **REGISTRY-2380:** Implements flow for users and orgs to raise end dates for affiliations (#977) ([9f4bca1](https://github.com/HDRUK/safepeopleregistry-web/commit/9f4bca1f0c578474a71db48db928ce200c3b4f90))
+* **REGISTRY-3056:** Add hover-over status descriptions to the site (#986) ([be74329](https://github.com/HDRUK/safepeopleregistry-web/commit/be74329b687cc93af7da3ada91c8e8d9fbeb7afd))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-2380:** Fixes non-display of multiples (#987) ([7b349b4](https://github.com/HDRUK/safepeopleregistry-web/commit/7b349b40f8ac3d4b88c9c4f00941ba47b89f7585))
+* **REGISTRY-2380:** Send affiliation id to avoid pulling first affili… (#985) ([7ccff28](https://github.com/HDRUK/safepeopleregistry-web/commit/7ccff285c83cfb0b460ba6e0e50398b37328b45f))
+* **REGISTRY-2986:** User type chip tweak (#982) ([39860c0](https://github.com/HDRUK/safepeopleregistry-web/commit/39860c0eef3db1762e4b806352b8a3534266f658))
+* **REGISTRY-3006:** Organisation | SRO tab copy change (no SRO) (#980) ([d85959b](https://github.com/HDRUK/safepeopleregistry-web/commit/d85959b29f8652f17e1014a731b5bc8ea129e41f))
+
 ## [1.43.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.42.0...v1.43.0) (2026-11-03)
 
 ### ✨ Features
