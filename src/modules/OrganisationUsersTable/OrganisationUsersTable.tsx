@@ -1,5 +1,6 @@
 import { ActionMenu, ActionMenuItem } from "@/components/ActionMenu";
 import ChipStatus from "@/components/ChipStatus";
+import { StatusCategory } from "@/consts/status";
 import useColumns from "@/hooks/useColumns";
 import { ModuleTables } from "@/types/modules";
 import { canRecordAffiliationEndDate } from "@/utils/affiliations";
@@ -57,6 +58,7 @@ export default function OrganisationUsersTable({
         status={
           info.row.original.registry.affiliations?.[0]?.model_state?.state.slug
         }
+        statusCategory={StatusCategory.AFFILIATION}
       />
     </Box>
   );

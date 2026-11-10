@@ -8,6 +8,7 @@ import KanbanBoardOrganisationsCard, {
   KanbanBoardOrganisationsCardProps,
 } from "@/modules/KanbanBoard/KanbanBoardOrganisationsCard";
 import { Status } from "@/consts/application";
+import { StatusCategory } from "@/consts/status";
 import { sortStatusArray } from "@/utils/application";
 import KanbanBoard, {
   KanbanBoardEntityProps,
@@ -91,6 +92,7 @@ export default function ProjectOrganisationsBoard({
       isDisabledItem={isDisabledItem}
       isDroppableItem={isDroppableItem}
       disabledContainers={[Status.INVITED, Status.SYSTEM_APPROVAL]}
+      statusCategory={StatusCategory.ORGANISATION_VALIDATION}
       rollbackVersion={rollbackVersion}
     />
   );

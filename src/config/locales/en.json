@@ -199,6 +199,64 @@
       "escalate_validation": "Escalate Validation",
       "none": "None"
     },
+    "StatusDescription": {
+      "userValidation": {
+        "invited": "User has not yet registered.",
+        "affiliation_info_required": "User needs to complete their affiliation entry before they can verify their professional email address.",
+        "affiliation_email_verify": "User needs to verify their professional email address.",
+        "pending": "User has verified their professional email address and is awaiting Custodian validation.",
+        "validation_in_progress": "User has verified their professional email address and their validation is in progress.",
+        "more_user_info_req": "User has been asked for more information before validation can proceed.",
+        "more_user_info_req_escalation_committee": "User validation has been escalated to a committee.",
+        "more_user_info_req_escalation_manager": "User validation has been escalated to a validation manager.",
+        "validated": "User has been validated on this project.",
+        "validation_complete": "User has been validated on this project.",
+        "user_validation_declined": "User validation has been declined on this project.",
+        "user_left_project": "User has left the project or the Organisation associated with their participation."
+      },
+      "organisationValidation": {
+        "invited": "Organisation has not yet registered.",
+        "pending": "Organisation has registered and is awaiting Custodian validation.",
+        "validation_in_progress": "Organisation validation is in progress.",
+        "more_org_info_req": "Organisation has been asked for more information before validation can proceed.",
+        "more_org_info_req_escalation_committee": "Organisation validation has been escalated to a committee.",
+        "more_org_info_req_escalation_manager": "Organisation validation has been escalated to a validation manager.",
+        "validated": "Organisation has been validated on this project.",
+        "validation_complete": "Organisation has been validated on this project.",
+        "org_validation_declined": "Organisation validation has been declined on this project.",
+        "org_left_project": "Organisation or their Users have left the project.",
+        "system_approval": "Organisation has registered and its account is awaiting review before it can be validated.",
+        "org_in_review": "Organisation has submitted its SRO declaration and its account is awaiting review."
+      },
+      "affiliation": {
+        "invited": "User has not yet registered on the system.",
+        "affiliation_invited": "User has not yet registered on the system.",
+        "affiliation_info_required": "User needs to complete their affiliation entry before they can verify their professional email address.",
+        "affiliation_email_verify": "User needs to verify their professional email address.",
+        "affiliation_organisation_invited": "User has verified their professional email address, but their Organisation has not registered on the system.",
+        "affiliation_pending": "User has verified their professional email address and is awaiting their Organisation to manually confirm them.",
+        "affiliation_approved": "Organisation has manually confirmed the User.",
+        "affiliated": "Organisation has manually confirmed the User.",
+        "affiliation_rejected": "Organisation has declined the User's affiliation.",
+        "affiliation_left": "User has left the Organisation.",
+        "affiliation_never_verified": "Affiliation ended before the User verified their professional email address.",
+        "affiliation_account_in_progress": "User has verified their professional email address, and their Organisation is completing its registration.",
+        "affiliation_review": "User's Organisation has registered and its account is awaiting review."
+      },
+      "project": {
+        "project_pending": "Project has been created and is awaiting approval.",
+        "project_in_progress": "Project has been approved and is in progress.",
+        "project_approved": "Project has been approved.",
+        "project_completed": "Project has ended.",
+        "project_declined_approval": "Project has been declined."
+      },
+      "sponsorship": {
+        "sponsorship_pending": "Sponsorship request is awaiting confirmation from the sponsoring Organisation.",
+        "sponsorship_approved": "Sponsoring Organisation has confirmed the sponsorship.",
+        "sponsorship_rejected": "Sponsoring Organisation has declined the sponsorship.",
+        "invited": "Sponsoring Organisation has been invited but has not yet registered on the system."
+      }
+    },
     "sponsorshipStatus": "Sponsorship",
     "role": "Role",
     "email": "Email",

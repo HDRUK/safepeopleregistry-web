@@ -8,6 +8,7 @@ import KanbanBoardUsersCard, {
   KanbanBoardUsersCardProps,
 } from "@/modules/KanbanBoard/KanbanBoardUsersCard";
 import { DISABLED_USER_STATUS } from "@/consts/projects";
+import { StatusCategory } from "@/consts/status";
 import { sortStatusArray } from "@/utils/application";
 import KanbanBoard, {
   KanbanBoardEntityProps,
@@ -74,6 +75,7 @@ export default function ProjectUsers({
       options={options}
       queryState={updateQueryState}
       disabledContainers={DISABLED_USER_STATUS}
+      statusCategory={StatusCategory.USER_VALIDATION}
       rollbackVersion={rollbackVersion}
     />
   );

@@ -7,4 +7,9 @@ const dndDragRotate = {
   },
 };
 
-export { dndDragRotate };
+const statusTooltipSlotProps = {
+  tooltip: { sx: { backgroundColor: "neutralGrey.contrastText" } },
+  arrow: { sx: { color: "neutralGrey.contrastText" } },
+};
+
+export { dndDragRotate, statusTooltipSlotProps };

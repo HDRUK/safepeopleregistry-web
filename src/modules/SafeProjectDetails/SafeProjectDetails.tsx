@@ -1,5 +1,6 @@
 import ChipStatus from "@/components/ChipStatus";
 import Text from "@/components/Text";
+import { StatusCategory } from "@/consts/status";
 import { getSponsorshipStatus } from "@/utils/application";
 import { Typography } from "@mui/material";
 import FieldsToText from "../../components/FieldsToText";
@@ -40,7 +41,13 @@ export default function SafeProjectDetails({
               {
                 column_id: "project_has_sponsorships",
                 content: (
-                  <Text endIcon={<ChipStatus status={sponsorshipStatus} />}>
+                  <Text
+                    endIcon={
+                      <ChipStatus
+                        status={sponsorshipStatus}
+                        statusCategory={StatusCategory.SPONSORSHIP}
+                      />
+                    }>
                     {sponsor?.organisation_name}
                   </Text>
                 ),

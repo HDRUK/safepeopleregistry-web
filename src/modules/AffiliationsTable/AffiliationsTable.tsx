@@ -1,5 +1,6 @@
 "use client";
 
+import { StatusCategory } from "@/consts/status";
 import useColumns from "@/hooks/useColumns";
 import { formatShortDate } from "@/utils/date";
 import { filterColumns } from "@/utils/table";
@@ -66,7 +67,7 @@ export default function AffiliationsTable({
       }),
       createDefaultColumn("affiliationStatus", {
         accessorKey: "model_state.state.slug",
-        cell: renderStatusCell,
+        cell: info => renderStatusCell(info, StatusCategory.AFFILIATION),
       }),
       createDefaultColumn("affiliationStatusChangedDate", {
         accessorKey: "model_state.updated_at",

@@ -1,5 +1,6 @@
 import ChipStatus from "@/components/ChipStatus";
 import Table from "@/components/Table";
+import { StatusCategory } from "@/consts/status";
 import useColumns from "@/hooks/useColumns";
 import { ResearcherProject } from "@/types/application";
 import { ModuleTables } from "@/types/modules";
@@ -57,7 +58,10 @@ export default function UserProjectsTable({
       }),
       createDefaultColumn("projectStatus", {
         cell: info => (
-          <ChipStatus status={info.row.original.model_state?.state.slug} />
+          <ChipStatus
+            status={info.row.original.model_state?.state.slug}
+            statusCategory={StatusCategory.PROJECT}
+          />
         ),
       }),
       createDefaultColumn("validationStatus", {
@@ -67,6 +71,7 @@ export default function UserProjectsTable({
               info.row.original.custodian_has_project_user?.[0]?.model_state
                 ?.state.slug
             }
+            statusCategory={StatusCategory.USER_VALIDATION}
           />
         ),
       }),

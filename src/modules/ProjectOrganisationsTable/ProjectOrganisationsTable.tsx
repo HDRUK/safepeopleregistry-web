@@ -1,3 +1,4 @@
+import { StatusCategory } from "@/consts/status";
 import useColumns from "@/hooks/useColumns";
 import { ModuleTables } from "@/types/modules";
 import { filterColumns } from "@/utils/table";
@@ -58,7 +59,8 @@ export default function ProjectOrganisationsTable({
       }),
       createDefaultColumn("status", {
         accessorKey: "model_state.state.slug",
-        cell: renderStatusCell,
+        cell: info =>
+          renderStatusCell(info, StatusCategory.ORGANISATION_VALIDATION),
       }),
     ];
 

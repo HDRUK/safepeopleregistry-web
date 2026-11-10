@@ -1,3 +1,4 @@
+import { StatusCategory } from "@/consts/status";
 import useColumns from "@/hooks/useColumns";
 import { ModuleTables } from "@/types/modules";
 import { getSponsorshipStatus } from "@/utils/application";
@@ -78,7 +79,16 @@ export default function ProjectsTable({
       ? affiliationStatus
       : validationState?.[0]?.model_state.state.slug;
 
-    return <ChipStatus status={statusSlug} />;
+    return (
+      <ChipStatus
+        status={statusSlug}
+        statusCategory={
+          variant === EntityType.ORGANISATION
+            ? StatusCategory.ORGANISATION_VALIDATION
+            : StatusCategory.USER_VALIDATION
+        }
+      />
+    );
   };
 
   const columns = useMemo(() => {
@@ -126,6 +136,7 @@ export default function ProjectsTable({
               cell: info => {
                 return (
                   <ChipStatus
+                    statusCategory={StatusCategory.SPONSORSHIP}
                     status={getSponsorshipStatus(
                       entity as Organisation,
                       info.row.original
@@ -147,7 +158,10 @@ export default function ProjectsTable({
         : []),
       createDefaultColumn("status", {
         cell: info => (
-          <ChipStatus status={info.row.original.model_state?.state.slug} />
+          <ChipStatus
+            status={info.row.original.model_state?.state.slug}
+            statusCategory={StatusCategory.PROJECT}
+          />
         ),
       }),
       createDefaultColumn("statusChanged", {

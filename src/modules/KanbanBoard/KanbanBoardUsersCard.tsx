@@ -1,6 +1,7 @@
 import { Box, Card, CardProps, Typography } from "@mui/material";
 import { ReactNode } from "react";
 import ChipStatus from "@/components/ChipStatus";
+import { StatusCategory } from "@/consts/status";
 import theme from "@/theme";
 import Text from "../../components/Text";
 import { CustodianProjectUser, WithRoutes } from "../../types/application";
@@ -64,6 +65,7 @@ export default function KanbanBoardUsersCard({
         </Typography>
         <ChipStatus
           status={affiliation?.model_state?.state.slug}
+          statusCategory={StatusCategory.AFFILIATION}
           variant="icon"
         />
         <Typography sx={{ mt: 1 }}>{project.title}</Typography>
