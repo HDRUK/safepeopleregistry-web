@@ -235,6 +235,7 @@
     "organisationConflictUnclaimedDuplicate": "An Organisation with this lead applicant email address has already been invited and has not yet registered.",
     "organisationConflictClaimedDuplicateWithoutEmail": "An Organisation with this name is already registered, so please select the Organisation from the available options.",
     "organisationConflictUnclaimedDuplicateWithoutEmail": "An Organisation with this name has already been invited and has not yet registered.",
+    "organisationConflictPendingApproval": "An Organisation with these details is awaiting approval by HDR UK. We have let them know you need it.",
     "alertSuccessDescription": "Your request has been successful",
     "alertSuccessTitle": "Success",
     "alertDeleteDescription": "Are you sure you want to delete this data? This action may be permanent.",

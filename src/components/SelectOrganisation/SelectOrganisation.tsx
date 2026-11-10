@@ -57,7 +57,7 @@ export default function SelectOrganisation({
             </div>
           </MenuItem>
         )),
-    [organisationsData]
+    [organisationsData, entityType, entityId, organisationsIds]
   );
 
   const handleChange = (event: SelectChangeEvent) => {

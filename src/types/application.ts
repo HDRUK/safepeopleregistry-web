@@ -326,6 +326,9 @@ type Organisation = OrganisationIdvt &
     organisation_size?: number;
     project?: WithModelState<ResearcherProject>;
     system_approved?: boolean;
+    // Created by a non-admin, so hidden from most users until system approved.
+    // The API only returns a restricted organisation to those allowed to see it.
+    is_restricted?: boolean;
     // Only in the organisations index response.
     sro_status?: OrganisationSroStatus;
     sro_profile_uri?: string;
@@ -601,7 +604,8 @@ type ProjectAllUser = WithModelState<{
   email: string;
   professional_email: string;
   affiliation_id: number;
-  organisation_name: string;
+  // Null when the Organisation is restricted and the viewer may not see it
+  organisation_name: string | null;
   role: Partial<Role>;
   digi_ident: string;
   project_id: number;
