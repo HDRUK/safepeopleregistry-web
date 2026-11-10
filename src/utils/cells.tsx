@@ -1,6 +1,7 @@
 "use client";
 
 import { Status } from "@/consts/application";
+import { StatusCategory } from "@/consts/status";
 import { Link } from "@/i18n/routing";
 import { getName, injectParamsIntoPath } from "@/utils/application";
 import WarningAmberOutlinedIcon from "@mui/icons-material/WarningAmberOutlined";
@@ -273,8 +274,14 @@ const renderStatusCell = (
   info: CellContext<
     User | ProjectUser | Organisation | CustodianProjectUser,
     unknown
-  >
-) => <ChipStatus status={info.getValue() as Status} />;
+  >,
+  statusCategory?: StatusCategory
+) => (
+  <ChipStatus
+    status={info.getValue() as Status}
+    statusCategory={statusCategory}
+  />
+);
 
 export {
   renderAffiliationDateRangeCell,

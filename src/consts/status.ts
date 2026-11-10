@@ -36,3 +36,11 @@ const STATUS_ORDER = [
 export const STATUS_ORDER_MAP = new Map(
   STATUS_ORDER.map((key: string, index) => [key, index])
 );
+
+export enum StatusCategory {
+  USER_VALIDATION = "userValidation",
+  ORGANISATION_VALIDATION = "organisationValidation",
+  AFFILIATION = "affiliation",
+  PROJECT = "project",
+  SPONSORSHIP = "sponsorship",
+}
