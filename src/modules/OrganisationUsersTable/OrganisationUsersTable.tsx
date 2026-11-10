@@ -46,6 +46,7 @@ export default function OrganisationUsersTable({
   ],
   extraColumns,
   onRecordLeaver,
+  data,
   ...restProps
 }: OrganisationUsersTableProps) {
   const { createDefaultColumn } = useColumns<User>({
@@ -63,7 +64,22 @@ export default function OrganisationUsersTable({
     </Box>
   );
 
-  // The API returns each user with their latest affiliation to this Organisation.
+  // The API returns each user with all of their affiliations to this Organisation, latest first.
+  // A user can hold several at once, so each affiliation is its own row, and the cells below
+  // read the row's affiliation as registry.affiliations[0].
+  const rows = useMemo(
+    () =>
+      (data || []).flatMap(user =>
+        user.registry?.affiliations?.length
+          ? user.registry.affiliations.map(affiliation => ({
+              ...user,
+              registry: { ...user.registry, affiliations: [affiliation] },
+            }))
+          : [user]
+      ),
+    [data]
+  );
+
   const renderActions = (info: CellContext<User, unknown>) => {
     const affiliation = info.row.original.registry.affiliations?.[0];
 
@@ -129,5 +145,5 @@ export default function OrganisationUsersTable({
     return filterColumns(initialColumns, includeColumns, extraColumns || []);
   }, [includeColumns, extraColumns, routes, t]);
 
-  return <Table columns={columns} isPaginated {...restProps} />;
+  return <Table columns={columns} isPaginated data={rows} {...restProps} />;
 }
