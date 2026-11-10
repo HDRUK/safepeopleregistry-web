@@ -1,5 +1,6 @@
 "use client";
 
+import { StatusCategory } from "@/consts/status";
 import { useStore } from "@/data/store";
 import useColumns from "@/hooks/useColumns";
 import PageBody from "@/modules/PageBody";
@@ -38,13 +39,13 @@ export default function ProjectsSafePeople() {
       createDefaultColumn("affiliationStatus", {
         accessorFn: row =>
           (row as ProjectUser)?.affiliation?.model_state?.state?.slug,
-        cell: renderStatusCell,
+        cell: info => renderStatusCell(info, StatusCategory.AFFILIATION),
       }),
       createDefaultColumn("status", {
         accessorFn: row =>
           (row as ProjectUser)?.custodian_has_project_user?.[0]?.model_state
             ?.state?.slug,
-        cell: renderStatusCell,
+        cell: info => renderStatusCell(info, StatusCategory.USER_VALIDATION),
       }),
     ],
     []

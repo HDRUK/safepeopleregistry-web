@@ -1,6 +1,7 @@
 import { useFeatures } from "@/components/FeatureProvider";
 import SelectOrganisation from "@/components/SelectOrganisation";
 import { PAGINATION_UPPER_LIMIT, Status } from "@/consts/application";
+import { StatusCategory } from "@/consts/status";
 import { useOrganisationsQuery } from "@/services/organisations";
 import { EntityType } from "@/types/api";
 import { getSponsorshipStatus } from "@/utils/application";
@@ -341,24 +342,42 @@ export default function ProjectsSafeProjectForm({
                       <FormControlLabel
                         value={Status.PROJECT_PENDING}
                         control={<Radio />}
-                        label={<ChipStatus status={Status.PROJECT_PENDING} />}
+                        label={
+                          <ChipStatus
+                            status={Status.PROJECT_PENDING}
+                            statusCategory={StatusCategory.PROJECT}
+                          />
+                        }
                       />
                       <FormControlLabel
                         value={Status.PROJECT_APPROVED}
                         control={<Radio />}
-                        label={<ChipStatus status={Status.PROJECT_APPROVED} />}
+                        label={
+                          <ChipStatus
+                            status={Status.PROJECT_APPROVED}
+                            statusCategory={StatusCategory.PROJECT}
+                          />
+                        }
                       />
                       <FormControlLabel
                         value={Status.PROJECT_IN_PROGRESS}
                         control={<Radio />}
                         label={
-                          <ChipStatus status={Status.PROJECT_IN_PROGRESS} />
+                          <ChipStatus
+                            status={Status.PROJECT_IN_PROGRESS}
+                            statusCategory={StatusCategory.PROJECT}
+                          />
                         }
                       />
                       <FormControlLabel
                         value={Status.PROJECT_COMPLETED}
                         control={<Radio />}
-                        label={<ChipStatus status={Status.PROJECT_COMPLETED} />}
+                        label={
+                          <ChipStatus
+                            status={Status.PROJECT_COMPLETED}
+                            statusCategory={StatusCategory.PROJECT}
+                          />
+                        }
                       />
                       <FormControlLabel
                         value={Status.PROJECT_DECLINED_APPROVAL}
@@ -366,6 +385,7 @@ export default function ProjectsSafeProjectForm({
                         label={
                           <ChipStatus
                             status={Status.PROJECT_DECLINED_APPROVAL}
+                            statusCategory={StatusCategory.PROJECT}
                           />
                         }
                       />

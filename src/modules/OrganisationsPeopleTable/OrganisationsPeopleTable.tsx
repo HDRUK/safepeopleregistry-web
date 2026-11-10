@@ -1,5 +1,6 @@
 import ChipStatus from "@/components/ChipStatus";
 import Table from "@/components/Table";
+import { StatusCategory } from "@/consts/status";
 import useColumns from "@/hooks/useColumns";
 import { User } from "@/types/application";
 import { ModuleTables } from "@/types/modules";
@@ -47,7 +48,10 @@ export default function OrganisationsPeopleTable({
       createDefaultColumn("affiliationStatus", {
         accessorKey: "registry.affiliations",
         cell: info => (
-          <ChipStatus status={info.getValue()?.[0]?.model_state?.state?.slug} />
+          <ChipStatus
+            status={info.getValue()?.[0]?.model_state?.state?.slug}
+            statusCategory={StatusCategory.AFFILIATION}
+          />
         ),
       }),
     ];
