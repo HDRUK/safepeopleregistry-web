@@ -80,6 +80,33 @@ describe("<OrganisationUsersTable />", () => {
     );
   });
 
+  it("shows a row, linking to it, for each of a user's affiliations", () => {
+    const rowUser = mockedUser({
+      id: 10,
+      registry: {
+        ...user.registry,
+        affiliations: [
+          mockedAffiliation({ id: 35, email: "honorary@example.com" }),
+          mockedAffiliation({ id: 34, email: "employee@example.com" }),
+        ],
+      },
+    });
+
+    setupTest({ data: [rowUser] });
+
+    expect(screen.getByText("honorary@example.com")).toBeInTheDocument();
+    expect(screen.getByText("employee@example.com")).toBeInTheDocument();
+
+    const hrefs = screen
+      .getAllByRole("link", { name: new RegExp(getName(rowUser)) })
+      .map(link => link.getAttribute("href"));
+
+    expect(hrefs).toEqual([
+      expect.stringContaining("/10/identity?affiliation=35"),
+      expect.stringContaining("/10/identity?affiliation=34"),
+    ]);
+  });
+
   it("shows the affiliation's end date", () => {
     const affiliation = mockedAffiliation({ to: "2030-06-30" });
 
