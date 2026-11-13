@@ -1,4 +1,5 @@
 import Form from "@/components/Form";
+import { useFeatures } from "@/components/FeatureProvider";
 import FormControlWrapper from "@/components/FormControlWrapper";
 import FormModalActions from "@/components/FormModalActions";
 import FormModalBody from "@/components/FormModalBody";
@@ -11,6 +12,7 @@ import { CustodianEditContactFormFields, QueryState } from "@/types/form";
 import {
   isCustodianAdministrator,
   isCustodianApprover,
+  isCustodianViewer,
 } from "@/utils/custodian";
 import CheckIcon from "@mui/icons-material/Check";
 import { LoadingButton } from "@mui/lab";
@@ -44,6 +46,9 @@ export default function CustodianEditContactForm({
 }: CustodianEditContactFormProps) {
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
   const permissions = useStore(state => state.config.permissions);
+  const { isCustodianViewerRoleEnabled } = useFeatures();
+  const showViewerOption =
+    isCustodianViewerRoleEnabled || isCustodianViewer(user, permissions);
 
   const schema = useMemo(
     () =>
@@ -69,6 +74,7 @@ export default function CustodianEditContactForm({
           CustodianUserRoles.ADMINISTRATOR) ||
         (isCustodianApprover(user, permissions) &&
           CustodianUserRoles.APPROVER) ||
+        (isCustodianViewer(user, permissions) && CustodianUserRoles.VIEWER) ||
         null,
     },
     disabled: queryState.isLoading,
@@ -160,6 +166,25 @@ export default function CustodianEditContactForm({
                     </Grid>
                   }
                 />
+                {/* needs BE: saving needs the CUSTODIAN_VIEWER permission. */}
+                {showViewerOption && (
+                  <FormControlLabel
+                    value={CustodianUserRoles.VIEWER}
+                    control={<Radio />}
+                    label={
+                      <Grid>
+                        <Grid item>{t("roleViewer")}</Grid>
+                        <Grid item>
+                          <Typography
+                            variant="small"
+                            sx={{ color: "textSecondary.main" }}>
+                            {t("roleViewerDescription")}
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    }
+                  />
+                )}
               </RadioGroup>
             )}
           />

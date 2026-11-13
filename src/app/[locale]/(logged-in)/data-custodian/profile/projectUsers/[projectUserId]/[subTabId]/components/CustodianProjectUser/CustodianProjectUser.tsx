@@ -1,6 +1,7 @@
 "use client";
 
 import UserDetails from "@/components/UserDetails";
+import useIsCustodianViewOnly from "@/hooks/useIsCustodianViewOnly";
 import { UserGroup } from "@/consts/user";
 import { useStore } from "@/data/store";
 import {
@@ -40,6 +41,7 @@ function CustodianProjectUser({
 }: CustodianProjectUserProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION_CUSTODIAN_PROJECT_USER);
   const custodian = useStore(state => state.getCustodian());
+  const isViewOnly = useIsCustodianViewOnly();
   const queryClient = useQueryClient();
   const params = useParams<{ projectUserId: string }>();
 
@@ -131,6 +133,7 @@ function CustodianProjectUser({
               <StatusPanel variant={ActionValidationVariants.ProjectUser} />
               <ActionValidationPanel
                 variant={ActionValidationVariants.ProjectUser}
+                readOnly={isViewOnly}
                 queryState={queryState}
                 logs={validationLogs?.data || []}
                 onStatusChange={handleStatusUpdate}

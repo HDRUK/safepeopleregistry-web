@@ -368,6 +368,8 @@
       "roleApprover": "Approver",
       "roleAdministratorDescription": "Can do everything on the system",
       "roleApproverDescription": "Can only approve Organisations and/or Users (researchers/innovators)",
+      "roleViewer": "Viewer",
+      "roleViewerDescription": "Can view everything on the system but cannot make any changes",
       "cancelButton": "Cancel",
       "submitButton": "Save",
       "createUserError": "There was a problem creating this user. Please try again or contact us at <contactLink></contactLink>",
@@ -414,6 +416,7 @@
     "safeSettings": "Safe Settings",
     "home": "Home",
     "homeIntro": "Welcome to the Safe People Registry. You’ll see a list of tasks below to complete your profile.",
+    "homeViewOnlyIntro": "Welcome to the Safe People Registry. This is a view-only account.",
     "contacts": "Contacts",
     "team": "Team",
     "contactsHeading": "Your Data Custodian Team",
@@ -456,6 +459,7 @@
     "deleteWarningDescription": "Deleting this team member is permanent and will result in them no longer being able to act on your behalf",
     "CUSTODIAN_ADMIN": "Administrator",
     "CUSTODIAN_APPROVER": "Approver",
+    "CUSTODIAN_VIEWER": "Viewer",
     "postCustodianUserInviteError": "There was a problem inviting this team member. Please contact them directly or contact us at <contactLink></contactLink>",
     "configurationRules": "Automated Flags",
     "configurationRulesTitle": "Automated Flags",
@@ -1732,6 +1736,11 @@
     "help": "If you think you have been removed by mistake, or you need help, please contact us at <contactLink></contactLink>.",
     "signOut": "Sign out"
   },
+  "CustodianViewerDisabled": {
+    "title": "Read-only accounts are disabled",
+    "description": "Sorry, Read-Only accounts have been disabled on this environment. Please contact <contactLink></contactLink> for assistance.",
+    "signOut": "Sign out"
+  },
   "Register": {
     "title": "What would you like to do?",
     "claimOrgAccount": "Claim your admin account",
@@ -2329,7 +2338,8 @@
     "createdAt": "Created at",
     "accountStatus": "Account status",
     "CUSTODIAN_APPROVER": "Approver",
-    "CUSTODIAN_ADMIN": "Admin"
+    "CUSTODIAN_ADMIN": "Admin",
+    "CUSTODIAN_VIEWER": "Viewer"
   },
   "UserHistory": {
     "daysSince": "{days} days ago",

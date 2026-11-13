@@ -1,3 +1,4 @@
+import { useFeatures } from "@/components/FeatureProvider";
 import { useStore } from "@/data/store";
 import { mockedCustodianUser } from "@/mocks/data/custodian";
 import { mockedApiPermissions } from "@/mocks/data/store";
@@ -17,8 +18,18 @@ import CustodianEditContactForm, {
 
 jest.mock("@/services/custodians");
 jest.mock("@/data/store");
+jest.mock("@/components/FeatureProvider", () => ({
+  useFeatures: jest.fn(),
+}));
 
-(useStore as unknown as jest.Mock).mockReturnValue(mockedApiPermissions);
+// Fake Viewer permission, because the API doesn't have one yet.
+const MOCK_VIEWER_PERMISSION = {
+  id: 999,
+  created_at: "2025-07-21T09:12:14.000000Z",
+  updated_at: "2025-07-21T09:12:14.000000Z",
+  name: "CUSTODIAN_VIEWER",
+  enabled: true,
+};
 
 const mockOnSubmit = jest.fn();
 const mockOnClose = jest.fn();
@@ -59,6 +70,16 @@ const setupTest = (props?: Partial<CustodianEditContactFormProps>) => {
 };
 
 describe("<CustodianEditContactForm />", () => {
+  beforeEach(() => {
+    (useStore as unknown as jest.Mock).mockReturnValue([
+      ...mockedApiPermissions,
+      MOCK_VIEWER_PERMISSION,
+    ]);
+    (useFeatures as jest.Mock).mockReturnValue({
+      isCustodianViewerRoleEnabled: false,
+    });
+  });
+
   afterEach(() => {
     mockOnSubmit.mockReset();
     mockOnClose.mockReset();
@@ -99,6 +120,40 @@ describe("<CustodianEditContactForm />", () => {
       expect(mockOnSubmit).not.toHaveBeenCalled();
     }
   );
+
+  it("hides the Viewer option when the flag is off", () => {
+    setupTest();
+
+    expect(
+      screen.queryByRole("radio", { name: /^Viewer/ })
+    ).not.toBeInTheDocument();
+  });
+
+  it("shows the Viewer option when the flag is on", () => {
+    (useFeatures as jest.Mock).mockReturnValue({
+      isCustodianViewerRoleEnabled: true,
+    });
+
+    setupTest();
+
+    expect(screen.getByRole("radio", { name: /^Viewer/ })).toBeInTheDocument();
+  });
+
+  it("shows and selects the Viewer option for an existing viewer when the flag is off", () => {
+    setupTest({
+      user: mockedCustodianUser({
+        user_permissions: [
+          {
+            custodian_user_id: 1,
+            permission_id: MOCK_VIEWER_PERMISSION.id,
+            permission: MOCK_VIEWER_PERMISSION,
+          },
+        ],
+      }),
+    });
+
+    expect(screen.getByRole("radio", { name: /^Viewer/ })).toBeChecked();
+  });
 
   it("has no accessibility violations", async () => {
     commonAccessibilityTests(setupTest());

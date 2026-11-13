@@ -1,4 +1,5 @@
 import { AddIcon } from "@/consts/icons";
+import useIsCustodianViewOnly from "@/hooks/useIsCustodianViewOnly";
 import { mockedProjectsIntro } from "@/mocks/data/cms";
 import { PageBody, PageBodyContainer } from "@/modules";
 import AddProjectModal from "@/organisms/AddProjectModal";
@@ -13,6 +14,7 @@ const NAMESPACE_TRANSLATION = "Projects";
 export default function Projects() {
   const t = useTranslations(NAMESPACE_TRANSLATION);
   const [showAddProjectModal, setShowAddProjectModal] = useState(false);
+  const isViewOnly = useIsCustodianViewOnly();
 
   return (
     <PageBodyContainer heading={t("projects")}>
@@ -20,21 +22,25 @@ export default function Projects() {
         description={
           <Box sx={{ display: "flex", gap: 4 }}>
             <Typography sx={{ flexGrow: 1 }}>{mockedProjectsIntro}</Typography>
-            <Button
-              startIcon={<AddIcon />}
-              onClick={() => setShowAddProjectModal(!showAddProjectModal)}
-              sx={{ flexShrink: 0 }}>
-              {t("addNewProjectButton")}
-            </Button>
+            {!isViewOnly && (
+              <Button
+                startIcon={<AddIcon />}
+                onClick={() => setShowAddProjectModal(!showAddProjectModal)}
+                sx={{ flexShrink: 0 }}>
+                {t("addNewProjectButton")}
+              </Button>
+            )}
           </Box>
         }>
         <ProjectsList variant={EntityType.CUSTODIAN} />
       </PageBody>
 
-      <AddProjectModal
-        open={showAddProjectModal}
-        onClose={() => setShowAddProjectModal(false)}
-      />
+      {!isViewOnly && (
+        <AddProjectModal
+          open={showAddProjectModal}
+          onClose={() => setShowAddProjectModal(false)}
+        />
+      )}
     </PageBodyContainer>
   );
 }

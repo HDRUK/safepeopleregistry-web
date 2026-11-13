@@ -1,4 +1,5 @@
 import Guidance from "@/components/Guidance";
+import useIsCustodianViewOnly from "@/hooks/useIsCustodianViewOnly";
 import { useStore } from "@/data/store";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
 import { mockedCustodianSafeProjectGuidanceProps } from "@/mocks/data/cms";
@@ -10,6 +11,7 @@ import {
   PageSection,
 } from "@/modules";
 import ProjectImport from "@/modules/ProjectImport";
+import ProjectsSafeDataDetails from "@/modules/ProjectsSafeDataDetails";
 import ProjectsSafeDataForm from "@/organisms/ProjectsSafeDataForm";
 import useMutateProjectDetails from "@/queries/useMutateProjectDetails";
 import { PutProjectDetailsPayload } from "@/services/project_details";
@@ -40,6 +42,7 @@ const PAYLOAD_FIELDS = [
 
 export default function ProjectsSafeData() {
   const t = useTranslations(NAMESPACE_TRANSLATION);
+  const isViewOnly = useIsCustodianViewOnly();
 
   const { custodian, project } = useStore(state => ({
     custodian: state.getCustodian(),
@@ -94,20 +97,28 @@ export default function ProjectsSafeData() {
         <PageBody
           heading={t("safeData")}
           actions={
-            <ProjectImport
-              custodianId={custodian.id}
-              projectId={project.id}
-              onImported={handleGatewayProjectImport}
-              isImportDisabled={!project?.unique_id}
-            />
+            !isViewOnly && (
+              <ProjectImport
+                custodianId={custodian.id}
+                projectId={project.id}
+                onImported={handleGatewayProjectImport}
+                isImportDisabled={!project?.unique_id}
+              />
+            )
           }>
           <PageSection>
-            <ProjectsSafeDataForm
-              projectId={project.id}
-              defaultValues={defaultValues}
-              mutateState={mutateState}
-              onSubmit={handleSubmit}
-            />
+            {isViewOnly ? (
+              <ProjectsSafeDataDetails
+                projectDetailsData={project.project_detail}
+              />
+            ) : (
+              <ProjectsSafeDataForm
+                projectId={project.id}
+                defaultValues={defaultValues}
+                mutateState={mutateState}
+                onSubmit={handleSubmit}
+              />
+            )}
           </PageSection>
         </PageBody>
       </PageColumnBody>

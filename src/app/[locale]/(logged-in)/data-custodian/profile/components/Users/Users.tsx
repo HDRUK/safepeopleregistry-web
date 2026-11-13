@@ -2,6 +2,7 @@
 
 import Markdown from "@/components/Markdown";
 import { useStore } from "@/data/store";
+import useIsCustodianViewOnly from "@/hooks/useIsCustodianViewOnly";
 import useStorePaginatedQueryParams from "@/hooks/useStorePaginatedQueryParams";
 import PageBody from "@/modules/PageBody";
 import PageBodyContainer from "@/modules/PageBodyContainer";
@@ -20,6 +21,7 @@ function Users() {
   }));
 
   const paginatedQueryParams = useStorePaginatedQueryParams();
+  const isViewOnly = useIsCustodianViewOnly();
 
   return (
     <PageBodyContainer
@@ -27,6 +29,7 @@ function Users() {
       description={<Markdown>{tProfile("usersListDescription")}</Markdown>}>
       <PageBody>
         <ProjectUsers
+          readOnly={isViewOnly}
           variant={EntityType.CUSTODIAN}
           custodianId={custodianId}
           routes={{

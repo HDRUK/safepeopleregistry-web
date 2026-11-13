@@ -1,6 +1,7 @@
 "use client";
 
 import { useStore } from "@/data/store";
+import useIsCustodianViewOnly from "@/hooks/useIsCustodianViewOnly";
 import useStorePaginatedQueryParams from "@/hooks/useStorePaginatedQueryParams";
 import PageBody from "@/modules/PageBody";
 import ProjectUsers from "@/organisms/ProjectUsers";
@@ -20,6 +21,7 @@ export default function ProjectsSafePeople() {
   }));
 
   const paginatedQueryParams = useStorePaginatedQueryParams();
+  const isViewOnly = useIsCustodianViewOnly();
 
   return (
     <>
@@ -30,6 +32,7 @@ export default function ProjectsSafePeople() {
       />
       <PageBody heading={t("heading")} description={t("description")}>
         <ProjectUsers
+          readOnly={isViewOnly}
           variant={EntityType.CUSTODIAN}
           custodianId={custodianId}
           projectId={projectId}

@@ -34,20 +34,24 @@ type ProjectOrganisationsListProps = WithPaginatedQueryParms<
   WithRoutes<{
     custodianId: number;
     variant: EntityType;
+    readOnly?: boolean;
   }>
 >;
+
+const ignoreStatusChange = () => {};
 
 export default function ProjectOrganisations({
   custodianId,
   routes,
   variant,
   paginatedQueryParams,
+  readOnly = false,
 }: ProjectOrganisationsListProps) {
   const t = useTranslations(NAMESPACE_TRANSLATIONS_PROJECT_USERS);
   const tStatus = useTranslations(NAMESPACE_TRANSLATIONS_STATUS);
 
   const [showListView, setShowListView] = useState(
-    variant !== EntityType.CUSTODIAN
+    readOnly || variant !== EntityType.CUSTODIAN
   );
 
   const [rollbackVersion, setRollbackVersion] = useState(0);
@@ -150,27 +154,27 @@ export default function ProjectOrganisations({
       data: custodianProjectOrganisations,
       routes,
       itemsByTransitions,
-      onMove: handleUpdateOrganisation,
-      onDragEnd: handleUpdateOrganisation,
-      actions: (
-        props: KanbanBoardHelperProps<CustodianProjectOrganisation>
-      ) => {
-        return (
-          <ProjectOrganisationsActions
-            t={t}
-            tStatus={tStatus}
-            onMoveClick={async (id, status) => {
-              handleUpdateOrganisation(id, status);
-            }}
-            allowedTransitions={rewriteTransitions(props)}
-            {...props}
-            disabled={
-              !custodianProjectOrganisations?.project_organisation?.organisation
-                ?.system_approved || props.disabled
-            }
-          />
-        );
-      },
+      onMove: readOnly ? ignoreStatusChange : handleUpdateOrganisation,
+      onDragEnd: readOnly ? ignoreStatusChange : handleUpdateOrganisation,
+      actions: readOnly
+        ? undefined
+        : (props: KanbanBoardHelperProps<CustodianProjectOrganisation>) => {
+            return (
+              <ProjectOrganisationsActions
+                t={t}
+                tStatus={tStatus}
+                onMoveClick={async (id, status) => {
+                  handleUpdateOrganisation(id, status);
+                }}
+                allowedTransitions={rewriteTransitions(props)}
+                {...props}
+                disabled={
+                  !custodianProjectOrganisations?.project_organisation
+                    ?.organisation?.system_approved || props.disabled
+                }
+              />
+            );
+          },
       getAllowedTransitions,
       updateQueryState,
     }),
@@ -182,12 +186,15 @@ export default function ProjectOrganisations({
       t,
       tStatus,
       getAllowedTransitions,
+      readOnly,
     ]
   );
 
   const listComponent = !showListView ? (
     <ProjectOrganisationsBoard
-      options={{ isTransitionAllowed }}
+      options={{
+        isTransitionAllowed: readOnly ? () => false : isTransitionAllowed,
+      }}
       rollbackVersion={rollbackVersion}
       {...commonProps}
     />
@@ -219,7 +226,7 @@ export default function ProjectOrganisations({
                 ]
           }
           {...filterProps}>
-          {variant === EntityType.CUSTODIAN && (
+          {!readOnly && variant === EntityType.CUSTODIAN && (
             <ButtonToggle
               toggleOffButtonProps={{
                 startIcon: <ListIcon />,

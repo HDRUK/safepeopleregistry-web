@@ -49,8 +49,11 @@ type ProjectUsersListProps = WithPaginatedQueryParms<
     custodianId: number;
     projectId?: number;
     variant: EntityType;
+    readOnly?: boolean;
   }>
 >;
+
+const ignoreStatusChange = () => {};
 
 export default function ProjectUsers({
   custodianId,
@@ -58,6 +61,7 @@ export default function ProjectUsers({
   routes,
   variant,
   paginatedQueryParams,
+  readOnly = false,
 }: ProjectUsersListProps) {
   const t = useTranslations(NAMESPACE_TRANSLATIONS_PROJECT_USERS);
   const tStatus = useTranslations(NAMESPACE_TRANSLATIONS_STATUS);
@@ -65,7 +69,7 @@ export default function ProjectUsers({
   const [invitedUsers, setInvitedUsers] = useState<ProjectAllUser[]>([]);
 
   const [showListView, setShowListView] = useState(
-    variant !== EntityType.CUSTODIAN
+    readOnly || variant !== EntityType.CUSTODIAN
   );
 
   const [rollbackVersion, setRollbackVersion] = useState(0);
@@ -182,33 +186,42 @@ export default function ProjectUsers({
       data: custodianProjectUsers,
       routes,
       itemsByTransitions,
-      onMove: handleUpdateSafePeople,
-      onDragEnd: handleUpdateSafePeople,
-      actions: (props: KanbanBoardHelperProps<CustodianProjectUser>) => {
-        return (
-          <ProjectUsersActions
-            onDelete={() => refetch()}
-            onPrimaryContactChange={() => refetch()}
-            t={t}
-            tStatus={tStatus}
-            onMoveClick={async (id, status) => {
-              handleUpdateSafePeople(id, status);
-            }}
-            allowedTransitions={rewriteTransitions(props)}
-            {...props}
-          />
-        );
-      },
+      onMove: readOnly ? ignoreStatusChange : handleUpdateSafePeople,
+      onDragEnd: readOnly ? ignoreStatusChange : handleUpdateSafePeople,
+      actions: readOnly
+        ? undefined
+        : (props: KanbanBoardHelperProps<CustodianProjectUser>) => {
+            return (
+              <ProjectUsersActions
+                onDelete={() => refetch()}
+                onPrimaryContactChange={() => refetch()}
+                t={t}
+                tStatus={tStatus}
+                onMoveClick={async (id, status) => {
+                  handleUpdateSafePeople(id, status);
+                }}
+                allowedTransitions={rewriteTransitions(props)}
+                {...props}
+              />
+            );
+          },
       getAllowedTransitions,
       updateQueryState,
     }),
-    [showListView, custodianProjectUsers, itemsByTransitions, routes, t]
+    [
+      showListView,
+      custodianProjectUsers,
+      itemsByTransitions,
+      routes,
+      t,
+      readOnly,
+    ]
   );
 
   const listComponent = !showListView ? (
     <ProjectUsersBoard
       options={{
-        isTransitionAllowed,
+        isTransitionAllowed: readOnly ? () => false : isTransitionAllowed,
       }}
       rollbackVersion={rollbackVersion}
       {...commonProps}
@@ -251,7 +264,7 @@ export default function ProjectUsers({
               : [ProjectUsersFilterKeys.SORT, ProjectUsersFilterKeys.STATUS]
           }
           {...filterProps}>
-          {variant === EntityType.CUSTODIAN && (
+          {!readOnly && variant === EntityType.CUSTODIAN && (
             <ButtonToggle
               toggleOffButtonProps={{
                 startIcon: <ListIcon />,
@@ -265,7 +278,7 @@ export default function ProjectUsers({
               sx={{ flexShrink: 0 }}
             />
           )}
-          {variant !== EntityType.USER && projectId && (
+          {!readOnly && variant !== EntityType.USER && projectId && (
             <Button
               startIcon={<AddIcon />}
               onClick={() => setShowAddModal(true)}>

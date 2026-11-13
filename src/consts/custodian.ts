@@ -1,6 +1,8 @@
 enum CustodianUserRoles {
   ADMINISTRATOR = "CUSTODIAN_ADMIN",
   APPROVER = "CUSTODIAN_APPROVER",
+  // needs BE: a matching "CUSTODIAN_VIEWER" permission in the API.
+  VIEWER = "CUSTODIAN_VIEWER",
 }
 
 enum DecisionModelTypes {

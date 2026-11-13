@@ -85,6 +85,7 @@ export default function ActionValidationMakeDecision({
       <ChangeDecisionChip
         completed={currentLog.manually_confirmed === 1}
         onClick={() => setShowDecisionChip(false)}
+        disabled={disabled}
       />
     );
   }
