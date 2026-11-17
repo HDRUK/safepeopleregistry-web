@@ -20,8 +20,6 @@ const unapproved = mockedOrganisation({
   sro_officer: undefined,
 });
 
-// Only returned by the API to a researcher allowed to see it, e.g. their
-// current employer
 const restricted = mockedOrganisation({
   id: 3,
   organisation_name: "Restricted Organisation",

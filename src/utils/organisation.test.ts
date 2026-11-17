@@ -84,8 +84,6 @@ describe("filterOrganisationsList", () => {
       ).toBe(false);
     });
 
-    // The API only returns a restricted organisation to a user allowed to see
-    // it, e.g. their current employer
     it("includes a restricted organisation with no inviting user", () => {
       expect(
         filterOrganisationsList(

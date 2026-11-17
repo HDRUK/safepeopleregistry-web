@@ -9,7 +9,6 @@ import { dataCy } from "cypress/support/utils/common";
 import { loginCustodian } from "cypress/support/utils/custodian/auth";
 import {
   createProjectAndInviteNewSponsor,
-  hasUninvitedProjectSponsor,
   openProject,
 } from "cypress/support/utils/custodian/projects";
 import {
@@ -19,8 +18,6 @@ import {
 import { addAffiliationForNewOrganisationUsers } from "cypress/support/utils/user/affiliations";
 import { loginUser } from "cypress/support/utils/user/auth";
 
-// Unique per run, so a name left behind by an earlier run (or a faker
-// collision) can't trip the API's duplicate Organisation checks
 const uniqueName = (prefix: string) => `${prefix} ${Cypress._.random(0, 1e6)}`;
 
 const project = mockedProject({
@@ -37,13 +34,9 @@ const sponsor = mockedOrganisationInvite({
     .toLowerCase(),
 });
 
-// A researcher's new Organisation is restricted, but the API lets them see it
-// as their current employer. It is also the proof that the researcher's
-// Organisation options have loaded, so a list that hasn't loaded (or failed
-// to load) can't make a "not offered" check pass by mistake.
+
 const currentEmployerName = uniqueName("Current employer");
 
-// Queries the row afresh each time, so it is safe after the table re-renders
 const hasApprovalStatus = (
   organisationName: string,
   status: "Approved" | "Not approved"
@@ -82,7 +75,6 @@ describe("Restricted Organisations are only offered to those allowed to see them
 
     cy.waitForLoadingToFinish();
 
-    // With no end date, the affiliation is current
     addAffiliationForNewOrganisationUsers(
       mockedAffiliation({
         relationship: "Employee",
@@ -95,17 +87,13 @@ describe("Restricted Organisations are only offered to those allowed to see them
       { organisation_name: currentEmployerName }
     );
 
-    // Every new affiliation is current, so its professional email must be verified
     cy.clickAlertModal("Close", "Verification needed");
   });
 
-  // Found via the API, not the researcher's paginated affiliations list
   it("Offers a researcher their restricted current employer before approval", () => {
     openResearcherOrganisationOptions().should("contain", currentEmployerName);
   });
 
-  // A Custodian's new Organisation is restricted: only that Custodian (and
-  // admins) can see it until a superadmin approves it
   describe("A Custodian's new Organisation", () => {
     before(() => {
       loginCustodian();
@@ -117,7 +105,7 @@ describe("Restricted Organisations are only offered to those allowed to see them
       createProjectAndInviteNewSponsor(project, sponsor);
     });
 
-    it("Is visible to the Custodian that created it", () => {
+    it("Is offered to the Custodian that created it", () => {
       loginCustodian();
 
       cy.visitFirst(ROUTES.profileCustodianProjects.path);
@@ -126,7 +114,12 @@ describe("Restricted Organisations are only offered to those allowed to see them
 
       openProject(project);
 
-      hasUninvitedProjectSponsor(sponsor);
+      cy.get("#sponsor_id").click();
+
+      cy.contains(".MuiPopover-root li", sponsor.organisation_name).should(
+        "contain",
+        "Pending approval by HDR UK"
+      );
     });
 
     it("Is not offered to a researcher before approval", () => {
@@ -147,8 +140,7 @@ describe("Restricted Organisations are only offered to those allowed to see them
         .clear()
         .type(`${sponsor.organisation_name}{enter}`);
 
-      // Let the search results replace the first page before using a row, so
-      // the action menu isn't opened on a row that is about to re-render
+
       cy.waitForLoadingToFinish();
 
       hasApprovalStatus(sponsor.organisation_name, "Not approved");
@@ -157,7 +149,6 @@ describe("Restricted Organisations are only offered to those allowed to see them
 
       cy.actionMenuClick("Approve");
 
-      // Re-queries the row, rather than reusing the menu the approval re-rendered
       hasApprovalStatus(sponsor.organisation_name, "Approved");
 
       openResearcherOrganisationOptions().should(
