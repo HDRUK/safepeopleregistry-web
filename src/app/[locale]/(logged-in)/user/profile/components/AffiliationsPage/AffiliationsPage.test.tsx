@@ -235,6 +235,33 @@ describe("<AffiliationsPage />", () => {
 
       expect(await screen.findByText("Edit Affiliation")).toBeInTheDocument();
     });
+
+    it("warns when the incomplete affiliation is not on the table's current page", async () => {
+      const queryResult = (affiliations: unknown[]) =>
+        ({
+          data: { data: mockPagedResults(affiliations) },
+          refetch: jest.fn(),
+          isLoading: false,
+          isError: false,
+        }) as unknown as ReturnType<typeof useQuery>;
+
+      const tablePage = queryResult([mockedAffiliation()]);
+      const allAffiliations = queryResult([
+        infoRequiredAffiliation("Incomplete Organisation"),
+      ]);
+
+      mockUseQuery.mockImplementation(({ queryKey }) =>
+        JSON.stringify(queryKey).includes("per_page")
+          ? allAffiliations
+          : tablePage
+      );
+
+      renderTest();
+
+      expect(
+        await screen.findByText(/Your affiliation with Incomplete Organisation/)
+      ).toBeInTheDocument();
+    });
   });
 
   it("has no accessibility violations", async () => {

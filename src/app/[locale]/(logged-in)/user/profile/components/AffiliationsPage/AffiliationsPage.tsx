@@ -28,6 +28,7 @@ import {
   getAffiliationResendVerificationQuery,
   postAffiliationQuery,
   putAffiliationQuery,
+  useIncompleteAffiliations,
   usePaginatedAffiliations,
 } from "@/services/affiliations";
 import { PostAffiliationPayload } from "@/services/affiliations/types";
@@ -38,7 +39,6 @@ import {
   canRecordAffiliationEndDate,
   isAffiliationEditable,
   isAffiliationEnded,
-  isAffiliationInfoRequired,
 } from "@/utils/affiliations";
 import { formatDBDateTime } from "@/utils/date";
 import { getCombinedQueryState } from "@/utils/query";
@@ -99,6 +99,9 @@ export default function AffiliationsPage({
     refetch,
     ...getAffiliationsQueryState
   } = usePaginatedAffiliations(user?.registry_id);
+
+  const { incompleteAffiliations, refetch: refetchIncompleteAffiliations } =
+    useIncompleteAffiliations(user?.registry_id);
 
   const { mutateAsync: postAffiliations, ...postAffiliationQueryState } =
     useMutation(postAffiliationQuery(user));
@@ -218,7 +221,10 @@ export default function AffiliationsPage({
   });
 
   const showConfirmDelete = useQueryConfirmAlerts(restDeleteState, {
-    onSuccess: () => refetch(),
+    onSuccess: () => {
+      refetch();
+      refetchIncompleteAffiliations();
+    },
     confirmAlertProps: {
       text: tProfile("affiliationsDeleteConfirmMessage"),
       onConfirm: async id => {
@@ -232,9 +238,6 @@ export default function AffiliationsPage({
       text: renderErrorToString(tProfile, "affiliationsDeleteErrorMessage"),
     },
   });
-
-  const incompleteAffiliations =
-    affiliationsData?.filter(isAffiliationInfoRequired) ?? [];
 
   const handleResendInvite = async (affiliation: ResearcherAffiliation) => {
     await mutateOrganisationInvite(affiliation?.organisation_id as number);
@@ -399,6 +402,7 @@ export default function AffiliationsPage({
         await postAffiliations(payload);
       }
       refetch();
+      refetchIncompleteAffiliations();
     },
     [selectedAffiliation, postAffiliations, putAffiliation]
   );

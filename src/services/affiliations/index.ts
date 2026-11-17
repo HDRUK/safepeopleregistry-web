@@ -7,6 +7,7 @@ import postAffiliationQuery from "@/services/affiliations/postAffiliationQuery";
 import putAffiliationQuery from "@/services/affiliations/putAffiliationQuery";
 import putAffiliationEndDateQuery from "@/services/affiliations/putAffiliationEndDateQuery";
 import putRegistryHasAffiliationQuery from "@/services/affiliations/putRegistryHasAffiliationQuery";
+import useIncompleteAffiliations from "@/services/affiliations/useIncompleteAffiliations";
 import usePaginatedAffiliations from "@/services/affiliations/usePaginatedAffiliations";
 
 export {
@@ -17,6 +18,7 @@ export {
   putAffiliationQuery,
   putAffiliationEndDateQuery,
   putRegistryHasAffiliationQuery,
+  useIncompleteAffiliations,
   usePaginatedAffiliations,
   getAffiliationsWorkflowTransitionsQuery,
   getAffiliationResendVerificationQuery,

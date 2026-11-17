@@ -10,8 +10,7 @@ import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlin
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import WarningAmberRoundedIcon from "@mui/icons-material/WarningAmberRounded";
 import WorkspacePremiumOutlinedIcon from "@mui/icons-material/WorkspacePremiumOutlined";
-import { usePaginatedAffiliations } from "@/services/affiliations";
-import { isAffiliationInfoRequired } from "@/utils/affiliations";
+import { useIncompleteAffiliations } from "@/services/affiliations";
 import { Box, Tab, Tabs } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { PageTabs } from "../../consts/tabs";
@@ -29,10 +28,10 @@ export default function TabsSections({ tabId }: TabsSectionsProps) {
   }));
   const t = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
 
-  const { data: affiliations } = usePaginatedAffiliations(user?.registry_id);
-  const hasIncompleteAffiliation = !!affiliations?.some(
-    isAffiliationInfoRequired
+  const { incompleteAffiliations } = useIncompleteAffiliations(
+    user?.registry_id
   );
+  const hasIncompleteAffiliation = incompleteAffiliations.length > 0;
 
   return (
     <Box sx={{ width: "100%", mb: 4 }}>
@@ -79,7 +78,7 @@ export default function TabsSections({ tabId }: TabsSectionsProps) {
               {t("affiliations")}
               {hasIncompleteAffiliation && (
                 <WarningAmberRoundedIcon
-                  color="warning"
+                  sx={{ color: "warning.dark" }}
                   fontSize="small"
                   titleAccess={t("affiliationsIncompleteIndicator")}
                 />
