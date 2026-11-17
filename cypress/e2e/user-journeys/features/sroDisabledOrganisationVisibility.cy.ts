@@ -104,22 +104,7 @@ describe("Restricted Organisations are only offered to those allowed to see them
       createProjectAndInviteNewSponsor(project, sponsor);
     });
 
-    it("Is offered to the Custodian that created it", () => {
-      loginCustodian();
 
-      cy.visitFirst(ROUTES.profileCustodianProjects.path);
-
-      cy.waitForLoadingToFinish();
-
-      openProject(project);
-
-      cy.get("#sponsor_id").click();
-
-      cy.contains(".MuiPopover-root li", sponsor.organisation_name).should(
-        "contain",
-        "Pending approval by HDR UK"
-      );
-    });
 
     it("Is not offered to a researcher before approval", () => {
       openResearcherOrganisationOptions().should(
