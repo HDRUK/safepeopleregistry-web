@@ -191,6 +191,79 @@ describe("<AffiliationsPage />", () => {
     expect(screen.queryByText("Delete")).not.toBeInTheDocument();
   });
 
+  describe("when an affiliation needs completing", () => {
+    const mockAffiliations = (affiliations: unknown[]) => {
+      mockUseQuery.mockReturnValue({
+        data: { data: mockPagedResults(affiliations) },
+        refetch: jest.fn(),
+        isLoading: false,
+        isError: false,
+      } as unknown as ReturnType<typeof useQuery>);
+    };
+
+    const infoRequiredAffiliation = (organisation_name: string) =>
+      mockedAffiliation({
+        organisation: { organisation_name },
+        model_state: { state: { slug: Status.AFFILIATION_INFO_REQUIRED } },
+      });
+
+    it("does not warn when every affiliation is complete", async () => {
+      renderTest();
+
+      await screen.findByRole("table");
+
+      expect(
+        screen.queryByRole("button", { name: "Complete your affiliation" })
+      ).not.toBeInTheDocument();
+    });
+
+    it("warns which affiliation needs completing and opens it", async () => {
+      mockAffiliations([
+        mockedAffiliation(),
+        infoRequiredAffiliation("Incomplete Organisation"),
+      ]);
+
+      renderTest();
+
+      expect(
+        await screen.findByText(/Your affiliation with Incomplete Organisation/)
+      ).toBeInTheDocument();
+
+      fireEvent.click(
+        await screen.findByRole("button", { name: "Complete your affiliation" })
+      );
+
+      expect(await screen.findByText("Edit Affiliation")).toBeInTheDocument();
+    });
+
+    it("warns when the incomplete affiliation is not on the table's current page", async () => {
+      const queryResult = (affiliations: unknown[]) =>
+        ({
+          data: { data: mockPagedResults(affiliations) },
+          refetch: jest.fn(),
+          isLoading: false,
+          isError: false,
+        }) as unknown as ReturnType<typeof useQuery>;
+
+      const tablePage = queryResult([mockedAffiliation()]);
+      const allAffiliations = queryResult([
+        infoRequiredAffiliation("Incomplete Organisation"),
+      ]);
+
+      mockUseQuery.mockImplementation(({ queryKey }) =>
+        JSON.stringify(queryKey).includes("per_page")
+          ? allAffiliations
+          : tablePage
+      );
+
+      renderTest();
+
+      expect(
+        await screen.findByText(/Your affiliation with Incomplete Organisation/)
+      ).toBeInTheDocument();
+    });
+  });
+
   it("has no accessibility violations", async () => {
     commonAccessibilityTests(renderTest());
   });
