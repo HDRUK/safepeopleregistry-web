@@ -3,6 +3,7 @@
 import { ActionMenu, ActionMenuItem } from "@/components/ActionMenu";
 import FormModal from "@/components/FormModal";
 import Guidance from "@/components/Guidance";
+import { Message, MessageTitle } from "@/components/Message";
 import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
 import { Status } from "@/consts/application";
 import { HeadingLevel } from "@/consts/header";
@@ -37,6 +38,7 @@ import {
   canRecordAffiliationEndDate,
   isAffiliationEditable,
   isAffiliationEnded,
+  isAffiliationInfoRequired,
 } from "@/utils/affiliations";
 import { formatDBDateTime } from "@/utils/date";
 import { getCombinedQueryState } from "@/utils/query";
@@ -230,6 +232,9 @@ export default function AffiliationsPage({
       text: renderErrorToString(tProfile, "affiliationsDeleteErrorMessage"),
     },
   });
+
+  const incompleteAffiliations =
+    affiliationsData?.filter(isAffiliationInfoRequired) ?? [];
 
   const handleResendInvite = async (affiliation: ResearcherAffiliation) => {
     await mutateOrganisationInvite(affiliation?.organisation_id as number);
@@ -436,6 +441,35 @@ export default function AffiliationsPage({
                 onClose={() => setEndDateAffiliation(undefined)}
                 onSuccess={() => refetch()}
               />
+              {incompleteAffiliations.length > 0 && (
+                <Message
+                  severity="warning"
+                  sx={{
+                    mb: 2,
+                    "& .MuiAlert-action": { alignItems: "center", pt: 0 },
+                  }}
+                  action={
+                    <Button
+                      color="warning"
+                      size="small"
+                      onClick={() => {
+                        setSelectedAffiliation(incompleteAffiliations[0]);
+                        setPrefillAffiliation(undefined);
+                        setOpen(true);
+                      }}>
+                      {tProfile("completeAffiliationButton")}
+                    </Button>
+                  }>
+                  <MessageTitle>
+                    {tProfile("completeAffiliationWarningTitle")}
+                  </MessageTitle>
+                  {tProfile("completeAffiliationWarning", {
+                    organisationName:
+                      incompleteAffiliations[0].organisation
+                        ?.organisation_name ?? "",
+                  })}
+                </Message>
+              )}
               <Typography sx={{ mb: 2 }}>
                 {tProfile("affiliationsDescription")}
               </Typography>

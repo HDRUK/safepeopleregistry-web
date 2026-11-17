@@ -8,7 +8,10 @@ import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
 import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import WarningAmberRoundedIcon from "@mui/icons-material/WarningAmberRounded";
 import WorkspacePremiumOutlinedIcon from "@mui/icons-material/WorkspacePremiumOutlined";
+import { usePaginatedAffiliations } from "@/services/affiliations";
+import { isAffiliationInfoRequired } from "@/utils/affiliations";
 import { Box, Tab, Tabs } from "@mui/material";
 import { useTranslations } from "next-intl";
 import { PageTabs } from "../../consts/tabs";
@@ -20,8 +23,16 @@ interface TabsSectionsProps {
 }
 
 export default function TabsSections({ tabId }: TabsSectionsProps) {
-  const routes = useStore(store => store.getApplication().routes);
+  const { routes, user } = useStore(store => ({
+    routes: store.getApplication().routes,
+    user: store.getUser(),
+  }));
   const t = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
+
+  const { data: affiliations } = usePaginatedAffiliations(user?.registry_id);
+  const hasIncompleteAffiliation = !!affiliations?.some(
+    isAffiliationInfoRequired
+  );
 
   return (
     <Box sx={{ width: "100%", mb: 4 }}>
@@ -61,7 +72,20 @@ export default function TabsSections({ tabId }: TabsSectionsProps) {
         />
         <Tab
           icon={<OrganisationIcon />}
-          label={t("affiliations")}
+          label={
+            <Box
+              component="span"
+              sx={{ display: "inline-flex", alignItems: "center", gap: 0.5 }}>
+              {t("affiliations")}
+              {hasIncompleteAffiliation && (
+                <WarningAmberRoundedIcon
+                  color="warning"
+                  fontSize="small"
+                  titleAccess={t("affiliationsIncompleteIndicator")}
+                />
+              )}
+            </Box>
+          }
           href={routes.profileResearcherAffiliations.path}
           component={Link}
           value={PageTabs.AFFILIATIONS}
