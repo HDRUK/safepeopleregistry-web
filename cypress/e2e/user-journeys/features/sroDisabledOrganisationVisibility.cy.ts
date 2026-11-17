@@ -34,7 +34,6 @@ const sponsor = mockedOrganisationInvite({
     .toLowerCase(),
 });
 
-
 const currentEmployerName = uniqueName("Current employer");
 
 const hasApprovalStatus = (
@@ -139,7 +138,6 @@ describe("Restricted Organisations are only offered to those allowed to see them
       cy.get("#searchByText")
         .clear()
         .type(`${sponsor.organisation_name}{enter}`);
-
 
       cy.waitForLoadingToFinish();
 
