@@ -7,10 +7,7 @@ import { loginAdmin } from "cypress/support/utils/admin/auth";
 import { runWithFeatureFlag } from "cypress/support/utils/admin/features";
 import { dataCy } from "cypress/support/utils/common";
 import { loginCustodian } from "cypress/support/utils/custodian/auth";
-import {
-  createProjectAndInviteNewSponsor,
-  openProject,
-} from "cypress/support/utils/custodian/projects";
+import { createProjectAndInviteNewSponsor } from "cypress/support/utils/custodian/projects";
 import {
   DEFAULT_FROM_DATE,
   SRO_REQUIREMENT_FEATURE,
@@ -103,8 +100,6 @@ describe("Restricted Organisations are only offered to those allowed to see them
 
       createProjectAndInviteNewSponsor(project, sponsor);
     });
-
-
 
     it("Is not offered to a researcher before approval", () => {
       openResearcherOrganisationOptions().should(
