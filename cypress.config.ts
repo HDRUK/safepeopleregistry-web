@@ -22,6 +22,7 @@ const SPECS: [spec: string, shard: number][] = [
   ["features/sroDisabledCustodianSponsor.cy.ts", 1],
   ["features/sroDisabledCustodianUserInvite.cy.ts", 1],
   ["features/sroDisabledSuperadminInvite.cy.ts", 1],
+  ["features/sroDisabledOrganisationVisibility.cy.ts", 1],
   ["admin/features.cy.ts", 1],
   ["admin/users.cy.ts", 1],
   ["admin/sro.cy.ts", 2],

@@ -110,6 +110,7 @@ describe("<SendInviteOrganisation />", () => {
     it.each([
       ["duplicate", /This Organisation has already been invited/],
       ["email_in_use", /already the lead applicant for another Organisation/],
+      ["pending_approval", /is awaiting approval by HDR UK/],
     ])("shows why a %s conflict failed", async (reason, text) => {
       global.fetch.mockImplementation((url: string) => {
         if (url.endsWith("/organisations/unclaimed")) {
@@ -140,6 +141,7 @@ describe("<SendInviteOrganisation />", () => {
         "unclaimed_duplicate_without_email",
         /with this name has already been invited/,
       ],
+      ["pending_approval", /is awaiting approval by HDR UK/],
     ])("shows why a %s conflict failed", async (reason, text) => {
       global.fetch.mockImplementation((url: string) => {
         if (

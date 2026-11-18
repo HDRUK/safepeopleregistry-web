@@ -20,6 +20,12 @@ function filterOrganisationsList(
     return true;
   }
 
+  // The API only returns a restricted organisation to a user allowed to see
+  // it (e.g. their current employer), so it is selectable before approval
+  if (entityType === EntityType.USER && organisation.is_restricted) {
+    return true;
+  }
+
   if (!invitingUser) {
     return organisation.system_approved;
   }

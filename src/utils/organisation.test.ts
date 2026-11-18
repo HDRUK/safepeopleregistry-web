@@ -6,10 +6,14 @@ import { filterOrganisationsList } from "./organisation";
 
 const ENTITY_ID = 1;
 
-const unapprovedOrganisation = (invited_by?: ReturnType<typeof mockedUser>) =>
+const unapprovedOrganisation = (
+  invited_by?: ReturnType<typeof mockedUser>,
+  is_restricted = false
+) =>
   mockedOrganisation({
     id: 10,
     system_approved: false,
+    is_restricted,
     sro_officer: mockedUser({ invited_by }),
   });
 
@@ -78,6 +82,26 @@ describe("filterOrganisationsList", () => {
           ENTITY_ID
         )
       ).toBe(false);
+    });
+
+    it("includes a restricted organisation with no inviting user", () => {
+      expect(
+        filterOrganisationsList(
+          unapprovedOrganisation(undefined, true),
+          EntityType.USER,
+          ENTITY_ID
+        )
+      ).toBe(true);
+    });
+
+    it("includes a restricted organisation invited by another researcher", () => {
+      expect(
+        filterOrganisationsList(
+          unapprovedOrganisation(researcher, true),
+          EntityType.USER,
+          ENTITY_ID
+        )
+      ).toBe(true);
     });
   });
 
