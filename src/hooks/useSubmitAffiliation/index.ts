@@ -1,5 +1,5 @@
-import useSubmitAffiliation from "./useSubmitAffiliation";
+import useSubmitAffiliation from "@/hooks/useSubmitAffiliation/useSubmitAffiliation";
 
 export default useSubmitAffiliation;
 
-export type * from "./useSubmitAffiliation";
+export type * from "@/hooks/useSubmitAffiliation/useSubmitAffiliation";

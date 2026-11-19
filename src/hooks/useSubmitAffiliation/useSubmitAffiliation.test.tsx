@@ -3,7 +3,7 @@ import { PostAffiliationPayload } from "@/services/affiliations/types";
 import { formatDBDateTime } from "@/utils/date";
 import { useMutation } from "@tanstack/react-query";
 import { renderHook } from "@/utils/testUtils";
-import useSubmitAffiliation from "./useSubmitAffiliation";
+import useSubmitAffiliation from "@/hooks/useSubmitAffiliation/useSubmitAffiliation";
 
 jest.mock("@tanstack/react-query", () => ({
   ...jest.requireActual("@tanstack/react-query"),

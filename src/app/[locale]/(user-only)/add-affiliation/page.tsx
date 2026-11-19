@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PageBody } from "@/modules";
 import { SITE_NAME } from "@/utils/metadata";
 import { redirectProfile } from "@/utils/router";
-import AddAffiliation from "./components/AddAffiliation";
+import AddAffiliation from "@/app/[locale]/(user-only)/add-affiliation/components/AddAffiliation";
 
 export const metadata: Metadata = {
   title: `Add your affiliation | ${SITE_NAME}`,

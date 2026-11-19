@@ -6,7 +6,7 @@ import { getAccessToken } from "@/utils/auth";
 import { needsLoggedInPermissions } from "@/utils/loggedInPermission";
 import { redirectToPath } from "@/utils/redirects";
 import { headers } from "next/headers";
-import redirectApplication from "./router";
+import redirectApplication from "@/utils/router";
 
 jest.mock("next/headers", () => ({
   headers: jest.fn(),
