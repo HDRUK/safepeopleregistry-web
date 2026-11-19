@@ -6,13 +6,7 @@ import { capitaliseFirstLetter } from "@/utils/string";
 import { dataCy } from "../common";
 import { DEFAULT_AFFILIATION_USERS } from "../data";
 
-const addAffiliationUsers = (
-  affiliation: ResearcherAffiliation = DEFAULT_AFFILIATION_USERS
-) => {
-  cy.buttonClick("Add affiliation");
-
-  cy.get(dataCy("form-modal")).should("be.visible");
-
+const fillAffiliationForm = (affiliation: ResearcherAffiliation) => {
   cy.dateSelectValue("from", affiliation.from);
   cy.dateSelectValue("to", affiliation.to);
 
@@ -27,8 +21,26 @@ const addAffiliationUsers = (
   if (affiliation.email) {
     cy.get("#email").type(affiliation.email);
   }
+};
+
+const addAffiliationUsers = (
+  affiliation: ResearcherAffiliation = DEFAULT_AFFILIATION_USERS
+) => {
+  cy.buttonClick("Add affiliation");
+
+  cy.get(dataCy("form-modal")).should("be.visible");
+
+  fillAffiliationForm(affiliation);
 
   cy.saveFormClick();
+};
+
+// The affiliation step shows the form on the page rather than in a modal,
+// so cy.saveFormClick (which looks for an open modal) can't be used.
+const addRegistrationAffiliation = (affiliation: ResearcherAffiliation) => {
+  fillAffiliationForm(affiliation);
+
+  cy.contains("button", "Save").click();
 };
 
 // Adds an affiliation against an Organisation that isn't on the Registry yet,
@@ -161,6 +173,7 @@ const resendAffiliationVerification = (affiliation: ResearcherAffiliation) => {
 export {
   addAffiliationForNewOrganisationUsers,
   addAffiliationUsers,
+  addRegistrationAffiliation,
   editAffiliationUsers,
   hasAffiliationUsers,
   hasRemoveAffiliationUsers,
