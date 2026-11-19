@@ -59,6 +59,13 @@ function isAffiliationEndingSoon(affiliation: ResearcherAffiliation) {
   );
 }
 
+const VERIFICATION_CODE_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+function isVerificationCode(value: unknown): value is string {
+  return typeof value === "string" && VERIFICATION_CODE_PATTERN.test(value);
+}
+
 export {
   ENDED_AFFILIATION_STATUSES,
   canRecordAffiliationEndDate,
@@ -67,4 +74,5 @@ export {
   isAffiliationEnded,
   isAffiliationEndingSoon,
   isAffiliationInfoRequired,
+  isVerificationCode,
 };

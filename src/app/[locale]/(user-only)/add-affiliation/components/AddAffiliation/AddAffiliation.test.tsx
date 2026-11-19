@@ -11,6 +11,7 @@ import {
 } from "@/utils/testUtils";
 import { useStore } from "@/data/store";
 import { useRouter } from "next/navigation";
+import { ComponentProps } from "react";
 import AddAffiliation from "@/app/[locale]/(user-only)/add-affiliation/components/AddAffiliation/AddAffiliation";
 
 const mockFormProps = jest.fn();
@@ -69,15 +70,25 @@ jest.mock("@/utils/keycloak", () => ({
   handleLogout: jest.fn(),
 }));
 
+const mockUseRemoveSearchParam = jest.fn();
+
+jest.mock("@/hooks/useRemoveSearchParam", () => ({
+  __esModule: true,
+  default: (name: string) => mockUseRemoveSearchParam(name),
+}));
+
 const mockRefresh = jest.fn();
 
-const renderWithUser = (user: Partial<User>) => {
+const renderWithUser = (
+  user: Partial<User>,
+  props: ComponentProps<typeof AddAffiliation> = {}
+) => {
   const state = { getUser: () => mockedUser(user) };
   (useStore as unknown as jest.Mock).mockImplementation(
     (selector: (s: typeof state) => unknown) => selector(state)
   );
 
-  return render(<AddAffiliation />);
+  return render(<AddAffiliation {...props} />);
 };
 
 const lastFormProps = () => mockFormProps.mock.lastCall?.[0];
@@ -180,6 +191,23 @@ describe("<AddAffiliation />", () => {
 
     expect(screen.getByText("Check your email view")).toBeInTheDocument();
     expect(mockFormProps).not.toHaveBeenCalled();
+  });
+
+  it("removes the verification code from the address bar", () => {
+    renderWithUser({ registration_affiliation: null });
+
+    expect(mockUseRemoveSearchParam).toHaveBeenCalledWith("verify");
+  });
+
+  it("tells the researcher when their email couldn't be verified", async () => {
+    renderWithUser(
+      { registration_affiliation: null },
+      { verifyQueryState: { isError: true, isSuccess: false } }
+    );
+
+    expect(
+      await screen.findByText(/There has been a problem with your request/)
+    ).toBeInTheDocument();
   });
 
   it("lets the researcher sign out", () => {

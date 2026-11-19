@@ -29,6 +29,13 @@ jest.mock("@/queries/useOrganisationInvite", () => ({
   default: (props: unknown) => mockUseOrganisationInvite(props),
 }));
 
+const mockUseRemoveSearchParam = jest.fn();
+
+jest.mock("@/hooks/useRemoveSearchParam", () => ({
+  __esModule: true,
+  default: (name: string) => mockUseRemoveSearchParam(name),
+}));
+
 const mockUseQuery = useQuery as jest.MockedFunction<typeof useQuery>;
 const mockUseMutation = useMutation as jest.MockedFunction<typeof useMutation>;
 
@@ -262,6 +269,12 @@ describe("<AffiliationsPage />", () => {
         await screen.findByText(/Your affiliation with Incomplete Organisation/)
       ).toBeInTheDocument();
     });
+  });
+
+  it("removes the verification code from the address bar", () => {
+    renderTest();
+
+    expect(mockUseRemoveSearchParam).toHaveBeenCalledWith("verify");
   });
 
   it("has no accessibility violations", async () => {

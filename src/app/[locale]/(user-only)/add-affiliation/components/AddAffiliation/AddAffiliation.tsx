@@ -5,9 +5,11 @@ import { Status } from "@/consts/application";
 import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
 import { useStore } from "@/data/store";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
+import useRemoveSearchParam from "@/hooks/useRemoveSearchParam";
 import useSubmitAffiliation from "@/hooks/useSubmitAffiliation";
 import { PostAffiliationPayload } from "@/services/affiliations/types";
 import { EntityType } from "@/types/api";
+import { QueryState } from "@/types/form";
 import { handleLogout } from "@/utils/keycloak";
 import { getOrganisationConflictErrorKey } from "@/utils/organisationConflictError";
 import { renderErrorToString } from "@/utils/translations";
@@ -21,13 +23,22 @@ const NAMESPACE_TRANSLATIONS = "AddAffiliation";
 const NAMESPACE_TRANSLATIONS_PROFILE = "Profile";
 const NAMESPACE_TRANSLATIONS_APPLICATION = "Application";
 
-export default function AddAffiliation() {
+interface AddAffiliationProps {
+  verifyQueryState?: QueryState;
+}
+
+export default function AddAffiliation({
+  verifyQueryState,
+}: AddAffiliationProps) {
   const t = useTranslations(NAMESPACE_TRANSLATIONS);
   const tProfile = useTranslations(NAMESPACE_TRANSLATIONS_PROFILE);
   const tApplication = useTranslations(NAMESPACE_TRANSLATIONS_APPLICATION);
   const router = useRouter();
   const queryClient = useQueryClient();
   const { showAlert, hideAlert } = useAlertModal();
+
+  useQueryAlerts(verifyQueryState ?? {}, { showOnlyError: true });
+  useRemoveSearchParam("verify");
 
   const user = useStore(state => state.getUser());
   const registrationAffiliation = user?.registration_affiliation ?? null;

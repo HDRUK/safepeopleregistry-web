@@ -12,6 +12,7 @@ import { useStore } from "@/data/store";
 import AffiliationEndDateModal from "@/organisms/AffiliationEndDateModal";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
 import useQueryConfirmAlerts from "@/hooks/useQueryConfirmAlerts";
+import useRemoveSearchParam from "@/hooks/useRemoveSearchParam";
 import useSubmitAffiliation from "@/hooks/useSubmitAffiliation";
 import { mockedResearcherAffiliationsGuidance } from "@/mocks/data/cms";
 import {
@@ -69,6 +70,7 @@ export default function AffiliationsPage({
   const tApplication = useTranslations(NAMESPACE_TRANSLATION_APPLICATION);
   const router = useRouter();
   const { showAlert, hideAlert } = useAlertModal();
+  useRemoveSearchParam("verify");
 
   const [open, setOpen] = useState(false);
   const [selectedAffiliation, setSelectedAffiliation] = useState<
