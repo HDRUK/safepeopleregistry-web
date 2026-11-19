@@ -27,6 +27,16 @@ describe("getProfileRedirectPath", () => {
       ROUTES.profileResearcher.path,
     ],
     [
+      "a researcher in an organisation",
+      { user_group: UserGroup.USERS, organisation_id: 1 },
+      ROUTES.profileResearcher.path,
+    ],
+    [
+      "an admin",
+      { user_group: UserGroup.ADMINS, organisation_id: null },
+      ROUTES.profileAdmin.path,
+    ],
+    [
       "a custodian",
       { user_group: UserGroup.CUSTODIANS, organisation_id: null },
       ROUTES.profileCustodian.path,
