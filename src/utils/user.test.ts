@@ -1,6 +1,40 @@
 import { mockedUser } from "@/mocks/data/user";
 import { faker } from "@faker-js/faker";
-import { getInitialsFromUser, isOrcIdCompleted, isOrcIdScanning } from "./user";
+import { UserGroup } from "@/consts/user";
+import {
+  getInitialsFromUser,
+  isOrcIdCompleted,
+  isOrcIdScanning,
+  isRegistrationIncomplete,
+} from "@/utils/user";
+
+describe("isRegistrationIncomplete", () => {
+  it("is incomplete for a researcher who still needs an affiliation", () => {
+    const user = mockedUser({
+      user_group: UserGroup.USERS,
+      registration_complete: false,
+    });
+
+    expect(isRegistrationIncomplete(user)).toBe(true);
+  });
+
+  it.each([
+    [
+      "a researcher who is fully signed up",
+      { user_group: UserGroup.USERS, registration_complete: true },
+    ],
+    [
+      "a researcher when the API doesn't send the field",
+      { user_group: UserGroup.USERS, registration_complete: undefined },
+    ],
+    [
+      "an organisation user",
+      { user_group: UserGroup.ORGANISATIONS, registration_complete: false },
+    ],
+  ])("is complete for %s", (_, user) => {
+    expect(isRegistrationIncomplete(mockedUser(user))).toBe(false);
+  });
+});
 
 describe("getInitialsFromUser", () => {
   it("gets the correct initials", () => {

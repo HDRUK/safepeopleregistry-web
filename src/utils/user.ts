@@ -1,3 +1,4 @@
+import { UserGroup } from "@/consts/user";
 import { Organisation, User } from "../types/application";
 
 function getInitialsFromUser({ first_name, last_name }: User) {
@@ -22,7 +23,16 @@ function isRegistered({ unclaimed }: User) {
   return !unclaimed;
 }
 
+function isRegistrationIncomplete(
+  user: Pick<User, "user_group" | "registration_complete">
+): boolean {
+  return (
+    user.user_group === UserGroup.USERS && user.registration_complete === false
+  );
+}
+
 export {
+  isRegistrationIncomplete,
   getInitialsFromUser,
   getInitialsFromOrganisation,
   isOrcIdScanning,

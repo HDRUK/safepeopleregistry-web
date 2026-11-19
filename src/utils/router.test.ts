@@ -28,11 +28,15 @@ jest.mock("@/utils/redirects", () => ({
   getSeverErrorRedirectPath: jest.fn(),
 }));
 
-const withPath = (pathname: string) => {
+const withPath = (pathname: string, search = "") => {
   (headers as jest.Mock).mockResolvedValue({
-    get: (name: string) => (name === "x-current-path" ? pathname : null),
+    get: (name: string) =>
+      ({ "x-current-path": pathname, "x-current-search": search })[name] ??
+      null,
   });
 };
+
+const VERIFICATION_CODE = "6f1c1c9e-4b6e-4c1a-9a43-2d7c1e0b5f10";
 
 describe("needsLoggedInPermissions", () => {
   it("handles needed permissions", async () => {
@@ -85,6 +89,61 @@ describe("redirectApplication", () => {
       ROUTES.profileResearcher.path,
       pathname
     );
+  });
+
+  describe("when following an affiliation verification link", () => {
+    const affiliationsPath = "/en/user/profile/affiliations";
+
+    it("forwards the code to the affiliation step for a researcher who still needs an affiliation", async () => {
+      withPath(affiliationsPath, `?verify=${VERIFICATION_CODE}`);
+      (getMe as jest.Mock).mockResolvedValue({
+        status: 200,
+        data: mockedUser({
+          user_group: UserGroup.USERS,
+          registration_complete: false,
+        }),
+      });
+
+      await redirectApplication();
+
+      expect(redirectToPath).toHaveBeenCalledWith(
+        `${ROUTES.addAffiliation.path}?verify=${VERIFICATION_CODE}`,
+        affiliationsPath
+      );
+    });
+
+    it("drops a malformed code", async () => {
+      withPath(affiliationsPath, "?verify=not-a-code");
+      (getMe as jest.Mock).mockResolvedValue({
+        status: 200,
+        data: mockedUser({
+          user_group: UserGroup.USERS,
+          registration_complete: false,
+        }),
+      });
+
+      await redirectApplication();
+
+      expect(redirectToPath).toHaveBeenCalledWith(
+        ROUTES.addAffiliation.path,
+        affiliationsPath
+      );
+    });
+
+    it("leaves a fully signed-up researcher's redirect unchanged", async () => {
+      withPath(affiliationsPath, `?verify=${VERIFICATION_CODE}`);
+      (getMe as jest.Mock).mockResolvedValue({
+        status: 200,
+        data: mockedUser({ user_group: UserGroup.USERS }),
+      });
+
+      await redirectApplication();
+
+      expect(redirectToPath).toHaveBeenCalledWith(
+        ROUTES.profileResearcher.path,
+        affiliationsPath
+      );
+    });
   });
 
   it("sends a user with no Registry account to register", async () => {
