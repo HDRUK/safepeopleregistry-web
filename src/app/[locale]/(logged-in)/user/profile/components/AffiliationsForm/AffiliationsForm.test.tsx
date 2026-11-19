@@ -97,6 +97,38 @@ describe("<AffiliationsForm />", () => {
     ).toBeInTheDocument();
   });
 
+  it("offers no cancel button when there is nothing to cancel back to", () => {
+    render(
+      <AffiliationsForm
+        onSubmit={mockSubmit}
+        queryState={{ isPending: false, isError: false, error: "" }}
+        entityId={1}
+        entityType={EntityType.USER}
+      />
+    );
+
+    expect(
+      screen.queryByRole("button", { name: /cancel/i })
+    ).not.toBeInTheDocument();
+  });
+
+  it("locks the organisation when asked to", () => {
+    const { container } = render(
+      <AffiliationsForm
+        onSubmit={mockSubmit}
+        queryState={{ isPending: false, isError: false, error: "" }}
+        entityId={1}
+        entityType={EntityType.USER}
+        initialValues={{ organisation_id: 1 }}
+        lockOrganisation
+      />
+    );
+
+    expect(
+      container.querySelector("input[name=organisation_id]")
+    ).toBeDisabled();
+  });
+
   it("has no accessibility violations", async () => {
     commonAccessibilityTests(renderAffiliationsComponent());
   });

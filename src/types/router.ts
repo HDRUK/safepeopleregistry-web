@@ -18,6 +18,7 @@ interface Routes {
   invite: RouteConfig;
   register: RouteConfig;
   noOrganisation: RouteConfig;
+  addAffiliation: RouteConfig;
   homepage: RouteConfig;
   about: RouteConfig;
   faq: RouteConfig;

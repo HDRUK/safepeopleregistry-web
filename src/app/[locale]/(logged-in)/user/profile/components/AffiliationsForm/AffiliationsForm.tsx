@@ -25,10 +25,11 @@ import { useFeatures } from "@/components/FeatureProvider";
 
 export interface AffiliationsFormProps {
   onSubmit: (affiliation: ResearcherAffiliation) => void;
-  onClose: () => void;
+  onClose?: () => void;
   queryState: QueryState;
   // Without an id, these prefill a new affiliation, e.g. when re-joining an Organisation.
   initialValues?: Partial<ResearcherAffiliation>;
+  lockOrganisation?: boolean;
   entityId: number;
   entityType: EntityType;
 }
@@ -42,6 +43,7 @@ export default function AffiliationsForm({
   onClose,
   queryState,
   initialValues,
+  lockOrganisation,
   entityId,
   entityType,
 }: AffiliationsFormProps) {
@@ -205,6 +207,7 @@ export default function AffiliationsForm({
                 <Grid size={{ xs: 12 }}>
                   <FormControlWrapper
                     name="organisation_id"
+                    disabled={lockOrganisation}
                     renderField={({ onChange, ...fieldProps }) => (
                       <SelectOrganisation
                         entityId={entityId}
@@ -404,9 +407,11 @@ export default function AffiliationsForm({
               </Grid>
             </Grid>
             <FormActions>
-              <Button variant="outlined" onClick={onClose}>
-                {tApplication("cancel")}
-              </Button>
+              {onClose && (
+                <Button variant="outlined" onClick={onClose}>
+                  {tApplication("cancel")}
+                </Button>
+              )}
               <LoadingButton loading={queryState.isLoading} type="submit">
                 {tForm("save")}
               </LoadingButton>
