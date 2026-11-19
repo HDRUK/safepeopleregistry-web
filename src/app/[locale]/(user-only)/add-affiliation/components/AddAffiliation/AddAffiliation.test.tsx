@@ -1,3 +1,4 @@
+import { Status } from "@/consts/application";
 import { mockedRegistrationAffiliation, mockedUser } from "@/mocks/data/user";
 import { ResearcherAffiliation, User } from "@/types/application";
 import { handleLogout } from "@/utils/keycloak";
@@ -10,7 +11,7 @@ import {
 } from "@/utils/testUtils";
 import { useStore } from "@/data/store";
 import { useRouter } from "next/navigation";
-import AddAffiliation from "./AddAffiliation";
+import AddAffiliation from "@/app/[locale]/(user-only)/add-affiliation/components/AddAffiliation/AddAffiliation";
 
 const mockFormProps = jest.fn();
 const mockSubmittedFields = {
@@ -34,6 +35,14 @@ jest.mock(
         </button>
       );
     },
+  })
+);
+
+jest.mock(
+  "@/app/[locale]/(user-only)/add-affiliation/components/CheckYourEmail",
+  () => ({
+    __esModule: true,
+    default: () => <p>Check your email view</p>,
   })
 );
 
@@ -160,6 +169,17 @@ describe("<AddAffiliation />", () => {
     await waitFor(() => expect(mockSubmitAffiliation).toHaveBeenCalled());
     expect(mockInvalidateQueries).not.toHaveBeenCalled();
     expect(mockRefresh).not.toHaveBeenCalled();
+  });
+
+  it("asks a researcher waiting on email verification to check their email", () => {
+    renderWithUser({
+      registration_affiliation: mockedRegistrationAffiliation({
+        state: Status.AFFILIATION_EMAIL_VERIFY,
+      }),
+    });
+
+    expect(screen.getByText("Check your email view")).toBeInTheDocument();
+    expect(mockFormProps).not.toHaveBeenCalled();
   });
 
   it("lets the researcher sign out", () => {

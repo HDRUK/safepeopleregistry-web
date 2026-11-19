@@ -1,6 +1,7 @@
 "use client";
 
 import AffiliationsForm from "@/app/[locale]/(logged-in)/user/profile/components/AffiliationsForm";
+import { Status } from "@/consts/application";
 import { useAlertModal } from "@/context/AlertModalProvider/AlertModalProvider";
 import { useStore } from "@/data/store";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
@@ -14,6 +15,7 @@ import { Box, Button, Typography } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import CheckYourEmail from "@/app/[locale]/(user-only)/add-affiliation/components/CheckYourEmail";
 
 const NAMESPACE_TRANSLATIONS = "AddAffiliation";
 const NAMESPACE_TRANSLATIONS_PROFILE = "Profile";
@@ -28,8 +30,17 @@ export default function AddAffiliation() {
   const { showAlert, hideAlert } = useAlertModal();
 
   const user = useStore(state => state.getUser());
+  const registrationAffiliation = user?.registration_affiliation ?? null;
+  // Submitted, but waiting on the researcher to verify its email.
+  const awaitingVerification =
+    registrationAffiliation?.state === Status.AFFILIATION_EMAIL_VERIFY
+      ? registrationAffiliation
+      : null;
   // An affiliation created by an invite, for the researcher to complete.
-  const invited = user?.registration_affiliation ?? null;
+  const invited =
+    registrationAffiliation?.state === Status.AFFILIATION_INFO_REQUIRED
+      ? registrationAffiliation
+      : null;
 
   const {
     submitAffiliation,
@@ -88,30 +99,36 @@ export default function AddAffiliation() {
         mx: "auto",
         py: 6,
       }}>
-      <Typography variant="h2">{t("title")}</Typography>
-      <Typography>
-        {invited?.organisation_name
-          ? t("invitedDescription", {
-              organisationName: invited.organisation_name,
-            })
-          : t("description")}
-      </Typography>
-      <AffiliationsForm
-        entityId={user?.id}
-        entityType={EntityType.USER}
-        onSubmit={handleSubmit}
-        queryState={queryState}
-        initialValues={
-          invited
-            ? {
-                id: invited.id,
-                organisation_id: invited.organisation_id,
-                email: invited.email,
-              }
-            : undefined
-        }
-        lockOrganisation={!!invited}
-      />
+      {awaitingVerification ? (
+        <CheckYourEmail affiliation={awaitingVerification} />
+      ) : (
+        <>
+          <Typography variant="h2">{t("title")}</Typography>
+          <Typography>
+            {invited?.organisation_name
+              ? t("invitedDescription", {
+                  organisationName: invited.organisation_name,
+                })
+              : t("description")}
+          </Typography>
+          <AffiliationsForm
+            entityId={user?.id}
+            entityType={EntityType.USER}
+            onSubmit={handleSubmit}
+            queryState={queryState}
+            initialValues={
+              invited
+                ? {
+                    id: invited.id,
+                    organisation_id: invited.organisation_id,
+                    email: invited.email,
+                  }
+                : undefined
+            }
+            lockOrganisation={!!invited}
+          />
+        </>
+      )}
       <Box>
         <Button variant="outlined" onClick={() => handleLogout()}>
           {t("signOut")}
