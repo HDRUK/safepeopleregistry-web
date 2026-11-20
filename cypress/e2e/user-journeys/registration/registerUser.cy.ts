@@ -1,6 +1,10 @@
 import { ROUTES } from "@/consts/router";
 import { mockedRegistration } from "@/mocks/data/auth";
+import { mockedOrganisation } from "@/mocks/data/organisation";
 import { faker } from "@faker-js/faker";
+import { loginAdmin } from "cypress/support/utils/admin/auth";
+import { validateSROOrganisations } from "cypress/support/utils/admin/sro";
+import { hasSROOrganisation } from "cypress/support/utils/organisation/sro";
 import {
   shouldBeAddAffiliation,
   shouldBeUserProfile,
@@ -86,6 +90,23 @@ describe("Register user journey", () => {
   });
 
   it("Registers the user", () => {
+    // Researchers can only pick approved Organisations, and the seeded one isn't.
+    const organisation = mockedOrganisation({
+      organisation_name:
+        DEFAULT_AFFILIATION_USERS.organisation.organisation_name,
+    });
+
+    loginAdmin();
+    cy.visitFirst(ROUTES.profileAdmin.path);
+    validateSROOrganisations(organisation, "Approve");
+    hasSROOrganisation(organisation, "Approved");
+
+    // Register signed out, as a new researcher would.
+    cy.clearAllCookies();
+    cy.clearAllLocalStorage();
+    cy.clearAllSessionStorage();
+    cy.visit(ROUTES.homepage.path);
+
     openUserTermsAndConditions();
 
     ignoreKeycloakPasswordValidatorError();
