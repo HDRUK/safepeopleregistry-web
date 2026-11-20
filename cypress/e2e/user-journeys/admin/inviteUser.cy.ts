@@ -12,7 +12,7 @@ import {
   EMAIL_SIGN_ME_UP,
 } from "cypress/support/utils/data";
 import { actionMessage } from "cypress/support/utils/mail";
-import { addRegistrationAffiliation } from "cypress/support/utils/user/affiliations";
+import { completeInvitedAffiliation } from "cypress/support/utils/user/affiliations";
 import {
   ignoreKeycloakPasswordValidatorError,
   registerAndLogin,
@@ -42,12 +42,15 @@ describe("Invite user", () => {
 
     shouldBeAddAffiliation();
 
-    // Using their sign-in email means it doesn't need verifying again.
-    addRegistrationAffiliation({
-      ...DEFAULT_AFFILIATION_USERS,
-      member_id: Cypress._.random(0, 1e6).toString(),
-      email: registration.email,
-    });
+    // They registered with the address they were invited on, so it doesn't
+    // need verifying again.
+    completeInvitedAffiliation(
+      {
+        ...DEFAULT_AFFILIATION_USERS,
+        member_id: Cypress._.random(0, 1e6).toString(),
+      },
+      dataInviteUser.email
+    );
 
     shouldBeUserProfile();
   });

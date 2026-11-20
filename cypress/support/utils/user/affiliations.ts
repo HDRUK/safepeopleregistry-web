@@ -43,6 +43,24 @@ const addRegistrationAffiliation = (affiliation: ResearcherAffiliation) => {
   cy.contains("button", "Save").click();
 };
 
+// An invited researcher completes the affiliation the invite created: the
+// Organisation and email come from the invite and can't be changed.
+const completeInvitedAffiliation = (
+  affiliation: ResearcherAffiliation,
+  invitedEmail: string
+) => {
+  cy.get("input[name=organisation_id]").should("be.disabled");
+  cy.get("#email").should("be.disabled").and("have.value", invitedEmail);
+
+  cy.dateSelectValue("from", affiliation.from);
+  cy.dateSelectValue("to", affiliation.to);
+  cy.selectValue("#relationship", affiliation.relationship);
+  cy.get("#role").type(affiliation.role);
+  cy.get("#member_id").type(affiliation.member_id);
+
+  cy.contains("button", "Save").click();
+};
+
 // Adds an affiliation against an Organisation that isn't on the Registry yet,
 // via the "Organisation not listed? Ask them to register" link. Leaving
 // `organisation_email` out exercises the SroRequirementEnabled=false path,
@@ -174,6 +192,7 @@ export {
   addAffiliationForNewOrganisationUsers,
   addAffiliationUsers,
   addRegistrationAffiliation,
+  completeInvitedAffiliation,
   editAffiliationUsers,
   hasAffiliationUsers,
   hasRemoveAffiliationUsers,
