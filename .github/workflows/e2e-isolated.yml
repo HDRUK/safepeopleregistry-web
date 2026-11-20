@@ -416,15 +416,15 @@ jobs:
       # Each shard uploads its own evidence (artifact names must be unique per
       # job); the e2e-tests job merges them into a single cypress-evidence
       # artifact. Uncomment together with the merge step below.
-      # - name: Upload Cypress evidence
-      #   uses: actions/upload-artifact@v4
-      #   if: failure()
-      #   with:
-      #     name: cypress-evidence-shard-${{ matrix.shard }}
-      #     path: |
-      #       cypress/screenshots
-      #       cypress/videos
-      #     if-no-files-found: ignore
+      - name: Upload Cypress evidence
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-evidence-shard-${{ matrix.shard }}
+          path: |
+            cypress/screenshots
+            cypress/videos
+          if-no-files-found: ignore
 
   # Branch protection requires a check named "e2e-tests", so this reports the
   # combined result of the shards under that name.
@@ -435,14 +435,14 @@ jobs:
     steps:
       # Merges the per-shard uploads from "Upload Cypress evidence" above.
       # continue-on-error covers failures where no shard got as far as Cypress.
-      # - name: Merge Cypress evidence
-      #   if: needs.e2e-shard.result == 'failure'
-      #   continue-on-error: true
-      #   uses: actions/upload-artifact/merge@v4
-      #   with:
-      #     name: cypress-evidence
-      #     pattern: cypress-evidence-shard-*
-      #     delete-merged: true
+      - name: Merge Cypress evidence
+        if: needs.e2e-shard.result == 'failure'
+        continue-on-error: true
+        uses: actions/upload-artifact/merge@v4
+        with:
+          name: cypress-evidence
+          pattern: cypress-evidence-shard-*
+          delete-merged: true
 
       - name: Check shard results
         run: |
