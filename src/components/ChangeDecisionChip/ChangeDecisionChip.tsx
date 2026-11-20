@@ -5,7 +5,7 @@ import { VerifyIcon, RejectIcon } from "../../consts/icons";
 interface ChangeDecisionChipProps {
   completed: boolean;
   onClick: () => void;
-  disabled?: boolean;
+  readOnly?: boolean;
 }
 
 const NAMESPACE_TRANSLATION_COMPLETED_CHIP = "ChangeDecisionChip";
@@ -13,7 +13,7 @@ const NAMESPACE_TRANSLATION_COMPLETED_CHIP = "ChangeDecisionChip";
 const ChangeDecisionChip = ({
   completed,
   onClick,
-  disabled = false,
+  readOnly = false,
 }: ChangeDecisionChipProps) => {
   const t = useTranslations(NAMESPACE_TRANSLATION_COMPLETED_CHIP);
   return (
@@ -30,7 +30,7 @@ const ChangeDecisionChip = ({
         label={completed ? t("passed") : t("failed")}
         color={completed ? "success" : "error"}
       />
-      {!disabled && (
+      {!readOnly && (
         <Button
           data-testid="validation-log-change-decision"
           variant="outlined"
