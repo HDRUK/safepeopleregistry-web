@@ -28,6 +28,7 @@ Things to know:
 
 - **The route is `/add-affiliation`, not `/register-affiliation`.** `redirectToPath` in [`src/utils/redirects.ts`](../../src/utils/redirects.ts) compares paths by substring, and `/register` is a substring of `/register-affiliation`.
 - **The redirect runs on the server, on full page loads.** A researcher whose last qualifying affiliation ends mid-session is sent to the step on their next full page load, not on client-side navigation.
+- **Registering an invitee reloads the user.** The step reads the user that `ApplicationUser` loads into the store, and the `(user-only)` layout stays mounted from `/register` to `/add-affiliation`. So `AccountConfirm` invalidates `getMe` after registering an invitee; otherwise the step shows the user loaded before they registered, with no invited affiliation to prefill.
 
 ## The page
 
