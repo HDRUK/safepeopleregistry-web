@@ -46,7 +46,7 @@ The verification email links to `/user/profile/affiliations?verify=<code>`. That
 
 1. [`src/proxy.ts`](../../src/proxy.ts) sets `x-current-search` alongside `x-current-path`, overwriting anything the client sent.
 2. When `redirectApplication` sends a researcher to the step, it builds the URL with `getAddAffiliationPath` in [`src/utils/redirect-utils.ts`](../../src/utils/redirect-utils.ts). It keeps `verify` only when `isVerificationCode` in [`src/utils/affiliations.ts`](../../src/utils/affiliations.ts) accepts it, drops every other parameter, and always targets the fixed route.
-3. The step's `page.tsx` verifies the code **before** calling `redirectProfile`, so a researcher whose verification completes sign-up goes straight to their profile. A failed verification shows the standard error alert.
+3. The step's `page.tsx` verifies the code **before** calling `redirectProfile`, so a researcher whose verification completes sign-up goes on to their profile. A failed verification shows the standard error alert. This step can be skipped: see the timing follow-up below.
 4. Both the step and the profile's affiliations page call [`useRemoveSearchParam("verify")`](../../src/hooks/useRemoveSearchParam/). It removes the code from the address bar with `history.replaceState`, so it doesn't stay in browser history or leak in a `Referer` header.
 
 ## Tests
@@ -70,4 +70,5 @@ Run a single Jest file with `--forceExit`. Some suites leave a `MessagePort` han
 
 - **A failed verification on the profile's affiliations page shows nothing.** `AffiliationsPage` uses translation keys that don't exist (`affiliationRequestSentErrorDescription`, `affiliationRequestSentErrorButton`), and its alert only runs when an organisation name comes back.
 - **The API decides on verification from the request, not the saved email.** `AffiliationController::update` compares the email in the request with the login email, so a client that leaves the email out triggers verification even when the saved email matches. Editing an unverified affiliation on the profile page does this, because that form also disables an email that's already set.
+- **Where a researcher lands after verifying depends on timing.** Next renders the logged-in layout and the affiliations page at the same time. If the page verifies the code before the layout checks `/me`, the researcher is already signed up, so there's no redirect: they stay on Affiliations with the "Affiliation request sent" alert. Otherwise they go through `/add-affiliation` and land on Home. Either way they're verified and signed up. `registerUser.cy.ts` visits the profile afterwards so it doesn't depend on which happens.
 - **Jest open handle.** The `MessagePort` left open by the heavier suites is why single-file runs need `--forceExit`.

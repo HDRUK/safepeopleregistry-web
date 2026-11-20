@@ -140,6 +140,10 @@ describe("Register user journey", () => {
       to: affiliation.email,
     });
 
+    // Verifying can land on Home or Affiliations, depending on which finishes
+    // first. Either way the researcher is now signed up.
+    cy.visit(ROUTES.profileResearcher.path);
+
     shouldBeUserProfile();
   });
 });
