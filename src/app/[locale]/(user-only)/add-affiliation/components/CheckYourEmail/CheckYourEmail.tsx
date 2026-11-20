@@ -46,6 +46,7 @@ export default function CheckYourEmail({ affiliation }: CheckYourEmailProps) {
       <Box>
         <Button
           variant="contained"
+          loading={resendQueryState.isPending}
           onClick={() => resendVerification(affiliation.id)}>
           {tProfile("resendVerification")}
         </Button>

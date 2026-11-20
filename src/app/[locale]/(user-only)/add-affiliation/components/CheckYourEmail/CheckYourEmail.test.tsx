@@ -56,6 +56,24 @@ describe("<CheckYourEmail />", () => {
     expect(mockResend).toHaveBeenCalledWith(7);
   });
 
+  // Otherwise repeated clicks send several emails and show several alerts.
+  it("doesn't resend again while a resend is in progress", () => {
+    (useMutation as jest.Mock).mockReturnValue({
+      mutateAsync: mockResend,
+      isPending: true,
+    });
+
+    renderCheckYourEmail();
+
+    const resendButton = screen.getByRole("button", {
+      name: /resend verification email/i,
+    });
+    fireEvent.click(resendButton);
+
+    expect(resendButton).toBeDisabled();
+    expect(mockResend).not.toHaveBeenCalled();
+  });
+
   it("points the researcher to the enquiries inbox for help", () => {
     renderCheckYourEmail();
 
