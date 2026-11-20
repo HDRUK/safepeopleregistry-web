@@ -154,11 +154,12 @@ describe("<AddAffiliation />", () => {
     });
   });
 
-  it("completes the invited affiliation with the inviting organisation", async () => {
+  it("completes the invited affiliation with the inviting organisation and email", async () => {
     renderWithUser({
       registration_affiliation: mockedRegistrationAffiliation({
         id: 7,
         organisation_id: 3,
+        email: "invited@university.example.com",
       }),
     });
 
@@ -166,7 +167,11 @@ describe("<AddAffiliation />", () => {
 
     await waitFor(() => expect(mockRefresh).toHaveBeenCalled());
     expect(mockSubmitAffiliation).toHaveBeenCalledWith(
-      { ...mockSubmittedFields, organisation_id: 3 },
+      {
+        ...mockSubmittedFields,
+        organisation_id: 3,
+        email: "invited@university.example.com",
+      },
       7
     );
   });

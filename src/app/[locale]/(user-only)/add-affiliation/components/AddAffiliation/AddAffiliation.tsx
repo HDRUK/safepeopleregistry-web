@@ -89,7 +89,11 @@ export default function AddAffiliation({
   const handleSubmit = async (fields: PostAffiliationPayload) => {
     const saved = await submitAffiliation(
       invited
-        ? { ...fields, organisation_id: invited.organisation_id }
+        ? {
+            ...fields,
+            organisation_id: invited.organisation_id,
+            email: invited.email,
+          }
         : fields,
       invited?.id
     );

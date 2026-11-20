@@ -35,7 +35,7 @@ Things to know:
 The route lives in [`src/app/[locale]/(user-only)/add-affiliation/`](../../src/app/%5Blocale%5D/%28user-only%29/add-affiliation/). `AddAffiliation` picks its view from `registration_affiliation`:
 
 - **Nothing returned:** an empty `AffiliationsForm`.
-- **An invited affiliation** (`affiliation_info_required`): the form prefilled from it, with the organisation locked (`lockOrganisation`: the select is disabled and there's no "not listed" link to type a different one) and the email kept. Saving completes that affiliation (PUT) rather than creating a second one.
+- **An invited affiliation** (`affiliation_info_required`): the form prefilled from it, with the organisation locked (`lockOrganisation`: the select is disabled and there's no "not listed" link to type a different one) and the email kept. Saving completes that affiliation (PUT) rather than creating a second one. The form doesn't submit its disabled fields, so `handleSubmit` adds the organisation and email back. The API needs the email to see that it matches the login email and skip verification.
 - **Waiting on email verification** (`affiliation_email_verify`): `CheckYourEmail`, with Resend and a line to contact enquiries. There's deliberately no way to change the email from here.
 
 Saving goes through [`useSubmitAffiliation`](../../src/hooks/useSubmitAffiliation/), shared with the profile's affiliations page, including inviting an organisation that isn't listed. After saving, the page refetches `/me` and refreshes, so the researcher either sees the check-your-email view or is redirected to their profile.
@@ -56,8 +56,8 @@ The verification email links to `/user/profile/affiliations?verify=<code>`. That
   - The page: the tests next to `AddAffiliation` and `CheckYourEmail`. The step's `page.tsx` has no test of its own; Cypress covers its verification.
   - Shared pieces: `useSubmitAffiliation`, `useRemoveSearchParam` and `src/utils/affiliations.test.ts`.
 - **Cypress**
-  - `registration/registerUser.cy.ts`: sign up, add an affiliation with a different email, follow the verification link, land on the profile.
-  - `admin/inviteUser.cy.ts`: an admin invite, then an affiliation using the sign-in email, which needs no verification.
+  - `registration/registerUser.cy.ts`: sign up, add an affiliation with a different email, follow the verification link, land on the profile. It approves the seeded organisation as an admin first, because researchers can only pick approved organisations.
+  - `admin/inviteUser.cy.ts`: an admin invites a researcher to an organisation, the researcher signs up with the invited email, completes the prefilled, locked affiliation without verifying, and lands on the profile.
 
 Run a single Jest file with `--forceExit`. Some suites leave a `MessagePort` handle open, and Jest otherwise hangs after the tests pass.
 
@@ -69,5 +69,5 @@ Run a single Jest file with `--forceExit`. Some suites leave a `MessagePort` han
 ## Known follow-ups
 
 - **A failed verification on the profile's affiliations page shows nothing.** `AffiliationsPage` uses translation keys that don't exist (`affiliationRequestSentErrorDescription`, `affiliationRequestSentErrorButton`), and its alert only runs when an organisation name comes back.
-- **No Cypress journey covers a researcher invited by an organisation.** The prefilled, locked form is covered by Jest and by the API's end-to-end tests.
+- **The API decides on verification from the request, not the saved email.** `AffiliationController::update` compares the email in the request with the login email, so a client that leaves the email out triggers verification even when the saved email matches. Editing an unverified affiliation on the profile page does this, because that form also disables an email that's already set.
 - **Jest open handle.** The `MessagePort` left open by the heavier suites is why single-file runs need `--forceExit`.
