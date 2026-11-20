@@ -65,6 +65,7 @@ interface Routes {
   profileResearcherTraining: RouteConfig;
   profileResearcherExperience: RouteConfig;
   profileResearcherIdentity: RouteConfig;
+  profileResearcherDigitalIdentifiers: RouteConfig;
   profileResearcherAffiliations: RouteConfig;
   profileResearcherHome: RouteConfig;
   profileResearcherProjects: RouteConfig;

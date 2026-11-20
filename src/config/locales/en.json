@@ -1290,6 +1290,7 @@
     "title": "Profile",
     "details": "Profile",
     "identity": "Identity",
+    "digitalIdentifiers": "Digital identifiers",
     "name": "Name",
     "affiliations": "Affiliations",
     "affiliationsTitle": "Complete your employer or institute information",

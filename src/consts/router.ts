@@ -189,6 +189,10 @@ const ROUTES: Routes = {
     path: "/user/profile/identity",
     permissions: [UserGroup.USERS],
   },
+  profileResearcherDigitalIdentifiers: {
+    path: "/user/profile/digital-identifiers",
+    permissions: [UserGroup.USERS],
+  },
   profileResearcherTraining: {
     path: "/user/profile/training",
     permissions: [UserGroup.USERS],

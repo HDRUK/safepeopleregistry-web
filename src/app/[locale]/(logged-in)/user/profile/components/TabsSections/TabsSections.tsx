@@ -1,11 +1,13 @@
 "use client";
 
+import { useFeatures } from "@/components/FeatureProvider";
 import Text from "@/components/Text";
 import { OrganisationIcon } from "@/consts/icons";
 import { useStore } from "@/data/store";
 import { Link } from "@/i18n/routing";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
+import FingerprintOutlinedIcon from "@mui/icons-material/FingerprintOutlined";
 import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import WarningAmberRoundedIcon from "@mui/icons-material/WarningAmberRounded";
@@ -27,6 +29,7 @@ export default function TabsSections({ tabId }: TabsSectionsProps) {
     user: store.getUser(),
   }));
   const t = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
+  const { isLinkedIdentitiesEnabled } = useFeatures();
 
   const { incompleteAffiliations } = useIncompleteAffiliations(
     user?.registry_id
@@ -61,6 +64,16 @@ export default function TabsSections({ tabId }: TabsSectionsProps) {
           value={PageTabs.IDENTITY}
           iconPosition="start"
         />
+        {isLinkedIdentitiesEnabled && (
+          <Tab
+            icon={<FingerprintOutlinedIcon />}
+            label={t("digitalIdentifiers")}
+            href={routes.profileResearcherDigitalIdentifiers.path}
+            component={Link}
+            value={PageTabs.DIGITAL_IDENTIFIERS}
+            iconPosition="start"
+          />
+        )}
         <Tab
           icon={<BusinessCenterOutlinedIcon />}
           label={t("experience")}

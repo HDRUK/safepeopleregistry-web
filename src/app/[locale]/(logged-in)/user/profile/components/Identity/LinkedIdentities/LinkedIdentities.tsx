@@ -94,7 +94,7 @@ export default function LinkedIdentities() {
       });
     }
 
-    router.replace(ROUTES.profileResearcherIdentity.path);
+    router.replace(ROUTES.profileResearcherDigitalIdentifiers.path);
   }, []);
 
   // Linking external identities is a researcher-only concept - organisations

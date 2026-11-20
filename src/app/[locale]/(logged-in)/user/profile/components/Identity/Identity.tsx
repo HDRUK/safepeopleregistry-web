@@ -1,6 +1,7 @@
 "use client";
 
 import ErrorMessage from "@/components/ErrorMessage";
+import { useFeatures } from "@/components/FeatureProvider";
 import Form from "@/components/Form";
 import FormActions from "@/components/FormActions";
 import FormControlWrapper from "@/components/FormControlWrapper";
@@ -33,8 +34,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
-import { mockedLinkedIdentitiesGuidanceProps } from "@/mocks/data/cms";
-import LinkedIdentities from "./LinkedIdentities";
 import VeriffTermsAndConditions from "../VeriffTermsAndConditions";
 
 export interface IdentityFormValues {
@@ -66,6 +65,17 @@ export default function Identity() {
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
   const t = useTranslations(NAMESPACE_TRANSLATION);
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
+  const { isLinkedIdentitiesEnabled } = useFeatures();
+
+  const nextStep = isLinkedIdentitiesEnabled
+    ? {
+        path: ROUTES.profileResearcherDigitalIdentifiers.path,
+        text: tProfile("digitalIdentifiers"),
+      }
+    : {
+        path: ROUTES.profileResearcherExperience.path,
+        text: tProfile("experience"),
+      };
 
   const updateUser = useMutation(putUserQuery(user?.id));
 
@@ -108,7 +118,7 @@ export default function Identity() {
       text: t("postUserSuccess"),
       confirmButtonText: t("postUserSuccessButton"),
       onConfirm: async () => {
-        router.push(ROUTES.profileResearcherExperience.path);
+        router.push(nextStep.path);
       },
     },
   });
@@ -266,7 +276,7 @@ export default function Identity() {
                       )}
                       <FormActions>
                         <ProfileNavigationFooter
-                          nextStepText={tProfile("experience")}
+                          nextStepText={nextStep.text}
                           isLoading={updateUser.isPending}
                         />
                       </FormActions>
@@ -280,22 +290,14 @@ export default function Identity() {
                 onClose={() => setShowModal(false)}
               />
             </PageSection>
-            <LinkedIdentities />
           </PageBody>
         </PageColumnBody>
         <PageColumnDetails size={{ lg: 4 }}>
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-            <Guidance
-              {...mockedPersonalDetailsGuidanceProps}
-              isCollapsible={false}
-              infoWidth="100%"
-            />
-            <Guidance
-              {...mockedLinkedIdentitiesGuidanceProps}
-              isCollapsible={false}
-              infoWidth="100%"
-            />
-          </Box>
+          <Guidance
+            {...mockedPersonalDetailsGuidanceProps}
+            isCollapsible={false}
+            infoWidth="100%"
+          />
         </PageColumnDetails>
       </PageColumns>
     </PageBodyContainer>

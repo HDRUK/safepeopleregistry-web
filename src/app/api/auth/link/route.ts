@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 import keycloakConfig from "@/config/keycloak";
 import { COOKIE_OPTIONS } from "@/consts/cookies";
 import { ROUTES } from "@/consts/router";
+import { isLinkedIdentitiesEnabled } from "@/flags";
 import { getAccessToken } from "@/utils/auth";
 
 // Providers linkable via Keycloak's Client Initiated Account Linking flow -
@@ -20,12 +21,18 @@ interface DecodedAccessToken {
 function errorRedirect() {
   return NextResponse.redirect(
     encodeURI(
-      `${process.env.NEXT_PUBLIC_LOCAL_ENV}/en${ROUTES.profileResearcherIdentity.path}?linkStatus=error`
+      `${process.env.NEXT_PUBLIC_LOCAL_ENV}/en${ROUTES.profileResearcherDigitalIdentifiers.path}?linkStatus=error`
     )
   );
 }
 
 export async function GET(req: Request) {
+  if (!(await isLinkedIdentitiesEnabled())) {
+    return NextResponse.redirect(
+      `${process.env.NEXT_PUBLIC_LOCAL_ENV}/en${ROUTES.profileResearcherIdentity.path}`
+    );
+  }
+
   const { searchParams } = new URL(req.url);
   const provider = searchParams.get("provider");
 
