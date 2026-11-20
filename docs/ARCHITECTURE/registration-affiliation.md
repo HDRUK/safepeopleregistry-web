@@ -35,7 +35,7 @@ Things to know:
 The route lives in [`src/app/[locale]/(user-only)/add-affiliation/`](../../src/app/%5Blocale%5D/%28user-only%29/add-affiliation/). `AddAffiliation` picks its view from `registration_affiliation`:
 
 - **Nothing returned:** an empty `AffiliationsForm`.
-- **An invited affiliation** (`affiliation_info_required`): the form prefilled from it, with the organisation locked (`lockOrganisation`) and the email kept. Saving completes that affiliation (PUT) rather than creating a second one.
+- **An invited affiliation** (`affiliation_info_required`): the form prefilled from it, with the organisation locked (`lockOrganisation`: the select is disabled and there's no "not listed" link to type a different one) and the email kept. Saving completes that affiliation (PUT) rather than creating a second one.
 - **Waiting on email verification** (`affiliation_email_verify`): `CheckYourEmail`, with Resend and a line to contact enquiries. There's deliberately no way to change the email from here.
 
 Saving goes through [`useSubmitAffiliation`](../../src/hooks/useSubmitAffiliation/), shared with the profile's affiliations page, including inviting an organisation that isn't listed. After saving, the page refetches `/me` and refreshes, so the researcher either sees the check-your-email view or is redirected to their profile.

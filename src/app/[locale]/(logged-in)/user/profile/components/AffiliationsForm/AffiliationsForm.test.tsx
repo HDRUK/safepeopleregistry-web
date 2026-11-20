@@ -129,6 +129,43 @@ describe("<AffiliationsForm />", () => {
     ).toBeDisabled();
   });
 
+  it("offers to type an organisation that isn't listed", () => {
+    render(
+      <AffiliationsForm
+        onSubmit={mockSubmit}
+        queryState={{ isPending: false, isError: false, error: "" }}
+        entityId={1}
+        entityType={EntityType.USER}
+        initialValues={{ organisation_id: 1 }}
+      />
+    );
+
+    expect(
+      screen.getByRole("button", { name: /type it instead/i })
+    ).toBeInTheDocument();
+  });
+
+  // Typing an organisation would be silently replaced by the locked one on save.
+  it("offers no way to type a different organisation when the organisation is locked", () => {
+    render(
+      <AffiliationsForm
+        onSubmit={mockSubmit}
+        queryState={{ isPending: false, isError: false, error: "" }}
+        entityId={1}
+        entityType={EntityType.USER}
+        initialValues={{ organisation_id: 1 }}
+        lockOrganisation
+      />
+    );
+
+    expect(
+      screen.queryByRole("button", { name: /type it instead/i })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("textbox", { name: /organisation name/i })
+    ).not.toBeInTheDocument();
+  });
+
   it("has no accessibility violations", async () => {
     commonAccessibilityTests(renderAffiliationsComponent());
   });

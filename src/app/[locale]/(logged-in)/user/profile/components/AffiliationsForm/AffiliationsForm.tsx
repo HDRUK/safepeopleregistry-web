@@ -245,7 +245,7 @@ export default function AffiliationsForm({
                             )}
                           </Typography>
                         </Box>
-                      ) : (
+                      ) : lockOrganisation ? undefined : (
                         tProfile.rich("organisationNotListed", {
                           link: chunks => (
                             <Link
