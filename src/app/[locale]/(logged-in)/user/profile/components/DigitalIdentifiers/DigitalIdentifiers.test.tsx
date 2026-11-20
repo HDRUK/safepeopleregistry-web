@@ -21,7 +21,7 @@ describe("<DigitalIdentifiers />", () => {
     render(<DigitalIdentifiers />);
 
     expect(
-      screen.getByRole("heading", { name: "Your digital identifiers" })
+      screen.getByRole("heading", { name: "Digital identifiers" })
     ).toBeInTheDocument();
     expect(screen.getByText("LinkedIdentities content")).toBeInTheDocument();
     expect(

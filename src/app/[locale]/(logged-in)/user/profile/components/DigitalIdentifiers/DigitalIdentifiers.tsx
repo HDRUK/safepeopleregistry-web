@@ -16,11 +16,9 @@ import { useTranslations } from "next-intl";
 import { notFound } from "next/navigation";
 import LinkedIdentities from "../Identity/LinkedIdentities";
 
-const NAMESPACE_TRANSLATION = "Users.Identity";
 const NAMESPACE_TRANSLATION_PROFILE = "Profile";
 
 export default function DigitalIdentifiers() {
-  const t = useTranslations(NAMESPACE_TRANSLATION);
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
   const { isLinkedIdentitiesEnabled } = useFeatures();
 
@@ -29,7 +27,7 @@ export default function DigitalIdentifiers() {
   }
 
   return (
-    <PageBodyContainer heading={t("digitalIdentifiersTitle")}>
+    <PageBodyContainer heading={tProfile("digitalIdentifiers")}>
       <PageColumns>
         <PageColumnBody size={{ lg: 8 }}>
           <PageBody>
