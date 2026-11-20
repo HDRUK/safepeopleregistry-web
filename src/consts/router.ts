@@ -12,6 +12,10 @@ const ROUTES: Routes = {
     path: "/no-organisation",
     permissions: [UserGroup.ORGANISATIONS],
   },
+  addAffiliation: {
+    path: "/add-affiliation",
+    permissions: [UserGroup.USERS],
+  },
   homepage: {
     path: "/",
   },

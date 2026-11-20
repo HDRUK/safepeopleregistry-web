@@ -191,6 +191,14 @@ type Identity = {
   updated_at?: string;
 };
 
+interface RegistrationAffiliation {
+  id: number;
+  state: Status.AFFILIATION_EMAIL_VERIFY | Status.AFFILIATION_INFO_REQUIRED;
+  organisation_id: number;
+  organisation_name: string | null;
+  email: string;
+}
+
 type User = WithModelState<{
   id: number;
   registry_id: number;
@@ -234,6 +242,9 @@ type User = WithModelState<{
   rules?: RuleState[];
   t_and_c_agreed?: boolean;
   invited_by?: User;
+  // Only /auth/me returns these. Treat a missing registration_complete as signed up.
+  registration_complete?: boolean;
+  registration_affiliation?: RegistrationAffiliation | null;
 }>;
 
 // Only invite_sent_at is returned from the invitation; its code stays private to the invitee.
@@ -649,6 +660,7 @@ export type {
   ProjectOrganisation,
   ProjectRole,
   ProjectUser,
+  RegistrationAffiliation,
   ResearcherAccreditation,
   Accreditation,
   ResearcherAffiliation,

@@ -12,6 +12,8 @@ import { useStore } from "@/data/store";
 import AffiliationEndDateModal from "@/organisms/AffiliationEndDateModal";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
 import useQueryConfirmAlerts from "@/hooks/useQueryConfirmAlerts";
+import useRemoveSearchParam from "@/hooks/useRemoveSearchParam";
+import useSubmitAffiliation from "@/hooks/useSubmitAffiliation";
 import { mockedResearcherAffiliationsGuidance } from "@/mocks/data/cms";
 import {
   AffiliationsTable,
@@ -22,12 +24,9 @@ import {
   PageColumns,
   PageSection,
 } from "@/modules";
-import useOrganisationInvite from "@/queries/useOrganisationInvite";
 import {
   deleteAffiliationQuery,
   getAffiliationResendVerificationQuery,
-  postAffiliationQuery,
-  putAffiliationQuery,
   useIncompleteAffiliations,
   usePaginatedAffiliations,
 } from "@/services/affiliations";
@@ -40,8 +39,6 @@ import {
   isAffiliationEditable,
   isAffiliationEnded,
 } from "@/utils/affiliations";
-import { formatDBDateTime } from "@/utils/date";
-import { getCombinedQueryState } from "@/utils/query";
 import { getOrganisationConflictErrorKey } from "@/utils/organisationConflictError";
 import { renderErrorToString } from "@/utils/translations";
 import AddIcon from "@mui/icons-material/Add";
@@ -73,6 +70,7 @@ export default function AffiliationsPage({
   const tApplication = useTranslations(NAMESPACE_TRANSLATION_APPLICATION);
   const router = useRouter();
   const { showAlert, hideAlert } = useAlertModal();
+  useRemoveSearchParam("verify");
 
   const [open, setOpen] = useState(false);
   const [selectedAffiliation, setSelectedAffiliation] = useState<
@@ -103,12 +101,6 @@ export default function AffiliationsPage({
   const { incompleteAffiliations, refetch: refetchIncompleteAffiliations } =
     useIncompleteAffiliations(user?.registry_id);
 
-  const { mutateAsync: postAffiliations, ...postAffiliationQueryState } =
-    useMutation(postAffiliationQuery(user));
-
-  const { mutateAsync: putAffiliation, ...putAffiliationQueryState } =
-    useMutation(putAffiliationQuery());
-
   const { mutateAsync: deleteAffiliation, ...restDeleteState } = useMutation(
     deleteAffiliationQuery()
   );
@@ -118,11 +110,15 @@ export default function AffiliationsPage({
   );
 
   const {
-    queryState: inviteQueryState,
-    handleSubmit: handleCreateAndInviteOrganisation,
+    submitAffiliation,
+    queryState: combinedQueryState,
+    postAffiliationQueryState,
+    putAffiliationQueryState,
+    inviteQueryState,
     mutateOrganisationInvite,
-  } = useOrganisationInvite({
-    onError: (error: unknown) => {
+  } = useSubmitAffiliation({
+    user,
+    onOrganisationInviteError: (error: unknown) => {
       const conflictErrorKey = getOrganisationConflictErrorKey(error);
 
       showAlert({
@@ -137,11 +133,6 @@ export default function AffiliationsPage({
       });
     },
   });
-
-  const combinedQueryState = getCombinedQueryState(
-    [inviteQueryState, postAffiliationQueryState, putAffiliationQueryState],
-    false
-  ) as QueryState;
 
   const isEdit = !!selectedAffiliation;
   const mutationState = isEdit
@@ -362,49 +353,14 @@ export default function AffiliationsPage({
 
   const handleDetailsSubmit = useCallback(
     async (fields: PostAffiliationPayload) => {
-      let organisation_id = fields?.organisation_id;
+      const saved = await submitAffiliation(fields, selectedAffiliation?.id);
 
-      if (!organisation_id) {
-        const invitePayload = {
-          organisation_name: fields.organisation_name as string,
-          lead_applicant_email: fields.organisation_email,
-        };
-        organisation_id =
-          await handleCreateAndInviteOrganisation(invitePayload);
-
-        // The Organisation couldn't be created, so there is nothing to affiliate
-        // to. onError has already told the user; saving the affiliation anyway
-        // would send organisation_id: undefined and reject unhandled.
-        if (!organisation_id) return;
+      if (saved) {
+        refetch();
+        refetchIncompleteAffiliations();
       }
-
-      const {
-        organisation_name: _name,
-        organisation_email: _email,
-        ...restFields
-      } = fields;
-
-      const payload = {
-        ...restFields,
-        organisation_id,
-        to: formatDBDateTime(fields.to),
-        from: formatDBDateTime(fields.from),
-      };
-
-      if (selectedAffiliation) {
-        // Update existing affiliation
-        await putAffiliation({
-          affiliationId: selectedAffiliation.id,
-          payload,
-        });
-      } else {
-        // Create new affiliation
-        await postAffiliations(payload);
-      }
-      refetch();
-      refetchIncompleteAffiliations();
     },
-    [selectedAffiliation, postAffiliations, putAffiliation]
+    [selectedAffiliation, submitAffiliation]
   );
 
   return (

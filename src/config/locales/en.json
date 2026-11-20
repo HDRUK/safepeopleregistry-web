@@ -1736,6 +1736,13 @@
     "help": "If you think you have been removed by mistake, or you need help, please contact us at <contactLink></contactLink>.",
     "signOut": "Sign out"
   },
+  "AddAffiliation": {
+    "title": "Add your current affiliation",
+    "description": "To use the Safe People Registry you need a current affiliation with the organisation you work or study at. Add it below and we'll take you to your profile.",
+    "invitedDescription": "{organisationName} has invited you to the Safe People Registry. Check your details and fill in the rest to finish signing up.",
+    "checkEmailHelp": "If there's a problem with this email address, contact us at <contactLink></contactLink>.",
+    "signOut": "Sign out"
+  },
   "Register": {
     "title": "What would you like to do?",
     "claimOrgAccount": "Claim your admin account",

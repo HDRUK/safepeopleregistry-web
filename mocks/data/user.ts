@@ -2,6 +2,7 @@ import { Status } from "@/consts/application";
 import { UserGroup } from "@/consts/user";
 import {
   PendingInvite,
+  RegistrationAffiliation,
   ResearcherAccreditation,
   ResearcherAffiliation,
   ResearcherEducation,
@@ -48,7 +49,20 @@ const mockedUser = (user?: Partial<User>): User => ({
     verified: true,
     affiliations: [mockedAffiliation()],
   },
+  registration_complete: true,
+  registration_affiliation: null,
   ...user,
+});
+
+const mockedRegistrationAffiliation = (
+  affiliation?: Partial<RegistrationAffiliation>
+): RegistrationAffiliation => ({
+  id: 1,
+  state: Status.AFFILIATION_INFO_REQUIRED,
+  organisation_id: 1,
+  organisation_name: "Example University",
+  email: "researcher@university.example.com",
+  ...affiliation,
 });
 
 const mockedInvitedUser = (user?: Partial<InviteUserFormValues>) => ({
@@ -155,6 +169,7 @@ export {
   mockedProfessionalRegistration,
   mockedTraining,
   mockedUser,
+  mockedRegistrationAffiliation,
   mockedPendingInvite,
   mockedInvitedUser,
 };

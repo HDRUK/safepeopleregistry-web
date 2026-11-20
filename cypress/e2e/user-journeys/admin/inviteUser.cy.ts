@@ -3,9 +3,16 @@ import { mockedRegistration } from "@/mocks/data/auth";
 import { mockedInvitedUser } from "@/mocks/data/user";
 import { loginAdmin } from "cypress/support/utils/admin/auth";
 import { inviteNewUser } from "cypress/support/utils/admin/invite";
-import { shouldBeUserProfile } from "cypress/support/utils/common";
-import { EMAIL_SIGN_ME_UP } from "cypress/support/utils/data";
+import {
+  shouldBeAddAffiliation,
+  shouldBeUserProfile,
+} from "cypress/support/utils/common";
+import {
+  DEFAULT_AFFILIATION_USERS,
+  EMAIL_SIGN_ME_UP,
+} from "cypress/support/utils/data";
 import { actionMessage } from "cypress/support/utils/mail";
+import { completeInvitedAffiliation } from "cypress/support/utils/user/affiliations";
 import {
   ignoreKeycloakPasswordValidatorError,
   registerAndLogin,
@@ -32,6 +39,18 @@ describe("Invite user", () => {
     const registration = mockedRegistration(dataInviteUser);
 
     registerAndLogin(registration);
+
+    shouldBeAddAffiliation();
+
+    // They registered with the address they were invited on, so it doesn't
+    // need verifying again.
+    completeInvitedAffiliation(
+      {
+        ...DEFAULT_AFFILIATION_USERS,
+        member_id: Cypress._.random(0, 1e6).toString(),
+      },
+      dataInviteUser.email
+    );
 
     shouldBeUserProfile();
   });

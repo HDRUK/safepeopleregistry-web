@@ -19,6 +19,7 @@ import BusinessIcon from "@mui/icons-material/Business";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import { LoadingButton } from "@mui/lab";
 import { Box, Button, Link, Modal, Typography } from "@mui/material";
+import { useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
@@ -40,6 +41,7 @@ export default function AccountConfirm({
   const t = useTranslations(NAMESPACE_TRANSLATIONS_PROFILE);
   const tTerms = useTranslations(NAMESPACE_TRANSLATION_TERMS_AND_CONDITIONS);
   const router = useRouter();
+  const queryClient = useQueryClient();
   const [isTransitioning, startTransition] = useTransition();
   const { showAlert, hideAlert } = useAlertModal();
   const { isSroRequirementEnabled } = useFeatures();
@@ -77,6 +79,8 @@ export default function AccountConfirm({
 
         return;
       }
+
+      await queryClient.invalidateQueries({ queryKey: ["getMe"] });
 
       router.push(getProfilePathByEntity(userGroup as UserGroup));
     });
