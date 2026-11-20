@@ -16,8 +16,8 @@ const defaultProps = {
   },
 };
 
-const setupTest = () => {
-  render(<ProjectOrganisations {...defaultProps} />);
+const setupTest = (props: { readOnly?: boolean } = {}) => {
+  render(<ProjectOrganisations {...defaultProps} {...props} />);
 };
 
 describe("ProjectOrganisations", () => {
@@ -56,5 +56,17 @@ describe("ProjectOrganisations", () => {
     const rows = await screen.findAllByRole("row");
 
     expect(rows).toHaveLength(2);
+  });
+
+  describe("when read-only", () => {
+    it("shows the list view only, with no kanban toggle", async () => {
+      setupTest({ readOnly: true });
+
+      expect(await screen.findAllByRole("row")).toHaveLength(2);
+      expect(
+        screen.queryByText("ProjectOrganisationsBoard")
+      ).not.toBeInTheDocument();
+      expect(screen.queryByText("Switch to list view")).not.toBeInTheDocument();
+    });
   });
 });

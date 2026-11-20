@@ -16,6 +16,7 @@ import ActionLogUpdater from "../ActionLogUpdater/ActionLogUpdater";
 interface ApplicationProps {
   children: ReactNode;
   custodianId?: number;
+  isCustodianViewOnly?: boolean;
   organisationId?: number;
   me?: User;
 }
@@ -26,6 +27,7 @@ export default function Application({
   children,
   me,
   custodianId,
+  isCustodianViewOnly = false,
   organisationId,
 }: ApplicationProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION_APPLICATION);
@@ -97,6 +99,7 @@ export default function Application({
       <ApplicationData
         isOrganisation={!!organisationId}
         isCustodian={!!custodianId}
+        isCustodianViewOnly={isCustodianViewOnly}
         systemConfigData={systemConfigData?.data}
         userData={userData?.data}
         organisationData={organisationData?.data}

@@ -1,4 +1,5 @@
 import Guidance from "@/components/Guidance";
+import useIsCustodianViewOnly from "@/hooks/useIsCustodianViewOnly";
 import { useStore } from "@/data/store";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
 import { mockedCustodianSafeProjectGuidanceProps } from "@/mocks/data/cms";
@@ -10,6 +11,7 @@ import {
 } from "@/modules";
 import ProjectImport from "@/modules/ProjectImport";
 import ProjectsSafeProjectForm from "@/modules/ProjectsSafeProjectForm";
+import SafeProjectDetails from "@/modules/SafeProjectDetails";
 import { putProjectQuery } from "@/services/projects";
 import { PutProjectPayload } from "@/services/projects/types";
 import { ResearcherProject } from "@/types/application";
@@ -41,6 +43,7 @@ const PAYLOAD_FIELDS = [
 
 export default function ProjectsSafeProject() {
   const t = useTranslations(NAMESPACE_TRANSLATION);
+  const isViewOnly = useIsCustodianViewOnly();
   const queryClient = useQueryClient();
   const { custodian, project } = useStore(state => ({
     custodian: state.getCustodian(),
@@ -92,19 +95,25 @@ export default function ProjectsSafeProject() {
         <PageBody
           heading={t("safeProject")}
           actions={
-            <ProjectImport
-              custodianId={custodian?.id as number}
-              projectId={project.id}
-              onImported={handleGatewayProjectImport}
-              isImportDisabled={!project?.unique_id}
-            />
+            !isViewOnly && (
+              <ProjectImport
+                custodianId={custodian?.id as number}
+                projectId={project.id}
+                onImported={handleGatewayProjectImport}
+                isImportDisabled={!project?.unique_id}
+              />
+            )
           }>
-          <ProjectsSafeProjectForm
-            defaultValues={defaultValues}
-            mutateState={mutateState}
-            onSubmit={handleSubmit}
-            project={project}
-          />
+          {isViewOnly ? (
+            <SafeProjectDetails projectData={project} />
+          ) : (
+            <ProjectsSafeProjectForm
+              defaultValues={defaultValues}
+              mutateState={mutateState}
+              onSubmit={handleSubmit}
+              project={project}
+            />
+          )}
         </PageBody>
       </PageColumnBody>
       <PageColumnDetails size={{ lg: 4 }}>

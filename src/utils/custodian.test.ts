@@ -1,6 +1,11 @@
 import { mockedCustodianUser } from "@/mocks/data/custodian";
 import { mockedApiPermissions } from "@/mocks/data/store";
-import { isCustodianAdministrator, isCustodianApprover } from "./custodian";
+import {
+  isCustodianAdministrator,
+  isCustodianApprover,
+  isCustodianUserViewOnly,
+  isCustodianViewer,
+} from "./custodian";
 
 describe("isCustodianAdministrator", () => {
   it("returns true when an adminstrator", () => {
@@ -68,6 +73,92 @@ describe("isCustodianApprover", () => {
         ],
       }),
       mockedApiPermissions
+    );
+
+    expect(result).toEqual(false);
+  });
+});
+
+describe("isCustodianViewer", () => {
+  const viewerUser = mockedCustodianUser({
+    user_permissions: [
+      {
+        permission_id: 14,
+        custodian_user_id: 1,
+        permission: mockedApiPermissions[13],
+      },
+    ],
+  });
+
+  it("returns true when a viewer", () => {
+    const result = isCustodianViewer(viewerUser, mockedApiPermissions);
+
+    expect(result).toEqual(true);
+  });
+
+  it("returns false when not a viewer", () => {
+    const result = isCustodianViewer(
+      mockedCustodianUser({
+        user_permissions: [
+          {
+            permission_id: 10,
+            custodian_user_id: 1,
+            permission: mockedApiPermissions[9],
+          },
+        ],
+      }),
+      mockedApiPermissions
+    );
+
+    expect(result).toEqual(false);
+  });
+
+  it("returns false for a user with no role before permissions load", () => {
+    const result = isCustodianViewer(
+      mockedCustodianUser({ user_permissions: [] }),
+      []
+    );
+
+    expect(result).toEqual(false);
+  });
+});
+
+describe("isCustodianUserViewOnly", () => {
+  it("returns true for a viewer", () => {
+    const result = isCustodianUserViewOnly(
+      mockedCustodianUser({
+        user_permissions: [
+          {
+            permission_id: 14,
+            custodian_user_id: 1,
+            permission: mockedApiPermissions[13],
+          },
+        ],
+      })
+    );
+
+    expect(result).toEqual(true);
+  });
+
+  it("returns false for an administrator", () => {
+    const result = isCustodianUserViewOnly(
+      mockedCustodianUser({
+        user_permissions: [
+          {
+            permission_id: 10,
+            custodian_user_id: 1,
+            permission: mockedApiPermissions[9],
+          },
+        ],
+      })
+    );
+
+    expect(result).toEqual(false);
+  });
+
+  it("returns false for a user with no role", () => {
+    const result = isCustodianUserViewOnly(
+      mockedCustodianUser({ user_permissions: [] })
     );
 
     expect(result).toEqual(false);

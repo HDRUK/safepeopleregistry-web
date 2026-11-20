@@ -1,6 +1,7 @@
 "use client";
 
 import StatusList from "@/components/StatusList";
+import useIsCustodianViewOnly from "@/hooks/useIsCustodianViewOnly";
 import { Status } from "@/consts/application";
 import { useStore } from "@/data/store";
 import {
@@ -37,6 +38,7 @@ function CustodianProjectOrganisation({
   subTabId,
 }: CustodianProjectUserProps) {
   const custodian = useStore(state => state.getCustodian());
+  const isViewOnly = useIsCustodianViewOnly();
   const t = useTranslations(NAMESPACE_TRANSLATION_CUSTODIAN_ORGANISATION);
 
   const {
@@ -121,6 +123,7 @@ function CustodianProjectOrganisation({
               />
               <ActionValidationPanel
                 variant={ActionValidationVariants.Organisation}
+                readOnly={isViewOnly}
                 queryState={queryState}
                 logs={validationLogs?.data || []}
                 onStatusChange={refetch}

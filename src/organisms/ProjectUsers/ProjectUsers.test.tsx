@@ -17,8 +17,8 @@ const defaultProps = {
   },
 };
 
-const setupTest = () => {
-  render(<ProjectUsers {...defaultProps} />);
+const setupTest = (props: { readOnly?: boolean } = {}) => {
+  render(<ProjectUsers {...defaultProps} {...props} />);
 };
 
 describe("ProjectUsers", () => {
@@ -67,5 +67,24 @@ describe("ProjectUsers", () => {
     const rows = await screen.findAllByRole("row");
 
     expect(rows).toHaveLength(2);
+  });
+
+  describe("when read-only", () => {
+    it("shows the list view only, with no kanban toggle", async () => {
+      setupTest({ readOnly: true });
+
+      expect(await screen.findAllByRole("row")).toHaveLength(2);
+      expect(screen.queryByText("ProjectUsersBoard")).not.toBeInTheDocument();
+      expect(screen.queryByText("Switch to list view")).not.toBeInTheDocument();
+      expect(
+        screen.queryByText("Switch to board view")
+      ).not.toBeInTheDocument();
+    });
+
+    it("hides the add member button", () => {
+      setupTest({ readOnly: true });
+
+      expect(screen.queryByText(/Add a new member/)).not.toBeInTheDocument();
+    });
   });
 });

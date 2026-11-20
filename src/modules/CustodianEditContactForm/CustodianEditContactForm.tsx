@@ -11,6 +11,7 @@ import { CustodianEditContactFormFields, QueryState } from "@/types/form";
 import {
   isCustodianAdministrator,
   isCustodianApprover,
+  isCustodianViewer,
 } from "@/utils/custodian";
 import CheckIcon from "@mui/icons-material/Check";
 import { LoadingButton } from "@mui/lab";
@@ -69,6 +70,7 @@ export default function CustodianEditContactForm({
           CustodianUserRoles.ADMINISTRATOR) ||
         (isCustodianApprover(user, permissions) &&
           CustodianUserRoles.APPROVER) ||
+        (isCustodianViewer(user, permissions) && CustodianUserRoles.VIEWER) ||
         null,
     },
     disabled: queryState.isLoading,
@@ -155,6 +157,22 @@ export default function CustodianEditContactForm({
                           variant="small"
                           sx={{ color: "textSecondary.main" }}>
                           {t("roleApproverDescription")}
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  }
+                />
+                <FormControlLabel
+                  value={CustodianUserRoles.VIEWER}
+                  control={<Radio />}
+                  label={
+                    <Grid>
+                      <Grid item>{t("roleViewer")}</Grid>
+                      <Grid item>
+                        <Typography
+                          variant="small"
+                          sx={{ color: "textSecondary.main" }}>
+                          {t("roleViewerDescription")}
                         </Typography>
                       </Grid>
                     </Grid>

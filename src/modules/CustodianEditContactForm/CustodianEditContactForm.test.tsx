@@ -18,8 +18,6 @@ import CustodianEditContactForm, {
 jest.mock("@/services/custodians");
 jest.mock("@/data/store");
 
-(useStore as unknown as jest.Mock).mockReturnValue(mockedApiPermissions);
-
 const mockOnSubmit = jest.fn();
 const mockOnClose = jest.fn();
 
@@ -59,6 +57,10 @@ const setupTest = (props?: Partial<CustodianEditContactFormProps>) => {
 };
 
 describe("<CustodianEditContactForm />", () => {
+  beforeEach(() => {
+    (useStore as unknown as jest.Mock).mockReturnValue(mockedApiPermissions);
+  });
+
   afterEach(() => {
     mockOnSubmit.mockReset();
     mockOnClose.mockReset();
@@ -99,6 +101,35 @@ describe("<CustodianEditContactForm />", () => {
       expect(mockOnSubmit).not.toHaveBeenCalled();
     }
   );
+
+  it("submits the read-only permission when Viewer is chosen", async () => {
+    setupTest();
+
+    fireEvent.click(screen.getByRole("radio", { name: /^Viewer/ }));
+    fireEvent.submit(screen.getByRole("button", { name: /Save/i }));
+
+    await waitFor(() => {
+      expect(mockOnSubmit.mock.lastCall[0].permissions).toBe(
+        "CUSTODIAN_READ_ONLY"
+      );
+    });
+  });
+
+  it("selects the Viewer option for an existing viewer", () => {
+    setupTest({
+      user: mockedCustodianUser({
+        user_permissions: [
+          {
+            custodian_user_id: 1,
+            permission_id: 14,
+            permission: mockedApiPermissions[13],
+          },
+        ],
+      }),
+    });
+
+    expect(screen.getByRole("radio", { name: /^Viewer/ })).toBeChecked();
+  });
 
   it("has no accessibility violations", async () => {
     commonAccessibilityTests(setupTest());
