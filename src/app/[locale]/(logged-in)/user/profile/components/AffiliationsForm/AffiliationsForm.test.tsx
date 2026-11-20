@@ -145,6 +145,22 @@ describe("<AffiliationsForm />", () => {
     ).toBeInTheDocument();
   });
 
+  it("warns when an existing affiliation's organisation couldn't be matched", () => {
+    render(
+      <AffiliationsForm
+        onSubmit={mockSubmit}
+        queryState={{ isPending: false, isError: false, error: "" }}
+        entityId={1}
+        entityType={EntityType.USER}
+        initialValues={{ id: 1 }}
+      />
+    );
+
+    expect(
+      screen.getByRole("button", { name: /invite them here/i })
+    ).toBeInTheDocument();
+  });
+
   // Typing an organisation would be silently replaced by the locked one on save.
   it("offers no way to type a different organisation when the organisation is locked", () => {
     render(
