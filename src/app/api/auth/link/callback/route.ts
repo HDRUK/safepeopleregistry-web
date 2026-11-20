@@ -1,10 +1,17 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { ROUTES } from "@/consts/router";
+import { isLinkedIdentitiesEnabled } from "@/flags";
 import { handleJsonResponse } from "@/services/requestHelpers";
 import { postRequest } from "@/services/requests";
 
 export async function GET(req: Request) {
+  if (!(await isLinkedIdentitiesEnabled())) {
+    return NextResponse.redirect(
+      `${process.env.NEXT_PUBLIC_LOCAL_ENV}/en${ROUTES.profileResearcherIdentity.path}`
+    );
+  }
+
   const cookieStore = await cookies();
   const { searchParams } = new URL(req.url);
   const keycloakError = searchParams.get("error");
