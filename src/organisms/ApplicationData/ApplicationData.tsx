@@ -39,6 +39,7 @@ interface ApplicationDataProps {
   affiliationsWorkflowTransitionsData: WorkflowTransitions;
   isOrganisation: boolean;
   isCustodian: boolean;
+  isCustodianViewOnly: boolean;
   children: ReactNode;
 }
 
@@ -59,6 +60,7 @@ export default function ApplicationData({
   affiliationsWorkflowTransitionsData,
   isOrganisation,
   isCustodian,
+  isCustodianViewOnly,
   children,
 }: ApplicationDataProps) {
   const path = usePathname();
@@ -71,6 +73,7 @@ export default function ApplicationData({
     setOrganisation: state.setOrganisation,
     custodian: state.getCustodian(),
     setCustodian: state.setCustodian,
+    setIsCustodianViewOnly: state.setIsCustodianViewOnly,
     sectors: state.getSectors(),
     setSectors: state.setSectors,
     permissions: state.getPermissions(),
@@ -94,6 +97,7 @@ export default function ApplicationData({
     setOrganisation,
     custodian,
     setCustodian,
+    setIsCustodianViewOnly,
     sectors,
     setSectors,
     permissions,
@@ -120,6 +124,7 @@ export default function ApplicationData({
     setSectors(sectorsData);
     setProjectRoles(projectRolesData);
     setCustodian(custodianData);
+    setIsCustodianViewOnly(isCustodianViewOnly);
     setOrganisation(organisationData);
     setAffiliationsWorkflowTransitions(affiliationsWorkflowTransitionsData);
 

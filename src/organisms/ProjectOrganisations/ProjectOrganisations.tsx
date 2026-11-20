@@ -38,8 +38,6 @@ type ProjectOrganisationsListProps = WithPaginatedQueryParms<
   }>
 >;
 
-const ignoreStatusChange = () => {};
-
 export default function ProjectOrganisations({
   custodianId,
   routes,
@@ -154,8 +152,8 @@ export default function ProjectOrganisations({
       data: custodianProjectOrganisations,
       routes,
       itemsByTransitions,
-      onMove: readOnly ? ignoreStatusChange : handleUpdateOrganisation,
-      onDragEnd: readOnly ? ignoreStatusChange : handleUpdateOrganisation,
+      onMove: handleUpdateOrganisation,
+      onDragEnd: handleUpdateOrganisation,
       actions: readOnly
         ? undefined
         : (props: KanbanBoardHelperProps<CustodianProjectOrganisation>) => {
@@ -192,9 +190,7 @@ export default function ProjectOrganisations({
 
   const listComponent = !showListView ? (
     <ProjectOrganisationsBoard
-      options={{
-        isTransitionAllowed: readOnly ? () => false : isTransitionAllowed,
-      }}
+      options={{ isTransitionAllowed }}
       rollbackVersion={rollbackVersion}
       {...commonProps}
     />

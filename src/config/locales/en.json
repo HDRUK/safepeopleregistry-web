@@ -459,7 +459,7 @@
     "deleteWarningDescription": "Deleting this team member is permanent and will result in them no longer being able to act on your behalf",
     "CUSTODIAN_ADMIN": "Administrator",
     "CUSTODIAN_APPROVER": "Approver",
-    "CUSTODIAN_VIEWER": "Viewer",
+    "CUSTODIAN_READ_ONLY": "Viewer",
     "postCustodianUserInviteError": "There was a problem inviting this team member. Please contact them directly or contact us at <contactLink></contactLink>",
     "configurationRules": "Automated Flags",
     "configurationRulesTitle": "Automated Flags",
@@ -1736,11 +1736,6 @@
     "help": "If you think you have been removed by mistake, or you need help, please contact us at <contactLink></contactLink>.",
     "signOut": "Sign out"
   },
-  "CustodianViewerDisabled": {
-    "title": "Read-only accounts are disabled",
-    "description": "Sorry, Read-Only accounts have been disabled on this environment. Please contact <contactLink></contactLink> for assistance.",
-    "signOut": "Sign out"
-  },
   "Register": {
     "title": "What would you like to do?",
     "claimOrgAccount": "Claim your admin account",
@@ -2339,7 +2334,7 @@
     "accountStatus": "Account status",
     "CUSTODIAN_APPROVER": "Approver",
     "CUSTODIAN_ADMIN": "Admin",
-    "CUSTODIAN_VIEWER": "Viewer"
+    "CUSTODIAN_READ_ONLY": "Viewer"
   },
   "UserHistory": {
     "daysSince": "{days} days ago",

@@ -35,12 +35,10 @@ export default function Projects() {
         <ProjectsList variant={EntityType.CUSTODIAN} />
       </PageBody>
 
-      {!isViewOnly && (
-        <AddProjectModal
-          open={showAddProjectModal}
-          onClose={() => setShowAddProjectModal(false)}
-        />
-      )}
+      <AddProjectModal
+        open={showAddProjectModal}
+        onClose={() => setShowAddProjectModal(false)}
+      />
     </PageBodyContainer>
   );
 }

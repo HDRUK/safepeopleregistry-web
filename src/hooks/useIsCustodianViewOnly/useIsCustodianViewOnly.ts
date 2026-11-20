@@ -1,5 +1,5 @@
-import useCustodianViewerAccess from "@/hooks/useCustodianViewerAccess";
+import { useStore } from "@/data/store";
 
 export default function useIsCustodianViewOnly(): boolean {
-  return useCustodianViewerAccess().isViewOnly;
+  return useStore(state => !!state.config.isCustodianViewOnly);
 }

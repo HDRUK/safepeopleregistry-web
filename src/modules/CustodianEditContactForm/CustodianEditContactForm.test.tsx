@@ -1,4 +1,3 @@
-import { useFeatures } from "@/components/FeatureProvider";
 import { useStore } from "@/data/store";
 import { mockedCustodianUser } from "@/mocks/data/custodian";
 import { mockedApiPermissions } from "@/mocks/data/store";
@@ -18,18 +17,6 @@ import CustodianEditContactForm, {
 
 jest.mock("@/services/custodians");
 jest.mock("@/data/store");
-jest.mock("@/components/FeatureProvider", () => ({
-  useFeatures: jest.fn(),
-}));
-
-// Fake Viewer permission, because the API doesn't have one yet.
-const MOCK_VIEWER_PERMISSION = {
-  id: 999,
-  created_at: "2025-07-21T09:12:14.000000Z",
-  updated_at: "2025-07-21T09:12:14.000000Z",
-  name: "CUSTODIAN_VIEWER",
-  enabled: true,
-};
 
 const mockOnSubmit = jest.fn();
 const mockOnClose = jest.fn();
@@ -71,13 +58,7 @@ const setupTest = (props?: Partial<CustodianEditContactFormProps>) => {
 
 describe("<CustodianEditContactForm />", () => {
   beforeEach(() => {
-    (useStore as unknown as jest.Mock).mockReturnValue([
-      ...mockedApiPermissions,
-      MOCK_VIEWER_PERMISSION,
-    ]);
-    (useFeatures as jest.Mock).mockReturnValue({
-      isCustodianViewerRoleEnabled: false,
-    });
+    (useStore as unknown as jest.Mock).mockReturnValue(mockedApiPermissions);
   });
 
   afterEach(() => {
@@ -121,32 +102,27 @@ describe("<CustodianEditContactForm />", () => {
     }
   );
 
-  it("hides the Viewer option when the flag is off", () => {
+  it("submits the read-only permission when Viewer is chosen", async () => {
     setupTest();
 
-    expect(
-      screen.queryByRole("radio", { name: /^Viewer/ })
-    ).not.toBeInTheDocument();
-  });
+    fireEvent.click(screen.getByRole("radio", { name: /^Viewer/ }));
+    fireEvent.submit(screen.getByRole("button", { name: /Save/i }));
 
-  it("shows the Viewer option when the flag is on", () => {
-    (useFeatures as jest.Mock).mockReturnValue({
-      isCustodianViewerRoleEnabled: true,
+    await waitFor(() => {
+      expect(mockOnSubmit.mock.lastCall[0].permissions).toBe(
+        "CUSTODIAN_READ_ONLY"
+      );
     });
-
-    setupTest();
-
-    expect(screen.getByRole("radio", { name: /^Viewer/ })).toBeInTheDocument();
   });
 
-  it("shows and selects the Viewer option for an existing viewer when the flag is off", () => {
+  it("selects the Viewer option for an existing viewer", () => {
     setupTest({
       user: mockedCustodianUser({
         user_permissions: [
           {
             custodian_user_id: 1,
-            permission_id: MOCK_VIEWER_PERMISSION.id,
-            permission: MOCK_VIEWER_PERMISSION,
+            permission_id: 14,
+            permission: mockedApiPermissions[13],
           },
         ],
       }),

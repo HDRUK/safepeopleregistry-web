@@ -28,4 +28,16 @@ function isCustodianViewer(user: CustodianUser, permissions: Permission[]) {
   return user?.user_permissions?.[0]?.permission_id === permission.id;
 }
 
-export { isCustodianAdministrator, isCustodianApprover, isCustodianViewer };
+function isCustodianUserViewOnly(user: CustodianUser) {
+  const permissions =
+    user?.user_permissions?.map(({ permission }) => permission) ?? [];
+
+  return isCustodianViewer(user, permissions);
+}
+
+export {
+  isCustodianAdministrator,
+  isCustodianApprover,
+  isCustodianViewer,
+  isCustodianUserViewOnly,
+};

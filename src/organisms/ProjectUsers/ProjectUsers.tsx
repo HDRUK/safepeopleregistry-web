@@ -53,8 +53,6 @@ type ProjectUsersListProps = WithPaginatedQueryParms<
   }>
 >;
 
-const ignoreStatusChange = () => {};
-
 export default function ProjectUsers({
   custodianId,
   projectId,
@@ -186,8 +184,8 @@ export default function ProjectUsers({
       data: custodianProjectUsers,
       routes,
       itemsByTransitions,
-      onMove: readOnly ? ignoreStatusChange : handleUpdateSafePeople,
-      onDragEnd: readOnly ? ignoreStatusChange : handleUpdateSafePeople,
+      onMove: handleUpdateSafePeople,
+      onDragEnd: handleUpdateSafePeople,
       actions: readOnly
         ? undefined
         : (props: KanbanBoardHelperProps<CustodianProjectUser>) => {
@@ -221,7 +219,7 @@ export default function ProjectUsers({
   const listComponent = !showListView ? (
     <ProjectUsersBoard
       options={{
-        isTransitionAllowed: readOnly ? () => false : isTransitionAllowed,
+        isTransitionAllowed,
       }}
       rollbackVersion={rollbackVersion}
       {...commonProps}

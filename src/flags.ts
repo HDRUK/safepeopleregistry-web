@@ -37,9 +37,3 @@ export const isSroRequirementEnabled = flag({
   key: "SroRequirementEnabled",
   adapter,
 });
-
-// needs BE: add "CustodianViewerRoleEnabled" to the features table. Off until then.
-export const isCustodianViewerRoleEnabled = flag({
-  key: "CustodianViewerRoleEnabled",
-  adapter,
-});

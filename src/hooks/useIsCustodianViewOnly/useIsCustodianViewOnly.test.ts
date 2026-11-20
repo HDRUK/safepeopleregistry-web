@@ -1,29 +1,34 @@
-import useCustodianViewerAccess from "@/hooks/useCustodianViewerAccess";
+import { useStore } from "@/data/store";
 import { renderHook } from "@/utils/testUtils";
 import useIsCustodianViewOnly from "./useIsCustodianViewOnly";
 
-jest.mock("@/hooks/useCustodianViewerAccess");
+jest.mock("@/data/store");
 
-const mockAccess = (isViewOnly: boolean) => {
-  (useCustodianViewerAccess as jest.Mock).mockReturnValue({
-    isLoading: false,
-    isViewer: true,
-    isViewOnly,
-    isViewerDisabled: !isViewOnly,
-  });
+const mockStore = (isCustodianViewOnly?: boolean) => {
+  (useStore as unknown as jest.Mock).mockImplementation(selector =>
+    selector({ config: { isCustodianViewOnly } })
+  );
 };
 
 describe("useIsCustodianViewOnly", () => {
-  it("returns true for a viewer when the flag is on", () => {
-    mockAccess(true);
+  it("returns true for a viewer", () => {
+    mockStore(true);
 
     const { result } = renderHook(() => useIsCustodianViewOnly());
 
     expect(result.current).toBe(true);
   });
 
-  it("returns false for a viewer when the flag is off", () => {
-    mockAccess(false);
+  it("returns false for other custodians", () => {
+    mockStore(false);
+
+    const { result } = renderHook(() => useIsCustodianViewOnly());
+
+    expect(result.current).toBe(false);
+  });
+
+  it("returns false before the role is known", () => {
+    mockStore(undefined);
 
     const { result } = renderHook(() => useIsCustodianViewOnly());
 
