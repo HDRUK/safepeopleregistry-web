@@ -248,7 +248,11 @@ export default function AffiliationsPage({
   const handleResendAffiliationEmail = async (
     affiliation: ResearcherAffiliation
   ) => {
-    await resendVerification(affiliation.id);
+    try {
+      await resendVerification(affiliation.id);
+    } catch {
+      // Error surfaced via useQueryAlerts(resendQueryState)
+    }
   };
 
   const renderActionMenuCell = useCallback(
