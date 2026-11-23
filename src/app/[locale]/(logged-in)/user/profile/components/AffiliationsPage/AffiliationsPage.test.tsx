@@ -222,6 +222,37 @@ describe("<AffiliationsPage />", () => {
       expect(
         screen.queryByRole("button", { name: "Complete your affiliation" })
       ).not.toBeInTheDocument();
+      expect(
+        screen.queryByRole("button", { name: "Resend verification email" })
+      ).not.toBeInTheDocument();
+    });
+
+    it("warns which affiliation needs its email verifying and resends it", async () => {
+      const mutateAsync = jest.fn();
+      mockUseMutation.mockReturnValue({
+        mutateAsync,
+        isPending: false,
+      } as unknown as ReturnType<typeof useMutation>);
+
+      const unverifiedAffiliation = mockedAffiliation({
+        organisation: { organisation_name: "Unverified Organisation" },
+        model_state: { state: { slug: Status.AFFILIATION_EMAIL_VERIFY } },
+      });
+      mockAffiliations([unverifiedAffiliation]);
+
+      renderTest();
+
+      expect(
+        await screen.findByText(
+          /Verify your professional email address for your affiliation with Unverified Organisation/
+        )
+      ).toBeInTheDocument();
+
+      fireEvent.click(
+        screen.getByRole("button", { name: "Resend verification email" })
+      );
+
+      expect(mutateAsync).toHaveBeenCalledWith(unverifiedAffiliation.id);
     });
 
     it("warns which affiliation needs completing and opens it", async () => {

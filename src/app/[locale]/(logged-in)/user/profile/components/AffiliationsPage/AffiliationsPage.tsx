@@ -98,8 +98,11 @@ export default function AffiliationsPage({
     ...getAffiliationsQueryState
   } = usePaginatedAffiliations(user?.registry_id);
 
-  const { incompleteAffiliations, refetch: refetchIncompleteAffiliations } =
-    useIncompleteAffiliations(user?.registry_id);
+  const {
+    incompleteAffiliations,
+    unverifiedAffiliations,
+    refetch: refetchIncompleteAffiliations,
+  } = useIncompleteAffiliations(user?.registry_id);
 
   const { mutateAsync: deleteAffiliation, ...restDeleteState } = useMutation(
     deleteAffiliationQuery()
@@ -426,6 +429,34 @@ export default function AffiliationsPage({
                   {tProfile("completeAffiliationWarning", {
                     organisationName:
                       incompleteAffiliations[0].organisation
+                        ?.organisation_name ?? "",
+                  })}
+                </Message>
+              )}
+              {unverifiedAffiliations.length > 0 && (
+                <Message
+                  severity="warning"
+                  sx={{
+                    mb: 2,
+                    "& .MuiAlert-action": { alignItems: "center", pt: 0 },
+                  }}
+                  action={
+                    <Button
+                      color="warning"
+                      size="small"
+                      disabled={resendQueryState.isPending}
+                      onClick={() =>
+                        handleResendAffiliationEmail(unverifiedAffiliations[0])
+                      }>
+                      {tProfile("resendVerification")}
+                    </Button>
+                  }>
+                  <MessageTitle>
+                    {tProfile("completeAffiliationWarningTitle")}
+                  </MessageTitle>
+                  {tProfile("verifyAffiliationEmailWarning", {
+                    organisationName:
+                      unverifiedAffiliations[0].organisation
                         ?.organisation_name ?? "",
                   })}
                 </Message>
