@@ -435,6 +435,10 @@ export default function AffiliationsPage({
                       incompleteAffiliations[0].organisation
                         ?.organisation_name ?? "",
                   })}
+                  {incompleteAffiliations.length > 1 &&
+                    ` ${tProfile("otherAffiliationsAlsoNeedThis", {
+                      count: incompleteAffiliations.length - 1,
+                    })}`}
                 </Message>
               )}
               {unverifiedAffiliations.length > 0 && (
@@ -463,6 +467,10 @@ export default function AffiliationsPage({
                       unverifiedAffiliations[0].organisation
                         ?.organisation_name ?? "",
                   })}
+                  {unverifiedAffiliations.length > 1 &&
+                    ` ${tProfile("otherAffiliationsAlsoNeedThis", {
+                      count: unverifiedAffiliations.length - 1,
+                    })}`}
                 </Message>
               )}
               <Typography sx={{ mb: 2 }}>

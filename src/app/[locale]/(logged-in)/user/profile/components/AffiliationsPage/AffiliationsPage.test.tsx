@@ -274,6 +274,24 @@ describe("<AffiliationsPage />", () => {
       expect(await screen.findByText("Edit Affiliation")).toBeInTheDocument();
     });
 
+    it("tells the user when other affiliations also need the same action", async () => {
+      const withStatus = (slug: Status) =>
+        mockedAffiliation({ model_state: { state: { slug } } });
+
+      mockAffiliations([
+        withStatus(Status.AFFILIATION_INFO_REQUIRED),
+        withStatus(Status.AFFILIATION_INFO_REQUIRED),
+        withStatus(Status.AFFILIATION_EMAIL_VERIFY),
+        withStatus(Status.AFFILIATION_EMAIL_VERIFY),
+      ]);
+
+      renderTest();
+
+      expect(
+        await screen.findAllByText(/1 other affiliation also needs this/)
+      ).toHaveLength(2);
+    });
+
     it("warns when the incomplete affiliation is not on the table's current page", async () => {
       const queryResult = (affiliations: unknown[]) =>
         ({
