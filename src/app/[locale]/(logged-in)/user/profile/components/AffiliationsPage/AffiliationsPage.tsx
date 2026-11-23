@@ -98,8 +98,11 @@ export default function AffiliationsPage({
     ...getAffiliationsQueryState
   } = usePaginatedAffiliations(user?.registry_id);
 
-  const { incompleteAffiliations, refetch: refetchIncompleteAffiliations } =
-    useIncompleteAffiliations(user?.registry_id);
+  const {
+    incompleteAffiliations,
+    unverifiedAffiliations,
+    refetch: refetchIncompleteAffiliations,
+  } = useIncompleteAffiliations(user?.registry_id);
 
   const { mutateAsync: deleteAffiliation, ...restDeleteState } = useMutation(
     deleteAffiliationQuery()
@@ -245,7 +248,11 @@ export default function AffiliationsPage({
   const handleResendAffiliationEmail = async (
     affiliation: ResearcherAffiliation
   ) => {
-    await resendVerification(affiliation.id);
+    try {
+      await resendVerification(affiliation.id);
+    } catch {
+      // Error surfaced via useQueryAlerts(resendQueryState)
+    }
   };
 
   const renderActionMenuCell = useCallback(
@@ -428,6 +435,42 @@ export default function AffiliationsPage({
                       incompleteAffiliations[0].organisation
                         ?.organisation_name ?? "",
                   })}
+                  {incompleteAffiliations.length > 1 &&
+                    ` ${tProfile("otherAffiliationsAlsoNeedThis", {
+                      count: incompleteAffiliations.length - 1,
+                    })}`}
+                </Message>
+              )}
+              {unverifiedAffiliations.length > 0 && (
+                <Message
+                  severity="warning"
+                  sx={{
+                    mb: 2,
+                    "& .MuiAlert-action": { alignItems: "center", pt: 0 },
+                  }}
+                  action={
+                    <Button
+                      color="warning"
+                      size="small"
+                      disabled={resendQueryState.isPending}
+                      onClick={() =>
+                        handleResendAffiliationEmail(unverifiedAffiliations[0])
+                      }>
+                      {tProfile("resendVerification")}
+                    </Button>
+                  }>
+                  <MessageTitle>
+                    {tProfile("completeAffiliationWarningTitle")}
+                  </MessageTitle>
+                  {tProfile("verifyAffiliationEmailWarning", {
+                    organisationName:
+                      unverifiedAffiliations[0].organisation
+                        ?.organisation_name ?? "",
+                  })}
+                  {unverifiedAffiliations.length > 1 &&
+                    ` ${tProfile("otherAffiliationsAlsoNeedThis", {
+                      count: unverifiedAffiliations.length - 1,
+                    })}`}
                 </Message>
               )}
               <Typography sx={{ mb: 2 }}>

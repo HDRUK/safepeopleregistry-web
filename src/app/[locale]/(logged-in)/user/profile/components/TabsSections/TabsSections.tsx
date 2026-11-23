@@ -31,10 +31,10 @@ export default function TabsSections({ tabId }: TabsSectionsProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
   const { isLinkedIdentitiesEnabled } = useFeatures();
 
-  const { incompleteAffiliations } = useIncompleteAffiliations(
-    user?.registry_id
-  );
-  const hasIncompleteAffiliation = incompleteAffiliations.length > 0;
+  const { incompleteAffiliations, unverifiedAffiliations } =
+    useIncompleteAffiliations(user?.registry_id);
+  const hasIncompleteAffiliation =
+    incompleteAffiliations.length > 0 || unverifiedAffiliations.length > 0;
 
   return (
     <Box sx={{ width: "100%", mb: 4 }}>

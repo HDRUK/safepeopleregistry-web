@@ -34,6 +34,10 @@ function isAffiliationInfoRequired(affiliation: ResearcherAffiliation) {
   return getAffiliationStatus(affiliation) === Status.AFFILIATION_INFO_REQUIRED;
 }
 
+function isAffiliationEmailVerifyRequired(affiliation: ResearcherAffiliation) {
+  return getAffiliationStatus(affiliation) === Status.AFFILIATION_EMAIL_VERIFY;
+}
+
 function canRecordAffiliationEndDate(affiliation: ResearcherAffiliation) {
   return (
     !isAffiliationEnded(affiliation) &&
@@ -70,6 +74,7 @@ export {
   ENDED_AFFILIATION_STATUSES,
   canRecordAffiliationEndDate,
   isAffiliationEditable,
+  isAffiliationEmailVerifyRequired,
   isAffiliationEndDateSetByOrganisation,
   isAffiliationEnded,
   isAffiliationEndingSoon,
