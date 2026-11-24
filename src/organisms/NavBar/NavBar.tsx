@@ -9,7 +9,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import {
   Box,
   Button,
-  Chip,
   IconButton,
   MenuItem,
   MenuList,
@@ -28,7 +27,11 @@ import { getInitials, getName } from "../../utils/application";
 import { handleLogout } from "../../utils/keycloak";
 import NotificationsMenu from "../NotificationsMenu";
 import SupportMenu from "../SupportMenu/SupportMenu";
-import { StyledContainer, StyledHeader } from "./NavBar.styles";
+import {
+  StyledAccountTypeChip,
+  StyledContainer,
+  StyledHeader,
+} from "./NavBar.styles";
 import { AccountType } from "@/types/accounts";
 import { getAccountType } from "@/utils/accountType";
 
@@ -231,18 +234,10 @@ export default function NavBar({ loggedIn }: NavBarProps) {
               </Link>
               {loggedIn && isRegistered && (
                 <Tooltip title={accountTypeTooltip} describeChild>
-                  <Chip
+                  <StyledAccountTypeChip
                     data-testid="account-type-chip"
                     label={t(`accountType.${accountType}`)}
                     tabIndex={accountTypeTooltip ? 0 : undefined}
-                    sx={{
-                      backgroundColor: theme.palette.neutralPink.main,
-                      color: theme.palette.neutralPink.contrastText,
-                      "&:focus-visible": {
-                        outline: `2px solid ${theme.palette.primary.main}`,
-                        outlineOffset: "2px",
-                      },
-                    }}
                     size="medium"
                   />
                 </Tooltip>
