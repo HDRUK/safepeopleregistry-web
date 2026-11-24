@@ -4,7 +4,7 @@ import { useStore } from "@/data/store";
 import { usePathname } from "@/i18n/routing";
 import { ReactNode, useEffect } from "react";
 import { WorkflowTransitions } from "@/services/custodian_approvals";
-import { CustodianUserRoles } from "../../consts/custodian";
+import { CustodianUserRoles } from "@/consts/custodian";
 import { ROUTES } from "../../consts/router";
 import {
   Custodian,
