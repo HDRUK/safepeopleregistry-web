@@ -13,6 +13,7 @@ import {
   IconButton,
   MenuItem,
   MenuList,
+  Tooltip,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
@@ -29,7 +30,7 @@ import NotificationsMenu from "../NotificationsMenu";
 import SupportMenu from "../SupportMenu/SupportMenu";
 import { StyledContainer, StyledHeader } from "./NavBar.styles";
 import { AccountType } from "@/types/accounts";
-import { UserGroup } from "@/consts/user";
+import { getAccountType } from "@/utils/accountType";
 
 const NAMESPACE_TRANSLATIONS_NAVBAR = "NavBar";
 
@@ -108,14 +109,22 @@ export default function NavBar({ loggedIn }: NavBarProps) {
     store.getUser(),
     store.setUser,
   ]);
-  const storedOrganisation = useStore(state => state.config.organisation);
-  const storedCustodian = useStore(state => state.config.custodian);
+  const storedCustodianRole = useStore(state => state.config.custodianRole);
   const isRegistered = storedUser?.unclaimed === false;
 
   const theme = useTheme();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
+
+  const accountType = getAccountType({
+    user: storedUser,
+    custodianRole: storedCustodianRole,
+  });
+  const accountTypeTooltip =
+    accountType === AccountType.ORGANISATION_SRO
+      ? t("accountTypeSroTooltip")
+      : "";
 
   useEffect(() => {
     const checkUserAndReset = async () => {
@@ -221,24 +230,22 @@ export default function NavBar({ loggedIn }: NavBarProps) {
                 />
               </Link>
               {loggedIn && isRegistered && (
-                <Chip
-                  label={
-                    storedOrganisation ||
-                    storedUser?.user_group === UserGroup.ORGANISATIONS
-                      ? AccountType.ORGANISATION
-                      : storedCustodian
-                        ? AccountType.CUSTODIAN
-                        : storedUser?.user_group === UserGroup.ADMINS
-                          ? AccountType.ADMIN
-                          : AccountType.USER
-                  }
-                  sx={{
-                    textTransform: "uppercase",
-                    backgroundColor: theme.palette[`neutral-500`].main,
-                    color: theme.palette.white,
-                  }}
-                  size="medium"
-                />
+                <Tooltip title={accountTypeTooltip} describeChild>
+                  <Chip
+                    data-testid="account-type-chip"
+                    label={t(`accountType.${accountType}`)}
+                    tabIndex={accountTypeTooltip ? 0 : undefined}
+                    sx={{
+                      backgroundColor: theme.palette.neutralPink.main,
+                      color: theme.palette.neutralPink.contrastText,
+                      "&:focus-visible": {
+                        outline: `2px solid ${theme.palette.primary.main}`,
+                        outlineOffset: "2px",
+                      },
+                    }}
+                    size="medium"
+                  />
+                </Tooltip>
               )}
 
               {renderButtons(left_buttons)}

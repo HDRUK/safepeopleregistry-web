@@ -18,7 +18,7 @@ import {
 import NavBar from "./NavBar";
 import { mockedOrganisation } from "@/mocks/data/organisation";
 import { mockedCustodian } from "@/mocks/data/custodian";
-import { AccountType } from "@/types/accounts";
+import { CustodianUserRoles } from "@/consts/custodian";
 import { UserGroup } from "@/consts/user";
 
 jest.mock("js-cookie", () => ({
@@ -138,73 +138,96 @@ describe("NavBar Component", () => {
     expect(handleLogout).toHaveBeenCalled();
   });
 
-  it("displays 'Organisation' chip when the user belongs to an organisation", () => {
-    mockUseStore.mockImplementation(selector =>
-      selector({
-        getUser: () => mockedUser({ unclaimed: false }),
-        setUser: jest.fn(),
-        config: {
-          organisation: mockedOrganisation,
-          custodian: undefined,
+  describe("account type chip", () => {
+    const mockAccountTypeStore = (
+      user: Partial<User>,
+      custodianRole: CustodianUserRoles | null = null
+    ) =>
+      mockUseStore.mockImplementation(selector =>
+        selector({
+          getUser: () => mockedUser({ unclaimed: false, ...user }),
+          setUser: jest.fn(),
+          config: {
+            organisation: undefined,
+            custodian: undefined,
+            custodianRole,
+          },
+        } as unknown as StoreState)
+      );
+
+    it.each([
+      ["Super-admin", { user_group: UserGroup.ADMINS }, null],
+      ["User", { user_group: UserGroup.USERS }, null],
+      [
+        "Organisation: SRO",
+        {
+          user_group: UserGroup.ORGANISATIONS,
+          organisation_id: 1,
+          is_sro: true,
         },
-      } as unknown as StoreState)
-    );
-
-    render(<NavBar loggedIn />);
-
-    expect(screen.getByText(AccountType.ORGANISATION)).toBeInTheDocument();
-  });
-
-  it("displays 'Custodian' chip when the user belongs to an custodian", () => {
-    mockUseStore.mockImplementation(selector =>
-      selector({
-        getUser: () => mockedUser({ unclaimed: false }),
-        setUser: jest.fn(),
-        config: {
-          organisation: undefined,
-          custodian: mockedCustodian,
+        null,
+      ],
+      [
+        "Organisation: Delegate",
+        {
+          user_group: UserGroup.ORGANISATIONS,
+          organisation_id: 1,
+          is_sro: false,
         },
-      } as unknown as StoreState)
-    );
+        null,
+      ],
+      [
+        "Custodian: Admin",
+        { user_group: UserGroup.CUSTODIANS },
+        CustodianUserRoles.ADMINISTRATOR,
+      ],
+      [
+        "Custodian: Approver",
+        { user_group: UserGroup.CUSTODIANS },
+        CustodianUserRoles.APPROVER,
+      ],
+      [
+        "Custodian: View only",
+        { user_group: UserGroup.CUSTODIANS },
+        CustodianUserRoles.VIEWER,
+      ],
+    ])("displays '%s'", (label, user, custodianRole) => {
+      mockAccountTypeStore(user, custodianRole);
 
-    render(<NavBar loggedIn />);
+      render(<NavBar loggedIn />);
 
-    expect(screen.getByText(AccountType.CUSTODIAN)).toBeInTheDocument();
-  });
+      expect(screen.getByText(label)).toBeInTheDocument();
+    });
 
-  it("displays 'Super-admin' chip when the user is a super admin", () => {
-    mockUseStore.mockImplementation(selector =>
-      selector({
-        getUser: () =>
-          mockedUser({ user_group: UserGroup.ADMINS, unclaimed: false }),
-        setUser: jest.fn(),
-        config: {
-          organisation: undefined,
-          custodian: undefined,
-        },
-      } as unknown as StoreState)
-    );
+    it("shows the 'Senior Responsible Officer' tooltip on the SRO chip", async () => {
+      mockAccountTypeStore({
+        user_group: UserGroup.ORGANISATIONS,
+        organisation_id: 1,
+        is_sro: true,
+      });
 
-    render(<NavBar loggedIn />);
+      render(<NavBar loggedIn />);
 
-    expect(screen.getByText(AccountType.ADMIN)).toBeInTheDocument();
-  });
+      const chip = screen.getByTestId("account-type-chip");
 
-  it("hides the account type chip while the user is registering", () => {
-    mockUseStore.mockImplementation(selector =>
-      selector({
-        getUser: () => mockedUser({ unclaimed: true }),
-        setUser: jest.fn(),
-        config: {
-          organisation: undefined,
-          custodian: undefined,
-        },
-      } as unknown as StoreState)
-    );
+      expect(chip).toHaveAttribute("tabindex", "0");
+      expect(chip).not.toHaveAttribute("aria-label");
 
-    render(<NavBar loggedIn />);
+      fireEvent.mouseOver(chip);
 
-    expect(screen.queryByText(AccountType.USER)).not.toBeInTheDocument();
+      const tooltip = await screen.findByRole("tooltip");
+
+      expect(tooltip).toHaveTextContent("Senior Responsible Officer");
+      expect(chip).toHaveAttribute("aria-describedby", tooltip.id);
+    });
+
+    it("hides the chip while the user is registering", () => {
+      mockAccountTypeStore({ unclaimed: true });
+
+      render(<NavBar loggedIn />);
+
+      expect(screen.queryByText("User")).not.toBeInTheDocument();
+    });
   });
 
   it("displays 'My Account' and 'Sign Out' if the user is authenticated", () => {

@@ -8,6 +8,7 @@ import OverlayCenterAlert from "../../components/OverlayCenterAlert";
 import PageBodyContainer from "../../modules/PageBodyContainer";
 import useApplicationDependencies from "../../queries/useApplicationDependencies";
 import useQueriesHistories from "../../queries/useQueriesHistories";
+import { CustodianUserRoles } from "../../consts/custodian";
 import { User } from "../../types/application";
 import { getCombinedQueryState } from "../../utils/query";
 import ApplicationData from "../ApplicationData";
@@ -17,6 +18,7 @@ interface ApplicationProps {
   children: ReactNode;
   custodianId?: number;
   isCustodianViewOnly?: boolean;
+  custodianRole?: CustodianUserRoles | null;
   organisationId?: number;
   me?: User;
 }
@@ -28,6 +30,7 @@ export default function Application({
   me,
   custodianId,
   isCustodianViewOnly = false,
+  custodianRole = null,
   organisationId,
 }: ApplicationProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION_APPLICATION);
@@ -100,6 +103,7 @@ export default function Application({
         isOrganisation={!!organisationId}
         isCustodian={!!custodianId}
         isCustodianViewOnly={isCustodianViewOnly}
+        custodianRole={custodianRole}
         systemConfigData={systemConfigData?.data}
         userData={userData?.data}
         organisationData={organisationData?.data}

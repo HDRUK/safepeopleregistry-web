@@ -1735,7 +1735,19 @@
     "supportDeveloperResources": "Developer Resources",
     "supportGetInvolved": "Get involved",
     "supportAskTeam": "Ask the team (new tab)",
-    "supportContactUs": "Contact us"
+    "supportContactUs": "Contact us",
+    "accountTypeSroTooltip": "Senior Responsible Officer",
+    "accountType": {
+      "super-admin": "Super-admin",
+      "user": "User",
+      "organisation": "Organisation",
+      "organisation-sro": "Organisation: SRO",
+      "organisation-delegate": "Organisation: Delegate",
+      "custodian": "Custodian",
+      "custodian-admin": "Custodian: Admin",
+      "custodian-approver": "Custodian: Approver",
+      "custodian-view-only": "Custodian: View only"
+    }
   },
   "NoOrganisation": {
     "title": "Your account is no longer linked to an organisation",

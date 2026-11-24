@@ -1,5 +1,6 @@
 "use client";
 
+import { CustodianUserRoles } from "@/consts/custodian";
 import { ROUTES } from "@/consts/router";
 import { WorkflowTransitions } from "@/services/custodian_approvals";
 import {
@@ -67,6 +68,7 @@ interface StoreState {
     permissions: Permission[];
     custodian?: Custodian;
     isCustodianViewOnly?: boolean;
+    custodianRole?: CustodianUserRoles | null;
     histories?: StoreUserHistories;
     projectRoles?: ProjectRole[];
   };
@@ -113,6 +115,7 @@ interface StoreState {
   getCustodian: () => Custodian | undefined;
   setCustodian: (organisation: Custodian | undefined) => void;
   setIsCustodianViewOnly: (isCustodianViewOnly: boolean) => void;
+  setCustodianRole: (custodianRole: CustodianUserRoles | null) => void;
   getApplication: () => StoreApplication;
   setApplication: (application: StoreApplication) => void;
   getPreviousUrl: () => string | null;
@@ -275,6 +278,12 @@ const storeMethods = (set: StoreSet, get: StoreGet) => ({
     set(
       produce(state => {
         state.config.isCustodianViewOnly = isCustodianViewOnly;
+      })
+    ),
+  setCustodianRole: (custodianRole: CustodianUserRoles | null) =>
+    set(
+      produce(state => {
+        state.config.custodianRole = custodianRole;
       })
     ),
   addUrlToHistory: (url: string) =>
