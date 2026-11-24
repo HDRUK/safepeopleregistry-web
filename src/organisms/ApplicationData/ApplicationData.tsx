@@ -4,6 +4,7 @@ import { useStore } from "@/data/store";
 import { usePathname } from "@/i18n/routing";
 import { ReactNode, useEffect } from "react";
 import { WorkflowTransitions } from "@/services/custodian_approvals";
+import { CustodianUserRoles } from "@/consts/custodian";
 import { ROUTES } from "../../consts/router";
 import {
   Custodian,
@@ -40,6 +41,7 @@ interface ApplicationDataProps {
   isOrganisation: boolean;
   isCustodian: boolean;
   isCustodianViewOnly: boolean;
+  custodianRole?: CustodianUserRoles | null;
   children: ReactNode;
 }
 
@@ -61,6 +63,7 @@ export default function ApplicationData({
   isOrganisation,
   isCustodian,
   isCustodianViewOnly,
+  custodianRole = null,
   children,
 }: ApplicationDataProps) {
   const path = usePathname();
@@ -74,6 +77,7 @@ export default function ApplicationData({
     custodian: state.getCustodian(),
     setCustodian: state.setCustodian,
     setIsCustodianViewOnly: state.setIsCustodianViewOnly,
+    setCustodianRole: state.setCustodianRole,
     sectors: state.getSectors(),
     setSectors: state.setSectors,
     permissions: state.getPermissions(),
@@ -98,6 +102,7 @@ export default function ApplicationData({
     custodian,
     setCustodian,
     setIsCustodianViewOnly,
+    setCustodianRole,
     sectors,
     setSectors,
     permissions,
@@ -125,6 +130,7 @@ export default function ApplicationData({
     setProjectRoles(projectRolesData);
     setCustodian(custodianData);
     setIsCustodianViewOnly(isCustodianViewOnly);
+    setCustodianRole(custodianRole);
     setOrganisation(organisationData);
     setAffiliationsWorkflowTransitions(affiliationsWorkflowTransitionsData);
 

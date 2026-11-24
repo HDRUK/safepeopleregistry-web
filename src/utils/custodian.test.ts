@@ -1,6 +1,8 @@
 import { mockedCustodianUser } from "@/mocks/data/custodian";
 import { mockedApiPermissions } from "@/mocks/data/store";
+import { CustodianUserRoles } from "@/consts/custodian";
 import {
+  getCustodianUserRole,
   isCustodianAdministrator,
   isCustodianApprover,
   isCustodianUserViewOnly,
@@ -162,5 +164,40 @@ describe("isCustodianUserViewOnly", () => {
     );
 
     expect(result).toEqual(false);
+  });
+});
+
+describe("getCustodianUserRole", () => {
+  const withPermission = (index: number) =>
+    mockedCustodianUser({
+      user_permissions: [
+        {
+          permission_id: mockedApiPermissions[index].id,
+          custodian_user_id: 1,
+          permission: mockedApiPermissions[index],
+        },
+      ],
+    });
+
+  it("returns null when the custodian user has no permissions", () => {
+    expect(
+      getCustodianUserRole(mockedCustodianUser({ user_permissions: [] }))
+    ).toBeNull();
+  });
+
+  it("returns null when the custodian user is undefined", () => {
+    expect(getCustodianUserRole(undefined)).toBeNull();
+  });
+
+  it("returns null when the permission is not a custodian role", () => {
+    expect(getCustodianUserRole(withPermission(0))).toBeNull();
+  });
+
+  it.each([
+    [9, CustodianUserRoles.ADMINISTRATOR],
+    [10, CustodianUserRoles.APPROVER],
+    [13, CustodianUserRoles.VIEWER],
+  ])("returns the role for permission index %s", (index, role) => {
+    expect(getCustodianUserRole(withPermission(index))).toEqual(role);
   });
 });

@@ -35,7 +35,16 @@ function isCustodianUserViewOnly(user: CustodianUser) {
   return isCustodianViewer(user, permissions);
 }
 
+function getCustodianUserRole(
+  user: CustodianUser | undefined
+): CustodianUserRoles | null {
+  const name = user?.user_permissions?.[0]?.permission?.name;
+
+  return Object.values(CustodianUserRoles).find(role => role === name) ?? null;
+}
+
 export {
+  getCustodianUserRole,
   isCustodianAdministrator,
   isCustodianApprover,
   isCustodianViewer,
