@@ -1,3 +1,18 @@
+## [1.45.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.44.0...v1.45.0) (2026-11-25)
+
+### ✨ Features
+
+* **REGISTRY-3045:** User | Make a linked identities separate tab - or find a better way of displaying (#993) ([4773803](https://github.com/HDRUK/safepeopleregistry-web/commit/4773803f6b070998e5359fdc1b9d77c81a89c426))
+* **REGISTRY-3053:**  User | A button/warning/something at the top of the Affiliations tab for them to click (as opposed to finding the 3 little buttons on the affiliation entry) "Complete your affiliation" (#990) ([2dcfe10](https://github.com/HDRUK/safepeopleregistry-web/commit/2dcfe105e395dc42fdf821fe6dc973c0afe8a9ca)), closes [opposed](undefinedosed)
+* **REGISTRY-3070:** Researchers must add a current affiliation to finish signing up (#994) ([2089066](https://github.com/HDRUK/safepeopleregistry-web/commit/2089066d146f7a512d38de4b66b4b628cdf135e3))
+* **REGISTRY-3074:** Make a "View only" permission/persona for the Custodian (#995) ([4cf79ff](https://github.com/HDRUK/safepeopleregistry-web/commit/4cf79ff150a55df967e5671ab890c208c99ee941))
+* **REGISTRY-3078:** Update Christmas banner text: "Please note that the HDR UK Technology Team are on reduced hours from Dec 20 - January 4, and will be unable to respond to support requests during this time. (#991) ([829b36f](https://github.com/HDRUK/safepeopleregistry-web/commit/829b36f3602322a7ed682d5bf5332c9b7ad08e7d))
+
+### 🐛 Bug Fixes
+
+* **REGISTRY-3069:** Copy edits on FAQs (#992) ([64d7702](https://github.com/HDRUK/safepeopleregistry-web/commit/64d7702c2556d3cfc6a6f45f615a9f1bab331099))
+* **REGISTRY-3084:** User | A warning/some sort of symbol on the Affiliations tab so they know they didn't verify their email address (#996) ([253b504](https://github.com/HDRUK/safepeopleregistry-web/commit/253b504760b0f6f248aa3b387c00f1f7fcb4afff))
+
 ## [1.44.0](https://github.com/HDRUK/safepeopleregistry-web/compare/v1.43.0...v1.44.0) (2026-11-10)
 
 ### ✨ Features
