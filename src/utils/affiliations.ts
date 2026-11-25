@@ -30,6 +30,14 @@ function isAffiliationEditable(affiliation: ResearcherAffiliation) {
   );
 }
 
+function isAffiliationInfoRequired(affiliation: ResearcherAffiliation) {
+  return getAffiliationStatus(affiliation) === Status.AFFILIATION_INFO_REQUIRED;
+}
+
+function isAffiliationEmailVerifyRequired(affiliation: ResearcherAffiliation) {
+  return getAffiliationStatus(affiliation) === Status.AFFILIATION_EMAIL_VERIFY;
+}
+
 function canRecordAffiliationEndDate(affiliation: ResearcherAffiliation) {
   return (
     !isAffiliationEnded(affiliation) &&
@@ -55,11 +63,21 @@ function isAffiliationEndingSoon(affiliation: ResearcherAffiliation) {
   );
 }
 
+const VERIFICATION_CODE_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+function isVerificationCode(value: unknown): value is string {
+  return typeof value === "string" && VERIFICATION_CODE_PATTERN.test(value);
+}
+
 export {
   ENDED_AFFILIATION_STATUSES,
   canRecordAffiliationEndDate,
   isAffiliationEditable,
+  isAffiliationEmailVerifyRequired,
   isAffiliationEndDateSetByOrganisation,
   isAffiliationEnded,
   isAffiliationEndingSoon,
+  isAffiliationInfoRequired,
+  isVerificationCode,
 };

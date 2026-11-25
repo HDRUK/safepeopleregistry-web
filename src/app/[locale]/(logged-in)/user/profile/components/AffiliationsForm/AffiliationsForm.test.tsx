@@ -97,6 +97,91 @@ describe("<AffiliationsForm />", () => {
     ).toBeInTheDocument();
   });
 
+  it("offers no cancel button when there is nothing to cancel back to", () => {
+    render(
+      <AffiliationsForm
+        onSubmit={mockSubmit}
+        queryState={{ isPending: false, isError: false, error: "" }}
+        entityId={1}
+        entityType={EntityType.USER}
+      />
+    );
+
+    expect(
+      screen.queryByRole("button", { name: /cancel/i })
+    ).not.toBeInTheDocument();
+  });
+
+  it("locks the organisation when asked to", () => {
+    const { container } = render(
+      <AffiliationsForm
+        onSubmit={mockSubmit}
+        queryState={{ isPending: false, isError: false, error: "" }}
+        entityId={1}
+        entityType={EntityType.USER}
+        initialValues={{ organisation_id: 1 }}
+        lockOrganisation
+      />
+    );
+
+    expect(
+      container.querySelector("input[name=organisation_id]")
+    ).toBeDisabled();
+  });
+
+  it("offers to type an organisation that isn't listed", () => {
+    render(
+      <AffiliationsForm
+        onSubmit={mockSubmit}
+        queryState={{ isPending: false, isError: false, error: "" }}
+        entityId={1}
+        entityType={EntityType.USER}
+        initialValues={{ organisation_id: 1 }}
+      />
+    );
+
+    expect(
+      screen.getByRole("button", { name: /type it instead/i })
+    ).toBeInTheDocument();
+  });
+
+  it("warns when an existing affiliation's organisation couldn't be matched", () => {
+    render(
+      <AffiliationsForm
+        onSubmit={mockSubmit}
+        queryState={{ isPending: false, isError: false, error: "" }}
+        entityId={1}
+        entityType={EntityType.USER}
+        initialValues={{ id: 1 }}
+      />
+    );
+
+    expect(
+      screen.getByRole("button", { name: /invite them here/i })
+    ).toBeInTheDocument();
+  });
+
+  // Typing an organisation would be silently replaced by the locked one on save.
+  it("offers no way to type a different organisation when the organisation is locked", () => {
+    render(
+      <AffiliationsForm
+        onSubmit={mockSubmit}
+        queryState={{ isPending: false, isError: false, error: "" }}
+        entityId={1}
+        entityType={EntityType.USER}
+        initialValues={{ organisation_id: 1 }}
+        lockOrganisation
+      />
+    );
+
+    expect(
+      screen.queryByRole("button", { name: /type it instead/i })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("textbox", { name: /organisation name/i })
+    ).not.toBeInTheDocument();
+  });
+
   it("has no accessibility violations", async () => {
     commonAccessibilityTests(renderAffiliationsComponent());
   });

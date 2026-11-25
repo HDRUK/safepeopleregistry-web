@@ -2,6 +2,7 @@ enum PageTabs {
   EXPERIENCE = "experience",
   AFFILIATIONS = "affiliations",
   IDENTITY = "identity",
+  DIGITAL_IDENTIFIERS = "digital-identifiers",
   TRAINING = "training",
   HOME = "home",
   PROJECTS = "projects",

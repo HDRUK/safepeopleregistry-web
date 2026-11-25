@@ -3,6 +3,7 @@
 import { ActionMenu, ActionMenuItem } from "@/components/ActionMenu";
 import FormModal from "@/components/FormModal";
 import Guidance from "@/components/Guidance";
+import { Message, MessageTitle } from "@/components/Message";
 import ProfileNavigationFooter from "@/components/ProfileNavigationFooter";
 import { Status } from "@/consts/application";
 import { HeadingLevel } from "@/consts/header";
@@ -11,6 +12,8 @@ import { useStore } from "@/data/store";
 import AffiliationEndDateModal from "@/organisms/AffiliationEndDateModal";
 import useQueryAlerts from "@/hooks/useQueryAlerts";
 import useQueryConfirmAlerts from "@/hooks/useQueryConfirmAlerts";
+import useRemoveSearchParam from "@/hooks/useRemoveSearchParam";
+import useSubmitAffiliation from "@/hooks/useSubmitAffiliation";
 import { mockedResearcherAffiliationsGuidance } from "@/mocks/data/cms";
 import {
   AffiliationsTable,
@@ -21,12 +24,10 @@ import {
   PageColumns,
   PageSection,
 } from "@/modules";
-import useOrganisationInvite from "@/queries/useOrganisationInvite";
 import {
   deleteAffiliationQuery,
   getAffiliationResendVerificationQuery,
-  postAffiliationQuery,
-  putAffiliationQuery,
+  useIncompleteAffiliations,
   usePaginatedAffiliations,
 } from "@/services/affiliations";
 import { PostAffiliationPayload } from "@/services/affiliations/types";
@@ -38,8 +39,6 @@ import {
   isAffiliationEditable,
   isAffiliationEnded,
 } from "@/utils/affiliations";
-import { formatDBDateTime } from "@/utils/date";
-import { getCombinedQueryState } from "@/utils/query";
 import { getOrganisationConflictErrorKey } from "@/utils/organisationConflictError";
 import { renderErrorToString } from "@/utils/translations";
 import AddIcon from "@mui/icons-material/Add";
@@ -71,6 +70,7 @@ export default function AffiliationsPage({
   const tApplication = useTranslations(NAMESPACE_TRANSLATION_APPLICATION);
   const router = useRouter();
   const { showAlert, hideAlert } = useAlertModal();
+  useRemoveSearchParam("verify");
 
   const [open, setOpen] = useState(false);
   const [selectedAffiliation, setSelectedAffiliation] = useState<
@@ -98,11 +98,11 @@ export default function AffiliationsPage({
     ...getAffiliationsQueryState
   } = usePaginatedAffiliations(user?.registry_id);
 
-  const { mutateAsync: postAffiliations, ...postAffiliationQueryState } =
-    useMutation(postAffiliationQuery(user));
-
-  const { mutateAsync: putAffiliation, ...putAffiliationQueryState } =
-    useMutation(putAffiliationQuery());
+  const {
+    incompleteAffiliations,
+    unverifiedAffiliations,
+    refetch: refetchIncompleteAffiliations,
+  } = useIncompleteAffiliations(user?.registry_id);
 
   const { mutateAsync: deleteAffiliation, ...restDeleteState } = useMutation(
     deleteAffiliationQuery()
@@ -113,11 +113,15 @@ export default function AffiliationsPage({
   );
 
   const {
-    queryState: inviteQueryState,
-    handleSubmit: handleCreateAndInviteOrganisation,
+    submitAffiliation,
+    queryState: combinedQueryState,
+    postAffiliationQueryState,
+    putAffiliationQueryState,
+    inviteQueryState,
     mutateOrganisationInvite,
-  } = useOrganisationInvite({
-    onError: (error: unknown) => {
+  } = useSubmitAffiliation({
+    user,
+    onOrganisationInviteError: (error: unknown) => {
       const conflictErrorKey = getOrganisationConflictErrorKey(error);
 
       showAlert({
@@ -132,11 +136,6 @@ export default function AffiliationsPage({
       });
     },
   });
-
-  const combinedQueryState = getCombinedQueryState(
-    [inviteQueryState, postAffiliationQueryState, putAffiliationQueryState],
-    false
-  ) as QueryState;
 
   const isEdit = !!selectedAffiliation;
   const mutationState = isEdit
@@ -216,7 +215,10 @@ export default function AffiliationsPage({
   });
 
   const showConfirmDelete = useQueryConfirmAlerts(restDeleteState, {
-    onSuccess: () => refetch(),
+    onSuccess: () => {
+      refetch();
+      refetchIncompleteAffiliations();
+    },
     confirmAlertProps: {
       text: tProfile("affiliationsDeleteConfirmMessage"),
       onConfirm: async id => {
@@ -246,7 +248,11 @@ export default function AffiliationsPage({
   const handleResendAffiliationEmail = async (
     affiliation: ResearcherAffiliation
   ) => {
-    await resendVerification(affiliation.id);
+    try {
+      await resendVerification(affiliation.id);
+    } catch {
+      // Error surfaced via useQueryAlerts(resendQueryState)
+    }
   };
 
   const renderActionMenuCell = useCallback(
@@ -354,48 +360,14 @@ export default function AffiliationsPage({
 
   const handleDetailsSubmit = useCallback(
     async (fields: PostAffiliationPayload) => {
-      let organisation_id = fields?.organisation_id;
+      const saved = await submitAffiliation(fields, selectedAffiliation?.id);
 
-      if (!organisation_id) {
-        const invitePayload = {
-          organisation_name: fields.organisation_name as string,
-          lead_applicant_email: fields.organisation_email,
-        };
-        organisation_id =
-          await handleCreateAndInviteOrganisation(invitePayload);
-
-        // The Organisation couldn't be created, so there is nothing to affiliate
-        // to. onError has already told the user; saving the affiliation anyway
-        // would send organisation_id: undefined and reject unhandled.
-        if (!organisation_id) return;
+      if (saved) {
+        refetch();
+        refetchIncompleteAffiliations();
       }
-
-      const {
-        organisation_name: _name,
-        organisation_email: _email,
-        ...restFields
-      } = fields;
-
-      const payload = {
-        ...restFields,
-        organisation_id,
-        to: formatDBDateTime(fields.to),
-        from: formatDBDateTime(fields.from),
-      };
-
-      if (selectedAffiliation) {
-        // Update existing affiliation
-        await putAffiliation({
-          affiliationId: selectedAffiliation.id,
-          payload,
-        });
-      } else {
-        // Create new affiliation
-        await postAffiliations(payload);
-      }
-      refetch();
     },
-    [selectedAffiliation, postAffiliations, putAffiliation]
+    [selectedAffiliation, submitAffiliation]
   );
 
   return (
@@ -436,6 +408,71 @@ export default function AffiliationsPage({
                 onClose={() => setEndDateAffiliation(undefined)}
                 onSuccess={() => refetch()}
               />
+              {incompleteAffiliations.length > 0 && (
+                <Message
+                  severity="warning"
+                  sx={{
+                    mb: 2,
+                    "& .MuiAlert-action": { alignItems: "center", pt: 0 },
+                  }}
+                  action={
+                    <Button
+                      color="warning"
+                      size="small"
+                      onClick={() => {
+                        setSelectedAffiliation(incompleteAffiliations[0]);
+                        setPrefillAffiliation(undefined);
+                        setOpen(true);
+                      }}>
+                      {tProfile("completeAffiliationButton")}
+                    </Button>
+                  }>
+                  <MessageTitle>
+                    {tProfile("completeAffiliationWarningTitle")}
+                  </MessageTitle>
+                  {tProfile("completeAffiliationWarning", {
+                    organisationName:
+                      incompleteAffiliations[0].organisation
+                        ?.organisation_name ?? "",
+                  })}
+                  {incompleteAffiliations.length > 1 &&
+                    ` ${tProfile("otherAffiliationsAlsoNeedThis", {
+                      count: incompleteAffiliations.length - 1,
+                    })}`}
+                </Message>
+              )}
+              {unverifiedAffiliations.length > 0 && (
+                <Message
+                  severity="warning"
+                  sx={{
+                    mb: 2,
+                    "& .MuiAlert-action": { alignItems: "center", pt: 0 },
+                  }}
+                  action={
+                    <Button
+                      color="warning"
+                      size="small"
+                      disabled={resendQueryState.isPending}
+                      onClick={() =>
+                        handleResendAffiliationEmail(unverifiedAffiliations[0])
+                      }>
+                      {tProfile("resendVerification")}
+                    </Button>
+                  }>
+                  <MessageTitle>
+                    {tProfile("completeAffiliationWarningTitle")}
+                  </MessageTitle>
+                  {tProfile("verifyAffiliationEmailWarning", {
+                    organisationName:
+                      unverifiedAffiliations[0].organisation
+                        ?.organisation_name ?? "",
+                  })}
+                  {unverifiedAffiliations.length > 1 &&
+                    ` ${tProfile("otherAffiliationsAlsoNeedThis", {
+                      count: unverifiedAffiliations.length - 1,
+                    })}`}
+                </Message>
+              )}
               <Typography sx={{ mb: 2 }}>
                 {tProfile("affiliationsDescription")}
               </Typography>

@@ -18,6 +18,7 @@ interface Routes {
   invite: RouteConfig;
   register: RouteConfig;
   noOrganisation: RouteConfig;
+  addAffiliation: RouteConfig;
   homepage: RouteConfig;
   about: RouteConfig;
   faq: RouteConfig;
@@ -64,6 +65,7 @@ interface Routes {
   profileResearcherTraining: RouteConfig;
   profileResearcherExperience: RouteConfig;
   profileResearcherIdentity: RouteConfig;
+  profileResearcherDigitalIdentifiers: RouteConfig;
   profileResearcherAffiliations: RouteConfig;
   profileResearcherHome: RouteConfig;
   profileResearcherProjects: RouteConfig;

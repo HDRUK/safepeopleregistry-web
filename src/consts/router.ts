@@ -12,6 +12,10 @@ const ROUTES: Routes = {
     path: "/no-organisation",
     permissions: [UserGroup.ORGANISATIONS],
   },
+  addAffiliation: {
+    path: "/add-affiliation",
+    permissions: [UserGroup.USERS],
+  },
   homepage: {
     path: "/",
   },
@@ -183,6 +187,10 @@ const ROUTES: Routes = {
   },
   profileResearcherIdentity: {
     path: "/user/profile/identity",
+    permissions: [UserGroup.USERS],
+  },
+  profileResearcherDigitalIdentifiers: {
+    path: "/user/profile/digital-identifiers",
     permissions: [UserGroup.USERS],
   },
   profileResearcherTraining: {

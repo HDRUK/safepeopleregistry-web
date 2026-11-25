@@ -10,6 +10,7 @@ export async function proxy(request: NextRequest) {
   const response = handleI18nRouting(request);
 
   response.headers.set("x-current-path", request.nextUrl.pathname);
+  response.headers.set("x-current-search", request.nextUrl.search);
 
   return response;
 }

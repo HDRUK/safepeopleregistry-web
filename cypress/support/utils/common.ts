@@ -49,6 +49,10 @@ const shouldBeUserProfile = () => {
   cy.contains("Add your personal details").should("exist");
 };
 
+const shouldBeAddAffiliation = () => {
+  cy.contains("Add your current affiliation").should("exist");
+};
+
 const shouldBeOrganisationProfile = () => {
   cy.contains("Complete your Organisation name & address").should("exist");
 };
@@ -61,6 +65,7 @@ export {
   dataCy,
   getModalByHeader,
   logout,
+  shouldBeAddAffiliation,
   shouldBeCustodianProfile,
   shouldBeOrganisationProfile,
   shouldBeUserProfile,

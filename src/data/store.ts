@@ -66,6 +66,7 @@ interface StoreState {
     sectors: Sector[];
     permissions: Permission[];
     custodian?: Custodian;
+    isCustodianViewOnly?: boolean;
     histories?: StoreUserHistories;
     projectRoles?: ProjectRole[];
   };
@@ -111,6 +112,7 @@ interface StoreState {
   setOrganisation: (organisation: Organisation | undefined) => void;
   getCustodian: () => Custodian | undefined;
   setCustodian: (organisation: Custodian | undefined) => void;
+  setIsCustodianViewOnly: (isCustodianViewOnly: boolean) => void;
   getApplication: () => StoreApplication;
   setApplication: (application: StoreApplication) => void;
   getPreviousUrl: () => string | null;
@@ -269,6 +271,12 @@ const storeMethods = (set: StoreSet, get: StoreGet) => ({
   getCustodian: () => {
     return get().config.custodian;
   },
+  setIsCustodianViewOnly: (isCustodianViewOnly: boolean) =>
+    set(
+      produce(state => {
+        state.config.isCustodianViewOnly = isCustodianViewOnly;
+      })
+    ),
   addUrlToHistory: (url: string) =>
     set(
       produce(state => {

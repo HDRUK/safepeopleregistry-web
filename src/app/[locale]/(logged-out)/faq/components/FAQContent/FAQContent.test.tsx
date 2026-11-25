@@ -1,5 +1,6 @@
 import { render, screen } from "@/utils/testUtils";
 import userEvent from "@testing-library/user-event";
+import { CONTACT_MAIL_ADDRESS } from "@/config/contacts";
 import FAQContent from "./FAQContent";
 
 jest.mock("next-intl/server");
@@ -57,5 +58,20 @@ describe("FAQContent", () => {
     expect(
       screen.getByText(/does not, itself, host any of the secure data/i)
     ).toBeInTheDocument();
+  });
+
+  it("renders the contact email in an answer as a mailto link", async () => {
+    const Component = await FAQContent();
+    render(Component);
+
+    await userEvent.click(
+      screen.getByText(
+        "How does an Organisation get added to the Safe People Registry?"
+      )
+    );
+
+    expect(
+      screen.getByRole("link", { name: "enquiries@safepeopleregistry.org" })
+    ).toHaveAttribute("href", `mailto:${CONTACT_MAIL_ADDRESS}`);
   });
 });

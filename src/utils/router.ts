@@ -12,6 +12,7 @@ import {
   redirectToPath,
 } from "./redirects";
 import {
+  getAddAffiliationPath,
   getProfileRedirectPath,
   isInPath,
   getRegisterRedirectPath,
@@ -61,6 +62,11 @@ export default async function redirectApplication() {
 
       if (response.status === 200) {
         redirectUrl = getProfileRedirectPath(me);
+
+        if (redirectUrl === ROUTES.addAffiliation.path) {
+          const head = await headers();
+          redirectUrl = getAddAffiliationPath(head.get("x-current-search"));
+        }
       } else if (response.status === 401) {
         redirectUrl = await getRefreshTokenRedirectPath();
       } else if (response.status === 404) {

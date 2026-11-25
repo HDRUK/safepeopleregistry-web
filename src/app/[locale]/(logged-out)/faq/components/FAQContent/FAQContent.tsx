@@ -1,9 +1,10 @@
 "use server";
 
 import ExternalLink from "@/components/ExternalLink";
+import { CONTACT_MAIL_ADDRESS } from "@/config/contacts";
 import links from "@/consts/links";
 import { PageBodyContainer } from "@/modules";
-import { Typography } from "@mui/material";
+import { Link, Typography } from "@mui/material";
 import { getTranslations } from "next-intl/server";
 import { ReactNode } from "react";
 import { FAQSection, FAQSectionConfig } from "@/types/faq";
@@ -40,7 +41,6 @@ const SECTIONS: FAQSectionConfig[] = [
       "sroRole",
       "sroDelegate",
       "orgSeeProjectsBeforeApproval",
-      "orgVerified",
     ],
   },
   {
@@ -73,6 +73,9 @@ export default async function FAQContent() {
     ),
     dataTransparency: (chunks: ReactNode) => (
       <ExternalLink href={links.faq.dataTransparency}>{chunks}</ExternalLink>
+    ),
+    contactEmail: (chunks: ReactNode) => (
+      <Link href={`mailto:${CONTACT_MAIL_ADDRESS}`}>{chunks}</Link>
     ),
   };
 

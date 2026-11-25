@@ -1,6 +1,7 @@
 "use client";
 
 import SoursdCard from "@/components/SoursdCard";
+import useIsCustodianViewOnly from "@/hooks/useIsCustodianViewOnly";
 import Text from "@/components/Text";
 import {
   PageBodyContainer,
@@ -28,21 +29,30 @@ const NAMESPACE_TRANSLATION_PROFILE = "CustodianProfile";
 
 export default function Home({ custodian }: HomeProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
+  const isViewOnly = useIsCustodianViewOnly();
 
   return (
     <PageBodyContainer heading={t("home")}>
       <PageColumns>
         <PageColumnBody size={{ lg: 8 }}>
-          <AccessRevocations custodianId={custodian.id} />
-          <PageSection>
-            <Typography sx={{ mb: 4 }}>{t("homeIntro")}</Typography>
-            <ActionLogs
-              variant="custodian"
-              panelProps={{
-                heading: t("homeTitle"),
-              }}
-            />
-          </PageSection>
+          {isViewOnly ? (
+            <PageSection>
+              <Typography>{t("homeViewOnlyIntro")}</Typography>
+            </PageSection>
+          ) : (
+            <>
+              <AccessRevocations custodianId={custodian.id} />
+              <PageSection>
+                <Typography sx={{ mb: 4 }}>{t("homeIntro")}</Typography>
+                <ActionLogs
+                  variant="custodian"
+                  panelProps={{
+                    heading: t("homeTitle"),
+                  }}
+                />
+              </PageSection>
+            </>
+          )}
         </PageColumnBody>
         <PageColumnDetails size={{ lg: 4 }}>
           <SoursdCard

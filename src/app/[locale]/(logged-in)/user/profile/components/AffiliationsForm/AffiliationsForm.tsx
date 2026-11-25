@@ -15,7 +15,7 @@ import { LoadingButton } from "@mui/lab";
 import { Box, Button, Grid, Link, TextField, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import dayjs from "dayjs";
 import { getDate } from "@/utils/date";
 import { isAffiliationEndDateSetByOrganisation } from "@/utils/affiliations";
@@ -25,10 +25,11 @@ import { useFeatures } from "@/components/FeatureProvider";
 
 export interface AffiliationsFormProps {
   onSubmit: (affiliation: ResearcherAffiliation) => void;
-  onClose: () => void;
+  onClose?: () => void;
   queryState: QueryState;
   // Without an id, these prefill a new affiliation, e.g. when re-joining an Organisation.
   initialValues?: Partial<ResearcherAffiliation>;
+  lockOrganisation?: boolean;
   entityId: number;
   entityType: EntityType;
 }
@@ -42,6 +43,7 @@ export default function AffiliationsForm({
   onClose,
   queryState,
   initialValues,
+  lockOrganisation,
   entityId,
   entityType,
 }: AffiliationsFormProps) {
@@ -191,6 +193,44 @@ export default function AffiliationsForm({
     [onSubmit, selectOrganisation]
   );
 
+  let organisationDescription: ReactNode;
+
+  if (!!initialValues && !initialValues?.organisation_id) {
+    organisationDescription = (
+      <Box sx={{ display: "flex", color: "warning.main" }}>
+        <WarningIcon />
+        <Typography sx={{ color: "warning.main" }}>
+          {tProfile.rich("affiliationOrganisationWarningMessage", {
+            link: chunks => (
+              <Link
+                component="button"
+                onClick={() => setSelectOrganisation(false)}
+                sx={{ pb: 0.4 }}>
+                {chunks}
+              </Link>
+            ),
+          })}
+        </Typography>
+      </Box>
+    );
+  } else if (!lockOrganisation) {
+    // A locked organisation can't be swapped for a typed one.
+    organisationDescription = tProfile.rich("organisationNotListed", {
+      link: chunks => (
+        <Link
+          component="button"
+          onClick={e => {
+            e.preventDefault();
+            e.stopPropagation();
+            setSelectOrganisation(false);
+          }}
+          sx={{ pb: 0.25 }}>
+          {chunks}
+        </Link>
+      ),
+    });
+  }
+
   return (
     <Form
       onSubmit={handleSubmit}
@@ -205,6 +245,7 @@ export default function AffiliationsForm({
                 <Grid size={{ xs: 12 }}>
                   <FormControlWrapper
                     name="organisation_id"
+                    disabled={lockOrganisation}
                     renderField={({ onChange, ...fieldProps }) => (
                       <SelectOrganisation
                         entityId={entityId}
@@ -222,43 +263,7 @@ export default function AffiliationsForm({
                         showNotApprovedText
                       />
                     )}
-                    description={
-                      !!initialValues && !initialValues?.organisation_id ? (
-                        <Box sx={{ display: "flex", color: "warning.main" }}>
-                          <WarningIcon />
-                          <Typography sx={{ color: "warning.main" }}>
-                            {tProfile.rich(
-                              "affiliationOrganisationWarningMessage",
-                              {
-                                link: chunks => (
-                                  <Link
-                                    component="button"
-                                    onClick={() => setSelectOrganisation(false)}
-                                    sx={{ pb: 0.4 }}>
-                                    {chunks}
-                                  </Link>
-                                ),
-                              }
-                            )}
-                          </Typography>
-                        </Box>
-                      ) : (
-                        tProfile.rich("organisationNotListed", {
-                          link: chunks => (
-                            <Link
-                              component="button"
-                              onClick={e => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                setSelectOrganisation(false);
-                              }}
-                              sx={{ pb: 0.25 }}>
-                              {chunks}
-                            </Link>
-                          ),
-                        })
-                      )
-                    }
+                    description={organisationDescription}
                   />
                 </Grid>
               ) : (
@@ -404,9 +409,11 @@ export default function AffiliationsForm({
               </Grid>
             </Grid>
             <FormActions>
-              <Button variant="outlined" onClick={onClose}>
-                {tApplication("cancel")}
-              </Button>
+              {onClose && (
+                <Button variant="outlined" onClick={onClose}>
+                  {tApplication("cancel")}
+                </Button>
+              )}
               <LoadingButton loading={queryState.isLoading} type="submit">
                 {tForm("save")}
               </LoadingButton>

@@ -6,13 +6,7 @@ import { capitaliseFirstLetter } from "@/utils/string";
 import { dataCy } from "../common";
 import { DEFAULT_AFFILIATION_USERS } from "../data";
 
-const addAffiliationUsers = (
-  affiliation: ResearcherAffiliation = DEFAULT_AFFILIATION_USERS
-) => {
-  cy.buttonClick("Add affiliation");
-
-  cy.get(dataCy("form-modal")).should("be.visible");
-
+const fillAffiliationForm = (affiliation: ResearcherAffiliation) => {
   cy.dateSelectValue("from", affiliation.from);
   cy.dateSelectValue("to", affiliation.to);
 
@@ -27,8 +21,44 @@ const addAffiliationUsers = (
   if (affiliation.email) {
     cy.get("#email").type(affiliation.email);
   }
+};
+
+const addAffiliationUsers = (
+  affiliation: ResearcherAffiliation = DEFAULT_AFFILIATION_USERS
+) => {
+  cy.buttonClick("Add affiliation");
+
+  cy.get(dataCy("form-modal")).should("be.visible");
+
+  fillAffiliationForm(affiliation);
 
   cy.saveFormClick();
+};
+
+// The affiliation step shows the form on the page rather than in a modal,
+// so cy.saveFormClick (which looks for an open modal) can't be used.
+const addRegistrationAffiliation = (affiliation: ResearcherAffiliation) => {
+  fillAffiliationForm(affiliation);
+
+  cy.contains("button", "Save").click();
+};
+
+// An invited researcher completes the affiliation the invite created: the
+// Organisation and email come from the invite and can't be changed.
+const completeInvitedAffiliation = (
+  affiliation: ResearcherAffiliation,
+  invitedEmail: string
+) => {
+  cy.get("input[name=organisation_id]").should("be.disabled");
+  cy.get("#email").should("be.disabled").and("have.value", invitedEmail);
+
+  cy.dateSelectValue("from", affiliation.from);
+  cy.dateSelectValue("to", affiliation.to);
+  cy.selectValue("#relationship", affiliation.relationship);
+  cy.get("#role").type(affiliation.role);
+  cy.get("#member_id").type(affiliation.member_id);
+
+  cy.contains("button", "Save").click();
 };
 
 // Adds an affiliation against an Organisation that isn't on the Registry yet,
@@ -161,6 +191,8 @@ const resendAffiliationVerification = (affiliation: ResearcherAffiliation) => {
 export {
   addAffiliationForNewOrganisationUsers,
   addAffiliationUsers,
+  addRegistrationAffiliation,
+  completeInvitedAffiliation,
   editAffiliationUsers,
   hasAffiliationUsers,
   hasRemoveAffiliationUsers,

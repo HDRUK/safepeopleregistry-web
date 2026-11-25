@@ -117,6 +117,14 @@ const mockedApiPermissions = [
     enabled: true,
     description: null,
   },
+  {
+    id: 14,
+    created_at: "2025-01-08T11:40:07.000000Z",
+    updated_at: "2025-01-08T11:40:07.000000Z",
+    name: "CUSTODIAN_READ_ONLY",
+    enabled: true,
+    description: "read only",
+  },
 ];
 
 const mockedApiSectors = [

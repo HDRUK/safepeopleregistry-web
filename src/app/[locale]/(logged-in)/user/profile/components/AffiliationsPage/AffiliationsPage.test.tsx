@@ -29,6 +29,13 @@ jest.mock("@/queries/useOrganisationInvite", () => ({
   default: (props: unknown) => mockUseOrganisationInvite(props),
 }));
 
+const mockUseRemoveSearchParam = jest.fn();
+
+jest.mock("@/hooks/useRemoveSearchParam", () => ({
+  __esModule: true,
+  default: (name: string) => mockUseRemoveSearchParam(name),
+}));
+
 const mockUseQuery = useQuery as jest.MockedFunction<typeof useQuery>;
 const mockUseMutation = useMutation as jest.MockedFunction<typeof useMutation>;
 
@@ -189,6 +196,134 @@ describe("<AffiliationsPage />", () => {
     expect(screen.getByText("Record end date")).toBeInTheDocument();
     expect(screen.queryByText("View or edit")).not.toBeInTheDocument();
     expect(screen.queryByText("Delete")).not.toBeInTheDocument();
+  });
+
+  describe("when an affiliation needs completing", () => {
+    const mockAffiliations = (affiliations: unknown[]) => {
+      mockUseQuery.mockReturnValue({
+        data: { data: mockPagedResults(affiliations) },
+        refetch: jest.fn(),
+        isLoading: false,
+        isError: false,
+      } as unknown as ReturnType<typeof useQuery>);
+    };
+
+    const infoRequiredAffiliation = (organisation_name: string) =>
+      mockedAffiliation({
+        organisation: { organisation_name },
+        model_state: { state: { slug: Status.AFFILIATION_INFO_REQUIRED } },
+      });
+
+    it("does not warn when every affiliation is complete", async () => {
+      renderTest();
+
+      await screen.findByRole("table");
+
+      expect(
+        screen.queryByRole("button", { name: "Complete your affiliation" })
+      ).not.toBeInTheDocument();
+      expect(
+        screen.queryByRole("button", { name: "Resend verification email" })
+      ).not.toBeInTheDocument();
+    });
+
+    it("warns which affiliation needs its email verifying and resends it", async () => {
+      const mutateAsync = jest.fn();
+      mockUseMutation.mockReturnValue({
+        mutateAsync,
+        isPending: false,
+      } as unknown as ReturnType<typeof useMutation>);
+
+      const unverifiedAffiliation = mockedAffiliation({
+        organisation: { organisation_name: "Unverified Organisation" },
+        model_state: { state: { slug: Status.AFFILIATION_EMAIL_VERIFY } },
+      });
+      mockAffiliations([unverifiedAffiliation]);
+
+      renderTest();
+
+      expect(
+        await screen.findByText(
+          /Verify your professional email address for your affiliation with Unverified Organisation/
+        )
+      ).toBeInTheDocument();
+
+      fireEvent.click(
+        screen.getByRole("button", { name: "Resend verification email" })
+      );
+
+      expect(mutateAsync).toHaveBeenCalledWith(unverifiedAffiliation.id);
+    });
+
+    it("warns which affiliation needs completing and opens it", async () => {
+      mockAffiliations([
+        mockedAffiliation(),
+        infoRequiredAffiliation("Incomplete Organisation"),
+      ]);
+
+      renderTest();
+
+      expect(
+        await screen.findByText(/Your affiliation with Incomplete Organisation/)
+      ).toBeInTheDocument();
+
+      fireEvent.click(
+        await screen.findByRole("button", { name: "Complete your affiliation" })
+      );
+
+      expect(await screen.findByText("Edit Affiliation")).toBeInTheDocument();
+    });
+
+    it("tells the user when other affiliations also need the same action", async () => {
+      const withStatus = (slug: Status) =>
+        mockedAffiliation({ model_state: { state: { slug } } });
+
+      mockAffiliations([
+        withStatus(Status.AFFILIATION_INFO_REQUIRED),
+        withStatus(Status.AFFILIATION_INFO_REQUIRED),
+        withStatus(Status.AFFILIATION_EMAIL_VERIFY),
+        withStatus(Status.AFFILIATION_EMAIL_VERIFY),
+      ]);
+
+      renderTest();
+
+      expect(
+        await screen.findAllByText(/1 other affiliation also needs this/)
+      ).toHaveLength(2);
+    });
+
+    it("warns when the incomplete affiliation is not on the table's current page", async () => {
+      const queryResult = (affiliations: unknown[]) =>
+        ({
+          data: { data: mockPagedResults(affiliations) },
+          refetch: jest.fn(),
+          isLoading: false,
+          isError: false,
+        }) as unknown as ReturnType<typeof useQuery>;
+
+      const tablePage = queryResult([mockedAffiliation()]);
+      const allAffiliations = queryResult([
+        infoRequiredAffiliation("Incomplete Organisation"),
+      ]);
+
+      mockUseQuery.mockImplementation(({ queryKey }) =>
+        JSON.stringify(queryKey).includes("per_page")
+          ? allAffiliations
+          : tablePage
+      );
+
+      renderTest();
+
+      expect(
+        await screen.findByText(/Your affiliation with Incomplete Organisation/)
+      ).toBeInTheDocument();
+    });
+  });
+
+  it("removes the verification code from the address bar", () => {
+    renderTest();
+
+    expect(mockUseRemoveSearchParam).toHaveBeenCalledWith("verify");
   });
 
   it("has no accessibility violations", async () => {

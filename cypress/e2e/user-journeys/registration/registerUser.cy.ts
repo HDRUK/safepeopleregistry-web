@@ -1,8 +1,20 @@
 import { ROUTES } from "@/consts/router";
 import { mockedRegistration } from "@/mocks/data/auth";
-import { shouldBeUserProfile } from "cypress/support/utils/common";
-import { EMAIL_REGISTER_VERIFICATION_LABEL } from "cypress/support/utils/data";
+import { mockedOrganisation } from "@/mocks/data/organisation";
+import { faker } from "@faker-js/faker";
+import { loginAdmin } from "cypress/support/utils/admin/auth";
+import { validateSROOrganisations } from "cypress/support/utils/admin/sro";
+import { hasSROOrganisation } from "cypress/support/utils/organisation/sro";
+import {
+  shouldBeAddAffiliation,
+  shouldBeUserProfile,
+} from "cypress/support/utils/common";
+import {
+  DEFAULT_AFFILIATION_USERS,
+  EMAIL_REGISTER_VERIFICATION_LABEL,
+} from "cypress/support/utils/data";
 import { actionMessage } from "cypress/support/utils/mail";
+import { addRegistrationAffiliation } from "cypress/support/utils/user/affiliations";
 import {
   acceptTermsAndConditions,
   checkTermsAndConditionsContent,
@@ -78,6 +90,23 @@ describe("Register user journey", () => {
   });
 
   it("Registers the user", () => {
+    // Researchers can only pick approved Organisations, and the seeded one isn't.
+    const organisation = mockedOrganisation({
+      organisation_name:
+        DEFAULT_AFFILIATION_USERS.organisation.organisation_name,
+    });
+
+    loginAdmin();
+    cy.visitFirst(ROUTES.profileAdmin.path);
+    validateSROOrganisations(organisation, "Approve");
+    hasSROOrganisation(organisation, "Approved");
+
+    // Register signed out, as a new researcher would.
+    cy.clearAllCookies();
+    cy.clearAllLocalStorage();
+    cy.clearAllSessionStorage();
+    cy.visit(ROUTES.homepage.path);
+
     openUserTermsAndConditions();
 
     ignoreKeycloakPasswordValidatorError();
@@ -91,6 +120,29 @@ describe("Register user journey", () => {
     });
 
     setKeycloakPassword(registration);
+
+    shouldBeAddAffiliation();
+
+    const affiliation = {
+      ...DEFAULT_AFFILIATION_USERS,
+      member_id: Cypress._.random(0, 1e6).toString(),
+      email: faker.internet.email(),
+    };
+
+    addRegistrationAffiliation(affiliation);
+
+    cy.contains("Verification needed").should("exist");
+    cy.contains(
+      `We have sent a verification email to ${affiliation.email}`
+    ).should("exist");
+
+    actionMessage(EMAIL_REGISTER_VERIFICATION_LABEL, {
+      to: affiliation.email,
+    });
+
+    // Verifying can land on Home or Affiliations, depending on which finishes
+    // first. Either way the researcher is now signed up.
+    cy.visit(ROUTES.profileResearcher.path);
 
     shouldBeUserProfile();
   });

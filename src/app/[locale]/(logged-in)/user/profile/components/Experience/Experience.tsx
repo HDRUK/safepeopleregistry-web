@@ -1,4 +1,5 @@
 import ErrorMessage from "@/components/ErrorMessage";
+import { useFeatures } from "@/components/FeatureProvider";
 import Form from "@/components/Form";
 import FormActions from "@/components/FormActions";
 import FormControl from "@/components/FormControlWrapper";
@@ -45,6 +46,7 @@ export interface ExperienceFormValues {
 export default function Experience() {
   const tProfile = useTranslations(NAMESPACE_TRANSLATION_PROFILE);
   const tForm = useTranslations(NAMESPACE_TRANSLATION_FORM);
+  const { isLinkedIdentitiesEnabled } = useFeatures();
   const { showAlert, hideAlert } = useAlertModal();
   const [user, setUser] = useStore(store => [store.config.user, store.setUser]);
   const router = useRouter();
@@ -211,7 +213,11 @@ export default function Experience() {
 
                   <FormActions>
                     <ProfileNavigationFooter
-                      previousHref={ROUTES.profileResearcherIdentity.path}
+                      previousHref={
+                        isLinkedIdentitiesEnabled
+                          ? ROUTES.profileResearcherDigitalIdentifiers.path
+                          : ROUTES.profileResearcherIdentity.path
+                      }
                       nextStepText={tProfile("affiliations")}
                       isLoading={updateUser.isPending}
                     />

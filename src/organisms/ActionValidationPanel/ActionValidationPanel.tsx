@@ -28,6 +28,7 @@ interface ActionValidationPanelProps {
   logs: ValidationLog[];
   queryState: QueryState;
   onStatusChange?: () => void;
+  readOnly?: boolean;
 }
 
 interface CustodianParams {
@@ -45,6 +46,7 @@ function ActionValidationPanel({
   variant,
   logs,
   queryState = { isLoading: false, isError: false },
+  readOnly = false,
 }: ActionValidationPanelProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION_ACTION_VALIDATION);
 
@@ -139,12 +141,13 @@ function ActionValidationPanel({
               log={log}
               onAction={onAction}
               disabled={
-                ActionValidationVariants.Organisation === variant &&
-                !projectOrganisation?.organisation.system_approved
+                readOnly ||
+                (ActionValidationVariants.Organisation === variant &&
+                  !projectOrganisation?.organisation.system_approved)
               }
             />
           ))}
-        {actionValidationStatus}
+        {!readOnly && actionValidationStatus}
       </ActionsPanel>
       {queryState.isError && (
         <Message severity="error" sx={{ mb: 3 }}>

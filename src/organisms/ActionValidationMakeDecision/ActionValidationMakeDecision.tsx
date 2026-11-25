@@ -3,6 +3,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { InfoOutlined } from "@mui/icons-material";
 import { useStore } from "@/data/store";
+import useIsCustodianViewOnly from "@/hooks/useIsCustodianViewOnly";
 import { useTranslations } from "next-intl";
 import { ActionMenu, ActionMenuItem } from "@/components/ActionMenu";
 import ActionValidationCommentForm, {
@@ -32,6 +33,7 @@ export default function ActionValidationMakeDecision({
   disabled,
 }: ActionValidationMakeDecisionProps) {
   const t = useTranslations(NAMESPACE_TRANSLATION_ACTION_VALIDATION_DECISION);
+  const isViewOnly = useIsCustodianViewOnly();
 
   const [currentLog, setCurrentLog] = useState<ValidationLog>(log);
 
@@ -85,6 +87,7 @@ export default function ActionValidationMakeDecision({
       <ChangeDecisionChip
         completed={currentLog.manually_confirmed === 1}
         onClick={() => setShowDecisionChip(false)}
+        readOnly={isViewOnly}
       />
     );
   }
