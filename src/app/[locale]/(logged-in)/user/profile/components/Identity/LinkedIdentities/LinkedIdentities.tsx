@@ -126,8 +126,10 @@ export default function LinkedIdentities() {
 
   return (
     <PageSection heading={t("linkedIdentitiesTitle")}>
-      <Typography sx={{ mb: 3 }} color="textSecondary">
-        {t("linkedIdentitiesSubtitle")}
+      <Typography sx={{ mb: 3, whiteSpace: "pre-line" }} color="textSecondary">
+        {t.rich("linkedIdentitiesContent", {
+          bold: chunks => <strong>{chunks}</strong>,
+        })}
       </Typography>
 
       <Stack spacing={2} sx={{ mb: 4 }}>

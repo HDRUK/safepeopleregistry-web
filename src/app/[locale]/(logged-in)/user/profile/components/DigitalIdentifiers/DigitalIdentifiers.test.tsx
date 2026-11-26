@@ -25,7 +25,17 @@ describe("<DigitalIdentifiers />", () => {
     ).toBeInTheDocument();
     expect(screen.getByText("LinkedIdentities content")).toBeInTheDocument();
     expect(
-      screen.getByText("Why link multiple identities?")
+      screen.getByText("Why connect multiple identifiers?")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        /Strengthen your profile with trusted professional identifiers/
+      )
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "Access your account using multiple trusted sign-in methods"
+      )
     ).toBeInTheDocument();
   });
 
