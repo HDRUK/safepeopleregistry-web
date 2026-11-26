@@ -1,10 +1,4 @@
-import {
-  AugmentedColorPaletteOptions,
-  Box,
-  css,
-  lighten,
-  styled,
-} from "@mui/material";
+import { AugmentedColorPaletteOptions, Box, css, styled } from "@mui/material";
 import { getAugmentedColor } from "../../utils/theme";
 
 interface MaskProps {
@@ -20,7 +14,7 @@ export const StyledMask = styled(Box)<MaskProps>(
     box-sizing: border-box;
     border-radius: 50%;
     font-size: 1cqi;
-    color: ${lighten(getAugmentedColor(theme, color).contrastText, 0.5)};
+    color: ${getAugmentedColor(theme, color).contrastText};
 
     > div {
       width: calc(${width} - 4px);
