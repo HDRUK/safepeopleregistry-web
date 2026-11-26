@@ -172,23 +172,15 @@ export const mockedPersonalDetailsGuidanceProps = {
 };
 
 export const mockedLinkedIdentitiesGuidanceProps = {
-  infoTitle: "Why link multiple identities?",
+  infoTitle: "Why connect multiple identifiers?",
   info: (
-    <>
-      <Typography mb={3}>
-        Linking trusted identities lets Data Custodians verify you as a safe
-        person without you ever re-typing the same details. Every link is a
-        one-click OAuth handshake — never a free-text email.
-      </Typography>
-      <Typography fontWeight={600} mb={1}>
-        What we never ask for
-      </Typography>
-      <Ol>
-        <li>Your email address as a string to “match against”</li>
-        <li>A second password</li>
-        <li>Copies of identity documents you’ve already verified elsewhere</li>
-      </Ol>
-    </>
+    <ul>
+      <li>
+        Strengthen your profile with trusted professional identifiers, making it
+        easier for Data Custodians to verify you as a safe person
+      </li>
+      <li>Access your account using multiple trusted sign-in methods</li>
+    </ul>
   ),
 };
 

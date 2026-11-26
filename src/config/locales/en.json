@@ -1552,7 +1552,7 @@
       "digiIdent": "Digital identifier",
       "name": "Name",
       "linkedIdentitiesTitle": "Linked identities",
-      "linkedIdentitiesSubtitle": "Sign-in providers we've verified you control. Each connection is an OAuth handshake — the provider tells us who you are; you never type an email to \"match\" an account.",
+      "linkedIdentitiesContent": "Link trusted accounts to strengthen your profile and give yourself more ways to sign in.\n\n<bold>ORCID, GitHub and LinkedIn</bold>\nHelp Data Custodians verify your identity and professional background.\n\n<bold>Google and Life Science RI</bold>\nWhilst not enhancing your profile, you can still link these as sign-in options.",
       "linkedIdentitiesPrimaryLabel": "Registry account",
       "linkedIdentitiesPrimaryBadge": "Primary",
       "linkedIdentitiesLinkedBadge": "Linked",
